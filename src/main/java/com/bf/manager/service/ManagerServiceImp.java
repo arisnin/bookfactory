@@ -3,6 +3,7 @@ package com.bf.manager.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bf.aop.LogAspect;
 import com.bf.manager.dao.ManagerDao;
 
 /**
@@ -14,6 +15,11 @@ import com.bf.manager.dao.ManagerDao;
 public class ManagerServiceImp implements ManagerService {
 	@Autowired
 	private ManagerDao managerDao;
+
+	@Override
+	public void bookCategory() {
+		LogAspect.logger.info(LogAspect.logMsg + "북카테고리 입성");
+	}
 	
 	
 }
