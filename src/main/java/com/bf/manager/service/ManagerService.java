@@ -1,5 +1,7 @@
 package com.bf.manager.service;
 
+import org.springframework.web.servlet.ModelAndView;
+
 /**
  * @이름: 염현우
  * @날짜: 2018. 2. 12.
@@ -7,6 +9,8 @@ package com.bf.manager.service;
  */
 public interface ManagerService {
 
-	public void bookCategory();
+	public void bookCategoryOk(ModelAndView mav);
+
+	public void bookCateSecond(ModelAndView mav);
 
 }

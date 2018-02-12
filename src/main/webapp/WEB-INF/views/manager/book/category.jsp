@@ -30,9 +30,14 @@
 					<input type="text" placeholder="제목"/>
 				</div>
 				<div>
-					<label>크롤링으로 넣기</label>
+					<label>크롤링으로 중분류 넣기</label>
 					<input type="text" placeholder="URL" style="width: 20rem;"/>
-					<button type="button" class="bf-button" style="float: right;">크롤링등록</button>
+					<button id="crawl2" type="button" class="bf-button" style="float: right;">크롤링등록</button>
+				</div>
+				<div>
+					<label>크롤링으로 소분류 넣기</label>
+					<input type="text" placeholder="URL" style="width: 20rem;"/>
+					<button id="crawl3" type="button" class="bf-button" style="float: right;">크롤링등록</button>
 				</div>
 				<div align="right">
 					<button type="button" class="bf-button">등록</button>
@@ -41,5 +46,17 @@
 			</div>
 		</section>
 	</div>
+	
+	<script src="${root}/script/basic/jquery.js"></script>
+	<script type="text/javascript">
+		$("#crawl2").click(function(){
+			var param = $(this).prev().val();
+			location.href='${root}/manager/bookCateSecond.do?url='+param;
+		});
+		$("#crawl3").click(function(){
+			var param = $(this).prev().val();
+			location.href='${root}/manager/bookCategoryOk.do?url='+param;
+		});
+	</script>
 </body>
 </html>
