@@ -15,45 +15,45 @@
 		<div class="left-menu">
 			<div class="margin">
 				<span class="orderOk-icon">
-					<i class="material-icons">check_circle</i>
+					<i class="material-icons main-style">check_circle</i>
 				</span>
-				<span class="orderOk-text">구매가 완료되었습니다.</span>
+				<span class="orderOk-text main-style">구매가 완료되었습니다.</span>
 			</div>
 			<div class="margin">
 				<div class="orderOk-box">
 					<ul class="list content">
 						<!-- 구매목록 아이템(li) 추가 영역 -->
 						<li class="item">
-							<span class="title"><strong>콘텐츠 4.0: 4차산업혁명과 콘텐츠의 미래</strong>한국콘텐츠진흥원</span>
+							<span class="title"><strong class="main-style">콘텐츠 4.0: 4차산업혁명과 콘텐츠의 미래</strong>한국콘텐츠진흥원</span>
 							<span class="price">3000원</span>
 						</li>
 						<li class="item">
-							<span class="title"><strong>문제적 결혼 1권</strong>정희경</span>
+							<span class="title"><strong class="main-style">문제적 결혼 1권</strong>정희경</span>
 							<span class="price">2500원</span>
 						</li>
 						<li class="item">
-							<span class="title"><strong>바람만이 아는 대답 1</strong>안정원</span>
+							<span class="title"><strong class="main-style">바람만이 아는 대답 1</strong>안정원</span>
 							<span class="price">0원</span>
 						</li>
 						<li class="item">
-							<span class="title"><strong>개정판 | 왕좌의 게임: 얼음과 불의 노래 제1부</strong>조지 R. R. 마틴</span>
+							<span class="title"><strong class="main-style">개정판 | 왕좌의 게임: 얼음과 불의 노래 제1부</strong>조지 R. R. 마틴</span>
 							<span class="price">25000원</span>
 						</li>
 						<li class="item">
-							<span class="title"><strong>개정판 | 왕들의 전쟁: 얼음과 불의 노래 제2부</strong>조지 R. R. 마틴</span>
+							<span class="title"><strong class="main-style">개정판 | 왕들의 전쟁: 얼음과 불의 노래 제2부</strong>조지 R. R. 마틴</span>
 							<span class="price">25000원</span>
 						</li>
 					</ul>
 					<ul class="list total">
 						<li class="item total">
 							<span class="title">총5권</span>
-							<span class="price">55500원</span>
+							<span class="price main-style">55500원</span>
 						</li>
 					</ul>
 				</div>
 			</div>
 			<div style="padding-bottom: 1rem;">
-				<button class="purchased-btn bf-button bf-animated-btn" onclick="javascript:location.href='${root}/library/purchased.do'">구매목록</button>
+				<button class="purchased-btn bf-button bf-animated-btn main-style" onclick="javascript:location.href='${root}/library/purchased.do'">구매목록</button>
 			</div>
 		</div>
 

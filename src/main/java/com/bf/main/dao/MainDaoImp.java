@@ -1,5 +1,7 @@
 package com.bf.main.dao;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,5 +11,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MainDaoImp implements MainDao {
-
+	@Autowired
+	private SqlSessionTemplate sqlSession;
 }

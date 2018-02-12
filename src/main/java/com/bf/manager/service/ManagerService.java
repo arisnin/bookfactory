@@ -7,4 +7,6 @@ package com.bf.manager.service;
  */
 public interface ManagerService {
 
+	public void bookCategory();
+
 }
