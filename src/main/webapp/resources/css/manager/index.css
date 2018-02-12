@@ -1,0 +1,21 @@
+@charset "UTF-8";
+/**
+ * @author 염현우
+ * @date 2018. 1. 17.
+ * index.jsp CSS
+ */
+#main{
+	display: flex;
+	min-width: 70.9rem;
+}
+
+#main > #m_i_menu{
+	margin-top: 1rem;
+	min-width: 11.25rem;
+	background-color: #776bce2e;
+}
+#main > #m_i_content{
+	margin : 1rem 0rem 0rem 1rem;
+	min-width: 59.5rem;
+	margin-bottom: 2rem;
+}

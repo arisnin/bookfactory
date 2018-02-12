@@ -1,0 +1,88 @@
+#sh_member_register {
+	margin: auto;
+	border: 0px solid black;
+	width: 57.5rem;
+	height: 39rem;
+}
+#sh_register li {
+	height: 2rem;
+	line-height: 2rem;
+	padding-left: 0.5rem;
+}
+#sh_register font {
+	font-weight: bold;
+}
+
+.sh_main_text {
+	font-size: 2rem;
+	color: #776BCE;
+	padding: 2rem;
+	background: white;
+	text-align: center;
+}
+.sh_register_1 {
+	width: 29.5rem;
+	height: 39rem;
+	border: 1px solid #887AEA;
+	border-bottom :0px solid;
+	border-radius :5px;
+	float: left;
+	margin-right: 1.5rem;
+}
+.sh_register_1 li:nth-child(even) {
+	border-bottom: 1px solid #887AEA;
+}
+.sh_register_1 li:nth-child(1) {
+	border-bottom: 0px solid black !important;
+	margin: 1rem;
+	font-weight: bold;
+	font-size: 2rem;
+	text-align: center;
+}
+
+.sh_register_1 li:nth-child(2) {
+	text-align: center;
+	height: 15rem !important;
+}
+
+.sh_register_1 li:nth-child(2) img {
+	border: 1px solid black;
+	border-radius: 100%;
+	border-bottom: 0px solid !important;
+}
+
+.sh_register_2 {
+	width: 26rem;
+	height: 20rem;
+	border: 1px solid #887AEA;
+	border-radius :5px;
+	float: left;
+}
+.sh_register_2 li:nth-child(1){
+	margin: 2rem; 
+	text-align: center;
+	
+}
+.sh_register_2 li:nth-child(3),.sh_register_2 li:nth-child(5){
+	border-bottom: 1px solid #887AEA;
+}
+.sh_register_3 {
+	margin-top: 17rem;
+	float: right;
+}
+
+#sh_board_shadow {
+	box-shadow: 0.1rem 0.1rem 0.4rem 0rem;
+	height: 45rem;
+	padding: 1rem;
+	box-sizing: content-box;
+	width: 58rem;
+	border: 1px solid #776bce;
+}
+
+.sh_register_3 {
+	float: right;
+}
+.jconfirm div.jconfirm-box {
+	width: 20rem;
+}

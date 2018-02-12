@@ -1,0 +1,123 @@
+@charset "UTF-8";
+/*
+헤더부분
+*/
+.sh_member_detail_header {
+	overflow: hidden;
+	border-bottom: 1px solid #A59AF6;
+}
+.sh_search_button {
+	float: right;
+}
+.sh_main_text {
+	font-size: 2rem;
+	color: #776BCE;
+	background: white;
+	padding: 2rem;
+	text-align: center;
+}
+
+/* 첫번째 선택부분 .sh_member_detail_search  */
+#sh_member_detail {
+	margin: auto;
+	border: 0px solid black;
+	width: 57.5rem;
+	text-align: center;
+}
+.sh_member_detail_inf{
+	width: 57.5rem;
+	height: 5rem;
+}
+.sh_member_detail_inf li{
+	width: 8rem;
+	height: 3.5rem;
+	float: left;
+	text-align: center;
+	border-right: 1px solid #CCC; 
+	line-height: 2rem;
+}
+.sh_member_detail_inf li:nth-child(1){
+	width: 11rem;
+}
+.sh_member_detail_inf li >p{
+	font-size: 1rem;
+	font-weight: bold;
+}
+.sh_member_detail_inf2{
+	font-size: 1rem;
+	font-weight: bold;
+	margin-left: 33rem;
+}
+.sh_member_detail_inf2 input{
+	border: 1px solid #A59AF6;
+	height: 2.1rem;
+	border-radius: 4px;
+}
+.sh_member_detail_inf2 
+/* /* 바디부분 */
+.sh_member_detail_content {
+	margin: auto;
+	height :36rem;
+	border-bottom: 1px solid #A59AF6;
+	width:100%;
+}
+.sh_member_detail_inf2 input{
+	margin-left: 2rem;
+}
+.sh_member_detail_title {
+	border-bottom: 1px solid #A59AF6;
+	height: 3rem;
+	font-size: 1rem;
+	background-color: #A59AF6;
+	border-radius: 3px;
+}
+
+.sh_member_detail_title li:nth-child(6) {
+	margin-left: 0.9rem;
+}
+
+.sh_member_detail_content li {
+	float: left;
+	width: 10rem;
+	padding: 1rem 0rem;
+	text-align: center;
+	height: 2rem;
+}
+.sh_member_detail_content li:nth-child(1) {
+		width: 6.5rem;
+}
+
+.sh_member_detail_content ul {
+	height: 2.269rem;
+	border-bottom: 0px solid #776bce16;
+}
+
+.sh_member_detail_list li {
+	font-size: 0.9rem;
+	float: left;
+}
+.sh_member_detail_title li{
+	font-weight: bold;
+	color: white;
+}
+.sh_member_detail_list li:nth-child(6) {
+	width: 4rem;
+	margin-left: 1.8rem;
+	margin-right: 1rem;
+}
+.sh_member_detail_ex ul{
+	height: 3rem;
+	
+}
+
+.sh_member_detail_ex ul:nth-child(odd){
+	background: #776bce16;
+}
+#sh_board_shadow {
+	box-shadow: 0.1rem 0.1rem 0.4rem 0rem;
+	height:50rem;
+	padding: 1rem;
+	box-sizing: content-box;
+	width: 55rem;
+	border: 1px solid #776bce;
+}

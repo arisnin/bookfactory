@@ -1,0 +1,94 @@
+{
+  "name": "",
+  "css_prefix_text": "icon-",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "r36ey62e6pi493s139u528739kjr3o8w",
+      "css": "tablet",
+      "code": 59392,
+      "src": "modernpics"
+    },
+    {
+      "uid": "e9fa538fd5913046497ac148e27cd8ea",
+      "css": "apple",
+      "code": 61817,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "809f2374b759f5b9278ac6307e690ba4",
+      "css": "android",
+      "code": 61819,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8aff323697468c4a63993cde00386ec6",
+      "css": "windows",
+      "code": 61818,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "500fc1f109021e4b1de4deda2f7ed399",
+      "css": "laptop",
+      "code": 61705,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8fc56819afcd07e2786e34f18d39b71b",
+      "css": "book-open",
+      "code": 59393,
+      "src": "iconic"
+    },
+    {
+      "uid": "7480a298ce334eef70193895e799c3fd",
+      "css": "headphones",
+      "code": 59394,
+      "src": "elusive"
+    },
+    {
+      "uid": "d73eceadda1f594cec0536087539afbf",
+      "css": "heart",
+      "code": 59395,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "e0d15ef5945000f5f264acc35494002f",
+      "css": "basket",
+      "code": 59396,
+      "src": "typicons"
+    },
+    {
+      "uid": "5e5a88921aa39b292bdd56c3b9c923d3",
+      "css": "gift",
+      "code": 59397,
+      "src": "elusive"
+    },
+    {
+      "uid": "44e04715aecbca7f266a17d5a7863c68",
+      "css": "plus",
+      "code": 59398,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d35a1d35efeb784d1dc9ac18b9b6c2b6",
+      "css": "pencil",
+      "code": 59399,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8704cd847a47b64265b8bb110c8b4d62",
+      "css": "down-open",
+      "code": 59400,
+      "src": "entypo"
+    },
+    {
+      "uid": "6zhrgcf3co77hnljttd3b2mrc8z5fiq5",
+      "css": "right-open",
+      "code": 59401,
+      "src": "typicons"
+    }
+  ]
+}

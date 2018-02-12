@@ -1,0 +1,479 @@
+@charset "UTF-8";
+/*
+	작성자 : 최정은
+	최종수정일 : 2018.01.20
+	설명 : 책 클릭했을때 나오는 상세페이지에 관한 css 입니다.
+*/
+
+/*책 상세페이지 상단부분*/
+.plus_All{
+	min-width:56.25rem;
+	width: 56.25rem;
+	/*가운데로 놨을때 느낌볼려고 추가한 마진값입니다.*/
+	margin-top: 50px;
+	margin-left: 200px;
+}
+
+#content_head{
+	width:95%;
+	margin:0px auto;
+	border: 0px solid red;
+	overflow: hidden;
+}
+
+.head_left{
+	float: left;
+	width: 220px;
+	height: 360px;
+	border:0px solid blue;
+}
+
+.head_left > img{
+    margin: 5px;
+    margin-top: 0px;
+    margin-bottom: 28px;
+    width: 200px;
+    height: 325px;
+}
+
+.head_left > input{
+	margin:10px 0px;
+	margin-left:50px;
+	width:120px;	height: 34px;
+}
+
+.head_left > a{
+	margin:5px 0px;
+	margin-left:30px;
+	width: 130px;
+	height: 34px;	line-height:34px;
+	border: 1px solid #776bce;
+	padding: 12px 20px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+.head_left > a > img{
+	padding-top:10px;
+	width: 13px;	height: 13px;
+}
+
+.head_left > a > span{
+	font-weight: 700;
+	text-align: center;
+	line-height: 1em;
+	font-size: 1rem;
+	color: #776bce;
+}
+
+.head_right{
+	border:0px solid blue;
+	overflow: hidden;
+}
+
+.head_right div{
+	margin:3px 0px;
+	margin-left:20px;
+	border:0px solid purple;
+	font-size:0.9rem;
+	color:#333;
+}
+
+.head_right  div:nth-child(2) {
+	margin-top:12px;
+	font-size:2rem;	line-height: 1.2em;
+	font-weight: 700;
+}
+
+.head_right  div:nth-child(3) {
+	margin-top:2px;
+	font-size:1rem;	line-height: 1.2em;
+	padding-bottom:7px;
+	color:#666;
+}
+
+.head_right  div:nth-child(4){
+	margin-top:20px;
+	color:#666;
+	font-size:0.9rem;	line-height: 1.7em;
+}
+
+.head_right  div:nth-child(4) a{
+	font-size: 1rem;
+    color: #666;
+    line-height: 1em;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.head_right  div:nth-child(6){
+	margin-top:20px;
+	line-height: 1.7em;
+    color: #eb5847;
+    font-size: 0.8rem;
+}
+
+.head_right > ul{ margin-left:20px; }
+
+.head_right > ul > li >span{
+	display: table-cell;
+    width: 40px;
+    font-weight: 700;
+    color: #333;
+    padding-right: 7px;
+    white-space: nowrap;
+    font-size:0.9rem;	line-height:1.5em;
+}
+
+.head_right > ul > li > ul {
+    display: table-cell;
+}
+
+.head_right > ul > li > ul > li{
+	font-size:0.9rem;
+	float:left;
+	color: #666;
+}
+
+.head_right > ul > li > ul > li > p{
+    font-size: 0.9rem;
+    line-height: 0.8em;
+    padding:0px 5px;
+    border-right:0.8px solid;
+}
+
+.head_right > ul > li > ul > li:nth-last-child(1){
+	border-right:0px;
+}
+
+.head_right i{
+	margin-right:3px;
+	font-size: 1rem;
+	vertical-align: 10%;
+}
+
+.box_left{
+	margin-left:20px;
+	margin-top: 30px;
+	width:130px;
+	height:100px;	line-height:80px;
+	float:left;
+	border:0px solid red;
+	
+	border-top:1px solid #776bce;
+	border-bottom:1px solid #776bce;
+	border-right: 1px solid #776bce16;
+	
+	text-align: center;
+	color: #4a4e52;
+    
+    background: #776bce16;
+    
+    min-height: 36px;
+    padding: 9px 0;
+    vertical-align: middle;
+    font-size: 1rem;
+    box-sizing: border-box;
+    font-weight: 700;
+}
+
+.box_right{
+	display: inline-block;
+    margin-top: 30px;
+    width: 250px;
+    height: 100px;
+    line-height: 30px;
+    border: 0px solid yellow;
+    border-top: 1px solid #776bce;
+    border-bottom: 1px solid #776bce;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.box_right span:nth-child(2n-1){
+	padding: 10px;
+	color: #808991;
+    font-size: 0.9rem;
+}
+
+.box_right span:nth-child(2n){
+    padding: 10px;
+    color: #808991;
+    font-size: 1rem;
+}
+
+.box_right > span:nth-child(10){
+    padding: 39px;
+}
+
+.head_bottom{
+	width:500px;
+	border:1px solid;
+	text-align: right;
+}
+
+.head_bottom ol{
+	float: right;
+	margin-right: 117px;
+}
+
+.head_bottom li{
+	float:left;
+	margin:10px 0px 10px 10px;
+}
+
+.head_bottom button{
+	color: #776bce;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    background: #fff;
+    border: 1px solid #776bce6e;
+    box-shadow: 0 1px 1px 0 rgba(209,213,217,.3);
+    border-radius: 4px;
+}
+
+.head_bottom button > span{
+    font-size: 1.2rem;
+}
+
+.head_bottom li:nth-child(4) button {
+	width:112px;
+    font-size: 1rem;
+    height: 48px;
+    line-height: 46px;
+    cursor: pointer;
+    color: #fff;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-weight: 700;
+    text-align: center;
+    background: #776bce;
+    border: 1px solid #776bce;
+    box-shadow: 0 1px 1px 0 rgba(31,140,230,.3);
+}
+/*책소개 출판사 서평들 비슷한 양식들*/
+.bookIntro{
+	width: 690px;
+	border: 0px solid blue; 
+	margin-bottom: 35px;
+}
+
+.bookIntro > div:nth-child(1){
+    margin-bottom: 15px;
+    padding: 10px 0 8px 0;
+    border-bottom: 2px solid #5D568C;
+}
+
+.bookIntro h3{
+    font-size: 1.2rem;
+    color: #5D568C;
+    font-weight: 700;
+}
+
+.bookIntro_con .readAll{
+	width: 632px;
+	height:146px;
+	border: 0px solid red;
+	overflow: hidden;
+}
+
+.bookIntro_con img{
+	width: 632px;
+}
+
+.bookIntro_con button{
+	float: right;
+    background: 0 0;
+    font-size: 1rem;
+    color: #63626d;
+    border: none;
+    cursor: pointer;
+}
+
+/*책 상세페이지 중앙부분*/
+#profile{
+	width:690px;
+	border:0px solid red;
+	font-size: 1rem;
+}
+
+#profile > div:nth-child(1) {
+    margin-bottom: 15px;
+    padding: 10px 0 8px 0;
+    border-bottom: 2px solid #5D568C;
+    font-size: 1.2rem;
+    color: #5D568C;
+    font-weight: 700;
+}
+
+.profile_click_event{
+	margin-top: 10px;
+    color: #666;
+    font-size: 1rem;
+    line-height: 1em;
+	
+}
+
+.profile_click_event > div:nth-child(1){
+    height: 27px;
+    border-bottom: 1px solid #5d568c40;
+}
+
+.profile_click_event > div:nth-child(1) li{
+	float:left;
+	margin-right: 15px;
+}
+
+.profile_click_event > div:nth-child(1) li > span:nth-child(2n-1){
+	font-weight: 900;
+}
+
+.profile_click_event > div:nth-child(1) li > a{
+	margin-bottom:10px;
+	position: relative;
+}
+
+.profile_click_event > div:nth-child(1) li > a .activeBar{
+	position: absolute;
+	bottom: -10px;
+	left: 0px;
+	width:100%;
+	height: 2px;
+	background-color: #5d568cb3;
+}
+
+.profile_ex{
+	margin-top:15px;
+	border: 0px solid red;
+}
+
+.profile_ex > div:nth-child(1){
+	font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.profile_ex > div:nth-child(1) > span{
+	margin-left:10px;
+	font-size: 1rem;
+    font-weight: 300;
+}
+.profile_ex > button{
+    font-size: 0.8rem;
+    color: #776bce;
+   	background: #fff;
+ 	border: 1px solid #776bce;
+ 	border-radius: 0.2rem;
+    width:155px;
+    height: 31px;
+    margin: 15px 0px;
+}
+
+.profile_ex > ol{
+	margin-bottom: 20px;
+}
+
+.profile_ex li{
+	font-size: 0.8rem;
+}
+
+.profile_ex li > span:nth-child(1){
+	font-weight: 500;
+	margin-right: 10px;
+}
+
+.profile_ex .profile_date{
+	text-align: right;
+    font-size: 0.7rem;
+   	color: #666;
+   	margin-bottom: 15px;
+}
+
+.profile_ex .profile_date >span{
+    font-size: 0.7rem;
+   	color: #666;
+}
+
+.profile_ex .profile_date button{
+   	font-size: 0.7rem;
+	background: #fff;
+ 	border: 1px solid #776bce;
+ 	border-radius: 0.2rem;
+}
+
+.profile_masterpiece{
+    height: 275px;
+	border-top: 1px solid #5d568c40;
+}
+
+.profile_masterpiece > div:nth-child(1) {
+	margin-top: 15px;
+	height: 40px;
+}
+
+.profile_masterpiece > div:nth-child(1) span{
+	font-size: 1rem;
+	font-weight: 700;
+	float: left;
+}
+
+.profile_masterpiece > div:nth-child(1) li{
+	float:right;
+	font-size: 0.7rem;
+	padding:0px 10px;
+	border-left: 1px solid #666;
+	color: #808080;
+}
+
+.profile_masterpiece > div:nth-child(1) li:nth-last-child(1) {
+	padding-left:10px;
+	border-left: 0px solid #666;
+}
+
+.profile_masterpiece > div:nth-child(1) .activeFont{
+	color: #333;
+	font-weight: 900;
+}
+
+.profile_masterpiece > div:nth-child(2) {
+	width:100%;
+	border: 0px solid;
+}
+
+.profile_masterpiece > div:nth-child(2) li{
+	width: 20%;
+	font-size: 0.9rem;
+	border: 0px solid red;
+	box-sizing: border-box;
+	float: left;
+	margin-bottom: 15px;
+	
+}
+
+.profile_masterpiece > div:nth-child(2) li > img{
+    width: 90px;
+    height: 112px;
+    margin: 0px 22px;
+}
+
+.profile_masterpiece > div:nth-child(2) li> div:nth-child(2){
+	font-size: 0.8rem;
+	font-weight: 600;
+	margin: 3px 22px;
+}
+
+.profile_masterpiece > div:nth-child(2) li div:nth-child(3){
+	font-size: 0.7rem;
+	margin: 3px 22px;
+}
+
+.profile_masterpiece > button{
+    font-size: 0.8rem;
+    color: #776bce;
+    background: #fff;
+    border: 1px solid #776bce;
+    border-radius: 0.2rem;
+    width: 130px;
+    height: 25px;
+    float: right;
+}

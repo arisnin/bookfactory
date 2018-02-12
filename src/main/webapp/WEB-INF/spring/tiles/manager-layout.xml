@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+<!-- 제작자:염현우 
+	요청 url : mg
+ -->
+
+	<!-- 매니저 페이지 템플릿 -->
+	<definition name="templateManager" template="/WEB-INF/views/layouts/manager/templateManager.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/manager/template/header.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/manager/template/leftMenu.jsp"/>
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/footer/footer.jsp" />
+	</definition>
+
+	<!-- 확장 설정 -->
+	<definition name="*.mg" extends="templateManager">
+		<put-attribute name="content" value="/WEB-INF/views/manager/{1}.jsp" />
+	</definition>
+
+	<definition name="*/*.mg" extends="templateManager">
+		<put-attribute name="content" value="/WEB-INF/views/manager/{1}/{2}.jsp" />
+	</definition>
+
+	<definition name="*/*/*.mg" extends="templateManager">
+		<put-attribute name="content" value="/WEB-INF/views/manager/{1}/{2}/{3}.jsp" />
+	</definition>
+	
+	<!-- 매니저 페이지 템플릿 header, menu, footer 제거-->
+	<definition name="templateManagerEmp" template="/WEB-INF/views/layouts/manager/templateManagerEmp.jsp">
+		<put-attribute name="content" value=""/>
+	</definition>
+	
+	<definition name="*.mge" extends="templateManagerEmp">
+		<put-attribute name="content" value="/WEB-INF/views/manager/{1}.jsp" />
+	</definition>
+
+	<definition name="*/*.mge" extends="templateManagerEmp">
+		<put-attribute name="content" value="/WEB-INF/views/manager/{1}/{2}.jsp" />
+	</definition>
+
+	<definition name="*/*/*.mge" extends="templateManagerEmp">
+		<put-attribute name="content" value="/WEB-INF/views/manager/{1}/{2}/{3}.jsp" />
+	</definition>
+	
+</tiles-definitions>

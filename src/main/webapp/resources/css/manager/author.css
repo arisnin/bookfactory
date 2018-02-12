@@ -1,0 +1,121 @@
+@charset "UTF-8";
+/**
+ * 2018-01-20
+ * 염현우 : author 페이지 css
+ */
+.a_se_list,.a_up_list{
+	background-color: white;
+	padding: 1rem;
+	border-bottom: 0.125rem solid Lavender;
+}
+
+.a_se_list li,.a_up_list li{
+	position: relative;
+	height: 2rem;
+	margin-bottom: 0.5rem
+}
+
+ .a_se_list li > span:not(.a_se_btn){
+	position: relative;
+    top: 0.4rem;
+    /* left: 3rem; */
+    /* margin-right: 4.8rem; */
+    display: inline-block;
+    text-align: center;
+}
+.a_se_list li .a_se_btn{
+	position: absolute;
+    right: 0rem;
+}
+.a_up_list li > span:first-child{width: 9%;}
+.a_up_list li > span:nth-child(2){
+	width: 20%;
+    margin: 0rem 0rem 0rem 2.5rem;
+}
+.a_up_list li > span:nth-child(3){width: 30%;}
+.a_up_list li > span:nth-child(4){width:12%;}
+.a_up_list li > span{
+	position: relative;
+    top: 0.4rem;
+    left: 0.5rem;
+    display: inline-block;
+    text-align: center;
+}
+
+.a_up_list   li > .hwdropdown{
+	position: absolute;
+    right: 0rem;
+}
+.b_se_content > .a_up_checkbox{
+	text-align: right;
+}
+.b_se_content > .a_up_checkbox > .category-filter-list{
+	float: none;
+}
+
+.b_se_content > .a_up_checkbox > .category-filter-list > li{
+	display: inline-block;
+}
+
+.a_up_tt {
+    overflow: visible;
+}
+.a_up_tt > .a_up_bar > li:first-child > span {
+    left: 3rem;
+}
+.a_up_tt > .a_up_bar > li:last-child > span{right: 2rem;} 
+.a_up_bar {height: 2.2rem;}
+.a_up_bar span:nth-child(1) {margin-right: 10rem;}
+.a_up_bar span {
+    position: relative;
+    top: 0.7rem;
+}
+
+.a_se_bar{
+	height: 2.2rem;
+	border-top: 0.125rem solid lavender;
+    font-weight: 600;
+}
+
+.a_se_bar span{
+	position: relative;
+    top: 0.7rem;
+}
+.a_se_bar span:nth-child(1) {
+	left: 7rem;
+    margin-right: 5.5rem;
+}
+
+.a_se_list > ul > li > span:nth-child(1) {min-width: 14rem;}
+.a_se_list > ul > li > span:nth-child(2) {min-width: 5rem;margin-right: 3rem;}
+.a_se_list > ul > li > span:nth-child(3) {min-width: 9rem;margin-right: 2.5rem;}
+
+.a_in_list{
+	margin-left: 7.6rem;
+    font-size: 0.8rem;
+}
+
+.a_in_list li{
+    /* height: 1rem; */
+    padding: 0.7rem;
+}
+
+.a_up_list .bf-button{
+	left: 4rem;
+	top: 0.3rem;
+}
+
+.a_ur_top{
+	border-bottom: 0px;
+}
+.a_ur_d3{
+	position: relative;
+    top: -4.5rem;
+}
+
+.a_ur_ct{
+	display: inline-block;
+    max-width: 86%;
+    line-height: 1.5rem;
+    padding: 0.3rem;
+}

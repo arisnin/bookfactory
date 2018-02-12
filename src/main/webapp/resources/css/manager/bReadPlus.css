@@ -1,0 +1,283 @@
+@charset "UTF-8";
+/*
+	작성자 : 최정은
+	최종수정일 : 2018.01.20
+	설명 : 책 클릭했을때 나오는 상세페이지에 관한 css 입니다.
+*/
+
+/*책 상세페이지 상단부분*/
+.plus_All{
+	min-width:56.25rem;
+	width: 56.25rem;
+	/*가운데로 놨을때 느낌볼려고 추가한 마진값입니다.*/
+	margin-top: 50px;
+	margin-left: 200px;
+}
+
+#content_head{
+	width:44rem;
+	margin:0px auto;
+	border: 0px solid red;
+}
+
+.b_read_foot{text-align: right;}
+.b_up_list > li{
+	height: 1.5rem;
+}
+
+.head_left{
+	float: left;
+	width: 220px;
+	height: 360px;
+	border:0px solid blue;
+}
+
+.head_left > img{
+    margin: 5px;
+    margin-top: 0px;
+    margin-bottom: 28px;
+    width: 200px;
+    height: 300px;
+}
+
+.head_left > input{
+	margin:10px 0px;
+	margin-left:50px;
+	width:120px;	height: 34px;
+}
+
+.head_left > a{
+	margin:5px 0px;
+	margin-left:30px;
+	width: 130px;
+	height: 34px;	line-height:34px;
+	border: 1px solid #776bce;
+	padding: 12px 20px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+.head_left > a > img{
+	padding-top:10px;
+	width: 13px;	height: 13px;
+}
+
+.head_left > a > span{
+	font-weight: 700;
+	text-align: center;
+	line-height: 1em;
+	font-size: 1rem;
+	color: #776bce;
+}
+
+.head_right{
+	border:0px solid blue;
+	overflow: hidden;
+}
+
+.head_right div{
+	margin:3px 0px;
+	margin-left:20px;
+	border:0px solid purple;
+	font-size:0.9rem;
+	color:#333;
+}
+
+.head_right  div:nth-child(2) {
+	margin-top:12px;
+	font-size:2rem;	line-height: 1.2em;
+	font-weight: 700;
+}
+
+.head_right  div:nth-child(3) {
+	margin-top:2px;
+	font-size:1rem;	line-height: 1.2em;
+	padding-bottom:7px;
+	color:#666;
+}
+
+.head_right  div:nth-child(4){
+	margin-top:20px;
+	color:#666;
+	font-size:0.9rem;	line-height: 1.7em;
+}
+
+.head_right  div:nth-child(4) a{
+	font-size: 1rem;
+    color: #666;
+    line-height: 1em;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.head_right  div:nth-child(6){
+	margin-top:20px;
+	line-height: 1.7em;
+    color: #eb5847;
+    font-size: 0.8rem;
+}
+
+.head_right > ul{ margin-left:20px; }
+
+.head_right > ul > li >span{
+	display: table-cell;
+    width: 40px;
+    font-weight: 700;
+    color: #333;
+    padding-right: 7px;
+    white-space: nowrap;
+    font-size:0.9rem;	line-height:1.5em;
+}
+
+.head_right > ul > li > ul {
+    display: table-cell;
+}
+
+.head_right > ul > li > ul > li{
+	font-size:0.9rem;
+	float:left;
+	color: #666;
+}
+
+.head_right > ul > li > ul > li > p{
+    font-size: 0.9rem;
+    line-height: 0.8em;
+    padding:0px 5px;
+    border-right:0.8px solid;
+}
+
+.head_right > ul > li > ul > li:nth-last-child(1){
+	border-right:0px;
+}
+
+.head_right i{
+	margin-right:3px;
+	font-size: 1rem;
+	vertical-align: 10%;
+}
+
+.box_left{
+	margin-left:20px;
+	margin-top: 1px;
+	width:130px;
+	height:60px;	line-height:42px;
+	float:left;
+	border:0px solid red;
+	
+	border-top:1px solid #776bce;
+	border-bottom:1px solid #776bce;
+	border-right: 1px solid #776bce16;
+	
+	text-align: center;
+	color: #4a4e52;
+    
+    background: #776bce16;
+    
+    min-height: 36px;
+    padding: 9px 0;
+    vertical-align: middle;
+    font-size: 1rem;
+    box-sizing: border-box;
+    font-weight: 700;
+}
+
+.box_right{
+	display: inline-block;
+    margin-top: 1px;
+    width: 250px;
+    height: 60px;
+    line-height: 58px;
+    border: 0px solid yellow;
+    border-top: 1px solid #776bce;
+    border-bottom: 1px solid #776bce;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.box_right span:nth-child(2n-1){
+	padding: 10px;
+	color: #808991;
+    font-size: 0.9rem;
+}
+
+.box_right span:nth-child(2n){
+    padding: 10px;
+    color: #808991;
+    font-size: 1rem;
+}
+
+.box_right > span:nth-child(10){
+    padding: 39px;
+}
+
+.head_bottom{
+	width:500px;
+	border:1px solid;
+	text-align: right;
+}
+
+.head_bottom ol{
+	float: right;
+	margin-right: 117px;
+}
+
+.head_bottom li{
+	float:left;
+	margin:10px 0px 10px 10px;
+}
+
+.head_bottom button{
+	color: #776bce;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    background: #fff;
+    border: 1px solid #776bce6e;
+    box-shadow: 0 1px 1px 0 rgba(209,213,217,.3);
+    border-radius: 4px;
+}
+
+.head_bottom button > span{
+    font-size: 1.2rem;
+}
+
+
+/*책소개 출판사 서평들 비슷한 양식들*/
+.bookIntro{
+	margin: 3rem auto 0rem auto;
+	width: 690px;
+	border: 0px solid blue; 
+	margin-bottom: 35px;
+}
+
+.bookIntro > div:nth-child(1){
+    margin-bottom: 15px;
+    padding: 10px 0 8px 0;
+    border-bottom: 2px solid #5D568C;
+}
+
+.bookIntro h3{
+    font-size: 1.2rem;
+    color: #5D568C;
+    font-weight: 700;
+}
+
+.bookIntro_con .readAll{
+	width: 632px;
+	height:146px;
+	border: 0px solid red;
+	overflow: hidden;
+}
+
+.bookIntro_con img{
+	width: 632px;
+}
+
+.bookIntro_con button{
+	float: right;
+    background: 0 0;
+    font-size: 1rem;
+    color: #63626d;
+    border: none;
+    cursor: pointer;
+}

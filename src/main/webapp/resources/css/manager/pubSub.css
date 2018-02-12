@@ -1,0 +1,19 @@
+@charset "UTF-8";
+.b_se_content {
+	width: 39rem !important;
+}
+
+.p_se_list li>span:nth-child(1) {
+	width: 31% !important;
+}
+
+.p_se_list li>span:nth-child(2) {
+	width: 32% !important;
+}
+
+.p_se_list li>span:nth-child(3) {
+	width: 28% !important;
+}
+#b_se_wrapper > .b_se_main{
+    width: 41.5rem !important;
+}

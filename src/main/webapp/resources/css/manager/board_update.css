@@ -1,0 +1,63 @@
+#sh_board_update{
+	margin: auto;	
+	border: 0px solid black;
+	width: 57.5rem; 
+}
+.sh_main_text{
+	font-size: 2rem;
+	color :#776BCE;
+	padding: 2rem;
+	background: white;
+	text-align: center;
+}
+.sh_board_update_search li{
+	margin: auto;	
+	float: left;
+	border-radius :3px;
+	text-align: center;
+	border: 0px solid #776BCE; 
+	height: 2rem;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10rem;
+}
+.sh_board_update_search li span{
+	font-weight: bold;
+}
+
+.sh_board_update_search li:nth-child(2),.sh_board_update_search li:nth-child(4),.sh_board_update_search li:nth-child(5),.sh_board_update_search li:nth-child(7),.sh_board_update_search li:nth-child(9){
+	width: 47.5rem;	
+}
+.sh_board_update_search li:nth-child(2),.sh_board_update_search li:nth-child(7) {
+	border: 1px solid;
+	border-color: rgb(169, 169, 169);
+	 justify-content: flex-start;
+}
+.sh_board_update_search li:nth-child(3){
+	height: 4rem;
+}
+.sh_board_update_search li:nth-child(8),.sh_board_update_search li:nth-child(9){
+	height: 30rem;
+}
+.sh_reply_text{
+	width: 47.5rem;	
+	height: 30rem;	
+}
+.sh_board_update_search select{
+	width: 47.5rem;
+	height: 2rem;
+	resize: none;
+}
+.sh_board_update_content {
+	float: right;
+}
+#sh_board_shadow{
+	box-shadow: 0.1rem 0.1rem 0.4rem 0rem;
+	height :40rem;
+	padding: 1rem;
+    box-sizing: content-box;
+    width: 58rem;
+    border: 1px solid #776bce;
+}
+

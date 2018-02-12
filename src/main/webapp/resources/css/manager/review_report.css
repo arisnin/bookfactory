@@ -1,0 +1,87 @@
+@charset "UTF-8";
+/*
+헤더부분
+*/
+.sh_review_report_header {
+	overflow: hidden;
+	height: 46.5rem;
+	border-bottom: 1px solid #A59AF6;
+}
+.sh_main_text {
+	font-size: 2rem;
+	color: #776BCE;
+	background: white;
+	padding: 2rem;
+	text-align: center;
+}
+.sh_review_report_main ul {
+	margin-left: 45rem;
+}
+.sh_review_report_main li{
+	margin-bottom: 0.7rem;
+}
+.sh_review_report_main span{
+	font-weight: bold;
+}
+/* 첫번째 선택부분 .sh_review_report_search  */
+#sh_review_report {
+	margin: auto;
+	border: 0px solid black;
+	width: 57.5rem;
+	text-align: center;
+}
+/* /* 바디부분 */
+.sh_review_report_content {
+	margin: auto;
+	height :36rem;
+	margin-top :2rem;
+	border-bottom: 1px solid #A59AF6;
+	width:100%;
+}
+.sh_review_report_title {
+	border-bottom: 1px solid #A59AF6;
+	height: 3rem;
+	font-size: 1rem;
+	background-color: #A59AF6;
+	border-radius: 3px;
+}
+
+.sh_review_report_title li:nth-child(6) {
+	margin-left: 0.9rem;
+}
+
+.sh_review_report_content li {
+	float: left;
+	width: 10rem;
+	padding: 1rem 0rem;
+	text-align: center;
+	height: 2rem;
+}
+.sh_review_report_content li:nth-child(1) {
+	width: 6.5rem;
+}
+.sh_review_report_content ul {
+	height: 2.269rem;
+	border-bottom: 0px solid #776bce16;
+}
+
+.sh_review_report_list li {
+	font-size: 0.9rem;
+	float: left;
+}
+.sh_review_report_title li{
+	font-weight: bold;
+	color: white;
+}
+.sh_review_report_list li:nth-child(6) {
+	width: 4rem;
+	margin-left: 1.8rem;
+	margin-right: 1rem;
+}
+#sh_board_shadow{
+	box-shadow: 0.1rem 0.1rem 0.4rem 0rem;
+	padding: 1rem;
+    box-sizing: content-box;
+    width: 55rem;
+    border: 1px solid #776bce;
+}

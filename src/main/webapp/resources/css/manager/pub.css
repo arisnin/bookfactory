@@ -1,0 +1,81 @@
+@charset "UTF-8";
+/**
+ * 2018-01-19
+ * 염현우 : publisher 페이지 css
+ */
+ 
+.p_in_center{
+	text-align: center !important;
+}
+ 
+.b_in_main >.p_in_center >div >input[type=text]{
+    height: 1.7rem;
+    width: 11.45rem;
+    padding: 0.3rem;
+    border: 1px solid rgb(169, 169, 169);
+    position: static;
+ }
+.p_se_list{
+	background-color: white;
+	padding: 1rem;
+	border-bottom: 0.125rem solid Lavender;
+}
+.p_se_list li{
+	position: relative;
+	height: 2rem;
+	margin-bottom: 0.5rem
+}
+.p_se_list li > span:not(.p_se_btn){
+	position: relative;
+	top: 0.4rem;
+    display: inline-block;
+    text-align: center;
+}
+.p_se_list li > span:nth-child(1){
+    width: 22%;
+    margin-left: 2rem;
+}
+.p_se_list li > span:nth-child(2){
+   width: 20%;
+}
+.p_se_list li > span:nth-child(3){
+    width: 16%;
+}
+.p_se_list li > span:nth-child(4){
+    margin-left: 4.5rem; 
+    width: 12%;
+}
+.p_se_list li .p_se_btn{
+	position: absolute;
+    right: 0rem;
+}
+
+.p_se_bar{
+	height: 2.2rem;
+	border-top: 0.125rem solid lavender;
+    font-weight: 600;
+}
+
+.p_se_bar span{
+	position: relative;
+    top: 0.7rem;
+}
+.p_se_bar span:nth-child(1) {
+	left: 7rem;
+    margin-right: 6.5rem;
+}
+
+.p_se_list a{
+	color: black;
+}
+
+.p_in_check{
+	color:red;
+	font-size: 0.9rem;
+}
+
+
+
+
+
+ 
