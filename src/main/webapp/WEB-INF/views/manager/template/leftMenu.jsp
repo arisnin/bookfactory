@@ -19,6 +19,7 @@
 		  <ul>
 		  	<li><a href="#"><span class="i-i-angle-right"></span>도서 등록</a></li>
 		  	<li><a href="#"><span class="i-i-angle-right"></span>도서 검색</a></li>
+		  	<li><a href="#"><span class="i-i-angle-right"></span>카테고리 등록</a></li>
 		  </ul>
 		</div>
 		

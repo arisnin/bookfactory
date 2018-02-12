@@ -25,6 +25,10 @@
 					<span class="b_in_check">중복입니다 다시 입력하세요</span>	
 				</div>
 				<div>
+					<label>도서 부제목</label>
+					<input type="text" placeholder="부제목"/>
+				</div>
+				<div>
 					<label>출간일</label>
 					<div class="b_in_date">
 					 	<input type="text" id="b_date" name="date" placeholder="YY-MM-DD">
