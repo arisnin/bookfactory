@@ -56,7 +56,7 @@
 					<select>
 						<option>최신글 순</option>
 						<option>오래된 순</option>
-						<option>좋아요 순</option>
+						<option>신고 수</option>
 						<option>별점 순</option>
 					</select>
 				</div>

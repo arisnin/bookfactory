@@ -50,6 +50,8 @@
 					<li><input type="text" size="33px" value="전상헌(jeonsh1220)"></li>
 					<li><span>연락처</span></li>
 					<li><input type="text" size="33px" value="010-4903-8834"></li>
+					<li><span>파일첨부</span></li>
+					<li><input type="file" class="bf-button bf-white-btn reply_file"  )"></li>
 					<li><span>내용</span></li>
 					<li><textarea class ="sh_board_reply_text">
 결제 20만원어치 했는데 10만원만 들어왔어여?!!!!!!!!
