@@ -9,10 +9,10 @@
 <link rel="stylesheet" href="${root}/css/basic/reset.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/basic/commons.css">
 <link rel="stylesheet" href="${root }/css/manager/board_list.css">
-
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="${root }/css/basic/jquery-ui.css">
 <link rel="stylesheet" href="${root }/css/basic/jquery-ui.theme.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
 
 <title>자주 묻는 질문 게시판</title>
 </head>
@@ -77,18 +77,18 @@
 						<!-- 제목 -->
 						<li>로그인/아이디</li>
 						<li>17/12/20</li>
-						<li><a class="bf-button bf-animated-btn" href="${root}/manager/boardUpdate.do">수정</a></li>
-						<li><a class="bf-button bf-animated-btn" href="${root}/manager/boardDelete.do">삭제</a></li>
+						<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardUpdate.do'">수정</button></li>
+						<li><button type="button" class="bf-button sh_list_delete">삭제</button></li>
 					</ul>
 					<ul>
-						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
+						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check"/> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
 						<li>2</li>
 						<li>어떻게 보나요</li>
 						<!-- 제목 -->
 						<li>기타</li>
 						<li>13/12/21</li>
-						<li><a class="bf-button bf-animated-btn" href="${root}/manager/boardUpdate.do">수정</a></li>
-						<li><a class="bf-button bf-animated-btn" href="${root}/manager/boardDelete.do">삭제</a></li>
+					<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardUpdate.do'">수정</button></li>
+						<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardDelete.do'">삭제</button></li>
 					</ul>
 					<ul>
 						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
@@ -97,8 +97,8 @@
 						<!-- 제목 -->
 						<li>오류</li>
 						<li>15/12/21</li>
-						<li><a class="bf-button bf-animated-btn" href="${root}/manager/boardUpdate.do">수정</a></li>
-						<li><a class="bf-button bf-animated-btn" href="${root}/manager/boardDelete.do">삭제</a></li>
+						<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardUpdate.do'">수정</button></li>
+						<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardDelete.do'">삭제</button></li>
 					</ul>
 
 
@@ -124,6 +124,7 @@
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 	<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 	<script type="text/javascript" src="${root}/script/basic/jquery-ui.js"></script>
+	<script type="text/javascript" src="${root}/script/basic/jquery-confirm.js"></script>
 	<script type="text/javascript" src="${root}/script/manager/total.js"></script>
 	<script type="text/javascript" src="${root}/script/manager/board.js"></script>
 </body>

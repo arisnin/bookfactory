@@ -25,17 +25,25 @@
 			<div class ="sh_board_contact_search">
 				<ul>
 					<li>질문유형</li>
-					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_total_search" /> <span class="all-mark"></span><span class="checkbox-label">전체</span></label></li>
-					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search" /> <span class="all-mark "></span><span class="checkbox-label">아이디/로그인</span></label></li>
-					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search" /> <span class="all-mark "></span><span class="checkbox-label">결제/환불</span></label></li>
-					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search" /> <span class="all-mark sh_choice_search"></span><span class="checkbox-label">이용문의</span></label></li>
-					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search" /> <span class="all-mark"></span><span class="checkbox-label">오류/활용</span></label></li>
-					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search" /> <span class="all-mark"></span><span class="checkbox-label">시스템업데이트</span></label></li>
-					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search" /> <span class="all-mark"></span><span class="checkbox-label">서비스제안</span></label></li>
-					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search" /> <span class="all-mark"></span><span class="checkbox-label">기타</span></label></li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_total_search" checked="checked"/> <span class="all-mark"></span><span class="checkbox-label">전체</span></label></li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search" checked="checked" /> <span class="all-mark "></span><span class="checkbox-label">아이디/로그인</span></label></li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search"checked="checked" /> <span class="all-mark "></span><span class="checkbox-label">결제/환불</span></label></li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search"checked="checked" /> <span class="all-mark sh_choice_search"></span><span class="checkbox-label">이용문의</span></label></li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search"checked="checked" /> <span class="all-mark"></span><span class="checkbox-label">오류/활용</span></label></li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search"checked="checked" /> <span class="all-mark"></span><span class="checkbox-label">시스템업데이트</span></label></li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search" checked="checked"/> <span class="all-mark"></span><span class="checkbox-label">서비스제안</span></label></li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_search" checked="checked"/> <span class="all-mark"></span><span class="checkbox-label">기타</span></label></li>
 				</ul>
-				
-			</div>
+				<ul>
+					<li>도서제안</li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_book_search"  checked="checked"/> <span class="all-mark"></span><span class="checkbox-label">전체</span></label></li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_book" checked="checked"/> <span class="all-mark sh_choice_search"></span><span class="checkbox-label">판타지/무협</span></label></li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_book" checked="checked"/> <span class="all-mark "></span><span class="checkbox-label">로맨스</span></label></li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_book" checked="checked"/> <span class="all-mark"></span><span class="checkbox-label">만화</span></label></li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_book" checked="checked"/> <span class="all-mark "></span><span class="checkbox-label">일반</span></label></li>
+					<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_choice_book" checked="checked" /> <span class="all-mark"></span><span class="checkbox-label">BL(소설/만화)</span></label></li>
+				</ul> 
+			</div> 
 				<div class="sh_board_contact_date">
 					<ul>
 						<li><input type="text" id="sh_date_start" placeholder="시작 날짜" /></li>
@@ -81,7 +89,7 @@
 				<li>기타</li>
 				<li>전화 (010-4903-8834)</li>
 				<li>18/01/22</li>
-				<li><a href="#">전상헌</a></li><!-- 회원정보로 넘어가기-->
+				<li><a href="${root}/manager/memberRegister.do">전상헌</a></li><!-- 회원정보로 넘어가기-->
 				<li><a href="${root}/manager/boardReply.do" class="bf-button bf-animated-btn">상세보기</a></li>
 				<li>X</li>
 			</ul>
@@ -93,7 +101,7 @@
 				<li>로그인/아이디</li>
 				<li>메일(ajffkdy90@naver.com)</li>
 				<li>18/01/31</li>
-				<li><a href="#">김삿갓</a></li><!-- 회원정보로 넘어가기-->
+				<li><a href="${root}/manager/memberRegister.do">김삿갓</a></li><!-- 회원정보로 넘어가기-->
 				<li><a href="${root}/manager/board/board_reply.jsp" class="bf-button bf-animated-btn">상세보기</a></li>
 				<li>O</li>
 			</ul>
@@ -105,7 +113,7 @@
 				<li>이벤트 문의</li>
 				<li>문자(010-4903-1122)</li>
 				<li>18/02/11</li>
-				<li><a href="#">정유미</a></li><!-- 회원정보로 넘어가기-->
+				<li><a href="${root}/manager/memberRegister.do">정유미</a></li><!-- 회원정보로 넘어가기-->
 				<li><a href="${root}/manager/board/board_reply.jsp" class="bf-button bf-animated-btn">상세보기</a></li>
 				<li>O</li>
 			</ul>
@@ -165,7 +173,7 @@
 				<li>이벤트 문의</li>
 				<li>문자(010-4903-1122)</li>
 				<li>18/02/11</li>
-				<li><a href="#">정유미</a></li><!-- 회원정보로 넘어가기-->
+				<li><a href="${root}/manager/memberRegister.do">정유미</a></li><!-- 회원정보로 넘어가기-->
 				<li><a href="${root}/manager/board/board_reply.jsp" class="bf-button bf-animated-btn">상세보기</a></li>
 				<li>O</li>
 			</ul>
@@ -177,7 +185,7 @@
 				<li>이벤트 문의</li>
 				<li>문자(010-4903-1122)</li>
 				<li>18/02/11</li>
-				<li><a href="#">정유미</a></li><!-- 회원정보로 넘어가기-->
+				<li><a href="${root}/manager/memberRegister.do">정유미</a></li><!-- 회원정보로 넘어가기-->
 				<li><a href="${root}/manager/board/board_reply.jsp" class="bf-button bf-animated-btn">상세보기</a></li>
 				<li>O</li>
 			</ul>
@@ -189,7 +197,7 @@
 				<li>이벤트 문의</li>
 				<li>문자(010-4903-1122)</li>
 				<li>18/02/11</li>
-				<li><a href="#">정유미</a></li><!-- 회원정보로 넘어가기-->
+				<li><a href="${root}/manager/memberRegister.do">정유미</a></li><!-- 회원정보로 넘어가기-->
 				<li><a href="${root}/manager/board/board_reply.jsp" class="bf-button bf-animated-btn">상세보기</a></li>
 				<li>O</li>
 			</ul>

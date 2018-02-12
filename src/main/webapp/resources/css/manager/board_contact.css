@@ -26,10 +26,9 @@
 	
 }
 .sh_board_contact_search {
-
 	border-bottom: 1px solid #776BCE;
 	width: 31rem;
-	height: 7rem;
+	height: 12rem;
 	float: left;
 }
 
@@ -62,7 +61,7 @@
 .sh_board_contact_date {
 	border-bottom: 1px solid #776BCE;
 	width: 26.4rem;
-	height: 7rem;
+	height: 12rem;
 	float: left;
 }
 

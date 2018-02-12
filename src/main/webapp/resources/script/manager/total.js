@@ -25,18 +25,34 @@
 				createStarIcon(item, 4.7);
 			});
 
-	/* 체크 태그 */
-	$("#allCheck").click(function() {
-		// 클릭되었으면
-		if ($("#allCheck").prop("checked")) {
-			// input태그의 class이 chk인 태그들을 찾아서 checked옵션을 true로 정의
-			$(".sh_check").prop("checked", true);
-			// 클릭이 안되있으면
-		} else {
-			// input태그의 class이 chk인 태그들을 찾아서 checked옵션을 false로 정의
-			$(".sh_check").prop("checked", false);
-		}
-	})
+		/* 체크 태그 */
+		$("#allCheck").click(function() {
+			// 클릭되었으면
+			if ($("#allCheck").prop("checked")) {
+				// input태그의 class이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+				$(".sh_check").prop("checked", true);
+				// 클릭이 안되있으면
+			} else {
+				// input태그의 class이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+				$(".sh_check").prop("checked", false);
+			}
+		})
+			//체크
+			$(".sh_check").click(function() {
+		
+			$("#allCheck").prop("checked", false);
+			var check = 0;
+			$("#allCheck").each(function() {
+				if ($(this).prop("checked") == false) {
+					check = 1;
+				}
+			});
+			if (check == 0) {
+				$("#allCheck").prop("checked", true);
+			}
+		});
+
+	
 	/* 클릭시 하루, 일주일 , 한달 */
 	var date;
 	var year;
