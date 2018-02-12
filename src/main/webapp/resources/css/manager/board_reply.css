@@ -24,7 +24,7 @@
 	line-height: 3rem;
 }
 .sh_board_reply_title ul{
-	height: 35rem;
+	height: 39rem;
 	border-top: 1px solid #887AEA;
 	border-bottom: 1px solid #887AEA;
 }
@@ -37,7 +37,8 @@
 	font-weight: bold;
 }
 .sh_board_reply_title li input{
-	border:1px solid #A9A9A9;
+	border:1px solid #d1d5d9;
+	border-radius :3px;
 	height: 2rem;
 	font-size: 1rem;
 	padding-left: 1rem;
@@ -45,11 +46,16 @@
 .sh_board_reply_title li textarea{
 	margin-top: 0.8rem;
 	font-size: 1rem;
+	border-color: #d1d5d9;
+	border-radius: 3px;   
 }
 .sh_board_reply_title li select{
 	width: 18.2rem;
 	height: 2rem;
-	text-align-last: center; 
+	text-align-last: center;
+	border-color: #d1d5d9;
+	border-radius: 3px;    
+	 
 }
 .sh_board_reply_title li select option{
 	text-align: center; 
@@ -58,13 +64,13 @@
 .sh_board_reply_title li:nth-child(even) {
 	width: 19.68rem;
 }
-.sh_board_reply_title li:nth-child(2),.sh_board_reply_title li:nth-child(12){
+.sh_board_reply_title li:nth-child(2),.sh_board_reply_title li:nth-child(12),.sh_board_reply_title li:nth-child(14){
 	width: 48.36rem;
 }
-.sh_board_reply_title li:nth-child(11),.sh_board_reply_title li:nth-child(12){
+.sh_board_reply_title li:nth-child(13),.sh_board_reply_title li:nth-child(14){
 	height: 26rem;
 }
-.sh_board_reply_title li:nth-child(11){
+.sh_board_reply_title li:nth-child(13){
 	line-height: 25rem;
 }
 .sh_board_reply_click,.sh_board_member_click{
@@ -90,6 +96,11 @@
     width: 58rem;
     border: 1px solid #776bce;
 }
+.reply_file{
+	width:47rem;
+	height: 1.9rem;
+}
 
-
-
+.bf-button.bf-white-btn {
+    padding: 0.1rem;
+}

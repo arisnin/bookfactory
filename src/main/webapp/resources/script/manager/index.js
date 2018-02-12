@@ -23,7 +23,7 @@ content = content.substring(num);
 
 
 var pages = [ 
-		['/bookInsert.do',0,0],['/bookSearch.do',0,1],
+		['/bookInsert.do',0,0],['/bookSearch.do',0,1],['/bookCategory.do',0,2],
 		['/publisherInsert.do',1,0],['/publisherSearch.do',1,1],
 		['/authorInsert.do',2,0],['/authorSearch.do',2,1],['/authorUpdate.do',2,2],
 		['/memberMember.do',3,0],['/memberPay.do',3,1],
@@ -41,7 +41,7 @@ var otherPage = [
 		['/authorUpdateRead.do',2,2],
 		['/memberRegister.do',3,0],['/memberPayDetail.do',3,1],
 		['/reviewReport.do',4,1],
-		['/manager/boardReply.do',5,1],['/boardDelete.do',5,3],['/boardUpdate.do',5,3]
+		['/boardReply.do',5,0],['/boardDelete.do',5,2],['/boardUpdate.do',5,2]
 	]
 
 /*왼쪽 메뉴 이벤트 걸어주고 href값도 세팅한다*/
@@ -65,7 +65,7 @@ function addClickEvent(page){
 	/*넘어오는 페이지에 따라 구분하여 메뉴 활성화 한다.*/
 	if(content == page[0]){
 		var button = $("#hw_menuWrapper > button").eq(page[1]);
-		$(button).trigger('click').next().find(' a').eq(page[2]).addClass('active');
+		$(button).trigger('click').next().find('a').eq(page[2]).addClass('active');
 	}
 }
 

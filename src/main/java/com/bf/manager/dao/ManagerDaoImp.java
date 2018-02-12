@@ -1,16 +1,17 @@
-package com.bf.main.dao;
+package com.bf.manager.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * @Date 2018. 2. 4.
- * @Author 박성호
- * @Description 
+ * @이름: 염현우
+ * @날짜: 2018. 2. 12.
+ * @설명: 
  */
 @Component
-public class MainDaoImp implements MainDao {
+public class ManagerDaoImp implements ManagerDao {
 	@Autowired
-	private SqlSessionTemplate sqlSession;
+	private SqlSessionTemplate sqlsession;
+	
 }
