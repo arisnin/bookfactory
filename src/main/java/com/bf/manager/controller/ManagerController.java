@@ -63,6 +63,13 @@ public class ManagerController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/bookCategory.do",method=RequestMethod.GET)
+	public ModelAndView bookCategory() {
+		ModelAndView mav = new ModelAndView("book/category.mg");
+		LogAspect.info("bookCategory()");
+		return mav;
+	}
+	
 	@RequestMapping(value="/bookOpenPub.do",method=RequestMethod.GET)
 	public ModelAndView bookOpenPub() {
 		ModelAndView mav = new ModelAndView("book/openPub.mge");
