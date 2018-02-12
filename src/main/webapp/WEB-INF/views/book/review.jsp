@@ -56,25 +56,30 @@
 				<div class="star-rate-box">
 					<span>이 책을 평가해주세요!</span>
 					<div id="star-rate-touch-box">
-						<label class="star-field">
+						<label class="star-field" >
+							<input class="star-checkbox" type="radio" name="star-radio" title="" />
 							<span class="star-icon material-icons">star</span>
-							<span class="star-rate-tip">별로에요</span>
-							<span class="star-field">
+							<span class="star-rate-tip"><span class="text">별로에요</span></span>
+							<label class="star-field" >
+								<input class="star-checkbox" type="radio" name="star-radio" title="" />
 								<span class="star-icon material-icons">star</span>
-								<span class="star-rate-tip">그저그래요</span>
-								<span class="star-field">
+								<span class="star-rate-tip"><span class="text">그저그래요</span></span>
+								<label class="star-field" >
+									<input class="star-checkbox" type="radio" name="star-radio" title="" />
 									<span class="star-icon material-icons">star</span>
-									<span class="star-rate-tip">보통이에요</span>
-									<span class="star-field">
+									<span class="star-rate-tip"><span class="text">보통이에요</span></span>
+									<label class="star-field" >
+										<input class="star-checkbox" type="radio" name="star-radio" title="" />
 										<span class="star-icon material-icons">star</span>
-										<span class="star-rate-tip">좋아요</span>
-										<span class="star-field">
+										<span class="star-rate-tip"><span class="text">좋아요</span></span>
+										<label class="star-field" >
+											<input class="star-checkbox" type="radio" name="star-radio" title="" />
 											<span class="star-icon last material-icons">star</span>
-											<span class="star-rate-tip">최고에요</span>
-										</span>
-									</span>
-								</span>
-							</span>
+											<span class="star-rate-tip"><span class="text">최고에요</span></span>
+										</label>
+									</label>
+								</label>
+							</label>
 						</label>
 					</div>
 				</div>
