@@ -1,4 +1,4 @@
-package com.sist.bookFactory.aop;
+package com.bf.aop;
 
 import java.util.logging.Logger;
 
@@ -18,7 +18,7 @@ public class LogAspect {
 	private static Logger logger = Logger.getLogger(LogAspect.class.getName());
 	private static String logMsg = "System Log::";
 
-	@Around("within(com.sist.bookFactory..*)")
+	@Around("within(com.bf..*)")
 	public Object advice(ProceedingJoinPoint joinPoint) {
 		Object object = null;
 		try {

@@ -1,4 +1,4 @@
-package com.sist.bookFactory.main.dao;
+package com.bf.main.dao;
 
 import org.springframework.stereotype.Component;
 

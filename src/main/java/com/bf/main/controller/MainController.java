@@ -1,4 +1,4 @@
-package com.sist.bookFactory.main.controller;
+package com.bf.main.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sist.bookFactory.aop.LogAspect;
-import com.sist.bookFactory.main.service.MainService;
+import com.bf.aop.LogAspect;
+import com.bf.main.service.MainService;
 
 /**
  * @Date 2018. 2. 4.

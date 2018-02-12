@@ -35,9 +35,9 @@
 		</beans:property>
 	</beans:bean>
 
-	<context:component-scan base-package="com.sist.bookFactory" />
-	<context:component-scan base-package="com.sist.bookFactory.aop" />
-	<context:component-scan base-package="com.sist.bookFactory.main..*" />
+	<context:component-scan base-package="com.bf.bookFactory" />
+	<context:component-scan base-package="com.bf.aop" />
+	<context:component-scan base-package="com.bf.main..*" />
 
 	<aop:aspectj-autoproxy/>
 
