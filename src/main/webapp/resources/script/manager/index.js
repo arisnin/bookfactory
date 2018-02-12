@@ -23,7 +23,7 @@ content = content.substring(num);
 
 
 var pages = [ 
-		['/bookInsert.do',0,0],['/bookSearch.do',0,1],
+		['/bookInsert.do',0,0],['/bookSearch.do',0,1],['/bookCategory.do',0,2],
 		['/publisherInsert.do',1,0],['/publisherSearch.do',1,1],
 		['/authorInsert.do',2,0],['/authorSearch.do',2,1],['/authorUpdate.do',2,2],
 		['/memberMember.do',3,0],['/memberPay.do',3,1],
