@@ -220,4 +220,13 @@ public class MainController {
 		return "main/companyIntro.solo";
 	}
 	// 2018-02-07, 최정은 작업 끝
+
+	/**
+	 * event > event
+	 */
+	@RequestMapping(value = "/event.do", method = RequestMethod.GET)
+	public String event(HttpServletRequest request, HttpServletResponse response) {
+		return "event/event.main";
+	}
+	// 이벤트 페이지 추가(02-12)
 }

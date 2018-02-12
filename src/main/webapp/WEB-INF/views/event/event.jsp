@@ -6,20 +6,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="root" value="${pageContext.request.contextPath }" />
-<link rel="stylesheet" type="text/css" href="${root}/css/event/event.css">
+<link rel="stylesheet" type="text/css"
+	href="${root}/css/event/event.css">
 <title>Insert title here</title>
 </head>
 <body>
 	<div class="event">
-		<div class="header_margin">
-			<span class="header_span">OO 이벤트</span>
-		</div>
+		<div>
+			<div class="bf-title-row title-type4">
+				<!-- 제목 클래스변경 -->
+				<h3>OO이벤트</h3>
+			</div>
 
-		<div class="bf-service-type-menu event_header">
-			<ul class="service-type-list">
-				<li><a class="active">진행중인 이벤트</a></li>
-				<li><a>지난 이벤트</a></li>
-			</ul>
+			<div class="bf-service-type-menu event_header">
+				<ul class="service-type-list">
+					<li><a class="active">진행중인 이벤트</a></li>
+					<li><a>지난 이벤트</a></li>
+				</ul>
+			</div>
 		</div>
 		<c:forEach begin="1" end="5">
 			<div class="event_main" onclick="javascript:alert('미구현')">

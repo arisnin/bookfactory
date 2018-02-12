@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+/*이벤트 페이지 width 값과 중앙정렬*/
+.event{
+	margin: 0px auto;
+	width: 56.25rem;
+	min-width: 56.25rem;
+}
+
 .event_header {
 	margin-bottom: 1rem;
 }
