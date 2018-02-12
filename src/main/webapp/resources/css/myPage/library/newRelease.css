@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+/**
+ * 마이페이지  > 신간알림 스타일
+ *
+ * @author	박성호(최초작성)
+ * @date	2018. 1. 29.
+ * @description
+ */
+
+/* New Release list Style */
+.mf-new-release-box {
+	width: 100%;
+	margin-top: 0;
+}
+
+/* list */
+.mf-new-release-box .mf-book-list.list-landscape .mf-book-item {
+	padding-top: 2.1%;
+}
+
+.mf-new-release-box .mf-book-item > .author {
+	display: inline-block;
+	position: relative;
+	float: left;
+	width: 20%;
+	max-height: 5rem;
+    line-height: 5rem;
+	font-weight: bold;
+}
+
+.mf-new-release-box .mf-book-item > .author > .bf-button {
+	text-align: left;
+	font-size: 1rem;
+	padding: 0.3rem 0;
+	vertical-align: middle;
+}
+
+.mf-new-release-box .mf-book-item > .author > .bf-button > .other-name {
+	display: inline-block;
+	font-size: 0.8rem;
+	color: darkgray;
+}
+
+.mf-new-release-box .mf-book-item > .author > .bf-button:hover,
+.mf-new-release-box .mf-book-item > .book > .title:hover {
+	color: #776BCE;
+	cursor: pointer;
+}
+
+.mf-new-release-box .mf-book-item > .delete {
+	display: inline-block;
+	position: relative;
+	float: right;
+	width: 11%;
+	line-height: 5rem;
+	text-align: right;
+}
+
+.mf-new-release-box .mf-book-item > .book {
+	display: inline-block;
+	position: relative;
+	float: right;
+	width: 20%;
+	line-height: 1.2rem;
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: dimgray;
+	margin-left: 3%;
+}
+
+.mf-new-release-box .mf-book-item .mf-book-thumbnail {
+	float: left;
+	width: 45%;
+	min-height: 5rem;
+}
+
+.mf-new-release-box .mf-book-thumbnail > .mf-book-thumbnail-image > img {
+	max-height: 5rem;
+}
+
+.mf-new-release-box .mf-book-item > .book > .title,
+.mf-new-release-box .mf-book-item > .book > .release-date {
+	float: right;
+	width: 50%;
+	font-size: 0.75rem;
+	color: darkgray;
+	margin-top: 0.25rem;
+}
+
+.mf-new-release-box .mf-book-item > .book > .title
+{
+	max-height: 3.6rem;
+	font-weight: bold;
+	color: gray;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	word-break: break-all;
+	word-wrap: break-word;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}

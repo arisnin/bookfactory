@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+/* 전상헌(최초작성) */
+
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}
+
+.article-block {
+   width: 900px;
+   margin: 0 auto;
+   position: relative;
+   clear: both;
+   margin-top: 15px;
+}
+
+.hidden-block {
+   display: none;
+}
+/* Home Main-books Style */
+.home-main-banner {
+
+   width: 100%;
+   height: 320px;
+}
+
+.main-banner-content-box {
+   width: 100%;
+   height: 100%;
+   position: relative;
+   background: gold;
+}
+
+.main-banner-background {
+   position: relative;
+   width: 1000px;
+   height: 100%;
+   margin: 0px auto;
+
+}
+
+.main-banner-content-list {
+   list-style: none;
+   margin: 0px auto;
+   position: absolute;
+   
+}
+
+.main-banner-content {
+   width: 100%;
+   height: 100%;
+}
+
+.main-banner-list-box {
+ 	position: absolute;
+ 
+}
+.main-banner-list img{
+	position : relative;
+	top: 37px;
+ 	left: 640px;	/*원래 710이였음 짤려서 수정*/
+ 	
+}
+.main_serve_img{
+	 width:300px; height :42px;
+}
+.main_banner_img{
+	  width:56.25rem; 
+	  height :320px;
+	  display:none; 
+}
+.main-banner-list-item{
+	list-style: none;
+	
+}
+
+/*템플릿에서 가져올때 옆에가 잘림 그거 수정한부분*/
+li.main-banner-list-item {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.main-banner-content > img{
+    overflow: hidden;
+    position: relative;
+    top: 25px;
+    left: -15px;
+    cursor: pointer;
+}

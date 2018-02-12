@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+.presentPay {
+	max-width: 56.25rem;
+	font-size: 1rem;
+	font-weight: bold;
+	color: #444;
+	overflow: hidden;
+}
+
+.presentPay .bf-title-row {
+	padding-bottom: 0.5rem;
+}
+
+.presentPay_header {
+	width: 62%;
+	float: left;
+	margin-right: 3%;
+}
+
+.presentPay_header_receiver {
+	width: 100%;
+}
+
+.presentPay_leftContent ul {
+	overflow: hidden;
+	width: 100%;
+	border-bottom: 1px solid #bbb;
+}
+
+.presentPay_leftContent li:nth-child(even) {
+	float: left;
+	width: 70%;
+	color: #776BCE;
+	padding: 1rem;
+}
+
+.presentPay_leftContent li:nth-child(odd) {
+	float: left;
+	width: 30%;
+	padding: 1rem;
+}
+
+.presentPay .bf-custom-checkbox.agree .all-mark{
+	top: -3rem;
+}

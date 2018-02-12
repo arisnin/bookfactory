@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.event_header {
+	margin-bottom: 1rem;
+}
+
+.event_main {
+	padding: 1rem;
+	overflow: hidden;
+}
+
+.event_main_img {
+	overflow: hidden;
+	float: left;
+	margin-right: 1rem;
+}
+
+.event_main_header {
+	font-weight: bold;
+	color: black;
+	font-size: 20px;
+}
+
+.event_main_header:hover {
+	cursor: pointer;
+	color: blue;
+}
+
+.event_main_text {
+	position: relative;
+	left: 2rem;
+	bottom: 1rem;
+}
+.event_main_text_ul-li ul{
+	float: left;
+}
+.event_main_text_ul-li li{
+	float:left;
+	width:100%;
+} 

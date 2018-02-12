@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+/**
+ * 전체분야 > 카테고리 페이지 스타일
+ *
+ * @author   박성호(최초작성)
+ * @date   2018. 1. 30.
+ * @description   
+ */
+
+/* Category show all Style */
+.ca-category-box {
+	width: 100%;
+	margin-top: 0;
+}
+
+/* title & menu */
+.ca-category-box > .bf-title-row.main > .material-icons {
+	float: left;
+	line-height: 1.6rem;
+	font-size: 1.25rem;
+	margin-right: 0.5rem;
+}
+
+.ca-category-box > .bf-title-row.sub {
+	margin-top: 1.25rem;
+}
+
+.more-button-box {
+	/* z-index: 70; */
+	float: right;
+	background: #fff;
+	position: relative;
+	padding-left: 0.875rem;
+}
+
+#category-main-title + h4 {
+	background-color: white;
+	position: relative;
+	float: left;
+	line-height: 175%;
+	font-size: 1.125rem;
+	padding-right: 0.875rem;
+}
+
+#category-main-title.blur:after {
+	content: '\276F';
+	margin-left: 0.875rem;
+	opacity: 0.4;
+}
+
+#category-main-title.blur {
+	opacity: 0.6;
+}
+
+/* 신간/베스트셀러/무료/전체 스타일 */
+.ca-category-box hr.line {
+	margin: 0.125rem;
+}

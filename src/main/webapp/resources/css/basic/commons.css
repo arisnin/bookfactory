@@ -1,0 +1,1235 @@
+@charset "UTF-8";
+
+/**
+ * 프로젝트 공통 CSS 파일
+ *
+ * @author	박성호(최초작성)
+ * @date	2018. 1. 17.
+ * @description	버튼, 메뉴, 페이징 양식 구현
+ */
+.wrap-container {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.hidden-block {
+	display: none !important;
+}
+
+.invisible-block {
+	visibility: hidden !important;
+}
+
+.clear-both {
+	display: block;
+	clear: both;
+	width: 0;
+	height: 0;
+	font-size: 0;
+	line-height: 0;
+	visibility: hidden;
+	border: none;
+}
+
+hr.line {
+	visibility: hidden;
+	display: block;
+	border: none;
+	background: none;
+	width: 0;
+	height: 0;
+	margin: 0;
+	padding: 0;
+    clear: both;
+}
+
+hr.block {
+	display: block;
+	width: 100%;
+	margin: 0.5rem;
+}
+.bf-main-width {
+	width: 56.25rem;
+}
+
+.bf-nav-width {
+	width: 11.25rem;
+}
+
+.bf-content-width {
+	width: 45rem;
+}
+
+/* button style */
+a.bf-button, button.bf-button, input.bf-button, span.bf-button {
+	display: inline-block;
+	position: relative;
+	border: none;
+	border-radius: 0.25rem;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	font-size: 0.8rem;
+	font-weight: bold;
+	font-family: '나눔바른고딕', Arial;
+	line-height: 1.2rem;
+	letter-spacing: -.02em;
+	outline: 0;
+	text-align: center;
+	vertical-align: baseline;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+	box-shadow: none;
+	box-shadow: 0 1px 1px 0 rgba(209, 213, 217, .3);
+	-webkit-transition: background .3s, color .3s, opacity .3s;
+	transition: background .3s, color .3s, opacity .3s;
+	padding: 0.3rem 0.8rem;
+	border: 1px solid #5D568C;
+	background: #776BCE;
+	color: white;
+}
+
+.bf-button.disabled {
+    pointer-events: none;
+	opacity: 0.4;
+}
+
+.bf-button:hover {
+	background: #A59AF6;
+}
+
+/* blue button */
+.bf-button.bf-blue-btn {
+	border: 1px solid RoyalBlue;
+	background: DodgerBlue;
+	color: white;
+}
+
+.bf-button.bf-blue-btn:hover {
+	background: steelblue;
+}
+
+/* black button */
+.bf-button.bf-black-btn {
+	border: 1px solid black;
+	background: #1f1f2f;
+	color: white;
+}
+
+.bf-button.bf-black-btn:hover {
+	background: #505050;
+}
+
+/* white button */
+.bf-button.bf-white-btn {
+	border: 1px solid #d1d5d9;
+	background: white;
+	color: gray;
+}
+
+.bf-button.bf-white-btn:hover {
+	background: whitesmoke;
+}
+
+/* transparent button */
+.bf-button.bf-transparent-btn {
+	box-shadow: none;
+	border: 1px solid transparent;
+	background: none;
+	color: dimgray;
+}
+
+/* animated button */
+.bf-button.bf-animated-btn {
+	/* padding-right: 1.8rem; */
+}
+
+.bf-button.bf-animated-btn:after {
+	/* position: absolute; */
+	position: relative;
+	top: 50%;
+	/* right: 0.95rem; */
+	left: 0.1rem;
+	margin-top: -0.6875rem;
+	font-size: 1rem;
+	font-family: Arial;
+	content: ' \00BB';
+	-webkit-transition: left .3s;
+	transition: left .3s;
+}
+
+.bf-button.bf-animated-btn:hover:after {
+	left: 0.5rem;
+}
+
+/* button icon */
+.bf-button>.material-icons {
+	position: relative;
+	top: .3rem;
+	font-size: 1.2rem;
+	line-height: 0;
+	margin-right: .25rem;
+}
+
+/* index button */
+.bf-index-btn-form {
+	position: relative;
+	display: inline-block;
+	font-weight: normal;
+	color: dimgray;
+}
+
+.bf-index-btn-form > .index-of-page {
+	display: inline-block;
+	font-size: 0.8rem;
+	line-height: 1.7rem;
+	float: left;
+	margin-right: 0.5rem;
+}
+
+.bf-index-btn-form button.bf-button {
+	padding: 0;
+}
+
+.bf-index-btn-form .bf-button:last-child:before {
+	content: '\203A';
+	font-size: 0.5rem;
+	color: dimgray;
+	margin: 0.1rem 0.4rem 0.1rem;
+	display: inline-block;
+}
+
+.bf-index-btn-form .bf-button:nth-last-of-type(2):before {
+	content: '\2039';
+	font-size: 0.5rem;
+	color: dimgray;
+	margin: 0.1rem 0.4rem 0.1rem;
+	display: inline-block;
+}
+
+/* Menu style */
+.bf-service-type-menu * {
+	box-sizing: border-box;
+}
+
+.bf-service-type-menu ul.f-left {
+	float: left;
+	border-color: transparent;
+}
+
+.bf-service-type-menu ul.f-right {
+	float: right;
+	border-color: transparent;
+}
+
+.bf-service-type-menu.line-bottom:after {
+	z-index: -1;
+	content: ' ';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 0.125rem;
+	background-color: Lavender;
+}
+
+.bf-service-type-menu {
+	position: relative;
+	overflow: hidden;
+}
+
+.bf-service-type-menu .service-type-list {
+	border-bottom: 0.125rem solid Lavender;
+}
+
+span.book-count {
+	display: inline-block;
+	color: dimgray;
+	padding-left: 0.25rem;
+}
+
+.bf-service-type-menu li {
+	display: inline-block;
+	margin-right: 1rem;
+}
+
+.bf-service-type-menu li>a {
+	border-bottom: 0.1875rem solid transparent;
+	position: relative;
+	top: 0.1rem;
+	display: inline-block;
+	min-width: 2rem;
+	text-align: center;
+	font-size: 1rem;
+	font-weight: bold;
+	color: #444;
+	padding: 0.5rem 0;
+	transition: border 0.3s;
+}
+
+.bf-service-type-menu li>a.active {
+	border-bottom: 0.1875rem solid #776BCE;
+	pointer-events: none;
+}
+
+.bf-service-type-menu>.service-type-list>li>a:not(.active ):hover {
+	border-bottom: 0.1875rem solid #A59AF6;
+}
+
+/* search */
+.bf-service-type-menu .search-box {
+	background-color: #F3F0FA;
+	position: absolute;
+	top: 50%;
+	margin-top: -0.95rem;
+	right: 0;
+	width: 12.5rem;
+	padding: 0.5rem 1.8rem 0.4rem 2.2rem;
+	color: gray;
+	border-radius: 0.25rem;
+	-webkit-transition: border-color .2s, box-shadow .2s;
+	transition: border-color .2s, box-shadow .2s;
+}
+
+.bf-service-type-menu .search-box .material-icons {
+	position: absolute;
+	top: .6rem;
+	left: .6rem;
+	font-size: 1.4rem;
+	font-weight: normal;
+	line-height: 1rem;
+}
+
+.bf-service-type-menu .search-box .search-word {
+	background-color: transparent;
+	border: none;
+	outline: 0;
+	font-size: 0.8rem;
+	font-weight: bold;
+	color: DarkSlateGray;
+	width: 100%;
+}
+
+.bf-service-type-menu .search-box .search-word::placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: gray;
+}
+
+.bf-service-type-menu .search-box .search-word::-webkit-input-placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: gray;
+}
+
+.bf-service-type-menu .search-box .search-word::-moz-placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: gray;
+}
+
+.bf-service-type-menu .search-box .search-word:-ms-input-placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: gray;
+}
+
+.bf-service-type-menu .search-box .search-word:focus::placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: silver;
+}
+
+.bf-service-type-menu .search-box .search-word:focus::-webkit-input-placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: silver;
+}
+
+.bf-service-type-menu .search-box .search-word:focus::-moz-placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: silver;
+}
+
+.bf-service-type-menu .search-box .search-word:focus:-ms-input-placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: silver;
+}
+
+/* order list menu */
+.order-type-list {
+	/* border-bottom: 0.125rem solid #D4CEFC; */
+	float: left;
+	padding: 0.1rem 0;
+}
+
+.order-type-list li {
+	display: inline-block;
+	margin-right: 0rem;
+}
+
+.order-type-list li>a {
+	border: none;
+	font-size: 0.8rem;
+	font-weight: bold;
+	color: gray;
+	padding: 0.5rem 0;
+	transition: border 0.3s;
+}
+
+.order-type-list li>a.active {
+	border: none;
+	color: black;
+}
+
+.order-type-list li:after {
+	content: ' \2219';
+	color: gray;
+}
+
+.order-type-list li.diamond:after {
+	content: ' \22C4';
+	color: gray;
+}
+
+.order-type-list li:last-child:after {
+	content: '';
+}
+
+/* pagination style */
+.bf-pagination {
+	position: relative;
+	width: 100%;
+	text-align: center;
+}
+
+.bf-pagination>ul {
+	width: 90%;
+	margin: 2em auto;
+	text-align: center;
+}
+
+.bf-pagination li {
+	display: inline-block;
+}
+
+.bf-pagination>ul.bf-animated-btn a {
+	-webkit-transition: background .3s, color .3s;
+	transition: background .3s, color .3s;
+}
+
+.bf-pagination>ul.bf-animated-btn a:hover {
+	background: #D4CEFC;
+}
+
+.bf-pagination>ul a {
+	display: inline-block;
+	box-sizing: border-box;
+	border: 1px solid #A59AF6;
+	border-radius: 0.25em;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	height: 2rem;
+	line-height: 2.1rem;
+	font-size: 0.8rem;
+	padding: 0 1.2em;
+	overflow: hidden;
+}
+
+.bf-pagination li a.active {
+	background: #776BCE;
+	border-color: #776BCE;
+	color: white;
+	pointer-events: none;
+}
+
+.bf-pagination>ul span:before {
+	font-size: 1.4rem;
+	font-family: Arial sans-serif;
+	line-height: 1.5rem;
+}
+
+.bf-pagination>ul li.first span:before {
+	content: '\00AB';
+}
+
+.bf-pagination>ul li.prev span:before {
+	content: '\2039';
+}
+
+.bf-pagination>ul li.next span:before {
+	content: '\203A';
+}
+
+.bf-pagination>ul li.last span:before {
+	content: '\00BB';
+}
+
+/**
+ * @author	박성호
+ * @date	2018. 1. 18.
+ * @description	체크박스, 별점평가 양식 구현
+ */
+/* The bf-custom-checkbox */
+.bf-custom-checkbox {
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	font-size: 0.8rem;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.bf-custom-checkbox input {
+	position: absolute;
+	display: none;
+}
+
+/* Create a custom checkbox */
+.bf-custom-checkbox .all-mark {
+	background-color: white;
+	box-sizing: border-box;
+	border: 1px solid silver;
+	border-radius: 0.125rem;
+	display: inline-block;
+	position: relative;
+	top: 0.25rem;
+	left: 0;
+	height: 1.125rem;
+	width: 1.125rem;
+	-webkit-transition: border .2s;
+	transition: border .2s;
+}
+
+/* On mouse-over, add a grey background color */
+.bf-custom-checkbox:hover .checkbox-label {
+	color: #111;
+}
+
+.bf-custom-checkbox:hover .all-mark {
+	border: 1px solid gray;
+}
+
+/* When the checkbox is checked, add a blue background */
+.bf-custom-checkbox input:checked+.all-mark {
+	background-color: #776BCE;
+}
+
+/* Create the all-mark/indicator (hidden when not checked) */
+.bf-custom-checkbox .all-mark:before {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+/* Show the all-mark when checked */
+.bf-custom-checkbox input:checked+.all-mark:before {
+	display: block;
+}
+
+/* Style the all-mark/indicator */
+.bf-custom-checkbox .all-mark:before {
+	left: 0.3125rem;
+	top: 0.0625rem;
+	width: 0.25rem;
+	height: 0.5625rem;
+	border: solid white;
+	border-width: 0 0.125rem 0.125rem 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.bf-custom-checkbox .checkbox-label {
+	display: inline-block;
+	position: relative;
+	top: -0.0625rem;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	height: 1.125rem;
+	line-height: 1.125rem;
+	padding-left: 0.3125rem;
+	margin-right: 0.625rem;
+	font-size: 0.8rem;
+	font-weight: bold;
+	color: dimgray;
+	-webkit-transition: color .2s;
+	transition: color .2s;
+}
+
+/* star-rate */
+.content-star-rate {
+	width: 95%;
+	text-align: center;
+	margin: 0 auto 0;
+}
+
+.content-star-rate .star-icon-field,
+.content-star-rate .non-star-icon-field {
+	color: tomato;
+	font-size: 1rem;
+	line-height: 0.75rem;
+	letter-spacing: -0.3125rem;
+	vertical-align: middle;
+}
+
+.content-star-rate .non-star-icon-field {
+	color: #E1DFFA;
+}
+
+.content-star-rate .count-field {
+	font-size: 0.8125rem;
+	color: darkgray;
+	line-height: 1.0625rem;
+	vertical-align: top;
+}
+
+/**
+ * @author	박성호
+ * @date	2018. 1. 19.
+ * @description	필터링 메뉴, 보기방식(view type) 메뉴 구현
+ */
+/* filtering menu */
+.category-filter-list {
+	/* background-color: #D4CEFC; */
+	float: right;
+	padding: 0.1rem 0 0.2rem;
+	color: gray;
+	-webkit-transition: border-color .2s, box-shadow .2s;
+	transition: border-color .2s, box-shadow .2s;
+}
+
+.category-filter-list > li {
+	margin-right: 0.25rem;
+}
+
+/* view type menu */
+.view-type-list {
+	float: right;
+}
+
+.view-type-list > button {
+	background: none;
+	width: auto;
+	height: auto;
+	cursor: pointer;
+}
+
+.view-type-list .material-icons {
+	border: 1px solid #D4CEFC;
+	border-radius: 0.125rem;
+	color: #D4CEFC;
+	width: 1.75rem;
+	height: 1.75rem;
+	padding: 0.06rem;
+}
+
+.view-type-list button.active {
+	pointer-events: none;
+}
+
+.view-type-list button.active>.material-icons {
+	border: 1px solid #776BCE;
+	color: #776BCE;
+	font-weight: bold;
+}
+
+/**
+ * @author	염현우
+ * @date	2018. 1. 19.
+ * @description	Select 드롭다운 박스 구현
+ */
+.hwdropbtn {
+	background-color: white;
+	color: black;
+	padding: 0.6rem 0.5rem;
+	font-size: 0.8rem;
+	border: 1px solid #776bce4a;
+	cursor: pointer;
+	box-shadow: 0px 0.125rem 0.125rem 0px rgba(0, 0, 0, 0.2);
+	width: 8rem;
+}
+
+.hwdropbtn:hover {
+	background-color: #776bce4a;
+	color: black;
+}
+
+.hwdropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.hwdropdown-content {
+	display: none;
+	position: absolute;
+	background-color: white;
+	font-size: 0.8rem;
+	width: 8rem;
+	overflow: auto;
+	box-shadow: 0px 0.5rem 1rem 0px rgba(0, 0, 0, 0.2);
+	border-right: 1px solid #776bce4a;
+	border-bottom: 1px solid #776bce4a;
+	border-left: 1px solid #776bce4a;
+	z-index: 1;
+}
+
+.hwdropdown-content span {
+	color: black;
+	padding: 0.75rem 1rem;
+	text-decoration: none;
+	display: block;
+}
+
+.hwdropdown span:hover {
+	background-color: #776bce4a
+}
+
+/* select박스끝 */
+
+/**
+ * @author	박성호
+ * @date	2018. 1. 20.
+ * @description	타이틀 양식 구현
+ */
+ .bf-title-row {
+ 	position: relative;
+	overflow: hidden;
+ 	font-size: 1.25rem;
+ 	font-weight: bold;
+ 	line-height: 1.25rem;
+ 	color: #333;
+ 	padding: 0.3125rem 0;
+ }
+
+.bf-title-row.title-type1 {
+	
+}
+
+.bf-title-row.title-type2 {
+	border-bottom: 2px solid #A59AF6;
+}
+
+.bf-title-row.title-type3>h2,
+.bf-title-row.title-type3>h3,
+.bf-title-row.title-type4>h3 {
+	/* z-index: 70; */
+	background-color: white;
+	position: relative;
+	float: left;
+	font-size: 1.125rem;
+	line-height: 175%;
+	padding-right: 0.875rem;
+}
+
+.bf-title-row.title-type3>h2 {
+ 	font-size: 1.25rem;
+}
+
+.bf-title-row.title-type3:before {
+	z-index: -1;
+	content: '';
+	display: block;
+	width: 100%;
+	height: 0.125rem;
+	background: #F3F0FA;
+	position: absolute;
+	left: 0;
+	top: 50%;
+	margin-top: -0.1rem;
+}
+
+.bf-title-row.title-type3:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+/**
+ * @author	박성호
+ * @date	2018. 1. 22.
+ * @description	접기/펼치기 버튼 구현
+ */
+button.bf-button.bf-notice-btn + .collapsable-notice,
+div.collapsable-notice {
+	background-color: Gainsboro;
+    border: 0.125rem solid #E1DFFA;
+    border-radius: 0.25rem;
+    display: block;
+    position: relative;
+    clear: both;
+    width: 100%;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: dimgray;
+    line-height: 1rem;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.collapsable-notice p+ol {
+	list-style: decimal;
+	padding-left: 2rem;
+}
+
+/**
+ * @author	박성호
+ * @date	2018. 1. 22.
+ * @description	도서 보기 목록 양식(Portrait & Landscape)
+ */
+ 
+/* 도서 보기 목록 양식 */
+
+/* 도서 검색 결과 리스트 */
+.result-search-book-box {
+	margin-bottom: 1.875rem;
+}
+
+.result-search-book-box .content-star-rate {
+	width: 100%;
+	text-align: left;
+	margin-left: -0.1rem;
+}
+
+/* Portrait Style */
+.mf-book-list {
+	width: 100%;
+	display: inline-block;
+	position: relative;
+}
+
+.mf-book-item {
+	float: left;
+	position: relative;
+	width: 20%;
+	margin-top: 2.1%;
+}
+
+.mf-book-item:nth-child(5n+1) {
+	clear: both;
+	float: left;
+}
+
+.mf-book-checkbox {
+	display: block;
+	position: absolute;
+	top: 0.625rem;
+	left: -0.375rem;
+}
+
+.mf-book-thumbnail {
+	width: 79%;
+	min-height: 10.625rem;
+	margin: 0 auto;
+	position: relative;
+	/* -webkit-transition: width .5s; */
+	/* transition: width .5s; */
+}
+
+.mf-book-thumbnail-image {
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	cursor: pointer;
+}
+
+.mf-book-thumbnail img {
+	/* z-index: 10; */
+	border: 1px solid rgba(0,0,0,0.4);
+	box-shadow: 0 0.125rem 0.375rem rgba(0,0,0,0.4), 0.25rem -1px 0.3125rem 0px rgba(128,128,128,0.7) inset, -0.25rem 0px 0.3125rem 0px rgba(128,128,128,0.7) inset;
+	/* width: 7.0625rem; */
+	width: 100%;
+	max-height: 10.4375rem;
+	vertical-align: bottom;
+	display: inline-block;
+	position: relative;
+	left: 0;
+	bottom: 0;
+}
+
+.mf-book-thumbnail-image:after {
+	content: ' ';
+	/* z-index: 20; */
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	background: -webkit-gradient(linear,left top,right top,color-stop(0,rgba(0,0,0,.3)),color-stop(5%,rgba(0,0,0,0)),color-stop(95%,rgba(0,0,0,0)),color-stop(100%,rgba(0,0,0,.3)));
+	background: -webkit-linear-gradient(left,rgba(0,0,0,.3) 0,rgba(0,0,0,0) 5%,rgba(0,0,0,0) 95%,rgba(0,0,0,.3) 100%);
+	background: -o-linear-gradient(left,rgba(0,0,0,.3) 0,rgba(0,0,0,0) 5%,rgba(0,0,0,0) 95%,rgba(0,0,0,.3) 100%);
+	background: -ms-linear-gradient(left,rgba(0,0,0,.3) 0,rgba(0,0,0,0) 5%,rgba(0,0,0,0) 95%,rgba(0,0,0,.3) 100%);
+	background: linear-gradient(to right,rgba(0,0,0,.3) 0,rgba(0,0,0,0) 5%,rgba(0,0,0,0) 95%,rgba(0,0,0,.3) 100%);
+}
+
+.mf-book-metadata {
+	width: 80%;
+	margin: 0.5rem auto 0;
+}
+
+.mf-book-metadata > * {
+	margin-top: 0.1875rem;
+}
+
+.book-metadata-text {
+	display: block;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	font-size: 0.9rem;
+	font-weight: 700;
+	color: #333;
+	line-height: 1.4rem;
+	max-height: 2.8rem;
+	-webkit-line-clamp: 2;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	word-break: break-all;
+	white-space: normal;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.book-metadata-author,
+.book-metadata-translator,
+.book-metadata-publisher,
+.book-metadata-price {
+	display: block;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	line-height: 1rem;
+	max-height: 2.8rem;
+	-webkit-line-clamp: 2;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	word-break: break-all;
+	white-space: normal;
+	overflow: hidden;
+}
+
+.book-metadata-publisher {
+	display: none;
+}
+
+.book-metadata-author > a,
+.book-metadata-author > a:link,
+.book-metadata-author > a:visited,
+.book-metadata-translator > a,
+.book-metadata-translator > a:link,
+.book-metadata-translator > a:visited,
+.book-metadata-publisher > a,
+.book-metadata-publisher > a:link,
+.book-metadata-publisher > a:visited,
+.book-metadata-price {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: dimgray;
+}
+
+.book-metadata-translator > a:after {
+	content: ' 역';
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: dimgray;
+}
+
+.book-metadata-price > span.price-rent:before {
+	content: '대여 ';
+	font-weight: normal;
+	color: dimgray;
+}
+
+.book-metadata-price > span.price-purchase:before {
+	content: '구매 ';
+	font-weight: normal;
+	color: dimgray;
+}
+
+.book-metadata-price > .price-rent,
+.book-metadata-price > .price-purchase {
+	font-size: 0.8rem;
+	font-weight: bold;
+	color: #776BCE;
+}
+
+/* landscape style */
+.mf-book-list.list-landscape > .mf-book-item {
+	border-top: 1px solid #E1DFFA;
+	/* border-bottom: 1px solid #E1DFFA; */
+	width: 100%;
+	padding: 0 2.1% 1%;
+}
+
+.mf-book-list.list-landscape > li > .mf-book-thumbnail {
+	float: left;
+	width: 15.8%;
+	min-height: 10rem;
+	/* margin: 0; */
+	margin-top: 1.4%;
+	/* -webkit-transition: width .5s ease-out; */
+	/* transition: width .5s ease-out; */
+}
+
+.mf-book-list.list-landscape .mf-book-thumbnail img {
+	max-height: 10rem;
+}
+
+.mf-book-list.list-landscape > li > .mf-book-metadata {
+	float: right;
+	width: 82%;
+	/* margin: 0.5rem auto 0; */
+	margin: 3% auto 0;
+}
+
+.mf-book-list.list-landscape > li > .mf-book-metadata > .book-metadata-text ~ * {
+	display: inline-block;
+	position: relative;
+	width: auto;
+	padding-right: 0.25rem;
+}
+
+.mf-book-list.list-landscape > li > .mf-book-metadata > .content-star-rate ~ * {
+	width: 100%;
+	display: block;
+}
+
+.mf-book-list.list-landscape > li > .mf-book-metadata > .book-metadata-description {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: dimgray;
+	white-space: normal;
+	line-height: 1rem;
+	max-height: 3rem;
+	margin-bottom: 0.5rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.mf-book-list.list-landscape .book-metadata-publisher {
+	display: block;
+}
+
+.mf-book-list.list-landscape .book-metadata-author:before,
+.mf-book-list.list-landscape .book-metadata-translator:before,
+.mf-book-list.list-landscape .book-metadata-publisher:before {
+	content: '\007C';
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: #D4CEFC;
+	padding-right: 0.25rem;
+}
+
+.mf-book-list.list-landscape > li .content-star-rate {
+	float: left;
+}
+
+/* 2018-01-30 히스토리 게시판 양식 (박성호) */
+/* history board style */
+.wrap-container .history-list-box {
+	border-top: 1px solid #E1DFFA;
+	border-bottom: 1px solid #E1DFFA;
+	/* margin-top: 2rem; */
+	position: relative;
+	width: 100%;
+}
+
+.wrap-container .history-list-box .row {
+	position: relative;
+	width: 100%;
+	/* height: 3.4rem; */
+	/* line-height: 3.4rem; */
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: darkgray;
+	overflow: hidden;
+}
+
+.wrap-container .history-list-box .row > * {
+	display: inline-block;
+	position: relative;
+	float: left;
+	height: 3.4rem;
+	line-height: 3.4rem;
+	text-align: center;
+}
+
+.wrap-container .history-list-box .row.header {
+	background-color: #F3F0FA;
+	height: 3rem;
+	line-height: 3rem;
+	font-weight: bold;
+	color: dimgray;
+}
+
+.wrap-container .history-list .row {
+	border-top: 1px solid #E1DFFA;
+}
+
+.wrap-container .history-list .row > * {
+	padding: 0 0.75rem;
+	word-wrap: normal;
+	word-break: keep-all;
+}
+
+.wrap-container .history-list .row span {
+	display: inline-block;
+	line-height: 1.2rem;
+	vertical-align: middle;
+}
+
+.row .col10 {
+	width: 10%;
+}
+
+.row .col15 {
+	width: 15%;
+}
+
+.row .col20 {
+	width: 20%;
+}
+
+.row .col25 {
+	width: 25%;
+}
+
+.row .col30 {
+	width: 30%;
+}
+
+.row .col35 {
+	width: 35%;
+}
+
+.row .col40 {
+	width: 40%;
+}
+
+.row .col45 {
+	width: 45%;
+}
+
+.row .col50 {
+	width: 50%;
+}
+
+.row .col55 {
+	width: 55%;
+}
+
+.row .col60 {
+	width: 60%;
+}
+
+.row .col65 {
+	width: 65%;
+}
+
+.row .col70 {
+	width: 70%;
+}
+
+.row .col75 {
+	width: 75%;
+}
+
+.row .col80 {
+	width: 80%;
+}
+
+.row .col85 {
+	width: 85%;
+}
+
+.row .col90 {
+	width: 90%;
+}
+
+.history-list-box .row span.title {
+	font-weight: bold;
+	color: dimgray;
+}
+
+.history-list-box .row span.effect {
+	font-weight: bold;
+	color: #776BCE;
+}
+
+/**
+ * @author	정호열
+ * @date	2018. 2. 02.
+ * @description	라디오 양식
+ */
+/* radio type */
+/* .list_wrapper > .payment_list{
+    position: relative;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: 0 0 0.9375rem 0;
+	min-width: 10rem;
+}
+
+.payment_list  .payment_label{
+	color: #636c73;
+	font-weight: 700;
+	font-size: 0.8125rem;
+	position: relative;
+	padding-left: 1.625rem;
+	display: inline-block;
+}
+
+.payment_list  .radio_input{
+	position: absolute;
+	display: none;
+	cursor: pointer;
+	opacity: 0;
+}
+
+.payment_list  .radio_mark{
+	float: left;
+	background-color: white;
+	border: 1px solid silver;
+	border-radius: 50%;
+	position: absolute;
+	height: 1.125rem;
+	width: 1.125rem;
+	-webkit-transition: border .2s;
+	transition: border .2s;
+	top: 0.1875rem;
+}
+
+.payment_list:hover input ~ .radio_mark {
+    border: 1px solid black;
+}
+
+.payment_list input:checked ~ .radio_mark {
+    background-color: #776BCE;
+}
+
+.radio_mark:after{
+	position: absolute;
+	content: "";
+}
+
+.payment_list .radio_mark:after{
+	top: 4px;
+	left: 4px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+} */

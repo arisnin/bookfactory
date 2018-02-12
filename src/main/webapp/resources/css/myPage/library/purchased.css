@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+/* Purchased list Style */
+.mf-purchased-box {
+	width: 100%;
+	margin-top: 0;
+}
+
+/* search */
+.purchased-action-box {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	padding: 1.25rem 0 0.625rem;
+}
+
+.purchased-action-select {
+	float: left;
+	display: block;
+	padding: 0.125rem 0 0.1875rem;
+}
+
+.purchased-action-select label {
+	line-height: 1.125rem;
+	vertical-align: middle;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	display: inline-block;
+	padding-left: 0.3125rem;
+	position: relative;
+	margin-right: 0.625rem;
+	color: #636c73;
+	font-size: 0.8125rem;
+	font-weight: 700;
+	-webkit-transition: color .2s;
+	transition: color .2s;
+}
+
+.purchased-action-button {
+	float: right;
+}
+
+.purchased-form-list-box {
+	margin-bottom: 1.875rem;
+}
+
+.purchased-form-list-box form[name=purchased-form-list] {
+	
+}
+
+.purchased-form-delete-box {
+	
+}

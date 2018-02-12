@@ -1,0 +1,290 @@
+@charset "UTF-8";
+
+/* 김도현(최초작성) */
+
+/**
+ * 세부 CSS 수정
+ * @author	박성호(최초작성)
+ * @date	2018. 2. 11.
+ */
+#cart_main {
+	width: 56.25rem;
+	margin: 0px auto;
+}
+
+#cart_main li {
+	list-style: none;
+	float: left;
+	width: 50%;
+	height: 3rem;
+	line-height: 3rem;
+	text-align: center;
+	font-weight: bold;
+}
+
+#cart_main li:first-child {
+	border-radius: 0.5rem 0 0 0;
+}
+
+#cart_main li:last-child {
+	border-radius: 0 0.5rem 0 0;
+	color: dimgray;
+}
+
+.header_margin {
+	margin-bottom: 30px;
+}
+
+.cart_content li > span.count {
+	margin-left: 0.25rem;
+}
+
+.cart_content_book_span {
+	position: relative;
+	bottom: 40px;
+}
+
+.cart_content_book_img {
+	width: 60%;
+	margin-left: 10%;
+	box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.4), 0.25rem -1px
+		0.3125rem 0px rgba(128, 128, 128, 0.7) inset, -0.25rem 0px 0.3125rem
+		0px rgba(128, 128, 128, 0.7) inset;
+}
+
+.header_span {
+	position: relative;
+	top: 1rem;
+	font-weight: bold;
+}
+
+.cart_content {
+	float: left;
+	width: 62%;
+	border: 2px solid #D4CEFC;
+	margin-right: 3%;
+	border-radius: 0.5rem;
+}
+
+.cart_content ul {
+	overflow: hidden;
+}
+
+.cart_content_select {
+	width: 92%;
+    margin: 0 4%;
+	overflow: hidden;
+}
+
+.cart_content_select:last-child {
+	border-top: 1px solid #D4CEFC;
+}
+
+.cart_content_sel_child {
+	padding: 0.9rem 0px;
+	float: left;
+}
+
+.cart_content_sel_button {
+	float: right;
+	padding: 0.8rem 0;
+}
+
+.cart_content_book {
+	border-top: 1px solid #D4CEFC;
+	border-bottom: none;
+	width: 92%;
+	padding: 0.8rem 0;
+    margin: 0 4%;
+	overflow: hidden;
+}
+
+.cart_content_book .book-thumbnail {
+	display: inline-block;
+	float: left;
+	width: 21%;
+}
+
+.cart_content_book_content {
+	float: right;
+	width: 77%;
+	margin-left: 2%;
+}
+
+.cart_content_book .cart_content_book_content .float_right {
+	width: 37%;
+}
+
+.cart_right_menu {
+	border: 0px solid #A59AF6;
+	float: right;
+	width: 35%;
+	box-sizing: border-box;
+    font-weight: bold;
+    color: dimgray;
+}
+
+.cart_right_menu > div:first-child > label{
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: #776BCE;
+}
+
+.cart_right_menu > div:first-child strong{
+	font-weight: bold;
+}
+
+.cart_right_menu .float_right {
+	colro: #333;
+}
+
+.cart_right_menu_content {
+	width: 100%;
+    padding: 5% 7%;
+	border: 1px solid #776BCE;
+	border-bottom-width: 0px;
+}
+
+.cart_right_menu_count {
+	padding: 7%;
+	background-color: #E1DFFA;
+	border-bottom: 1px solid #776BCE;
+}
+
+.cart_right_menu_count .float_right {
+	font-size: 1.25rem;
+	color: #776BCE;
+}
+
+.cart_right_menu_button {
+	padding: 1rem 8rem 1rem 8rem !important;
+	margin: 1rem auto !important;
+	font-size: 1rem !important;
+}
+
+.rent_accept {
+	border-bottom: 1px solid #A59AF6;
+	background-color: #776bce16;
+}
+
+.rent_accept:hover, .pay_accept:hover {
+	cursor: pointer;
+}
+
+.pay_accept {
+	border-right: 1px solid #A59AF6;
+	border-bottom: 1px solid #A59AF6;
+	box-sizing: border-box;
+	background-color: #776bce16;
+}
+
+.pay_active {
+	color: white;
+	background-color: #776bce;
+}
+
+.rent_active {
+	color: white;
+	background-color: #776bce;
+}
+
+.cart_button_div {
+	text-align: center;
+	padding-top: 1.4rem;
+}
+
+.cart_content_book_content>span:first-child {
+	position: relative;
+	top: 0.5rem;
+	font-weight: bold;
+	color: #333;
+}
+
+.cart_content_book_content span:nth-child(3), .cart_content_book_content>div
+	{
+	position: relative;
+	top: 1rem;
+}
+
+/* .float_right >span:nth-child(2) {
+text-decoration: line-through;
+    color: gray;
+} */
+
+.cart_content_book_content .float_right > * {
+	display: inline-block;
+	float: right;
+	width: 90%;
+	line-height: 1rem;
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: #776BCE;
+}
+
+.cart_content_book_content .float_right > .price {
+	font-size: 0.8rem;
+	color: darkgray;
+	text-align: right;
+	text-decoration: line-through;
+}
+
+.cart_content_book_content .float_right .dc-price {
+	position: relative;
+	float: right;	
+}
+
+.cart_content_book_content .count_percent {
+	float: right;
+	color: red;
+	margin-right: 0.5rem;
+}
+
+.cart_content_book_content .count_percent:after {
+	content: '%\2193';
+	margin-right: 0.25rem;
+}
+
+.cart_content_book_content .count_percent.no-discount:after {
+	content: '-';
+	margin-right: 2.3rem;
+}
+
+.cart_content_book_content .rental-period {
+	clear: both;
+	display: inline-block;
+	position: relative;
+	top: 1.5rem;
+	float: left;
+	line-height: 1.25rem;
+	font-size: 0.9rem;
+	font-weight: normal;
+	color: orangered;
+	vertical-align: top;
+}
+
+.cart_content_book_content .rental-period > .material-icons {
+	font-size: 1.2rem;
+	vertical-align: top;
+}
+
+.cart_content_book_content > button {
+	position: relative;
+	top: 1.5rem;
+}
+
+.cart_right_menu .cart_right_menu_content:first-child {
+	border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.cart_right_menu .cart_right_menu_count {
+	border-radius: 0 0 0.5rem 0.5rem;
+}
+
+span.badge-icon {
+	background-color: dimgray;
+	border-radius: 0.25rem;
+	line-height: 0.8rem !important;
+	font-size: 0.5rem !important;
+	color: white !important;
+	padding: 0.125rem 0.25rem;
+}

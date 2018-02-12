@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+.presentOk_text {
+	text-align: center;
+	width: 30rem;
+	margin: 0px auto;
+}
+
+.presentOk_text_area {
+	width: 400px;
+	height: 200px;
+	resize: none;
+}
+
+.presentOk_tootip {
+	text-align: left;
+	padding-top: 1rem;
+}
+
+.presentOk_tootip h3 {
+	font-size: 16px;
+	text-align: left;
+	padding: 1rem;
+	padding-left: 0px;
+	font-weight: bold;
+}
+
+.presentOk_text_bottom {
+/* 	border-bottom: 1px solid #776bce; */
+	background: url("../../img/present-letter.JPG") bottom center no-repeat;
+	height: 18.75rem;
+}
+
+.presentOk_tootip span {
+	font-size: 12px;
+	line-height: 1rem;
+}
+
+.presentOk_text_letter_img {
+	padding: 3rem;
+	text-align: left;
+}

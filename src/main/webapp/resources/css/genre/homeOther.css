@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+/* 일반 홈 화면을 제외한 나머지 홈화면들 - 최정은 */
+
+/**
+ * 키워드 CSS 수정
+ * @Author	박성호	
+ * @Date	2018. 2. 10.
+ */
+
+.keyword{
+	display: inline-block;
+	border: 0px solid;
+	width: 100%;
+	margin-top: 1.25rem;
+}
+
+.keyword > ul{
+	
+}
+
+.keyword > ul > li{
+	float: left;
+}
+
+.keyword li > button.bf-button {
+	font-size: 0.9rem;
+	color: #333;
+	padding: 0.6rem 2rem;
+	margin-right: 0.9rem;
+	margin-bottom: 0.9rem;
+}
+
+.keyword li:first-child ~ li > button.bf-button {
+	padding: 0.6rem 0.8rem;
+}
+
+.keyword li > button.bf-button:before {
+	content: '#';
+	margin-right: 0.125rem;
+}
+
+.keyword li:first-child > button.bf-button:before {
+	font-size: 0.9rem;
+	color: orangered;
+}
+
+.keyword li > button.bf-button.keyword-btn {
+	background-color: #E1DFFA;
+	border-color: #D4CEFC;
+	color: #5D568C;
+}
+
+/* .keyword > ul > li > button{
+	border: 1px solid #776bce;
+    background: #776bce;
+    color: #fff;
+    margin: 6px 9px;
+    padding: 7px 22px;
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+    border-radius: 7px;
+}
+
+.keyword > ul > li:first-child > button {
+	background-color: #fff;
+	color: black;
+} */

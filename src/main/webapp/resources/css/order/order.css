@@ -1,0 +1,257 @@
+@charset "UTF-8";
+
+/* 김도현(최초작성) */
+
+/**
+ * 세부 CSS 수정
+ * @author	박성호(최초작성)
+ * @date	2018. 2. 10.
+ */
+ 
+#order_header {
+	width: 56.25rem;
+	overflow: hidden;
+	margin: 0px auto;
+}
+
+.order_header_child {
+	margin-bottom: 0.5rem;
+	overflow: hidden;
+}
+
+.order_header_content1 {
+	display: inline-block;
+	margin-right: 32rem;
+}
+
+.order_header_content2 {
+	display: inline-block;
+}
+
+.order_content {
+	border-top: 1px solid #A59AF6;
+	border-bottom: 1px solid #A59AF6;
+	float: left;
+	width: 62%;
+	padding: 0.5% 0px;
+	margin-right: 3%;
+}
+
+.order_content_book_check {
+	overflow: hidden;
+}
+
+#order_header .order_content_book_check  {
+	border-bottom: 1px solid #D4CEFC;
+	width: 100%;
+    margin: 0;
+    padding: 2% 4%;
+}
+
+#order_header .order_content_book_check:last-child  {
+	border-bottom: none;
+}
+
+.order_content_book_check > .float_left {
+	width: 14%;
+}
+
+.order_content_book_check .cart_content_book_img {
+	width: 98%;
+	margin-left: 2%;
+}
+
+.order_content_book_check.cart_content_book {
+	border: none;
+}
+
+.order_content_book_check .cart_content_book_content {
+	width: 82%;
+}
+.order_content_book_main {
+	float: left;
+	width: 400px;
+	margin-left: 1rem;
+	padding-top: 1.3rem
+}
+
+.order_right_menu {
+	border: 0px solid black;
+	box-sizing: border-box;
+	float: right;
+	width: 35%;
+	font-size: 1rem;
+	font-weight: bold;
+	color: #444;
+}
+
+.order_right_menu_list {
+	border: 1px solid #776BCE;
+	border-bottom-width: 0px;
+	width: 100%;
+	line-height: 2rem;
+	padding: 1rem 1.5rem;
+	overflow: hidden;
+}
+
+.order_right_menu_list > button.bf-button.bf-white-btn {
+    margin-left: 0.5rem;
+    padding: 0.2rem 0.7rem 0.15rem;
+    margin-top: 0.125rem;
+}
+
+.order_right_menu_list > .right-item.total {
+	color: #776BCE;
+}
+
+.order_right_menu_list .title {
+	margin: 1rem 1.5rem 0;
+}
+
+.order_right_menu_list_point {
+	line-height: 1rem;
+	/* margin-top: 6px; */
+}
+
+.order_right_menu_count {
+	background-color: #776bce;
+	width: 100%;
+	line-height: 1.5rem;
+	text-align: center;
+	color: #E1DFFA;
+	padding: 0.8rem;
+}
+
+.order_right_menu_count > * {
+	display: inline-block;
+	width: 100%;
+}
+
+.order_right_menu_count span:first-child strong {
+	font-size: 1.2rem;
+	color: midnightblue;
+	margin-left: 0.5rem;
+}
+
+.order_right_menu_count span:last-child {
+	font-size: 0.9rem;
+}
+
+.order_right_menu_count span:last-child strong {
+	font-size: 1rem;
+	color: #4D467C;
+	margin-left: 0.5rem;
+}
+
+.order_right_menu_paylist {
+	overflow: hidden;
+	padding: 1rem 1.3rem 0;
+}
+
+.order_right_menu_paylist li.payment_list {
+	width: 50%;
+	font-size: 0.8rem;
+	font-weight: bold;
+	color: dimgray;
+	min-width: 130px;
+}
+
+.order_right_menu_paylist li .payment_pay {
+	position: relative;
+	top: -8px;
+}
+
+.order_right_menu_paylist .payment_list img {
+	/* margin-left: 0.5rem; */
+}
+
+.order_right_menu_agree {
+	/* margin: 8px 10px; */
+	font-size: 1.25rem;
+	font-weight: bold;
+	color: #333;
+}
+
+.order_right_menu_paybutton {
+	padding: 1rem 1rem 1rem 1rem !important;
+	width: 19.375rem;
+	font-size: 1rem !important;
+}
+
+.menu_notice_tip li {
+	list-style: square;
+	line-height: 1rem;
+	font-size: 0.8rem;
+	margin: 0.625rem auto;
+	margin-left: 1rem;
+}
+
+.order_right_menu_pointintro {
+	padding-top: 0.5rem;
+}
+
+.bf-custom-checkbox.agree .all-mark{
+	top: -0.75rem;
+}
+
+.order_right_menu .order_right_menu_lift {
+	left: 0.5rem;
+	width: 90%;
+}
+
+.order_right_menu_lift > strong {
+	font-size: 0.9rem;
+	color: #333;
+}
+
+.font_11px {
+	font-size: 11px;
+	color: #999;
+}
+
+.font_13 {
+	font-size: 0.8rem;
+	color: dimgray;
+}
+
+.font_16 {
+	font-size: 1rem;
+	color: dimgray;
+}
+
+.float_right {
+	float: right;
+}
+
+.float_left {
+	float: left;
+}
+
+.overflow_hidden {
+	overflow: hidden;
+}
+
+.order_right_menu>.bf-title-row {
+	width: 100%;
+}
+.order_right_menu>.order_right_menu_list.first-line {
+	border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.order_right_menu>.order_right_menu_list:nth-child(8) {
+	border-bottom-width: 1px;
+	border-radius: 0 0 0.5rem 0.5rem;
+	padding: 0px;
+}
+
+.order_right_menu_list > .right-item {
+	float: right;
+}
+
+.order_right_menu_list .payment_list {
+	line-height: 1.4rem;
+}
+
+.order_right_menu_list .payment_list .payment_label {
+    top: -0.15rem;
+}

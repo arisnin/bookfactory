@@ -1,0 +1,375 @@
+@charset "UTF-8";
+/* 키워드 홈페이지 css - 최정은*/
+
+/**
+ * 검색 상자 간격 및 글꼴 수정, 키워드 선택 박스 수정, 검색 결과 레이아웃 수정
+ * @Author	박성호	
+ * @Date	2018. 2. 10.
+ */
+.keyword{
+	min-width: 56.25rem;
+	width: 56.25rem;
+	margin: 10px auto;
+}
+
+.keyword_top{
+	
+}
+
+.keyword_top_head{
+	border: 0px solid red;
+	background-color: #776bce;
+	line-height: 1.9rem;
+    padding: 0.7rem 1.25rem 0.8rem;
+}
+
+.keyword_top_head > span.material-icons {
+	font-size: 2rem;
+	color: white;
+	transform: translateY(0.5rem);
+}
+
+.keyword_top_head > span.title{
+	font-size: 1.6rem;
+	color: #fff;
+}
+
+.keyword_top_head > span.sub-title {
+	font-size: 0.9rem;
+    color: white;
+    /* font-weight: bold; */
+}
+
+.keyword_top_head > button.bf-button{
+	border: 1px solid #F3F0FA;
+    float: right;
+    top: 0.375rem;
+    line-height: 1.4rem;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.keyword_top_head > button:hover {
+	background-color: #776bce;
+}
+
+#keyword_top_list{
+    min-height: 12.5rem;
+    height: 12.5rem;
+    overflow: hidden;
+    border: 1px solid lightgray;
+    box-sizing: border-box;
+    background-color: #f8f7ff;
+    display: flex;
+}
+
+.keyword_filed{
+	display: inline-block;
+	position: relative;
+    width: 0.166666%;
+    height: 100%;
+}
+
+.keyword_top_list_show{
+    position: relative;
+    border: 0px solid;
+    width: 100%;
+    font-size: 0.9rem;
+    min-width: 9.36rem;
+}
+
+.keyword_top_list_show > div:first-child {
+    border-bottom: 1px solid lightgray;
+    height: 20%;
+    font-weight:bolder;
+    color: #776BCE;
+    position: sticky;
+    top: 0;
+    padding: 0.8rem 1rem;
+}
+
+.keyword_top_list_button{
+    border-left: 1px solid lightgray;
+    width: 96%;
+    height: 80%;
+    padding: 0.25rem 0.75rem;
+    margin-left: -1px;
+	overflow: scroll;
+}
+
+.keyword_top_list_button li{
+	border-radius: 0.25rem;
+	margin: 0.3125rem 0px;
+    width: 100%;
+}
+
+.keyword_top_list_button li:hover{
+	background-color: #E1DFFA;
+}
+
+/* 스크롤바 이미지 안보이게 해줌*/
+/* Only Chrome & Safari */
+.keyword_top_list_show ::-webkit-scrollbar {
+	width: 0.5rem;
+	height: 0;
+}
+
+.keyword_top_list_show ::-webkit-scrollbar-track {
+	background: #efefef;
+	-webkit-border-radius: 0.8rem;
+	border-radius: 0.8rem;
+	-webkit-box-shadow: inset 0 0 0.25rem rgba(0, 0, 0, .2)
+}
+
+.keyword_top_list_show ::-webkit-scrollbar-track-piece {
+	width: 0.5rem;
+}
+
+.keyword_top_list_show ::-webkit-scrollbar-thumb {
+	height: auto;
+	width: 0.5rem;
+	background: rgba(119, 107, 206, 0.3);
+	-webkit-border-radius: 0.5rem;
+	border-radius: 0.5rem;
+	-webkit-box-shadow: inset 0 0 0.25rem rgba(0, 0, 0, .1)
+}
+
+.keyword_top_list_show ::-webkit-scrollbar-button {
+	width: 0.5rem;
+	height: 0.5rem;
+}
+
+.keyword_top_list_button li > .bf-custom-checkbox{
+	width: 100%;
+    padding: 0.125rem 0;
+}
+
+.keyword_top_list_button li .bf-button{
+	padding: 0;
+	padding-left: 0.25rem;
+	font-weight: bold;
+	color: #4D467C;
+}
+
+/* 키워드 선택했을때의 화면 */
+.keyword_bottom{
+	width: 100%;
+	min-width: 56.25rem;
+}
+
+.keyword_not_choice{
+	display: table;
+    margin: 1rem auto;
+}
+
+.keyword_no_search{
+	margin: 0px auto;
+	display: table;	/* 키워드 선택했지만 안보이면 이거보여여함
+						table로 변해야 보임*/
+}
+
+.keyword_choice{
+	display: inline-block;
+	border: 0px solid;
+	width: 100%;
+	margin-top: 1.25rem;
+}
+
+.keyword_choice > ul{
+	
+}
+
+.keyword_choice > ul > li{
+	float: left;
+}
+
+.keyword_choice li > button.bf-button {
+	font-size: 0.9rem;
+	color: #333;
+	padding: 0.6rem 0.8rem;
+	margin-right: 0.9rem;
+	margin-bottom: 0.9rem;
+}
+
+.keyword_choice li > button.bf-button:before {
+	content: '#';
+	margin-right: 0.125rem;
+}
+
+.keyword_choice li > button.bf-button.keyword-btn {
+	background-color: #E1DFFA;
+	border-color: #D4CEFC;
+	color: #5D568C;
+}
+
+.keyword_choice .button_x{
+	color: #A59AF6;
+	padding-left: 0.25rem;
+}
+
+/* ********************************** */
+/* 태그 선택시 나와야하는 화면 */
+.keyword_bottom_head{
+    border: 0px solid;
+	display: inline-block;
+    position: relative;
+	width: 100%;
+    padding-left: 0.625rem;
+    margin-top: 1.25rem;
+}
+
+.keyword_bottom_head > div:first-child {
+	border: 0px solid red;
+	float: left;
+}
+
+.keyword_bottom_head > div:first-child > span:first-child{
+	font-size: 1.3rem;
+	font-weight: bold;
+	color: dimgray;
+}
+
+.keyword_bottom_head > div:first-child > span:last-child{
+	font-size: 0.9rem;
+}
+
+.keyword_bottom_view_choice{
+    float: right;
+    margin-top: 5px;
+}
+
+.keyword_bottom_view_choice li{
+    font-size: 0.9rem;
+    float: right;
+    border-left: 0.8px solid;
+    margin: 0px 0px;
+    padding: 0px 10px;
+}
+
+.keyword_bottom_view_choice a {
+	color: dimgray;
+}
+
+.keyword_bottom_view_choice li:nth-last-child(1) {
+	border-left:0px;
+}
+
+.keyword_bottom_view_choice a.activeFont{
+	font-weight: bold;
+	color:#333;
+}
+
+/* ********************************** */
+.keyword_bottom_book_list .mf-book-thumbnail {
+	width: 67%;
+}
+
+.keyword_bottom_book_list .mf-book-metadata {
+	width: 69%;
+}
+
+.keyword_bottom_book_list .mf-book-list.list-landscape > li > .mf-book-thumbnail {
+	width: 12%;
+}
+
+.keyword_bottom_book_list .mf-book-list.list-landscape > li > .mf-book-metadata {
+	width: 85%;
+}
+
+/* 태그 선택시 책이 있으면 이 화면 나와야함 */
+.keyword_bottom_book_list{
+	display: inline-block;
+	border-bottom: 0px solid darkgray;
+    margin: 15px 0px;
+    height: 100%;
+    min-height: 100%;
+}
+/* 
+.keyword_bottom_book_list > ul > li{
+	display: inline-block;
+}
+
+.keyword_bottom_book {
+	border: 0px solid red;
+    color: #666;
+    height: 250px;
+    border-bottom: 1px solid darkgray;
+    min-height: 250px;
+}
+
+.keyword_bottom_book > div:first-child {
+	float: left;
+	width: 150px;
+	height: 275px;
+}
+
+.keyword_bottom_book > div:first-child img{
+    width: 110px;
+    height: 140px;
+    border: 1px solid;
+    margin: 0px 20px;
+}
+
+.keyword_bottom_book_content{
+	border: 0px solid blue;
+	font-size: 0.8rem;
+}
+
+.keyword_bottom_book_content > div:first-child{
+	font-size: 1.1rem;
+	font-weight: 600;
+	margin: 10px 0px;
+	padding-top: 5px;
+}
+
+.keyword_bottom_book_star{
+    margin: 10px 0px;
+}
+
+.keyword_bottom_book_star > .content-star-rate > .count-field{
+	margin-right: 5px;
+}
+
+.keyword_bottom_book_star >p{
+	display: inline;
+    border-right: 1px solid;
+}
+
+.keyword_bottom_book_star >p:last-child{
+    border-right: 0px solid;
+}
+
+.keyword_bottom_book_star >p a{
+	padding: 0px 8px;
+}
+
+.keyword_bottom_book_intro{
+	margin: 10px 0px;
+    letter-spacing: 1px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
+    word-wrap: break-word;
+    line-height: 17px;
+}
+
+.keyword_bottom_book_buy{
+	margin: 5px 0px;
+}
+
+.keyword_bottom_book_buy > span:last-child {
+	color: #776bce;
+}
+ */
+.keyword_bottom_book_hava_key{
+	margin-top: 0.25rem;
+}
+
+.keyword_bottom_book_hava_key.keyword_choice li > button.bf-button{
+	background-color: white;
+	font-size: 0.825rem;
+    color: #4D467C;
+    padding: 0.4rem 0.5rem 0.25rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}

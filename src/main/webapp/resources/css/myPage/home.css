@@ -1,0 +1,190 @@
+@charset "UTF-8";
+
+/* Home Contents Style */
+.mf-home-article {
+	margin-top: 2.5rem;
+}
+
+.mf-home-header {
+	border: 2px solid #5D568C;
+	width: 100%;
+	display: inline-block;
+	margin-top: 0;
+}
+
+.mf-home-header * {
+	font-size: 0.8rem;
+	color: dimgray;	
+}
+
+/* Account information style */
+.home-account-info-box {
+	background-color: #F3F0FA;
+	display: inline-block;
+	width: 11.25rem;
+	padding: 1.5625rem 1.25rem 1.5rem;
+}
+
+.account-info {
+	min-height: 6.25rem;
+	padding-bottom: 1.25rem;
+}
+
+.account-info-id {
+	font-size: 1.25rem;
+	font-weight: bold;
+	color: #111;
+	word-break: break-all;
+	margin-bottom: 0.3125rem;
+}
+
+.account-info-email {
+	font-size: 0.75rem;
+	font-weight: 500;
+	color: #776BCE;
+	line-height: 1.5rem;
+	word-break: break-all;
+}
+
+.account-logout-btn {
+	background-color: #F3F0FA;
+	border: 2px solid #D4CEFC;
+	border-radius: 0.1875rem;
+	display: block;
+	width: 4.0625rem;
+	height: 1.875rem;
+	line-height: 0.9375rem;
+	padding: 0.4375rem 0;
+	font-size: 0.8125rem;
+	font-weight: bold;
+	color: dimgray;
+	text-align: center;
+	transition: all 0.2s;
+}
+
+.account-logout-btn:hover {
+	background: #E1DFFA;
+	border-color: #CDC6FC;
+}
+
+.home-asset-info-box {
+	float: right;
+	display: inline-block;
+	width: 33.5rem;
+	padding: 1.875rem 0 1.3rem;
+}
+
+.home-asset-info-box:after {
+	clear: both;
+}
+
+.asset-info-list {
+	position: relative;
+	width: 100%;
+}
+
+.asset-info-list-item {
+	display: inline-block;
+	float: left;
+	width: 33.33%;
+	text-align: center;
+	border-left: 1px solid #776bce16;
+}
+
+.asset-info-list-item:first-child {
+	border-left: none;
+}
+
+.asset-info {
+	position: relative;
+	text-align: center;
+	cursor: pointer;
+}
+
+.asset-info-title {
+	font-size: 0.8125rem;
+	font-weight: 600;
+}
+
+.asset-info-title .info-icon {
+	font-size: 1.5rem;
+}
+
+.asset-info-title .info-title-text {
+	display: block;
+	margin-top: 0.4375rem;
+	font-size: 0.9375rem;
+	font-weight: bold;
+	color: #111;
+}
+
+.asset-info-amount {
+	margin-top: 0.625rem;
+	font-size: 1rem;
+	color: #776BCE;
+}
+
+.asset-info-amount .info-amount {
+	font-size: 1.75rem;
+	color: inherit;
+	vertical-align: -3px;
+	line-height: 25px;
+}
+
+.asset-more-info {
+	font-size: 0.8125rem;
+	margin-top: 0.725rem;
+	padding: 0 0.625rem;
+}
+
+.asset-more-info .bf-button {
+	font-weight: normal;	
+}
+
+.asset-more-info .bf-button:hover {
+	color: #776BCE;
+}
+
+.period-point-sum {
+	display: inline-block;
+	font-size: 1.2rem;
+	font-weight: bold;
+	transform: translateX(-0.625rem);
+}
+
+.period-point-sum:after {
+	font-size: 0.8rem;
+	content: ' 원';
+}
+
+.home-ticket-box a:after {
+	font-size: 1.3rem;
+	content: ' \00BB';
+}
+
+/* Ticket style */
+.home-ticket-box {
+	position: relative;
+	margin-top: 1.25rem;
+	border: 0.25rem solid #776bce16;
+	padding: 1.25rem 0;
+	text-align: center;
+}
+
+.ticket-empty-description {
+	font-size: 0.8rem;
+	color: dimgray;
+	line-height: 0.8rem;
+	padding-top: 0.5rem;
+}
+
+/* Purchased Style */
+.more-button-box {
+	/* z-index: 70; */
+	float: right;
+	background: #fff;
+	position: relative;
+	padding-left: 0.875rem;
+}
+
+/* Recent Style */

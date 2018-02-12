@@ -1,0 +1,237 @@
+@charset "UTF-8";
+
+/* 결제 내역 스타일 */
+.orderhistory {
+	width: 45rem;
+	display: inline;
+}
+
+.orderhistorysub1 {
+	border-top: 1px solid #E1DFFA;
+	border-bottom: 1px solid #E1DFFA;
+	width: 45rem;
+	overflow: hidden;
+	background-color: #F3F0FA;
+	color: white;
+	margin-top: 1rem;
+}
+
+.orderhistorysub2 {
+	border-bottom: 1px solid #E1DFFA;
+	width: 45rem;
+	overflow: hidden;
+	/* background-color: #776bce16; */
+}
+
+.orderhistorysub2.cancel {
+	background-color: #fafafa;
+}
+
+span.notice-highliht {
+	background-color: beige;
+    display: inline-block;
+    border-radius: 0.35rem;
+    line-height: 0.625rem;
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: #776BCE;
+    padding: 0.5rem 0.35rem 0.35rem;
+}
+
+.orderhistory span.notice-highliht {
+	margin-left: 0.5rem;
+}
+
+/* 전체 li 스타일*/
+.orderhistory li {
+	height: 3rem;
+	list-style: none;
+	float: left;
+	width: 11.25rem;
+	text-align: center;
+	line-height: 3rem;
+	font-size: 0.8125rem;
+	font-weight: bold;
+	color: dimgray;
+}
+
+/* 하위 내용 li 스타일 */
+.orderhistorysub2 li {
+	width: 11.25rem;
+	font-weight: normal;
+	color: darkgray;
+	text-align: center;
+    height: auto;
+    line-height: 1rem;
+    padding: 1rem;
+}
+
+.orderhistorysub2:hover {
+	background-color: #fafafa;
+	cursor: pointer;
+}
+
+.orderhistorysub2:hover .icon-angle-right:before {
+	font-weight: bold;
+	color: dimgray;
+}
+
+.orderhistroy_paylist {
+	text-align: left;
+	width: 9.5rem;
+}
+
+.orderhistroy_orderlist {
+	text-align: right;
+	width: 9.5rem
+}
+
+/* 결제내역 상세 페이지 스타일 */
+.orderhistory .history-content,
+.orderhistory .notice {
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.orderhistory_leftside {
+	background-color: #F3F0FA;
+	float: left;
+	width: 30%;
+	color: dimgray;
+}
+
+.orderhistory_rightside {
+	background-color: white;
+	float: right;
+	width: 70%;
+}
+
+.history-content > .orderhistory_leftside li:FIRST-CHILD,
+.history-content > .orderhistory_rightside li:FIRST-CHILD {
+	background-color: #776BCE;
+	color: white;
+}
+
+.orderhistory_rightside li:FIRST-CHILD {
+	border-left: 1px solid white;
+}
+
+.orderhistory_leftside li,
+.orderhistory_rightside li {
+	border-bottom: 1px solid white;
+	display: inherit;
+	float: none;
+	font-size: 0.875rem;
+	width: 100%;
+	height: auto;
+	line-height: 2.3rem;
+	padding: 0 1.25rem;
+	text-align: right;
+}
+
+.orderhistory_rightside li {
+	display: inherit;
+	font-weight: normal;
+	text-align: left;
+}
+
+.orderhistory_rightside .title {
+	font-weight: bold;
+	color: dimgray;
+}
+
+.orderhistory_rightside strong {
+	font-weight: bold;
+	color: #776BCE;
+}
+
+/* 결제취소 공지사항 */
+.orderhistory .notice {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+}
+
+.orderhistory ul.notice-tip {
+	display: inline-block;
+	float: left;
+	list-style: square !important;
+	width: 87%;
+	height: auto;
+	padding-left: 2rem;
+}
+
+.orderhistory .notice-tip > li {
+	list-style: inherit;
+	width: 100%;
+	height: auto;
+	line-height: 1rem;
+	font-weight: normal;
+	color: darkgray;
+	text-align: left;
+}
+
+.menu_notice_tip {
+	margin-left: 2rem;
+}
+
+.orderhistory .notice > .bf-button {
+	float: right;
+}
+
+/* 선물 정보 */
+.orderhistory_top {
+	display: inline-block;
+	width: 100%;
+	margin-top: 1rem;
+}
+
+.orderhitory_gift {
+	background-color: #776bce;
+	border-bottom: 1px solid white;
+	width: 100%;
+    line-height: 2.3rem;
+    font-weight: 600;
+	color: white;
+	text-align: center;
+	overflow: hidden;
+}
+
+.orderhistory_resubmit {
+	font-size: 0.8125rem;
+	color: darkgray;
+	text-align: right;
+	margin-top: 1rem;
+}
+
+.orderhistory_resubmit > button.bf-button{
+    padding: 0.3rem 1.23rem;
+}
+/* 개별 항목 스타일 */
+.orderhistory li.title {
+	text-align: center;
+	width: 12.5rem;
+}
+
+.orderhistory li.price {
+	text-align: center;
+	width: 6.5rem;
+}
+
+.orderhistory li.method {
+	
+}
+
+.orderhistorysub2 li.title {
+	font-weight: bold;
+	color: dimgray;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.orderhistorysub2 li.price {
+	text-align: right;
+	font-weight: bold;
+	color: #776BCE;
+}

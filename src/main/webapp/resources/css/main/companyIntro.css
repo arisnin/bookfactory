@@ -1,0 +1,311 @@
+@charset "UTF-8";
+/*
+	회사소개 페이지 css - 최정은
+*/
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+#mapBody{
+	background-color: black;
+	
+}
+
+#mapBody > div:FIRST-CHILD{
+	height: 100%;
+}
+
+#map {
+  width:1150px;
+/*   position:absolute; */
+/*   left:100px; */
+  height: 50%;
+  margin: 0px auto;
+  
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+/*   overflow-x: hidden; */
+/*   overflow-y: hidden;   */
+}
+
+a:ACTIVE, a:HOVER, a:LINK, a:VISITED{
+	color: white;
+}
+
+
+#companyIntro{
+    height: 470px;
+    margin: 0px auto;
+    width: 100%;
+   
+}
+
+#companyIntro > div{
+	width: 1150px;
+    padding: 10px;
+    margin: 0px auto;
+}
+
+.company_left{
+    float: left;
+    /* height: 1700px; */
+    /* margin-right: 70px; */
+    /* margin: 0px auto; */
+    margin-left: 100px;
+/*     min-height: 415px; */
+/*     max-height: 415px; */
+    text-align: center;
+}
+
+.company_title{
+    color: #776bce;
+    font-size: 1.5rem;
+    margin: 20px 0px;
+}
+
+.company_sub{
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.company_sub_child{
+    color: #999;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.company_right_basic{
+    float: left;
+    margin-left: 90px;
+    text-align: center;
+}
+
+.company_right_click{
+    position: relative;
+    height: 18rem;
+    min-height: 18rem;
+    text-align:center;
+    border: 0px solid purple;
+}
+
+.company_right_click > div:nth-child(2){
+	position: absolute;
+	top:5px;
+	right: 10px;
+	color: white;
+}
+
+.click_event_absolute{
+    position: absolute;
+    top: 55px;
+    left: 55px;
+    /* width: 70rem; */
+    /* min-width: 65rem; */
+    /* height: 14rem; */
+    /* min-height: 14rem; */
+    border: 0px solid red;
+    line-height: 20px;
+}
+
+.click_event_absolute span{
+	border: 1px solid #776bce;
+}
+
+.click_event_absolute > .event_stick{
+	position: absolute;
+    top: 112px;
+    left: 15px;
+    width: 985px;
+    height: 0px;
+    border: 2px solid #776bce;
+    text-align: center;
+}
+
+.event_start{
+    color: white;
+    position: absolute;
+    top: 147px;
+    left: 140px;
+    width: 105px;
+    /* height: 0px; */
+/*     border: 1px solid pink; */
+    padding: 5px 5px;
+    text-align: center;
+}
+
+.event_start > span{
+    position: absolute;
+    top: -35px;
+    left: 50px;
+    /* width: 100px; */
+    height: 35px;
+    padding: 0px;
+}
+
+.event_view{
+	color: white;
+    position: absolute;
+    top: 22px;
+    left: 280px;
+    width: 90px;
+    /* height: 0px; */
+/*     border: 1px solid pink; */
+    padding: 5px 5px;
+    text-align: center;
+}
+
+.event_view > span{
+    position: absolute;
+    top: 51px;
+    left: 42px;
+    /* width: 95%; */
+    height: 40px;
+    padding: 0px;
+}
+
+.event_db{
+    color: white;
+    position: absolute;
+    top: 147px;
+    left: 455px;
+    width: 135px;
+    /* height: 0px; */
+/*     border: 1px solid pink; */
+    padding: 5px 5px;
+    text-align: center;
+}
+
+.event_db > span{
+    position: absolute;
+    top: -35px;
+    left: 65px;
+    /* width: 100px; */
+    height: 35px;
+    padding: 0px;	
+}
+
+.event_func{
+    color: white;
+    position: absolute;
+    top: 22px;
+    left: 630px;
+    width: 90px;
+    /* height: 0px; */
+/*     border: 1px solid pink; */
+    padding: 5px 5px;
+    text-align: center;
+}
+
+.event_func > span{
+    position: absolute;
+    top: 51px;
+    left: 42px;
+    /* width: 95%; */
+    height: 40px;
+    padding: 0px;
+}
+
+.event_pre{
+    color: white;
+    position: absolute;
+    top: 147px;
+    left: 780px;
+    width: 90px;
+    /* height: 0px; */
+/*     border: 1px solid pink; */
+    padding: 5px 5px;
+    text-align: center;
+}
+
+.event_pre > span{
+    position: absolute;
+    top: -33px;
+    left: 43px;
+    /* width: 95%; */
+    height: 33px;
+    padding: 0px;
+}
+
+.event_to{
+	color: white;
+    position: absolute;
+    top: 100px;
+    left: 815px;
+    width: 49px;
+    /* height: 0px; */
+    /* border: 1px solid pink; */
+    padding: 5px 5px;
+    text-align: center;
+}
+
+.event_to_tri{
+	position: absolute;
+    top: 109px;
+    left: 860px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-left: 5px solid pink;
+}
+
+.event_to_li{
+    color: white;
+    position: absolute;
+    top: 45px;
+    left: 875px;
+    /* width: 49px; */
+    /* height: 0px; */
+    /* border: 1px solid pink; */
+    /* padding: 5px 5px; */
+    /* text-align: center; */
+}
+
+.event_to_li li:nth-child(1) {
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    width: 45px;
+}
+
+.event_to_li li:nth-child(2) {
+    position: absolute;
+    top: 35px;
+    left: 50px;
+    width: 45px;
+}
+.event_to_li li:nth-child(3) {
+    position: absolute;
+    top: 60px;
+    left: 50px;
+    width: 45px;
+}
+.event_to_li li:nth-child(4) {
+    position: absolute;
+    top: 85px;
+    left: 50px;
+    width: 45px;
+}
+.event_to_li li:nth-child(5) {
+    position: absolute;
+    top: 35px;
+    left: 100px;
+    width: 45px;
+}
+.event_to_li li:nth-child(6) {
+    position: absolute;
+    top: 60px;
+    left: 100px;
+    width: 45px;
+}
+.event_to_li li:nth-child(7) {
+    position: absolute;
+    top: 85px;
+    left: 100px;
+    width: 45px;
+}

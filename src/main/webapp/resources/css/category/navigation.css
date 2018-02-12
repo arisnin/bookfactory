@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+/**
+ * 전체분야 > 네비게이션 스타일
+ *
+ * @author   박성호(최초작성)
+ * @date   2018. 1. 29.
+ * @description   
+ */
+ 
+/* Navigation menu Style */
+.ca-navi-box>.bf-title-row.title-type3:before {
+	display: none;
+}
+
+.ca-navi-box>.navigation {
+	
+}
+
+.ca-navi-box .bf-button {
+	width: 100%;
+	font-weight: normal;
+	color: dimgray;
+	text-align: left;
+}
+
+/* Main-menu(accordion) */
+.ca-navi-box .accordion {
+	background-color: #F3F0FA;
+	width: 80%;
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.ca-navi-box .accordion.active,
+.ca-navi-box .accordion:hover {
+	background-color: #776BCE;
+	color: #FCF9FF;
+}
+
+.ca-navi-box .panel {
+	padding: 0.8rem;
+	display: none;
+	background-color: white;
+	overflow: hidden;
+}
+
+.ca-navi-box .accordion.active+ul.panel {
+	display: block;
+}
+
+/* Sub-menu */
+.ca-navi-box .panel .bf-button {
+	padding: 0.1875rem 0.8rem;
+}
+
+.ca-navi-box .panel .bf-button.active,
+.ca-navi-box .panel .bf-button:hover {
+	font-weight: bold;
+	color: #776BCE;
+}

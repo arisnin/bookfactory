@@ -1,0 +1,91 @@
+@charset "UTF-8";
+.myReview{
+	width: 45rem;
+	float: left;
+	display:inline-block;
+	font-size: 0.9rem;
+	font-weight: normal;
+	color: #333;
+}
+
+.myReview_main{
+	width: 100%;
+	height: 1rem;
+	line-height: 1rem;
+}
+
+.myReview_intro{
+	float: right;
+}
+
+.myReview_main_content{
+	border: 1px solid #E1DFFA;
+    border-radius: 0.25rem;
+    box-shadow: 0.125rem 0.125rem 0.125rem 0 lightgrey;
+	margin: 1rem;
+	padding: 1rem;
+	overflow: hidden;
+	line-height: 1.5rem;
+}
+
+.myReview_main_content_review{
+	font-size: 0.875rem;
+}
+
+.myReview_main_content .myReview_main_content_button{
+	float: right;
+	width: auto;
+}
+
+/* 전체 */
+.myReview_main_content > * {
+	display:inline-block;
+	width: 100%;
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: #333;
+}
+
+.myReview_main_content_title  a,
+.myReview_main_content_title  a:link,
+.myReview_main_content_title  a:visited {
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: #333;
+}
+
+.myReview .myReview_count {
+	font-weight: bold;
+	color: #776BCE;
+	margin-left: 0.25rem;
+}
+
+/* 별점 */
+.myReview_main_content .content-star-rate {
+	display: inline-block;
+	width: auto;
+	/* transform: translateY(-0.1rem); */
+}
+
+.myReview_main_content .content-star-rate > * {
+	/* vertical-align: middle; */
+}
+
+.myReview_main_content .content-star-rate > .count-field {
+	margin-left: 0.5rem;
+}
+
+/* 리뷰 내용 */
+.myReview p.myReview_main_content_review {
+	border-radius: 0.25rem;
+	width: 100%;
+	/* height: 4.5375rem; */
+	font-size: 0.8125rem;
+	font-weight: 500;
+	color: dimgray;
+	min-height: 2rem;
+	line-height: 1.6rem;
+	text-align: left;
+	resize: none;
+	overflow: hidden;
+}

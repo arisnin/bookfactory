@@ -1,0 +1,176 @@
+@charset "UTF-8";
+/*
+	신간과 베스트셀러를 눌렀을때 나오는 화면입니다. - 최정은
+*/
+
+/**
+ * 세부 CSS 수정
+ * @author	박성호(최초작성)
+ * @date	2018. 2. 11.
+ */
+#newBook{
+	min-width:56.25rem;
+	width: 56.25rem;
+	border: 0px solid;
+	margin: 0px auto;	
+/* 	margin-top: 20px; */
+/* 	margin-left: 40px; */
+}
+
+#newBook > .title-type1 > h2{
+	/*자리만 만들어놈*/
+}
+
+#newBook > .bf-service-type-menu > .order-type-list{
+	padding: 0.7rem 0;
+}
+
+#newBook > .bf-service-type-menu li >.view-type-list {
+	position: relative;
+    bottom: -9px;
+}
+
+/* 간단한 화면 스타일 */
+.newBook_booklist_short{
+	width: 95%;
+	height:1120px;
+	border: 0px solid red;
+	margin: 20px auto;
+}
+
+.newBook_book{
+    width: 17%;
+    height: 250px;
+    border: 0px solid;
+    margin: 13px 12.7px;
+    float: left;
+    padding: 0px 14px;
+}
+
+.newBook_book > img{
+	width: 115px;
+    height: 150px;
+    border: 1px solid;
+    box-shadow: 0px 1px 3px 1px #aaa;
+    cursor: pointer;
+}
+
+.newBook_book_title{
+    margin-top: 10px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.newBook_book_author{
+    margin-top: 5px;
+    font-size: 0.8rem;
+    font-weight: lighter;
+    cursor: pointer;
+}
+
+.newBook_book > .content-star-rate{
+    margin-top: 4px;
+    font-size: 0.8rem;
+    margin-left: -2px;
+    width: 100%;
+    text-align: left;
+}
+
+.newBook_book_money{
+    margin-top: 5px;
+    font-size: 0.8rem;
+    font-weight: lighter;
+}
+
+.newBook_book_money > span:last-child {
+	color:#776bce;
+	position: relative;
+	top:1px;
+}
+
+#newBook > .bf-pagination{
+	margin-top: 15px;
+}
+
+/* 긴화면 스타일 */
+.longBook{
+    width: 100%;
+    height: 200px;
+    border: 0px solid;
+    padding: 20px 0px;
+    border-bottom: 1px solid Lavender;
+	
+}
+
+.longBook_img{
+	float: left;
+	width: 130px;
+	height: 100%;
+	border: 0px solid red;
+	margin-right: 10px;
+}
+
+.longBook_img > img{
+    width: 110px;
+    height: 156px;
+    border: 1px solid;
+    margin: 0px 9px;
+    box-shadow: 0px 1px 3px 1px #aaa;
+    cursor: pointer;
+}
+
+.longBook_comment{
+	margin: 10px 0px;
+	float: left;
+}
+
+.longBook_title{
+	font-size: 1rem;
+	font-weight: bold;
+	margin-bottom: 7px;
+	cursor: pointer;
+}
+
+.longBook_star{
+	font-size: 0.8rem;
+	margin-bottom: 15px;
+	color: #aaa;
+}
+
+.longBook_star > .content-star-rate{
+	display: inline;
+	margin-right: 3px;
+    position: relative;
+    top: 2px;
+}
+
+.longBook_star > span{
+	color:black;
+	margin-right: 3px;
+	margin-left: 3px;
+	cursor: pointer;
+}
+
+.longBook_content{
+	font-size: 0.8rem;
+	font-weight: lighter;
+	margin-bottom: 15px;
+}
+
+/* 책 목록 보기 스타일 */
+#newBook .mf-book-thumbnail {
+	width: 67%;
+}
+
+#newBook .mf-book-metadata {
+	width: 69%;
+}
+
+#newBook .mf-book-list.list-landscape > li > .mf-book-thumbnail {
+	width: 12%;
+}
+
+#newBook .mf-book-list.list-landscape > li > .mf-book-metadata {
+	width: 85%;
+}

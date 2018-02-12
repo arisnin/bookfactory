@@ -1,0 +1,189 @@
+@charset "UTF-8";
+
+/**
+ * 마이페이지  > 쿠폰 스타일
+ *
+ * @author	박성호(최초작성)
+ * @date	2018. 1. 29.
+ * @description
+ */
+
+/* New Release list Style */
+.mf-coupon-box {
+	width: 100%;
+	margin-top: 0;
+}
+
+/* menu */
+.mf-coupon-box > .bf-service-type-menu > .bf-button {
+	float: right;
+}
+
+.mf-coupon-box > .bf-service-type-menu > .bf-button > .material-icons {
+	margin: 0;
+	margin-left: -.25rem;
+}
+
+/* 쿠폰 내역 */
+.mf-coupon-box > .history-list-box {
+	margin-top: 2rem;
+}
+
+/* Coupon Registration Dialog */
+.coupon-dialog {
+    z-index: 1000;
+    display: none;
+    position: fixed;
+    padding-top: 150px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Dialog Content */
+.coupon-dialog > .content {
+    background-color: #fefefe;
+    border: 0.25rem solid #888;
+    border-radius: 0.625rem;
+    position: relative;
+    width: 352px;
+    line-height: 1.2rem;
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: darkgray;
+    margin: auto;
+}
+
+.coupon-dialog > .content .title {
+	background-color: #776BCE;
+    border-radius: 0.25rem 0.25rem 0 0;
+	width: 100%;
+	height: 2rem;
+	line-height: 2rem;
+	font-weight: bold;
+	color: #F3F0FA;
+	padding: 0.125rem 1rem;
+}
+
+.coupon-dialog > .content .sub-title {
+	width: 100%;
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: dimgray;
+	padding: 2.5rem 1.5rem 2rem;
+	text-align: center;
+}
+
+.coupon-dialog > .content .register-input {
+	width: 100%;
+	height: 2.5rem;
+	line-height: 2.5rem;
+	padding: 0 1.5rem;
+}
+
+.coupon-dialog > .content .register-input .bf-button {
+	vertical-align: middle;
+}
+
+.coupon-dialog > .content .register-number {
+	border: 1px solid #776BCE;
+	width: 81%;
+	height: 1.8625rem;
+    font-weight: bold;
+    letter-spacing: 0.12rem;
+    text-transform: uppercase;
+	line-height: 1.5rem;
+	padding: 0 1rem;
+	vertical-align: middle;
+}
+
+.coupon-dialog > .content .notice {
+	margin-top: 1rem;
+	padding: 0 1rem 1rem 2.25rem;
+}
+
+.coupon-dialog > .content .notice strong {
+	font-weight: bold;
+	color: dimgray;
+}
+/* placeholder style */
+.coupon-dialog > .content .register-number::placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: gray;
+}
+
+.coupon-dialog > .content .register-number::-webkit-input-placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: gray;
+}
+
+.coupon-dialog > .content .register-number::-moz-placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: gray;
+}
+
+.coupon-dialog > .content .register-number:-ms-input-placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: gray;
+}
+
+.coupon-dialog > .content .register-number:focus::placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: silver;
+}
+
+.coupon-dialog > .content .register-number:focus::-webkit-input-placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: silver;
+}
+
+.coupon-dialog > .content .register-number:focus::-moz-placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: silver;
+}
+
+.coupon-dialog > .content .register-number:focus:-ms-input-placeholder {
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: silver;
+}
+
+/* The Close Button */
+.coupon-dialog .close {
+	height: 2rem;
+	line-height: 2rem;
+    float: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #F3F0FA;
+   padding: 0.25rem 0.625rem;
+}
+
+.coupon-dialog .close:hover,
+.coupon-dialog .close:focus {
+    color: #5D568C;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*자리를 빼앗아요~ 빼앗아~~~~~ 오예~~~~~ 오오오옹오오 네비게이션~~~
+	내자리 돌리도~~ 내자리는어디에~~ 어에ㅖ~~~~ 내자리 내자리 `````내자리~~~~~~~~
+	`내자리이이이이이!!!! 호여리 얼굴짱빨갛다!!!!!!!!
+	호여리!!!!!!! 호열리!!!!!!!! 호여리!!!!!!!!! 마스터는 저기에 나는 마스터자리를 빼앗아
+	우루룰루루루 내자리언제돌아가~~~~~~~~~~~~
+	후ㅠ우우우우우 에휴~~~ 헤어휴휴~~~~ 이히 이히 호옿옹홍홍~ ㅖ헤헤헤헤
+	헤헤헤헿헤 내ㅔ자리 돌려줘어엉어! 내자리 내자리!!! 자리를 빼앗아요 난 할것이많아~ 
+	내자리는 어디에?~~ 어디에!!!
+	후룰룰루룰루 후룰룰ㄹ 앞자리 앞자리 앞자리~~~~ 앞자리~ 다음에는 두번째자리~~~ 두번째자리~
+	다음ㅇ은 두번째자리이이잉이이이~~~~~~~~~~~~~ 아하하하핳하핳 */

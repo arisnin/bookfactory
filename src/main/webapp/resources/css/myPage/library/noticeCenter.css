@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+/**
+ * 마이페이지  > 알림센터 스타일
+ *
+ * @author	박성호(최초작성)
+ * @date	2018. 1. 28.
+ * @description
+ */
+
+/* Notice Center list Style */
+.mf-notice-center-box {
+	width: 100%;
+	margin-top: 0;
+}
+
+/**/
+.mf-notice-center-box .mf-book-list.list-landscape .mf-book-thumbnail {
+	width: 12%;
+	height: auto;
+	min-height: initial;
+	margin-top: 2.5%;
+}
+
+.mf-notice-center-box .mf-book-list.list-landscape .mf-book-thumbnail-image {
+	position: relative;
+}
+
+.mf-notice-center-box .mf-book-list.list-landscape .mf-book-metadata {
+	width: 85%;
+}
+
+.mf-notice-center-box .mf-book-list.list-landscape p.book-metadata-description {
+	display: block;
+	width: 100%;
+	font-size: 0.8125rem;
+	line-height: 1.5rem;
+	max-height: 4rem;
+}
+
+.mf-book-list.list-landscape p.book-metadata-description > strong {
+	font-weight: bold;
+}
+
+.mf-book-list.list-landscape span.notice-time {
+	display: block;
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: darkgray;
+}
+
+.mf-book-list.list-landscape span.notice-time:after {
+	content: '일 전';
+}

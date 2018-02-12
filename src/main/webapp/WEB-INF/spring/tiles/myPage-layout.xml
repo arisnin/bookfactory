@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+	<!-- 마이 페이지 템플릿 -->
+	<definition name="templateMyPage" template="/WEB-INF/views/layouts/templateMyPage.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/header/index.jsp" />
+		<put-attribute name="navigation" value="/WEB-INF/views/myPage/navigation.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/myPage/home.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/footer/footer.jsp" />
+	</definition>
+
+	<!-- 확장 설정 -->
+	<definition name="*/*.my" extends="templateMyPage">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+	</definition>
+	
+	<definition name="*/*/*.my" extends="templateMyPage">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+	</definition>
+	
+</tiles-definitions>

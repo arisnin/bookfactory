@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+/* Navigation menu Style */
+.myridi-left-menu span {
+	display: inline-block;
+}
+
+.myridi-title {
+	font-size: 24px;
+	font-weight: bold;
+	color: #333;
+}
+
+.myridi-menu-navi {
+	margin-top: 10px;
+	width: 140px;
+}
+
+.myridi-menu-section {
+	position: relative;
+	padding: 17px 0;
+	border-bottom: 2px solid lavender;
+}
+
+.myridi-menu-title {
+	display: inline-block;
+	position: relative;
+	transition: all 0.4s;
+	font-size: 15px;
+	font-weight: bold;
+	color: #444;
+	line-height: 18px;
+    /* vertical-align: bottom; */
+}
+
+a.myridi-menu-title.active {
+	color: #776BCE;
+}
+
+a.myridi-menu-title:not(.active ):hover {
+	color: gray;
+}
+
+.myridi-menu-title .material-icons {
+	float: left;
+	width: 24px;
+	font-size: 18px;
+}
+
+.menu-title-text {
+	float: left;
+}
+
+.myridi-menu-list {
+	position: relative;
+	margin-left: 24px;
+	list-style: none;
+	clear: both;
+}
+
+.menu-list-item {
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 13px;
+}
+
+.menu-list-item a:not(.active ):hover {
+	color: #333;
+}
+
+.menu-list-item a {
+	display: inline-block;
+	padding-top: 10px;
+	color: gray;
+}
+
+.item-link.active {
+	color: #776BCE;
+}

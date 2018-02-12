@@ -1,0 +1,25 @@
+@charset "UTF-8";
+/*	Date: 2018-01-20
+ *	Author: 박성호
+ */
+ 
+/* Non-main-banner Style */
+.home-normal-banner {
+	background-color: #fff;
+	width: 100%;
+	height: 21.5rem;
+	min-width: 56.25rem;
+}
+
+.home-normal-banner .today-recommended-title {
+	font-size: 1.4375rem;
+	color: #555;
+}
+
+.home-normal-banner .recommended-book-metadata {
+	color: black;
+}
+
+.home-normal-banner .content-star-rate {
+	display: none;
+}

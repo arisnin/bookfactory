@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+.myridi-contents-page {
+	float: left;
+	width: 45rem;
+	padding-bottom: 5.625rem;
+}
+
+/* Purchased list Style */
+.myridi-purchased-box {
+	
+}
+
+/* title */
+.purchased-title {
+	position: relative;
+	margin-bottom: 1.25rem;
+}
+
+.purchased-title:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.purchased-title-text {
+	z-index: 10;
+	background-color: white;
+	float: left;
+	position: relative;
+	font-size: 1.125rem;
+	font-weight: bold;
+	color: black;
+}
+
+.purchased-book-count {
+	display: inline-block;
+	color: gray;
+	padding-left: 0.3125rem;
+}
+
+/* service type */
+.service-type-list-box {
+	position: relative;
+	margin-top: 0.625rem;
+}
+
+.service-type-list {
+	border-bottom: 0.125rem solid Thistle;
+}
+
+.service-type-item {
+	display: inline-block;
+	margin-right: 0.9375rem;
+}
+
+.service-type-item a {
+	border-bottom: 0.1875rem solid transparent;
+	position: relative;
+	top: 0.125rem;
+	display: inline-block;
+	min-width: 1.5625rem;
+	text-align: center;
+	font-size: 0.9375rem;
+	font-weight: bold;
+	color: #444;
+	padding: 0.625rem 0;
+	transition: border 0.3s;
+}
+
+.service-type-item a.active {
+	border-bottom: 0.1875rem solid DodgerBlue;
+}
+
+.service-type-item a:not(.active ):hover {
+	border-bottom: 0.1875rem solid SlateGray;
+}
+
+/* search */
+.purchased-list-search-box {
+	background-color: lavender;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 200px;
+	padding: 0.4375rem 1.875rem 0.4375rem 2.1875rem;
+	color: gray;
+	border-radius: 5px;
+	-webkit-transition: border-color .2s, box-shadow .2s;
+	transition: border-color .2s, box-shadow .2s;
+}
+
+.purchased-list-search-box .material-icons {
+	position: absolute;
+	top: 0.375rem;
+	left: 0.4375rem;
+	font-size: 1.125rem;
+	font-weight: normal;
+}
+
+.purchased-list-search-box .search-word-box {
+	background-color: lavender;
+	font-size: 0.75rem;
+	font-weight: normal;
+	color: red;
+	border: none;
+}
+
+.purchased-action-box {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	padding: 1.25rem 0 0.625rem;
+}
+
+.purchased-action-select {
+	float: left;
+	display: block;
+	padding: 0.125rem 0 0.1875rem;
+}
+
+.purchased-action-select label {
+	line-height: 1.125rem;
+	vertical-align: middle;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	display: inline-block;
+	padding-left: 0.3125rem;
+	position: relative;
+	margin-right: 0.625rem;
+	color: #636c73;
+	font-size: 0.8125rem;
+	font-weight: 700;
+	-webkit-transition: color .2s;
+	transition: color .2s;
+}
+
+.purchased-action-button {
+	float: right;
+}
+
+.purchased-form-list-box {
+	margin-bottom: 1.875rem;
+}
+
+.purchased-form-list-box[name=purchased-form-list] {
+	
+}
+
+.purchased-select {
+	position: absolute;
+	top: 0.625rem;
+	left: -0.375rem;
+}
+
+.purchased-form-delete-box {
+	
+}
+
+.ridi-book-thumbnail-image{
+	cursor: pointer;
+}

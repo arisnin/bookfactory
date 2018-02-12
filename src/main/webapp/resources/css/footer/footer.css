@@ -1,0 +1,176 @@
+@charset "UTF-8";
+
+.footer_background {
+	background-color: #F3F0FA;
+	width: 100%;
+	min-width: 56.25rem;
+	height: 17rem;
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: #333;
+}
+
+.footer_header {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	width: 100%;
+	font-size: 0.8rem;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.footer_header_border {
+	position: relative;
+	width: 56.25rem;
+	height: 1rem;
+	line-height: 1rem;
+	margin: 1rem auto;
+	overflow: hidden;
+}
+
+.footer_header_notice {
+	float: left;
+	font-size: 0.8rem;
+	font-weight: bold;
+	padding-right: 1rem;
+	cursor: pointer;
+}
+
+.footer_header_notice > i.material-icons {
+	position: absolute;
+    font-size: 0.8rem;
+    top: 50%;
+    left: 2.8rem;
+    margin-top: -0.3825rem;
+}
+
+.footer_header_notice:hover {
+	color: #776BCE;
+}
+
+.footer_haeder_notice_text {
+	float: left;
+	color: #888;
+	cursor: pointer;
+}
+
+.footer_haeder_notice_text span {
+	display: block;
+}
+
+.footer_header_notice_change{
+	position: relative;
+	top: 0px;
+	display: block;
+}
+
+.footer_header_notice_change:hover {
+	color: #776BCE;
+}
+
+/* 푸터 내용 부분(2018-02-11 박성호 수정) */
+.footer-content {
+	width: 56.25rem;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.footer-content .left {
+	display: inline-block;
+	position: relative;
+	float: left;
+	width: 65%;
+}
+
+.footer-content .right {
+	display: inline-block;
+	position: relative;
+	float: right;
+	width: 35%;
+	margin-top: 0.8rem;
+}
+
+.footer-content .row {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	line-height: 1.2rem;
+	color: #777;
+}
+
+.footer-content .row > * {
+	display: inline-block;
+	float: left;
+	margin-top: 0.8rem;
+}
+
+.footer-content .contact-number {
+	font-size: 1.5rem;
+	padding: 1.2rem 1.2rem 0.8rem 0;
+	vertical-align: middle;
+}
+
+.footer-content .order-type-list {
+	position: relative;
+	top: 0.8rem;
+}
+
+.footer-content .order-type-list a {
+	font-size: 0.9rem;
+	color: #666;	
+}
+
+.footer-content .contact-address {
+	color: #777;
+	line-height: 1.2rem;
+}
+
+.footer-content .copyright > li,
+.footer-content .about > li,
+.footer-content .service > li{
+	display: inline-block;
+	float: left;
+	margin-right: 1rem;
+}
+
+.footer-content a {
+	cursor: pointer;
+}
+
+.footer-content strong {
+	font-weight: bold;
+	color: #333;
+}
+
+.footer-content .about,
+.footer-content .service {
+	font-size: 0.9rem;
+}
+
+.footer-content .award-list > li {
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	font-size: 1rem;
+	overflow: hidden;
+	padding: 0.25rem;
+	margin-top: 0.8rem;
+}
+
+.footer-content .award-list .badge-img {
+	display: inline-block;
+	float: left;
+	width: 2rem;
+	height: 2rem;
+}
+
+.footer-content .award-list .title {
+	display: inline-block;
+	float: right;
+	width: 85%;
+}
+
+.footer-content .award-list .title > span {
+	display: inline-block;
+	width: 100%;
+}

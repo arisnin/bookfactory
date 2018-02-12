@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+/* 김도현(최초작성) */
+
+/**
+ * 세부 CSS 수정
+ * @author	박성호(최초작성)
+ * @date	2018. 2. 11.
+ */
+
+.wishlistMainContent{
+    width: 56.25rem;
+    margin: 0px auto;
+}
+
+.wishlistMainContent span {
+	word-wrap: break-word;
+	word-break: break-all;
+	white-space: normal;
+	text-overflow: ellipsis;
+}
+
+.wishlistMainContent > .cart_content {
+	border: none;
+}
+
+.wishlistMainContent .title-menu {
+	display: inline-block;
+	width: 100%;
+	margin: 0 auto 0 0;
+}
+
+.wishlistMainContent .title-menu .service-type-list {
+	margin-top: 0.5rem;
+}
+
+.wishlistMainContent > .cart_content > .cart_content_select,
+.wishlistMainContent > .cart_content > .cart_content_book {
+	width: 100%;
+	margin: 0;
+}
+
+.wishlistMainContent .cart_content_book_content>span:first-child {
+	font-size: 0.9rem;
+	color: #666;
+}
+
+/* 구매 타입(구매 또는 대여) 스타일*/
+.wishlistMainContent .cart_content_book_content .count_percent.buy-type:after {
+	content: '';
+	font-weight: normal;
+	margin-right: 0.5rem;
+}
+
+/* ************************ */
+.wishlist_head_top {
+	margin-top: 4.6rem;
+}
+.wishlist_header {
+	border: 1px solid #D4CEFC;
+	background-color: #F5F2FC;
+}
+
+.wishlistMainContent div.wishlist_header > label {
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: #333;	
+}
+
+.cart_content_book.wishlist_middle {
+	border: 1px solid #D4CEFC;
+	border-bottom: 0px;
+	background-color: #F5F2FC;
+	width: 100%;
+	margin: 0px;
+}
+
+.cart_content_book.wishlist_middle > .book-thumbnail {
+	width: 25%;
+}
+
+.cart_content_book.wishlist_middle > .book-thumbnail > img {
+	width: 80%;
+	margin-left: 20%;
+}
+
+.cart_content_book_content.wishlist_content {
+	width: 65%;
+    margin: 0 5%;
+}
+
+.wishlist_middle:last-child{
+	border-bottom: 1px solid #D4CEFC;
+	border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.wishlist_header>label{
+    font-weight: bold;
+    font-size: 0.9rem;
+}

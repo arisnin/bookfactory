@@ -1,0 +1,458 @@
+@charset "UTF-8";
+
+/**
+ * 책 리뷰 작성 페이지
+ *
+ * @author	박성호(최초작성)
+ * @date	2018. 1. 21.
+ * @description	별점평가, 리뷰 작성, 리뷰 목록, 댓글 작성 컨트롤 구현
+ */
+ 
+ .wrap-container > .bf-title-row{
+ 	border-bottom: 2px solid #5D568C;
+ }
+
+ /* 리뷰 */
+ .bf-review-box {
+ 	position: relative;
+ 	overflow: hidden;
+ 	margin-top: 1.5rem;
+ }
+  
+ /* 구매자 별점 정보 */
+.buyer-score-info {
+	display: inline-block;
+	position: relative;
+	float: left;
+	width: 25%;
+	font-size: 0.8rem;
+	font-weight: bold;
+	color: dimgray;
+	text-align: center;
+}
+
+.buyer-score-info > .title {
+	padding-top: 1.5rem;
+}
+
+.buyer-score-info > .score {
+	display: inline-block;
+	font-size: 2.75rem;
+	font-style: italic;
+	font-weight: bold;
+	padding: 1.2rem 0 0.2rem;
+}
+
+.buyer-score-info > .content-star-rate > .material-icons {
+	font-size: 1.375rem;
+	line-height: 1.375rem;
+}
+
+.buyer-score-info > .score-graph {
+	border-top: 1px solid #CDC6FC;
+	border-bottom: 1px solid #CDC6FC;
+	display: block;
+	width: 75%;
+	font-size: 0.8rem;
+	padding: 0.5rem 0;
+	margin: 0.5rem auto;
+}
+
+.buyer-score-info > .score-graph > li {
+	margin-bottom: 0.25rem;
+}
+
+.buyer-score-info > .score-graph .material-icons {
+	display: inline-block;
+	font-size: 1rem;
+	vertical-align: bottom;
+	margin: 0 0.1rem;
+}
+
+.buyer-score-info .score-bar-container {
+	background-color: #F3F0FA;
+	border-radius: 0.1rem;
+	box-shadow: -0.0625rem 0.0625rem 0.0625rem 0 #D4CEFC inset;
+	display: inline-block;
+	width: 74%;
+	position: relative;
+	bottom: 0.1rem;
+	margin-left: 0.1rem;
+}
+
+.buyer-score-info .score-bar-container:before,
+.buyer-score-info .score-bar:before {
+	display: inline-block;
+	content: ' ';
+}
+
+.buyer-score-info .score-bar {
+	background-color: #776BCE;
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+/*
+.buyer-score-info .score-graph li:nth-child(1) .score-bar {
+	width: 50%;
+}
+
+.buyer-score-info .score-graph li:nth-child(2) .score-bar {
+	width: 10%;
+}
+
+.buyer-score-info .score-graph li:nth-child(3) .score-bar {
+	width: 40%;
+}
+*/
+.buyer-score-info > .score-rater-num {
+	display: block;
+	padding: 0.3rem 0;
+	width: 80%;
+	font-weight: normal;
+	color: gray;
+	margin: 0 auto;
+}
+
+/* write review control */
+.review-write-box {
+	display: inline-block;
+	position: relative;
+	float: right;
+	width: 75%;
+	font-size: 0.8rem;
+	font-weight: bold;
+	color: dimgray;
+	text-align: center;
+}
+
+.review-write-box >.star-rate-box {
+	height: 8.4rem;
+}
+
+.review-write-box >.star-rate-box > span {
+	display: block;
+	visibility: visible;
+	opacity: 1;
+	font-size: 1.125rem;
+	color: gray;
+	padding-top: 1.3125rem;
+}
+
+/* 별점평가 - 별 아이콘 영역 */
+#star-rate-touch-box {
+	margin-top: 1rem;
+}
+
+#star-rate-touch-box .star-field {
+	display: inline-block;
+	font-size: 0rem;
+	color: #E1DFFA;
+	-webkit-transition: color .2s, box-shadow .2s;
+	transition: color .2s, box-shadow .2s;
+}
+
+#star-rate-touch-box .star-field:hover {
+	color: tomato;
+}
+
+#star-rate-touch-box .star-icon {
+	font-size: 3.125rem;
+	padding: 0 0.25rem;
+}
+
+#star-rate-touch-box .star-icon:after {
+	content: ' ';
+	font-size: 2.2rem;
+	position: relative;
+	bottom: 0.5rem;
+	border-right: 1px solid #F3F0FA;
+	padding: 0 0.25rem;
+}
+
+#star-rate-touch-box .star-icon.last {
+	padding: 0;
+}
+
+#star-rate-touch-box .star-icon.last:after {
+	content: '';
+	border: none;
+}
+
+#star-rate-touch-box .star-icon + span.star-rate-tip {
+	z-index: 1000;
+    background-color: #776BCE;
+    border-radius: 1.25rem;
+    border: 15px solid white;
+    border-bottom: 10px solid white;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    margin-left: -85px;
+    width: 170px;
+    height: 55px;
+    line-height: 1.875rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    /* -webkit-transition: visibility .2s, box-shadow .2s; */
+    /* transition: visibility .2s, box-shadow .2s; */
+}
+
+#star-rate-touch-box .star-icon:hover + span.star-rate-tip {
+	visibility: visible;
+    opacity: 1;
+}
+
+#star-rate-touch-box .star-icon + span.star-rate-tip:after {
+	content: "";
+    position: absolute;
+    top: 99%;
+    left: 50%;
+    margin-left: -0.375rem;
+    border-width: 0.375rem;
+    border-style: solid;
+    border-color: #776BCE transparent transparent transparent;
+}
+
+/* 리뷰 작성 폼 */
+.review-write-box .review-write-form {
+	width: 100%;
+	height: 7.375rem;
+	margin: 0 auto 0.5rem;
+}
+
+.review-write-box .review-write-form > textarea {
+	border: 0.125rem solid #E1DFFA;
+	border-radius: 0.25rem;
+	width: 100%;
+	height: 100%;
+	font-size: 1rem;
+	padding: 0.625rem 6.25rem 0.625rem 1rem;
+	resize: none;
+}
+
+.review-write-box .review-write-submit {
+	position: relative;
+	padding: 0.25rem 0;
+	text-align: left;
+}
+
+.review-write-box .review-write-submit > * {
+	float: right;
+}
+
+.review-write-box .review-write-submit > button ~ button {
+	float: left;
+}
+
+/* 리뷰 목록 & 댓글 작성 */
+.bf-review-box>.review-list-box {
+	position: relative;
+	width: 100%;
+}
+
+.bf-review-box .review-list-item {
+	border-bottom: 1px solid #E1DFFA;
+	overflow: hidden;
+	clear: both;
+}
+
+.bf-review-box .review-list-item * {
+	font-size: 0.8rem;
+}
+
+.bf-review-box .review-list-item > .review-info {
+	display: inline-block;
+	position: relative;
+	float: left;
+	width: 22.5%;
+	/* min-height: 6.5375rem; */
+	font-size: 0.8rem;
+	font-weight: bold;
+	color: dimgray;
+	padding: 1.2rem 0.2rem 0.3rem;
+}
+
+.bf-review-box .review-info .review-info-row {
+	clear: both;
+	float: left;
+	width: auto;
+	line-height: 1.5rem;
+	font-size: 0.8rem;
+}
+
+.bf-review-box .review-info > .content-star-rate {
+	transform: translate(-0.15rem, 0.2rem);
+}
+
+.bf-review-box .review-info > .content-star-rate > .material-icons {
+	font-size: 1.2rem;
+}
+
+span.badge-icon {
+	background-color: dimgray;
+	border-radius: 0.25rem;
+	line-height: 0.8rem !important;
+	font-size: 0.5rem !important;
+	color: white !important;
+	padding: 0.125rem 0.25rem;
+}
+
+ .bf-review-box .review-info-row .review-date + button {
+	padding: 0.1rem 0.2rem 0.0625rem;
+}
+
+.bf-review-box .review-list-item > .review-contents {
+	display: inline-block;
+	position: relative;
+	float: right;
+	width: 77.5%;
+	font-size: 0.8rem;
+	font-weight: bold;
+	color: dimgray;
+	text-align: center;
+	padding: 1rem 1rem 0.5rem;
+}
+
+.bf-review-box .review-contents > .review-spoiler {
+	background-color: #F3F0FA;
+	width: 100%;
+	height: 4.5375rem;
+	padding: 1rem 0;
+}
+
+.bf-review-box .review-contents .material-icons {
+	font-size: 1rem;
+}
+
+.bf-review-box .review-spoiler span {
+    display: inline-block;
+    font-weight: normal;
+    color: gray;
+    line-height: 1.2rem;
+    vertical-align: middle;
+}
+
+.bf-review-box .review-contents > p.review-content {
+	border-radius: 0.25rem;
+	width: 100%;
+	/* height: 4.5375rem; */
+	font-size: 0.8125rem;
+	font-weight: 500;
+	min-height: 2rem;
+	line-height: 1.6rem;
+	text-align: left;
+	resize: none;
+	overflow: hidden;
+}
+
+/* 리뷰 평가(좋아요 버튼) 및 댓글 버튼 */
+.bf-review-box .review-status {
+	display: inline-block;
+	width: 100%;
+	position: relative;
+	padding-top: 0.5rem;
+}
+
+.bf-review-box .review-status > * {
+	float: right;
+	margin-left: 0.25rem;
+	padding: 0.2rem 0.3rem 0.2rem 0.5rem;
+}
+
+.bf-review-box .review-status > button:last-child {
+	padding-right: 0.5rem;
+}
+
+.bf-review-box .review-status > button:first-child .book-count {
+	padding-left: 0;
+}
+
+/* 댓글 작성 폼 */
+.review-list-box .reply-write-form {
+	background-color: #FCF9FF;
+    border-top: 1px solid #E1DFFA;
+    display: none;
+    position: relative;
+    float: none;
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem 0.4rem;
+    margin: 0.3rem auto 0;
+}
+
+.review-list-box .reply-write-form form {
+	position: relative;
+}
+
+.review-list-box .reply-write-form textarea {
+	border: 0.125rem solid #E1DFFA;
+	border-radius: 0.25rem;
+	width: 100%;
+	height: 100%;
+	font-size: 0.8rem;
+	padding: 0.625rem 1rem;
+	resize: none;
+}
+
+.review-list-box .reply-write-form textarea + button {
+	position: absolute;
+	top: 50%;
+	right: 1rem;
+	margin-top: -1.1rem;
+}
+
+.review-list-box .reply-list-box li {
+	border-bottom: 1px solid #E1DFFA;
+	margin-bottom: 0.5rem;
+}
+
+.review-list-box .reply-list-box li > * {
+	border-radius: 0.25rem;
+	display: inline-block;
+	width: 95%;
+	/* height: 4.5375rem; */
+	font-size: 0.8125rem;
+	font-weight: 500;
+	line-height: 1.4rem;
+	text-align: left;
+	resize: none;
+	overflow: hidden;	
+}
+
+.review-list-box .reply-write-form p.reply-info {
+	font-size: 0.6875rem;
+	font-weight: normal;
+	color: gray;
+}
+
+
+/* 리뷰 더보기 버튼 */
+.bf-review-box > .review-more-button {
+	display: inline-block;
+	width: 100%;
+	margin-top: 0.625rem;
+}
+
+.bf-review-box > .review-more-button > button {
+	width: 100%;
+	font-size: 0.9rem;
+	padding: 1rem 1rem 0.8rem;
+}
+
+.review-more-button .more-count {
+	font-size: 1rem;
+	font-weight: bold;
+	color: #776BCE;
+}
+
+.bf-review-box > .review-more-button > button:after {
+	content: ' \25BC';
+	display: inline-block;
+	font-size: 0.4rem;
+	transform: translate(0.2rem, -0.1rem);
+}

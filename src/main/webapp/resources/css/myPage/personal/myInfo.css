@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+
+.myInfo_box {
+	font-size : 0.875rem;
+	font-weight: bold;
+	color: dimgray;
+	width : 45rem;
+}
+
+.myInfo_box input{
+	border: 1px solid #CDC6FC;
+	border-radius: 0.125rem;
+	width: 12rem;
+	line-height: 1rem;
+    padding: 0.5rem 0.8rem 0.4rem;
+}
+
+.myInfo_box .first{
+	border-top : solid 1px #E1DFFA;
+}
+
+.myInfo_box .first,
+.myInfo_box .second,
+.myInfo_box .third,
+.myInfo_box .fourth,
+.myInfo_box .fifth{
+	height: 3rem;	
+	border-bottom: solid 1px #E1DFFA;
+}
+
+.myInfo_box .left{
+	width: 11rem;
+	display: inline-block;
+	float:left;	
+	text-align: right;
+	padding-right: 1rem;
+	background-color: #F3F0FA;
+	height: 100%;
+	line-height: 3rem;
+}
+
+.myInfo_box .right{
+	width: 34rem;
+	display: inline-block;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	line-height: 2.875rem;
+}
+
+.myInfo_box .right > div{
+	display: inline-block;
+}
+
+.myInfo_box .right_second{
+	/* margin-top:0.5rem; */
+	float:right;
+}
+
+.myInfo_box .right_right > div{
+	padding-top: 1rem;
+}
+
+.myInfo_box .right_right{
+	/* float:left; */
+	width: 34rem;
+	display: inline-block;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	/* height: 8rem; */
+}
+
+.myInfo_box .third{
+	height: 8rem;
+}
+
+.myInfo_box .fourth{
+	height: 11.5rem;
+}
+
+.myInfo_box div.right_right_second {
+	padding-top: 0.5rem;	
+}
+
+.myInfo_box .right_right_second li{
+	margin-top: 0.5rem;
+}
+
+.myInfo_box .right_right_second_list{
+	list-style: square;
+	padding-left: 1rem;
+	color: darkgray;
+}
+
+.myInfo_box .email_authentication {
+    background-color: beige;
+    display: inline-block;
+    border-radius: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: normal;
+    padding: 0.5rem 0.35rem 0.35rem;
+}
+
+.myInfo_box .email_authentication:before {
+	content: '\2714';
+	font-size: 0.8rem;
+	margin-right: 0.25rem;
+}
+
+.myInfo_box .fifth{
+	height: 3rem;
+	float:left;
+}
+
+.myInfo_box .fifth .right > * {
+	line-height: normal;
+	vertical-align: middle;
+}
+
+.myInfo_box .fifth_text{
+	/* margin-top: 0.7rem; */
+}
+
+.myInfo_box .change_com {
+	text-align: center;
+}
+
+.myInfo_box .change_com > .bf-button{
+	margin-top: 1rem;
+	height: 2rem;	
+}
+
+.myInfo_box .fourth div.right_right_first {
+	padding-top: 0.5rem;
+}
+
+/* user info */
+.myInfo_box .user-id,
+.myInfo_box .user-email {
+	font-weight: bold;
+	color: #6B62AB;
+}

@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+.present_header {
+	padding: 1rem;
+	font-size: 2.25rem;
+}
+
+.present_header_text {
+	padding: 1rem;
+	line-height: 1.4rem;
+	font-size: 1rem;
+	color: dimgray;
+}
+
+.present_header_img {
+	margin-bottom: 1rem;
+}
+
+.present_header_img img {
+	border: 1px solid silver;
+	border-radius: 0.125rem;
+	box-shadow: 0 0.125rem 3rem 0.25rem rgba(125,125,125,0.8);
+}
+
+.present_backgroundColor {
+	background: #eee url("../../img/bgi/bgi_pattern_01_200.jpg") repeat;
+	min-width: 56.25rem;
+	text-align: center;
+	color: #333;
+	padding: 2rem 0;
+	margin-bottom: 2rem;
+}
+
+.present_content {
+	width: 800px;
+	margin: 0px auto;
+	text-align: center;
+	border: 1px solid #A59AF6;
+	border-top: 5px solid #776bce;
+	border-radius: 0 0 0.5rem 0.5rem;
+	box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.4), 0.25rem -1px
+		0.3125rem 0px rgba(128, 128, 128, 0.7) inset, -0.25rem 0px 0.3125rem
+		0px rgba(128, 128, 128, 0.7) inset;
+}
+
+.present_send {
+	width: 100%;
+	overflow: hidden;
+	border-bottom: 1px solid #A59AF6;
+}
+
+.present_content_text {
+	float: left;
+	padding: 2rem;
+	width: 27.5%;
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+
+.present_content_text + .content-right {
+	float: right;
+	width: 72.5%;
+	padding: 0 1.5rem;
+}
+
+.present_content_text_input {
+	border-bottom: 1px solid #776bce;
+	float: left;
+	width: 11.25rem;
+	line-height: 1.4rem;
+	margin: 1.8rem 0;
+}
+
+.present_receiver {
+	width: 100%;
+	overflow: hidden;
+	border-bottom: 1px solid #A59AF6;
+}
+
+.present_receiver_id {
+	float: left;
+	padding: 2rem;
+	padding-right: 0rem;
+}
+
+.present_receiver_id_input {
+	border-bottom: 1px solid #776bce;
+	float: left;	
+	width: 14.25rem;
+	line-height: 1.4rem;
+	margin: 1.8rem 0;
+}
+
+.present_receiver_id_tootip {
+	position: relative;
+	bottom: 0.9rem;
+	font-size: 0.8125rem;
+	color: dimgray;
+	right: 8.25rem;
+}
+
+.present_msg {
+	width: 100%;
+	border-bottom: 1px solid #A59AF6;
+}
+
+.present_msg_textarea {
+	border-radius: 0.3rem;
+	float: left;
+	width: 98%;
+	height: 10rem;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	resize: none;
+	padding: 0.75rem;
+	margin: 1rem 0;
+}
+
+.present_bt {
+	padding: 2rem;
+}
+
+.present_button {
+	padding: 1rem 3rem !important;
+	font-size: 1.0rem !important;
+}
+
+.present_icon_sizeColor {
+	color: #776bce;
+	font-size: 2rem;
+}
+
+.present_header_bookName {
+	font-weight: bold;
+	font-size: 1.2rem;
+	padding-bottom: 0.25rem;
+}
+
+.order_right_menu>.order_right_menu_list:nth-child(7) {
+	border-bottom-width: 1px;
+	border-radius: 0 0 0.5rem 0.5rem;
+	padding: 0px;
+}

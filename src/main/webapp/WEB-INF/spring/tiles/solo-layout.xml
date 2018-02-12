@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+	<!-- 메인 페이지 템플릿 -->
+	<definition name="templateSolo" template="/WEB-INF/views/layouts/templateSolo.jsp">
+		<put-attribute name="openNewWindow" value="" />
+	</definition>
+
+	<!-- 확장 설정 -->
+	<definition name="*/*.solo" extends="templateSolo">
+		<put-attribute name="openNewWindow" value="/WEB-INF/views/{1}/{2}.jsp" />
+	</definition>
+	
+	<definition name="*.solo" extends="templateSolo">
+		<put-attribute name="openNewWindow" value="/WEB-INF/views/{1}.jsp" />
+	</definition>
+
+	
+</tiles-definitions>

@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+/**
+ * 카테고리 전체 보기 페이지 스타일
+ *
+ * @author   박성호(최초작성)
+ * @date   2018. 1. 30.
+ * @description   
+ */
+
+/* Category show all Style */
+.bf-category-all-box {
+	width: 56.25rem;
+	position: relative;
+	clear: both;
+	margin: 1.875rem auto 0px;
+}
+
+.bf-left-menu {
+	float: left;
+	width: 11.25rem;
+	vertical-align: top;
+	padding-bottom: 20rem;
+}
+
+.bf-right-contents {
+	float: left;
+	width: 45rem;
+	padding-bottom: 5.625rem;
+}

@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+/**
+ * 마이페이지  > 자유이용권 스타일
+ *
+ * @author   박성호(최초작성)
+ * @date   2018. 1. 29.
+ * @description
+ */
+
+/* New Release list Style */
+.mf-freepass-ticket-box {
+	position: relative;
+	width: 100%;
+	margin-top: 0;
+}
+
+span.badge-icon {
+	background-color: dimgray;
+	border-radius: 0.25rem;
+	line-height: 0.8rem !important;
+	font-size: 0.5rem !important;
+	color: white !important;
+	padding: 0.125rem 0.25rem;
+}
+
+.mf-freepass-ticket-box .bf-title-row.ticket-history {
+	margin-top: 2rem;
+}
+
+/* 이용권 관리 */
+.mf-freepass-ticket-box>.ticket-management {
+	display: block;
+	position: relative;
+}
+
+.mf-freepass-ticket-box>.ticket-management>.ticket-box {
+	border-top: 0.375rem solid #776BCE;
+	display: inline-block;
+	width: 49%;
+}
+
+.mf-freepass-ticket-box>.ticket-management>.ticket-box.f-right {
+	border-color: orange;
+}
+
+.mf-freepass-ticket-box *.f-left {
+	float: left;
+}
+
+.mf-freepass-ticket-box *.f-right {
+	float: right;
+}
+
+.ticket-box > div.wrap-container {
+	border: 0.125rem solid #E1DFFA;
+	border-top: none;
+}
+
+.ticket-box > div.wrap-container > * {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	line-height: 2rem;
+	padding: 0.5rem 0.75rem;
+}
+
+.ticket-box .title > * {
+	display: inline-block;
+	position: relative;
+	line-height: 1.2rem;
+	font-size: 1rem;
+	font-weight: normal;
+	color: dimgray;
+	vertical-align: middle;
+}
+
+.ticket-box .description > * {
+	display: inline-block;
+	position: relative;
+	line-height: 1rem;
+	font-size: 0.8rem;
+	vertical-align: middle;
+}
+
+.ticket-box .description {
+	border-top: 1px solid #E1DFFA;
+} 
+
+.ticket-box .description > .text {
+	color: darkgray;
+}
+
+.ticket-box .description > .text.active {
+	font-weight: bold;
+	color: #776BCE;
+}
+
+.ticket-box .description > .text.active + .bf-button {
+	pointer-events: none;
+	opacity: 0.4;
+}
+
+.ticket-box .title > span.material-icons {
+	font-size: 1.5rem;
+	font-weight: normal;
+}
+
+
+/* 이용권 사용내역*/
+.mf-freepass-ticket-box > .history-list-box .start-date,
+.mf-freepass-ticket-box > .history-list-box .end-date {
+	font-weight: bold;
+	color: #776BCE;
+}
