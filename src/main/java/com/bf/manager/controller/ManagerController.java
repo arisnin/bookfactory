@@ -88,7 +88,6 @@ public class ManagerController {
 	@RequestMapping(value="/bookCategoryOk.do",method=RequestMethod.GET)
 	public ModelAndView bookCategoryOk(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("book/category.mg");
-		mav.addObject("request", request);
 		managerService.bookCategoryOk(mav);
 		return mav;
 	}

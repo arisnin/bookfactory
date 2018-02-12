@@ -1,7 +1,5 @@
 package com.bf.manager.dao;
 
-import java.util.ArrayList;
-
 /**
  * @이름: 염현우
  * @날짜: 2018. 2. 12.
@@ -9,6 +7,6 @@ import java.util.ArrayList;
  */
 public interface ManagerDao {
 
-	public int insertCategory(ArrayList<String> cateList);
+	public int insertCategory(String name);
 	
 }

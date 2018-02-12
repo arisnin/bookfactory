@@ -8,8 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>카테고리 등록</title>
 	<c:set var="root" value="${pageContext.request.contextPath}"/>
-  	<link rel="stylesheet" href="${root}/css/basic/reset.css">
-  	<link rel="stylesheet" href="${root}/css/basic/commons.css">
   	<link rel="stylesheet" href="${root}/css/manager/book.css">
 </head>
 <body>
@@ -17,45 +15,45 @@
 		<section class="b_in_main">
 			<div class="b_in_header"><h2>카테고리 등록</h2></div>
 			<div class="b_in_content">
-				<div>
+				<div align="right">
+					<button id="crawl2" type="button" class="bf-button">크롤링카테고리등록</button>
+					<button id="crawl3" type="button" class="bf-button">크롤링등록</button>
+				</div>
+				<div class="b_cate_in">
 					<label>카테고리 대</label>
 					<input type="text" placeholder="제목"/>
+					<div align="right">
+						<button type="button" class="bf-button">등록</button>
+						<button type="button" class="bf-button">취소</button>
+					</div>
 				</div>
-				<div>
+				<div class="b_cate_in">
 					<label>카테고리 중</label>
 					<input type="text" placeholder="제목"/>
+					<div align="right">
+						<button type="button" class="bf-button">등록</button>
+						<button type="button" class="bf-button">취소</button>
+					</div>
 				</div>
-				<div>
+				<div class="b_cate_in">
 					<label>카테고리 소</label>
 					<input type="text" placeholder="제목"/>
+					<div align="right">
+						<button type="button" class="bf-button">등록</button>
+						<button type="button" class="bf-button">취소</button>
+					</div>
 				</div>
-				<div>
-					<label>크롤링으로 중분류 넣기</label>
-					<input type="text" placeholder="URL" style="width: 20rem;"/>
-					<button id="crawl2" type="button" class="bf-button" style="float: right;">크롤링등록</button>
-				</div>
-				<div>
-					<label>크롤링으로 소분류 넣기</label>
-					<input type="text" placeholder="URL" style="width: 20rem;"/>
-					<button id="crawl3" type="button" class="bf-button" style="float: right;">크롤링등록</button>
-				</div>
-				<div align="right">
-					<button type="button" class="bf-button">등록</button>
-					<button type="button" class="bf-button">취소</button>
-				</div>
+				
 			</div>
 		</section>
 	</div>
 	
-	<script src="${root}/script/basic/jquery.js"></script>
 	<script type="text/javascript">
 		$("#crawl2").click(function(){
-			var param = $(this).prev().val();
-			location.href='${root}/manager/bookCateSecond.do?url='+param;
+			location.href='${root}/manager/bookCateSecond.do';
 		});
 		$("#crawl3").click(function(){
-			var param = $(this).prev().val();
-			location.href='${root}/manager/bookCategoryOk.do?url='+param;
+			location.href='${root}/manager/bookCategoryOk.do';
 		});
 	</script>
 </body>
