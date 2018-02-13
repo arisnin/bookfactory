@@ -1,7 +1,10 @@
 package com.bf.main.service;
 
+<<<<<<< HEAD
 import java.util.Map;
 
+=======
+>>>>>>> 8c2f53bd057ec95ce93c5e304b8c68d34c6eb944
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.main.dao.MainDao;
+<<<<<<< HEAD
 import com.bf.myPage.dto.MyPageReviewDto;
+=======
+import com.bf.main.dto.RegisterDto;
+>>>>>>> 8c2f53bd057ec95ce93c5e304b8c68d34c6eb944
 
 /**
  * @Date 2018. 2. 4.
@@ -23,6 +30,7 @@ public class MainServiceImp implements MainService {
 	private MainDao mainDao;
 
 	@Override
+<<<<<<< HEAD
 	public ModelAndView review(ModelAndView mav) {
 		Map<String,Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
@@ -48,5 +56,34 @@ public class MainServiceImp implements MainService {
 		int check = mainDao.insertReview(myPageReviewDto);
 		
 		return mav.addObject("checkReview",check);
+=======
+	public void cartWishList(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		
+		int num = Integer.parseInt(request.getParameter("num"));
+		int check = mainDao.cartWishList(num);
+		System.out.println(check);
+		mav.addObject("check", check);
+		mav.setViewName("/cart.main");
+	}
+
+	@Override
+	public void cartDelete(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		
+		int num = Integer.parseInt(request.getParameter("num"));
+		int check = mainDao.cartDelete(num);
+		
+		mav.addObject("check", check);
+		mav.setViewName("/cart.main");
+	}
+
+	@Override
+	public void register(ModelAndView mav) {
+		RegisterDto registerDto = (RegisterDto)mav.getModelMap().get("registerDto");
+		int check = mainDao.register(registerDto);
+		System.out.println("logMsg========"+check);
+		mav.addObject("check", check);
+>>>>>>> 8c2f53bd057ec95ce93c5e304b8c68d34c6eb944
 	}
 }

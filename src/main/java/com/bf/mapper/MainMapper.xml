@@ -3,7 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bf.mapper.MainMapper">
+<<<<<<< HEAD
 	<insert id="insert-review" parameterType="com.bf.myPage.dto.MyPageReviewDto">
 		INSERT INTO review VALUES(review_num_seq.nextval, #{id}, #{book_num}, #{content}, sysdate, #{star_point}, #{spoiler}, #{preference}, #{display})
+=======
+	<delete id="delete_cartWishtList" parameterType="int">
+		delete from cart where BOOK_NUM = #{num}
+	</delete>
+	
+	<insert id="insert_cartWishList" parameterType="int">
+		INSERT INTO wishlist VALUES(100,'abc',#{num})
+	</insert>
+	
+	<insert id="register" parameterType="com.bf.main.dto.RegisterDto">
+		insert into member values(member_num_seq.nextval,#{id},#{password},#{email},#{gender},sysdate,#{birthday},#{marketing_check},#{ip},sysdate,#{phone})
+>>>>>>> 8c2f53bd057ec95ce93c5e304b8c68d34c6eb944
 	</insert>
 </mapper>
