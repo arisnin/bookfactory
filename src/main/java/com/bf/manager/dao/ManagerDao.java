@@ -16,11 +16,7 @@ import com.bf.manager.dto.PublisherDto;
  * @설명: 
  */
 public interface ManagerDao {
-	public int BoardInsertOk(BoardFrequencyDto boardFreDto);
-	public List<BoardFrequencyDto> catecorySearch();
-	public List<BoardFrequencyDto> catecorySearch2();
-	public int Boardcount();
-    public List<BoardFrequencyDto> boardList(int startRow,int endRow);
+
 
 	public int insertCategory(String name);
 

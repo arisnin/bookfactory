@@ -1,9 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: ARIS
-=======
-Built-By: SIST3
->>>>>>> 251591cd677b3aa7e76edb33ecbf72245e3832a0
+Built-By: STST3
 Build-Jdk: 1.8.0_144
 Created-By: Maven Integration for Eclipse
 
