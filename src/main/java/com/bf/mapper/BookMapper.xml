@@ -15,4 +15,23 @@
 	<insert id="insertBookCateThird" parameterType="java.util.HashMap">
 		insert into THIRD_CATE values(THIRD_CATE_seq.nextval,#{name},#{cateNum})
 	</insert>
+	<select id="getFirstCate" resultType="com.bf.manager.dto.BookFirstCateDto">
+		SELECT * FROM FIRST_CATE
+	</select>
+	
+	<select id="getCateOneNum" parameterType="String" resultType="int">
+		select num from FIRST_CATE where NAME = #{name}
+	</select>
+	
+	<select id="getCateTwoList" parameterType="int" resultType="com.bf.manager.dto.BookSecondCateDto">
+		select * from second_cate WHERE FIRST_CATE=#{num}
+	</select>
+	
+	<select id="getCateTwoNum" parameterType="String" resultType="int">
+		select num from second_cate where NAME = #{name}
+	</select>
+	
+	<select id="getCateThreeList" parameterType="int" resultType="com.bf.manager.dto.BookThirdCateDto">
+		select * from third_cate WHERE second_cate=#{num}
+	</select>
 </mapper>

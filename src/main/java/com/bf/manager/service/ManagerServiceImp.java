@@ -1,6 +1,11 @@
 package com.bf.manager.service;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,6 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.manager.dao.ManagerDao;
+import com.bf.manager.dto.AuthorDto;
+import com.bf.manager.dto.BookFirstCateDto;
+import com.bf.manager.dto.BookSecondCateDto;
+import com.bf.manager.dto.BookThirdCateDto;
+import com.bf.manager.dto.CountryDto;
 import com.bf.manager.dto.PublisherDto;
 
 /**
@@ -106,5 +116,122 @@ public class ManagerServiceImp implements ManagerService {
 		mav.addObject("check", check);
 	}
 	
+	@Override
+	public void publisherNameCheck(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
+		
+		String name = request.getParameter("name");
+		int check = managerDao.publisherNameCheck(name);
+		
+		try {
+			response.setContentType("application/text;charset=utf-8");
+			response.getWriter().print(check);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
+	@Override
+	public void authorInsert(ModelAndView mav) {
+		List<CountryDto> countryList = managerDao.getCountry();
+		mav.addObject("countryList", countryList);
+	}
+
+	@Override
+	public void authorInsertOk(ModelAndView mav) {
+		AuthorDto authorDto = (AuthorDto) mav.getModelMap().get("authorDto");
+		authorDto.setUpdate_date(new Date());
+		LogAspect.logger.info(LogAspect.logMsg + authorDto);
+		
+		if(authorDto.getEducation() == null)	authorDto.setEducation("-");
+		if(authorDto.getCareer() == null)	authorDto.setCareer("-");
+		if(authorDto.getAwards() == null)	authorDto.setAwards("-");
+		if(authorDto.getLink() == null)	authorDto.setLink("-");
+		if(authorDto.getDescribe() == null)	authorDto.setDescribe("-");
+		
+		int check = managerDao.authorInsertOk(authorDto);
+		
+		mav.addObject("check", check);
+	}
+	
+	@Override
+	public void bookInsert(ModelAndView mav) {
+		List<BookFirstCateDto> firstCateList = managerDao.getFirstCate();
+		mav.addObject("firstCateList", firstCateList);
+	}
+	
+	@Override
+	public void bookCateOne(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
+		
+		String name = request.getParameter("name");
+
+		List<BookSecondCateDto> secondCateList = managerDao.bookCateOne(name);
+		LogAspect.logger.info(LogAspect.logMsg + secondCateList);
+		
+		String secondNameList = "";
+		for(int i=0;i<secondCateList.size();i++) {
+			secondNameList += secondCateList.get(i).getName() + ",";
+		}
+		
+		try {
+			response.setContentType("application/text;charset=utf-8");
+			response.getWriter().print(secondNameList);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void bookCateTwo(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
+		
+		String name = request.getParameter("name");
+
+		List<BookThirdCateDto> thirdCateList = managerDao.bookCateTwo(name);
+		LogAspect.logger.info(LogAspect.logMsg + thirdCateList);
+		
+		String thirdNameList = "";
+		for(int i=0;i<thirdCateList.size();i++) {
+			thirdNameList += thirdCateList.get(i).getName() + ",";
+		}
+		
+		try {
+			response.setContentType("application/text;charset=utf-8");
+			response.getWriter().print(thirdNameList);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void bookOpenPub(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String searchWord = request.getParameter("search-word");
+
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber == null) pageNumber = "1";
+		
+		int boardSize = 10;
+		int currentPage = Integer.parseInt(pageNumber);
+		int startRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize;
+		
+		List<PublisherDto> pubList = null;
+		if(searchWord == null) {
+			pubList = managerDao.getPublisherList(startRow,endRow);
+		}else {
+			pubList = managerDao.getPublisherList(searchWord,startRow,endRow);
+		}
+		
+		int count = managerDao.getPublisherCount();
+		
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("count", count);
+		mav.addObject("pubList", pubList);
+	}
 }

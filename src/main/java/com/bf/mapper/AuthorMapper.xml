@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bf.mapper.AuthorMapper">
+	<select id="getCountry" resultType="com.bf.manager.dto.CountryDto">
+		select * from country
+	</select>
+	<insert id="insert" parameterType="com.bf.manager.dto.AuthorDto">
+		insert into author values(author_num_seq.nextval,#{name},#{country_num},
+		#{birthday},#{education},#{career},#{debut},
+		#{link},#{update_date},#{awards},#{describe})
+	</insert>
+</mapper>

@@ -1,11 +1,17 @@
 package com.bf.manager.dao;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bf.manager.dto.AuthorDto;
+import com.bf.manager.dto.BookFirstCateDto;
+import com.bf.manager.dto.BookSecondCateDto;
+import com.bf.manager.dto.BookThirdCateDto;
+import com.bf.manager.dto.CountryDto;
 import com.bf.manager.dto.PublisherDto;
 
 /**
@@ -52,5 +58,59 @@ public class ManagerDaoImp implements ManagerDao {
 	@Override
 	public int publisherInsertOk(PublisherDto publisherDto) {
 		return sqlSession.insert("com.bf.mapper.PublisherMapper.publisherInsert", publisherDto);
+	}
+	
+	@Override
+	public int publisherNameCheck(String name) {
+		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.nameCheck", name);
+	}
+	
+	@Override
+	public List<CountryDto> getCountry() {
+		return sqlSession.selectList("com.bf.mapper.AuthorMapper.getCountry");
+	}
+	
+	@Override
+	public int authorInsertOk(AuthorDto authorDto) {
+		return sqlSession.insert("com.bf.mapper.AuthorMapper.insert", authorDto);
+	}
+	
+	@Override
+	public List<BookFirstCateDto> getFirstCate() {
+		return sqlSession.selectList("com.bf.mapper.BookMapper.getFirstCate");
+	}
+	
+	@Override
+	public List<BookSecondCateDto> bookCateOne(String name) {
+		int num = sqlSession.selectOne("com.bf.mapper.BookMapper.getCateOneNum", name);
+		return sqlSession.selectList("com.bf.mapper.BookMapper.getCateTwoList", num);
+	}
+	
+	@Override
+	public List<BookThirdCateDto> bookCateTwo(String name) {
+		int num = sqlSession.selectOne("com.bf.mapper.BookMapper.getCateTwoNum", name);
+		return sqlSession.selectList("com.bf.mapper.BookMapper.getCateThreeList", num);
+	}
+	
+	@Override
+	public List<PublisherDto> getPublisherList(int startRow, int endRow) {
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		map.put("startRow",startRow);
+		map.put("endRow",endRow);
+		return sqlSession.selectList("com.bf.mapper.PublisherMapper.getPublisher1",map);
+	}
+	
+	@Override
+	public List<PublisherDto> getPublisherList(String searchWord,int startRow, int endRow) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("startRow",startRow);
+		map.put("endRow",endRow);
+		map.put("searchWord", searchWord);
+		return sqlSession.selectList("com.bf.mapper.PublisherMapper.getPublisher2",map);
+	}
+	
+	@Override
+	public int getPublisherCount() {
+		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getCount");
 	}
 }
