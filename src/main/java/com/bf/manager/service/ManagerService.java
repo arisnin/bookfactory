@@ -11,6 +11,6 @@ public interface ManagerService {
 
 	public void bookCategoryOk(ModelAndView mav);
 
-	public void bookCateSecond(ModelAndView mav);
+	public void publisherInsertOk(ModelAndView mav);
 
 }

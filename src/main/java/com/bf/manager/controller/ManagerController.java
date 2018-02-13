@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.manager.dto.PublisherDto;
 import com.bf.manager.service.ManagerService;
 
 /**
@@ -77,17 +78,9 @@ public class ManagerController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/bookCateSecond.do",method=RequestMethod.GET)
-	public ModelAndView bookCateSecond(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("book/category.mg");
-		mav.addObject("request", request);
-		managerService.bookCateSecond(mav);
-		return mav;
-	}
-	
 	@RequestMapping(value="/bookCategoryOk.do",method=RequestMethod.GET)
 	public ModelAndView bookCategoryOk(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("book/category.mg");
+		ModelAndView mav = new ModelAndView("book/categoryCrawlOk.mg");
 		managerService.bookCategoryOk(mav);
 		return mav;
 	}
@@ -124,6 +117,15 @@ public class ManagerController {
 	public ModelAndView publisherInsert() {
 		ModelAndView mav = new ModelAndView("publisher/insert.mg");
 		LogAspect.info("publisherInsert()");
+		return mav;
+	}
+	
+	@RequestMapping(value="/publisherInsertOk.do",method=RequestMethod.POST)
+	public ModelAndView publisherInsertOk(HttpServletRequest request, HttpServletResponse response, PublisherDto publisherDto) {
+		ModelAndView mav = new ModelAndView("publisher/insertOk.mg");
+		mav.addObject("publisherDto", publisherDto);
+		managerService.publisherInsertOk(mav);
+		
 		return mav;
 	}
 	
