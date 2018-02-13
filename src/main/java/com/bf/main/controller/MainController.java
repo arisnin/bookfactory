@@ -191,12 +191,21 @@ public class MainController {
 	}
 
 	/**
-	 * 메인 > 책 상세보기
+	 * 단행본 > 책 상세보기
 	 */
 	@RequestMapping(value = "/detail.do", method = RequestMethod.GET)
 	public String bookPlus(HttpServletRequest request, HttpServletResponse response) {
 
 		return "book/plus.main";
+	}
+	
+	/**
+	 * 연재 > 책 상세보기  //임시로 로맨스화면의 베스트셀러들에게 걸음
+	 */
+	@RequestMapping(value = "/book/plusSerial.do", method = RequestMethod.GET)
+	public String bookSerial(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "book/plusSerial.main";
 	}
 
 	/**
