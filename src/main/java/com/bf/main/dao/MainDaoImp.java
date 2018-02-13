@@ -13,4 +13,10 @@ import org.springframework.stereotype.Component;
 public class MainDaoImp implements MainDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+
+	@Override
+	public int cartWishList(int num) {
+		sqlSession.delete("com.bf.mapper.MainMapper.delete_cartWishtList", num);
+		return sqlSession.update("com.bf.mapper.MainMapper.insert_cartWishList", num);
+	}
 }

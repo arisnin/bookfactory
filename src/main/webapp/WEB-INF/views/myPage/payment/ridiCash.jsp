@@ -157,7 +157,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="select_input_wrapper">
+						<div class="select_input_wrapper active">
 							<div class="select_body_1">
 								<div class="input_cell">
 									<span class="input_wrapper"><label><input type="radio" class="radio" name="radio" /> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">50,000</span>원
@@ -410,6 +410,23 @@
 			if .list_wrapper > .payment_list  .열네 번째 radio_input 이 클릭되면 .caution_wrapper.css ("display", "block"),
 			else .caution_wrapper.css ("display", "none")
 		--%>
+		
+		<%-- #776BCE, #FAF0FA, #C98AFF, #E1DFFA--%>
+		
+		$("input[name=radio]").each(function(i,e){
+			$(this).on("click", function(){
+				if($(this).prop("checked")){
+					$(".select_body_1").css("color", "#444");
+					$(".point_plus").css("color", "#abb3ba");
+					$(".select_body_1").css("background", "white");
+					
+					$(".select_body_1").eq(i).css("color", "#776BCE");
+					$(".point_plus").eq(i).css("color", "#C98AFF");
+					//$(".select_body_1").eq(i).css("background", "#E1DFFA");
+					$(".select_body_1").eq(i).css("cssText", "background: #E1DFFA !important");
+				}
+			});
+		});
 	</script>
 
 </body>

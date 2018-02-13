@@ -3,5 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bf.mapper.MainMapper">
-
+	<delete id="delete_cartWishtList" parameterType="int">
+		delete from cart where BOOK_NUM = #{num}
+	</delete>
+	
+	<insert id="insert_cartWishList" parameterType="int">
+		INSERT INTO wishlist VALUES(100,'abc',#{num})
+	</insert>
 </mapper>
