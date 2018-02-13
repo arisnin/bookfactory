@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,15 +16,15 @@
 <!-- 헤더에서 회원가입 누를시 나오는 화면 - 염현우 -->
 <div id="hw_register" class="hw_regi_modal" onclick="closeRegi()">
 	<div class="hw_register_wrap hw_animate">
-		<form class="modal-content">
+		<form class="modal-content" action="${root}/register.do" method="post">
 			<div class="hw_regi_header">
 				<div class="hw_regihead_text" align="center">회원가입</div>
-				<span onclick="document.getElementById('hw_register').style.display='none'" class=	"hw_regi_close" title="Close Modal">×</span>
+				<span onclick="document.getElementById('hw_register').style.display='none'" class="hw_regi_close" title="Close Modal">×</span>
 		    </div>
 	
 			<div class="hw_regi_container">
 				<input class="sign_input" type="text" placeholder="아이디" name="id" required>
-				<input class="sign_input" type="password" placeholder="비밀번호" name="psw" required>
+				<input class="sign_input" type="password" placeholder="비밀번호" name="password" required>
 				<input class="sign_input" type="password" placeholder="비밀번호 확인" name="psw-repeat" required style="border-bottom: 1px solid #ccc;">
 				
 				<input class="sign_input hw_sign_email" type="email" placeholder="이메일" name="email" required>
@@ -35,7 +36,7 @@
 						<input class="sign_input" type="text" placeholder="출생년도" name="birth" required>
 					</div>
 					<div class="hw_gender_wrap">
-						<input id="hw_gender" type="hidden" name="genderSelect" value="m" title="성별 남 선택" required>
+						<input id="hw_gender" type="hidden" name="gender" value="m" title="성별 남 선택" required>
 						<label class="hw_gender_label" for="gender_men">남</label>
 					</div>
 					<div class="hw_gender_wrap">
@@ -59,7 +60,7 @@
 							<span class="hw_check_text">개인정보취급 및 위탁 동의</span>
 						</li>
 						<li class="hw_checkbox_wrap" onclick="clickCheck(this)">
-							<input id="marketing_agreement_push" name="marketing_agreement_push_confirm" class="hw_confirm_checkbox" type="checkbox" title="선택항목 - 이벤트 혜택 알림 수신 동의">
+							<input id="marketing_agreement_push" name="marketing_check" class="hw_confirm_checkbox" type="checkbox" title="선택항목 - 이벤트 혜택 알림 수신 동의">
 							<span class="hw_check_text">이벤트 혜택 알람 수신동의(선택)</span>
 						</li>
 					</ul>

@@ -23,7 +23,7 @@
 	<jsp:include page="./commons/todayFactoryNormal.jsp" />
 	<div></div>
 	<jsp:include page="./commons/popularList.jsp" />
-
+	
 	<div id="mainHome">
 		<div class="list0_head">
 			<div class="bf-title-row title-type3">
