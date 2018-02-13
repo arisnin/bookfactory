@@ -2,17 +2,14 @@ package com.bf.manager.dao;
 
 import java.util.List;
 
-<<<<<<< HEAD
 import com.bf.manager.dto.BoardCate1Dto;
 import com.bf.manager.dto.BoardFrequencyDto;
-=======
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookFirstCateDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
 import com.bf.manager.dto.PublisherDto;
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
 
 /**
  * @이름: 염현우
@@ -53,6 +50,7 @@ public interface ManagerDao {
 	public List<PublisherDto> getPublisherList(String searchWord,int startRow, int endRow);
 
 	public int getPublisherCount();
+
 
 
 }

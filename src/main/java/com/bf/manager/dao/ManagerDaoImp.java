@@ -2,25 +2,18 @@ package com.bf.manager.dao;
 
 import java.util.HashMap;
 import java.util.List;
-<<<<<<< HEAD
 import java.util.Map;
-=======
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-<<<<<<< HEAD
 import com.bf.manager.dto.BoardFrequencyDto;
-=======
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookFirstCateDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
 import com.bf.manager.dto.PublisherDto;
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
 
 /**
  * @이름: 염현우
@@ -30,31 +23,30 @@ import com.bf.manager.dto.PublisherDto;
 @Component
 public class ManagerDaoImp implements ManagerDao {
 	@Autowired
-<<<<<<< HEAD
-	private SqlSessionTemplate sqlsession;
+	private SqlSessionTemplate sqlSession;
 
 	@Override
 	public int BoardInsertOk(BoardFrequencyDto boardFreDto) {
 		
-		return sqlsession.insert("com.bf.manager.boardMapper.InsertOk",boardFreDto);
+		return sqlSession.insert("com.bf.manager.boardMapper.InsertOk",boardFreDto);
 	}
 
 	@Override
 	public List<BoardFrequencyDto> catecorySearch() {
 		
-		return  sqlsession.selectList("com.bf.manager.boardMapper.select");
+		return  sqlSession.selectList("com.bf.manager.boardMapper.select");
 	}
 
 	@Override
 	public List<BoardFrequencyDto> catecorySearch2() {
 	
-		return sqlsession.selectList("com.bf.manager.boardMapper.select2");
+		return sqlSession.selectList("com.bf.manager.boardMapper.select2");
 	}
 
 	@Override
 	public int Boardcount() {
 		
-		return sqlsession.selectOne("count");
+		return sqlSession.selectOne("count");
 	}
 
 	@Override
@@ -62,12 +54,8 @@ public class ManagerDaoImp implements ManagerDao {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startRow", startRow);
 		map.put("endRow",endRow);
-		return sqlsession.selectList("com.bf.manager.boardMapper.list",map);
+		return sqlSession.selectList("com.bf.manager.boardMapper.list",map);
 	}
-
-	
-=======
-	private SqlSessionTemplate sqlSession;
 
 	@Override
 	public int insertCategory(String name) {
@@ -153,8 +141,7 @@ public class ManagerDaoImp implements ManagerDao {
 		map.put("searchWord", searchWord);
 		return sqlSession.selectList("com.bf.mapper.PublisherMapper.getPublisher2",map);
 	}
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
-	
+
 	@Override
 	public int getPublisherCount() {
 		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getCount");

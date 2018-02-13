@@ -9,12 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public interface ManagerService {
 
-<<<<<<< HEAD
-	public void bookCategory();
 	public void boardInsert(ModelAndView mav);
 	public void boardInsertOk(ModelAndView mav);
 	public void boardList(ModelAndView mav);
-=======
+	
 	public void bookCategoryOk(ModelAndView mav);
 
 	public void publisherInsertOk(ModelAndView mav);
@@ -33,5 +31,4 @@ public interface ManagerService {
 
 	public void bookOpenPub(ModelAndView mav);
 
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
 }

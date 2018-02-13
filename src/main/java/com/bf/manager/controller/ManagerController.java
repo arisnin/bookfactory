@@ -10,12 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
-<<<<<<< HEAD
 import com.bf.manager.dto.BoardFrequencyDto;
-=======
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.PublisherDto;
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
 import com.bf.manager.service.ManagerService;
 
 /**
@@ -39,15 +36,10 @@ public class ManagerController {
 		LogAspect.info("manager()");
 		return mav;
 	}
-<<<<<<< HEAD
-
-	@RequestMapping(value = "/authorInsert.do", method = RequestMethod.GET)
-	public ModelAndView authorInsert() {
-=======
 	
 	@RequestMapping(value="/authorInsert.do",method=RequestMethod.GET)
 	public ModelAndView authorInsert(HttpServletRequest request, HttpServletResponse response) {
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
+
 		ModelAndView mav = new ModelAndView("author/insert.mg");
 		managerService.authorInsert(mav);
 		return mav;
@@ -82,23 +74,15 @@ public class ManagerController {
 		LogAspect.info("authorUpdateRead()");
 		return mav;
 	}
-<<<<<<< HEAD
-
-	@RequestMapping(value = "/bookInsert.do", method = RequestMethod.GET)
-	public ModelAndView bookInsert() {
-=======
 	
 	@RequestMapping(value="/bookInsert.do",method=RequestMethod.GET)
 	public ModelAndView bookInsert(HttpServletRequest request, HttpServletResponse response) {
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
+
 		ModelAndView mav = new ModelAndView("book/insert.mg");
 		managerService.bookInsert(mav);
 		return mav;
 	}
-<<<<<<< HEAD
 
-	@RequestMapping(value = "/bookCategory.do", method = RequestMethod.GET)
-=======
 	@RequestMapping(value="/bookCateOne.do",method=RequestMethod.GET)
 	public ModelAndView bookCateOne(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -118,11 +102,11 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value="/bookCategory.do",method=RequestMethod.GET)
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
 	public ModelAndView bookCategory() {
 		ModelAndView mav = new ModelAndView("book/category.mg");
 		return mav;
 	}
+	
 	
 	@RequestMapping(value="/bookCategoryOk.do",method=RequestMethod.GET)
 	public ModelAndView bookCategoryOk(HttpServletRequest request, HttpServletResponse response) {
@@ -130,15 +114,9 @@ public class ManagerController {
 		managerService.bookCategoryOk(mav);
 		return mav;
 	}
-<<<<<<< HEAD
-
-	@RequestMapping(value = "/bookOpenPub.do", method = RequestMethod.GET)
-	public ModelAndView bookOpenPub() {
-=======
 	
 	@RequestMapping(value="/bookOpenPub.do",method=RequestMethod.GET)
 	public ModelAndView bookOpenPub(HttpServletRequest request, HttpServletResponse response) {
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
 		ModelAndView mav = new ModelAndView("book/openPub.mge");
 		mav.addObject("request", request);
 		managerService.bookOpenPub(mav);
@@ -172,10 +150,6 @@ public class ManagerController {
 		LogAspect.info("publisherInsert()");
 		return mav;
 	}
-<<<<<<< HEAD
-
-	@RequestMapping(value = "/publisherUpdate.do", method = RequestMethod.GET)
-=======
 	
 	@RequestMapping(value="/publisherInsertOk.do",method=RequestMethod.POST)
 	public ModelAndView publisherInsertOk(HttpServletRequest request, HttpServletResponse response, PublisherDto publisherDto) {
@@ -195,9 +169,7 @@ public class ManagerController {
 		return null;
 	}
 	
-	
 	@RequestMapping(value="/publisherUpdate.do",method=RequestMethod.GET)
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
 	public ModelAndView publisherUpdate() {
 		ModelAndView mav = new ModelAndView("publisher/update.mg");
 		LogAspect.info("publisherUpdate()");

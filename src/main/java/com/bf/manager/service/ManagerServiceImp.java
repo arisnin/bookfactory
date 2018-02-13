@@ -1,6 +1,5 @@
 package com.bf.manager.service;
 
-<<<<<<< HEAD
 import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,35 +15,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-=======
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.manager.dao.ManagerDao;
-<<<<<<< HEAD
 import com.bf.manager.dto.BoardFrequencyDto;
-=======
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookFirstCateDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
 import com.bf.manager.dto.PublisherDto;
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
 
 /**
  * @이름: 염현우 X 전상헌
@@ -153,8 +142,7 @@ public class ManagerServiceImp implements ManagerService {
 			e.printStackTrace();
 		}
 	}
-<<<<<<< HEAD
-
+	
 	// 상헌이꺼-------------------------------------------------------------------
 	@Override
 	public void boardInsert(ModelAndView mav) {
@@ -223,8 +211,9 @@ public class ManagerServiceImp implements ManagerService {
 				mav.addObject("check", check);
 				mav.setViewName("board/insertOk.mg");
 			}
-=======
-	
+		}
+	}
+
 	@Override
 	public void authorInsert(ModelAndView mav) {
 		List<CountryDto> countryList = managerDao.getCountry();
@@ -297,12 +286,10 @@ public class ManagerServiceImp implements ManagerService {
 			response.getWriter().print(thirdNameList);
 		} catch (IOException e) {
 			e.printStackTrace();
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
 		}
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void boardList(ModelAndView mav) {
 		Map<String,Object> map = mav.getModelMap();
 		HttpServletRequest request =(HttpServletRequest) map.get("request");
@@ -333,7 +320,7 @@ public class ManagerServiceImp implements ManagerService {
 		mav.setViewName("board/list.mg");
 	}
 
-=======
+	@Override
 	public void bookOpenPub(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		String searchWord = request.getParameter("search-word");
@@ -360,5 +347,5 @@ public class ManagerServiceImp implements ManagerService {
 		mav.addObject("count", count);
 		mav.addObject("pubList", pubList);
 	}
->>>>>>> 9c5eeb3d6c68dbaa4a05ac58c4abe11358136592
+
 }
