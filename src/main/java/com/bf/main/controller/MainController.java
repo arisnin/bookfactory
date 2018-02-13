@@ -199,17 +199,16 @@ public class MainController {
 
 		return "book/plus.main";
 	}
-	
+
 	/**
-<<<<<<< HEAD
 	 * 
 	 */
 	@RequestMapping(value = "/review.do", method = RequestMethod.POST)
 	public ModelAndView review(HttpServletRequest request, HttpServletResponse response, MyPageReviewDto myPageReviewDto) {
 		LogAspect.info("review():" + request.getHeader("referer"));
-		return mainService.review(new ModelAndView("book/review.solo").addObject("request",request).addObject("myPageReviewDto",myPageReviewDto));
+		return mainService.review(new ModelAndView("book/review.solo").addObject("request", request).addObject("myPageReviewDto", myPageReviewDto));
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -217,14 +216,15 @@ public class MainController {
 	public String reviewReply(HttpServletRequest request, HttpServletResponse response, MyPageReviewDto myPageReviewDto) {
 		LogAspect.info("reviewReply():" + request.getHeader("referer"));
 		return "book/review.solo";
-=======
-	 * 연재 > 책 상세보기  //임시로 로맨스화면의 베스트셀러들에게 걸음
+	}
+
+	/**
+	 * 연재 > 책 상세보기 //임시로 로맨스화면의 베스트셀러들에게 걸음
 	 */
 	@RequestMapping(value = "/book/plusSerial.do", method = RequestMethod.GET)
 	public String bookSerial(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		return "book/plusSerial.main";
->>>>>>> 8c2f53bd057ec95ce93c5e304b8c68d34c6eb944
 	}
 
 	/**
@@ -257,13 +257,17 @@ public class MainController {
 
 	/**
 	 * event > event
+	 * 
+	 * 이벤트 페이지 추가(02-12)
 	 */
 	@RequestMapping(value = "/event.do", method = RequestMethod.GET)
 	public String event(HttpServletRequest request, HttpServletResponse response) {
 		return "event/event.main";
-	}
-	// 이벤트 페이지 추가(02-12)
-	
+	} 
+
+	/**
+	 * 카트의 책들을 위시리스트로 옮기는 요청
+	 */
 	@RequestMapping(value = "/cartWishList.do", method = RequestMethod.GET)
 	public String cartWishList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -271,7 +275,7 @@ public class MainController {
 		mainService.cartWishList(mav);
 		return null;
 	}
-	
+
 	@RequestMapping(value = "/cartDelete.do", method = RequestMethod.GET)
 	public String cartDelete(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
@@ -279,7 +283,11 @@ public class MainController {
 		mainService.cartDelete(mav);
 		return null;
 	}
-	
+
+	/**
+	 * 회원가입 요청
+	 * @throws ParseException SimpleDateFormat.parse()에서 발생하는 예외
+	 */
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public ModelAndView register(HttpServletRequest request, HttpServletResponse response, RegisterDto registerDto) throws ParseException {
 		ModelAndView mav = new ModelAndView("genre/register.main");
@@ -291,10 +299,13 @@ public class MainController {
 		mainService.register(mav);
 		return mav;
 	}
-	
+
+	/**
+	 * 로그아웃 요청(임시 기능)
+	 */
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
-		request.getSession().invalidate();		
+		request.getSession().invalidate();
 		return "genre/normal.main";
 	}
 }
