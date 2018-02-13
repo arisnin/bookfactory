@@ -411,15 +411,19 @@
 			else .caution_wrapper.css ("display", "none")
 		--%>
 		
-		<%-- #776BCE, #FAF0FA, #C98AFF --%>
+		<%-- #776BCE, #FAF0FA, #C98AFF, #E1DFFA--%>
 		
 		$("input[name=radio]").each(function(i,e){
 			$(this).on("click", function(){
 				if($(this).prop("checked")){
 					$(".select_body_1").css("color", "#444");
 					$(".point_plus").css("color", "#abb3ba");
+					$(".select_body_1").css("background", "white");
+					
 					$(".select_body_1").eq(i).css("color", "#776BCE");
 					$(".point_plus").eq(i).css("color", "#C98AFF");
+					//$(".select_body_1").eq(i).css("background", "#E1DFFA");
+					$(".select_body_1").eq(i).css("cssText", "background: #E1DFFA !important");
 				}
 			});
 		});
