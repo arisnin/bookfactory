@@ -52,11 +52,16 @@
 	width: 89%;
 }
 
+.wrapper > .cash_body{
+	color: #444;
+}
+
 .cash_select_ul li{
 	color: #40474d;
 	font-size: 0.8125rem;
 	vertical-align: middle;
 	height: 2.5rem;
+	font-weight: bold;
 }
 
 .wrapper > .cash_select{
@@ -247,7 +252,6 @@
 }
 
 .input_wrapper  .radio_span{
-	color: #636c73;
 	font-weight: 700;
 	font-size: 0.8125rem;
 	position: relative;
@@ -409,6 +413,8 @@
 	width: 30%;
 	height: 2.3125rem;
 	float: left;
+	color: #444;
+	font-weight: bold;
 }
 
 .payment_list .payment_label{

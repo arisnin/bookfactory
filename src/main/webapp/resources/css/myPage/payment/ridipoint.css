@@ -95,11 +95,6 @@
 	float: left;
 }
 
-.mypoint_history_table_title > .m-point {
-	line-height: 0.9rem;
-    transform: translateY(-5px);	
-}
-
 .mypoint_history_table_title > .status{
 	width: 5.625rem;
 	float: left;

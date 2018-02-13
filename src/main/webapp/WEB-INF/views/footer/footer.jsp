@@ -17,17 +17,17 @@
 			$(".footer_header_notice_change").delay(1000).animate({
 				top : "-=1rem"
 			}, 2000, function() {
-				$(".footer_header_notice_change").first().css("top", "2rem")
+				$(".footer_header_notice_change").first().css("top", "2rem");
 			});
 			$(".footer_header_notice_change").delay(1000).animate({
 				top : "-=1rem"
 			}, 2000, function() {
-				$(".footer_header_notice_change").eq(1).css("top", "1rem")
+				$(".footer_header_notice_change").eq(1).css("top", "1rem");
 			});
 			$(".footer_header_notice_change").delay(1000).animate({
 				top : "-=1rem"
 			}, 2000, function() {
-				$(".footer_header_notice_change").eq(2).css("top", "0rem")
+				$(".footer_header_notice_change").eq(2).css("top", "0rem");
 			});
 		}
 	});
