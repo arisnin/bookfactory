@@ -74,7 +74,7 @@ function appendReviewList(remain, count) {
  */
 function addReviewItem(dFrag) {
 	var listItem = document.createElement("li");
-	var innerHTML = '<!-- 리뷰 정보 --> <div class="review-info"> <div class="content-star-rate review-info-row"> <span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span> </div> <div class="review-info-row"> <span class="reviewer-id">admin***</span> <span class="badge-icon">구매자</span> </div> <div class="review-info-row"> <span class="review-date">2018.01.01</span> <button type="button" class="bf-button bf-white-btn">신고</button> </div> </div> <!-- 리뷰 내용 --> <div class="review-contents"> <div class="review-content review-spoiler" style="display:none;"> <span><span class="material-icons">warning</span> 스포일러가 있는 리뷰입니다.</span> <hr class="line"> <button type="button" class="bf-button bf-transparent-btn bf-animated-btn" onclick="collapseSpoilerView(this)">리뷰보기</button> </div> <p class="review-content" style="display:inline-block;">리뷰내용</p> <!-- 리뷰 평가 버튼 --> <div class="review-status"> <button type="button" class="bf-button bf-white-btn"> <span class="material-icons">thumb_up</span> <span class="book-count"></span> </button> <button type="button" class="bf-button bf-white-btn" onclick="collapseViewToggle(this)"> <span class="material-icons">textsms</span> 댓글 <span class="book-count"></span> </button> <!-- 댓글 컨트롤 --> <div class="reply-write-form" style="display:none;"> <!-- 댓글 목록 --> <div class="reply-list-box"> <ul></ul> </div> <!-- 댓글 작성 --> <form> <textarea name="reply"></textarea> <button type="button" class="bf-button">댓글 달기</button> </form> </div> </div> </div>';
+	var innerHTML = '<!-- 리뷰 정보 --> <div class="review-info"> <div class="content-star-rate review-info-row"> <span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span> </div> <div class="review-info-row"> <span class="reviewer-id">admin***</span> <span class="badge-icon">구매자</span> </div> <div class="review-info-row"> <span class="review-date">2018.01.01</span> <button type="button" class="bf-button bf-white-btn">신고</button> </div> </div> <!-- 리뷰 내용 --> <div class="review-contents"> <div class="review-content review-spoiler" style="display:none;"> <span><span class="material-icons">warning</span> 스포일러가 있는 리뷰입니다.</span> <hr class="line"> <button type="button" class="bf-button bf-transparent-btn bf-animated-btn" onclick="collapseSpoilerView(this)">리뷰보기</button> </div> <p class="review-content" style="display:inline-block;">리뷰내용</p> <!-- 리뷰 평가 버튼 --> <div class="review-status"> <button type="button" class="bf-button bf-white-btn"> <span class="material-icons">thumb_up</span> <span class="book-count"></span> </button> <button type="button" class="bf-button bf-white-btn" onclick="collapseViewToggle(this)"> <span class="material-icons">textsms</span> 댓글 <span class="book-count"></span> </button> <!-- 댓글 컨트롤 --> <div class="reply-write-form" style="display:none;"> <!-- 댓글 목록 --> <div class="reply-list-box"> <ul></ul> </div> <!-- 댓글 작성 --> <form action="${root}/review/reply.do" method="post" onsubmit="return replyValidation()"> <textarea name="content"></textarea> <button type="submit" class="bf-button">댓글 달기</button> <input type="hidden" name="review_num" value="${review_num}"/> </form> </div> </div> </div>';
 
 	listItem.className = "review-list-item";
 	listItem.innerHTML = innerHTML;
@@ -86,3 +86,39 @@ function insertReviewData(listItem) {
 	// TODO: insert data
 
 }
+
+/**
+ * 설정된 별점 평가를 초기화시키는 함수
+ * @returns 없음
+ *
+ * @author 박성호
+ * @date 2018. 2. 13.
+ */
+function starCancel() {
+	var stars = document.getElementById("star-rate-touch-box").querySelectorAll(".star-field");
+	Array.prototype.forEach.call(stars, function(e,i) {
+		e.classList.remove("active");
+	});
+}
+
+/**
+ * 별점 평가의 별 아이콘을 클릭했을 시, 해당 점수의 별 아이콘을 활성화(색깔 변화) 시키는 함수
+ * @param element forEach문의 element 값(각 별 아이콘에 대응하는 radio 컨트롤 요소)
+ * @param count forEach문의 인덱스 값
+ * @returns 없음
+ *
+ * @author 박성호
+ * @date 2018. 2. 13.
+ */
+Array.prototype.forEach.call(document.querySelectorAll("#star-rate-touch-box input"), function(element,count) {
+	element.addEventListener("click", function() {
+		var stars = document.getElementById("star-rate-touch-box").querySelectorAll(".star-field");
+		Array.prototype.forEach.call(stars, function(e,i) {
+			if (i > count) {
+				e.classList.remove("active");
+			} else {
+				e.classList.add("active");
+			}
+		});
+	});
+});

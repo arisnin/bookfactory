@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.main.service.MainService;
+import com.bf.myPage.dto.MyPageReviewDto;
 
 /**
  * @Date 2018. 2. 4.
@@ -191,6 +193,24 @@ public class MainController {
 	public String bookPlus(HttpServletRequest request, HttpServletResponse response) {
 
 		return "book/plus.main";
+	}
+	
+	/**
+	 * 
+	 */
+	@RequestMapping(value = "/review.do", method = RequestMethod.POST)
+	public ModelAndView review(HttpServletRequest request, HttpServletResponse response, MyPageReviewDto myPageReviewDto) {
+		LogAspect.info("review():" + request.getHeader("referer"));
+		return mainService.review(new ModelAndView("book/review.solo").addObject("request",request).addObject("myPageReviewDto",myPageReviewDto));
+	}
+	
+	/**
+	 * 
+	 */
+	@RequestMapping(value = "review/reply.do", method = RequestMethod.POST)
+	public String reviewReply(HttpServletRequest request, HttpServletResponse response, MyPageReviewDto myPageReviewDto) {
+		LogAspect.info("reviewReply():" + request.getHeader("referer"));
+		return "book/review.solo";
 	}
 
 	/**
