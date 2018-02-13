@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bf.mapper.PublisherMapper">
+	<insert id="publisherInsert" parameterType="com.bf.manager.dto.PublisherDto">
+		insert into PUBLISHER values(PUBLISHER_NUM_SEQ.nextval,#{name},#{url},sysdate)
+	</insert>
+	<select id="nameCheck" parameterType="String" resultType="int">
+		select count(*) from publisher where name=#{name}
+	</select>
+	
+	<select id="getPublisher1" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.PublisherDto">
+		SELECT * FROM(
+		SELECT ROWNUM rnum, A.* FROM(
+		SELECT * FROM PUBLISHER) A)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getPublisher2" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.PublisherDto">
+		SELECT * FROM(
+		SELECT ROWNUM rnum, A.* FROM(
+		select * from publisher where NAME like '%'||#{searchWord}||'%') A)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from publisher
+	</select>
+</mapper>

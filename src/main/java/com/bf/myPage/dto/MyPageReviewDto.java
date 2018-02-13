@@ -13,14 +13,14 @@ import org.springframework.stereotype.Component;
 public class MyPageReviewDto {
 	// Field
 	private int num; // NUMBER(8,0) -- index
-	private String id; // VARCHAR2(40 CHAR) -- 리뷰 번호
+	private String id; // VARCHAR2(40 CHAR) -- 회원 아이디
 	private int book_num; // NUMBER(8,0) -- 책 번호(외래키)
 	private String content; // VARCHAR2(4000 BYTE) -- 리뷰 내용
 	private java.util.Date write_date; // DATE -- 작성일
 	private int star_point; // NUMBER(3,0) -- 별점
-	private String spoiler; // VARCHAR2(20 CHAR) -- 스포일러 여부
+	private String spoiler; // VARCHAR2(20 CHAR) -- 스포일러존재/미존재(true/false)
 	private int preference; // NUMBER(8,0) -- 좋아요 개수
-	private String display; // VARCHAR2(20 CHAR) -- 비공개/공개
+	private String display; // VARCHAR2(20 CHAR) -- 공개/비공개(true/false)
 
 	// Constructor
 	public MyPageReviewDto() {
@@ -110,6 +110,11 @@ public class MyPageReviewDto {
 
 	public void setDisplay(String display) {
 		this.display = display;
+	}
+
+	@Override
+	public String toString() {
+		return "MyPageReviewDto [num=" + num + ", id=" + id + ", book_num=" + book_num + ", content=" + content + ", write_date=" + write_date + ", star_point=" + star_point + ", spoiler=" + spoiler + ", preference=" + preference + ", display=" + display + "]";
 	}
 
 }

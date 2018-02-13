@@ -1,0 +1,783 @@
+@charset "UTF-8";
+/*
+	작성자 : 최정은
+	최종수정일 : 2018.01.20
+	설명 : 책 클릭했을때 나오는 상세페이지에 관한 css 입니다.
+*/
+
+/**
+ * 전체적인 레이아웃 및 세부 CSS 수정
+ * @Author	박성호	
+ * @Date	2018. 2. 9.
+ */
+ 
+/*책 상세페이지 상단부분*/
+.plus_All {
+	min-width: 56.25rem;
+	width: 56.25rem;
+	margin: 0px auto;
+}
+
+#content_head {
+	/* width: 690px; */
+	width: 77%;
+	margin: 0px auto;
+	border: 0px solid red;
+	overflow: hidden;
+}
+
+.head_left {
+	float: left;
+	/* width: 285px; */
+	/* height: 469px; */
+	width: 30%;
+	height: 29.25rem;
+	text-align: center;
+	/* padding-top: 30px; */
+}
+
+.head_left>img {
+	border: 1px solid silver;
+	border-radius: 0.125rem;
+	box-shadow: 0px 0.125rem 1.5rem -0.125rem rgba(0, 0, 0, 0.7);
+	width: 100%;
+	/* height: 348px; */
+	margin: 0 0 14% 0;
+}
+
+.head_left>input {
+	margin: 0.625rem 0px;
+	margin-left: 50px;
+	width: 120px;
+	height: 34px;
+}
+
+.head_left>a {
+	line-height: 1.875rem;
+	padding: 0.625rem 1.75rem;
+	border-radius: 5px;
+    border: 1px solid #d1d5d9;
+    background: white;
+    color: gray;
+}
+
+.head_left>a>img {
+	padding-top: 0.625rem;
+	width: 0.8125rem;
+	height: 0.8125rem;
+}
+
+.head_left>a>span {
+	font-weight: 700;
+	text-align: center;
+	line-height: 1em;
+	font-size: 1rem;
+	color: #ca7070;
+}
+
+.head_left>a>span:last-child{
+	color: gray;
+}
+
+.head_right {
+	display: inline-block;
+	float: right;
+	width: 70%;
+	overflow: hidden;
+	padding-left: 6%;
+	overflow: hidden;
+}
+
+.head_right>div {
+	display: inline-block;
+	width: 100%; line-height : 1rem;
+	font-size: 0.9rem;
+	color: #666;
+	cursor: pointer;
+	font-weight: 600;
+	line-height: 1rem;
+}
+
+.head_right>.category>.category-item {
+	display: inline-block;
+	float: left; width : auto;
+	margin: 0 auto;
+	width: auto;
+}
+
+.head_right>.category .main {
+	color: #999;
+}
+
+.head_right>.category .sub:before {
+	content: '>';
+	font-size: 0.7rem;
+	color: #999;
+	margin: 0 0.5rem;
+	vertical-align: middle;
+}
+
+.head_right>.category .category-item:FIRST-CHILD ~ .category-item:before
+	{
+	content: ',';
+	margin-left: 0.125rem;
+	margin-right: 0.5rem;
+}
+
+.head_right>div.main-title {
+	margin-top: 1rem;
+	font-size: 2rem;
+	line-height: 1.2em;
+	font-weight: 700;
+}
+
+.head_right>div.sub-title {
+	margin-top: 0.125rem;
+	font-size: 1rem;
+	line-height: 1.2em;
+	padding-bottom: 0.4375rem;
+	color: darkgray;
+}
+
+.head_right>div.author-info {
+	margin-top: 20px;
+	color: #666;
+	font-size: 0.9rem;
+	line-height: 1.7em;
+}
+
+.head_right>div.author-info a {
+	font-size: 1rem;
+	color: #666;
+	line-height: 1em;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.head_right>div.author-info span:after {
+	content: '';
+	display: inline-block;
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: darkgray;
+	margin-left: 0.125rem;
+	cursor: default;
+}
+
+.head_right>div.author-info span.author:after {
+	content: '저자';
+}
+
+.head_right>div.author-info span.illustrator:after {
+	content: '그림';
+}
+
+.head_right>div.author-info span.illustrator:after {
+	content: '글/그림';
+}
+
+.head_right>div.author-info span:FIRST-CHILD ~ a:before {
+	content: '|';
+	font-size: 0.7rem;
+	color: gainsboro;
+	margin: 0 0.25rem;
+}
+
+.head_right>div.content-star-rate {
+	width: auto;
+	margin-top: 0.25rem;
+}
+
+.head_right>div.content-star-rate .star-icon-field, .head_right>div.content-star-rate .non-star-icon-field
+{
+	font-size: 1.2rem;
+}
+
+.head_right>div.event {
+	line-height: 1.7em;
+	color: orangered;
+	font-size: 0.8rem;
+	margin: 1.25rem 0 0.5rem;
+}
+
+.head_right>div.event>.period:before {
+	content: '이벤트 기간:';
+	margin-right: 0.25rem;
+}
+
+.head_right>ul.book-info {
+	/*여기부분 고쳐야함*/
+	display: grid;
+}
+
+.head_right>ul.book-info>li {
+	width: 100%;
+	height: 1.5625rem;
+}
+
+.head_right>ul.book-info>li>span {
+	display: table-cell;
+	width: 2.5rem;
+	font-weight: 700;
+	color: #333;
+	padding-right: 0.4375rem;
+	white-space: nowrap;
+	font-size: 0.9rem;
+	line-height: 1.5em;
+	float: left;
+}
+
+.head_right>ul.book-info>li>ul {
+	display: inline-block;
+}
+
+.head_right>ul.book-info>li>ul>li {
+	font-size: 0.9rem;
+	float: left;
+	position: relative;
+	color: #444;
+	top: 4px;
+	left: 1.25rem;
+}
+
+.head_right>ul.book-info>li>ul>li>p {
+	font-size: 0.9rem;
+	line-height: 0.8em;
+	padding: 0px 5px;
+	border-right: 0.8px solid darkgray;
+}
+
+.head_right>ul.book-info>li:FIRST-CHILD>ul>li:FIRST-CHILD>p:FIRST-CHILD {
+	cursor: pointer;
+}
+
+.head_right>ul.book-info>li>ul>li:nth-last-child(1) {
+	border-right: 0px;
+}
+
+.head_right i {
+	margin-right: 3px;
+	font-size: 1rem;
+	vertical-align: 10%;
+}
+
+/* 구매 가격 정보 박스 */
+.head_right .price-box {
+	border-top: 1px solid #E1DFFA;
+	border-bottom: 1px solid #E1DFFA;
+	width: 100%;
+	line-height: 2rem;;
+	font-size: 1rem;
+	font-weight: bold;
+	color: #666;
+	margin: 1rem 0;
+}
+
+.box_left {
+	background-color: #FCF9FF;
+	display: inline-block;
+	float: left;
+	width: 30%;
+	line-height: 6rem;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.box_right {
+	display: inline-block;
+	position: relative; width : 70%;
+	font-size: 0.9rem;
+	vertical-align: middle;
+	width: 70%;
+	padding-left: 5%;
+}
+
+.box_right span {
+	display: inline-block;
+	line-height: 2rem;
+	font-size: 0.9rem;
+	color: #666;
+}
+
+.box_right div>span:first-child {
+	float: left;
+	width: 50%;
+	font-weight: normal;
+}
+
+.box_right div>span:last-child {
+	float: right;
+	width: 50%;
+}
+
+.box_right >div:last-child > span {
+	color: #776BCE;
+}
+
+.box_right span.sail:before {
+	content: '(';
+}
+
+.box_right span.sail:after {
+	content: '%\2193)';
+}
+
+.box_right span.sail {
+	margin-left: 0.5rem;
+}
+
+.box_right span.sell > span.sail {
+	color: orangered;
+}
+
+.head_bottom{
+    margin-top: 15px;
+}
+
+.head_bottom button {
+	width: 140px;
+    height: 41px;
+    font-size: 1rem;
+    letter-spacing: 2px;
+	box-shadow: 0 1px 1px 0 rgba(209, 213, 217, .3);
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+/*연재 상세페이지에서 사용하는 연재리스트 */
+.bookSerialChoice{
+	min-width: 77%;
+	width: 77%;
+	margin: 0px auto;
+	border: 0px solid;
+}
+
+.bookSerialChoice_division{
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    border-top: 2px solid #5D568C;
+    cursor: pointer;
+}
+
+.bookSerialChoice_division > div:first-child{
+    float: left;
+    width: 50%;
+    height: 50px;
+    line-height: 50px;
+    font-weight: 600;
+    border-right: 1px double #d1d5d9;
+    border-bottom: 0px double #d1d5d9;
+}
+
+.bookSerialChoice_division > div:last-child{
+    float: left;
+    line-height: 50px;
+    font-weight: 600;
+    width: 50%;
+    background-color: #eaeaea;
+    border-bottom: 1px double #d1d5d9;
+}
+
+.bookSerialChoice_button{
+    height: 55px;
+    line-height: 50px;
+    border: 0px solid;
+    border-bottom: 1px double #d1d5d9;
+}
+
+.bookSerialChoice_button_left{
+    float: left;
+    width: 50%;
+    height: 100%;	
+}
+
+.bookSerialChoice_button_left > ul{
+    margin: 0px 15px;
+    height: 100%;
+}
+
+.bookSerialChoice_button_left li{
+	float: left;
+	height: 100%;
+}
+
+.bookSerialChoice_button_right{
+    float: left;
+    width: 50%;
+    height: 100%;	
+}
+
+.bookSerialChoice_button_right > ul{
+    height: 100%;
+    margin: 0px 15px;
+}
+
+.bookSerialChoice_button_right > ul > li{
+	margin-left: 10px;
+    float: right;
+    height: 100%;
+    letter-spacing: -1px;
+}
+
+.bookSerialChoice_button_right > ul > li:last-child{
+    font-size: 0.9rem;
+    line-height: 51px;
+}
+
+.bookSerialChoice_button_right > ul > li:last-child > span:last-child{
+    color: #776bce;
+}
+
+.bookSerialChoice_list{
+	
+}
+
+.bookSerialChoice_list > ul{
+	
+}
+
+.bookSerialChoice_list li{
+    padding: 0px 15px;
+    border: 0px solid;
+    display: -webkit-box;
+    height: 80px;
+    border-bottom: 1px double #d1d5d9;
+    font-size: 0.9rem;
+}
+
+.bookSerialChoice_list li > label{
+    line-height: 80px;
+    margin-right: 15px;
+}
+
+.bookSerialChoice_list_left{
+    font-size: 0.8rem;
+    height: 70px;
+    padding-top: 10px;
+    line-height: 20px;
+    width: 555px;
+    min-width: 555px;
+}
+
+.bookSerialChoice_list_left > div:first-child{
+	font-weight: 600;
+}
+
+.bookSerialChoice_list_left > div:last-child{
+	color: #776bce;
+	font-weight: 600;
+}
+
+.bookSerialChoice_list_left > div:last-child >span:last-child{
+	color: dimgray;
+	margin-left: 5px;
+    display: inline;
+}
+
+.bookSerialChoice_list_right{
+    line-height: 75px;
+}
+
+.bookSerialChoice_list_more{
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.bookSerialChoice_list_more > .bf-button{
+	width: 100%;
+	height: 40px;
+}
+
+.bookSerialChoice_list_more > .bf-button > span:first-child{
+    position: relative;
+    top: -6px;
+}
+
+.bookSerialChoice_list_more > .bf-button > span:last-child{
+    position: relative;
+    top: 1px;
+    left: -3px;
+}
+
+/*책소개 출판사 서평들 비슷한 양식들*/
+#bookIntroAll {
+	width: 77%;
+	margin: 2rem auto 0;
+}
+
+.bookIntro {
+	width: 100%;
+	border: 0px solid blue;
+	margin-bottom: 35px;
+}
+
+.bookIntro>div:nth-child(1) {
+	margin-bottom: 0.9375rem;
+	padding: 0.625rem 0 8px 0;
+	border-bottom: 2px solid #5D568C;
+}
+
+.bookIntro>div h3 {
+	font-size: 1.2rem;
+	color: #333;
+	font-weight: 700;
+}
+
+.bookIntro_con .readAll {
+	width: 100%;
+	line-height: 1rem;
+	overflow: hidden;
+	color: #666;
+}
+.bookIntro_con .readAll.collapse + button > i:first-child,
+.bookIntro_con .readAll + button > i:last-child {
+	display: inline-block;
+}
+
+.bookIntro_con .readAll.collapse {
+	height: 11rem;
+}
+
+.bookIntro_con .readAll.collapse + button > i:last-child,
+.bookIntro_con .readAll + button > i:first-child {
+	display: none;
+}
+
+.bookIntro_con .readAll + button {
+	color: #776BCE;
+}
+
+.bookIntro_con img {
+	width: 92%;
+}
+
+.bookIntro_con button {
+	float: right;
+	background: 0 0;
+	font-size: 1rem;
+	color: #666;
+	border: none;
+	cursor: pointer;
+}
+
+.bookIntro_con .material-icons {
+	position: relative;
+	top: 0.25rem;
+	left: 0px;
+	font-size: 1.1875rem;
+}
+
+/*책 상세페이지 중앙부분*/
+#profile {
+	width: 100%;
+	border: 0px solid red;
+	font-size: 1rem;
+}
+
+#profile>div:nth-child(1) {
+	padding: 0.625rem 0 0.5rem 0;
+	border-bottom: 2px solid #5D568C;
+	font-size: 1.2rem;
+	color: #333;
+	font-weight: 700;
+}
+
+.profile_click_event {
+	margin-top: 0.25rem;
+	color: #666;
+	font-size: 1rem;
+	line-height: 1em;
+}
+
+.profile_click_event>div:nth-child(1) {
+	display: inline-block;
+	width: 100%;
+	line-height: 2.25rem;
+	border-bottom: 1px solid #5d568c40;
+}
+
+.profile_click_event>div:nth-child(1) li {
+	float: left;
+	color: #666;
+	margin-right: 0.9375rem;
+	font-size: 0.9rem;
+}
+
+.profile_click_event>div:nth-child(1) li>span:nth-child(2n-1) {
+	font-weight: 600;
+	color: #333;
+	margin-right: 3px;
+}
+
+.profile_click_event>div:nth-child(1) li>a {
+	position: relative;
+	font-size: 1rem;
+	margin-bottom: 0.625rem;
+	margin-left: 0.125rem;
+	cursor: pointer;
+}
+
+.profile_click_event>div:nth-child(1) li>a .activeBar {
+	position: absolute;
+	bottom: -0.625rem;
+	left: 0px;
+	width: 100%;
+	height: 3px;
+	background-color: #5d568cb3;
+}
+
+.profile_ex {
+	margin-top: 0.9375rem;
+	border: 0px solid red;
+}
+
+.profile_ex>div.author {
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: #333;
+}
+
+.profile_ex>div.author>span.other-language {
+	margin-left: 0.625rem;
+	font-size: 1rem;
+	font-weight: normal;
+	color: dimgray;
+}
+
+.profile_ex>button.add-notice {
+	font-size: 0.8rem;
+	color: #776bce;
+	background: #fff;
+	border: 1px solid #776bce;
+	border-radius: 0.2rem;
+	width: 155px;
+	height: 31px;
+	margin: 0.9375rem 0px;
+	cursor: pointer;
+}
+
+.profile_ex>button.add-notice>span.icon-plus {
+	display: inline-block;
+	transform: translateY(1px);
+}
+
+.profile_ex>ol.content {
+	margin-bottom: 1.25rem;
+}
+
+.profile_ex>ol.content li {
+	font-size: 0.9rem;
+	line-height: 1.25rem;
+}
+
+.profile_ex>ol.content li > span:FIRST-CHILD {
+	color: dimgray;
+}
+.profile_ex li>span:nth-child(1) {
+	font-weight: 600;
+	margin-right: 0.625rem;
+	color: #333;
+}
+
+.profile_ex .profile_date {
+	text-align: right;
+	line-height: 1.5rem;
+	font-size: 0.8rem;
+	color: #666;
+	margin-bottom: 0.9375rem;
+}
+
+.profile_ex .profile_date > span.update {
+	vertical-align: middle;
+}
+
+.profile_ex .profile_date > span.update:after {
+	content: '업데이트';
+	display: inline-block;
+	margin-left: 0.5rem;
+	transform: translateY(-1px);
+}
+
+.profile_ex .profile_date .bf-button {
+	font-size: 0.7rem;
+	padding: 0.125rem 0.625rem;
+	margin-left: 7px;
+}
+
+.profile_masterpiece {
+	border-top: 1px solid #5d568c40;
+	display: inline-block;
+	width: 100%;
+	padding: 1rem;
+}
+
+.profile_masterpiece>div:FIRST-CHILD {
+	display: inline-block;
+	width: 100%;
+	padding: 0.5rem 0;
+	margin-top: 0.5rem;
+}
+
+.profile_masterpiece>div:FIRST-CHILD span {
+	font-size: 1rem;
+	font-weight: bold;
+	color: #333;
+	float: left;
+}
+
+.profile_masterpiece>div:FIRST-CHILD li {
+	float: right;
+	font-size: 0.8rem;
+	padding: 0 0.625rem;
+	border-right: 1px solid #666;
+	color: dimgray;
+	cursor: pointer;
+}
+
+.profile_masterpiece>div:FIRST-CHILD li:FIRST-CHILD {
+	padding-right: 0;
+	border-right: none;
+}
+
+.profile_masterpiece>div:FIRST-CHILD li.activeFont {
+	color: #666;
+	font-weight: 900;
+}
+
+.profile_masterpiece>div.list {
+	width: 100%;
+	border: 0px solid;
+}
+
+.profile_masterpiece>div.list li {
+	width: 20%;
+	font-size: 0.9rem;
+	border: 0px solid red;
+	box-sizing: border-box;
+	float: left;
+	margin-bottom: 0.9375rem;
+	cursor: pointer;
+}
+
+.profile_masterpiece>div.list li>img {
+	border: 1px solid silver;
+	border-radius: 0.125rem;
+	box-shadow: 0px 0.125rem 1.5rem -0.125rem rgba(0, 0, 0, 0.7);
+	width: 5.625rem;
+	height: 7rem;
+	margin: 0px 1.375rem;
+}
+
+.profile_masterpiece>div.list .content-star-rate {
+	width: 100%;	
+}
+
+.profile_masterpiece>div.list .content-star-rate > span.material-icons  {
+	transform: translateX(-4px);
+}
+
+.profile_masterpiece>.bf-white-btn {
+	float: right;
+}

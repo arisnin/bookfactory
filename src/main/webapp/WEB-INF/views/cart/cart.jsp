@@ -11,21 +11,8 @@
 <link rel="stylesheet" type="text/css"
 	href="${root}/css/order/order.css">
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$(".cart_content_book_content button:last-child").click(function() {
-			var a = confirm("정말로 삭제하시겠습니까?");
-			if (a == true) {
-				$(this).parents(".cart_content_book").remove();
-			}
-		});
-		
-		$(".cart_content_book_content").find("button").first().click(function() {
-			$.post("cart/cart.do");
-			});
-		});
-	});
-</script>
+<c:set var="book_num" value="999"/>
+<script type="text/javascript" src="${root}/script/cart/cart.js"></script>
 
 </head>
 <body>

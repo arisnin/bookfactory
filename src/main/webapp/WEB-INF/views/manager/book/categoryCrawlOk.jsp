@@ -9,6 +9,18 @@
 	<c:set var="root" value="${pageContext.request.contextPath}"/>
 </head>
 <body>
-
+	<c:if test="${check > 0}">
+		<script type="text/javascript">
+			alert("크롤러 카테고리 자동세팅 이미완료");	
+			location.href = '${root}/manager/bookCategory.do';
+		</script>
+	</c:if>
+	<c:if test="${check == 0}">
+		<script type="text/javascript">
+			alert("크롤러 카테고리 완료");	
+			location.href = '${root}/manager/bookCategory.do';
+		</script>
+	</c:if>
+	
 </body>
 </html>

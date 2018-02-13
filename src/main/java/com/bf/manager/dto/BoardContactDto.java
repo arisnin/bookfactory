@@ -5,9 +5,9 @@ import java.util.Date;
 /**
  * @ 작성자 : 전상헌
  * @ 작성일  : 2018. 2. 12.
- * @ 주제 및 설명 : boardDto
+ * @ 주제 및 설명 : 1:1문의 내역 리스트
  */
-public class ManagerBoardContact {
+public class BoardContactDto {
 	private int num;
 	private String title;
 	private String content;
@@ -20,9 +20,9 @@ public class ManagerBoardContact {
 	private int FILE_SIZE;
 	private String FILE_PATH;
 	
-	public ManagerBoardContact() {}
+	public BoardContactDto() {}
 	
-	public ManagerBoardContact(int num, String title, String content, String id, Date wRITE_DATE, int cATEGORY,
+	public BoardContactDto(int num, String title, String content, String id, Date wRITE_DATE, int cATEGORY,
 			String rEPLY_CONTENT, String rEPLY_CHECK, String fILE_NAME, int fILE_SIZE, String fILE_PATH) {
 		super();
 		this.num = num;

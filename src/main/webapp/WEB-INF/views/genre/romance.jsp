@@ -46,9 +46,9 @@
 			<div class="bf-service-type-menu">
 				<!-- li 요소에 diamond class를 추가하면 구분 아이콘 변경 -->
 				<ul class="order-type-list">
-					<li class="diamond"><a class="active" href="${root}/best-sell.do">주간 베스트셀러</a></li>
-					<li class="diamond"><a href="${root}/best-sell.do">월간 베스트셀러</a></li>
-					<li class="diamond"><a href="${root}/best-sell.do">스테디셀러</a></li>
+					<li class="diamond"><a class="active" href="${root}/book/plusSerial.do">주간 베스트셀러</a></li>
+					<li class="diamond"><a href="${root}/book/plusSerial.do">월간 베스트셀러</a></li>
+					<li class="diamond"><a href="${root}/book/plusSerial.do">스테디셀러</a></li>
 				</ul>
 			</div>
 		</div>
