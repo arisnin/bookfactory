@@ -1,5 +1,9 @@
 package com.bf.main.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.main.dto.RegisterDto;
 import com.bf.main.service.MainService;
 
 /**
@@ -237,5 +242,31 @@ public class MainController {
 		mav.addObject("request", request);
 		mainService.cartWishList(mav);
 		return null;
+	}
+	
+	@RequestMapping(value = "/cartDelete.do", method = RequestMethod.GET)
+	public String cartDelete(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mainService.cartDelete(mav);
+		return null;
+	}
+	
+	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
+	public ModelAndView register(HttpServletRequest request, HttpServletResponse response, RegisterDto registerDto) throws ParseException {
+		ModelAndView mav = new ModelAndView("genre/register.main");
+		Date birthday = new SimpleDateFormat("yyMMdd").parse(request.getParameter("birth"));
+		registerDto.setBirthday(birthday);
+		registerDto.setIp(request.getRemoteAddr());
+		mav.addObject("registerDto", registerDto);
+		LogAspect.info(registerDto.toString());
+		mainService.register(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		request.getSession().invalidate();		
+		return "genre/normal.main";
 	}
 }

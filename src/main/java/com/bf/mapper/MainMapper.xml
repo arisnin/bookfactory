@@ -10,4 +10,8 @@
 	<insert id="insert_cartWishList" parameterType="int">
 		INSERT INTO wishlist VALUES(100,'abc',#{num})
 	</insert>
+	
+	<insert id="register" parameterType="com.bf.main.dto.RegisterDto">
+		insert into member values(member_num_seq.nextval,#{id},#{password},#{email},#{gender},sysdate,#{birthday},#{marketing_check},#{ip},sysdate,#{phone})
+	</insert>
 </mapper>

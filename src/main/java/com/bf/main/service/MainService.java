@@ -11,4 +11,8 @@ public interface MainService {
 
 	public void cartWishList(ModelAndView mav);
 
+	public void cartDelete(ModelAndView mav);
+
+	public void register(ModelAndView mav);
+
 }
