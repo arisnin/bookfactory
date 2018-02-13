@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.main.service.MainService;
@@ -229,4 +230,12 @@ public class MainController {
 		return "event/event.main";
 	}
 	// 이벤트 페이지 추가(02-12)
+	
+	@RequestMapping(value = "/cartWishList.do", method = RequestMethod.GET)
+	public String cartWishList(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mainService.cartWishList(mav);
+		return null;
+	}
 }

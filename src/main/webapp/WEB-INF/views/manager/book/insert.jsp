@@ -8,8 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>도서 등록</title>
 	<c:set var="root" value="${pageContext.request.contextPath}"/>
-  	<link rel="stylesheet" href="${root}/css/basic/reset.css">
-  	<link rel="stylesheet" href="${root}/css/basic/commons.css">
   	<link rel="stylesheet" href="${root}/css/manager/book.css">
   	<link rel="stylesheet" href="${root}/css/basic/jquery-ui.css">
 </head>
@@ -44,31 +42,62 @@
 				</div>
 				<div>
 					<label>카테 고리</label>
-					<div class="hwdropdown">
+					<div id="b_cate_1" class="hwdropdown">
 						<button class="hwdropbtn">대분류</button>
 						<div id="myDropdown" class="hwdropdown-content">
-							<span>ok</span>
-							<span>ok</span>
-							<span>ok</span>
-							<span>ok</span>
+							<c:forEach items="${firstCateList}" var="firstCateDto">
+								<span>${firstCateDto.name}</span>
+							</c:forEach>
 						</div>
 					</div>
-					<div class="hwdropdown">
+					<script type="text/javascript">
+						$("#b_cate_1 span").click(function(){
+							var name = $(this);
+							$.ajax({
+							  url: "${root}/manager/bookCateOne.do",
+							  method: 'get',
+							  data: {name : name.text()},
+							  success: function(arrCate){
+							  		var secondCate = arrCate.split(",");
+							  		$("#b_cate_2").find(".hwdropbtn").text("중분류");
+							  		var secondNode = $("#b_cate_2").find("#myDropdown");
+							  		secondNode.empty();
+							  		
+							  		for(var i=0;i<secondCate.length-1;i++){
+							  			secondNode.append("<span>"+secondCate[i]+"</span>");
+							  		}
+							  		$("#b_cate_2 span").click(function(){
+										var name = $(this);
+										$.ajax({
+										  url: "${root}/manager/bookCateTwo.do",
+										  method: 'get',
+										  data: {name : name.text()},
+										  success: function(arrCate){
+										  		var secondCate = arrCate.split(",");
+										  		var secondNode = $("#b_cate_3").find("#myDropdown");
+										  		secondNode.empty();
+										  		
+										  		for(var i=0;i<secondCate.length-1;i++){
+										  			alert(secondCate[i]);
+										  			secondNode.append("<span>"+secondCate[i]+"</span>");
+										  		}
+										  	},
+										  dataType: "text"
+										});
+									});
+							  	},
+							  dataType: "text"
+							});
+						});
+					</script>
+					<div id="b_cate_2" class="hwdropdown">
 						<button class="hwdropbtn">중분류</button>
 						<div id="myDropdown" class="hwdropdown-content">
-							<span>ok</span>
-							<span>ok</span>
-							<span>ok</span>
-							<span>ok</span>
 						</div>
 					</div>
-					<div class="hwdropdown">
+					<div id="b_cate_3" class="hwdropdown">
 						<button class="hwdropbtn">소분류</button>
 						<div id="myDropdown" class="hwdropdown-content">
-							<span>ok</span>
-							<span>ok</span>
-							<span>ok</span>
-							<span>ok</span>
 						</div>
 					</div>
 				</div>
@@ -108,7 +137,7 @@
 				</div>
 				<div class="b_in_img">
 					<label>도서 이미지</label>
-					<img src="${root}/img/manager/books-stack-of-three.png">
+					<img src="//misc.ridibooks.com/cover/1171000007/xxlarge">
 					<button type="button" class="bf-button">찾기</button>
 				</div>
 				<div class="b_in_textarea">
@@ -127,10 +156,8 @@
 		</section>
 	</div>
 
-	
-	<script src="${root}/script/basic/jquery.js"></script>
-	<script src="${root}/script/basic/jquery-ui.js"></script>
 	<script src="${root}/script/basic/commons.js"></script>
+	<script src="${root}/script/basic/jquery-ui.js"></script>
 	<script>
 		$("#b_date").datepicker({
 			dateFormat : 'yy-mm-dd'
@@ -140,6 +167,8 @@
 			open(url,"출판사 검색창","width=685,height=750,scroll=yes");
 		});
 		var checkbox = $(".bf-custom-checkbox");
+		
+		//디폴트 전체선택 클릭
 		
 		checkbox.eq(0).find("input[type=checkbox]").click(function(e){
 			if(this.checked){
@@ -151,7 +180,8 @@
 					this.checked = false;
 				});				
 			}
-		});
+		}).trigger('click');
+		
 		checkbox.not(":eq(0)").find("input[type=checkbox]").click(function(){
 			
 			checkbox.eq(0).find("input[type=checkbox]").prop("checked",false);

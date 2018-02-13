@@ -7,4 +7,6 @@ package com.bf.main.dao;
  */
 public interface MainDao {
 
+	public int cartWishList(int num);
+
 }

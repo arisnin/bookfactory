@@ -9,8 +9,11 @@
   <title>관리자 홈페이지</title>
   <c:set var="root" value="${pageContext.request.contextPath}"/>
   <link rel="stylesheet" href="${root}/css/basic/reset.css">
+  <link rel="stylesheet" href="${root}/css/basic/commons.css">
   <link rel="stylesheet" href="${root}/css/manager/manager.css">
   <link rel="stylesheet" href="${root}/css/manager/index.css">
+  <script src="${root}/script/basic/jquery.js"></script>
+  <script src="${root}/script/basic/commons.js"></script>
 </head>
 <body>
   	<div id="manager_wrapper">
