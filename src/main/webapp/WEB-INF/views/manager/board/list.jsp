@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 
 <html>
@@ -21,22 +22,15 @@
 		<div class="sh_main_text">자주 묻는 질문 게시판</div>
 		<div id="sh_board_shadow">
 			<div class="sh_board_list_header">
-
-
 				<div class="sh_board_list_main">
-
-					<div class="sh_board_list_search">
-						<ul>
-							<li><select style="height: 1.6rem; size: 2rem;">
-									<option>전체</option>
-									<option>성명</option>
-									<option>아이디</option>
-							</select></li>
-							<li><input type="text" name="search-word" class="search-word" placeholder="바로  검색하기" /></li>
-							<li><button type="button" class="bf-button">검색</button></li>
-						</ul>
-
-					</div>
+					<form action="" method="post">
+						<div class="sh_board_list_search">
+							<ul>
+								<li><input type="text" name="search-word" class="search-word" placeholder="바로  검색하기" /></li>
+								<li><button type="button" class="bf-button">검색</button></li>
+							</ul>
+						</div>
+					</form>
 					<div class="sh_board_list_date">
 						<ul>
 							<li><input type="text" id="sh_date_start" placeholder="시작 날짜" /></li>
@@ -63,59 +57,53 @@
 						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="전체선택" id="allCheck" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
 						<li>No</li>
 						<li>제목</li>
-						<li>유형</li>
+						<li>내용</li>
 						<li>등록일자</li>
 						<li>상태</li>
 					</ul>
 				</div>
 				<div class="sh_board_list_list">
 					<!-- for문으로 체크박스랑 등등 정보 돌려야함 . 임시적으로 두개 해놈 -->
-					<ul>
-						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
-						<li>1</li>
-						<li>아이디또는 로그인이 안되시는경우!</li>
-						<!-- 제목 -->
-						<li>로그인/아이디</li>
-						<li>17/12/20</li>
-						<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardUpdate.do'">수정</button></li>
-						<li><button type="button" class="bf-button sh_list_delete">삭제</button></li>
-					</ul>
-					<ul>
-						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check"/> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
-						<li>2</li>
-						<li>어떻게 보나요</li>
-						<!-- 제목 -->
-						<li>기타</li>
-						<li>13/12/21</li>
-					<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardUpdate.do'">수정</button></li>
-						<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardDelete.do'">삭제</button></li>
-					</ul>
-					<ul>
-						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
-						<li>3</li>
-						<li>책이 핸드폰에서 안열려요!!</li>
-						<!-- 제목 -->
-						<li>오류</li>
-						<li>15/12/21</li>
-						<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardUpdate.do'">수정</button></li>
-						<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardDelete.do'">삭제</button></li>
-					</ul>
-
+					<c:forEach var="freDtoList" items="${freDtoList }">
+						<ul>
+							<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
+							<li>${freDtoList.num}</li>
+							<li>${freDtoList.title}</li>
+							<li>${freDtoList.content}</li>
+							<li><fmt:formatDate value="${freDtoList.write_date}" pattern="yyyy-MM-dd" /></li>
+							<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardUpdate.do?pageNumber='${pageNumber}'">수정</button></li>
+							<li><button type="button" class="bf-button sh_list_delete">삭제</button></li>
+						</ul>
+					</c:forEach>
 
 				</div>
 			</div>
 			<div class="sh_board_list_footer">
 				<nav class="bf-pagination">
 					<ul class="bf-animated-btn">
-						<li class="first"><a href="#0"><span></span></a></li>
-						<li class="prev"><a href="#0"><span></span></a></li>
-						<li><a href="#0">1</a></li>
-						<li><a href="#0">2</a></li>
-						<li><a class="active" href="#0">3</a></li>
-						<li><a href="#0">4</a></li>
-						<li><a href="#0">5</a></li>
-						<li class="next"><a href="#0"><span></span></a></li>
-						<li class="last"><a href="#0"><span></span></a></li>
+
+						<c:if test="${count > 0}">
+							<li class="first"><a href="#0"><span></span></a></li>
+							<li class="prev"><a href="#0"><span></span></a></li>
+
+							<fmt:parseNumber var="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true" />
+								<c:set var="pageBlock" value="${5}"/>
+							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true" />
+
+							<c:set var="startPage" value="${rs*pageBlock + 1}" />
+							<c:set var="endPage" value="${startPage + pageBlock - 1}" />
+
+							<c:if test="${endPage > pageCount}">
+								<c:set var="endPage" value="${pageCount}" />
+							</c:if>
+							
+							<c:forEach var="i" begin="${startPage}" end="${endPage}">
+								<a href="${root}/manager/boardList.do?=pageNumber='${pageNumber}'">${i}</a>
+							</c:forEach>
+
+							<li class="next"><a href="#0"><span></span></a></li>
+							<li class="last"><a href="#0"><span></span></a></li>
+						</c:if>
 					</ul>
 				</nav>
 			</div>
