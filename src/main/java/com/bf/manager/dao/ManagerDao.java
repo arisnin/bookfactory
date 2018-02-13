@@ -2,9 +2,8 @@ package com.bf.manager.dao;
 
 import java.util.List;
 
-import com.bf.manager.dto.BoardCate1Dto;
-import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.manager.dto.AuthorDto;
+import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.manager.dto.BookFirstCateDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
