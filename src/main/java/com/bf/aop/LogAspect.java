@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class LogAspect {
-	private static Logger logger = Logger.getLogger(LogAspect.class.getName());
-	private static String logMsg = "System Log::";
+	public static Logger logger = Logger.getLogger(LogAspect.class.getName());
+	public static String logMsg = "System Log::";
 
 	@Around("within(com.bf..*)")
 	public Object advice(ProceedingJoinPoint joinPoint) {

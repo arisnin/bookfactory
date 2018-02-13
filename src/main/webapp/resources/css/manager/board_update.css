@@ -60,4 +60,7 @@
     width: 58rem;
     border: 1px solid #776bce;
 }
+.bf-button.bf-white-btn {
+    padding: 0.2rem;
+}
 

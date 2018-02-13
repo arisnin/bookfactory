@@ -36,7 +36,8 @@
 					<div class="sh_member_detail">
 						<ul>
 							<li><a href="#sh_member_detail_list-1"><span>결제관리</span></a></li>
-							<li><a href="#sh_member_detail_list-2"><span>적립금</span></a></li>
+							<li><a href="#sh_member_detail_list-2"><span>충전관리</span></a></li>
+							<li><a href="#sh_member_detail_list-3"><span>적립내역</span></a></li>
 						</ul>
 
 						<!--  결제관리페이지 -->
@@ -116,15 +117,7 @@
 									<li>2018/01/23</li>
 								</ul>
 								<!-- 두번째 예제 -->
-								<ul>
-									<li>8</li>
-									<li>201566421</li>
-									<li>1000원 충전</li>
-									<li>1000원</li>
-									<li>20000원</li>
-									<li>2018/01/22</li>
-								</ul>
-								<!-- 세번째예제 -->
+
 								<ul>
 									<li>9</li>
 									<li>20187451221</li>
@@ -144,21 +137,75 @@
 								</ul>
 							</div>
 						</div>
+						
+						
+						<div class="sh_member_detail_list" id="sh_member_detail_list-2">
+								<!-- for문으로 체크박스랑 등등 정보 돌려야함 . 임시적으로 두개 해놈 -->
+								<!-- 적립금 페이지 제목-->
+								<div class="sh_member_detail_title">
+									<ul>
+										<li>순번</li>
+										<li>충전번호</li>
+										<li>충전수단</li>
+										<li>충전금액</li>
+										<li>적립포인트</li>
+										<li>충전일자</li>
+									</ul>
+								</div>
+								<!-- for문으로 체크박스랑 등등 정보 돌려야함 . 임시적으로 두개 해놈 -->
+								<!-- 첫번째 예제 -->
+								<div class="sh_member_detail_ex">
+									<ul>
+										<li>1</li>
+										<li>201566421</li>
+										<li>카카오페이</li>
+										<li>1000원</li>
+										<li>50point</li>
+										<li>2018/01/22</li>
+									</ul>
+									<!-- 두번째 예제 -->
+									<ul>
+										<li>2</li>
+										<li>201566421</li>
+										<li>네이버페이</li>
+										<li>10000원 충전</li>
+										<li>500point</li>
+										<li>2018/01/22</li>
+									</ul>
+									<!-- 세번째예제 -->
+									<ul>
+										<li>3</li>
+										<li>201566421</li>
+										<li>삼성페이</li>
+										<li>100000원</li>
+										<li>9000point</li>
+										<li>2018/01/22</li>
+									</ul>
+									<ul>
+										<li>4</li>
+										<li>201566421</li>
+										<li>상헌페이</li>
+										<li>5000원</li>
+										<li>200point</li>
+										<li>2018/01/22</li>
+									</ul>
+									
+								</div>
+							</div>
 
-
-						<div class="sh_member_detail_content">
+				
 							<!--  적립금 관리 페이지 -->
-							<div class="sh_member_detail_list" id="sh_member_detail_list-2">
+							<div class="sh_member_detail_list" id="sh_member_detail_list-3">
 								<!-- for문으로 체크박스랑 등등 정보 돌려야함 . 임시적으로 두개 해놈 -->
 								<!-- 적립금 페이지 제목-->
 								<div class="sh_member_detail_title">
 									<ul>
 										<li>순번</li>
 										<li>주문번호</li>
-										<li>상태</li>
 										<li>적립구분</li>
 										<li>적립금</li>
 										<li>등록일자</li>
+										<li>소멸일자</li>
 									</ul>
 								</div>
 								<!-- for문으로 체크박스랑 등등 정보 돌려야함 . 임시적으로 두개 해놈 -->
@@ -167,32 +214,32 @@
 									<ul>
 										<li>1</li>
 										<li>20180122111</li>
-										<li>대기</li>
 										<li>리뷰로 인한 적립금부여</li>
 										<li>500원</li>
 										<li>2018/01/22</li>
+										<li>2020/01/23</li>
 									</ul>
 									<!-- 두번째 예제 -->
 									<ul>
 										<li>2</li>
 										<li>20180123111</li>
-										<li>승인</li>
 										<li>적립금 사용</li>
 										<li>-500원</li>
 										<li>2018/01/23</li>
+										<li>2030/01/23</li>
 									</ul>
 									<!-- 세번째예제 -->
 									<ul>
 										<li>3</li>
 										<li>20180123111</li>
-										<li>승인</li>
 										<li>적립금 사용</li>
 										<li>-500원</li>
 										<li>2018/01/23</li>
+										<li>2019/01/23</li>
 									</ul>
 								</div>
 							</div>
-						</div>
+						
 					</div>
 				</div>
 
@@ -213,7 +260,7 @@
 				</div>
 			</div>
 		</div>
-
+</div>
 		<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 		<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 		<script type="text/javascript" src="${root}/script/basic/jquery-ui.js"></script>

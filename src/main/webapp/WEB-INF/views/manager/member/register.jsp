@@ -52,9 +52,9 @@
 				<button type="button" class="bf-button sh_button_out">강제탈퇴</button>
 				<button type="button" class="bf-button">수정</button>
 				<button type="button" class="bf-button"
-					onclick="${root}/manager/memberPayDetail.do">결제페이지</button>
+					onclick="javascript:location ='${root}/manager/memberPayDetail.do'">결제페이지</button>
 				<button type="button" class="bf-button"
-					onclick="${root}/manager/memberMember.do">목록</button>
+					onclick="javascript:location ='${root}/manager/memberMember.do'">목록</button>
 			</div>
 		</div>
 
@@ -87,7 +87,7 @@
 							});
 						},
 						cancel : function() {
-							$.alert('잘 참으셨습니다ㄲㄲㄲ.');
+							$.alert('탈퇴시키지 않았습니다..');
 						}
 					}
 				});

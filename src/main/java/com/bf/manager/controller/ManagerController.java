@@ -1,11 +1,16 @@
 package com.bf.manager.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.manager.service.ManagerService;
 
 /**
  * @author YEOM HYUN WOO X JUN SANG HUN
@@ -20,6 +25,9 @@ import com.bf.aop.LogAspect;
 @Controller
 @RequestMapping(value="/manager")
 public class ManagerController {
+	
+	@Autowired
+	private ManagerService managerService;
 
 	@RequestMapping(value="/index.do",method=RequestMethod.GET)
 	public ModelAndView manager() {
@@ -60,6 +68,27 @@ public class ManagerController {
 	public ModelAndView bookInsert() {
 		ModelAndView mav = new ModelAndView("book/insert.mg");
 		LogAspect.info("bookInsert()");
+		return mav;
+	}
+	
+	@RequestMapping(value="/bookCategory.do",method=RequestMethod.GET)
+	public ModelAndView bookCategory() {
+		ModelAndView mav = new ModelAndView("book/category.mg");
+		return mav;
+	}
+	
+	@RequestMapping(value="/bookCateSecond.do",method=RequestMethod.GET)
+	public ModelAndView bookCateSecond(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("book/category.mg");
+		mav.addObject("request", request);
+		managerService.bookCateSecond(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value="/bookCategoryOk.do",method=RequestMethod.GET)
+	public ModelAndView bookCategoryOk(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("book/category.mg");
+		managerService.bookCategoryOk(mav);
 		return mav;
 	}
 	

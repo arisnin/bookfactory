@@ -8,8 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>도서 등록</title>
 	<c:set var="root" value="${pageContext.request.contextPath}"/>
-  	<link rel="stylesheet" href="${root}/css/basic/reset.css">
-  	<link rel="stylesheet" href="${root}/css/basic/commons.css">
   	<link rel="stylesheet" href="${root}/css/manager/book.css">
   	<link rel="stylesheet" href="${root}/css/basic/jquery-ui.css">
 </head>
@@ -23,6 +21,10 @@
 					<input type="text" placeholder="제목"/>
 					<!-- <button type="button" class="bf-button search">중복체크</button> -->
 					<span class="b_in_check">중복입니다 다시 입력하세요</span>	
+				</div>
+				<div>
+					<label>도서 부제목</label>
+					<input type="text" placeholder="부제목"/>
 				</div>
 				<div>
 					<label>출간일</label>
@@ -104,7 +106,7 @@
 				</div>
 				<div class="b_in_img">
 					<label>도서 이미지</label>
-					<img src="${root}/img/manager/books-stack-of-three.png">
+					<img src="//misc.ridibooks.com/cover/1171000007/xxlarge">
 					<button type="button" class="bf-button">찾기</button>
 				</div>
 				<div class="b_in_textarea">
@@ -123,8 +125,6 @@
 		</section>
 	</div>
 
-	
-	<script src="${root}/script/basic/jquery.js"></script>
 	<script src="${root}/script/basic/jquery-ui.js"></script>
 	<script src="${root}/script/basic/commons.js"></script>
 	<script>
