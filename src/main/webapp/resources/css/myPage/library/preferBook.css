@@ -16,3 +16,29 @@
 	border-bottom: 1px solid #A59AF6;
 	margin: 0px 12px;
 }
+
+/* 2018-02-14 레이아웃 수정(박성호) */
+.preferBook-container .cart_content {
+	border: none;
+	width: 100%;
+	margin: 0;
+}
+
+.preferBook-container .cart_content_select,
+.preferBook-container .cart_content_book {
+	width: 100%;
+	margin: 0;
+}
+
+.preferBook-container .cart_content_book .book-thumbnail {
+	width: 16%;
+}
+
+.preferBook-container .cart_content_book_content {
+	width: 82%;
+}
+
+.preferBook-container .cart_content_book .bf-button {
+	float: right;
+	top: 0;
+}

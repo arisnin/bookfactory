@@ -1,4 +1,4 @@
-package com.bf.main.dto;
+package com.bf.book.dto;
 
 import java.util.Date;
 

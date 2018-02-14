@@ -1,7 +1,5 @@
 package com.bf.main.dao;
 
-import com.bf.main.dto.ReviewDto;
-
 import com.bf.main.dto.RegisterDto;
 
 /**
@@ -10,8 +8,6 @@ import com.bf.main.dto.RegisterDto;
  * @Description
  */
 public interface MainDao {
-
-	int insertReview(ReviewDto reviewDto);
 
 	public int register(RegisterDto registerDto);
 

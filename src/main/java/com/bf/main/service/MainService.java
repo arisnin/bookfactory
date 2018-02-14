@@ -9,8 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public interface MainService {
 
-	ModelAndView review(ModelAndView mav);
-
 	public void register(ModelAndView mav);
 
 }

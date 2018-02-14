@@ -3,10 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bf.mapper.MainMapper">
-	<insert id="insert-review" parameterType="com.bf.main.dto.ReviewDto">
-		INSERT INTO review VALUES(review_num_seq.nextval, #{id}, #{book_num}, #{content}, sysdate, #{star_point}, #{spoiler}, #{preference}, #{display})
-	</insert>
-
 	<insert id="register" parameterType="com.bf.main.dto.RegisterDto">
 		insert into member values(member_num_seq.nextval,#{id},#{password},#{email},#{gender},sysdate,#{birthday},#{marketing_check},#{ip},sysdate,#{phone})
 	</insert>
