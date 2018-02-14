@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+.service_FAQ_home{
+	font-size: 1rem;
+	width: 56.25rem;
+	margin-top: 2rem;
+	margin: 0px auto;
+}
+
+.service_FAQ_home_header{
+	margin-bottom: 3rem;
+	color: #777;
+}
+
+.service_FAQ_home_header a,
+.service_FAQ_home_header span{
+	color: #777;
+}
+
+.service_FAQ_home_header a:hover{
+	color: #776bce;
+}
+
+.service_FAQ_home_header_left, .service_FAQ_home_header_right{
+	display: inline-block;
+}
+
+.service_FAQ_home_header_left{
+	line-height: 2rem;
+}
+
+.service_FAQ_home_header_right{
+	float: right;
+}
+
+.service_FAQ_home_header_right > .bf-service-type-menu{
+	height: 2rem;
+	width : 15rem;
+}
+
+.service_FAQ_home_content{
+	margin-bottom: 3rem;
+}
+
+.service_FAQ_home_content > div:nth-child(1){
+	margin-bottom: 2rem;
+}
+
+.service_FAQ_home_content_category a{
+	margin-right: 0.3rem;
+}
+
+.service_FAQ_home_content_category > .bf-button{
+	background : white;
+	color: #776bce;
+}
+
+.service_FAQ_home_content_category > .bf-button:hover{
+	background: #D4CEFC;
+}
+
+.service_FAQ_home_footer_content li{
+	margin-top: 1rem;	
+}
+
+.service_FAQ_home_footer_content_list{
+	list-style: square;
+	padding-left: 2rem;
+}
+
+.service_FAQ_home_header span:nth-child(2) {
+	margin: 0px 0.5rem;	
+}
+
+.service_FAQ_home_content_title{	
+ 	font-size: 2rem;
+ 	font-weight: bold;
+ 	margin-top: 0.2rem;
+ 	line-height: 2.7rem;
+}
+

@@ -1,0 +1,128 @@
+@charset "UTF-8";
+
+.service_information_cn{
+	font-size: 1rem;
+	width: 56.25rem;
+	margin-top: 2rem;
+	margin: 0px auto;
+}
+
+
+.service_FAQ_home_content{
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+}
+
+
+.service_information_title{
+	margin-bottom: 2rem; 
+}
+
+.service_information_list > div{
+	height: 4rem;
+	line-height:4rem;
+	border-bottom: 1px solid black;
+	
+}
+
+.service_information_cn > .service_FAQ_home_header{
+	margin-bottom: 5rem; 
+}
+
+.service_information_list div:first-child {
+	border-top: 1px solid black;
+}
+
+
+
+.service_information_cn_cn{
+	overflow: hidden;	
+	width: 56.25rem;
+}
+
+.service_information_cn_cn_left{
+	width: 13rem;
+	display: inline-block;
+}
+
+.service_information_cn_cn_right{
+	width: 39rem;
+	display: inline-block;
+	float: right;
+}
+
+.service_information_cn_cn li{
+	list-style: square;
+	margin-left: 1.2rem;
+	margin-bottom: 0.3rem;
+	line-height: 1.4rem;
+}
+
+.service_information_cn_cn_right li{
+	line-height: 1.7rem;
+	font-weight: bolder;
+}
+
+.service_information_cn_cn_right .none{
+	font-weight: bolder;
+	color: black;
+}
+
+.service_information_cn_cn p{
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	line-height: 1.4rem;
+	color: #444;
+}
+
+.service_information_cn_cn_left li{
+	padding-top:0.3rem;
+	padding-bottom:0.3rem;
+	margin-top: 0.7rem;
+	list-style: none;
+	color: #444;
+}
+
+.service_information_cn_cn_title{
+	margin-bottom: 1.5rem;
+}
+
+.service_information_cn_cn_left_more{
+	margin-top: 1.5rem;
+}
+
+.service_FAQ_home_header span:nth-child(2),
+.service_FAQ_home_header span:nth-child(4) {
+	margin: 0px 0.5rem;	
+}
+
+.service_information_cn_cn_left li:nth-child(1){
+	background-color: #F3F0FA;
+}
+
+.service_information_cn_cn_right .bf-button.bf-transparent-btn.bf-animated-btn{
+	color: #776bce;
+}
+
+.service_information_cn_cn a{
+	color: #777;	
+}
+
+.service_information_cn_cn a:hover{
+	color : #776bce;
+}
+
+.service_information_cn_cn_left li:hover {
+	background-color: #F3F0FA;
+} 
+
+.service_information_cn_title{	
+ 	font-size: 2rem;
+ 	font-weight: bold;
+ 	margin-top: 0.2rem;
+ 	line-height: 2.7rem;
+}
+
+.service_information_cn_cn_right span{
+	color: #776bce;
+}
