@@ -9,8 +9,24 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public interface ManagerService {
 
+
+	
 	public void bookCategoryOk(ModelAndView mav);
 
 	public void publisherInsertOk(ModelAndView mav);
+
+	public void publisherNameCheck(ModelAndView mav);
+
+	public void authorInsertOk(ModelAndView mav);
+
+	public void authorInsert(ModelAndView mav);
+
+	public void bookInsert(ModelAndView mav);
+
+	public void bookCateOne(ModelAndView mav);
+
+	public void bookCateTwo(ModelAndView mav);
+
+	public void bookOpenPub(ModelAndView mav);
 
 }

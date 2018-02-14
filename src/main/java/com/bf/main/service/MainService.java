@@ -5,10 +5,16 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * @Date 2018. 2. 4.
  * @Author 박성호
- * @Description 
+ * @Description
  */
 public interface MainService {
 
+	ModelAndView review(ModelAndView mav);
+
 	public void cartWishList(ModelAndView mav);
+
+	public void cartDelete(ModelAndView mav);
+
+	public void register(ModelAndView mav);
 
 }

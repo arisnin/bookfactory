@@ -52,69 +52,74 @@
 			<!-- 리뷰 작성 -->
 			<div class="review-write-box">
 				<h4 class="hidden-block"></h4>
-				<!-- 별점 평가 -->
-				<div class="star-rate-box">
-					<span>이 책을 평가해주세요!</span>
-					<div id="star-rate-touch-box">
-						<label class="star-field" >
-							<input class="star-checkbox" type="radio" name="star-radio" title="" />
-							<span class="star-icon material-icons">star</span>
-							<span class="star-rate-tip"><span class="text">별로에요</span></span>
+				<!-- 리뷰 작성 폼 -->
+				<form action="${root}/review.do" method="post" onsubmit="">
+					<!-- 별점 평가 -->
+					<div class="star-rate-box">
+						<span>이 책을 평가해주세요!</span>
+						<div id="star-rate-touch-box">
 							<label class="star-field" >
-								<input class="star-checkbox" type="radio" name="star-radio" title="" />
+								<input class="star-checkbox" type="radio" name="star_point" value="1" />
 								<span class="star-icon material-icons">star</span>
-								<span class="star-rate-tip"><span class="text">그저그래요</span></span>
+								<span class="star-rate-tip"><span class="text">별로에요</span></span>
 								<label class="star-field" >
-									<input class="star-checkbox" type="radio" name="star-radio" title="" />
+									<input class="star-checkbox" type="radio" name="star_point" value="2" />
 									<span class="star-icon material-icons">star</span>
-									<span class="star-rate-tip"><span class="text">보통이에요</span></span>
+									<span class="star-rate-tip"><span class="text">그저그래요</span></span>
 									<label class="star-field" >
-										<input class="star-checkbox" type="radio" name="star-radio" title="" />
+										<input class="star-checkbox" type="radio" name="star_point" value="3" />
 										<span class="star-icon material-icons">star</span>
-										<span class="star-rate-tip"><span class="text">좋아요</span></span>
+										<span class="star-rate-tip"><span class="text">보통이에요</span></span>
 										<label class="star-field" >
-											<input class="star-checkbox" type="radio" name="star-radio" title="" />
-											<span class="star-icon last material-icons">star</span>
-											<span class="star-rate-tip"><span class="text">최고에요</span></span>
+											<input class="star-checkbox" type="radio" name="star_point" value="4" />
+											<span class="star-icon material-icons">star</span>
+											<span class="star-rate-tip"><span class="text">좋아요</span></span>
+											<label class="star-field" >
+												<input class="star-checkbox" type="radio" name="star_point" value="5" />
+												<span class="star-icon last material-icons">star</span>
+												<span class="star-rate-tip"><span class="text">최고에요</span></span>
+											</label>
 										</label>
 									</label>
 								</label>
 							</label>
-						</label>
+							<button type="button" class="bf-button bf-white-btn star-cancel" onclick="starCancel()">취소</button>
+						</div>
 					</div>
-				</div>
-				<!-- 리뷰 작성 폼 -->
-				<form>
+					<!-- 리뷰 내용 작성 -->
 					<div class="review-write-form">
-						<textarea id="review-textarea" name="review" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
+						<textarea id="review-textarea" name="content" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
 					</div>
+					<!-- 리뷰 확인 버튼 -->
+					<div class="review-write-submit">					
+						<button type="submit" class="bf-button disabled" id="review-submit-btn">리뷰 남기기</button>
+						<label class="bf-custom-checkbox">
+							<input type="checkbox" name="spoiler" title="스포일러" />
+							<span class="all-mark"></span>
+							<span class="checkbox-label">스포일러가 있습니다.</span>
+						</label>
+						<button type="button" class="bf-button bf-notice-btn bf-white-btn" value="false" onclick="collapseViewToggle(this)">
+							<span class="material-icons">warning</span>
+							리뷰작성 유의사항
+						</button>
+						<div class="collapsable-notice" style="display:none;">
+							<p>건전한 리뷰 정착 및 양질의 리뷰를 위해 아래 해당하는 리뷰는 비공개 조치될 수 있음을 안내드립니다.<br /><br /></p>
+							<ol style="list-style:decimal;">
+								<li>타인에게 불쾌감을 주는 욕설</li>
+								<li>비속어나 타인을 비방하는 내용</li>
+								<li>특정 종교, 민족, 계층을 비방하는 내용</li>
+								<li>해당 도서의 줄거리나 리디북스 서비스 이용과 관련이 없는 내용</li>
+								<li>의미를 알 수 없는 내용</li>
+								<li>광고 및 반복적인 글을 게시하여 서비스 품질을 떨어트리는 내용</li>
+								<li>저작권상 문제의 소지가 있는 내용</li>
+								<li>다른 리뷰에 대한 반박이나 논쟁을 유발하는 내용</li>
+							</ol>
+							<p><br />* 결말을 예상할 수 있는 리뷰는 자제하여 주시기 바랍니다.<br />이 외에도 건전한 리뷰 문화 형성을 위한 운영 목적과 취지에 맞지 않는 내용은 담당자에 의해 리뷰가 비공개 처리가 될 수 있습니다.</p>
+						</div>
+					</div>
+					<!-- ID 정보는 비즈니스 로직에서 유효세션으로부터 직접 가져다 써야합니다. -->
+					<input type="hidden" name="book_num" value="${'999'}"/>
 				</form>
-				<div class="review-write-submit">					
-					<button type="button" class="bf-button disabled" id="review-submit-btn">리뷰 남기기</button>
-					<label class="bf-custom-checkbox">
-						<input type="checkbox" title="구매목록 책 전체선택" />
-						<span class="all-mark"></span>
-						<span class="checkbox-label">스포일러가 있습니다.</span>
-					</label>
-					<button type="button" class="bf-button bf-notice-btn bf-white-btn" value="false" onclick="collapseViewToggle(this)">
-						<span class="material-icons">warning</span>
-						리뷰작성 유의사항
-					</button>
-					<div class="collapsable-notice" style="display:none;">
-						<p>건전한 리뷰 정착 및 양질의 리뷰를 위해 아래 해당하는 리뷰는 비공개 조치될 수 있음을 안내드립니다.<br /><br /></p>
-						<ol style="list-style:decimal;">
-							<li>타인에게 불쾌감을 주는 욕설</li>
-							<li>비속어나 타인을 비방하는 내용</li>
-							<li>특정 종교, 민족, 계층을 비방하는 내용</li>
-							<li>해당 도서의 줄거리나 리디북스 서비스 이용과 관련이 없는 내용</li>
-							<li>의미를 알 수 없는 내용</li>
-							<li>광고 및 반복적인 글을 게시하여 서비스 품질을 떨어트리는 내용</li>
-							<li>저작권상 문제의 소지가 있는 내용</li>
-							<li>다른 리뷰에 대한 반박이나 논쟁을 유발하는 내용</li>
-						</ol>
-						<p><br />* 결말을 예상할 수 있는 리뷰는 자제하여 주시기 바랍니다.<br />이 외에도 건전한 리뷰 문화 형성을 위한 운영 목적과 취지에 맞지 않는 내용은 담당자에 의해 리뷰가 비공개 처리가 될 수 있습니다.</p>
-					</div>
-				</div>
 			</div><!-- End : review-write-box -->
 		</section><!-- End : bf-review-box -->
 		<!-- 리뷰 목록 & 댓글 작성 -->
@@ -186,9 +191,11 @@
 									</ul>
 								</div>
 								<!-- 댓글 작성 -->
-								<form>
-									<textarea name="reply"></textarea>
-									<button type="button" class="bf-button">댓글 달기</button>
+								<form action="${root}/review/reply.do" method="post" onsubmit="return replyValidation()">
+									<textarea name="content"></textarea>
+									<button type="submit" class="bf-button">댓글 달기</button>
+									<!-- ID 정보는 비즈니스 로직에서 유효세션으로부터 직접 가져다 써야합니다. -->
+									<input type="hidden" name="review_num" value="${'1004'}"/>
 								</form>
 							</div>
 						</div>
@@ -236,9 +243,11 @@
 									<ul></ul>
 								</div>
 								<!-- 댓글 작성 -->
-								<form>
-									<textarea name="reply"></textarea>
-									<button type="button" class="bf-button">댓글 달기</button>
+								<form action="${root}/review/reply.do" method="post" onsubmit="return replyValidation()">
+									<textarea name="content"></textarea>
+									<button type="submit" class="bf-button">댓글 달기</button>
+									<!-- ID 정보는 비즈니스 로직에서 유효세션으로부터 직접 가져다 써야합니다. -->
+									<input type="hidden" name="review_num" value="${'1004'}"/>
 								</form>
 							</div>
 						</div>
@@ -291,9 +300,11 @@
 									</ul>
 								</div>
 								<!-- 댓글 작성 -->
-								<form>
-									<textarea name="reply"></textarea>
-									<button type="button" class="bf-button">댓글 달기</button>
+								<form action="${root}/review/reply.do" method="post" onsubmit="return replyValidation()">
+									<textarea name="content"></textarea>
+									<button type="submit" class="bf-button">댓글 달기</button>
+									<!-- ID 정보는 비즈니스 로직에서 유효세션으로부터 직접 가져다 써야합니다. -->
+									<input type="hidden" name="review_num" value="${'1004'}"/>
 								</form>
 							</div>
 						</div>
