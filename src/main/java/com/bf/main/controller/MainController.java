@@ -15,8 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.main.dto.RegisterDto;
+import com.bf.main.dto.ReplyDto;
 import com.bf.main.service.MainService;
-import com.bf.myPage.dto.MyPageReviewDto;
+import com.bf.main.dto.ReviewDto;
 
 /**
  * @Date 2018. 2. 4.
@@ -54,76 +55,6 @@ public class MainController {
 		LogAspect.info("login()");
 		request.getSession().setAttribute("userInfoId", "manager");
 		return "category/category.main";
-	}
-
-	/**
-	 * 헤더 > 카트
-	 */
-	@RequestMapping(value = "/cart.do", method = RequestMethod.GET)
-	public String cart(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("login()");
-		request.getSession().setAttribute("userInfoId", "manager");
-		return "cart/cart.main";
-	}
-
-	/**
-	 * 헤더 > 위시리스트
-	 */
-	@RequestMapping(value = "/wishlist.do", method = RequestMethod.GET)
-	public String wishlist(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("login()");
-		request.getSession().setAttribute("userInfoId", "manager");
-		return "cart/wishlist.main";
-	}
-
-	/**
-	 * 헤더 > 카트 > 구매
-	 */
-	@RequestMapping(value = "/order.do", method = RequestMethod.GET)
-	public String order(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("login()");
-		request.getSession().setAttribute("userInfoId", "manager");
-		return "order/order.main";
-	}
-
-	/**
-	 * 헤더 > 카트 > 구매 완료
-	 */
-	@RequestMapping(value = "/orderOk.do", method = RequestMethod.GET)
-	public String orderOk(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("login()");
-		request.getSession().setAttribute("userInfoId", "manager");
-		return "order/orderOk.main";
-	}
-
-	/**
-	 * 선물 메인
-	 */
-	@RequestMapping(value = "/present.do", method = RequestMethod.GET)
-	public String present(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("login()");
-		request.getSession().setAttribute("userInfoId", "manager");
-		return "present/present.main";
-	}
-
-	/**
-	 * 선물 완료
-	 */
-	@RequestMapping(value = "/presentOk.do", method = RequestMethod.GET)
-	public String presentOk(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("login()");
-		request.getSession().setAttribute("userInfoId", "manager");
-		return "present/presentOk.main";
-	}
-
-	/**
-	 * 선물 결제
-	 */
-	@RequestMapping(value = "/presentPay.do", method = RequestMethod.GET)
-	public String presentPay(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("login()");
-		request.getSession().setAttribute("userInfoId", "manager");
-		return "present/presentPay.main";
 	}
 
 	// 2018-02-07, 최정은 작업
@@ -201,19 +132,19 @@ public class MainController {
 	}
 
 	/**
-	 * 
+	 * 책 상세 페이지 > 리뷰 작성
 	 */
 	@RequestMapping(value = "/review.do", method = RequestMethod.POST)
-	public ModelAndView review(HttpServletRequest request, HttpServletResponse response, MyPageReviewDto myPageReviewDto) {
+	public ModelAndView review(HttpServletRequest request, HttpServletResponse response, ReviewDto reviewDto) {
 		LogAspect.info("review():" + request.getHeader("referer"));
-		return mainService.review(new ModelAndView("book/review.solo").addObject("request", request).addObject("myPageReviewDto", myPageReviewDto));
+		return mainService.review(new ModelAndView("book/review.solo").addObject("request", request).addObject("reviewDto", reviewDto));
 	}
 
 	/**
-	 * 
+	 * 책 상세 페이지 > 리뷰 글 > 댓글 작성
 	 */
 	@RequestMapping(value = "review/reply.do", method = RequestMethod.POST)
-	public String reviewReply(HttpServletRequest request, HttpServletResponse response, MyPageReviewDto myPageReviewDto) {
+	public String reviewReply(HttpServletRequest request, HttpServletResponse response, ReplyDto replyDto) {
 		LogAspect.info("reviewReply():" + request.getHeader("referer"));
 		return "book/review.solo";
 	}
@@ -263,25 +194,6 @@ public class MainController {
 	@RequestMapping(value = "/event.do", method = RequestMethod.GET)
 	public String event(HttpServletRequest request, HttpServletResponse response) {
 		return "event/event.main";
-	} 
-
-	/**
-	 * 카트의 책들을 위시리스트로 옮기는 요청
-	 */
-	@RequestMapping(value = "/cartWishList.do", method = RequestMethod.GET)
-	public String cartWishList(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("request", request);
-		mainService.cartWishList(mav);
-		return null;
-	}
-
-	@RequestMapping(value = "/cartDelete.do", method = RequestMethod.GET)
-	public String cartDelete(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("request", request);
-		mainService.cartDelete(mav);
-		return null;
 	}
 
 	/**

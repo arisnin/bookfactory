@@ -115,8 +115,8 @@
 		
 		<div class="bookSerialChoice">
 			<div class="bookSerialChoice_division">
-				<div onclick="rentalOrPurchase('rental')">대여하기</div>
-				<div onclick="rentalOrPurchase('purchase')">구매하기</div>
+				<button value="rental">대여하기</button>
+				<button value="purchase">구매하기</button>
 			</div>
 			<div class="bookSerialChoice_button">
 				<div class="bookSerialChoice_button_left">
@@ -182,7 +182,7 @@
 							</div>
 						</div>
 						<div class="bookSerialChoice_list_right">
-							<button class="bf-button bf-white-btn">
+							<button class="bf-button bf-white-btn" onclick="location.href='${root}/book/bookSerialView.do'">
 								<span class="icon-book-open"></span>
 								<span>보기</span>
 							</button>
@@ -365,6 +365,7 @@
 			</div>
 
 			<!-- 	리뷰	 -->
+			<jsp:include page="review.jsp" />
 		</div>
 	</div>
 

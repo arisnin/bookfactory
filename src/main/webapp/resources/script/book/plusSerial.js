@@ -3,43 +3,53 @@
  */
 
 //대여하기/구매하기버튼
-var dataRP="";
-function rentalOrPurchase(data){
-	dataRP=data;
-	if(dataRP=="rental"){
-		$(".bookSerialChoice_division >div").eq(0).click(function(){
-			$(".bookSerialChoice_division >div").eq(1).css({
-				backgroundColor: "#eaeaea",
-				borderBottom: "1px double #d1d5d9"
-			});
-			
-			$(".bookSerialChoice_division >div").eq(0).css({
-				backgroundColor: "white",
-				borderBottom: "1px double white"
-			});
-			
-			$(".bookSerialChoice_list_left > div:last-child >span:last-child").css("display","inline");
-		});
-	}else{
-		$(".bookSerialChoice_division >div").eq(1).click(function(){
-			$(".bookSerialChoice_division >div").eq(0).css({
-				backgroundColor: "#eaeaea",
-				borderBottom: "1px double #d1d5d9"
-			});
-			
-			$(".bookSerialChoice_division >div").eq(1).css({
-				backgroundColor: "white",
-				borderBottom: "1px double white"
-			});
-			
-			$(".bookSerialChoice_list_left > div:last-child >span:last-child").css("display","none");
-		});
-	}
-}
+var dataRP="rental";
+var totalCount=0;
+var totalCash=0;
 
 $(function(){
-	var totalCount=0;
-	var totalCash=0;
+	//대여하기/구매하기 구분
+	$(".bookSerialChoice_division > button").click(function(){
+		dataRP=$(this).val();
+		
+		$(".bookSerialChoice_list .bf-custom-checkbox input[type=checkbox]").prop("checked", false);
+		$(".bookSerialChoice_list li").css("backgroundColor","white");
+		totalCount=0;
+		totalCash=0;
+		
+		$(".list_choice_count").text(totalCount);
+		$(".list_choice_cash").text(totalCash);
+		
+		if(dataRP=="rental"){
+			$(".bookSerialChoice_division >button").eq(0).click(function(){
+				$(".bookSerialChoice_division >button").eq(1).css({
+					backgroundColor: "#eaeaea",
+					borderBottom: "1px double #d1d5d9"
+				});
+				
+				$(".bookSerialChoice_division >button").eq(0).css({
+					backgroundColor: "white",
+					borderBottom: "1px double white"
+				});
+				
+				$(".bookSerialChoice_list_left > div:last-child >span:nth-child(3)").css("display","inline");
+			});
+		}else{
+			$(".bookSerialChoice_division >button").eq(1).click(function(){
+				$(".bookSerialChoice_division >button").eq(0).css({
+					backgroundColor: "#eaeaea",
+					borderBottom: "1px double #d1d5d9"
+				});
+				
+				$(".bookSerialChoice_division >button").eq(1).css({
+					backgroundColor: "white",
+					borderBottom: "1px double white"
+				});
+				
+				$(".bookSerialChoice_list_left > div:last-child >span:nth-child(3)").css("display","none");
+			});
+		}
+	});
 	
 	//전체선택
 	$(".bookSerialChoice_button_left").on("click","input[type=checkbox]",function(){
@@ -171,14 +181,9 @@ $(function(){
 			$(divThirdSpanLast).text("원");
 			divThird.append(divThirdSpanLast);
 			
-			if(dataRP=="rental"){
-				var divThirdSpanRealLast=document.createElement("span");
-				$(divThirdSpanRealLast).text("1일대여");
-				divThird.append(divThirdSpanRealLast);
-			}else{
-				var divThirdSpanRealLast=document.createElement("span");
-				divThird.append(divThirdSpanRealLast);
-			}
+			var divThirdSpanRealLast=document.createElement("span");
+			$(divThirdSpanRealLast).text("1일대여");
+			divThird.append(divThirdSpanRealLast);
 			
 			var divLast=document.createElement("div");
 			$(divLast).addClass("bookSerialChoice_list_right");
@@ -198,32 +203,8 @@ $(function(){
 			
 		}
 		
-		//한개씩 선택
-		$(".bookSerialChoice_list .bf-custom-checkbox").on("click","input[type='checkbox']",function(){
-			if($(this).prop("checked")==false){
-				$(this).parents("li").css("backgroundColor","white");
-				totalCount=totalCount-1;
-				var money=parseInt($(".bookSerialChoice_list_left div").eq(2).find("span").first().text());
-				totalCash=totalCash-money;
-			}else{
-				$(this).parents("li").css("backgroundColor","#F3F0FA");
-				totalCount=totalCount+1;
-				var money=parseInt($(".bookSerialChoice_list_left div").eq(2).find("span").first().text());
-				totalCash=totalCash+money;
-			}
-			
-			$(".list_choice_count").text(totalCount);
-			$(".list_choice_cash").text(totalCash);
-			
-			$(".bookSerialChoice_list input[type='checkbox']").each(function(){
-				if($(this).prop("checked") == false){
-					$(".bookSerialChoice_button_left input[type='checkbox']").prop("checked", false);
-					$(this).css("backgroundColor","white");
-				}
-			});
-		});
-		
 		$(".bookSerialChoice_list_more").css("display","none");
+		if(dataRP=="purchase")	$(".bookSerialChoice_list_left > div:last-child >span:nth-child(3)").css("display","none");
 	});
 	
 	//한개씩 선택

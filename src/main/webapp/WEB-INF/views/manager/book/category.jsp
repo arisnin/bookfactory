@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -15,9 +14,6 @@
 		<section class="b_in_main">
 			<div class="b_in_header"><h2>카테고리 등록</h2></div>
 			<div class="b_in_content">
-				<div align="right">
-					<button id="crawl" type="button" class="bf-button">크롤링등록</button>
-				</div>
 				<div class="b_cate_in">
 					<label>카테고리 대</label>
 					<input type="text" placeholder="제목"/>

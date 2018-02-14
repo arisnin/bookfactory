@@ -69,3 +69,5 @@ $(".sh_list_delete").click(function(del) {
 				$(".sh_book_search").prop("checked", true);
 			}
 		});
+			
+		

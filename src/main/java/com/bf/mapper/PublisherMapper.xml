@@ -27,4 +27,8 @@
 	<select id="getCount" resultType="int">
 		select count(*) from publisher
 	</select>
+	<select id="getNum" parameterType="String" resultType="int">
+		select pub_num from publisher where name=#{name}
+	</select>
+	
 </mapper>

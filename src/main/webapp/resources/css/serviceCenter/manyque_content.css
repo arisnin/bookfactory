@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+.serviceCenter_manyque_cn{
+	font-size: 1rem;
+	width: 56.25rem;
+	margin-top: 2rem;
+	margin: 0px auto;
+}
+
+
+.service_FAQ_home_content{
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+	
+}
+
+
+.serviceCenter_manyque_cn_title{
+	margin-bottom: 2rem; 
+}
+
+.serviceCenter_manyque_cn_list > div{
+	height: 4rem;
+	line-height:4rem;
+	border-bottom: 1px solid black;
+	
+}
+
+.serviceCenter_manyque_cn_cn > .service_FAQ_home_header{
+	margin-bottom: 5rem; 
+}
+
+.serviceCenter_manyque_cn_cn_list div:first-child {
+	border-top: 1px solid black;
+}
+
+.serviceCenter_manyque_cn_cn{
+	overflow: hidden;	
+	width: 56.25rem;
+}
+
+.service_information_cn_cn_right .list{
+	color:#444;
+}
+
+.serviceCenter_manyque_cn_cn_left{
+	width: 13rem;
+	display: inline-block;
+}
+
+.serviceCenter_manyque_cn_cn_right{
+	width: 39rem;
+	display: inline-block;
+	float: right; 
+}
+
+.serviceCenter_manyque_cn_cn li{
+	list-style: square;
+	margin-left: 1.2rem;
+	margin-bottom: 0.3rem;
+	line-height: 1.3rem;
+}
+
+.serviceCenter_manyque_cn_cn p{
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	line-height: 1.3rem;
+	color:#777;
+}
+
+.serviceCenter_manyque_cn_cn_left li{
+	padding-top:0.3rem;
+	padding-bottom:0.3rem;
+	margin-top: 0.7rem;
+	list-style: none;
+	color: #444;
+}
+
+.serviceCenter_manyque_cn_cn_left_title{
+	margin-bottom: 1.5rem;
+}
+
+.service_FAQ_home_header span:nth-child(2) {
+	margin: 0px 0.5rem;	
+}
+
+.serviceCenter_manyque_cn_cn_left li:nth-child(1){
+	background-color: #F3F0FA;
+}
+
+.serviceCenter_manyque_cn_cn a{
+	color: #444;	
+}
+
+.serviceCenter_manyque_cn_cn a:hover{
+	color : #776bce;
+}
+
+.serviceCenter_manyque_cn_cn_left li:hover {
+	background-color: #F3F0FA;
+} 
+
+.serviceCenter_manyque_cn_title{	
+ 	font-size: 2rem;
+ 	font-weight: bold;
+ 	margin-top: 0.2rem;
+ 	line-height: 2.7rem;
+}

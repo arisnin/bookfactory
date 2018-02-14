@@ -29,7 +29,8 @@ var pages = [
 		['/memberMember.do',3,0],['/memberPay.do',3,1],
 		['/reviewReview.do',4,1],
 		['/boardContact.do',5,0],['/boardInsert.do',5,1],['/boardList.do',5,2],
-		['/statPreference.do',6,0],['/statTotal.do',6,1],['/statSales.do',6,2]
+		['/statPreference.do',6,0],['/statTotal.do',6,1],['/statSales.do',6,2],
+		['/auto.do',7,0]
 	];
 /*
  * 왼쪽 메뉴 외에 이동할 페이지를 넣어준다. 형식은 ['주소',해당큰메뉴,해당작은메뉴]

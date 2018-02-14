@@ -73,6 +73,12 @@
 		  	<li><a href="#"><span class="i-i-angle-right"></span>매출</a></li>
 		  </ul>
 		</div>
+		<button class="accordion">자동 등록<span class="i-i-plus"></span></button>
+		<div class="panel">
+		  <ul>
+		  	<li><a href="#"><span class="i-i-angle-right"></span>크롤링</a></li>
+		  </ul>
+		</div>
 	</div>
 	
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>

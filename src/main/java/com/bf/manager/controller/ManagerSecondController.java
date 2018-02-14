@@ -75,7 +75,7 @@ public class ManagerSecondController {
 		managerService.boardList(mav);
 		return mav;
 	}
-
+	
 	@RequestMapping(value = "/boardReply.do", method = RequestMethod.GET)
 	public ModelAndView boardReply() {
 		ModelAndView mav = new ModelAndView("board/reply.mg");
