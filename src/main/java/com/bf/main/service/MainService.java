@@ -11,10 +11,6 @@ public interface MainService {
 
 	ModelAndView review(ModelAndView mav);
 
-	public void cartWishList(ModelAndView mav);
-
-	public void cartDelete(ModelAndView mav);
-
 	public void register(ModelAndView mav);
 
 }
