@@ -23,24 +23,27 @@
 		<div id="sh_board_shadow">
 			<div class="sh_board_list_header">
 				<div class="sh_board_list_main">
-					<form action="" method="post">
+				
+					<form action="${root }/manager/boardList.do">
 						<div class="sh_board_list_search">
 							<ul>
-								<li><input type="text" name="search-word" class="search-word" placeholder="바로  검색하기" /></li>
-								<li><button type="button" class="bf-button">검색</button></li>
+								<li><input type="text" name="search-word" class="search-word" placeholder="제목  검색하기" /></li>
+								<li><button type="submit" class="bf-button sh_search">검색</button></li>
 							</ul>
 						</div>
 					</form>
+					<form action="${root }/manager/boardList.do">
 					<div class="sh_board_list_date">
 						<ul>
-							<li><input type="text" id="sh_date_start" placeholder="시작 날짜" /></li>
-							<li>~<input type="text" id="sh_date_end" placeholder="종료 날짜" /></li>
+							<li><input type="text" id="sh_date_start" name ="startDate" placeholder="시작 날짜" /></li>
+							<li>~<input type="text" id="sh_date_end"name ="endDate" placeholder="종료 날짜" /></li>
 							<li><button type="button" class="bf-button bf-white-btn" id="sh_day1">하루</button></li>
 							<li><button type="button" class="bf-button bf-white-btn" id="sh_day7">일주일</button></li>
 							<li><button type="button" class="bf-button bf-white-btn" id="sh_day30">한달</button></li>
-							<li><button type="button" class="bf-button">검색</button></li>
+							<li><button type="submit" class="bf-button">검색</button></li>
 						</ul>
 					</div>
+					</form>
 				</div>
 
 				<div class="sh_board_list_select">
@@ -84,10 +87,9 @@
 
 						<c:if test="${count > 0}">
 							<li class="first"><a href="#0"><span></span></a></li>
-							<li class="prev"><a href="#0"><span></span></a></li>
 
 							<fmt:parseNumber var="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true" />
-								<c:set var="pageBlock" value="${5}"/>
+							<c:set var="pageBlock" value="${5}" />
 							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true" />
 
 							<c:set var="startPage" value="${rs*pageBlock + 1}" />
@@ -96,12 +98,20 @@
 							<c:if test="${endPage > pageCount}">
 								<c:set var="endPage" value="${pageCount}" />
 							</c:if>
-							
+
+							<c:if test="${startPage > pageBlock}">
+								<li class="prev"><a href="${root}/manager/boardList.do?pageNumber=${startPage-pageBlock}"><span></span></a></li>
+							</c:if>
+
 							<c:forEach var="i" begin="${startPage}" end="${endPage}">
-								<a href="${root}/manager/boardList.do?=pageNumber='${pageNumber}'">${i}</a>
+								<a href="${root}/manager/boardList.do?pageNumber=${i}">${i}</a>
 							</c:forEach>
 
-							<li class="next"><a href="#0"><span></span></a></li>
+							<c:if test="${endPage < pageCount}">
+								<li class="next"><a href="${root}/manager/boardList.do?pageNumber=${(startPage + pageBlock)}"><span></span></a></li>
+							</c:if>
+
+
 							<li class="last"><a href="#0"><span></span></a></li>
 						</c:if>
 					</ul>

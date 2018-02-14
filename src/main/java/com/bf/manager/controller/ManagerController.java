@@ -203,5 +203,38 @@ public class ManagerController {
 		LogAspect.info("statGeneralTotal()");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/auto.do", method = RequestMethod.GET)
+	public ModelAndView auto() {
+		ModelAndView mav = new ModelAndView("crawl/auto.mg");
+		LogAspect.info("auto()");
+		return mav;
+	}
 
+	@RequestMapping(value = "/autoPublisher.do", method = RequestMethod.GET)
+	public ModelAndView autoPublisher(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.autoPublisher(mav);
+		return null;
+	}
+	
+	@RequestMapping(value = "/autoAuthor.do", method = RequestMethod.GET)
+	public ModelAndView autoAuthor(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.autoAuthor(mav);
+		return null;
+	}
+	
+	@RequestMapping(value = "/autoBook.do", method = RequestMethod.GET)
+	public ModelAndView autoBook(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.autoBook(mav);
+		return null;
+	}
 }

@@ -1,5 +1,6 @@
 package com.bf.manager.dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,5 +45,22 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		map.put("startRow", startRow);
 		map.put("endRow",endRow);
 		return sqlSession.selectList("com.bf.manager.boardMapper.list",map);
+	}
+	 @Override
+	public List<BoardFrequencyDto> boardSearch(int startRow, int endRow, String word) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow",startRow);
+		map.put("endRow",endRow);
+		map.put("word",word);	
+		return sqlSession.selectList("com.bf.manager.boardMapper.listSearch",map);
+	}
+	 @Override
+	public List<BoardFrequencyDto> boardSearchDate(int startRow, int endRow, Date startDate, Date endDate) {
+		 Map<String, Object> map = new HashMap<String, Object>();
+			map.put("startRow",startRow);
+			map.put("endRow", endRow);
+			map.put("startDate",startDate);	
+			map.put("endDate",endDate);	
+			return sqlSession.selectList("com.bf.manager.boardMapper.listSearchDate",map);
 	}
 }
