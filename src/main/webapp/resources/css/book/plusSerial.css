@@ -355,12 +355,12 @@
 .bookSerialChoice_division{
     width: 100%;
     text-align: center;
-    height: 50px;
+    height: 55px;
     border-top: 2px solid #5D568C;
-    cursor: pointer;
+    box-sizing: border-box;
 }
 
-.bookSerialChoice_division > div:first-child{
+.bookSerialChoice_division > button:first-child{
     float: left;
     width: 50%;
     height: 50px;
@@ -368,15 +368,17 @@
     font-weight: 600;
     border-right: 1px double #d1d5d9;
     border-bottom: 0px double #d1d5d9;
+    cursor: pointer;
 }
 
-.bookSerialChoice_division > div:last-child{
+.bookSerialChoice_division > button:last-child{
     float: left;
     line-height: 50px;
     font-weight: 600;
     width: 50%;
     background-color: #eaeaea;
     border-bottom: 1px double #d1d5d9;
+    cursor: pointer;
 }
 
 .bookSerialChoice_button{
