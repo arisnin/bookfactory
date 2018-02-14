@@ -1,6 +1,8 @@
 package com.bf.manager.service;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,7 @@ import com.bf.manager.dto.BoardFrequencyDto;
 /**
  * @이름: 염현우 X 전상헌
  * @날짜: 2018. 2. 13.
- * @설명:		ManagerServiceTwo
+ * @설명: ManagerServiceTwo
  */
 
 @Component
@@ -28,7 +30,6 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 	@Autowired
 	private ManagerDaoTwo managerDao;
 
-	
 	@Override
 	public void boardInsert(ModelAndView mav) {
 
@@ -101,32 +102,59 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 	@Override
 	public void boardList(ModelAndView mav) {
-		Map<String,Object> map = mav.getModelMap();
-		HttpServletRequest request =(HttpServletRequest) map.get("request");
-		String pageNumber= request.getParameter("pageNumber");
-		
-		if(pageNumber ==null) pageNumber ="1";
-		int boardSize = 10;
-		
-		int currentPage = Integer.parseInt(pageNumber);
-		
-		int starRow = (currentPage-1)* boardSize +1;
-		int endRow =currentPage* boardSize+1;
-		
-		int count = managerDao.Boardcount();
-		LogAspect.logger.info(LogAspect.logMsg +count);
-		
-		List<BoardFrequencyDto> freDtoList =null;
-		
-		if(count>0) {
-			freDtoList = managerDao.boardList(starRow,endRow);
-			LogAspect.logger.info(LogAspect.logMsg +freDtoList);
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		String pageNumber = request.getParameter("pageNumber");
+		String word = request.getParameter("search-word");
+		String sDate = request.getParameter("startDate");
+		String eDate = request.getParameter("endDate");
+		Date startDate = null;
+		Date endDate = null;
+
+		try {
+			if (sDate != null && eDate != null) {
+				startDate = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+				endDate = new SimpleDateFormat("yyyy-MM-dd").parse(eDate);
+				LogAspect.logger.info(LogAspect.logMsg + startDate + "zzzzzzzzzzzzzzzz" + endDate);
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
 		}
-		mav.addObject("freDtoList",freDtoList);
-		mav.addObject("pageNumber",currentPage);
-		mav.addObject("count",count);
-		mav.addObject("boardSize",boardSize);
-		
+
+		if (pageNumber == null)
+			pageNumber = "1";
+		int boardSize = 5;
+
+		int currentPage = Integer.parseInt(pageNumber);
+
+		int starRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize + 1;
+
+		int count = managerDao.Boardcount();
+
+		LogAspect.logger.info(LogAspect.logMsg + count + "-------------" + currentPage);
+
+		List<BoardFrequencyDto> freDtoList = null;
+		if (count > 0) {
+			if (startDate != null && endDate != null) {
+				freDtoList = managerDao.boardSearchDate(starRow, endRow, startDate, endDate);
+				LogAspect.logger.info(LogAspect.logMsg + freDtoList + startDate + endDate);
+
+			} else if (word != null) {
+				freDtoList = managerDao.boardSearch(starRow, endRow, word);
+				LogAspect.logger.info(LogAspect.logMsg + freDtoList);
+			} else {
+				freDtoList = managerDao.boardList(starRow, endRow);
+				LogAspect.logger.info(LogAspect.logMsg + freDtoList);
+			}
+		}
+		mav.addObject("freDtoList", freDtoList);
+		mav.addObject("pageNumber", currentPage);
+		mav.addObject("count", count);
+		mav.addObject("boardSize", boardSize);
+
 		mav.setViewName("board/list.mg");
 	}
+
 }

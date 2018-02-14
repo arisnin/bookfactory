@@ -4,7 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.bf.myPage.dto.MyPageReviewDto;
+import com.bf.main.dto.ReviewDto;
 
 import com.bf.main.dto.RegisterDto;
 
@@ -19,19 +19,8 @@ public class MainDaoImp implements MainDao {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public int insertReview(MyPageReviewDto myPageReviewDto) {
-		return sqlSession.insert("com.bf.mapper.MainMapper.insert-review", myPageReviewDto);
-	}
-
-	@Override
-	public int cartWishList(int num) {
-		sqlSession.delete("com.bf.mapper.MainMapper.delete_cartWishtList", num);
-		return sqlSession.update("com.bf.mapper.MainMapper.insert_cartWishList", num);
-	}
-
-	@Override
-	public int cartDelete(int num) {
-		return sqlSession.delete("com.bf.mapper.MainMapper.delete_cartWishtList", num);
+	public int insertReview(ReviewDto reviewDto) {
+		return sqlSession.insert("com.bf.mapper.MainMapper.insert-review", reviewDto);
 	}
 
 	@Override

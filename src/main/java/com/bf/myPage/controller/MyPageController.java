@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.main.service.MainService;
@@ -112,6 +113,12 @@ public class MyPageController {
 	@RequestMapping(value="/payment/ridiCash.do")
 	public String ridiCash(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("RidiCash()");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		
+		
 		return "myPage/payment/ridiCash.my";
 	}
 	
