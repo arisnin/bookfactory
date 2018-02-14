@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
-import com.bf.main.service.MainService;
+import com.bf.myPage.dto.MyPageCashChargeMenuDto;
+import com.bf.myPage.dto.MyPageCashChargeTypeDto;
+import com.bf.myPage.dto.MyPagePointDto;
+import com.bf.myPage.service.MyPageService;
 
 /**
  * @Date 2018. 2. 4.
@@ -20,8 +23,8 @@ import com.bf.main.service.MainService;
 @Controller
 public class MyPageController {
 	@Autowired
-	private MainService mainService;
-
+	private MyPageService mypageService;
+	
 	/**
 	 * 메인 > 로그인 > 마이팩토리(마이 페이지)
 	 */
@@ -109,17 +112,30 @@ public class MyPageController {
 	
 	/**
 	 * 마이페이지 > 마이캐시
+	 * 
 	 */
 	@RequestMapping(value="/payment/ridiCash.do")
-	public String ridiCash(HttpServletRequest request, HttpServletResponse response) {
+	public String ridiCash(HttpServletRequest request, HttpServletResponse response, MyPagePointDto myPagePointDto) {
 		LogAspect.info("RidiCash()");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("request", request);
 		
 		
 		
 		return "myPage/payment/ridiCash.my";
+	}
+	
+	/**
+	 * 마이페이지 > 마이캐시 > 충전완료
+	 */
+	@RequestMapping(value="/payment/ridiCashOk.do")
+	public String ridiCashOk(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("RidiCashOk()");
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.ridiCashOk(mav);
+		
+		return "myPage/payment/ridiCashOk.my";
 	}
 	
 	/**
