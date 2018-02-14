@@ -58,5 +58,20 @@
 		insert into FIRST_CATE values(FIRST_CATE_SEQ.nextval,#{name})
 	</insert>
 	
+	<insert id="insertBookCategory" parameterType="java.util.HashMap">
+		insert into book_category(num,book_num,cate1_num,cate2_num,cate3_num)
+		select  seq.cnt ,b.BOOK_NUM , cate.fn, cate.sn, cate.tn
+		from bookm b,
+		  (select f.num fn, s.NUM sn, t.NUM tn
+		   from FIRST_CATE f, second_cate s , THIRD_CATE t
+		   where s.num = t.SECOND_CATE(+) and f.num = s.FIRST_CATE and (t.name=#{cateName} or s.name = #{cateName})) cate ,
+		  (select count(*) cnt from book_category) seq
+		where b.BOOK_NUM = #{currentNum}
+	</insert>
+	
+	<select id="getMaxBookNum" resultType="int">
+		select nvl(max(book_num),0) from bookm
+	</select>
+	
 </mapper>
 

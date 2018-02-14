@@ -78,6 +78,9 @@ public class ManagerServiceImp implements ManagerService {
 				Elements generalSub = e.parent().parent().select("li");
 				int count = 0;
 				for(Element eSub : generalSub) {
+					if(eSub.text().equals("해외도서 전체")) {
+						managerDao.insertBookCateThird("해외도서",cateNum);
+					}
 					if(count == 0) {	// 각 소분류에서 전체<<를 제외한다.
 						count = 1;
 						continue;
@@ -317,14 +320,19 @@ public class ManagerServiceImp implements ManagerService {
 				for(Element meta : info) {
 					Elements authorLink = meta.select(".author_detail_link");
 					for(Element al : authorLink) {
-						authorLinkList.add("https://ridibooks.com" + al.attr("href"));						
+						authorLinkList.add("https://ridibooks.com" + al.attr("href").trim());						
 					}
 				}
 				
 				//작가정보
 				for(int k=0;k<authorLinkList.size();k++) {
 					String authorUrl = authorLinkList.get(k);
-					
+					LogAspect.logger.info(LogAspect.logMsg + authorUrl);
+
+					//예외처리
+					if(authorUrl.equals("https://ridibooks.com/search/?q=%EC%A0%95%EB%B3%B4%EB%9E%8C")) {
+						authorUrl = "https://ridibooks.com/author/74390?_s=search&_q=%EC%A0%95%EB%B3%B4%EB%9E%8C";
+					}
 					Document authorDoc = Jsoup.connect(authorUrl).get();
 					Element authorInfo = authorDoc.selectFirst(".author_area_wrapper");
 					Element authorProfile = authorInfo.selectFirst(".author_profile");
@@ -424,6 +432,7 @@ public class ManagerServiceImp implements ManagerService {
 				String subUrl = hrefList.get(i);
 				Document subDoc = Jsoup.connect(subUrl).get();
 				Elements info = subDoc.select(".header_info_wrap");
+				ArrayList<String> cateList = new ArrayList<String>();
 				
 				for(Element meta : info) {
 					//제목
@@ -440,13 +449,12 @@ public class ManagerServiceImp implements ManagerService {
 					//카테고리
 					Element cateInfo = meta.selectFirst(".info_category_wrap");
 					Elements cate = cateInfo.select("a");
-					ArrayList<String> cateList = new ArrayList<String>();
 					String cateStr = "";
 					for(int k=0;k<cate.size();k++) {
 						Element cateName = cate.get(k);
-						cateStr += cateName.text() + ",";
+						/*cateStr += cateName.text() + ",";*/
+						cateList.add(cateName.text());
 						if(k%2 == 1) {
-							cateList.add(cateStr);
 							cateStr = "";
 						}
 					}
@@ -550,9 +558,15 @@ public class ManagerServiceImp implements ManagerService {
 				int check = managerDao.checkBook(bookDto.getImg_path());
 				if(check > 0) {
 					LogAspect.logger.info(LogAspect.logMsg + "중복입니다");
+					int currentNum = managerDao.getMaxBookNum();
+					for(int j=0;j<cateList.size();j++) {
+						managerDao.insertBookCategory(cateList.get(j),currentNum);						
+					}
 					continue;
 				}else {
+					//도서삽입
 					inputBook += managerDao.insertBook(bookDto);
+					//카테삽입
 				}
 				
 			}

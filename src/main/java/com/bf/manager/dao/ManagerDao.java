@@ -67,5 +67,9 @@ public interface ManagerDao {
 
 	public int authorInsertInit(AuthorDto authorDto);
 
+	public int insertBookCategory(String cateName, int currentNum);
+
+	public int getMaxBookNum();
+
 
 }

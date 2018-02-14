@@ -169,4 +169,17 @@ public class ManagerDaoImp implements ManagerDao {
 	public int authorInsertInit(AuthorDto authorDto) {
 		return sqlSession.insert("com.bf.mapper.AuthorMapper.authorInsertInit", authorDto);
 	}
+
+	@Override
+	public int insertBookCategory(String cateName,int currentNum) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("cateName", cateName);
+		map.put("currentNum", currentNum);
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertBookCategory", map);
+	}
+	
+	@Override
+	public int getMaxBookNum() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getMaxBookNum");
+	}
 }

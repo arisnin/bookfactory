@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: sist3
+Built-By: YEOM
 Build-Jdk: 1.8.0_151
-=======
-Built-By: sist
-Build-Jdk: 1.8.0_144
->>>>>>> dbb21ce71e1b71d30cab25863d19375c17659552
 Created-By: Maven Integration for Eclipse
 
