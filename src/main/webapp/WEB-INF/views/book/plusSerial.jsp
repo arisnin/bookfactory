@@ -182,7 +182,7 @@
 							</div>
 						</div>
 						<div class="bookSerialChoice_list_right">
-							<button class="bf-button bf-white-btn">
+							<button class="bf-button bf-white-btn" onclick="location.href='${root}/book/bookSerialView.do'">
 								<span class="icon-book-open"></span>
 								<span>보기</span>
 							</button>
