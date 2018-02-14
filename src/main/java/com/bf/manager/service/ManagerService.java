@@ -29,4 +29,10 @@ public interface ManagerService {
 
 	public void bookOpenPub(ModelAndView mav);
 
+	public void autoPublisher(ModelAndView mav);
+
+	public void autoAuthor(ModelAndView mav);
+
+	public void autoBook(ModelAndView mav);
+
 }

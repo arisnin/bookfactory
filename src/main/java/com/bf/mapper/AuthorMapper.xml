@@ -11,4 +11,15 @@
 		#{birthday},#{education},#{career},#{debut},
 		#{link},#{update_date},#{awards},#{describe})
 	</insert>
+	<select id="getCountryOne" parameterType="String" resultType="String">
+		select nvl(country_num,'없음') from country where country_name = #{country}
+	</select>
+	
+	<select id="authorCheck" parameterType="java.util.HashMap" resultType="int">
+		select count(*) from author where name=#{name} and country_num = #{country_num} and birthday=#{birthday}
+	</select>
+	
+	<select id="getNum" parameterType="String" resultType="int">
+		select num from author where name=#{name}
+	</select>
 </mapper>

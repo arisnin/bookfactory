@@ -34,4 +34,19 @@
 	<select id="getCateThreeList" parameterType="int" resultType="com.bf.manager.dto.BookThirdCateDto">
 		select * from third_cate WHERE second_cate=#{num}
 	</select>
+	
+	<select id="checkBook" parameterType="String" resultType="int">
+		select count(*) from bookM where img_path = #{img_path}
+	</select>
+	
+	<insert id="insert" parameterType="com.bf.manager.dto.BookDto">
+		insert into bookm(book_num,name,write_date,pub_num,author_num,illustrator_num,
+		translator_num,price,support,img_path,preference,sub_title,discount,discount2,
+		type,intro,pub_intro) values(BOOKM_NUM_SEQ.nextval,#{name},#{write_date},#{pub_num},
+		#{author_num},#{illustrator_num},#{translator_num},#{price},
+		#{support},#{img_path},#{preference},#{sub_title},#{discount},#{discount2},#{type},
+		#{intro},#{pub_intro})
+	</insert>
+	
 </mapper>
+
