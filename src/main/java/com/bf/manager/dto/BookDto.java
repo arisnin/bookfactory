@@ -2,26 +2,26 @@ package com.bf.manager.dto;
 
 public class BookDto {
 	private int book_num; // --
-	private String name;  // --
+	private String name; // --
 	private String write_date; // --
 	private int pub_num; // --
 	private int author_num; // --
 	private int illustrator_num; // --
 	private int translator_num; // --
-	private int price; // 
-	private String support; //지원기기 --
+	private int price; //
+	private String support; // 지원기기 --
 	private String img_path; // --
-	private String file_path; //없음--
+	private String file_path; // 없음--
 	private String file_name; // 없음--
-	private long file_size;  // 0--
-	private int preference; //선호개수 0--
-	private int series_num; // 
+	private long file_size; // 0--
+	private int preference; // 선호개수 0--
+	private int series_num; //
 	private String sub_title; // --
-	private float discount;  // --
-	private float discount2; // --
-	private String type;    //종이책 전자책
-	private String intro;   //책소개
-	private String pub_intro; //출판사평
+	private double discount; // --
+	private double discount2; // --
+	private String type; // 종이책 전자책
+	private String intro; // 책소개
+	private String pub_intro; // 출판사평
 
 	public int getBook_num() {
 		return book_num;
@@ -151,19 +151,19 @@ public class BookDto {
 		this.sub_title = sub_title;
 	}
 
-	public float getDiscount() {
+	public double getDiscount() {
 		return discount;
 	}
 
-	public void setDiscount(float discount) {
+	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
 
-	public float getDiscount2() {
+	public double getDiscount2() {
 		return discount2;
 	}
 
-	public void setDiscount2(float discount2) {
+	public void setDiscount2(double discount2) {
 		this.discount2 = discount2;
 	}
 

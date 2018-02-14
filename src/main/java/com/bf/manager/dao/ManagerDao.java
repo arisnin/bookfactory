@@ -59,5 +59,13 @@ public interface ManagerDao {
 
 	public int insertBook(BookDto bookDto);
 
+	public int checkCateOne();
+
+	public int insertCateOne(String string);
+
+	public int getZeroAuthor();
+
+	public int authorInsertInit(AuthorDto authorDto);
+
 
 }

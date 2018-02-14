@@ -15,30 +15,17 @@
 			<div class="b_in_header"><h2>자동 등록</h2></div>
 			<div class="b_in_content">
 				<div align="right">
-					<button id="crawl" type="button" class="bf-button">카테고리등록</button>
 				</div>
 				<div class="b_cate_in">
-					<label>출판사</label>
-					<input name="publisher" class="b_crawinput" type="text" placeholder="url"/>
+					<label>리디북스 링크</label>
+					<input name="url" class="b_crawinput" type="text" placeholder="url"/><br><br>
+					<label>링크삽입후 카테고리부터 순서대로 등록버튼을 누른다</label>
 					<div align="right">
-						<button id="b_publisher" type="button" class="bf-button">등록</button>
-						<button type="button" class="bf-button">취소</button>
-					</div>
-				</div>
-				<div class="b_cate_in">
-					<label>작가</label>
-					<input name="author" type="text" class="b_crawinput" placeholder="url"/>
-					<div align="right">
-						<button id="b_author"type="button" class="bf-button">등록</button>
-						<button type="button" class="bf-button">취소</button>
-					</div>
-				</div>
-				<div class="b_cate_in">
-					<label>도서</label>
-					<input name="b_book"type="text" class="b_crawinput" placeholder="url"/>
-					<div align="right">
-						<button id="b_b_book" type="button" class="bf-button">등록</button>
-						<button type="button" class="bf-button">취소</button>
+						<button id="crawl" type="button" class="bf-button">카테고리등록</button>
+						<button id="b_publisher" type="button" class="bf-button">출판사등록</button>
+						<button id="b_author"type="button" class="bf-button">작가등록</button>
+						<button id="b_b_book" type="button" class="bf-button">도서등록</button>
+						<button type="reset" class="bf-button">취소</button>
 					</div>
 				</div>
 				
@@ -47,51 +34,64 @@
 	</div>
 	
 	<script type="text/javascript">
+	
+		function cAjax(url, val){
+			$.ajax({
+				  url: url,
+				  method: 'get',
+				  data: {value : val},
+				  success: function(response){
+				  		alert(response);
+				  	},
+				  dataType: "text"
+			});
+		}
+		
 		$("#crawl").click(function(){
 			location.href='${root}/manager/bookCategoryOk.do';
 		});
 		
 		$("#b_publisher").click(function(){
 			var url = '${root}/manager/autoPublisher.do';
-			var value = $("input[name=publisher]").val();
-			$.ajax({
-				  url: url,
-				  method: 'get',
-				  data: {value : value},
-				  success: function(e){
-				  		alert(e);
-				  	},
-				  dataType: "text"
-				});
+			var value = $("input[name=url]").val();
+			
+			if(value==""){
+				alert("주소를 입력하시오.");
+				$("input[name=url]").focus();
+				return;
+			}
+			
+			cAjax(url,value);
+			
 		});
 		
 		$("#b_author").click(function(){
 			var url = '${root}/manager/autoAuthor.do';
-			var value = $("input[name=author]").val();
-			$.ajax({
-				  url: url,
-				  method: 'get',
-				  data: {value : value},
-				  success: function(size){
-				  		alert(size+"입력완료");
-				  	},
-				  dataType: "text"
-				});
+			var value = $("input[name=url]").val();
+			
+			if(value==""){
+				alert("주소를 입력하시오.");
+				$("input[name=url]").focus();
+				return;
+			}
+			
+			cAjax(url,value);
 		});
 		
 		$("#b_b_book").click(function(){
 			var url = '${root}/manager/autoBook.do';
-			var value = $("input[name=b_book]").val();
-			$.ajax({
-				  url: url,
-				  method: 'get',
-				  data: {value : value},
-				  success: function(size){
-				  		alert(size+"입력완료");
-				  	},
-				  dataType: "text"
-				});
-		}); 
+			var value = $("input[name=url]").val();
+			
+			if(value==""){
+				alert("주소를 입력하시오.");
+				$("input[name=url]").focus();
+				return;
+			}
+			
+			cAjax(url,value);
+			
+		});
+		
 	</script>
 </body>
 </html>
