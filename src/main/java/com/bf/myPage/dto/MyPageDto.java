@@ -6,5 +6,5 @@ package com.bf.myPage.dto;
  * @description	마이페이지 DTO
  */
 public class MyPageDto {
-
+	
 }
