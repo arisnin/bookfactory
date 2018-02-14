@@ -19,6 +19,10 @@
 		SELECT * FROM FIRST_CATE
 	</select>
 	
+	<select id="checkCateOne" resultType="int">
+		select count(*) from first_cate
+	</select>
+	
 	<select id="getCateOneNum" parameterType="String" resultType="int">
 		select num from FIRST_CATE where NAME = #{name}
 	</select>
@@ -40,12 +44,18 @@
 	</select>
 	
 	<insert id="insert" parameterType="com.bf.manager.dto.BookDto">
-		insert into bookm(book_num,name,write_date,pub_num,author_num,illustrator_num,
-		translator_num,price,support,img_path,preference,sub_title,discount,discount2,
-		type,intro,pub_intro) values(BOOKM_NUM_SEQ.nextval,#{name},#{write_date},#{pub_num},
-		#{author_num},#{illustrator_num},#{translator_num},#{price},
-		#{support},#{img_path},#{preference},#{sub_title},#{discount},#{discount2},#{type},
-		#{intro},#{pub_intro})
+			insert into 
+			bookm(book_num,name,write_date,pub_num,author_num,illustrator_num,
+			translator_num,price,support,img_path,preference,sub_title,discount,discount2,
+			type,intro,pub_intro) 
+			values(BOOKM_NUM_SEQ.nextval,#{name},#{write_date},#{pub_num},
+			#{author_num},#{illustrator_num},#{translator_num},#{price},
+			#{support},#{img_path},#{preference},#{sub_title},#{discount},#{discount2},#{type},
+			#{intro},#{pub_intro})
+	</insert>
+	
+	<insert id="insertCateOne" parameterType="String">
+		insert into FIRST_CATE values(FIRST_CATE_SEQ.nextval,#{name})
 	</insert>
 	
 </mapper>

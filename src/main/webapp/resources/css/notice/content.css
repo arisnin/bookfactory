@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+#notice_content {
+	font-size: 1rem;
+	width: 56.25rem;
+			
+}
+
+.list {
+	text-align: center;
+}
+
+.notice_box{
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	padding: 1rem 0; 
+	margin-bottom: 1rem;
+}
+
+.notice_writeday{
+	font-size:0.7rem;
+	text-align: right;
+}
+
+.notice_content_read{
+	line-height: 1.4rem;
+	color: #555;
+}
+
+.notice_content_read a{
+	color: #776bce;
+	margin: 0 0.3rem;	
+}
+
+.notice_content_read strong {
+	font-weight: bolder;
+	color: black;
+}

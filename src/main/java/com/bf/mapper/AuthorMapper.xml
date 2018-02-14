@@ -22,4 +22,12 @@
 	<select id="getNum" parameterType="String" resultType="int">
 		select num from author where name=#{name}
 	</select>
+	
+	<select id="getZeroAuthor" resultType="int">
+		select count(*) from author where num=0
+	</select>
+	
+	<insert id="authorInsertInit" parameterType="com.bf.manager.dto.AuthorDto">
+		insert into author(num,name,country_num,update_date) values(0,#{name},#{country_num},#{update_date})
+	</insert>
 </mapper>

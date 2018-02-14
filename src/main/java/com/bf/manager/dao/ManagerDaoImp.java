@@ -149,4 +149,24 @@ public class ManagerDaoImp implements ManagerDao {
 	public int insertBook(BookDto bookDto) {
 		return sqlSession.insert("com.bf.mapper.BookMapper.insert", bookDto);
 	}
+
+	@Override
+	public int checkCateOne() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkCateOne");
+	}
+	
+	@Override
+	public int insertCateOne(String name) {
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateOne", name);
+	}
+	
+	@Override
+	public int getZeroAuthor() {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getZeroAuthor");
+	}
+	
+	@Override
+	public int authorInsertInit(AuthorDto authorDto) {
+		return sqlSession.insert("com.bf.mapper.AuthorMapper.authorInsertInit", authorDto);
+	}
 }

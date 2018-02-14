@@ -41,6 +41,15 @@ public class ManagerServiceImp implements ManagerService {
 	// Go 염현우
 	@Override
 	public void bookCategoryOk(ModelAndView mav) {
+		//대분류 설정
+		int thae = managerDao.checkCateOne();
+		if(thae != 5) {
+			String[] cateOne = {"일반","로맨스","판타지","만화","BL"};
+			for(int i=0;i<cateOne.length;i++) {
+				managerDao.insertCateOne(cateOne[i]);
+			}
+		}
+		
 		int check = managerDao.checkCategory();
 		mav.addObject("check", check);
 		if(check > 0) {
@@ -249,9 +258,9 @@ public class ManagerServiceImp implements ManagerService {
 		
 		String url = request.getParameter("value");
 
-		Document doc;
+		int countPub = 0;
 		try {
-			doc = Jsoup.connect(url).get();
+			Document doc = Jsoup.connect(url).get();
 			Elements elements = doc.select(".js_book_macro_wrapper");
 			
 			Elements publisher = elements.select(".publisher");
@@ -264,11 +273,11 @@ public class ManagerServiceImp implements ManagerService {
 				PublisherDto publisherDto = new PublisherDto();
 				publisherDto.setName(p.text());
 				publisherDto.setUrl("com.bf.bookFactory");
-				managerDao.publisherInsertOk(publisherDto);
+				countPub += managerDao.publisherInsertOk(publisherDto);
 			}
 			
 			response.setContentType("application/text;charset=utf-8");
-			response.getWriter().print("오케이");
+			response.getWriter().print(countPub + "개 출판사 등록완료");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -280,6 +289,18 @@ public class ManagerServiceImp implements ManagerService {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
 		
+		//0번처리
+		int init = managerDao.getZeroAuthor();
+		if(init == 0) {
+			AuthorDto authorDto = new AuthorDto();
+			authorDto.setName("없음");
+			authorDto.setCountry_num("NOT");
+			authorDto.setUpdate_date(new Date());
+			
+			managerDao.authorInsertInit(authorDto);
+		}
+		
+		//ajax
 		String url = request.getParameter("value");
 		int inputSize = 0;
 		LogAspect.logger.info(LogAspect.logMsg + url);
@@ -350,6 +371,8 @@ public class ManagerServiceImp implements ManagerService {
 					//나라 키 가져오기
 					String country_num = managerDao.getCountry(country);
 					int check = managerDao.authorCheck(authorName,birthday,country_num);
+					LogAspect.logger.info(LogAspect.logMsg + authorName + birthday + country_num + check);
+
 					if(check > 0) {
 						LogAspect.logger.info(LogAspect.logMsg + "중복!!:");
 						continue;
@@ -378,7 +401,7 @@ public class ManagerServiceImp implements ManagerService {
 				}
 			}
 			response.setContentType("application/text;charset=utf-8");
-			response.getWriter().print(inputSize);
+			response.getWriter().print(inputSize + "명 입력완료");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -395,6 +418,7 @@ public class ManagerServiceImp implements ManagerService {
 		try {
 			ArrayList<String> hrefList = searchUrl(url);
 			BookDto bookDto = new BookDto();
+			int inputBook = 0;
 			
 			for(int i=0;i<hrefList.size();i++) {
 				String subUrl = hrefList.get(i);
@@ -485,23 +509,24 @@ public class ManagerServiceImp implements ManagerService {
 						bookDto.setTranslator_num(authorStr.get(2));
 					}
 					
+					DecimalFormat df = new DecimalFormat(".##");
 					if(priceList.size()==2) {
 						int p1 = priceList.get(0);
 						int p2 = priceList.get(1);
-						float discount = 1- ((float) p2 / p1);
+						double discount = 1- ((double) p2 / p1);
 						bookDto.setPrice(p1);
-						bookDto.setDiscount(discount);
+						bookDto.setDiscount(Double.parseDouble(df.format(discount)));
 						bookDto.setType("전자책");
 					}else if(priceList.size() == 3) {
 						int p1 = priceList.get(0);
 						int p2 = priceList.get(1);
 						int p3 = priceList.get(2);
-						float discount = 1-((float) p2 / p1);
-						float discount2 = 1-((float) p3 / p2);
+						double discount = 1-((double) p2 / p1);
+						double discount2 = 1-((double) p3 / p2);
 						
 						bookDto.setPrice(p1);
-						bookDto.setDiscount(discount);
-						bookDto.setDiscount2(discount2);
+						bookDto.setDiscount(Double.parseDouble(df.format(discount)));
+						bookDto.setDiscount2(Double.parseDouble(df.format(discount2)));
 						bookDto.setType("종이책");
 					}
 					
@@ -512,25 +537,27 @@ public class ManagerServiceImp implements ManagerService {
 				String introHtml = intro.html();
 				String delSpan = "</span>";
 				String introStr = introHtml.substring(introHtml.indexOf(delSpan) + delSpan.length());
-				bookDto.setIntro(introStr);
 				
 				Element pubReview = subDoc.selectFirst("#publisher_book_review");
 				String pubReviewStr = "없음";
 				if(pubReview != null)	pubReviewStr = pubReview.selectFirst("p").html();
-				bookDto.setPub_intro(pubReviewStr);
 				
+				//책소개 , 출판사평
+				bookDto.setIntro(introStr);
+				bookDto.setPub_intro(pubReviewStr);
+
+				LogAspect.logger.info(LogAspect.logMsg + "책:" + bookDto);
 				int check = managerDao.checkBook(bookDto.getImg_path());
 				if(check > 0) {
 					LogAspect.logger.info(LogAspect.logMsg + "중복입니다");
 					continue;
 				}else {
-					int inputBook = managerDao.insertBook(bookDto);
+					inputBook += managerDao.insertBook(bookDto);
 				}
 				
-				
-				LogAspect.logger.info(LogAspect.logMsg + "책:" + bookDto);
 			}
-			
+			response.setContentType("application/text;charset=utf-8");
+			response.getWriter().print(inputBook + "개 입력완료");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

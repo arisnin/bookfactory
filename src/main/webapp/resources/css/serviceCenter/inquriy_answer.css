@@ -1,0 +1,120 @@
+@charset "UTF-8";
+
+.serviceCenter_inquriy_answer, .service_FAQ_home_header{
+	font-size: 1rem;
+	width: 56.25rem;
+	margin: 0px auto;
+}
+
+
+.service_FAQ_home_header{
+	margin-top: 2rem;
+	margin-bottom: 4rem;
+}
+
+.serviceCenter_inquriy_answer_title{
+	margin-bottom: 2rem;
+}
+
+.serviceCenter_inquriy_answer_left{
+	width: 35.5rem;
+	display: inline-block;
+	margin-right: 1.5rem;
+	line-height: 1.4rem;
+}
+
+.serviceCenter_inquriy_answer_right
+{
+	width: 19rem;
+	display: inline-block;
+	background: #F3F0FA;
+	float: right;
+	padding: 1rem;
+}
+
+.serviceCenter_inquriy_answer_right > .line div{
+	display: inline-block;
+	padding-bottom: 0.5rem;
+	padding-top: 0.5rem;
+}
+
+.serviceCenter_inquriy_answer_right > .line div:nth-child(1){
+	width: 6rem;
+}
+
+.serviceCenter_inquriy_answer_left > div{
+	padding-top:1rem;
+	padding-bottom: 1rem;
+}
+
+
+.serviceCenter_inquriy_answer_answer{	
+	border-bottom: 1px solid #E1DFFA;
+	
+}
+
+.serviceCenter_inquriy_answer_writer{
+	border-top: 1px solid #E1DFFA;
+	border-bottom: 1px solid #E1DFFA;	
+}
+
+.serviceCenter_inquriy_answer_writer div:nth-child(1),
+.serviceCenter_inquriy_answer_answer div:nth-child(1){
+	margin-bottom: 0.5rem;
+}
+
+.serviceCenter_inquriy_answer_writer div:nth-child(2),
+.serviceCenter_inquriy_answer_answer div:nth-child(2){
+	margin-bottom: 1.5rem;
+}
+
+.serviceCenter_inquriy_answer_right > .line{
+	margin-top: 0.6rem;
+	margin-bottom: 0.6rem;
+}
+
+.serviceCenter_inquriy_answer_right > div:nth-child(2) {
+	border-bottom: 1px solid #E1DFFA;
+}
+
+.service_FAQ_home_header span:nth-child(2) {
+	margin: 0px 0.5rem;	
+}
+
+.serviceCenter_inquriy_answer a{
+	color : #776bce;
+}
+
+.serviceCenter_inquriy_answer_right > .line div:first-child,
+.serviceCenter_inquriy_answer_left .date{
+	color:#888;
+}
+
+.serviceCenter_inquriy_answer_right .answer{
+	display: inline-block;
+	position: relative;
+	border: none;
+	border-radius: 4px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	font-size: 0.8rem;
+	font-weight: bold;
+	letter-spacing: -.03em;
+	outline: 0;
+	text-align: center;
+	vertical-align: baseline;
+	-webkit-tap-highlight-color: transparent;
+	box-shadow: none;
+	box-shadow: 0 1px 1px 0 rgba(209, 213, 217, .3);
+	-webkit-transition: background .3s, color .3s;
+	transition: background .3s, color .3s;
+	padding: 0.3rem 0.8rem;
+	border: 1px solid #5D568C;
+	background: #776BCE;
+	color: white;
+}
+
+.serviceCenter_inquriy_answer p{
+	color:#666;
+}
+

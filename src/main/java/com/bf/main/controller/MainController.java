@@ -62,7 +62,7 @@ public class MainController {
 	/**
 	 * 메인 > 로그인
 	 */
-	@RequestMapping(value = "/member/login.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/login.do", method = RequestMethod.GET)
 	public String login(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("login()");
 		request.getSession().setAttribute("userInfoId", "manager");

@@ -1,0 +1,167 @@
+@charset "UTF-8";
+
+.serviceCenter_book_suggestion, .service_FAQ_home_header{
+	font-size: 1rem;
+	width: 56.25rem;
+	margin: 0px auto;
+}
+
+.serviceCenter_book_suggestion a{
+	color: black;
+}
+
+.serviceCenter_book_suggestion input{
+	height: 2.3rem;
+	width: 35rem;
+	border : 1px solid black;
+	
+}
+
+.service_FAQ_home_header{
+	margin-top: 2rem;
+	margin-bottom: 4rem;
+}
+
+.serviceCenter_book_suggestion_title{
+	margin-bottom: 2rem;
+}
+
+
+.serviceCenter_book_suggestion_genre,
+.serviceCenter_book_suggestion_bookname,
+.serviceCenter_book_suggestion_writer,
+.serviceCenter_book_suggestion_publisher,
+.serviceCenter_book_suggestion_ex
+{
+	margin-bottom: 1.5rem;
+}
+
+.serviceCenter_book_suggestion_call{
+	margin-bottom: 1rem;
+}
+
+.serviceCenter_book_suggestion .star{
+	color: red;
+}
+
+.serviceCenter_book_suggestion_bookname_correct{
+	margin-top: 0.5rem;
+}
+
+.serviceCenter_book_suggestion_det textarea{
+	height: 7rem;
+	width:35rem;
+	resize: vertical;
+}
+
+.serviceCenter_book_suggestion_genre select{
+	height: 2.3rem;
+	width:35rem;
+}
+
+.serviceCenter_book_suggestion_file_add > .bf-custom-checkbox{
+	border: 1px solid black;
+	height:2.3rem;
+	width: 35rem;
+	text-align: center;
+	line-height: 2.3rem;
+}
+
+.serviceCenter_book_suggestion_file_add >
+.bf-custom-checkbox >
+.checkbox-label{
+	line-height: 2.4rem;
+}
+
+.serviceCenter_book_suggestion_file_add{
+	margin-bottom: 0.4rem;
+}
+
+.serviceCenter_book_suggestion_sub{
+	margin-top: 5rem;
+}
+
+.serviceCenter_book_suggestion_sub > .bf-button{
+	width: 11rem;
+	height: 2.5rem;
+	line-height: 2rem;
+	font-size: 1rem;
+}	
+
+.serviceCenter_book_suggestion_genre div:nth-child(1),
+.serviceCenter_book_suggestion_bookname div:nth-child(1),
+.serviceCenter_book_suggestion_writer div:nth-child(1),
+.serviceCenter_book_suggestion_publisher div:nth-child(1),
+.serviceCenter_book_suggestion_ex div:nth-child(1),
+.serviceCenter_book_suggestion_file div:nth-child(1)
+ {
+	margin-bottom: 0.5rem;
+}
+
+<!---->
+.serviceCenter_book_suggestion_ex{
+	overflow: hidden;
+}
+
+.serviceCenter_book_suggestion_ex_check{
+	display: inline-block;
+	float: left;
+}
+
+.serviceCenter_book_suggestion_ex_check > .bf-custom-checkbox{
+	height: 1.5rem;
+}
+
+.serviceCenter_book_suggestion_ex_check_text{
+	float: right;
+	margin-top: 0.3rem;
+	margin-left: 0.5rem;
+	width: 24rem;	
+}
+
+.serviceCenter_book_suggestion_ex_check_text div{
+	line-height: 1.2rem;
+}
+
+.service_FAQ_home_header span:nth-child(2) {
+	margin: 0px 0.5rem;	
+}
+
+.serviceCenter_book_suggestion_genre select,
+.serviceCenter_book_suggestion_bookname input,
+.serviceCenter_book_suggestion_writer input,
+.serviceCenter_book_suggestion_publisher input
+{
+	padding: 0.5rem;
+}
+
+.serviceCenter_book_suggestion_title{	
+ 	font-size: 2rem;
+ 	font-weight: bold;
+ 	margin-top: 0.2rem;
+ 	line-height: 2.7rem;
+}
+
+.serviceCenter_book_suggestion_file_add >
+.bf-custom-checkbox >
+.checkbox-label{
+	line-height: 2rem;
+	height: 94%;
+	padding: 0 0.9rem 0 0.7rem;
+	background: white;
+	margin-top:0.2rem;
+	left: 0.5%;
+}
+
+.serviceCenter_book_suggestion_file_add .bf-custom-checkbox input{
+	display: inline-block;
+}
+
+.serviceCenter_book_suggestion_file .bf-custom-checkbox{
+	text-align: left;
+}
+
+.serviceCenter_book_suggestion_file input{
+	padding: 0.25rem;
+	border: none;
+}

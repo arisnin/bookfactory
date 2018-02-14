@@ -207,7 +207,6 @@ public class ManagerController {
 	@RequestMapping(value = "/auto.do", method = RequestMethod.GET)
 	public ModelAndView auto() {
 		ModelAndView mav = new ModelAndView("crawl/auto.mg");
-		LogAspect.info("auto()");
 		return mav;
 	}
 

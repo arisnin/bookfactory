@@ -15,6 +15,7 @@
 <link href="${root}/css/myPage/payment/ridicash.css" type="text/css" rel="stylesheet">
 </head>
 <body>
+	<!--  -->
 	<div class="myridi-contents-page">
 		<section class="wrap-container myridi-purchased-box">
 			<!-- 타이틀 -->
@@ -52,7 +53,7 @@
 			</div>
 
 			<!-- 충전 금액 padding-top: 5px, padding-bottom: 25px-->
-			<form name="cash_form" method="post" action="">
+			<form name="cash_form" method="get" onsubmit="return myCashForm(this)" action="${root}/payment/ridiCashOk.do">
 				<div class="wrapper">
 					<div class="cash_select">
 						<ul class="cash_select_ul">
@@ -65,7 +66,7 @@
 						<div class="select_input_wrapper_divide_firstbefore">
 							<div class="select_body_1">
 								<div class="input_cell">
-									<span class="input_wrapper"><label><input type="radio" class="radio" name="radio" /> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">2,000</span>원
+									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="1"/> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">2,000</span>원
 										</span></label> </span>
 								</div>
 								<div class="percentage_cell">
@@ -84,7 +85,7 @@
 						<div class="select_input_wrapper_divide_after">
 							<div class="select_body_1">
 								<div class="input_cell">
-									<span class="input_wrapper"><label><input type="radio" class="radio" name="radio" /> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">5,000</span>원
+									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="2"/> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">5,000</span>원
 										</span></label> </span>
 								</div>
 								<div class="percentage_cell">
@@ -103,7 +104,7 @@
 						<div class="select_input_wrapper">
 							<div class="select_body_1">
 								<div class="input_cell">
-									<span class="input_wrapper"><label><input type="radio" class="radio" name="radio" /> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">10,000</span>원
+									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="3"/> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">10,000</span>원
 										</span></label> </span>
 								</div>
 								<div class="percentage_cell">
@@ -122,7 +123,7 @@
 						<div class="select_input_wrapper_divide_before">
 							<div class="select_body_1">
 								<div class="input_cell">
-									<span class="input_wrapper"><label><input type="radio" class="radio" name="radio" /> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">20,000</span>원
+									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="4"/> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">20,000</span>원
 										</span></label> </span>
 								</div>
 								<div class="percentage_cell">
@@ -141,7 +142,7 @@
 						<div class="select_input_wrapper_divide_after">
 							<div class="select_body_1">
 								<div class="input_cell">
-									<span class="input_wrapper"><label><input type="radio" class="radio" name="radio" /> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">30,000</span>원
+									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="5"/> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">30,000</span>원
 										</span></label> </span>
 								</div>
 								<div class="percentage_cell">
@@ -160,7 +161,7 @@
 						<div class="select_input_wrapper active">
 							<div class="select_body_1">
 								<div class="input_cell">
-									<span class="input_wrapper"><label><input type="radio" class="radio" name="radio" /> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">50,000</span>원
+									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="6"/> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">50,000</span>원
 										</span></label> </span>
 								</div>
 								<div class="percentage_cell">
@@ -179,7 +180,7 @@
 						<div class="select_input_wrapper_divide_before">
 							<div class="select_body_1">
 								<div class="input_cell">
-									<span class="input_wrapper"><label><input type="radio" class="radio" name="radio" /><span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">70,000</span>원
+									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="7"/><span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">70,000</span>원
 										</span></label> </span>
 								</div>
 								<div class="percentage_cell">
@@ -198,7 +199,7 @@
 						<div class="select_input_wrapper_divide_after">
 							<div class="select_body_1">
 								<div class="input_cell">
-									<span class="input_wrapper"><label><input type="radio" class="radio" name="radio" /> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">100,000</span>원
+									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="8"/> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">100,000</span>원
 										</span></label> </span>
 								</div>
 								<div class="percentage_cell">
@@ -217,7 +218,7 @@
 						<div class="select_input_wrapper">
 							<div class="select_body_1">
 								<div class="input_cell">
-									<span class="input_wrapper"><label><input type="radio" class="radio" name="radio" /> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">200,000</span>원
+									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="9"/> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">200,000</span>원
 										</span></label> </span>
 								</div>
 								<div class="percentage_cell">
@@ -236,7 +237,7 @@
 						<div class="select_input_wrapper">
 							<div class="select_body_1">
 								<div class="input_cell">
-									<span class="input_wrapper"><label><input type="radio" class="radio" name="radio" /> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">300,000</span>원
+									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="10"/> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">300,000</span>원
 										</span></label> </span>
 								</div>
 								<div class="percentage_cell">
@@ -255,7 +256,7 @@
 						<div class="select_input_wrapper">
 							<div class="select_body_1">
 								<div class="input_cell">
-									<span class="input_wrapper"><label><input type="radio" class="radio" name="radio" /> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">400,000</span>원
+									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="11"/> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">400,000</span>원
 										</span></label> </span>
 								</div>
 								<div class="percentage_cell">
@@ -274,7 +275,7 @@
 						<div class="select_input_wrapper">
 							<div class="select_body_1">
 								<div class="input_cell">
-									<span class="input_wrapper"><label><input type="radio" class="radio" name="radio" /> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">500,000</span>원
+									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="12"/> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">500,000</span>원
 										</span></label> </span>
 								</div>
 								<div class="percentage_cell">
@@ -300,33 +301,33 @@
 					</div>
 					<div class="payment_list_wrapper">
 						<ul class="list_wrapper">
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input"/><span class="radio_mark"></span><span class="payment_label"> <span class="payment_pay">네이버페이</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="1"/><span class="radio_mark"></span><span class="payment_label"> <span class="payment_pay">네이버페이</span>
 								</span><img src="${root}/img/ridicash/네이버페이.PNG"></label></li>
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input"/><span class="radio_mark"></span><span class="payment_label"> <span class="payment_pay">카카오페이</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="2"/><span class="radio_mark"></span><span class="payment_label"> <span class="payment_pay">카카오페이</span>
 								</span><img src="${root}/img/ridicash/카카오페이.PNG"></label></li>
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input" /><span class="radio_mark"></span><span class="payment_label"> <span class="payment_pay">삼성페이</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="3"/><span class="radio_mark"></span><span class="payment_label"> <span class="payment_pay">삼성페이</span>
 								</span><img src="${root}/img/ridicash/삼성페이.PNG"></label></li>
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input" /><span class="radio_mark"></span><span class="payment_label"> <span class="payment_pay">페이코</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="4"/><span class="radio_mark"></span><span class="payment_label"> <span class="payment_pay">페이코</span>
 								</span><img src="${root}/img/ridicash/페이코.PNG"></label></li>
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input" /><span class="radio_mark"></span><span class="payment_label"> <span class="payment_pay">페이나우</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="5"/><span class="radio_mark"></span><span class="payment_label"> <span class="payment_pay">페이나우</span>
 								</span><img src="${root}/img/ridicash/페이나우.PNG"></label></li>
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input" /><span class="radio_mark"></span><span class="payment_label"> <span>신용카드</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="6"/><span class="radio_mark"></span><span class="payment_label"> <span>신용카드</span>
 								</span></label></li>
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input" /><span class="radio_mark"></span><span class="payment_label"> <span>휴대폰</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="7"/><span class="radio_mark"></span><span class="payment_label"> <span>휴대폰</span>
 								</span></label></li>
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input" /><span class="radio_mark"></span><span class="payment_label"> <span>유선전화</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="8"/><span class="radio_mark"></span><span class="payment_label"> <span>유선전화</span>
 								</span></label></li>
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input" /><span class="radio_mark"></span><span class="payment_label"> <span>계좌이체</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="9"/><span class="radio_mark"></span><span class="payment_label"> <span>계좌이체</span>
 								</span></label></li>
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input" /><span class="radio_mark"></span><span class="payment_label"> <span>컬쳐랜드문화상품권</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="10"/><span class="radio_mark"></span><span class="payment_label"> <span>컬쳐랜드문화상품권</span>
 								</span></label></li>
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input" /><span class="radio_mark"></span><span class="payment_label"> <span>도서문화상품권</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="11"/><span class="radio_mark"></span><span class="payment_label"> <span>도서문화상품권</span>
 								</span></label></li>
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input" /><span class="radio_mark"></span><span class="payment_label"> <span>해피머니(모바일팝)</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="12"/><span class="radio_mark"></span><span class="payment_label"> <span>해피머니(모바일팝)</span>
 								</span></label></li>
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input" /><span class="radio_mark"></span><span class="payment_label"> <span>해외 발행 신용카드</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="13"/><span class="radio_mark"></span><span class="payment_label"> <span>해외 발행 신용카드</span>
 								</span></label></li>
-							<li class="payment_list"><label><input type="radio" class="radio_input" name="radio_input" /><span class="radio_mark"></span><span class="payment_label"> <span>무통장입금</span>
+							<li class="payment_list"><label><input type="radio" class="radio_input" name="type_num" value="14"/><span class="radio_mark"></span><span class="payment_label"> <span>무통장입금</span>
 								</span></label></li>
 						</ul>
 					</div>
@@ -338,7 +339,7 @@
 				</div>
 				<div class="checkout_agreement_wrapper">
 					<div class="agreement_checkbox">
-						<label class="bf-custom-checkbox"> <input type="checkbox" title="구매목록 책 전체선택" /> <span class="all-mark"></span>
+						<label class="bf-custom-checkbox"> <input type="checkbox" name="paybox" title="구매목록 책 전체선택" /> <span class="all-mark"></span>
 						</label><span class="agreement_checkbox_message" style="display: block;">상품,가격,할인 정보, 유의 사항 등을 확인하였으며 구매에 동의합니다.</span>
 						<span class="agreement_checkbox_message" style="display: none;">상품,가격,할인 정보, 유의 사항, PAYCO 이용 약관 등을 확인하였으며 구매에 동의합니다.</span>
 					</div>
@@ -351,7 +352,7 @@
 					</span>
 				</div>
 				<div class="checkout_button_wrap">
-					<button type="button" class="bf-button" style="width: 210px">
+					<button type="submit" class="bf-button" style="width: 210px">
 						<span class="coin_icons"></span>마이캐시 충전
 					</button>
 				</div>
@@ -372,7 +373,7 @@
 			else .kakao_alert 의 css ("display", "none")
 		--%>
 		$(document).ready(function(){
-			$("input[name=radio_input]").eq(1).on("click", function(){
+			$("input[name=type_num]").eq(1).on("click", function(){
 				if($(this).prop("checked")){
 					$(".kakao_alert").css("display", "block");
 				}
@@ -380,7 +381,7 @@
 		});
 		
 		$(document).ready(function(){
-			$("input[name=radio_input]").eq(3).on("click", function(){
+			$("input[name=type_num]").eq(3).on("click", function(){
 				if($(this).prop("checked")){
 					$(".agreement_checkbox_message").eq(0).css("display", "none");
 					$(".agreement_checkbox_message").eq(1).css("display", "block");
@@ -389,14 +390,14 @@
 		});
 		
 		$(document).ready(function(){
-			$("input[name=radio_input]").eq(13).on("click", function(){
+			$("input[name=type_num]").eq(13).on("click", function(){
 				if($(this).prop("checked")){
 					$(".depositless_payment").css("display", "block");
 				}
 			});
 		});
 		
-		$("input[name=radio_input]").on("click", function(){
+		$("input[name=type_num]").on("click", function(){
 			$(".kakao_alert").css("display", "none");
 			$(".agreement_checkbox_message").eq(1).css("display", "none");
 			$(".agreement_checkbox_message").eq(0).css("display", "block");
@@ -413,7 +414,7 @@
 		
 		<%-- #776BCE, #FAF0FA, #C98AFF, #E1DFFA--%>
 		
-		$("input[name=radio]").each(function(i,e){
+		$("input[name=menu_num]").each(function(i,e){
 			$(this).on("click", function(){
 				if($(this).prop("checked")){
 					$(".select_body_1").css("color", "#444");
@@ -427,6 +428,31 @@
 				}
 			});
 		});
+		
+		function myCashForm(obj){
+			//alert("Ok");
+			var cradio1 = $(":input[name=menu_num]:radio:checked").val();
+			var cradio2 = $(":input[name=type_num]:radio:checked").val();
+			var cbox = document.cash_form.paybox.checked;
+			
+			if(!cradio1){
+				alert("충전할 금액을 선택하십시오");
+				obj.cradio1.focus();
+				return false;
+			}
+			
+			if(!cradio2){
+				alert("결제 수단을 선택하십시오");
+				obj.cradio2.focus();
+				return false;
+			}
+			
+			if(!cbox){
+				alert("구매 동의를 체크하십시오");
+				obj.cbox.focus();
+				return false;
+			}
+		}	
 	</script>
 
 </body>
