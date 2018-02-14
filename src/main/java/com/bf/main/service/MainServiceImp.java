@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.main.dao.MainDao;
-import com.bf.myPage.dto.MyPageReviewDto;
+import com.bf.main.dto.ReviewDto;
 import com.bf.main.dto.RegisterDto;
 
 /**
@@ -27,7 +27,7 @@ public class MainServiceImp implements MainService {
 	public ModelAndView review(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
-		MyPageReviewDto myPageReviewDto = (MyPageReviewDto)map.get("myPageReviewDto");
+		ReviewDto reviewDto = (ReviewDto)map.get("reviewDto");
 
 		// 책 번호(book_num)는 presentation 단에서 넘어옵니다.
 		// 스포일러(spoiler)는 존재하면 true, 존재하지 않으면 false입니다.
@@ -35,43 +35,21 @@ public class MainServiceImp implements MainService {
 		// 가능합니다.
 
 		// TODO: 아이디(id) 설정. 아이디는 유효세션으로부터 받아와야 합니다.
-		myPageReviewDto.setId("abc123");
+		reviewDto.setId("abc123");
 
-		if ("on".equals(myPageReviewDto.getSpoiler())) {
-			myPageReviewDto.setSpoiler("true");
+		if ("on".equals(reviewDto.getSpoiler())) {
+			reviewDto.setSpoiler("true");
 		} else {
-			myPageReviewDto.setSpoiler("false");
+			reviewDto.setSpoiler("false");
 		}
-		myPageReviewDto.setDisplay("true");
-		myPageReviewDto.setWrite_date(new java.util.Date());
-		myPageReviewDto.setContent(myPageReviewDto.getContent().replace("\r\n", "<br />"));
-		LogAspect.info(myPageReviewDto);
+		reviewDto.setDisplay("true");
+		reviewDto.setWrite_date(new java.util.Date());
+		reviewDto.setContent(reviewDto.getContent().replace("\r\n", "<br />"));
+		LogAspect.info(reviewDto);
 
-		int check = mainDao.insertReview(myPageReviewDto);
+		int check = mainDao.insertReview(reviewDto);
 
 		return mav.addObject("checkReview", check);
-	}
-
-	@Override
-	public void cartWishList(ModelAndView mav) {
-		HttpServletRequest request = (HttpServletRequest)mav.getModelMap().get("request");
-
-		int num = Integer.parseInt(request.getParameter("num"));
-		int check = mainDao.cartWishList(num);
-		System.out.println(check);
-		mav.addObject("check", check);
-		mav.setViewName("/cart.main");
-	}
-
-	@Override
-	public void cartDelete(ModelAndView mav) {
-		HttpServletRequest request = (HttpServletRequest)mav.getModelMap().get("request");
-
-		int num = Integer.parseInt(request.getParameter("num"));
-		int check = mainDao.cartDelete(num);
-
-		mav.addObject("check", check);
-		mav.setViewName("/cart.main");
 	}
 
 	@Override

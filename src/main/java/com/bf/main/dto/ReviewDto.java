@@ -1,4 +1,4 @@
-package com.bf.myPage.dto;
+package com.bf.main.dto;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @description
  */
 @Component
-public class MyPageReviewDto {
+public class ReviewDto {
 	// Field
 	private int num; // NUMBER(8,0) -- index
 	private String id; // VARCHAR2(40 CHAR) -- 회원 아이디
@@ -23,10 +23,10 @@ public class MyPageReviewDto {
 	private String display; // VARCHAR2(20 CHAR) -- 공개/비공개(true/false)
 
 	// Constructor
-	public MyPageReviewDto() {
+	public ReviewDto() {
 	}
 
-	public MyPageReviewDto(int num, String id, int book_num, String content, Date write_date, int star_point, String spoiler, int preference, String display) {
+	public ReviewDto(int num, String id, int book_num, String content, Date write_date, int star_point, String spoiler, int preference, String display) {
 		super();
 		this.num = num;
 		this.id = id;
@@ -114,7 +114,7 @@ public class MyPageReviewDto {
 
 	@Override
 	public String toString() {
-		return "MyPageReviewDto [num=" + num + ", id=" + id + ", book_num=" + book_num + ", content=" + content + ", write_date=" + write_date + ", star_point=" + star_point + ", spoiler=" + spoiler + ", preference=" + preference + ", display=" + display + "]";
+		return "ReviewDto [num=" + num + ", id=" + id + ", book_num=" + book_num + ", content=" + content + ", write_date=" + write_date + ", star_point=" + star_point + ", spoiler=" + spoiler + ", preference=" + preference + ", display=" + display + "]";
 	}
 
 }
