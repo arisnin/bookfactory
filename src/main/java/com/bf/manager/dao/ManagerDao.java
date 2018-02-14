@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookFirstCateDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
@@ -46,6 +47,17 @@ public interface ManagerDao {
 
 	public int getPublisherCount();
 
+	public String getCountry(String country);
+
+	public int authorCheck(String authorName, String birthday, String country_num);
+
+	public int selectAuthorNum(String name);
+
+	public int getPublisherNum(String name);
+
+	public int checkBook(String img_path);
+
+	public int insertBook(BookDto bookDto);
 
 
 }
