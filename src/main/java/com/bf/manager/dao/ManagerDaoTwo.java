@@ -1,5 +1,6 @@
 package com.bf.manager.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.bf.manager.dto.BoardFrequencyDto;
@@ -15,4 +16,6 @@ public interface ManagerDaoTwo {
 	public List<BoardFrequencyDto> catecorySearch2();
 	public int Boardcount();
     public List<BoardFrequencyDto> boardList(int startRow,int endRow);
+    public List<BoardFrequencyDto> boardSearch(int startRow,int endRow,String word);
+    public List<BoardFrequencyDto> boardSearchDate(int startRow,int endRow,Date startDate,Date endDate);
 }

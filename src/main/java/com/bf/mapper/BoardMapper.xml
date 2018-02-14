@@ -4,25 +4,47 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bf.manager.boardMapper">
 	<insert id="InsertOk" parameterType="com.bf.manager.dto.BoardFrequencyDto">
-	insert into BOARD_FREQUENCY(num,title,category,content,write_date,file_name,file_size,file_path)
-	 	values(frequency_num_seq.nextval,#{title},#{category},#{content},#{write_date},#{file_name},#{file_size},#{file_path})
+		insert into
+		BOARD_FREQUENCY(num,title,category,content,write_date,file_name,file_size,file_path)
+		values(frequency_num_seq.nextval,#{title},#{category},#{content},#{write_date},#{file_name},#{file_size},#{file_path})
 	</insert>
-	<select id="select" parameterType="java.util.List" resultType="com.bf.manager.dto.BoardCate1Dto">
+	<select id="select" parameterType="java.util.List"
+		resultType="com.bf.manager.dto.BoardCate1Dto">
 		select * from qna_cate1
 	</select>
-		<select id="select2" parameterType="java.util.List" resultType="com.bf.manager.dto.BoardCate1Dto">
+	<select id="select2" parameterType="java.util.List"
+		resultType="com.bf.manager.dto.BoardCate1Dto">
 		select * from qna_cate2
 	</select>
 	<select id="count" resultType="Integer">
-	select count(*) from BOARD_FREQUENCY
+		select count(*) from BOARD_FREQUENCY
 	</select>
-	<select id="list" parameterType="java.util.Map" resultType="com.bf.manager.dto.BoardFrequencyDto">
+	<select id="list" parameterType="java.util.Map"
+		resultType="com.bf.manager.dto.BoardFrequencyDto">
 		<![CDATA[
 		select * from (select rownum rnum, a.* from(
 			select * from BOARD_FREQUENCY) a)
 			where rnum >=#{startRow} and rnum <=#{endRow}
 	]]>
 	</select>
+	<select id="listSearch" parameterType="java.util.Map"
+		resultType="com.bf.manager.dto.BoardFrequencyDto">
+	<![CDATA[
+		select * from (select rownum rnum, a.* from(
+			select * from BOARD_FREQUENCY where title like '%'||#{word}||'%') a)
+			where rnum >=#{startRow} and rnum <=#{endRow}
+	]]>
+	</select>
+	
+	<select id="listSearchDate" parameterType="java.util.Map"
+		resultType="com.bf.manager.dto.BoardFrequencyDto">
+		<![CDATA[
+		select * from (select rownum rnum, a.* from(
+			select * from BOARD_FREQUENCY where write_date >= #{startDate} and write_date <= #{endDate}) a)
+			where rnum >=#{startRow} and rnum <=#{endRow}
+	]]>
+	</select>
+
 </mapper>
 
 	
