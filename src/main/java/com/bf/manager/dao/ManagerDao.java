@@ -49,7 +49,7 @@ public interface ManagerDao {
 
 	public String getCountry(String country);
 
-	public int authorCheck(String authorName, String birthday, String country_num);
+	public int authorCheck(AuthorDto authorDto);
 
 	public int selectAuthorNum(String name);
 

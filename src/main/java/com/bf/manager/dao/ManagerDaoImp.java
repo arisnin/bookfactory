@@ -122,12 +122,8 @@ public class ManagerDaoImp implements ManagerDao {
 	}
 	
 	@Override
-	public int authorCheck(String authorName, String birthday, String country_num) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("name", authorName);
-		map.put("birthday", birthday);
-		map.put("country_num", country_num);
-		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.authorCheck",map);
+	public int authorCheck(AuthorDto authorDto) {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.authorCheck",authorDto);
 	}
 	
 	@Override

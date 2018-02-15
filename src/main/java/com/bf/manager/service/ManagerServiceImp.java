@@ -296,7 +296,7 @@ public class ManagerServiceImp implements ManagerService {
 		int init = managerDao.getZeroAuthor();
 		if(init == 0) {
 			AuthorDto authorDto = new AuthorDto();
-			authorDto.setName("없음");
+			authorDto.setName("anonymous");
 			authorDto.setCountry_num("NOT");
 			authorDto.setUpdate_date(new Date());
 			
@@ -316,11 +316,28 @@ public class ManagerServiceImp implements ManagerService {
 				Document subDoc = Jsoup.connect(subUrl).get();
 				Elements info = subDoc.select(".header_info_wrap");
 				
+				//작가정보가 있는 링크 정리
 				ArrayList<String> authorLinkList = new ArrayList<String>();
 				for(Element meta : info) {
 					Elements authorLink = meta.select(".author_detail_link");
 					for(Element al : authorLink) {
-						authorLinkList.add("https://ridibooks.com" + al.attr("href").trim());						
+						String href = "https://ridibooks.com" + al.attr("href").trim();
+						Document authorDoc = Jsoup.connect(href).get();
+						Element authorInfo = authorDoc.selectFirst(".author_area_wrapper");
+						
+						if(authorInfo == null) {
+							Element aResult = authorDoc.selectFirst(".author_result_wrapper");
+							if(aResult == null) {
+								continue;
+							}
+							Element liList = aResult.selectFirst(".author_result_list");
+							for(Element li : liList.select("li")) {
+								href = "https://ridibooks.com" + li.selectFirst("a").attr("href").trim();
+								authorLinkList.add(href);
+							}
+						}else {
+							authorLinkList.add(href);							
+						}
 					}
 				}
 				
@@ -329,10 +346,6 @@ public class ManagerServiceImp implements ManagerService {
 					String authorUrl = authorLinkList.get(k);
 					LogAspect.logger.info(LogAspect.logMsg + authorUrl);
 
-					//예외처리
-					if(authorUrl.equals("https://ridibooks.com/search/?q=%EC%A0%95%EB%B3%B4%EB%9E%8C")) {
-						authorUrl = "https://ridibooks.com/author/74390?_s=search&_q=%EC%A0%95%EB%B3%B4%EB%9E%8C";
-					}
 					Document authorDoc = Jsoup.connect(authorUrl).get();
 					Element authorInfo = authorDoc.selectFirst(".author_area_wrapper");
 					Element authorProfile = authorInfo.selectFirst(".author_profile");
@@ -378,18 +391,8 @@ public class ManagerServiceImp implements ManagerService {
 					
 					//나라 키 가져오기
 					String country_num = managerDao.getCountry(country);
-					int check = managerDao.authorCheck(authorName,birthday,country_num);
-					LogAspect.logger.info(LogAspect.logMsg + authorName + birthday + country_num + check);
-
-					if(check > 0) {
-						LogAspect.logger.info(LogAspect.logMsg + "중복!!:");
-						continue;
-					}
 					
-					/*if(describe.length() > 2000) {
-						describe = describe.substring(0, 1300);
-					}*/
-					
+					//작가DTO 정보입력
 					AuthorDto authorDto = new AuthorDto();
 					authorDto.setName(authorName);
 					authorDto.setAwards(awards);
@@ -402,6 +405,12 @@ public class ManagerServiceImp implements ManagerService {
 					authorDto.setLink(link);
 					authorDto.setUpdate_date(new Date());
 					
+					//중복체크
+					int check = managerDao.authorCheck(authorDto);
+					if(check > 0) {
+						LogAspect.logger.info(LogAspect.logMsg + "중복!!:");
+						continue;
+					}
 					inputSize += managerDao.authorInsertOk(authorDto);
 
 					LogAspect.logger.info(LogAspect.logMsg + "작가:" + authorDto);
