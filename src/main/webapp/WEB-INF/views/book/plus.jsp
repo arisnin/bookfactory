@@ -104,21 +104,30 @@
 				</ul>
 				
 				<div class="price-box">
-					<div class="box_left">구매</div>
-					<div class="box_right">
-						<div>
-							<span>종이책정가</span> <span class="paper">15000원</span>
+					<!-- 'box-row'에 'hidden-block'추가하면 감추기 가능 -->
+					<div class="box-row box-rental ">
+						<div class="box_left">대여</div>
+						<div class="box_right">
+							<div>
+								<span>대여일수</span> <span class="paper">4000원</span>
+							</div>
 						</div>
-						<div>
-							<span>전자책정가</span> <span class="ebook">10000원<span class="sail">34</span></span>
-						</div>
-						<div>
-							<span>판매가</span> <span class="sell">9000원<span class="sail">10</span></span>
+					</div>
+					<div class="box-row">
+						<div class="box_left">구매</div>
+						<div class="box_right">
+							<div>
+								<span>종이책정가</span> <span class="paper">15000원</span>
+							</div>
+							<div>
+								<span>전자책정가</span> <span class="ebook">10000원<span class="sail">34</span></span>
+							</div>
+							<div>
+								<span>판매가</span> <span class="sell">9000원<span class="sail">10</span></span>
+							</div>
 						</div>
 					</div>
 				</div>
-				
-				
 
 				<div class="head_bottom">
 					<ol>

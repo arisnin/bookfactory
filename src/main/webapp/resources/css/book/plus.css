@@ -258,7 +258,6 @@
 /* 구매 가격 정보 박스 */
 .head_right .price-box {
 	border-top: 1px solid #E1DFFA;
-	border-bottom: 1px solid #E1DFFA;
 	width: 100%;
 	line-height: 2rem;;
 	font-size: 1rem;
@@ -275,6 +274,16 @@
 	line-height: 6rem;
 	text-align: center;
 	vertical-align: middle;
+}
+
+.box-row {
+	border-bottom: 1px solid #E1DFFA;
+	display: inline-block;
+	width: 100%;
+}
+
+.box-row.box-rental * {
+	line-height: 2.5rem;
 }
 
 .box_right {
