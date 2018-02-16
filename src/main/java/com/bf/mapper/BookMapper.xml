@@ -64,13 +64,34 @@
 		from bookm b,
 		  (select f.num fn, s.NUM sn, t.NUM tn
 		   from FIRST_CATE f, second_cate s , THIRD_CATE t
-		   where s.num = t.SECOND_CATE(+) and f.num = s.FIRST_CATE and (t.name=#{cateName} or s.name = #{cateName})) cate ,
+		   where s.num = t.SECOND_CATE(+) and f.num = s.FIRST_CATE and s.name=#{cateName}) cate ,
+		  (select count(*) cnt from book_category) seq
+		where b.BOOK_NUM = #{currentNum}
+	</insert>
+	
+	<insert id="insertBookCategory2" parameterType="java.util.HashMap">
+		insert into book_category(num,book_num,cate1_num,cate2_num,cate3_num)
+		select  seq.cnt ,b.BOOK_NUM , cate.fn, cate.sn, cate.tn
+		from bookm b,
+		  (select f.num fn, s.NUM sn, t.NUM tn
+		   from FIRST_CATE f, second_cate s , THIRD_CATE t
+		   where s.num = t.SECOND_CATE(+) and f.num = s.FIRST_CATE and t.name=#{cateName}) cate ,
 		  (select count(*) cnt from book_category) seq
 		where b.BOOK_NUM = #{currentNum}
 	</insert>
 	
 	<select id="getMaxBookNum" resultType="int">
 		select nvl(max(book_num),0) from bookm
+	</select>
+	
+	<select id="checkBookCategorySize" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.BookCategoryDto">
+		select  seq.num ,b.BOOK_NUM , cate.cate1_num, cate.cate2_num, cate.cate3_num
+		from bookm b,
+		  (select f.num cate1_num, s.NUM cate2_num, t.NUM cate3_num
+		   from FIRST_CATE f, second_cate s , THIRD_CATE t
+		   where s.num = t.SECOND_CATE(+) and f.num = s.FIRST_CATE and s.name=#{cateName} ) cate ,
+		  (select count(*) num from book_category) seq
+		where b.BOOK_NUM = #{currentNum}
 	</select>
 	
 </mapper>

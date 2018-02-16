@@ -567,15 +567,16 @@ public class ManagerServiceImp implements ManagerService {
 				int check = managerDao.checkBook(bookDto.getImg_path());
 				if(check > 0) {
 					LogAspect.logger.info(LogAspect.logMsg + "중복입니다");
-					int currentNum = managerDao.getMaxBookNum();
-					for(int j=0;j<cateList.size();j++) {
-						managerDao.insertBookCategory(cateList.get(j),currentNum);						
-					}
 					continue;
 				}else {
 					//도서삽입
 					inputBook += managerDao.insertBook(bookDto);
 					//카테삽입
+					int currentNum = managerDao.getMaxBookNum();
+					for(int j=0;j<cateList.size();j++) {
+						LogAspect.logger.info(LogAspect.logMsg + cateList.get(j) + "///" + currentNum);
+						managerDao.insertBookCategory(cateList.get(j),currentNum);						
+					}
 				}
 				
 			}

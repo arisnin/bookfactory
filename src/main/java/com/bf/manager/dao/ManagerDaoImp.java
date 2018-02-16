@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.manager.dto.BookCategoryDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookFirstCateDto;
@@ -118,29 +119,29 @@ public class ManagerDaoImp implements ManagerDao {
 
 	@Override
 	public String getCountry(String country) {
-		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getCountryOne",country);
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getCountryOne", country);
 	}
-	
+
 	@Override
 	public int authorCheck(AuthorDto authorDto) {
-		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.authorCheck",authorDto);
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.authorCheck", authorDto);
 	}
-	
+
 	@Override
 	public int selectAuthorNum(String name) {
 		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getNum", name);
 	}
-	
+
 	@Override
 	public int getPublisherNum(String name) {
 		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getNum", name);
 	}
-	
+
 	@Override
 	public int checkBook(String img_path) {
 		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkBook", img_path);
 	}
-	
+
 	@Override
 	public int insertBook(BookDto bookDto) {
 		return sqlSession.insert("com.bf.mapper.BookMapper.insert", bookDto);
@@ -150,30 +151,36 @@ public class ManagerDaoImp implements ManagerDao {
 	public int checkCateOne() {
 		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkCateOne");
 	}
-	
+
 	@Override
 	public int insertCateOne(String name) {
 		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateOne", name);
 	}
-	
+
 	@Override
 	public int getZeroAuthor() {
 		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getZeroAuthor");
 	}
-	
+
 	@Override
 	public int authorInsertInit(AuthorDto authorDto) {
 		return sqlSession.insert("com.bf.mapper.AuthorMapper.authorInsertInit", authorDto);
 	}
 
 	@Override
-	public int insertBookCategory(String cateName,int currentNum) {
+	public int insertBookCategory(String cateName, int currentNum) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("cateName", cateName);
 		map.put("currentNum", currentNum);
-		return sqlSession.insert("com.bf.mapper.BookMapper.insertBookCategory", map);
+		
+		List<BookCategoryDto> checkSize = sqlSession.selectList("com.bf.mapper.BookMapper.checkBookCategorySize", map);
+		if(checkSize.size() == 1) {
+			return sqlSession.insert("com.bf.mapper.BookMapper.insertBookCategory", map);
+		}else {
+			return 	sqlSession.insert("com.bf.mapper.BookMapper.insertBookCategory2", map);
+		}
 	}
-	
+
 	@Override
 	public int getMaxBookNum() {
 		return sqlSession.selectOne("com.bf.mapper.BookMapper.getMaxBookNum");
