@@ -458,16 +458,14 @@ public class ManagerServiceImp implements ManagerService {
 					//카테고리
 					Element cateInfo = meta.selectFirst(".info_category_wrap");
 					Elements cate = cateInfo.select("a");
-					String cateStr = "";
 					for(int k=0;k<cate.size();k++) {
 						Element cateName = cate.get(k);
-						/*cateStr += cateName.text() + ",";*/
-						cateList.add(cateName.text());
-						if(k%2 == 1) {
-							cateStr = "";
+						Element next = cateName.nextElementSibling();
+						if(next != null && next.is("span")) {
+							continue;
 						}
+						cateList.add(cateName.text());
 					}
-					System.out.println(cateList);
 					
 					//작가
 					Elements author = meta.select(".author_detail_link");
@@ -480,41 +478,6 @@ public class ManagerServiceImp implements ManagerService {
 						authorStr.add(author_num);
 					}
 					
-					System.out.println("작가:\t" + authorStr);
-					
-					Elements publisher = meta.select(".publisher_detail_link");
-					System.out.println("출판사:\t" + publisher.text());
-					int pub_num = managerDao.getPublisherNum(publisher.text());
-					
-					Elements pubDate = meta.select(".book_info_list_wrapper").select(".published_date_info");
-					System.out.println("출간정보:\t" + pubDate.text());
-					
-					Element img = meta.nextElementSibling().selectFirst(".thumbnail_image").selectFirst("img");
-					System.out.println(img.attr("src"));
-					
-					Elements price = meta.select(".book_price");
-					ArrayList<Integer> priceList = new ArrayList<Integer>();
-					
-					for(Element p : price) {
-						DecimalFormat df = new DecimalFormat(",###");
-						try {
-							Number number = df.parse(p.selectFirst("span").text());
-							priceList.add(number.intValue());
-						} catch (ParseException e) {
-							e.printStackTrace();
-						}
-					}
-					System.out.println("가격:\t" + priceList);
-					
-					
-					bookDto.setName(name);
-					bookDto.setWrite_date(pubDate.text());
-					bookDto.setImg_path(img.attr("src"));
-					bookDto.setPub_num(pub_num);
-					bookDto.setPreference(0);
-					bookDto.setSub_title(subTitleStr);
-					bookDto.setSupport("PAPER,iOS,Android,PC,Mac");
-					
 					if(authorStr.size() == 1) {
 						bookDto.setAuthor_num(authorStr.get(0));
 					}else if(authorStr.size() == 2) {
@@ -526,28 +489,88 @@ public class ManagerServiceImp implements ManagerService {
 						bookDto.setTranslator_num(authorStr.get(2));
 					}
 					
-					DecimalFormat df = new DecimalFormat(".##");
-					if(priceList.size()==2) {
-						int p1 = priceList.get(0);
-						int p2 = priceList.get(1);
-						double discount = 1- ((double) p2 / p1);
-						bookDto.setPrice(p1);
-						bookDto.setDiscount(Double.parseDouble(df.format(discount)));
-						bookDto.setType("전자책");
-					}else if(priceList.size() == 3) {
-						int p1 = priceList.get(0);
-						int p2 = priceList.get(1);
-						int p3 = priceList.get(2);
-						double discount = 1-((double) p2 / p1);
-						double discount2 = 1-((double) p3 / p2);
-						
-						bookDto.setPrice(p1);
-						bookDto.setDiscount(Double.parseDouble(df.format(discount)));
-						bookDto.setDiscount2(Double.parseDouble(df.format(discount2)));
-						bookDto.setType("종이책");
+					Elements publisher = meta.select(".publisher_detail_link");
+					int pub_num = managerDao.getPublisherNum(publisher.text());
+					
+					Elements pubDate = meta.select(".book_info_list_wrapper").select(".published_date_info");
+					
+					Element img = meta.nextElementSibling().selectFirst(".thumbnail_image").selectFirst("img");
+					
+					DecimalFormat df = new DecimalFormat(",###");
+					DecimalFormat df2 = new DecimalFormat(".##");
+					Element priceTable = meta.selectFirst(".normal_price_table");
+					if(priceTable == null) {
+						priceTable = meta.selectFirst(".series_price_table");
+						int insertSeries = managerDao.insertSeries(name);
+						if(insertSeries > 0) {
+							bookDto.setSeries_num(managerDao.getSeriesNum());
+						}
+					}
+					Elements tr = priceTable.select("tr");
+					
+					//대여 기본타입 no
+					bookDto.setRental_period("no");
+					for(Element p : tr) {
+						Element title = p.selectFirst(".price_title");
+						try {
+							if(title != null && title.text().equals("대여")) {
+								//대여 정보 입력
+								bookDto.setRental_period(p.selectFirst(".price_type").text());
+								Element bookPrice = p.selectFirst(".book_price");
+								if(bookPrice.text().trim().equals("무료")) {
+									bookDto.setRental_price(0);
+								}else {
+									Number number = df.parse(bookPrice.selectFirst("span").text());
+									bookDto.setRental_price(number.intValue());
+								}
+							}else {
+								// 그외
+								Element pType = p.selectFirst(".price_type");
+								Element bookPrice = p.selectFirst(".book_price");
+								Number number = df.parse(bookPrice.selectFirst("span").text());
+								if(pType.text().equals("종이책 정가") || pType.text().equals("전자책 단권 정가")) {
+									bookDto.setPrice(number.intValue());
+									bookDto.setType("paper");
+								}else if(pType.text().equals("전자책 정가") || pType.text().equals("전자책 세트 정가")) {
+									if(p.selectFirst(".discount_rate").selectFirst("span") == null ) {
+										bookDto.setDiscount(0);
+									}else {
+										int p1 = bookDto.getPrice();
+										int p2 = number.intValue();
+										double discount = 1- ((double) p2 / p1);
+										
+										bookDto.setDiscount(Double.parseDouble(df2.format(discount)));										
+									}
+								}else if(pType.text().equals("판매가")) {
+									if(p.selectFirst(".discount_rate").selectFirst("span") == null ) {
+										bookDto.setDiscount2(0);
+									}else {
+										int p1 = bookDto.getPrice();
+										double p2 = p1 * (1-bookDto.getDiscount());
+										int p3 = number.intValue();
+										double discount2 = 1-(p3 / p2);
+										bookDto.setDiscount2(Double.parseDouble(df2.format(discount2)));										
+									}
+								}
+							}
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
 					}
 					
-
+					if(!bookDto.getType().equals("paper")) {
+						bookDto.setType("ebook");
+					}
+					
+					
+					bookDto.setName(name);
+					bookDto.setWrite_date(pubDate.text());
+					bookDto.setImg_path(img.attr("src"));
+					bookDto.setPub_num(pub_num);
+					bookDto.setPreference(0);
+					bookDto.setSub_title(subTitleStr);
+					bookDto.setSupport("PAPER,iOS,Android,PC,Mac");
+					
 				}
 				
 				Element intro = subDoc.selectFirst(".introduce_paragraph");
@@ -567,7 +590,6 @@ public class ManagerServiceImp implements ManagerService {
 				int check = managerDao.checkBook(bookDto.getImg_path());
 				if(check > 0) {
 					LogAspect.logger.info(LogAspect.logMsg + "중복입니다");
-					continue;
 				}else {
 					//도서삽입
 					inputBook += managerDao.insertBook(bookDto);

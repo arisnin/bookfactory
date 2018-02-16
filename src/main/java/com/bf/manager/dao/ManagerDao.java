@@ -71,5 +71,9 @@ public interface ManagerDao {
 
 	public int getMaxBookNum();
 
+	public int insertSeries(String name);
+
+	public int getSeriesNum();
+
 
 }

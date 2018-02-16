@@ -27,8 +27,10 @@
 						<button id="b_b_book" type="button" class="bf-button">도서등록</button>
 						<button type="reset" class="bf-button">취소</button>
 					</div>
+					<div align="right">
+						<button id="urlSet" type="button" class="bf-button">맵핑 테스트</button>
+					</div>
 				</div>
-				
 			</div>
 		</section>
 	</div>
@@ -87,9 +89,19 @@
 				$("input[name=url]").focus();
 				return;
 			}
-			
 			cAjax(url,value);
+		});
+		
+		$("#urlSet").click(function(){
+			var url = '${root}/manager/autoUrl.do';
+			var value = $("input[name=url]").val();
 			
+			if(value==""){
+				alert("주소를 입력하시오.");
+				$("input[name=url]").focus();
+				return;
+			}
+			cAjax(url,value);
 		});
 		
 	</script>

@@ -22,6 +22,8 @@ public class BookDto {
 	private String type; // 종이책 전자책
 	private String intro; // 책소개
 	private String pub_intro; // 출판사평
+	private String rental_period;
+	private int rental_price;
 
 	public int getBook_num() {
 		return book_num;
@@ -191,6 +193,22 @@ public class BookDto {
 		this.pub_intro = pub_intro;
 	}
 
+	public String getRental_period() {
+		return rental_period;
+	}
+
+	public void setRental_period(String rental_period) {
+		this.rental_period = rental_period;
+	}
+
+	public int getRental_price() {
+		return rental_price;
+	}
+
+	public void setRental_price(int rental_price) {
+		this.rental_price = rental_price;
+	}
+
 	@Override
 	public String toString() {
 		return "BookDto [book_num=" + book_num + ", name=" + name + ", write_date=" + write_date + ", pub_num="
@@ -198,7 +216,8 @@ public class BookDto {
 				+ translator_num + ", price=" + price + ", support=" + support + ", img_path=" + img_path
 				+ ", file_path=" + file_path + ", file_name=" + file_name + ", file_size=" + file_size + ", preference="
 				+ preference + ", series_num=" + series_num + ", sub_title=" + sub_title + ", discount=" + discount
-				+ ", discount2=" + discount2 + ", type=" + type + ", intro=" + intro + ", pub_intro=" + pub_intro + "]";
+				+ ", discount2=" + discount2 + ", type=" + type + ", intro=" + intro + ", pub_intro=" + pub_intro
+				+ ", rental_period=" + rental_period + ", rental_price=" + rental_price + "]";
 	}
 
 }

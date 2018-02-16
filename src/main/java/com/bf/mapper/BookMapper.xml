@@ -47,11 +47,11 @@
 			insert into 
 			bookm(book_num,name,write_date,pub_num,author_num,illustrator_num,
 			translator_num,price,support,img_path,preference,sub_title,discount,discount2,
-			type,intro,pub_intro) 
+			type,intro,pub_intro,RENTAL_PERIOD,RENTAL_PRICE) 
 			values(BOOKM_NUM_SEQ.nextval,#{name},#{write_date},#{pub_num},
 			#{author_num},#{illustrator_num},#{translator_num},#{price},
 			#{support},#{img_path},#{preference},#{sub_title},#{discount},#{discount2},#{type},
-			#{intro},#{pub_intro})
+			#{intro},#{pub_intro},#{rental_period},#{rental_price})
 	</insert>
 	
 	<insert id="insertCateOne" parameterType="String">
@@ -92,6 +92,14 @@
 		   where s.num = t.SECOND_CATE(+) and f.num = s.FIRST_CATE and s.name=#{cateName} ) cate ,
 		  (select count(*) num from book_category) seq
 		where b.BOOK_NUM = #{currentNum}
+	</select>
+	
+	<insert id="insertSeries" parameterType="String">
+		insert into SERIES values(series_num_seq.nextval,#{name})
+	</insert>
+	
+	<select id="getSeriesNum" resultType="int">
+		select nvl(max(num),0) from series
 	</select>
 	
 </mapper>

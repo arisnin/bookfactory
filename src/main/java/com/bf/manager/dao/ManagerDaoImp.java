@@ -185,4 +185,14 @@ public class ManagerDaoImp implements ManagerDao {
 	public int getMaxBookNum() {
 		return sqlSession.selectOne("com.bf.mapper.BookMapper.getMaxBookNum");
 	}
+	
+	@Override
+	public int insertSeries(String name) {
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertSeries",name);
+	}
+	
+	@Override
+	public int getSeriesNum() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getSeriesNum");
+	}
 }
