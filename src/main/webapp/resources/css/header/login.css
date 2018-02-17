@@ -7,7 +7,7 @@
 /* Full-width input fields */
 .hw_login_wrap input[type=text], .hw_login_wrap input[type=password] {
 	width: 100%;
-	padding: 12px 20px;
+	padding: 0.75rem 1.25rem;
 	display: inline-block;
 	border: 1px solid #d6deeb;
 	box-sizing: border-box;
@@ -18,8 +18,8 @@
 .hw_login_button {
 	background-color: #776BCE;
 	color: white;
-	padding: 14px 20px;
-	margin: 8px 0;
+	padding: 0.875rem 1.25rem;
+	margin-top: 0.5rem;
 	border: none;
 	cursor: pointer;
 	width: 100%;
@@ -33,7 +33,7 @@
 /* Center the image and position the close button */
 
 .hw_login_container {
-	padding: 24px;
+	padding: 1.75rem;
 	position: relative;
 }
 .hw_login_wrap{
@@ -68,8 +68,8 @@
 /* The Close Button (x) */
 .hw_login_close {
 	position: absolute;
-    right: 5px;
-    top: 1px;
+    right: 0.5rem;
+    top: 0.5rem;
     color: #888;
     font-size: 18px;
     font-weight: bold;
@@ -165,4 +165,11 @@
 .hw_sign_div{
 	border-top: 1px solid #d6deeb;
 	cursor: pointer;
+}
+.login-message {
+	border: 1px solid #d6deeb;
+	width: 100%;
+	color: red;
+	padding: 0.875rem 1.25rem 0.8rem;
+	margin-top: 0.5rem;
 }

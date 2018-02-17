@@ -1,16 +1,25 @@
 package com.bf.main.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
@@ -18,6 +27,8 @@ import com.bf.book.dto.ReplyDto;
 import com.bf.book.dto.ReviewDto;
 import com.bf.main.dto.RegisterDto;
 import com.bf.main.service.MainService;
+import com.bf.member.model.User;
+import com.bf.member.service.UserDetailServiceImp;
 
 /**
  * @Date 2018. 2. 4.
@@ -60,13 +71,52 @@ public class MainController {
 	}
 
 	/**
-	 * 메인 > 로그인
+	 * 로그인 성공 요청
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/member/loginSuccess.do")
+	public void loginSuccess(HttpSession session) throws IOException {
+		LogAspect.info("loginSuccess()");
+		
+//		User user = (User)SecurityContextHolder.getContext().getAuthentication().getDetails();		
+//		LogAspect.info(user);		
+//		session.setAttribute("userInfo", user.getMemberDto());
+	}
+
+	/**
+	 * 로그아웃 요청
+	 */
+	@RequestMapping(value = "/member/logout.do")
+	public void logout(HttpSession session) throws IOException {
+		LogAspect.info("logout()");
+		
+		User user = (User)session.getAttribute("userInfo");
+		LogAspect.info(user);
+		
+		session.invalidate();
+	}
+	
+	/**
+	 * 로그인 요청
+	 * @param error 로그인 실패시 넘어오는 파라미터
+	 * @param login 스프링 시큐리티에 의한 자동 로그인 요청임을 나타내는 파라미터
+	 * @return 로그인 실패시에는 null, 스프링 시큐리티에 의한 자동 로그인 요청일 경우는 viewname
+	 * @throws IOException
 	 */
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.GET)
-	public String login(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView login(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="error", required=false) String error,
+			@RequestParam(value="login", required=false) String login) throws IOException {
 		LogAspect.info("login()");
-		request.getSession().setAttribute("userInfoId", "manager");
-		return "category/category.main";
+		
+		ModelAndView mav = new ModelAndView();
+		if (error != null) {
+			mav.addObject("error", "Invalid username or password.");
+		}
+		
+		mav.addObject("login", "true").setViewName("header/login.solo");
+		
+		return mav;		
 	}
 
 	/**
@@ -104,14 +154,5 @@ public class MainController {
 		LogAspect.info(registerDto.toString());
 		mainService.register(mav);
 		return mav;
-	}
-
-	/**
-	 * 로그아웃 요청(임시 기능)
-	 */
-	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
-		request.getSession().invalidate();
-		return "genre/normal.main";
 	}
 }
