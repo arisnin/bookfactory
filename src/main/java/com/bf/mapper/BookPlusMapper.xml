@@ -3,8 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bf.mapper.BookPlusMapper">
+	<resultMap type="com.bf.book.dto.HomeDto" id="HomeDto">
+		<result column="authorName" property="authorName"/>
+		<result column="bookName" property="bookName"/>
+		<result column="thirdCate" property="thirdCate"/>
+	</resultMap>
+
 	<insert id="insert-review" parameterType="com.bf.book.dto.ReviewDto">
 		INSERT INTO review VALUES(review_num_seq.nextval, #{id}, #{book_num}, #{content}, sysdate, #{star_point}, #{spoiler}, #{preference}, #{display})
 	</insert>
 	
+	<select id="getHomeBookInfoList" resultMap="HomeDto">
+		<![CDATA[
+			SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", t.NAME "thirdCate"
+			FROM bookm b, author A, book_category c, third_cate t
+			WHERE b.author_num = A.num 
+			      AND b.book_num=c.book_num
+			      AND c.cate3_num=t.num
+			      and b.book_num>=700 and b.book_num<=720
+		]]>
+	</select>
 </mapper>

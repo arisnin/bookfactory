@@ -22,11 +22,13 @@ public class HomeController {
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
+	 * 
+	 * book.controller의 normalHoem으로 옮김
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model) {
-		LogAspect.info("Welcome home! The client locale is "+ locale);		
-		return new ModelAndView("genre/normal.main");
-	}
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	public ModelAndView home(Locale locale, Model model) {
+//		LogAspect.info("Welcome home! The client locale is "+ locale);		
+//		return new ModelAndView("genre/normal.main");
+//	}
 	
 }

@@ -1,5 +1,6 @@
 package com.bf.book.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bf.aop.LogAspect;
 import com.bf.book.dao.BookDao;
 import com.bf.book.dto.ReviewDto;
+import com.bf.book.dto.HomeDto;
 
 /**
  * @author 박성호
@@ -49,5 +51,21 @@ public class BookServiceImp implements BookService {
 		int check = bookDao.insertReview(reviewDto);
 
 		return mav.addObject("checkReview", check);
+	}
+
+	@Override
+	public void normalHome(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
+		String catenum=request.getParameter("catenum");
+		if(catenum==null) {
+			catenum="1";
+		}
+		
+		List<HomeDto> homeList=bookDao.getHomeBookInfoList();
+		LogAspect.info(LogAspect.logMsg + homeList.toString());
+		
+		mav.addObject("homeList", homeList);
+		mav.addObject("catenum",catenum);
 	}
 }

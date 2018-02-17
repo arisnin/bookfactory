@@ -36,10 +36,14 @@ public class BookController {
 	/**
 	 * 메인 > 일반 > 홈
 	 */
-	@RequestMapping(value = "/normal.do", method = RequestMethod.GET)
-	public String home(HttpServletRequest request, HttpServletResponse response) {
-
-		return "genre/normal.main";
+	@RequestMapping(value = {"/","/normal.do"}, method = RequestMethod.GET)
+	public ModelAndView normalHome(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("genre/normal.main");
+		mav.addObject("request", request);
+		
+		bookService.normalHome(mav);
+		
+		return mav;
 	}
 
 	/**

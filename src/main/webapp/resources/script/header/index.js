@@ -97,4 +97,18 @@ function headerIndexInit(root) {
 		$(this).children().addClass("activeBar");
 	});
 	
+	//대분야 카테고리 클릭시 글자색상이벤트
+	var catenum=$("input[name=catenum]").val();
+	if(catenum==1){
+		$(".list_general").css("color","#776bce");
+	}else if(catenum==2){
+		$(".list_romance").css("color","#776bce");
+	}else if(catenum==3){
+		$(".list_fantasy").css("color","#776bce");
+	}else if(catenum==4){
+		$(".list_comic").css("color","#776bce");
+	}else if(catenum==5){
+		$(".list_bl").css("color","#776bce");
+	}
+	
 }

@@ -13,19 +13,19 @@ function refreshPopularList(xhr) {
 	var dFrag = extractPopularList();
     updatePopularList(dFrag);
 }
-function createPopularList() {
-	var dFrag = document.createDocumentFragment();
-	var ulNode = document.createElement("ul");
-    ulNode.id = "popular-ul";
-    ulNode.className = "popular-ul";
-    for (var i=0; i<12; i++) {
-		let liNode = document.createElement("li");
-		liNode.className = "popular-li";
-		ulNode.appendChild(liNode);
-    }
-    dFrag.appendChild(ulNode);
-    return dFrag;
-}
+//function createPopularList() {
+////	var dFrag = document.createDocumentFragment();
+////	var ulNode = document.createElement("ul");
+////    ulNode.id = "popular-ul";
+////    ulNode.className = "popular-ul";
+////    for (var i=0; i<12; i++) {
+////		let liNode = document.createElement("li");
+////		liNode.className = "popular-li";
+////		ulNode.appendChild(liNode);
+////    }
+////    dFrag.appendChild(ulNode);
+////    return dFrag;
+//}
 function extractPopularList() {
 	var dFrag = document.createDocumentFragment();
     dFrag.appendChild(document.getElementById("popular-ul"));
