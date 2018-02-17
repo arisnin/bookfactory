@@ -94,14 +94,17 @@
 		
 		$("#urlSet").click(function(){
 			var url = '${root}/manager/autoUrl.do';
-			var value = $("input[name=url]").val();
+			var value = '/WEB-INF/views/manager/crawl/ridiUrl.properties';
 			
-			if(value==""){
-				alert("주소를 입력하시오.");
-				$("input[name=url]").focus();
-				return;
-			}
-			cAjax(url,value);
+			$.ajax({
+				  url: url,
+				  method: 'get',
+				  data: {value : value},
+				  success: function(response){
+				  		alert(response);
+				  	},
+				  dataType: "text"
+			});
 		});
 		
 	</script>

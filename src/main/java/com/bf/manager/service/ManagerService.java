@@ -35,4 +35,6 @@ public interface ManagerService {
 
 	public void autoBook(ModelAndView mav);
 
+	public void autoUrl(ModelAndView mav);
+
 }

@@ -31,4 +31,6 @@
 		select pub_num from publisher where name=#{name}
 	</select>
 	
+	
+	
 </mapper>

@@ -75,5 +75,7 @@ public interface ManagerDao {
 
 	public int getSeriesNum();
 
+	public void insertBookCategory(String cate2, String cate3, int currentNum);
+
 
 }
