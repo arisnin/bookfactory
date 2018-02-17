@@ -129,6 +129,9 @@ public class ManagerDaoImp implements ManagerDao {
 
 	@Override
 	public int selectAuthorNum(String name) {
+		if(sqlSession.selectOne("com.bf.mapper.AuthorMapper.getNum", name) == null) {
+			return 0;
+		}
 		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getNum", name);
 	}
 
@@ -211,5 +214,15 @@ public class ManagerDaoImp implements ManagerDao {
 	@Override
 	public int getSeriesNum() {
 		return sqlSession.selectOne("com.bf.mapper.BookMapper.getSeriesNum");
+	}
+	
+	@Override
+	public int getPublisherZero() {
+		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getPublisherZero");
+	}
+	
+	@Override
+	public void publisherInsertZero(PublisherDto publisherDto) {
+		sqlSession.insert("com.bf.mapper.PublisherMapper.publisherInsertZero",publisherDto);
 	}
 }

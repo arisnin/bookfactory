@@ -18,17 +18,19 @@
 				</div>
 				<div class="b_cate_in">
 					<label>리디북스 링크</label>
-					<input name="url" class="b_crawinput" type="text" placeholder="url"/><br><br>
+					<!-- <input name="url" class="b_crawinput" type="text" placeholder="url"/><br><br> -->
 					<label>링크삽입후 카테고리부터 순서대로 등록버튼을 누른다</label>
 					<div align="right">
 						<button id="crawl" type="button" class="bf-button">카테고리등록</button>
-						<!-- <button id="b_publisher" type="button" class="bf-button">출판사등록</button>
-						<button id="b_author"type="button" class="bf-button">작가등록</button>
-						<button id="b_b_book" type="button" class="bf-button">도서등록</button> -->
+						<button id="b_ilban" type="button" class="bf-button">일반</button>
+						<button id="b_romance"type="button" class="bf-button">로맨스</button>
+						<button id="b_fantasy" type="button" class="bf-button">판타지</button>
+						<button id="b_manhaw" type="button" class="bf-button">만화</button>
+						<button id="b_bl" type="button" class="bf-button">BL</button>
 						<button type="reset" class="bf-button">취소</button>
 					</div>
 					<div align="right">
-						<button id="urlSet" type="button" class="bf-button">맵핑 테스트</button>
+						<button id="urlSet" type="button" class="bf-button">ALL자동 테스트</button>
 					</div>
 				</div>
 			</div>
@@ -53,42 +55,33 @@
 			location.href='${root}/manager/bookCategoryOk.do';
 		});
 		
-		$("#b_publisher").click(function(){
-			var url = '${root}/manager/autoPublisher.do';
-			var value = $("input[name=url]").val();
-			
-			if(value==""){
-				alert("주소를 입력하시오.");
-				$("input[name=url]").focus();
-				return;
-			}
-			
-			cAjax(url,value);
-			
-		});
-		
-		$("#b_author").click(function(){
-			var url = '${root}/manager/autoAuthor.do';
-			var value = $("input[name=url]").val();
-			
-			if(value==""){
-				alert("주소를 입력하시오.");
-				$("input[name=url]").focus();
-				return;
-			}
-			
+		$("#b_ilban").click(function(){
+			var url = '${root}/manager/autoIlban.do';
+			var value = '/WEB-INF/views/manager/crawl/ilban.properties';
 			cAjax(url,value);
 		});
 		
-		$("#b_b_book").click(function(){
-			var url = '${root}/manager/autoBook.do';
-			var value = $("input[name=url]").val();
-			
-			if(value==""){
-				alert("주소를 입력하시오.");
-				$("input[name=url]").focus();
-				return;
-			}
+		$("#b_romance").click(function(){
+			var url = '${root}/manager/autoRomance.do';
+			var value = '/WEB-INF/views/manager/crawl/romance.properties';
+			cAjax(url,value);
+		});
+		
+		$("#b_fantasy").click(function(){
+			var url = '${root}/manager/autoFantasy.do';
+			var value = '/WEB-INF/views/manager/crawl/fantasy.properties';
+			cAjax(url,value);
+		});
+		
+		$("#b_manhaw").click(function(){
+			var url = '${root}/manager/autoManhaw.do';
+			var value = '/WEB-INF/views/manager/crawl/manhaw.properties';
+			cAjax(url,value);
+		});
+		
+		$("#b_bl").click(function(){
+			var url = '${root}/manager/autoBL.do';
+			var value = '/WEB-INF/views/manager/crawl/bl.properties';
 			cAjax(url,value);
 		});
 		

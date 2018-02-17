@@ -77,5 +77,9 @@ public interface ManagerDao {
 
 	public void insertBookCategory(String cate2, String cate3, int currentNum);
 
+	public int getPublisherZero();
+
+	public void publisherInsertZero(PublisherDto publisherDto);
+
 
 }
