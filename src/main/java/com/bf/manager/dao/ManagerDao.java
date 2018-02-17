@@ -49,7 +49,7 @@ public interface ManagerDao {
 
 	public String getCountry(String country);
 
-	public int authorCheck(String authorName, String birthday, String country_num);
+	public int authorCheck(AuthorDto authorDto);
 
 	public int selectAuthorNum(String name);
 
@@ -61,11 +61,21 @@ public interface ManagerDao {
 
 	public int checkCateOne();
 
-	public int insertCateOne(String string);
+	public int insertCateOne(String string, int i);
 
 	public int getZeroAuthor();
 
 	public int authorInsertInit(AuthorDto authorDto);
+
+	public int insertBookCategory(String cateName, int currentNum);
+
+	public int getMaxBookNum();
+
+	public int insertSeries(String name);
+
+	public int getSeriesNum();
+
+	public void insertBookCategory(String cate2, String cate3, int currentNum);
 
 
 }

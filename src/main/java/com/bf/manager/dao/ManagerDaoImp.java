@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.manager.dto.BookCategoryDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookFirstCateDto;
@@ -118,33 +119,33 @@ public class ManagerDaoImp implements ManagerDao {
 
 	@Override
 	public String getCountry(String country) {
-		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getCountryOne",country);
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getCountryOne", country);
 	}
-	
+
 	@Override
-	public int authorCheck(String authorName, String birthday, String country_num) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("name", authorName);
-		map.put("birthday", birthday);
-		map.put("country_num", country_num);
-		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.authorCheck",map);
+	public int authorCheck(AuthorDto authorDto) {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.authorCheck", authorDto);
 	}
-	
+
 	@Override
 	public int selectAuthorNum(String name) {
 		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getNum", name);
 	}
-	
+
 	@Override
 	public int getPublisherNum(String name) {
-		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getNum", name);
+		if(sqlSession.selectOne("com.bf.mapper.PublisherMapper.getNum", name)==null) {
+			return 0;
+		}else {
+			return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getNum", name);			
+		}
 	}
-	
+
 	@Override
 	public int checkBook(String img_path) {
 		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkBook", img_path);
 	}
-	
+
 	@Override
 	public int insertBook(BookDto bookDto) {
 		return sqlSession.insert("com.bf.mapper.BookMapper.insert", bookDto);
@@ -154,19 +155,61 @@ public class ManagerDaoImp implements ManagerDao {
 	public int checkCateOne() {
 		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkCateOne");
 	}
-	
+
 	@Override
-	public int insertCateOne(String name) {
-		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateOne", name);
+	public int insertCateOne(String name,int num) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("num", num);
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateOne", map);
 	}
-	
+
 	@Override
 	public int getZeroAuthor() {
 		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getZeroAuthor");
 	}
-	
+
 	@Override
 	public int authorInsertInit(AuthorDto authorDto) {
 		return sqlSession.insert("com.bf.mapper.AuthorMapper.authorInsertInit", authorDto);
+	}
+
+	@Override
+	public int insertBookCategory(String cateName, int currentNum) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("cateName", cateName);
+		map.put("currentNum", currentNum);
+		
+		List<BookCategoryDto> checkSize = sqlSession.selectList("com.bf.mapper.BookMapper.checkBookCategorySize", map);
+		if(checkSize.size() == 1) {
+			return sqlSession.insert("com.bf.mapper.BookMapper.insertBookCategory", map);
+		}else {
+			return 	sqlSession.insert("com.bf.mapper.BookMapper.insertBookCategory2", map);
+		}
+	}
+	
+	@Override
+	public void insertBookCategory(String cate2, String cate3, int currentNum) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("cate2", cate2);
+		map.put("cate3", cate3);
+		map.put("currentNum", currentNum);
+		
+		sqlSession.insert("com.bf.mapper.BookMapper.insertBookCategory3", map);
+	}
+
+	@Override
+	public int getMaxBookNum() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getMaxBookNum");
+	}
+	
+	@Override
+	public int insertSeries(String name) {
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertSeries",name);
+	}
+	
+	@Override
+	public int getSeriesNum() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getSeriesNum");
 	}
 }

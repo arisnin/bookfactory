@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
-import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.PublisherDto;
 import com.bf.manager.service.ManagerService;
@@ -234,6 +233,15 @@ public class ManagerController {
 		mav.addObject("request", request);
 		mav.addObject("response", response);
 		managerService.autoBook(mav);
+		return null;
+	}
+	
+	@RequestMapping(value = "/autoUrl.do", method = RequestMethod.GET)
+	public ModelAndView autoUrl(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.autoUrl(mav);
 		return null;
 	}
 }

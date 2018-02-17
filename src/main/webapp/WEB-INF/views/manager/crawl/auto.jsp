@@ -22,13 +22,15 @@
 					<label>링크삽입후 카테고리부터 순서대로 등록버튼을 누른다</label>
 					<div align="right">
 						<button id="crawl" type="button" class="bf-button">카테고리등록</button>
-						<button id="b_publisher" type="button" class="bf-button">출판사등록</button>
+						<!-- <button id="b_publisher" type="button" class="bf-button">출판사등록</button>
 						<button id="b_author"type="button" class="bf-button">작가등록</button>
-						<button id="b_b_book" type="button" class="bf-button">도서등록</button>
+						<button id="b_b_book" type="button" class="bf-button">도서등록</button> -->
 						<button type="reset" class="bf-button">취소</button>
 					</div>
+					<div align="right">
+						<button id="urlSet" type="button" class="bf-button">맵핑 테스트</button>
+					</div>
 				</div>
-				
 			</div>
 		</section>
 	</div>
@@ -87,9 +89,22 @@
 				$("input[name=url]").focus();
 				return;
 			}
-			
 			cAjax(url,value);
+		});
+		
+		$("#urlSet").click(function(){
+			var url = '${root}/manager/autoUrl.do';
+			var value = '/WEB-INF/views/manager/crawl/ridiUrl.properties';
 			
+			$.ajax({
+				  url: url,
+				  method: 'get',
+				  data: {value : value},
+				  success: function(response){
+				  		alert(response);
+				  	},
+				  dataType: "text"
+			});
 		});
 		
 	</script>
