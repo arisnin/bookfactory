@@ -1,23 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-	http://www.springframework.org/schema/security
-	http://www.springframework.org/schema/security/spring-security-3.1.xsd
-	http://www.springframework.org/schema/util
-	http://www.springframework.org/schema/util/spring-util-3.1.xsd">
-	
-	<http auto-config="true">
-		<intercept-url pattern="/**" access="ROLE_USER" />
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+	<context:component-scan base-package="com.bf.member..*" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+		<context:include-filter type="annotation" expression="org.springframework.beans.factory.annotation.Autowired"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	</context:component-scan>
+
+	<http use-expressions="true">
+		<intercept-url pattern="/member/login.do" access="permitAll" />
+		<intercept-url pattern="/resources/**" access="permitAll" />
+		<intercept-url pattern="/manager/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/myPage/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<intercept-url pattern="/**" access="permitAll" />
+		<form-login
+			login-page="/member/login.do" 
+			login-processing-url="/member/loginOk.do"
+			username-parameter="username"
+			password-parameter="password"
+			default-target-url="/"
+			authentication-success-handler-ref="loginSuccessHandler"
+			authentication-failure-handler-ref="loginFailureHandler"
+			always-use-default-target="false" />
+		<logout invalidate-session="true" logout-url="/member/logout.do" logout-success-url="/" />
 	</http>
+	
+			<!-- authentication-failure-url="/member/login.do?error" -->
+	<beans:bean id="loginFailureHandler" class="com.bf.member.LoginFailureHandler" />
+	<beans:bean id="loginSuccessHandler" class="com.bf.member.LoginSuccessHandler">
+		<beans:property name="defaultUrl" value="/"/>
+		<beans:property name="targetUrlParam" value="returnUrl"/>
+		<beans:property name="useReferer" value="false"/>
+	</beans:bean>
+	<!-- <beans:bean id="userService" class="com.bf.member.service.UserDetailServiceImp" /> -->
+	<beans:bean id="memberAuthenticationProvider" class="com.bf.member.MemberAuthenticationProvider" />
 
 	<authentication-manager>
-		<authentication-provider>
-			<user-service>
-				<user name="guest" authorities="ROLE_GUEST" password="guest" />
-				<user name="user" authorities="ROLE_USER" password="user" />
-			</user-service>
-		</authentication-provider>
+		<authentication-provider ref="memberAuthenticationProvider" />
 	</authentication-manager>
 
 </beans:beans>

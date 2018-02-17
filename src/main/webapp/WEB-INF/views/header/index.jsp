@@ -37,7 +37,7 @@
 					</div>
 				</div>
 				
-				<c:if test="${sessionScope.userInfoId == null}">
+				<c:if test="${userInfo == null}">
 					<div class="hw_top_content_right login">
 						<span class="hw_font">
 							<a class="hw_top_content_right_login" href="javascript:goLogin()">로그인</a>
@@ -47,10 +47,10 @@
 						</span>
 					</div>
 				</c:if>
-				<c:if test="${sessionScope.userInfoId != null}">
+				<c:if test="${userInfo != null}">
 					<div class="hw_top_content_right login_ok" style="display: inline-block;">
 						<span class="hw_font">
-							<a href="${root}/myPage/home.do" style="margin-right:5px;">마이팩토리</a>
+							<a href="${root}/myPage/home.do" style="margin-right:5px;">마이팩토리(${userInfo.username}, ${userInfo.memberDto.email})</a>
 						</span>
 						<span class="hw_font">
 							<a href="${root}/cart.do">카트</a>

@@ -151,7 +151,7 @@ public class BookController {
 	}
 
 	/**
-	 * 책 상세 페이지 > 리뷰 글 > 댓글 작성
+	 * 책 상세 페이지 > 리뷰 리스트
 	 */
 	@RequestMapping(value = "/review/list.do", method = RequestMethod.GET)
 	public String reviewList(HttpServletRequest request, HttpServletResponse response, ReplyDto replyDto) {

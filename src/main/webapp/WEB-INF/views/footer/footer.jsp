@@ -64,7 +64,7 @@
 				<div class="row">
 					<ul class="copyright">
 						<li><a>이용약관</a></li>
-						<li><a href="${root}/logout.do"><strong>개인정보처리방침</strong></a></li>
+						<li><a href="${root}/member/logout.do"><strong>개인정보처리방침</strong></a></li>
 						<li><a>청소년보호정책</a></li>
 						<li><a>사업자 정보 확인</a></li>
 					</ul>
