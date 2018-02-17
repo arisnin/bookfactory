@@ -26,7 +26,7 @@
 					</div>
 					<div>
 						<label>국적</label>
-						<select name="country_num">
+						<select name="country_num" class="a_in_select">
 							<c:forEach items="${countryList}" var="country">
 								<c:if test="${country.country_num == 'KR'}">
 									<option value="${country.country_num}" selected="selected">${country.country_name}</option>							
