@@ -54,8 +54,8 @@
 			#{intro},#{pub_intro},#{rental_period},#{rental_price})
 	</insert>
 	
-	<insert id="insertCateOne" parameterType="String">
-		insert into FIRST_CATE values(FIRST_CATE_SEQ.nextval,#{name})
+	<insert id="insertCateOne" parameterType="java.util.HashMap">
+		insert into FIRST_CATE values(#{num},#{name})
 	</insert>
 	
 	<insert id="insertBookCategory" parameterType="java.util.HashMap">

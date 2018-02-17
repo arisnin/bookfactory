@@ -61,7 +61,7 @@ public interface ManagerDao {
 
 	public int checkCateOne();
 
-	public int insertCateOne(String string);
+	public int insertCateOne(String string, int i);
 
 	public int getZeroAuthor();
 

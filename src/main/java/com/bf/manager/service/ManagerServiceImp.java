@@ -51,7 +51,7 @@ public class ManagerServiceImp implements ManagerService {
 		if(thae != 5) {
 			String[] cateOne = {"일반","로맨스","판타지","만화","BL"};
 			for(int i=0;i<cateOne.length;i++) {
-				managerDao.insertCateOne(cateOne[i]);
+				managerDao.insertCateOne(cateOne[i],i+1);
 			}
 		}
 		
@@ -670,6 +670,7 @@ public class ManagerServiceImp implements ManagerService {
 		return null;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void autoUrl(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
@@ -700,7 +701,6 @@ public class ManagerServiceImp implements ManagerService {
 				}
 		}
     	Iterator<String> iter = map.keySet().iterator();
-    	
 		try {
 			while (iter.hasNext()) {
 				String key = iter.next();
@@ -717,7 +717,9 @@ public class ManagerServiceImp implements ManagerService {
 					href = "https://ridibooks.com" + btn_next.select("a").attr("href");
 					LogAspect.logger.info(LogAspect.logMsg + href);
 					autoPublisherTest(href);
+					LogAspect.logger.info(LogAspect.logMsg + href);
 					autoAuthorTest(href);
+					LogAspect.logger.info(LogAspect.logMsg + href);
 					autoBookTest(href);
 				}
 			}
@@ -892,7 +894,6 @@ public class ManagerServiceImp implements ManagerService {
 	public void autoBookTest(String href) {
 		
 		String url = href;
-		System.out.println(href);
 		//책정보 
 		try {
 			ArrayList<String> hrefList = searchUrl(url);

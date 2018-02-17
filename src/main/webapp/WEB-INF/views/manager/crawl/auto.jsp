@@ -22,9 +22,9 @@
 					<label>링크삽입후 카테고리부터 순서대로 등록버튼을 누른다</label>
 					<div align="right">
 						<button id="crawl" type="button" class="bf-button">카테고리등록</button>
-						<button id="b_publisher" type="button" class="bf-button">출판사등록</button>
+						<!-- <button id="b_publisher" type="button" class="bf-button">출판사등록</button>
 						<button id="b_author"type="button" class="bf-button">작가등록</button>
-						<button id="b_b_book" type="button" class="bf-button">도서등록</button>
+						<button id="b_b_book" type="button" class="bf-button">도서등록</button> -->
 						<button type="reset" class="bf-button">취소</button>
 					</div>
 					<div align="right">

@@ -157,8 +157,11 @@ public class ManagerDaoImp implements ManagerDao {
 	}
 
 	@Override
-	public int insertCateOne(String name) {
-		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateOne", name);
+	public int insertCateOne(String name,int num) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("num", num);
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateOne", map);
 	}
 
 	@Override
