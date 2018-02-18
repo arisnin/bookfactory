@@ -12,6 +12,7 @@
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
 	</context:component-scan>
 
+	<!-- 로그인, 로그아웃, 시큐리티(권한) 관련 설정 -->
 	<http use-expressions="true">
 		<intercept-url pattern="/member/login.do" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
@@ -30,16 +31,17 @@
 		<logout invalidate-session="true" logout-url="/member/logout.do" logout-success-url="/" />
 	</http>
 	
-			<!-- authentication-failure-url="/member/login.do?error" -->
+	<!-- 로그인 인증, 로그인 성공, 로그인 실패에 대한 요청을 수행하는 빈 객체 생성 -->
 	<beans:bean id="loginFailureHandler" class="com.bf.member.LoginFailureHandler" />
 	<beans:bean id="loginSuccessHandler" class="com.bf.member.LoginSuccessHandler">
 		<beans:property name="defaultUrl" value="/"/>
 		<beans:property name="targetUrlParam" value="returnUrl"/>
 		<beans:property name="useReferer" value="false"/>
 	</beans:bean>
-	<!-- <beans:bean id="userService" class="com.bf.member.service.UserDetailServiceImp" /> -->
+	
 	<beans:bean id="memberAuthenticationProvider" class="com.bf.member.MemberAuthenticationProvider" />
 
+	<!-- 로그인 인증 관리자 등록 -->
 	<authentication-manager>
 		<authentication-provider ref="memberAuthenticationProvider" />
 	</authentication-manager>
