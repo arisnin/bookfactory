@@ -12,5 +12,6 @@ public interface ManagerServiceTwo {
 	public void boardInsert(ModelAndView mav);
 	public void boardInsertOk(ModelAndView mav);
 	public void boardList(ModelAndView mav);
-
+	public void memberList(ModelAndView mav);
+	public void memberRegister(ModelAndView mav);
 }
