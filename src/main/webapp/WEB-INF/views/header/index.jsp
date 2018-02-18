@@ -14,7 +14,7 @@
 </head>
 <%-- mainPage header 염현우 --%>
 <body id="team2_index_body">
-	<input type="hidden" name=catenum value="${catenum}">
+	<input type="hidden" name="firstCate" value="${firstCate}">
 	<div id="hw_header_wrap">
 		<div class="hw_header_top">
 			<div class="hw_header_top_content">
@@ -70,19 +70,19 @@
 						<li class="hw_mid_item list_all" style="padding: 0px 12px 0px 0px;" onclick="allMenuOpen()">
 							<img class="hw_mid_icon" src="${root}/img/index/213111_gray.png"> <span class="hw_mid_font">전체분야</span>
 						</li>
-						<li class="hw_mid_item list_general" onclick="location.href='${root}/normal.do?catenum=1'">
+						<li class="hw_mid_item list_general" onclick="location.href='${root}/normal.do'">
 							<img class="hw_mid_icon" src="${root}/img/index/ilban.png"> <span class="hw_mid_font">일반</span>
 						</li>
-						<li class="hw_mid_item list_romance" onclick="location.href='${root}/romance.do?catenum=2'">
+						<li class="hw_mid_item list_romance" onclick="location.href='${root}/romance.do'">
 							<img class="hw_mid_icon" src="${root}/img/index/love.png"> <span class="hw_mid_font">로맨스</span>
 						</li>
-						<li class="hw_mid_item list_fantasy" onclick="location.href='${root}/fantasy.do?catenum=3'">
+						<li class="hw_mid_item list_fantasy" onclick="location.href='${root}/fantasy.do'">
 							<img class="hw_mid_icon" src="${root}/img/index/fantasi.png"> <span class="hw_mid_font">판타지</span>
 						</li>
-						<li class="hw_mid_item list_comic" onclick="location.href='${root}/comic.do?catenum=4'">
+						<li class="hw_mid_item list_comic" onclick="location.href='${root}/comic.do'">
 							<img class="hw_mid_icon" src="${root}/img/index/manhwa.png"> <span class="hw_mid_font">만화</span>
 						</li>
-						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do?catenum=5'">
+						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do'">
 							<img class="hw_mid_icon" src="${root}/img/index/bl.png"> <span class="hw_mid_font">BL</span>
 						</li>
 					</ul>
@@ -103,11 +103,11 @@
 			<div class="hw_sub_cate">
 				<span>단행본</span>
 				<ul>
-					<li class="sub_cate_element" onclick="location.href='${root}/normal.do'">홈 <span class="activeBar"></span></li>
-					<li class="sub_cate_element" onclick="location.href='${root}/new-book.do'">신간<span></span></li>
-					<li class="sub_cate_element" onclick="location.href='${root}/best-sell.do'">베스트셀러<span></span></li>
+					<li class="sub_cate_element" onclick="location.href='${root}/normal.do?firstCate=${firstCate}&bookType=paper'">홈 <span class="activeBar"></span></li>
+					<li class="sub_cate_element" onclick="location.href='${root}/new-book.do?firstCate=${firstCate}&bookType=paper'">신간<span></span></li>
+					<li class="sub_cate_element" onclick="location.href='${root}/best-sell.do?firstCate=${firstCate}&bookType=paper&bestSeller=weekBest'">베스트셀러<span></span></li>
 					<%-- <li class="sub_cate_element" onclick="location.href='${root}/normal.main'">맞춤추천<span></span></li> --%>
-					<li class="sub_cate_element" onclick="location.href='${root}/event.do'">이벤트<span></span></li>
+					<li class="sub_cate_element" onclick="location.href='${root}/event.do?firstCate=${firstCate}&bookType=paper'">이벤트<span></span></li>
 				</ul>
 				<h3 class="sub_cate_line">|</h3>
 				<span>연재</span>

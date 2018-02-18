@@ -14,6 +14,13 @@
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 <script type="text/javascript" src="${root}/script/genre/newBook.js"></script>
+<script type="text/javascript">
+$(function(){
+	//해당태그 밑에 밑줄표시
+	$(".sub_cate_element > span").removeClass();
+	$(".hw_sub_cate li").eq(1).children("span").addClass("activeBar");
+});
+</script>
 </head>
 <body>
 	<!-- 책상세보기로 요청 방식 :  onclick="location.href='${root}/detail.do'"
@@ -24,14 +31,9 @@
 	<!-- 18.01.24 최정은 = 신간을 눌렀을때 나오는 화면입니다. -->
 	<div id="newBook">
 		<div class="bf-title-row title-type1">
-			<h2>신간</h2>
+			<h2>${firstCateName}신간</h2>
 		</div>
 		<div class="bf-service-type-menu">
-			<ul class="order-type-list">
-				<li class="diamond"><a class="active" href="#">주간 베스트셀러</a></li>
-				<li class="diamond"><a href="#">월간 베스트셀러</a></li>
-				<li class="diamond"><a href="#">스테디셀러</a></li>
-			</ul>
 			<ul class="category-filter-list">
 				<li><label class="bf-custom-checkbox">
 						<input type="checkbox" title="" />
@@ -67,16 +69,16 @@
 		<!-- 도서 검색 결과 리스트 -->
 		<section class="result-search-book-box">
 			<ul class="mf-book-list" id="search-view-type">
-				<c:forEach begin="1" end="4">
+				<c:forEach var="bookDto" items="${newList}">
 					<!-- ---------------------------------------------- -->
 					<li class="mf-book-item">
 						<div class="mf-book-thumbnail">
-							<div class="mf-book-thumbnail-image" onclick="location.href='${root}/detail.do'" >
-								<img class="" src="//misc.ridibooks.com/cover/111000138/large" alt="image" />
+							<div class="mf-book-thumbnail-image" onclick="location.href='${root}/detail.do?book_num=${bookDto.book_num}'" >
+								<img class="" src="${bookDto.img_path}" alt="image" />
 							</div>
 						</div>
 						<div class="mf-book-metadata">
-							<h3 class="book-metadata-text" onclick="location.href='${root}/detail.do'">운현궁의 봄</h3>
+							<h3 class="book-metadata-text" onclick="location.href='${root}/detail.do'">${bookDto.name}</h3>
 							<p class="book-metadata-author">
 								<a class="" href="${root}/author.do">김동인</a>
 							</p>

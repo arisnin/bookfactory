@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.manager.dto.MemberDto;
 
 /**
  * @ 작성자 : 전상헌
@@ -18,4 +19,9 @@ public interface ManagerDaoTwo {
     public List<BoardFrequencyDto> boardList(int startRow,int endRow);
     public List<BoardFrequencyDto> boardSearch(int startRow,int endRow,String word);
     public List<BoardFrequencyDto> boardSearchDate(int startRow,int endRow,Date startDate,Date endDate);
+    //member
+    public int memberCount();
+    public List<MemberDto> memberList(int starRow,int endRow);
+ 
+
 }

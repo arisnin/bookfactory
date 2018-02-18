@@ -71,19 +71,6 @@ public class MainController {
 	}
 
 	/**
-	 * 로그인 성공 요청
-	 * @throws IOException 
-	 */
-	@RequestMapping(value = "/member/loginSuccess.do")
-	public void loginSuccess(HttpSession session) throws IOException {
-		LogAspect.info("loginSuccess()");
-		
-//		User user = (User)SecurityContextHolder.getContext().getAuthentication().getDetails();		
-//		LogAspect.info(user);		
-//		session.setAttribute("userInfo", user.getMemberDto());
-	}
-
-	/**
 	 * 로그아웃 요청
 	 */
 	@RequestMapping(value = "/member/logout.do")
@@ -105,8 +92,7 @@ public class MainController {
 	 */
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.GET)
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="error", required=false) String error,
-			@RequestParam(value="login", required=false) String login) throws IOException {
+			@RequestParam(value="error", required=false) String error) throws IOException {
 		LogAspect.info("login()");
 		
 		ModelAndView mav = new ModelAndView();

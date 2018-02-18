@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.manager.dto.MemberDto;
 import com.bf.manager.service.ManagerServiceTwo;
 
 /**
@@ -91,10 +92,13 @@ public class ManagerSecondController {
 	}
 
 	@RequestMapping(value = "/memberMember.do", method = RequestMethod.GET)
-	public ModelAndView memberMember() {
+	public ModelAndView memberMember(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("member/member.mg");
 		LogAspect.info("memberMember()");
+		mav.addObject("request",request);
+		managerService.memberList(mav);
 		return mav;
+
 	}
 
 	@RequestMapping(value = "/memberPay.do", method = RequestMethod.GET)
@@ -112,9 +116,13 @@ public class ManagerSecondController {
 	}
 
 	@RequestMapping(value = "/memberRegister.do", method = RequestMethod.GET)
-	public ModelAndView memberRegister() {
+	public ModelAndView memberRegister(HttpServletRequest request, HttpServletResponse response,
+			MemberDto memberDto) {
 		ModelAndView mav = new ModelAndView("member/register.mg");
 		LogAspect.info("memberRegister()");
+		mav.addObject("request",request);
+		mav.addObject("memberDto",memberDto);
+		managerService.memberRegister(mav);
 		return mav;
 	}
 

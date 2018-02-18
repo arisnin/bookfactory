@@ -13,14 +13,51 @@
 		INSERT INTO review VALUES(review_num_seq.nextval, #{id}, #{book_num}, #{content}, sysdate, #{star_point}, #{spoiler}, #{preference}, #{display})
 	</insert>
 	
-	<select id="getHomeBookInfoList" resultMap="HomeDto">
+	<select id="getBookNumMin" resultType="int">
+		select nvl(min(book_num),0) from bookm
+	</select>
+	
+	<select id="getHomeBookInfoList" parameterType="int" resultMap="HomeDto">
 		<![CDATA[
-			SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", t.NAME "thirdCate"
+			SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", t.NAME "thirdCate", b.book_num, b.price, b.type, b.author_num
 			FROM bookm b, author A, book_category c, third_cate t
 			WHERE b.author_num = A.num 
 			      AND b.book_num=c.book_num
 			      AND c.cate3_num=t.num
-			      and b.book_num>=700 and b.book_num<=720
+			      and b.book_num>=#{min} and b.book_num<=(#{min}+20)
+		]]>
+	</select>
+	
+	<select id="getFirstCate" parameterType="String" resultType="int">
+		select num from first_cate where name=#{firstCateName}
+	</select>
+	
+	<select id="getFirstCateName" parameterType="String" resultType="String">
+		select name from first_cate where num=#{firstCate}
+	</select>
+	
+	<select id="getNewBookList" parameterType="String" resultType="com.bf.manager.dto.BookDto">
+		<![CDATA[
+			SELECT *
+			FROM (SELECT ROWNUM rnum, A.* 
+			      FROM (SELECT b.*
+			            FROM bookm b, book_category c, first_cate f
+			            WHERE b.book_num=c.book_num
+			            AND c.cate1_num=f.num
+			            AND f.num=#{firstCate}
+			            ORDER BY b.write_date DESC)A
+			      )r
+			where r.rnum >= #{startRow} and r.rnum <= #{endRow}
+		]]>
+	</select>
+	
+	<select id="getNewBookCount" parameterType="String" resultType="int">
+		<![CDATA[
+			SELECT count(*)
+			FROM bookm b, book_category c, first_cate f
+			WHERE b.book_num=c.book_num
+			AND c.cate1_num=f.num
+			AND f.num=#{firstCate}
 		]]>
 	</select>
 </mapper>
