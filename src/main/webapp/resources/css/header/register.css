@@ -12,14 +12,14 @@
 	top: 5px;
     left: 3px;
     position: relative;
-    margin-right: 10px;
+    margin-right: 0.625rem;
 }
 .hw_accheck:before{
 	content: url("../../img/register/checkbox-black.png") !important;
 	top: 5px;
     left: 3px;
     position: relative;
-    margin-right: 10px;
+    margin-right: 0.625rem;
 }
 .hw_check_text{
 	font-family: '나눔바른고딕';
@@ -29,9 +29,9 @@
 
 .hw_regihead_text{
 	font-family: '주아체';
-	font-size: 21px;
+	font-size: 1.4rem;
     position: relative;
-    top: 11px;
+    top: 1rem;
     color: #776BCE;
 }
 /* Full-width input fields */
@@ -56,13 +56,13 @@
 /*signup buttons*/
 .hw_signupbtn {
 	width: 100%;
-    padding: 15px;
+    padding: 0.9rem;
     background-color: #887AEA;
     border: 0px;
-    margin-top: 5px;
+    margin-top: 0.625rem;
     border-radius: 4px;
     font-family: '나눔바른고딕';
-    font-size:18px;
+    font-size: 1.125rem;
     font-weight: bolder;
     color: white;
     cursor: pointer;
@@ -70,7 +70,7 @@
 .hw_signupbtn:hover{background-color: #776BCE;}
 /* Add padding to container elements */
 .hw_regi_container {
-    padding: 16px;
+    padding: 1.75rem;
 }
 
 /* The Modal (background) */
@@ -96,10 +96,10 @@
 /* The Close Button (x) */
 .hw_regi_close {
 	position: absolute;
-    right: 3px;
-    top: 3px;
+    right: 0.5rem;
+    top: 0.5rem;
     color: #776BCE;
-    font-size: 25px;
+    font-size: 1.4rem;
     font-weight: bold;
 }
 
@@ -124,13 +124,13 @@
 }
 
 .hw_sign_email{
-	margin:10px 0px 0px 0px;
+	margin:0.625rem 0px 0px 0px;
 	border-bottom: 1px solid #ccc;
 }
 
 .hw_sign_phone{
 	border-top:0px;
-	margin-bottom: 10px;
+	margin-bottom: 0.625rem;
 	border-bottom: 1px solid #ccc;
 }
 
@@ -198,7 +198,7 @@
 }
 
 .hw_agreement_wrapper{
-margin-top: 10px;
+	margin-top: 0.625rem;
     background: #fff;
     border: 1px solid #d6deeb;
     border-radius: 4px;
@@ -209,23 +209,20 @@ margin-top: 10px;
 	padding: 0px;
 }
 .hw_checkbox_wrap{ 
-	position: relative;
-    padding: 4px;
-    height: 30px;
-    cursor: pointer;
-    color: gray;
     display: block;
+	position: relative;
+	line-height: 1.5rem;
+    color: gray;
+    padding: 0.25rem;
+    cursor: pointer;
 }
 .hw_checkbox_wrap:hover{
 	color: black;
 }
 .hw_checkbox_wrap:first-child {
 	border-bottom: 1px solid #d6deeb;
-    margin-bottom: 5px;
 }
-.hw_checkbox_wrap:last-child {
-	margin-bottom: 5px;
-}
+
 .hw_confirm_checkbox{
 	display: block;
     position: absolute;
@@ -256,9 +253,9 @@ margin-top: 10px;
 	background-color: #F3F0FA;
 	border-radius: 6px;
     box-sizing: border-box;
-    width: 362px;
+    width: 22.625rem;
    	/* 5% from the top, 15% from the bottom and centered */
-    margin: 5% auto 15% auto;
+    margin: 2% auto 15% auto;
     font-family: '나눔바른고딕';
 }
 .hw_regi_header{position:relative;}

@@ -40,7 +40,7 @@
 	background-color: #F3F0FA;
 	border-radius: 6px;
     box-sizing: border-box;
-    width: 362px;
+    width: 22.625rem;
    	/* 5% from the top, 15% from the bottom and centered */
     margin: 5% auto 15% auto;
     font-family: '나눔바른고딕';
@@ -71,7 +71,7 @@
     right: 0.5rem;
     top: 0.5rem;
     color: #888;
-    font-size: 18px;
+    font-size: 1.4rem;
     font-weight: bold;
 }
 

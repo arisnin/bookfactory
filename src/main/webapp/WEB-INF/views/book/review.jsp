@@ -118,7 +118,7 @@
 						</div>
 					</div>
 					<!-- ID 정보는 비즈니스 로직에서 유효세션으로부터 직접 가져다 써야합니다. -->
-					<input type="hidden" name="book_num" value="${'999'}"/>
+					<input type="hidden" name="book_num" value="${'1584'}"/>
 				</form>
 			</div><!-- End : review-write-box -->
 		</section><!-- End : bf-review-box -->

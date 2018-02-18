@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @description	대분류별 보기 / 책 상세보기 관련 서비스 인터페이스
  */
 public interface BookService {
-	ModelAndView review(ModelAndView mav);
+	ModelAndView reviewWrite(ModelAndView mav);
 	void normalHome(ModelAndView mav);
 
 }

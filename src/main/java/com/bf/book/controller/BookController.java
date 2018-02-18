@@ -142,7 +142,7 @@ public class BookController {
 	@RequestMapping(value = "/review/write.do", method = RequestMethod.POST)
 	public ModelAndView reviewWrite(HttpServletRequest request, HttpServletResponse response, ReviewDto reviewDto) {
 		LogAspect.info("reviewWrite():" + request.getHeader("referer"));
-		return bookService.review(new ModelAndView("book/review.solo").addObject("request", request).addObject("reviewDto", reviewDto));
+		return bookService.reviewWrite(new ModelAndView("book/review.solo").addObject("request", request).addObject("reviewDto", reviewDto));
 	}
 
 	/**

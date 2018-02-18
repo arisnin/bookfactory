@@ -25,27 +25,25 @@ public class BookServiceImp implements BookService {
 	private BookDao bookDao;
 
 	@Override
-	public ModelAndView review(ModelAndView mav) {
+	public ModelAndView reviewWrite(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		ReviewDto reviewDto = (ReviewDto)map.get("reviewDto");
 
-		// 책 번호(book_num)는 presentation 단에서 넘어옵니다.
-		// 스포일러(spoiler)는 존재하면 true, 존재하지 않으면 false입니다.
-		// 공개여부(display)는 디폴트값만 설정해주면 되고, 디폴트값은 true(공개)입니다. 이 값은 관리자 메뉴에서 공개/비공개 전환
-		// 가능합니다.
+		// 책 번호(book_num)는 presentation단에서 넘어옵니다.
 
 		// TODO: 아이디(id) 설정. 아이디는 유효세션으로부터 받아와야 합니다.
-		reviewDto.setId("abc123");
+		reviewDto.setId("user");
 
-		if ("on".equals(reviewDto.getSpoiler())) {
-			reviewDto.setSpoiler("true");
-		} else {
-			reviewDto.setSpoiler("false");
+		// 스포일러(spoiler)는 존재하면 'on', 존재하지 않으면 'off'입니다.
+		if (!"on".equals(reviewDto.getSpoiler())) {
+			reviewDto.setSpoiler("off");
 		}
+		// 공개여부(display)는 디폴트로 'on'만 설정하면 됩니다. 이 값은 관리자 메뉴에서 공개(on)/비공개(off) 전환 가능합니다.
 		reviewDto.setDisplay("true");
 		reviewDto.setWrite_date(new java.util.Date());
 		reviewDto.setContent(reviewDto.getContent().replace("\r\n", "<br />"));
+		
 		LogAspect.info(reviewDto);
 
 		int check = bookDao.insertReview(reviewDto);

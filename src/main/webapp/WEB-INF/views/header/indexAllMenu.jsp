@@ -10,7 +10,7 @@
 <body>
 	<!-- 메인화면의 헤더에서 전체보기를 눌렀을때 나오는 화면 - 염현우 -->
 	<div id="hw_all_menu">
-		<div class="all_menu_wrap">
+		<div class="all_menu_wrap wrap-container">
 			<button class="all_menu_btn" type="button" onclick="allMenuClose()">
 				<img class="all_menu_icon" src="${root}/img/index/213111_gray.png" /> 전체분야
 			</button>

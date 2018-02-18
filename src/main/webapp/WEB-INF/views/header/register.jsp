@@ -47,7 +47,7 @@
 			<div class="hw_list_wrapper">
 	          	<div class="hw_agreement_wrapper">
 	            	<ul id="signup_confirm">
-						<li class="hw_checkbox_wrap" onclick="clickCheck(this)">
+						<li class="hw_checkbox_wrap" onclick="allCheck(this)">
 							<input id="check_all_confirm" name="check_all_confirm" class="hw_confirm_checkbox" type="checkbox" title="전체 약관 동의"/>
 							<span class="hw_check_text">전체약관 동의</span>
 						</li>

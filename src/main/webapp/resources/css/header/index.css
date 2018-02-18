@@ -6,8 +6,6 @@
 }
 
 #team2_index_body {
-	margin: 0px;
-	padding: 0px;
 }
 
 #hw_header_wrap {
@@ -281,18 +279,17 @@
 .all_menu_btn {
 	position: absolute;
 	/*좌표 테스트중*/
-	top: 7px;
-	left: 17px;
+	top: 0.75rem;
+	left: 1.2rem;
 	background: #F3F0FA;
 	display: block;
-	height: 38px;
-	line-height: 38px;
+	line-height: 2.4rem;
 	-webkit-appearance: none;
 	border: none;
 	box-shadow: none;
 	white-space: nowrap;
-	padding: 0 15px;
-	font-size: 18px;
+	padding: 0 1rem;
+	font-size: 1.2rem;
 	font-weight: 400;
 	border-radius: 3px;
 	color: #666;
@@ -313,23 +310,23 @@
 	/*좌표 테스트중
     top: -21px;
     left: -35px;*/
-	top: -15px;
-    left: -32px;
+	top: -1rem;
+    left: -2rem;
 	border: 1.5px solid black;
 	background: #fff;
 	z-index: 9999;
 	box-shadow: 2px 4px 20px 5px rgba(0, 0, 0, .4);
 	display: none;
-	width: 968px;
+	width: 60rem;
 }
 
 .hw_menu_box {
 	float: left;
 	display: block;
 	border-left: 1px solid #776bce16;
-	width: 160px;
-	padding-top: 57px;
-	min-height: 600px;
+	width: 16.6%;
+	padding-top: 3.4rem;
+	min-height: 37.4rem;
 	position: relative;
 }
 

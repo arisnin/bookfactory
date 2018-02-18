@@ -1,18 +1,45 @@
 /**
- * 
+ * 염현우(최초작성)
  */
-//checkbox
+
+/**
+ * 1차 수정. 전체동의 버튼 기능과 연동하기 시키기 위해 리턴값 추가
+ * @param obj 이벤트가 발생한 요소
+ * @returns 클릭 후 checkbox 상태(true or false)
+ *
+ * @Author	박성호
+ * @Date	2018. 2. 18.
+ */
 function clickCheck(obj){
 	var span = obj.children[1];
 	var checkbox = obj.children[0];
-	if(span.className=="hw_check_text"){
-		span.className = "hw_check_text hw_accheck"
-		checkbox.checked = true;
-	}else{
-		span.className = "hw_check_text";
-		checkbox.checked = false;	
+	
+	span.classList.toggle("hw_accheck");
+	checkbox.checked = !checkbox.checked;
+	
+	return checkbox.checked;
+}
+
+/**
+ * 회원가입에서 약관 전체동의 버튼 기능 구현
+ * @param event 이벤트가 발생한 요소(전체동의 버튼임)
+ * @returns 없음
+ *
+ * @Author	박성호(최초작성)
+ * @Date	2018. 2. 18.
+ */
+function allCheck(event) {
+	var state = clickCheck(event);
+	
+	if (state) {
+		var checks = document.querySelectorAll("#signup_confirm > li:first-child ~ li");
+		checks.forEach(function(e,i) {
+			e.children[1].classList.add("hw_accheck");
+			e.children[0].checked = true;
+		});
 	}
 }
+
 function closeRegi(){
 	var regi = document.getElementById("hw_register");
 
