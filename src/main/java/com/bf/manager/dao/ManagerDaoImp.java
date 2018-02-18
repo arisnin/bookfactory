@@ -225,4 +225,14 @@ public class ManagerDaoImp implements ManagerDao {
 	public void publisherInsertZero(PublisherDto publisherDto) {
 		sqlSession.insert("com.bf.mapper.PublisherMapper.publisherInsertZero",publisherDto);
 	}
+
+	@Override
+	public int checkBookName(String name) {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkBookName", name);
+	}
+	
+	@Override
+	public List<AuthorDto> checkBookAuthor(String name) {
+		return sqlSession.selectList("com.bf.mapper.AuthorMapper.checkBookAuthor", name);
+	}
 }

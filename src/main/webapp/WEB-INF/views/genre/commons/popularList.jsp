@@ -28,7 +28,7 @@
 				<span> <i class="material-icons" style="font-size: 1.25rem;">update</i>
 					<time class="popular-time" datetime="" style="font-weight: bold">
 						<jsp:useBean id="now" class="java.util.Date" />
-						<fmt:formatDate value="${now}" type="time" />
+						<fmt:formatDate value="${now}" pattern="a hh:mm"/>
 					</time> <span class="popular-text">사람들이 지금 많이 읽는 책</span>
 				</span> <span class="popular-toggle"> <span>펼쳐보기</span> <span
 					class="material-icons">arrow_drop_down</span>
@@ -41,7 +41,7 @@
 				<ul id="popular-ul" class="popular-ul" style="top: 0px">
 					<c:forEach items="${homeList}" var="homeDto">
 						<li class="popular-li"
-							onclick="location.href='/bookFactory/detail.do'"><h3
+							onclick="location.href='/bookFactory/detail.do?book_num=${homeDto.book_num}'"><h3
 								class="popular-list-title">${homeDto.bookName}</h3>
 							<p class="popular-list-description">
 								<span style="float: left;">${homeDto.authorName}</span><span

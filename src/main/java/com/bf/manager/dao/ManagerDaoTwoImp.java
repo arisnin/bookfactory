@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.manager.dto.MemberDto;
 
 @Component
 public class ManagerDaoTwoImp implements ManagerDaoTwo {
@@ -36,7 +37,7 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 	@Override
 	public int Boardcount() {
 		
-		return sqlSession.selectOne("count");
+		return sqlSession.selectOne("com.bf.manager.boardMapper.count");
 	}
 
 	@Override
@@ -63,4 +64,18 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 			map.put("endDate",endDate);	
 			return sqlSession.selectList("com.bf.manager.boardMapper.listSearchDate",map);
 	}
+	 //------------member------------------
+	@Override
+	public int memberCount() {
+		
+		return sqlSession.selectOne("com.bf.manager.MemberMapper.count");
+	}
+	@Override
+	public List<MemberDto> memberList(int startRow, int endRow) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", startRow);
+		map.put("endRow",endRow);
+		return sqlSession.selectList("com.bf.manager.MemberMapper.list",map);
+	}
+	
 }

@@ -50,9 +50,13 @@ public class BookController {
 	 * 메인 > 일반 > 신간
 	 */
 	@RequestMapping(value = "/new-book.do", method = RequestMethod.GET)
-	public String homeNewbook(HttpServletRequest request, HttpServletResponse response) {
-
-		return "genre/newBook.main";
+	public ModelAndView homeNewbook(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("genre/newBook.main");
+		mav.addObject("request", request);
+		
+		bookService.homeNewbook(mav);
+		
+		return mav;
 	}
 
 	/**

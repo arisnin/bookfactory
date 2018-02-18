@@ -81,5 +81,9 @@ public interface ManagerDao {
 
 	public void publisherInsertZero(PublisherDto publisherDto);
 
+	public int checkBookName(String name);
+
+	public List<AuthorDto> checkBookAuthor(String name);
+
 
 }

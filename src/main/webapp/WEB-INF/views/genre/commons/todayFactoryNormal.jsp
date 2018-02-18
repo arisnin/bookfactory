@@ -19,6 +19,13 @@
 <link href="${root}/css/genre/todayFactoryNormal.css" type="text/css"
 	rel="stylesheet">
 <script type="text/javascript" src="${root}/script/basic/commons.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".today-recommended-book").click(function(){
+		location.href="/bookFactory/detail.do?book_num=${homeDto.book_num}";
+	});
+});
+</script>
 </head>
 <body>
 	<!-- 오늘의 추천(햄토리의 발견) -->
@@ -35,13 +42,13 @@
 				<!-- 책리스트 -->
 				<div class="today-recommended-list"
 					id="today-recommended-list-normal">
-					<c:forEach var="HomeDto" items="${homeList}">
+					<c:forEach var="homeDto" items="${homeList}">
 						<div class="today-recommended-book" style="opacity: 1;">
 							<div class="book-spotlight" style="opacity: 0;"></div>
 							<div class="book-thumbnail-wrap">
 								<div class="recommended-book-metadata">
 									<p>
-										${HomeDto.authorName }<br>${HomeDto.bookName}
+										${homeDto.authorName }<br>${homeDto.bookName}
 									</p>
 								</div>
 								<div class="content-star-rate">
@@ -50,9 +57,7 @@
 										class="count-field"> 9999명</span>
 								</div>
 								<div class="recommended-book-thumbnail">
-<!-- 									<img alt="img" -->
-<!-- 										src="https://i.pinimg.com/736x/ff/9e/1e/ff9e1ee425118020df5323c87a82a6c7--reading-nooks-book-nooks.jpg"> -->
-									<img alt="img" src="${HomeDto.img_path}"/>
+									<img alt="img" src="${homeDto.img_path}"/>
 								</div>
 							</div>
 						</div>

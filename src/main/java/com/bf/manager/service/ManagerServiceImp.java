@@ -9,11 +9,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -762,7 +765,7 @@ public class ManagerServiceImp implements ManagerService {
 	}
 
 	@Override
-	public void autoIlban(ModelAndView mav) {
+	public void autoInsertBook(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
 		
@@ -778,74 +781,56 @@ public class ManagerServiceImp implements ManagerService {
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
-	public void autoRomance(ModelAndView mav) {
+	public void bookInNameCheck(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
 		
-		@SuppressWarnings("deprecation")
-		HashMap<String,String> map = loadProperties(request.getRealPath(request.getParameter("value")));
-    	
-		autoProcess(map);
-
+		String name = request.getParameter("name");
+		int check = managerDao.checkBookName(name);
+		if(check > 0) {
+			name = "no";
+		}else {
+			name = "yes";
+		}
 		try {
 			response.setContentType("application/text;charset=utf-8");
-			response.getWriter().print("로맨스끝");
+			response.getWriter().print(name);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
-	public void autoFantasy(ModelAndView mav) {
+	public void bookInAuthorCheck(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
 		
-		@SuppressWarnings("deprecation")
-		HashMap<String,String> map = loadProperties(request.getRealPath(request.getParameter("value")));
-    	
-		autoProcess(map);
-
-		try {
-			response.setContentType("application/text;charset=utf-8");
-			response.getWriter().print("판타지끝");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void autoManhaw(ModelAndView mav) {
-		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
-		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
+		String name = request.getParameter("name");
+		List<AuthorDto> list = managerDao.checkBookAuthor(name);
 		
-		@SuppressWarnings("deprecation")
-		HashMap<String,String> map = loadProperties(request.getRealPath(request.getParameter("value")));
-    	
-		autoProcess(map);
-
-		try {
-			response.setContentType("application/text;charset=utf-8");
-			response.getWriter().print("만화끝");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void autoBL(ModelAndView mav) {
-		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
-		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
 		
-		@SuppressWarnings("deprecation")
-		HashMap<String,String> map = loadProperties(request.getRealPath(request.getParameter("value")));
-    	
-		autoProcess(map);
+		response.setContentType("application/text;charset=utf-8");
+		
+		JSONObject jsonList = new JSONObject();
+		if (list != null) {
+			JSONArray jsonArr = new JSONArray();
+			for (int i = 0; i < list.size(); i++) {
+				JSONObject jsonObj = new JSONObject();
+				AuthorDto author = list.get(i);
+				jsonObj.put("num", author.getNum());
+				jsonObj.put("name", author.getName());
 
+				jsonArr.add(jsonObj);
+				jsonList.put("author", jsonArr);
+			}
+		} 
+		
 		try {
-			response.setContentType("application/text;charset=utf-8");
-			response.getWriter().print("BL끝");
+			System.out.println(jsonList.toJSONString());
+			response.getWriter().print(jsonList.toJSONString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
