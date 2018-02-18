@@ -10,5 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 public interface BookService {
 	ModelAndView review(ModelAndView mav);
 	void normalHome(ModelAndView mav);
+	void homeNewbook(ModelAndView mav);
 
 }

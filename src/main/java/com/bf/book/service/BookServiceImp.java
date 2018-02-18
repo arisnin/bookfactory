@@ -1,5 +1,6 @@
 package com.bf.book.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bf.aop.LogAspect;
 import com.bf.book.dao.BookDao;
 import com.bf.book.dto.ReviewDto;
+import com.bf.manager.dto.BookDto;
 import com.bf.book.dto.HomeDto;
 
 /**
@@ -57,15 +59,59 @@ public class BookServiceImp implements BookService {
 	public void normalHome(ModelAndView mav) {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
-		String catenum=request.getParameter("catenum");
-		if(catenum==null) {
-			catenum="1";
-		}
-		
+		int firstCate=bookDao.getFirstCate("일반");
+
 		List<HomeDto> homeList=bookDao.getHomeBookInfoList();
-		LogAspect.info(LogAspect.logMsg + homeList.toString());
+		//LogAspect.info(LogAspect.logMsg + homeList.toString());
 		
 		mav.addObject("homeList", homeList);
-		mav.addObject("catenum",catenum);
+		mav.addObject("firstCate",firstCate);
+	}
+
+	@Override
+	public void homeNewbook(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
+		String firstCate=request.getParameter("firstCate");
+		String bookType=request.getParameter("bookType");
+		String pn=request.getParameter("pageNumber");
+		if(pn==null)	pn="1";
+		
+		int pageNumber=Integer.parseInt(pn);
+		
+		String firstCateName=bookDao.getFirstCateName(firstCate);
+		List<BookDto> newList=null;
+		
+		//페이징
+		int boardSize=20;
+		int newCount=bookDao.getNewBookCount(firstCate);
+		int startRow=(pageNumber-1)*boardSize+1;
+		int endRow=pageNumber*boardSize;
+		
+		//데이터가없어서 임시로 일반카테고리로 만들음.
+		firstCate="2";
+		
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("firstCate", firstCate);
+		
+		//작가이름, 출판사이름 이런거 다뽑아와야함 dto 새로파야함 
+		
+		if(newCount>0) {
+			newList=bookDao.getNewBookList(map);
+			
+			if(newList!=null) {
+				for(int i=0;i<newList.size();i++) {
+					
+				}
+			}
+		}
+		
+		mav.addObject("firstCateName", firstCateName);
+		mav.addObject("newList", newList);
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("newCount", newCount);
+		mav.addObject("boardSize", boardSize);
 	}
 }

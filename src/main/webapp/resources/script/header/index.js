@@ -91,14 +91,19 @@ function headerIndexInit(root) {
 		}
 	});
 	
-	//카테고리의 active bar 움직임
-	$(".sub_cate_element").click(function(){
-		$(".sub_cate_element > span").removeClass();
-		$(this).children().addClass("activeBar");
-	});
+}
+
+
+$(function(){
+	//작동제대로안되서 각 홈, 신간, 이런곳으로 변경
+//	//카테고리의 active bar 움직임
+//	$(".sub_cate_element").click(function(){
+//		$(".sub_cate_element > span").removeClass();
+//		$(this).children().addClass("activeBar");
+//	});
 	
 	//대분야 카테고리 클릭시 글자색상이벤트
-	var catenum=$("input[name=catenum]").val();
+	var catenum=$("input[name=firstCate]").val();
 	if(catenum==1){
 		$(".list_general").css("color","#776bce");
 	}else if(catenum==2){
@@ -111,4 +116,4 @@ function headerIndexInit(root) {
 		$(".list_bl").css("color","#776bce");
 	}
 	
-}
+});

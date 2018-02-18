@@ -1,5 +1,6 @@
 package com.bf.book.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bf.book.dto.ReviewDto;
+import com.bf.manager.dto.BookDto;
 import com.bf.book.dto.HomeDto;
 
 /**
@@ -27,6 +29,32 @@ public class BookDaoImp implements BookDao {
 	@Override
 	public List<HomeDto> getHomeBookInfoList() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getHomeBookInfoList");
+		int min=sqlSession.selectOne("getBookNumMin");
+		
+		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getHomeBookInfoList", min);
+	}
+
+	@Override
+	public int getFirstCate(String firstCateName) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getFirstCate", firstCateName);
+	}
+
+	@Override
+	public String getFirstCateName(String firstCate) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getFirstCateName", firstCate);
+	}
+
+	@Override
+	public List<BookDto> getNewBookList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getNewBookList",map);
+	}
+
+	@Override
+	public int getNewBookCount(String firstCate) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getNewBookCount", firstCate);
 	}
 }
