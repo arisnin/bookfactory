@@ -17,9 +17,12 @@
 				<div align="right">
 				</div>
 				<div class="b_cate_in">
-					<label>리디북스 링크</label>
+					<label>리디북스 책넣는방법</label><br><br>
 					<!-- <input name="url" class="b_crawinput" type="text" placeholder="url"/><br><br> -->
-					<label>링크삽입후 카테고리부터 순서대로 등록버튼을 누른다</label>
+					<label>1.카테고리 등록버튼 클릭</label><br><br>
+					<label>2.넣고싶은 책분류 클릭</label><br><br>
+					<label>3.에러가 날수도 있다 당황하지 말고 현우한테 말하자</label><br><br>
+					<label>4.에러가 나도 이미 몇백권의 책은 들어갓으니 각자 테스트 하자</label><br><br>
 					<div align="right">
 						<button id="crawl" type="button" class="bf-button">카테고리등록</button>
 						<button id="b_ilban" type="button" class="bf-button">일반</button>
@@ -27,9 +30,6 @@
 						<button id="b_fantasy" type="button" class="bf-button">판타지</button>
 						<button id="b_manhaw" type="button" class="bf-button">만화</button>
 						<button id="b_bl" type="button" class="bf-button">BL</button>
-						<button type="reset" class="bf-button">취소</button>
-					</div>
-					<div align="right">
 						<button id="urlSet" type="button" class="bf-button">ALL자동 테스트</button>
 					</div>
 				</div>
@@ -56,31 +56,31 @@
 		});
 		
 		$("#b_ilban").click(function(){
-			var url = '${root}/manager/autoIlban.do';
+			var url = '${root}/manager/autoInsertBook.do';
 			var value = '/WEB-INF/views/manager/crawl/ilban.properties';
 			cAjax(url,value);
 		});
 		
 		$("#b_romance").click(function(){
-			var url = '${root}/manager/autoRomance.do';
+			var url = '${root}/manager/autoInsertBook.do';
 			var value = '/WEB-INF/views/manager/crawl/romance.properties';
 			cAjax(url,value);
 		});
 		
 		$("#b_fantasy").click(function(){
-			var url = '${root}/manager/autoFantasy.do';
+			var url = '${root}/manager/autoInsertBook.do';
 			var value = '/WEB-INF/views/manager/crawl/fantasy.properties';
 			cAjax(url,value);
 		});
 		
 		$("#b_manhaw").click(function(){
-			var url = '${root}/manager/autoManhaw.do';
+			var url = '${root}/manager/autoInsertBook.do';
 			var value = '/WEB-INF/views/manager/crawl/manhaw.properties';
 			cAjax(url,value);
 		});
 		
 		$("#b_bl").click(function(){
-			var url = '${root}/manager/autoBL.do';
+			var url = '${root}/manager/autoInsertBook.do';
 			var value = '/WEB-INF/views/manager/crawl/bl.properties';
 			cAjax(url,value);
 		});

@@ -112,5 +112,10 @@
 		select nvl(max(num),0) from series
 	</select>
 	
+	<select id="checkBookName" parameterType="String" resultType="int">
+		select count(*) from bookm where name=#{name}
+	</select>
+	
+	
 </mapper>
 

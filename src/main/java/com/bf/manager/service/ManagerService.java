@@ -31,14 +31,10 @@ public interface ManagerService {
 
 	public void autoUrl(ModelAndView mav);
 
-	public void autoIlban(ModelAndView mav);
+	public void autoInsertBook(ModelAndView mav);
 
-	public void autoRomance(ModelAndView mav);
+	public void bookInNameCheck(ModelAndView mav);
 
-	public void autoFantasy(ModelAndView mav);
-
-	public void autoManhaw(ModelAndView mav);
-
-	public void autoBL(ModelAndView mav);
+	public void bookInAuthorCheck(ModelAndView mav);
 
 }

@@ -6,7 +6,15 @@
  *	책정보 입력창
  */
 html{font-size: 16px !important;}
- 
+ #b_in_wrapper input{
+ 	font-size: 0.8rem;
+    font-weight: bold;
+ }
+ .hwdropdown button,.hwdropdown div > span{
+ 	font-size: 0.8rem;
+    font-weight: bold;
+    text-align: center;
+ }
 #b_in_wrapper > .b_in_main, #b_se_wrapper > .b_se_main, #a_in_wrapper > .a_in_main{
 	width:57.5rem;
 	max-width: 57.5rem;
@@ -223,5 +231,29 @@ html{font-size: 16px !important;}
 .b_crawinput{
 	width: 30rem !important;
 }
-
+.b_in_author_list{
+	display: none;
+	position: absolute;
+    top: 2rem;
+    left: 7.2rem;
+    z-index: 1;
+    background-color: white;
+    max-height: 17.6rem;
+    overflow-y: scroll;
+}
+.b_in_author_list li:hover{
+	background-color: #776bce2e;
+	cursor: pointer;
+}
+.b_in_author_list li{
+    padding: 0.6rem;
+    border-top: 1px solid silver;
+    border-left: 1px solid silver;
+    border-right: 1px solid silver;
+	width: 9.45rem;
+	font-size: 0.7rem;
+}
+.b_in_author_list li:last-child {
+	border-bottom: 1px solid silver;
+}
 

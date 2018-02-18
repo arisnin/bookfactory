@@ -208,49 +208,13 @@ public class ManagerController {
 		ModelAndView mav = new ModelAndView("crawl/auto.mg");
 		return mav;
 	}
-
-	@RequestMapping(value = "/autoIlban.do", method = RequestMethod.GET)
-	public ModelAndView autoPublisher(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("request", request);
-		mav.addObject("response", response);
-		managerService.autoIlban(mav);
-		return null;
-	}
 	
-	@RequestMapping(value = "/autoRomance.do", method = RequestMethod.GET)
-	public ModelAndView autoRomance(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/autoInsertBook.do", method = RequestMethod.GET)
+	public ModelAndView autoInsertBook(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		mav.addObject("response", response);
-		managerService.autoRomance(mav);
-		return null;
-	}
-	
-	@RequestMapping(value = "/autoFantasy.do", method = RequestMethod.GET)
-	public ModelAndView autoFantasy(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("request", request);
-		mav.addObject("response", response);
-		managerService.autoFantasy(mav);
-		return null;
-	}
-	
-	@RequestMapping(value = "/autoManhaw.do", method = RequestMethod.GET)
-	public ModelAndView autoManhaw(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("request", request);
-		mav.addObject("response", response);
-		managerService.autoManhaw(mav);
-		return null;
-	}
-	
-	@RequestMapping(value = "/autoBL.do", method = RequestMethod.GET)
-	public ModelAndView autoBL(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("request", request);
-		mav.addObject("response", response);
-		managerService.autoBL(mav);
+		managerService.autoInsertBook(mav);
 		return null;
 	}
 	
@@ -260,6 +224,24 @@ public class ManagerController {
 		mav.addObject("request", request);
 		mav.addObject("response", response);
 		managerService.autoUrl(mav);
+		return null;
+	}
+	
+	@RequestMapping(value = "/bookInNameCheck.do", method = RequestMethod.GET)
+	public ModelAndView bookInNameCheck(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.bookInNameCheck(mav);
+		return null;
+	}
+	
+	@RequestMapping(value = "/bookInAuthorCheck.do", method = RequestMethod.GET)
+	public ModelAndView bookInAuthorCheck(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.bookInAuthorCheck(mav);
 		return null;
 	}
 }

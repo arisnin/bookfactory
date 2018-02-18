@@ -32,4 +32,9 @@
 	<insert id="authorInsertInit" parameterType="com.bf.manager.dto.AuthorDto">
 		insert into author(num,name,country_num,update_date) values(0,#{name},#{country_num},#{update_date})
 	</insert>
+	
+	
+	<select id="checkBookAuthor" parameterType="String" resultType="com.bf.manager.dto.AuthorDto">
+		select * from author where name like #{name}||'%'
+	</select>
 </mapper>
