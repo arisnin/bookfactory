@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bf.aop.LogAspect;
 import com.bf.manager.dao.ManagerDaoTwo;
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.manager.dto.MemberDto;
 
 /**
  * @이름: 염현우 X 전상헌
@@ -156,5 +157,84 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 		mav.setViewName("board/list.mg");
 	}
+	@Override
+	public void memberList(ModelAndView mav) {
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		String pageNumber = request.getParameter("pageNumber");
+		String word = request.getParameter("search-word");
+		String sDate = request.getParameter("startDate");
+		String eDate = request.getParameter("endDate");
+		Date startDate = null;
+		Date endDate = null;
+
+		try {
+			if (sDate != null && eDate != null) {
+				startDate = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+				endDate = new SimpleDateFormat("yyyy-MM-dd").parse(eDate);
+				LogAspect.logger.info(LogAspect.logMsg + startDate + "zzzzzzzzzzzzzzzz" + endDate);
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		if (pageNumber == null)
+			pageNumber = "1";
+		int boardSize = 5;
+
+		int currentPage = Integer.parseInt(pageNumber);
+
+		int starRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize + 1;
+
+		int count = managerDao.memberCount();
+		LogAspect.logger.info(LogAspect.logMsg + count);
+		
+		List<MemberDto> memberDtoList = null;
+		if (count > 0) {
+			memberDtoList = managerDao.memberList(starRow, endRow);
+			LogAspect.logger.info(LogAspect.logMsg + memberDtoList);
+		/*	if (startDate != null && endDate != null) {
+				memberDtoList = managerDao.memberSearchDate(starRow, endRow, startDate, endDate);
+				LogAspect.logger.info(LogAspect.logMsg + memberDtoList + startDate + endDate);
+
+			} else if (word != null) {
+				memberDtoList = managerDao.memberSearch(starRow, endRow, word);
+				LogAspect.logger.info(LogAspect.logMsg + memberDtoList);
+			} else {
+				memberDtoList = managerDao.memberList(starRow, endRow);
+				LogAspect.logger.info(LogAspect.logMsg + memberDtoList);
+			}*/
+		}
+		mav.addObject("memberDto", memberDtoList);
+		mav.addObject("pageNumber", currentPage);
+		mav.addObject("count", count);
+		mav.addObject("boardSize", boardSize);
+
+		mav.setViewName("member/member.mg");
+		
+	}
+	
+	@Override
+	public void memberRegister(ModelAndView mav) {
+
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		MemberDto memberDto = (MemberDto)map.get("memberDto");
+		String img =null;
+			
+		LogAspect.logger.info(LogAspect.logMsg+memberDto);
+		
+		
+	/*	if(memberDto.getGender()=="남") {
+			img ="/projectBookFactory/src/main/webapp/resources/img/manager/man.jpg";
+		}else {
+			img ="/projectBookFactory/src/main/webapp/resources/img/manager/woman.jpg";
+		}*/
+		
+	}
+
 
 }

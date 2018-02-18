@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
 <html>
@@ -17,6 +18,7 @@
 <body>
 	<div id="sh_member">
 		<div class="sh_main_text">회원관리 페이지</div>
+		<form action="${root}/manager/memberRegister.do" method="post">
 		<div id="sh_board_shadow">
 			<div class="sh_member_header">
 
@@ -69,60 +71,67 @@
 						<li>상세보기</li>
 					</ul>
 				</div>
-				<div class="sh_member_list">
-					<!-- for문으로 체크박스랑 등등 정보 돌려야함 . 임시적으로 두개 해놈 -->
-
-				</div>
+			
 				<div class="sh_member_list">
 					<!-- for문으로 체크박스랑 등등 정보 돌려야함 . 임시적으로 두개 해놈 -->
 					<!-- 첫번째 예제 -->
-					<ul>
+					<c:forEach var="memberDto" items="${memberDto}">
+						<ul>
 						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
-						<li>1</li>
-						<li>jeonsh1220</li>
-						<!-- 회원정보상세페이지 넘어가기 -->
-						<li>전상헌</li>
-						<li><span>18/01/01</span></li>
-						<li>18/01/02</li>
-						<li>1</li>
-						<li>10</li>
+						<li>${memberDto.num}</li>
+						<li>${memberDto.id} </li>
+						<li>이름</li>
+						<li><fmt:formatDate value="${memberDto.register_date}" pattern="yyyy/MM/dd"/>
+						<li><fmt:formatDate value="${memberDto.last_join }" pattern="yyyy/MM/dd"/>
+						<li>5</li>
+						<li>${memberDto.phone }</li>
 						<!-- 게시글 목록 넘어가기 -->
-						<li><a href="${root}/manager/memberRegister.do" class="bf-button bf-animated-btn">상세보기</a></li>
-					</ul>
-					<!-- 두번째 예제 -->
-					<ul>
-						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
-						<li>2</li>
-						<li>coco0525</li>
-						<li>코코</li>
-						<!-- 회원정보상세페이지 넘어가기 -->
-						<li><span>16/05/25</span></li>
-						<li>18/01/02</li>
-						<li>2</li>
-						<li>20</li>
-						<!-- 게시글 목록 넘어가기 -->
-						<li><a href="${root}/manager/memberRegister.do" class="bf-button bf-animated-btn">상세보기</a></li>
-					</ul>
+						<li><button type="submit" class="bf-button">상세보기</button></li>
+						</ul>
+							
+					</c:forEach>
 				</div>
 			</div>
 
 
-			<div class="sh_member_footer">
+					<div class="sh_board_list_footer">
 				<nav class="bf-pagination">
 					<ul class="bf-animated-btn">
-						<li class="first"><a href="#0"><span></span></a></li>
-						<li class="prev"><a href="#0"><span></span></a></li>
-						<li><a href="#0">1</a></li>
-						<li><a href="#0">2</a></li>
-						<li><a class="active" href="#0">3</a></li>
-						<li><a href="#0">4</a></li>
-						<li><a href="#0">5</a></li>
-						<li class="next"><a href="#0"><span></span></a></li>
-						<li class="last"><a href="#0"><span></span></a></li>
+
+						<c:if test="${count > 0}">
+							<li class="first"><a href="#0"><span></span></a></li>
+
+							<fmt:parseNumber var="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true" />
+							<c:set var="pageBlock" value="${5}" />
+							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true" />
+
+							<c:set var="startPage" value="${rs*pageBlock + 1}" />
+							<c:set var="endPage" value="${startPage + pageBlock - 1}" />
+
+							<c:if test="${endPage > pageCount}">
+								<c:set var="endPage" value="${pageCount}" />
+							</c:if>
+
+							<c:if test="${startPage > pageBlock}">
+								<li class="prev"><a href="${root}/manager/boardList.do?pageNumber=${startPage-pageBlock}"><span></span></a></li>
+							</c:if>
+
+							<c:forEach var="i" begin="${startPage}" end="${endPage}">
+								<a href="${root}/manager/boardList.do?pageNumber=${i}">${i}</a>
+							</c:forEach>
+
+							<c:if test="${endPage < pageCount}">
+								<li class="next"><a href="${root}/manager/boardList.do?pageNumber=${(startPage + pageBlock)}"><span></span></a></li>
+							</c:if>
+
+
+							<li class="last"><a href="#0"><span></span></a></li>
+						</c:if>
 					</ul>
 				</nav>
 			</div>
 		</div>
+		</form>
 	</div>
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 	<script type="text/javascript" src="${root}/script/basic/jquery-ui.js"></script>
