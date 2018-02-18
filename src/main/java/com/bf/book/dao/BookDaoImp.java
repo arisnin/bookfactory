@@ -1,10 +1,13 @@
 package com.bf.book.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bf.book.dto.ReviewDto;
+import com.bf.book.dto.HomeDto;
 
 /**
  * @author 박성호
@@ -19,5 +22,11 @@ public class BookDaoImp implements BookDao {
 	@Override
 	public int insertReview(ReviewDto reviewDto) {
 		return sqlSession.insert("com.bf.mapper.BookPlusMapper.insert-review", reviewDto);
+	}
+
+	@Override
+	public List<HomeDto> getHomeBookInfoList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getHomeBookInfoList");
 	}
 }

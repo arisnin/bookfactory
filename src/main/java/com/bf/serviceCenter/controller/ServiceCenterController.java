@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bf.aop.LogAspect;
+import com.bf.member.model.User;
 import com.bf.serviceCenter.service.ServiceCenterService;
 
 /**
@@ -27,6 +28,8 @@ public class ServiceCenterController {
 	@RequestMapping(value = "/test/service.do", method = RequestMethod.GET)
 	public String testService(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("testService()");
+		User user = (User)request.getSession().getAttribute("userInfo");
+		LogAspect.info(user);
 		return "present/present.main";
 	}
 }

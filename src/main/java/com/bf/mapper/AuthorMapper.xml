@@ -21,8 +21,8 @@
 		and CAREER=#{career} and DEBUT=#{debut}
 	</select>
 	
-	<select id="getNum" parameterType="String" resultType="int">
-		select num from author where name=#{name}
+	<select id="getNum" parameterType="String" resultType="int" >
+		select max(num) from author where name=#{name}
 	</select>
 	
 	<select id="getZeroAuthor" resultType="int">

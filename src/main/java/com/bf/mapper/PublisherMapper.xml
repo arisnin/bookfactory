@@ -31,4 +31,12 @@
 		select pub_num from publisher where name=#{name}
 	</select>
 	
+	<select id="getPublisherZero" resultType="int">
+		select count(*) from publisher where pub_num=0
+	</select>
+	
+	<insert id="publisherInsertZero" parameterType="com.bf.manager.dto.PublisherDto">
+		insert into PUBLISHER values(#{pub_num},#{name},#{url},sysdate)
+	</insert>
+	
 </mapper>

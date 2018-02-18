@@ -61,7 +61,7 @@ public interface ManagerDao {
 
 	public int checkCateOne();
 
-	public int insertCateOne(String string);
+	public int insertCateOne(String string, int i);
 
 	public int getZeroAuthor();
 
@@ -70,6 +70,16 @@ public interface ManagerDao {
 	public int insertBookCategory(String cateName, int currentNum);
 
 	public int getMaxBookNum();
+
+	public int insertSeries(String name);
+
+	public int getSeriesNum();
+
+	public void insertBookCategory(String cate2, String cate3, int currentNum);
+
+	public int getPublisherZero();
+
+	public void publisherInsertZero(PublisherDto publisherDto);
 
 
 }

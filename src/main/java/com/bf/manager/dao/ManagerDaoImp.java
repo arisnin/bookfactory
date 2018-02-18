@@ -129,12 +129,19 @@ public class ManagerDaoImp implements ManagerDao {
 
 	@Override
 	public int selectAuthorNum(String name) {
+		if(sqlSession.selectOne("com.bf.mapper.AuthorMapper.getNum", name) == null) {
+			return 0;
+		}
 		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getNum", name);
 	}
 
 	@Override
 	public int getPublisherNum(String name) {
-		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getNum", name);
+		if(sqlSession.selectOne("com.bf.mapper.PublisherMapper.getNum", name)==null) {
+			return 0;
+		}else {
+			return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getNum", name);			
+		}
 	}
 
 	@Override
@@ -153,8 +160,11 @@ public class ManagerDaoImp implements ManagerDao {
 	}
 
 	@Override
-	public int insertCateOne(String name) {
-		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateOne", name);
+	public int insertCateOne(String name,int num) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("num", num);
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateOne", map);
 	}
 
 	@Override
@@ -180,9 +190,39 @@ public class ManagerDaoImp implements ManagerDao {
 			return 	sqlSession.insert("com.bf.mapper.BookMapper.insertBookCategory2", map);
 		}
 	}
+	
+	@Override
+	public void insertBookCategory(String cate2, String cate3, int currentNum) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("cate2", cate2);
+		map.put("cate3", cate3);
+		map.put("currentNum", currentNum);
+		
+		sqlSession.insert("com.bf.mapper.BookMapper.insertBookCategory3", map);
+	}
 
 	@Override
 	public int getMaxBookNum() {
 		return sqlSession.selectOne("com.bf.mapper.BookMapper.getMaxBookNum");
+	}
+	
+	@Override
+	public int insertSeries(String name) {
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertSeries",name);
+	}
+	
+	@Override
+	public int getSeriesNum() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getSeriesNum");
+	}
+	
+	@Override
+	public int getPublisherZero() {
+		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getPublisherZero");
+	}
+	
+	@Override
+	public void publisherInsertZero(PublisherDto publisherDto) {
+		sqlSession.insert("com.bf.mapper.PublisherMapper.publisherInsertZero",publisherDto);
 	}
 }

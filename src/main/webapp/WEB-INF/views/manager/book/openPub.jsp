@@ -52,26 +52,31 @@
 			<div class="p_se_foot">
 				<nav class="bf-pagination">
 					<ul class="bf-animated-btn">
-						<li class="first"><a href="#0"><span></span></a></li>
-						<li class="prev"><a href="#0"><span></span></a></li>
-						   <c:if test="${count > 0}">
-								<fmt:parseNumber var ="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true"/>
-								<c:set var ="pageBlock" value="${5}"/>
-								<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/>
-								
-								<c:set var="startPage" value="${rs*pageBlock + 1}"/>
-								<c:set var="endPage" value="${startPage + pageBlock - 1}"/>
-								   
-								<c:if test="${endPage > pageCount}">
-								   <c:set var="endPage" value="${pageCount}"/>
-								</c:if>
-					        </c:if>
-					        <c:forEach var="i" begin="${startPage}" end="${endPage}">
-					        	<li><a href="${root}/manager/bookOpenPub.do?pageNumber=${i}">${i}</a></li>
-					        </c:forEach>
+						<li class="first"><a href="${root}/manager/bookOpenPub.do?pageNumber=1"><span></span></a></li>
+						<c:if test="${count > 0}">
+							<fmt:parseNumber var ="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true"/>
+							<c:set var ="pageBlock" value="${5}"/>
+							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/>
+							
+							<c:set var="startPage" value="${rs*pageBlock + 1}"/>
+							<c:set var="endPage" value="${startPage + pageBlock - 1}"/>
+							
+							<c:if test="${endPage > pageCount}">
+							<c:set var="endPage" value="${pageCount}"/>
+						</c:if>
+						</c:if>
 						
-						<li class="next"><a href="#0"><span></span></a></li>
-						<li class="last"><a href="#0"><span></span></a></li>
+						<c:if test="${startPage > pageBlock}">
+							<li class="prev"><a href="${root}/manager/bookOpenPub.do?pageNumber=${startPage-1}"><span></span></a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startPage}" end="${endPage}">
+							<li><a href="${root}/manager/bookOpenPub.do?pageNumber=${i}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${endPage < pageCount}">
+							<li class="next"><a href="${root}/manager/bookOpenPub.do?pageNumber=${endPage+1}"><span></span></a></li>
+						</c:if>
+						
+						<li class="last"><a href="${root}/manager/bookOpenPub.do?pageNumber=${pageCount}"><span></span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -82,6 +87,12 @@
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 	<script type="text/javascript">
+		$(".bf-animated-btn").find("li").each(function(){
+			if($(this).text()=='${pageNumber}'){
+				$(this).find("a").addClass("active");
+			}
+		});
+	
 		$(".p_se_list a").click(function(){
 			var value = $(this).text();
 			$(opener.document).find("input[name=publisher]").val(value);

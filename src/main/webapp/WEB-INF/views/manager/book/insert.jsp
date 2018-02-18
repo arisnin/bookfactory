@@ -50,46 +50,6 @@
 							</c:forEach>
 						</div>
 					</div>
-					<script type="text/javascript">
-						$("#b_cate_1 span").click(function(){
-							var name = $(this);
-							$.ajax({
-							  url: "${root}/manager/bookCateOne.do",
-							  method: 'get',
-							  data: {name : name.text()},
-							  success: function(arrCate){
-							  		var secondCate = arrCate.split(",");
-							  		$("#b_cate_2").find(".hwdropbtn").text("중분류");
-							  		var secondNode = $("#b_cate_2").find("#myDropdown");
-							  		secondNode.empty();
-							  		
-							  		for(var i=0;i<secondCate.length-1;i++){
-							  			secondNode.append("<span>"+secondCate[i]+"</span>");
-							  		}
-							  		$("#b_cate_2 span").click(function(){
-										var name = $(this);
-										$.ajax({
-										  url: "${root}/manager/bookCateTwo.do",
-										  method: 'get',
-										  data: {name : name.text()},
-										  success: function(arrCate){
-										  		var secondCate = arrCate.split(",");
-										  		var secondNode = $("#b_cate_3").find("#myDropdown");
-										  		secondNode.empty();
-										  		
-										  		for(var i=0;i<secondCate.length-1;i++){
-										  			alert(secondCate[i]);
-										  			secondNode.append("<span>"+secondCate[i]+"</span>");
-										  		}
-										  	},
-										  dataType: "text"
-										});
-									});
-							  	},
-							  dataType: "text"
-							});
-						});
-					</script>
 					<div id="b_cate_2" class="hwdropdown">
 						<button class="hwdropbtn">중분류</button>
 						<div id="myDropdown" class="hwdropdown-content">
@@ -166,6 +126,47 @@
 			var url = "${root}/manager/bookOpenPub.do";
 			open(url,"출판사 검색창","width=685,height=750,scroll=yes");
 		});
+		
+		//카테고리
+		$("#b_cate_1 span").click(function(){
+			var name = $(this);
+			$.ajax({
+			  url: "${root}/manager/bookCateOne.do",
+			  method: 'get',
+			  data: {name : name.text()},
+			  success: function(arrCate){
+			  		var secondCate = arrCate.split(",");
+			  		$("#b_cate_2").find(".hwdropbtn").text("중분류");
+			  		var secondNode = $("#b_cate_2").find("#myDropdown");
+			  		secondNode.empty();
+			  		
+			  		for(var i=0;i<secondCate.length-1;i++){
+			  			secondNode.append("<span>"+secondCate[i]+"</span>");
+			  		}
+			  		$("#b_cate_2 span").click(function(){
+						var name = $(this);
+						$.ajax({
+						  url: "${root}/manager/bookCateTwo.do",
+						  method: 'get',
+						  data: {name : name.text()},
+						  success: function(arrCate){
+						  		var secondCate = arrCate.split(",");
+						  		var secondNode = $("#b_cate_3").find("#myDropdown");
+						  		secondNode.empty();
+						  		
+						  		for(var i=0;i<secondCate.length-1;i++){
+						  			secondNode.append("<span>"+secondCate[i]+"</span>");
+						  		}
+						  	},
+						  dataType: "text"
+						});
+					});
+			  	},
+			  dataType: "text"
+			});
+		});
+		
+		
 		var checkbox = $(".bf-custom-checkbox");
 		
 		//디폴트 전체선택 클릭

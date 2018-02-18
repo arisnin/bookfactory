@@ -11,10 +11,10 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/header/index.css" />
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/header/index.js"></script>
-<c:set var="catenum" value="${1}" />
 </head>
 <%-- mainPage header 염현우 --%>
 <body id="team2_index_body">
+	<input type="hidden" name=catenum value="${catenum}">
 	<div id="hw_header_wrap">
 		<div class="hw_header_top">
 			<div class="hw_header_top_content">
@@ -37,7 +37,7 @@
 					</div>
 				</div>
 				
-				<c:if test="${sessionScope.userInfoId == null}">
+				<c:if test="${userInfo == null}">
 					<div class="hw_top_content_right login">
 						<span class="hw_font">
 							<a class="hw_top_content_right_login" href="javascript:goLogin()">로그인</a>
@@ -47,10 +47,10 @@
 						</span>
 					</div>
 				</c:if>
-				<c:if test="${sessionScope.userInfoId != null}">
+				<c:if test="${userInfo != null}">
 					<div class="hw_top_content_right login_ok" style="display: inline-block;">
 						<span class="hw_font">
-							<a href="${root}/myPage/home.do" style="margin-right:5px;">마이팩토리</a>
+							<a href="${root}/myPage/home.do" style="margin-right:5px;">마이팩토리(${userInfo.username}, ${userInfo.memberDto.email})</a>
 						</span>
 						<span class="hw_font">
 							<a href="${root}/cart.do">카트</a>
@@ -70,19 +70,19 @@
 						<li class="hw_mid_item list_all" style="padding: 0px 12px 0px 0px;" onclick="allMenuOpen()">
 							<img class="hw_mid_icon" src="${root}/img/index/213111_gray.png"> <span class="hw_mid_font">전체분야</span>
 						</li>
-						<li class="hw_mid_item list_general" onclick="location.href='${root}/normal.do'">
+						<li class="hw_mid_item list_general" onclick="location.href='${root}/normal.do?catenum=1'">
 							<img class="hw_mid_icon" src="${root}/img/index/ilban.png"> <span class="hw_mid_font">일반</span>
 						</li>
-						<li class="hw_mid_item list_romance" onclick="location.href='${root}/romance.do'">
+						<li class="hw_mid_item list_romance" onclick="location.href='${root}/romance.do?catenum=2'">
 							<img class="hw_mid_icon" src="${root}/img/index/love.png"> <span class="hw_mid_font">로맨스</span>
 						</li>
-						<li class="hw_mid_item list_fantasy" onclick="location.href='${root}/fantasy.do'">
+						<li class="hw_mid_item list_fantasy" onclick="location.href='${root}/fantasy.do?catenum=3'">
 							<img class="hw_mid_icon" src="${root}/img/index/fantasi.png"> <span class="hw_mid_font">판타지</span>
 						</li>
-						<li class="hw_mid_item list_comic" onclick="location.href='${root}/comic.do'">
+						<li class="hw_mid_item list_comic" onclick="location.href='${root}/comic.do?catenum=4'">
 							<img class="hw_mid_icon" src="${root}/img/index/manhwa.png"> <span class="hw_mid_font">만화</span>
 						</li>
-						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do'">
+						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do?catenum=5'">
 							<img class="hw_mid_icon" src="${root}/img/index/bl.png"> <span class="hw_mid_font">BL</span>
 						</li>
 					</ul>

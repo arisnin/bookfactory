@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
-import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.PublisherDto;
 import com.bf.manager.service.ManagerService;
@@ -210,30 +209,57 @@ public class ManagerController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/autoPublisher.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/autoIlban.do", method = RequestMethod.GET)
 	public ModelAndView autoPublisher(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		mav.addObject("response", response);
-		managerService.autoPublisher(mav);
+		managerService.autoIlban(mav);
 		return null;
 	}
 	
-	@RequestMapping(value = "/autoAuthor.do", method = RequestMethod.GET)
-	public ModelAndView autoAuthor(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/autoRomance.do", method = RequestMethod.GET)
+	public ModelAndView autoRomance(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		mav.addObject("response", response);
-		managerService.autoAuthor(mav);
+		managerService.autoRomance(mav);
 		return null;
 	}
 	
-	@RequestMapping(value = "/autoBook.do", method = RequestMethod.GET)
-	public ModelAndView autoBook(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/autoFantasy.do", method = RequestMethod.GET)
+	public ModelAndView autoFantasy(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		mav.addObject("response", response);
-		managerService.autoBook(mav);
+		managerService.autoFantasy(mav);
+		return null;
+	}
+	
+	@RequestMapping(value = "/autoManhaw.do", method = RequestMethod.GET)
+	public ModelAndView autoManhaw(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.autoManhaw(mav);
+		return null;
+	}
+	
+	@RequestMapping(value = "/autoBL.do", method = RequestMethod.GET)
+	public ModelAndView autoBL(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.autoBL(mav);
+		return null;
+	}
+	
+	@RequestMapping(value = "/autoUrl.do", method = RequestMethod.GET)
+	public ModelAndView autoUrl(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.autoUrl(mav);
 		return null;
 	}
 }

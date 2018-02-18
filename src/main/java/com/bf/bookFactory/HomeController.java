@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.bf.aop.LogAspect;
 
 /**
  * Handles requests for the application home page.
@@ -19,11 +22,13 @@ public class HomeController {
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
+	 * 
+	 * book.controller의 normalHoem으로 옮김
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);		
-		return "genre/normal.main";
-	}
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	public ModelAndView home(Locale locale, Model model) {
+//		LogAspect.info("Welcome home! The client locale is "+ locale);		
+//		return new ModelAndView("genre/normal.main");
+//	}
 	
 }
