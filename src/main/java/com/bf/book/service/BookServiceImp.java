@@ -42,7 +42,7 @@ public class BookServiceImp implements BookService {
 			reviewDto.setSpoiler("off");
 		}
 		// 공개여부(display)는 디폴트로 'on'만 설정하면 됩니다. 이 값은 관리자 메뉴에서 공개(on)/비공개(off) 전환 가능합니다.
-		reviewDto.setDisplay("true");
+		reviewDto.setDisplay("on");
 		reviewDto.setWrite_date(new java.util.Date());
 		reviewDto.setContent(reviewDto.getContent().replace("\r\n", "<br />"));
 		

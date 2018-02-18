@@ -128,7 +128,7 @@
 }
 
 .review-write-box .star-rate-box {
-	height: 8.4rem;
+	height: 8.2rem;
 }
 
 .review-write-box .star-rate-box > span {
@@ -228,7 +228,7 @@
 
 #star-rate-touch-box > .bf-button.star-cancel {
 	position: absolute;
-    top: 5%;
+    top: 0.9rem;
     right: 24%;
     opacity: 0.7;
     padding: 0.2rem 0.5rem 0.15rem;
@@ -242,21 +242,54 @@
 /* 리뷰 작성 폼 */
 .review-write-box .review-write-form {
 	width: 100%;
-	height: 7.375rem;
+	/* height: 7.375rem; */
+	height: 100%;
 	margin: 0 auto 0.5rem;
 }
 
-.review-write-box .review-write-form > textarea {
+.bf-review-box .update-tools {
+	border-bottom: 0.125rem solid #E1DFFA;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin-bottom: 0.25rem;
+}
+
+.bf-review-box .update-tools > .date {
+	color: #333;
+}
+
+.bf-review-box .update-tools > .bf-button {
+	float: right;
+	padding: 0 0 0 0.5rem;
+}
+
+.bf-review-box .update-tools > .date + .bf-button {
+	border-left: 1px solid #E1DFFA;
+	margin-left: 0.25rem;
+}
+
+.review-write-box .review-write-form > .review-content {
 	border: 0.125rem solid #E1DFFA;
 	border-radius: 0.25rem;
 	width: 100%;
-	height: 100%;
+	min-height: 7.5rem;
+	text-align: left;
 	font-size: 1rem;
 	padding: 0.625rem 1rem;
 	word-spacing: normal;
 	word-wrap: break-word;
 	word-break: break-all;
 	resize: none;
+}
+
+.review-write-box .review-write-form > p.review-content {
+	background-color: #F3F0FA;
+	font-size: 0.8125rem;
+	font-weight: 500;
+	line-height: 1.6rem;
+	resize: none;
+	overflow: hidden;
 }
 
 .review-write-box .review-write-submit {
@@ -339,7 +372,7 @@ span.badge-icon {
 	font-weight: bold;
 	color: dimgray;
 	text-align: center;
-	padding: 1rem 1rem 0.5rem;
+	padding: 1rem 0 0.5rem 1rem;
 }
 
 .bf-review-box .review-contents > .review-spoiler {

@@ -53,7 +53,7 @@
 			<div class="review-write-box">
 				<h4 class="hidden-block"></h4>
 				<!-- 리뷰 작성 폼 -->
-				<form action="${root}/review.do" method="post" onsubmit="">
+				<form action="${root}/review/write.do" method="post" onsubmit="">
 					<!-- 별점 평가 -->
 					<div class="star-rate-box">
 						<span>이 책을 평가해주세요!</span>
@@ -88,7 +88,27 @@
 					</div>
 					<!-- 리뷰 내용 작성 -->
 					<div class="review-write-form">
-						<textarea id="review-textarea" name="content" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
+						<c:if test="${reviewPage.self == null}">
+							<p class="review-content ">
+								<span class="update-tools">
+									<span class="date">${reviewPage.self.write_date}2018.01.31</span>
+									<button type="button" class="bf-button bf-transparent-btn" value="false" onclick="collapseViewToggle(this)">
+										<span class="material-icons">warning</span>
+									</button>
+									<button type="button" class="bf-button bf-transparent-btn" value="false" onclick="collapseViewToggle(this)">
+										<span class="material-icons">warning</span>
+									</button>
+								</span>
+								${reviewPage.content}
+								<br />Nothing Gold Can Stay<br />
+								<br />Robert Frost, 1874 - 1963<br />
+								<br />Nature’s first green is gold,<br />Her hardest hue to hold.<br />Her early leaf’s a flower;<br />But only so an hour.<br />Then leaf subsides to leaf.<br />So Eden sank to grief,<br />So dawn goes down to day.<br />Nothing gold can stay.
+							</p>
+							<textarea class="review-content hidden-block" id="review-textarea" name="content" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
+						</c:if>
+						<c:if test="${reviewPage.self == null}">
+							<textarea class="review-content " id="review-textarea" name="content" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
+						</c:if>
 					</div>
 					<!-- 리뷰 확인 버튼 -->
 					<div class="review-write-submit">					
