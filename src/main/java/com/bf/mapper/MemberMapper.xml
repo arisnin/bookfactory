@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bf.mapper.MemberMapper">
-	<select id="select-member" parameterType="String" resultType="com.bf.member.model.MemberDto">
+	<select id="select-member" parameterType="String" resultType="com.bf.member.model.MemberDto" >
 		select * from member where id = #{username}
 	</select>
 </mapper>
