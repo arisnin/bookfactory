@@ -85,22 +85,22 @@ $(function(){
 						<div class="mf-book-metadata">
 							<h3 class="book-metadata-text" onclick="location.href='${root}/detail.do?book_num=${NewBookDto.book_num}'">${NewBookDto.book_name}</h3>
 							<p class="book-metadata-author">
-								<a class="" href="${root}/author.do?author_num=${NewBookDto.author_num}">${NewBookDto.author_name }</a>
-							</p>
-							<c:if test="${NewBookDto.illur_num!=0}">
-								<p class="book-metadata-translator">
+								<c:if test="${NewBookDto.author_num!=0}">
+									<a class="" href="${root}/author.do?author_num=${NewBookDto.author_num}">${NewBookDto.author_name }</a>
+								</c:if>
+								<c:if test="${NewBookDto.illur_num!=0}">
 									<a class="" href="${root}/author.do?author_num=${NewBookDto.illur_num}">, ${NewBookDto.illur_name }</a>
-								</p>
-							</c:if>
-							<c:if test="${NewBookDto.trans_num!=0}">
-								<p class="book-metadata-translator">
+								</c:if>
+								<c:if test="${NewBookDto.trans_num!=0}">
 									<a class="" href="${root}/author.do?author_num=${NewBookDto.trans_num}">, ${NewBookDto.trans_name }</a>
+								</c:if>
+							</p>
+							
+							<c:if test="${NewBookDto.pub_num!=0}">
+								<p class="book-metadata-publisher">
+									<a class="" href="${root}/author.do?pub_num=${NewBookDto.pub_num}">${NewBookDto.publisher_name }</a>
 								</p>
 							</c:if>
-							
-							<p class="book-metadata-publisher">
-								<a class="" href="${root}/author.do?pub_num=${NewBookDto.pub_num}">, ${NewBookDto.publisher_name }</a>
-							</p>
 							
 							<div class="content-star-rate">
 								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span> <span class="count-field"> 9999명</span>
@@ -108,16 +108,26 @@ $(function(){
 							<pre class="book-metadata-description hidden-block">
 								${NewBookDto.intro }
 							</pre>
-							<c:if test="${NewBookDto.rental_price!=0 }">
-								<p class="book-metadata-price hidden-block">
-									<span class="price-rent">${NewBookDto.rental_price}</span>원
-								</p>
-							</c:if>
-							<c:if test="${NewBookDto.price!=0 }">
-								<p class="book-metadata-price">
-									<span class="price-purchase">${NewBookDto.price}</span>원
-								</p>
-							</c:if>
+							
+							<c:choose>
+								<c:when test="${NewBookDto.rental_price!=0 }">
+									<p class="book-metadata-price">
+										<span class="price-rent">${NewBookDto.rental_price}원</span>
+									</p>
+								</c:when>
+								
+								<c:when test="${NewBookDto.price!=0 }">
+									<p class="book-metadata-price">
+										<span class="price-purchase">${NewBookDto.price}원</span>
+									</p>
+								</c:when>
+								
+								<c:otherwise>
+									<p class="book-metadata-price">
+										<span class="price-purchase">무료</span>
+									</p>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</li>
 				</c:forEach>

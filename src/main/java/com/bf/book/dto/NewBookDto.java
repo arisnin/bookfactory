@@ -159,7 +159,11 @@ public class NewBookDto {
 	}
 
 	public String getIntro() {
-		return intro;
+		if(intro.indexOf("<br>")>=0) {
+			intro=intro.substring(intro.indexOf("<br>"));
+		}
+		
+		return intro.replaceAll("<br>", "");
 	}
 
 	public void setIntro(String intro) {
