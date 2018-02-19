@@ -37,7 +37,7 @@
 				</div>
 			</div>
 			<!-- -------------------------------------- -->
-<%-- 			<c:if test=${listCart.size()!=0 }> --%>
+			<c:if test="${listSize != 0 }">
 			<c:forEach items="${listCart}" var="cartList">
 				<div class="cart_content_book">
 					<div class="book-thumbnail">
@@ -103,11 +103,11 @@
 					</div>
 				</div> -->
 			</c:forEach>
-<%-- 						</c:if> --%>
+						</c:if>
 			<!-- -------------------------------------- -->
-<%-- 						<c:if test=${listCart.size()==0 }> --%>
-<!-- 							<div class="cart_content_book">대여 할수 있는 책이 없습니다.</div> -->
-<%-- 						</c:if> --%>
+						<c:if test="${listSize==0 }">
+							<div class="cart_content_book cart_content_book_no">대여 할수 있는 책이 없습니다.</div>
+						</c:if>
 
 			<div class="cart_content_select">
 				<div class="float_left">

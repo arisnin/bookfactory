@@ -3,32 +3,48 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bf.mapper.OrderMapper">
-	<resultMap type="com.bf.book.dto.HomeDto" id="HomeDto">
-		<result column="authorName" property="authorName"/>
-		<result column="bookName" property="bookName"/>
-	</resultMap>
+	<!-- <resultMap type="com.bf.book.dto.HomeDto" id="HomeDto"> -->
+	<!-- <result column="authorName" property="authorName"/> -->
+	<!-- <result column="bookName" property="bookName"/> -->
+	<!-- </resultMap> -->
 	<delete id="delete_cartWishtList" parameterType="int">
-		delete from cart
-		where BOOK_NUM = #{num}
+		delete from cart_wish
+		where BOOK_NUM = #{num} and id=#{id}
 	</delete>
-
-	<insert id="insert_cartWishList" parameterType="int">
-		INSERT INTO
-		wishlist VALUES(100,'abc',#{num})
-	</insert>
 
 	<select id="getCart" parameterType="String" resultType="com.bf.book.dto.HomeDto">
 		<![CDATA[
 		select bookm.*, bookm.name "bookName", AUTHOR.name "authorName" 
-		from bookm, cart, AUTHOR 
-		where cart.BOOK_NUM = bookm.BOOK_NUM 
-		and cart.id = #{id} 
+		from bookm, cart_wish, AUTHOR 
+		where cart_wish.BOOK_NUM = bookm.BOOK_NUM 
+		and cart_wish.id = #{id} 
 		and AUTHOR.NUM=bookm.AUTHOR_NUM
+		and cart_wish.CART_WISH ='cart'
+		]]>
+	</select>
+	
+	<select id="getWish" parameterType="String" resultType="com.bf.book.dto.HomeDto">
+		<![CDATA[
+		select bookm.*, bookm.name "bookName", AUTHOR.name "authorName" 
+		from bookm, cart_wish, AUTHOR 
+		where cart_wish.BOOK_NUM = bookm.BOOK_NUM 
+		and cart_wish.id = #{id} 
+		and AUTHOR.NUM=bookm.AUTHOR_NUM
+		and cart_wish.CART_WISH ='wish'
 		]]>
 	</select>
 
 	<insert id="insertCart" parameterType="java.util.HashMap">
-		insert into cart
-		values(cart_num_seq.nextval, #{id}, #{bookNum})
+		insert into cart_wish
+		values(cart_num_seq.nextval, #{id}, #{bookNum},'cart')
+	</insert>
+
+	<select id="oneCart_Wish" parameterType="java.util.HashMap" resultType="String">
+		select nvl(num,0) from cart_wish where id=#{id} and book_num=#{bookNum}
+	</select>
+	
+	<insert id="insertWishList" parameterType="java.util.HashMap">
+		insert into cart_wish
+		values(cart_num_seq.nextval, #{id}, #{bookNum},'wish')
 	</insert>
 </mapper>

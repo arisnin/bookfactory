@@ -11,7 +11,7 @@ $(function() {
 		var a = confirm("정말로 삭제하시겠습니까?");
 			if (a == true) {
 				$.get("cart/cartDelete.do", {
-				num : book_num
+				bookNum : book_num
 				});
 			}
 		});
@@ -35,7 +35,7 @@ $(function() {
 		});
 
 		$.get("cart/cartDelete.do", {
-			num : bookNum
+			bookNum : bookNum
 		}, function() {
 			alert("삭제");
 		});
@@ -76,7 +76,7 @@ $(function() {
 		var book_num = $(this).parent().find("span:first-child").attr("id");
 		
 		$.get("cart/cartWishList.do", {
-			num : book_num
+			bookNum : book_num
 		}, function() {
 			alert("위시리스트로 이동되었습니다.")
 		});

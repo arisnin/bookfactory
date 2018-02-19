@@ -138,24 +138,43 @@
 						</div>
 					</div>
 				</div>
-
 				<script>
 					function cartInsert(bookNum,root) {
-						location.href= root+"/cartInsert.do?book_num="+bookNum;
+						var url = root+"/cartInsert.do?book_num="+bookNum;
+						$.get(url, function(check) {
+							if(check==1){
+								alert("카트에 저장되었습니다.");
+							}else{
+								alert("중복된 도서목록이 있습니다.");
+							}
+						});
 					}
+					
+					function wishInsert(bookNum, root){
+						var url = root+"/wishInsert.do?book_num="+bookNum;
+						$.get(url, function(check) {
+							if(check==1){
+								alert("내 위시리스트에 저장되었습니다.");
+							}else{
+								alert("중복된 도서목록이 있습니다.");
+							}
+						});
+					}
+	
 				</script>
 
 				<div class="head_bottom">
 					<ol>
 						<li><button type="button">
-								<span class="icon-heart"></span>
+								<span class="icon-heart" onclick="wishInsert(3,'${root}')"></span>
 							</button></li>
 						<li><button type="button">
-								<span class="icon-basket" onclick="cartInsert(1,'${root}')"></span>
+								<span class="icon-basket" onclick="cartInsert(101,'${root}')"></span>
 							</button></li>
 
 						<li><button type="button">
-								<span class="icon-gift"></span>
+								<span class="icon-gift"
+									onclick="javascript:location.href='${root}/present.do?book_num=101'"></span>
 							</button></li>
 						<li><button type="button">구매하기</button></li>
 					</ol>

@@ -11,12 +11,19 @@ import com.bf.book.dto.HomeDto;
  */
 public interface OrderDao {
 
-	public int cartWishList(int num);
+	public int cartWishList(int num, String id);
 
 	public int cartDelete(int num);
 
 	public List<HomeDto> getCart(String id);
+	
+	public List<HomeDto> getWish(String id);
 
 	public int cartInsert(int bookNum, String id);
+
+	public int oneCart_Wish(String id, int bookNum);	//카트 중복검사
+	
+	public int wishListInsert(int bookNum, String id);
+	
 
 }

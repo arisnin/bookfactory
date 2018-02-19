@@ -38,11 +38,14 @@ public class OrderController {
 	/**
 	 * 헤더 > 위시리스트
 	 */
-	@RequestMapping(value = "cart/wishlist.do", method = RequestMethod.GET)
-	public String wishlist(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/wishlist.do", method = RequestMethod.GET)
+	public ModelAndView wishlist(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("wishlist()");
 		request.getSession().setAttribute("userInfoId", "manager");
-		return "cart/wishlist.main";
+		ModelAndView mav = new ModelAndView("cart/wishlist.main");
+		mav.addObject("request", request);
+		orderService.getWish(mav);
+		return mav;
 	}
 
 	/**
@@ -98,7 +101,7 @@ public class OrderController {
 	/**
 	 * 카트의 책들을 위시리스트로 옮기는 요청
 	 */
-	@RequestMapping(value = "cart/cartWishList.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/cartWishList.do", method = RequestMethod.GET)
 	public String cartWishList(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("cartWishList()");
 		ModelAndView mav = new ModelAndView();
@@ -110,21 +113,38 @@ public class OrderController {
 	/**
 	 * 장바구니 비우기 
 	 */
-	@RequestMapping(value = "cart/cartDelete.do", method = RequestMethod.GET)
-	public String cartDelete(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/cartDelete.do", method = RequestMethod.GET)
+	public ModelAndView cartDelete(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("cartDelete()");
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("cart/cart.main");
 		mav.addObject("request", request);
 		orderService.cartDelete(mav);
-		return null;
+		return mav;
 	}
 	
+	/**
+	 * 장바구니 추가
+	 */
 	@RequestMapping(value = "/cartInsert.do", method = RequestMethod.GET)
-	public String cartInsert(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView cartInsert(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("cartInsert()");
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
+		mav.addObject("response", response);
 		orderService.cartInsert(mav);
+		return null;
+	}
+	
+	/**
+	 * 위시리스트 추가
+	 */
+	@RequestMapping(value = "/wishInsert.do", method = RequestMethod.GET)
+	public ModelAndView wishInsert(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("wishInsert()");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		orderService.wishListInsert(mav);
 		return null;
 	}
 	
