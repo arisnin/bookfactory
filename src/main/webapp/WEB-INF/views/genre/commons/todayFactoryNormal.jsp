@@ -42,7 +42,7 @@ $(function(){
 				<!-- 책리스트 -->
 				<div class="today-recommended-list"
 					id="today-recommended-list-normal">
-					<c:forEach var="homeDto" items="${homeList}">
+					<c:forEach var="homeDto" items="${recomList}">
 						<div class="today-recommended-book" style="opacity: 1;">
 							<div class="book-spotlight" style="opacity: 0;"></div>
 							<div class="book-thumbnail-wrap">

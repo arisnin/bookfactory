@@ -18,7 +18,9 @@ public interface BookDao {
 	List<HomeDto> getHomeBookInfoList();
 	int getFirstCate(String firstCateName);
 	String getFirstCateName(String firstCate);
-	List<NewBookDto> getNewBookList(HashMap<String, Object> map);
+	List<NewBookDto> getNewBookList(HashMap<String, Integer> map);
 	int getNewBookCount(String firstCate);
+	List<HomeDto> getRecomList(int firstCate);
+	int getRecomCount(long book_num);
 
 }

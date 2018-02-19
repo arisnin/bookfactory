@@ -60,9 +60,23 @@ public class BookServiceImp implements BookService {
 		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
 		int firstCate=bookDao.getFirstCate("일반");
 		
+		List<HomeDto> recomList=bookDao.getRecomList(firstCate);
+		
+		if(recomList!=null) {
+			//중복값제거
+			for(int i=0;i<recomList.size();i++) {
+				int recomCount=bookDao.getRecomCount(recomList.get(i).getBook_num());
+				
+				if(recomCount>1) {
+					recomList.remove(i);
+				}
+			}
+		}
+		
 		List<HomeDto> homeList=bookDao.getHomeBookInfoList();
 		//LogAspect.info(LogAspect.logMsg + homeList.toString());
 		
+		mav.addObject("recomList", recomList);
 		mav.addObject("homeList", homeList);
 		mav.addObject("firstCate",firstCate);
 	}
@@ -87,9 +101,10 @@ public class BookServiceImp implements BookService {
 		int endRow=pageNumber*boardSize;
 		int newCount=0;
 
-		HashMap<String, Object> map=new HashMap<String, Object>();
+		HashMap<String, Integer> map=new HashMap<String, Integer>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
+		map.put("firstCate", Integer.parseInt(firstCate));
 		
 		//일반, 나머지카테(단행, 연재 구분)
 		//나중에 리뷰로 또 갈림 리뷰없으면 원래쿼리문 있으면 다른 질의문
@@ -98,6 +113,7 @@ public class BookServiceImp implements BookService {
 			
 			if(newCount>0) {
 				newList=bookDao.getNewBookList(map);
+			
 			}	
 		}else if(bookType=="paper") {
 			

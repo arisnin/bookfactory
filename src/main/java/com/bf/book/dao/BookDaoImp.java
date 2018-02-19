@@ -48,7 +48,7 @@ public class BookDaoImp implements BookDao {
 	}
 
 	@Override
-	public List<NewBookDto> getNewBookList(HashMap<String, Object> map) {
+	public List<NewBookDto> getNewBookList(HashMap<String, Integer> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getNewBookList",map);
 	}
@@ -57,5 +57,17 @@ public class BookDaoImp implements BookDao {
 	public int getNewBookCount(String firstCate) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getNewBookCount", firstCate);
+	}
+
+	@Override
+	public List<HomeDto> getRecomList(int firstCate) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getRecomList", firstCate);
+	}
+
+	@Override
+	public int getRecomCount(long book_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getRecomCount", book_num);
 	}
 }
