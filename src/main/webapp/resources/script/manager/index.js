@@ -12,7 +12,12 @@ if(content == ""){
 
 var content = document.location.href;
 var num = content.lastIndexOf("/");
-content = content.substring(num);
+var num2 = content.indexOf("?");
+if(num2 != -1){
+	content = content.substring(num, num2);
+}else{
+	content = content.substring(num);	
+}
 /* 
  * 로딩시 자동으로 메뉴 선택이 된다 
  * 넣는 순서 ['페이지 주소',큰메뉴순서,작은메뉴순서]

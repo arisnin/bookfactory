@@ -12,6 +12,7 @@ import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
 import com.bf.book.dto.HomeDto;
+import com.bf.book.dto.NewBookDto;
 
 /**
  * @author 박성호
@@ -51,7 +52,7 @@ public class BookDaoImp implements BookDao {
 	}
 
 	@Override
-	public List<BookDto> getNewBookList(HashMap<String, Object> map) {
+	public List<NewBookDto> getNewBookList(HashMap<String, Integer> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getNewBookList",map);
 	}
@@ -78,5 +79,14 @@ public class BookDaoImp implements BookDao {
 	@Override
 	public int updateReview(ReviewDto reviewDto) {
 		return sqlSession.update(namespace + "update-review", reviewDto);
+	}
+	
+	public List<HomeDto> getRecomList(int firstCate) {
+		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getRecomList", firstCate);
+	}
+
+	@Override
+	public int getRecomCount(long book_num) {
+		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getRecomCount", book_num);
 	}
 }

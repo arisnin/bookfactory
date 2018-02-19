@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.member.model.MemberDto;
 import com.bf.myPage.dto.MyPageCashChargeMenuDto;
 import com.bf.myPage.dto.MyPageCashChargeTypeDto;
 import com.bf.myPage.dto.MyPagePointDto;
@@ -211,4 +212,26 @@ public class MyPageController {
 		LogAspect.info("myInfo()");
 		return "myPage/personal/myInfo.my";
 	}
+	
+	
+	/**
+	 * @author : 김동환
+	 * @date : 2018. 2. 19.
+	 * comment : 회원정보 변경 
+	 */
+	@RequestMapping(value="/member/update.do", method=RequestMethod.GET)
+	public ModelAndView myInfoUpdate(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
+		
+		LogAspect.info("마이리디 정보변경");
+		
+		ModelAndView mav = new ModelAndView();
+				
+		mav.addObject("request", request);
+		mav.addObject("memberDto", memberDto);
+		
+		mypageService.myInfoUpdate(mav);
+		
+		return mav;
+	}
+	
 }

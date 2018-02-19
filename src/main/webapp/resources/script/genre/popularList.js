@@ -34,38 +34,38 @@ function extractPopularList() {
 function updatePopularList(dFrag, xhr) {
     var target = document.getElementById("popular-list");
     var itemList = dFrag.querySelectorAll(".popular-li");
-    for (var i=0; i<itemList.length; i++) {
-        let h3 = document.createElement("h3");
-        let p = document.createElement("p");
-        let spanL = document.createElement("span");
-        let spanR = document.createElement("span");
-        let div = document.createElement("div");
-        let img = document.createElement("img");
-        let button = document.createElement("button");
-        h3.className = "popular-list-title";
-        p.className = "popular-list-description";
-        div.className = "popular-thumbnail";
-        button.className = "popular-thumbnail-btn";
-        button.type = "button";
-        img.alt = "img";
-        spanL.style.float = "left";
-        spanR.style.float = "right";
-        // TODO: Insert Data
-        h3.innerHTML = "Book Title";
-        spanL.innerHTML = "Book Description";
-        spanR.innerHTML = "Cate";
-        img.src = "https://kottke.org/plus/misc/images/book-cover-design-03.jpg";
-//        button.onclick = function() {
-//           //alert(i+1);
-//        };
-        div.appendChild(img);
-        p.appendChild(spanL);
-        p.appendChild(spanR);
-        itemList[i].appendChild(h3);
-        itemList[i].appendChild(p);
-        itemList[i].appendChild(div);
-        itemList[i].appendChild(button);
-    }
+//    for (var i=0; i<itemList.length; i++) {
+//        let h3 = document.createElement("h3");
+//        let p = document.createElement("p");
+//        let spanL = document.createElement("span");
+//        let spanR = document.createElement("span");
+//        let div = document.createElement("div");
+//        let img = document.createElement("img");
+//        let button = document.createElement("button");
+//        h3.className = "popular-list-title";
+//        p.className = "popular-list-description";
+//        div.className = "popular-thumbnail";
+//        button.className = "popular-thumbnail-btn";
+//        button.type = "button";
+//        img.alt = "img";
+//        spanL.style.float = "left";
+//        spanR.style.float = "right";
+//        // TODO: Insert Data
+//        h3.innerHTML = "Book Title";
+//        spanL.innerHTML = "Book Description";
+//        spanR.innerHTML = "Cate";
+//        img.src = "https://kottke.org/plus/misc/images/book-cover-design-03.jpg";
+////        button.onclick = function() {
+////           //alert(i+1);
+////        };
+//        div.appendChild(img);
+//        p.appendChild(spanL);
+//        p.appendChild(spanR);
+//        itemList[i].appendChild(h3);
+//        itemList[i].appendChild(p);
+//        itemList[i].appendChild(div);
+//        itemList[i].appendChild(button);
+//    }
     target.appendChild(dFrag);
     collapseMenu();
 }

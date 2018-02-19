@@ -37,4 +37,12 @@ public interface ManagerService {
 
 	public void bookInAuthorCheck(ModelAndView mav);
 
+	public void bookCategory(ModelAndView mav);
+
+	public void bookUploadImg(ModelAndView mav);
+
+	public void bookInsertOk(ModelAndView mav);
+
+	public void bookSearch(ModelAndView mav);
+
 }

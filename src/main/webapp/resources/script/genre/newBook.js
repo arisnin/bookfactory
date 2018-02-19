@@ -18,18 +18,4 @@ $(function(){
 		$(".newBook_booklist_long").css("display","block");
 	});
 	
-	$("#newBook > .bf-service-type-menu > .order-type-list a:eq(0)").click(function(){
-		$("#newBook > .bf-service-type-menu > .order-type-list").find("a").removeClass();
-		$(this).addClass("active");
-	});
-	
-	$("#newBook > .bf-service-type-menu > .order-type-list a:eq(1)").click(function(){
-		$("#newBook > .bf-service-type-menu > .order-type-list").find("a").removeClass();
-		$(this).addClass("active");
-	});
-	
-	$("#newBook > .bf-service-type-menu > .order-type-list a:eq(2)").click(function(){
-		$("#newBook > .bf-service-type-menu > .order-type-list").find("a").removeClass();
-		$(this).addClass("active");
-	});
 });

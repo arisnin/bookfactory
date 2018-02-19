@@ -36,16 +36,23 @@
 		select name from first_cate where num=#{firstCate}
 	</select>
 	
-	<select id="getNewBookList" parameterType="String" resultType="com.bf.manager.dto.BookDto">
+	<select id="getNewBookList" parameterType="java.util.HashMap" resultType="com.bf.book.dto.NewBookDto">
 		<![CDATA[
 			SELECT *
 			FROM (SELECT ROWNUM rnum, A.* 
-			      FROM (SELECT b.*
-			            FROM bookm b, book_category c, first_cate f
-			            WHERE b.book_num=c.book_num
-			            AND c.cate1_num=f.num
-			            AND f.num=#{firstCate}
-			            ORDER BY b.write_date DESC)A
+			      FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", b.intro, b.discount, b.discount2, b.price, b.rental_price
+						FROM bookm b, author au, author il, author tr, publisher pu, (SELECT DISTINCT b.book_num
+                                                                          FROM bookm b, book_category c, first_cate f, second_cate s
+                                                                          WHERE b.book_num=c.book_num
+                                                                          AND c.cate1_num=f.num
+                                                                          AND c.cate2_num=s.num
+                                                                          and c.cate1_num=#{firstCate}) dis
+						WHERE b.author_num=au.num
+            			and dis.book_num=b.book_num
+						AND b.illustrator_num=il.num
+						AND b.translator_num=tr.num
+						AND b.pub_num=pu.pub_num
+						ORDER BY b.write_date DESC)A
 			      )r
 			where r.rnum >= #{startRow} and r.rnum <= #{endRow}
 		]]>
@@ -72,4 +79,24 @@
 	<update id="update-review" parameterType="com.bf.book.dto.ReviewDto">
 		UPDATE review SET CONTENT = #{content}, star_point = #{star_point}, spoiler = #{spoiler} WHERE num = #{num}
 	</update>
+
+	<select id="getRecomList" parameterType="int" resultMap="HomeDto">
+		<![CDATA[
+			SELECT  b.img_path, A.NAME "authorName", b.NAME "bookName", t.NAME "thirdCate", b.book_num, b.price, b.type, b.author_num
+			FROM bookm b, author A, book_category c, third_cate t
+			WHERE b.author_num = A.num 
+			      AND b.book_num=c.book_num
+			      AND c.cate3_num=t.num
+					AND c.cate1_num=#{firstCate}
+			ORDER BY write_date desc
+		]]>
+	</select>
+	
+	<select id="getRecomCount" parameterType="long" resultType="int">
+		SELECT nvl(count(c.cate2_num),0)
+		FROM bookm b, book_category c
+		WHERE b.book_num=c.book_num
+		AND b.book_num =#{book_num}
+	</select>
+	
 </mapper>

@@ -102,6 +102,9 @@
 	padding-top: 0.875rem;
 	padding-left: 6.25rem;
 	font-size: 0.875rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;	
 }
 
 .most-popular-box .popular-list-description {

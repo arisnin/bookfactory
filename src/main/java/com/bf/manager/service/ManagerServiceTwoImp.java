@@ -157,11 +157,12 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 		mav.setViewName("board/list.mg");
 	}
+
 	@Override
 	public void memberList(ModelAndView mav) {
 		Map<String, Object> map = mav.getModel();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		
+
 		String pageNumber = request.getParameter("pageNumber");
 		String word = request.getParameter("search-word");
 		String sDate = request.getParameter("startDate");
@@ -191,22 +192,22 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 		int count = managerDao.memberCount();
 		LogAspect.logger.info(LogAspect.logMsg + count);
-		
+
 		List<MemberDto> memberDtoList = null;
 		if (count > 0) {
 			memberDtoList = managerDao.memberList(starRow, endRow);
 			LogAspect.logger.info(LogAspect.logMsg + memberDtoList);
-		/*	if (startDate != null && endDate != null) {
-				memberDtoList = managerDao.memberSearchDate(starRow, endRow, startDate, endDate);
-				LogAspect.logger.info(LogAspect.logMsg + memberDtoList + startDate + endDate);
-
-			} else if (word != null) {
-				memberDtoList = managerDao.memberSearch(starRow, endRow, word);
-				LogAspect.logger.info(LogAspect.logMsg + memberDtoList);
-			} else {
-				memberDtoList = managerDao.memberList(starRow, endRow);
-				LogAspect.logger.info(LogAspect.logMsg + memberDtoList);
-			}*/
+			/*
+			 * if (startDate != null && endDate != null) { memberDtoList =
+			 * managerDao.memberSearchDate(starRow, endRow, startDate, endDate);
+			 * LogAspect.logger.info(LogAspect.logMsg + memberDtoList + startDate +
+			 * endDate);
+			 * 
+			 * } else if (word != null) { memberDtoList = managerDao.memberSearch(starRow,
+			 * endRow, word); LogAspect.logger.info(LogAspect.logMsg + memberDtoList); }
+			 * else { memberDtoList = managerDao.memberList(starRow, endRow);
+			 * LogAspect.logger.info(LogAspect.logMsg + memberDtoList); }
+			 */
 		}
 		mav.addObject("memberDto", memberDtoList);
 		mav.addObject("pageNumber", currentPage);
@@ -214,27 +215,57 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		mav.addObject("boardSize", boardSize);
 
 		mav.setViewName("member/member.mg");
-		
+
 	}
-	
+
 	@Override
 	public void memberRegister(ModelAndView mav) {
 
 		Map<String, Object> map = mav.getModel();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		MemberDto memberDto = (MemberDto)map.get("memberDto");
-		String img =null;
-			
-		LogAspect.logger.info(LogAspect.logMsg+memberDto);
-		
-		
-	/*	if(memberDto.getGender()=="남") {
-			img ="/projectBookFactory/src/main/webapp/resources/img/manager/man.jpg";
-		}else {
-			img ="/projectBookFactory/src/main/webapp/resources/img/manager/woman.jpg";
-		}*/
-		
-	}
+		String img = null;
 
+		String id = request.getParameter("id");
+		String pageNumber = request.getParameter("pageNumber");
+		LogAspect.logger.info(LogAspect.logMsg + id);
+
+		MemberDto memberDto = managerDao.register(id);
+
+		LogAspect.logger.info(LogAspect.logMsg + memberDto);
+
+		if (memberDto.getGender().equals("male")) {
+			img = "/img/manager/man.jpg";
+		} else if (memberDto.getGender().equals("female")) {
+			img = "/img/manager/woman.jpg";
+		}
+
+		mav.addObject("memberDto", memberDto);
+		mav.addObject("pageNumber",pageNumber);
+		mav.addObject("img", img);
+		mav.setViewName("member/register.mg");
+	}
+		@Override
+		public void memberRegisterOk(ModelAndView mav) {
+			Map<String, Object> map = mav.getModel();
+			HttpServletRequest request = (HttpServletRequest) map.get("request");
+			MemberDto memberDto = (MemberDto)map.get("memberDto");
+			String pageNumber =request.getParameter("pageNumber");
+			
+			LogAspect.logger.info(LogAspect.logMsg + memberDto);
+			LogAspect.logger.info(LogAspect.logMsg + pageNumber);
+			memberDto.setId(request.getParameter("id"));
+			memberDto.setName(request.getParameter("name"));
+			memberDto.setEmail(request.getParameter("email"));
+			memberDto.setPassword(request.getParameter("password"));
+			memberDto.setRole(request.getParameter("role"));
+			
+			int check = managerDao.registerOk(memberDto);
+			LogAspect.logger.info(LogAspect.logMsg + check);
+			
+			mav.addObject("check", check);
+			mav.addObject("pageNumber",pageNumber);
+			mav.addObject("memberDto",memberDto);
+			mav.setViewName("member/registerOk.mg");
+		}
 
 }

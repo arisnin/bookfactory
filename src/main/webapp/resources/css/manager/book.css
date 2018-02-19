@@ -86,12 +86,17 @@ html{font-size: 16px !important;}
 }
 .b_in_img > label,.b_in_img > button{
 	position: relative;
-	top: -15rem;
 }
-.b_in_img > img{
+.b_in_img  img{
 	border: 1px solid rgb(169, 169, 169);
 	background-color: white;
-	width: 11.6rem;
+	max-width: 11.6rem;
+}
+.b_in_img > div{
+	max-width: 11.6rem;
+    position: relative;
+    left: 7rem;
+    top: -1rem;
 }
 
 .b_in_content .b_in_textarea > label, .a_in_textarea > label {
@@ -257,3 +262,10 @@ html{font-size: 16px !important;}
 	border-bottom: 1px solid silver;
 }
 
+#b_cate_ok{
+	left: 0rem !important;
+}
+input[type=file]{
+	position: absolute;
+	display: none;
+}

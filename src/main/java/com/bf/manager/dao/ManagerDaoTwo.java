@@ -22,6 +22,7 @@ public interface ManagerDaoTwo {
     //member
     public int memberCount();
     public List<MemberDto> memberList(int starRow,int endRow);
- 
+    public MemberDto register(String id);
+    public int registerOk(MemberDto memberDto);
 
 }

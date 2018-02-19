@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -6,9 +7,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>책 상세보기</title>
 <c:set var="root" value="${pageContext.request.contextPath}" />
-<link rel="stylesheet" type="text/css" href="${root}/icon/css/fontello.css">
-<link rel="stylesheet" type="text/css" href="${root}/css/basic/reset.css">
-<link rel="stylesheet" type="text/css" href="${root}/css/basic/commons.css">
+<link rel="stylesheet" type="text/css"
+	href="${root}/icon/css/fontello.css">
+<link rel="stylesheet" type="text/css"
+	href="${root}/css/basic/reset.css">
+<link rel="stylesheet" type="text/css"
+	href="${root}/css/basic/commons.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/book/plus.css">
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/basic/commons.js"></script>
@@ -26,7 +30,9 @@
 	<div class="plus_All">
 		<div id="content_head">
 			<div class="head_left">
-				<img src="${root}/img/example/example1.PNG"> <a href="${root}/book/example.do"> <span class="icon-book-open"></span> <span>미리보기</span>
+				<img src="${root}/img/example/example1.PNG"> <a
+					href="${root}/book/example.do"> <span class="icon-book-open"></span>
+					<span>미리보기</span>
 				</a>
 			</div>
 
@@ -34,7 +40,7 @@
 				<!-- child(1) -->
 				<div class="category">
 					<!-- 주의! 카테고리는 중복이 가능하다. 예, '소설 > 해외소설 , 소설 > SF소설'  -->
-					<div class="category-item">			
+					<div class="category-item">
 						<span class="main" onclick="location.href='${root}/category.do'">메인1</span>
 						<span class="sub" onclick="location.href='${root}/category.do'">서브1</span>
 					</div>
@@ -46,33 +52,34 @@
 						<span class="main" onclick="location.href='${root}/category.do'">메인3</span>
 						<span class="sub" onclick="location.href='${root}/category.do'">서브3</span>
 					</div>
-					
+
 				</div>
 				<!-- child(2) -->
 				<div class="main-title">책 제목 입력</div>
 				<!-- child(3) -->
 				<div class="sub-title">부 제목 입력</div>
-				
+
 				<!-- child(4) -->
 				<div class="author-info">
 					<!-- 소설, 판타지, 만화 등 종류에 따라서 글(원작자)만 있는 경우와 그림(일러스트레이터)가 있는 경우가 있음 -->
 					<!-- 각 겨우마다 이름 뒤에 '저자' 또는 '그림' 이라는 단어가 붙음. 글과 그림이 동일인물일 경우는 '글/그림' 이라는 단어가 붙음 -->
 					<!-- 글/그림 동일이물일 경우는 하나를 'hidden-block'처리하고 또 하나에 'author'와 'illustrator'를 동시에 추가한다 -->
 					<!-- 필요없는 경우는 class 속성에 'hidden-block' 을 추가 -->
-					<span class="author "><a href="${root}/author.do">저자이름</a></span>
-					<span class="illustrator "><a href="${root}/author.do">일러스트레이터이름</a></span>
+					<span class="author "><a href="${root}/author.do">저자이름</a></span> <span
+						class="illustrator "><a href="${root}/author.do">일러스트레이터이름</a></span>
 				</div>
-				
+
 				<!-- child(5) -->
-				<div class="content-star-rate">					
-					<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
-					<span class="count-field">100명</span>
+				<div class="content-star-rate">
+					<span class="star-icon-field material-icons"></span><span
+						class="non-star-icon-field material-icons"></span> <span
+						class="count-field">100명</span>
 				</div>
-				
+
 				<!-- child(6) -->
 				<div class="event">
-					<span class="icon-clock"></span>
-					<span class="period">01월 24일 (수) 12시 ~ 02월 22일 (목)</span>
+					<span class="icon-clock"></span> <span class="period">01월
+						24일 (수) 12시 ~ 02월 22일 (목)</span>
 				</div>
 				<!--  -->
 				<ul class="book-info">
@@ -86,7 +93,8 @@
 
 					<li><span>출간정보</span>
 						<ul>
-							<li><p style="border-right: 0px;">2017년 10월 27일 전자책, 종이책 동시출간</p></li>
+							<li><p style="border-right: 0px;">2017년 10월 27일 전자책, 종이책
+									동시출간</p></li>
 						</ul></li>
 
 					<li><span>지원기기</span>
@@ -102,7 +110,7 @@
 							<li><span class="icon-headphones"></span>듣기가능</li>
 						</ul></li>
 				</ul>
-				
+
 				<div class="price-box">
 					<!-- 'box-row'에 'hidden-block'추가하면 감추기 가능 -->
 					<div class="box-row box-rental ">
@@ -120,25 +128,53 @@
 								<span>종이책정가</span> <span class="paper">15000원</span>
 							</div>
 							<div>
-								<span>전자책정가</span> <span class="ebook">10000원<span class="sail">34</span></span>
+								<span>전자책정가</span> <span class="ebook">10000원<span
+									class="sail">34</span></span>
 							</div>
 							<div>
-								<span>판매가</span> <span class="sell">9000원<span class="sail">10</span></span>
+								<span>판매가</span> <span class="sell">9000원<span
+									class="sail">10</span></span>
 							</div>
 						</div>
 					</div>
 				</div>
+				<script>
+					function cartInsert(bookNum,root) {
+						var url = root+"/cartInsert.do?book_num="+bookNum;
+						$.get(url, function(check) {
+							if(check==1){
+								alert("카트에 저장되었습니다.");
+							}else{
+								alert("중복된 도서목록이 있습니다.");
+							}
+						});
+					}
+					
+					function wishInsert(bookNum, root){
+						var url = root+"/wishInsert.do?book_num="+bookNum;
+						$.get(url, function(check) {
+							if(check==1){
+								alert("내 위시리스트에 저장되었습니다.");
+							}else{
+								alert("중복된 도서목록이 있습니다.");
+							}
+						});
+					}
+	
+				</script>
 
 				<div class="head_bottom">
 					<ol>
 						<li><button type="button">
-								<span class="icon-heart"></span>
+								<span class="icon-heart" onclick="wishInsert(3,'${root}')"></span>
 							</button></li>
 						<li><button type="button">
-								<span class="icon-basket"></span>
+								<span class="icon-basket" onclick="cartInsert(101,'${root}')"></span>
 							</button></li>
+
 						<li><button type="button">
-								<span class="icon-gift"></span>
+								<span class="icon-gift"
+									onclick="javascript:location.href='${root}/present.do?book_num=101'"></span>
 							</button></li>
 						<li><button type="button">구매하기</button></li>
 					</ol>
@@ -155,7 +191,8 @@
 						aaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaa<br>aaaaaaaaaaa<br>aaaaaaaaaaaaa<br>aaaaaaaaaaaa<br>aaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaa
 					</div>
 					<button type="button">
-						펼쳐보기<i class="material-icons">arrow_drop_down</i><i class="material-icons">arrow_drop_up</i>
+						펼쳐보기<i class="material-icons">arrow_drop_down</i><i
+							class="material-icons">arrow_drop_up</i>
 					</button>
 				</div>
 			</div>
@@ -169,7 +206,8 @@
 						aaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaa<br>aaaaaaaaaaa<br>aaaaaaaaaaaaa<br>aaaaaaaaaaaa<br>aaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaa
 					</div>
 					<button type="button">
-						펼쳐보기<i class="material-icons">arrow_drop_down</i><i class="material-icons">arrow_drop_up</i>
+						펼쳐보기<i class="material-icons">arrow_drop_down</i><i
+							class="material-icons">arrow_drop_up</i>
 					</button>
 				</div>
 			</div>
@@ -198,11 +236,12 @@
 							<li><span>국적</span><span>미국</span></li>
 							<li><span>출생</span><span>1884년</span></li>
 							<li><span>학력</span><span>보스턴 대학교 학사</span></li>
-							<li><span>경력</span><span>Infinity Squared Media LLC 설립자</span></li>
+							<li><span>경력</span><span>Infinity Squared Media LLC
+									설립자</span></li>
 						</ol>
 						<div class="profile_date">
-							<span class="update">2018.02.06</span>
-							<input class="bf-button bf-white-btn" type="button" value="정보수정요청" />
+							<span class="update">2018.02.06</span> <input
+								class="bf-button bf-white-btn" type="button" value="정보수정요청" />
 						</div>
 						<div class="profile_masterpiece">
 							<div>
@@ -219,7 +258,9 @@
 										<li class="mf-book-item">
 											<div class="mf-book-thumbnail">
 												<div class="mf-book-thumbnail-image">
-													<img class="" src="//misc.ridibooks.com/cover/111000138/large" alt="image" />
+													<img class=""
+														src="//misc.ridibooks.com/cover/111000138/large"
+														alt="image" />
 												</div>
 											</div>
 											<div class="mf-book-metadata">
@@ -229,8 +270,9 @@
 												</p>
 												<p class="book-metadata-translator"></p>
 												<div class="content-star-rate">
-													<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
-													<span class="count-field"> 9999명</span>
+													<span class="star-icon-field material-icons"></span><span
+														class="non-star-icon-field material-icons"></span> <span
+														class="count-field"> 9999명</span>
 												</div>
 											</div>
 										</li>
@@ -238,7 +280,8 @@
 								</ul>
 							</div>
 							<!-- 대표저서가 5권 이하일 때는 버튼을 'hidden-block' 처리 해야함 -->
-							<a class="bf-button bf-white-btn bf-animated-btn" href="${root}/author.do">출간작 전체보기</a>
+							<a class="bf-button bf-white-btn bf-animated-btn"
+								href="${root}/author.do">출간작 전체보기</a>
 						</div>
 					</div>
 				</div>
@@ -253,7 +296,8 @@
 						aaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaa<br>aaaaaaaaaaa<br>aaaaaaaaaaaaa<br>aaaaaaaaaaaa<br>aaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaa
 					</div>
 					<button type="button">
-						펼쳐보기<i class="material-icons">arrow_drop_down</i><i class="material-icons">arrow_drop_up</i>
+						펼쳐보기<i class="material-icons">arrow_drop_down</i><i
+							class="material-icons">arrow_drop_up</i>
 					</button>
 				</div>
 			</div>
@@ -267,7 +311,8 @@
 						aaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaa<br>aaaaaaaaaaa<br>aaaaaaaaaaaaa<br>aaaaaaaaaaaa<br>aaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaa
 					</div>
 					<button type="button">
-						펼쳐보기<i class="material-icons">arrow_drop_down</i><i class="material-icons">arrow_drop_up</i>
+						펼쳐보기<i class="material-icons">arrow_drop_down</i><i
+							class="material-icons">arrow_drop_up</i>
 					</button>
 				</div>
 			</div>

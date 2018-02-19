@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bf.manager.ManagerMemberMapper">
+
+    <select id="count" resultType="Integer">
+        select count(*) from member
+    </select>
+    <select id="list" parameterType="java.util.Map"
+        resultType="com.bf.manager.dto.MemberDto">
+        <![CDATA[
+        select * from (select rownum rnum, a.* from(
+            select * from member) a)
+            where rnum >=#{startRow} and rnum <=#{endRow}
+    ]]>
+    </select>
+    <select id="register" resultType="com.bf.manager.dto.MemberDto" parameterType="String" >
+    	select * from member where id = #{id}
+    </select>
+    <update id="registerOk" parameterType="com.bf.manager.dto.MemberDto">
+    	update member set name =#{name},password =#{password}, email =#{email},role=#{role}
+    	where id =#{id}
+    </update>
+</mapper>

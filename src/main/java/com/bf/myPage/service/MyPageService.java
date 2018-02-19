@@ -11,4 +11,6 @@ public interface MyPageService {
 
 	void ridiCashOk(ModelAndView mav);
 
+	void myInfoUpdate(ModelAndView mav);
+
 }

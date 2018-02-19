@@ -32,13 +32,13 @@
 			<!-- li는 한 블럭 라인? / div로 싹다 고치기 -->
 						
 			<ul class="notice_list_list">
-				<a href="${root }/notice/content.jsp">
+				<a href="${root }/notice/content.do">
 				<li>2018.01.01</li>
 				<li>[안내] 마케팅 수신 동의 설정 오류로 인한 쿠폰 발급 안내</li>
 				</a>
 			</ul>
 			<ul class="notice_list_list">
-				<a href="${root }/notice/content.jsp">
+				<a href="${root }/notice/content.do">
 				<li>2018.01.01</li>
 				<li>[업데이트] 안드로이드 앱 v8.8.5</li>
 				</a>

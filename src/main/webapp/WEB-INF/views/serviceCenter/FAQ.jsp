@@ -20,15 +20,14 @@
 <body>
 	
 
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />
-
+	<jsp:include page="./main_header.jsp" />
 	
 	<div class="service_FAQ_home">
 
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
 				<span> <a
-					href="${root }/serviceCenter/main.jsp">리디북스 고객센터</a>
+					href="${root }/serviceCenter/main.do">리디북스 고객센터</a>
 				</span>
 				<span>></span><span>문의등록</span>
 			</div>
@@ -53,11 +52,11 @@
 			</div>
 			<div class="service_FAQ_home_content_category">
 				<a class="bf-button"
-					href="${root }/serviceCenter/inquriy.jsp">리디북스 문의</a>
+					href="${root }/serviceCenter/inquriy.do">리디북스 문의</a>
 				<a class="bf-button"
-					href="${root }/serviceCenter/service_suggestion.jsp">서비스
+					href="${root }/serviceCenter/service_suggestion.do">서비스
 					제안</a> <a class="bf-button"
-					href="${root }/serviceCenter/book_suggestion.jsp">도서
+					href="${root }/serviceCenter/book_suggestion.do">도서
 					제안</a>
 			</div>
 		</div>
