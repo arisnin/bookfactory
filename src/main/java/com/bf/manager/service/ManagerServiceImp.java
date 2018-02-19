@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
@@ -187,6 +186,7 @@ public class ManagerServiceImp implements ManagerService {
 		mav.addObject("firstCateList", firstCateList);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void bookCateOne(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
@@ -197,19 +197,25 @@ public class ManagerServiceImp implements ManagerService {
 		List<BookSecondCateDto> secondCateList = managerDao.bookCateOne(name);
 		LogAspect.logger.info(LogAspect.logMsg + secondCateList);
 		
-		String secondNameList = "";
+		JSONObject jsonList = new JSONObject();
+		JSONArray jsonArr = new JSONArray();
 		for(int i=0;i<secondCateList.size();i++) {
-			secondNameList += secondCateList.get(i).getName() + ",";
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("num", secondCateList.get(i).getNum());
+			jsonObj.put("name", secondCateList.get(i).getName());
+			
+			jsonArr.add(jsonObj);
+			jsonList.put("cate1", jsonArr);
 		}
-		
 		try {
 			response.setContentType("application/text;charset=utf-8");
-			response.getWriter().print(secondNameList);
+			response.getWriter().print(jsonList.toJSONString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void bookCateTwo(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
@@ -220,14 +226,20 @@ public class ManagerServiceImp implements ManagerService {
 		List<BookThirdCateDto> thirdCateList = managerDao.bookCateTwo(name);
 		LogAspect.logger.info(LogAspect.logMsg + thirdCateList);
 		
-		String thirdNameList = "";
+		JSONObject jsonList = new JSONObject();
+		JSONArray jsonArr = new JSONArray();
 		for(int i=0;i<thirdCateList.size();i++) {
-			thirdNameList += thirdCateList.get(i).getName() + ",";
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("num", thirdCateList.get(i).getNum());
+			jsonObj.put("name", thirdCateList.get(i).getName());
+			
+			jsonArr.add(jsonObj);
+			jsonList.put("cate2", jsonArr);
 		}
 		
 		try {
 			response.setContentType("application/text;charset=utf-8");
-			response.getWriter().print(thirdNameList);
+			response.getWriter().print(jsonList.toJSONString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -826,7 +838,7 @@ public class ManagerServiceImp implements ManagerService {
 				jsonArr.add(jsonObj);
 				jsonList.put("author", jsonArr);
 			}
-		} 
+		}
 		
 		try {
 			System.out.println(jsonList.toJSONString());
@@ -836,4 +848,10 @@ public class ManagerServiceImp implements ManagerService {
 		}
 	}
 
+	@Override
+	public void bookCategory(ModelAndView mav) {
+		List<BookFirstCateDto> firstCateList = managerDao.getFirstCate();
+		mav.addObject("firstCateList", firstCateList);
+	}
+	
 }

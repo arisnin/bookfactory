@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +42,12 @@
 					<ul>
 						<c:forEach items="${pubList}" var="publisher">
 							<li>
-								<span><a href="#${publisher.pub_num}">${publisher.name}</a></span>
+								<span>
+									<a href="#${publisher.pub_num}" id="${publisher.pub_num}">
+									 	<c:if test="${fn:length(publisher.name) > 20}"> ${fn:substring(publisher.name,0,20)}...</c:if>
+									 	<c:if test="${fn:length(publisher.name) < 20}"> ${publisher.name}</c:if>
+									 </a>
+								</span>
 								<span>${publisher.url}</span>
 								<span><fmt:formatDate value="${publisher.join_date}" pattern="yyyy-MM-dd"/></span>
 							</li>
@@ -94,8 +100,9 @@
 		});
 	
 		$(".p_se_list a").click(function(){
-			var value = $(this).text();
-			$(opener.document).find("input[name=publisher]").val(value);
+			var a = $(this);
+			$(opener.document).find("input[name=publisher]").val(a.text().trim());
+			$(opener.document).find("input[name=pub_num]").val(a.attr("id"));
 			self.close();
 		});
 	</script>
