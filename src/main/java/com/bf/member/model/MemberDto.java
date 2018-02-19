@@ -23,11 +23,12 @@ public class MemberDto implements Serializable {
 	private Date last_join;
 	private String phone;
 	private String role;
+	private String name;
 
 	public MemberDto() {
 	}
 
-	public MemberDto(int num, String id, String password, String email, String gender, Date register_date, Date birthday, String marketing_check, String ip, Date last_join, String phone, String role) {
+	public MemberDto(int num, String id, String password, String email, String gender, Date register_date, Date birthday, String marketing_check, String ip, Date last_join, String phone, String role, String name) {
 		this.num = num;
 		this.id = id;
 		this.password = password;
@@ -40,6 +41,7 @@ public class MemberDto implements Serializable {
 		this.last_join = last_join;
 		this.phone = phone;
 		this.role = role;
+		this.name = name;
 	}
 
 	public int getNum() {
@@ -138,9 +140,16 @@ public class MemberDto implements Serializable {
 		this.role = role;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String toString() {
-		return "MemberDto [num=" + num + ", id=" + id + ", password=" + password + ", email=" + email + ", gender=" + gender + ", register_date=" + register_date + ", birthday=" + birthday + ", marketing_check=" + marketing_check + ", ip=" + ip
-				+ ", last_join=" + last_join + ", phone=" + phone + ", role=" + role + "]";
+		return "MemberDto [num=" + num + ", id=" + id + ", password=" + password + ", email=" + email + ", gender=" + gender + ", register_date=" + register_date + ", birthday=" + birthday + ", marketing_check=" + marketing_check + ", ip=" + ip + ", last_join=" + last_join + ", phone=" + phone + ", role=" + role + ", name=" + name + "]";
 	}
 }
