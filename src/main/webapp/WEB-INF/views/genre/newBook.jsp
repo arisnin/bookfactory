@@ -170,7 +170,7 @@ $(function(){
 							<li class="next"><a href="${root}/new-book.do?pageNumber=${startPage+pageBlock}&firstCate=${firstCate}"><span></span></a></li>
 						</c:if>
 						
-						<li class="last"><a href="${root}/new-book.do?pageNumber=${endPage}&firstCate=${firstCate}"><span></span></a></li>
+						<li class="last"><a href="${root}/new-book.do?pageNumber=${pageCount}&firstCate=${firstCate}"><span></span></a></li>
 					</c:if>
 				</ul>
 			</nav>

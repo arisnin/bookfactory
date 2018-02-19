@@ -40,19 +40,15 @@
 		<![CDATA[
 			SELECT *
 			FROM (SELECT ROWNUM rnum, A.* 
-			      FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", tc.NAME "third_cate_name", b.intro, b.discount, b.discount2, b.price, b.rental_price
-						FROM bookm b, book_category c, first_cate f, author au, author il, author tr, publisher pu, third_cate tc
-						WHERE b.book_num=c.book_num
-						AND c.cate1_num=f.num
-						AND b.author_num=au.num
+			      FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", b.intro, b.discount, b.discount2, b.price, b.rental_price
+						FROM bookm b, author au, author il, author tr, publisher pu
+						WHERE b.author_num=au.num
 						AND b.illustrator_num=il.num
 						AND b.translator_num=tr.num
 						AND b.pub_num=pu.pub_num
-						and c.cate3_num=tc.num
-						and f.num=#{firstCate}
 						ORDER BY b.write_date DESC)A
 			      )r
-			where r.rnum >= #{startRow} and r.rnum <= #{endRow}
+			where r.rnum >= #{startRow} and r.rnum <= #{endRow};
 		]]>
 	</select>
 	
