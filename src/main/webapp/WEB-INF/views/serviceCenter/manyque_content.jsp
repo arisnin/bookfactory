@@ -22,18 +22,17 @@
 <body>
 
 
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />
-
+	<jsp:include page="./main_header.jsp" />
 
 	<div class="serviceCenter_manyque_cn">
 
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
 				<span><a
-					href="${root }/serviceCenter/main.jsp">리디북스 고객센터</a>
+					href="${root }/serviceCenter/main.do">리디북스 고객센터</a>
 				</span>
 				<span>></span>
-				<a href="${root }/serviceCenter/manyque.jsp">리디북스 자주 묻는 질문</a>
+				<a href="${root }/serviceCenter/manyque.do">리디북스 자주 묻는 질문</a>
 			</div>
 
 
@@ -56,7 +55,7 @@
 				
 					<div class="serviceCenter_manyque_cn_cn_left_title">이 섹션의 문서</div>
 					<ul>
-						<li><a href="${root }/serviceCenter/manyque_content.jsp">아이디(ID), 비밀번호를 잊어버렸어요. 어떻게 확인하나요?</a></li>
+						<li><a href="${root }/serviceCenter/manyque_content.do">아이디(ID), 비밀번호를 잊어버렸어요. 어떻게 확인하나요?</a></li>
 						<li>다운받은 책이 파일이 손상되었다며 열리지 않아요!</li>
 						<li>DRM문제로 책을 읽을 수 없습니다(104)</li>
 						<li>책은 어떻게 읽나요? - PC뷰어 이용 방법</li>
@@ -70,8 +69,7 @@
 			<div class="serviceCenter_manyque_cn_cn_right">
 				<div class="serviceCenter_manyque_cn_title">
 						<h2>아이디(ID), 비밀번호를 잊어버렸어요. 어떻게 확인하나요?</h2>
-				</div>
-		
+				</div>		
 						<div>
 						<p>홈페이지에서 로그인버튼을 눌러 [아이디 찾기, 비밀번호 찾기]메뉴를 이용하면 확인이 가능합니다.</p>
 						

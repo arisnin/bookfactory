@@ -1,4 +1,9 @@
 -- ----------------------------------------------------------------------------------------
+-- 테스트용 아이디. user(일반 계정), admin(관리자 계정)
+INSERT INTO MEMBER (num,ID,PASSWORD,email,gender,register_date,birthday,marketing_check,ip,last_join,phone,ROLE,NAME) VALUES (1,'admin','1234','manager@bf.com','male',SYSDATE,to_date('87/07/02','RR/MM/DD'),'yes','0.0.0.1',to_date('18/02/16','RR/MM/DD'),'010-1111-1111','role_admin','전상헌');
+INSERT INTO MEMBER (num,ID,PASSWORD,email,gender,register_date,birthday,marketing_check,ip,last_join,phone,name) VALUES (2,'user','1234','user@bf.com','male',SYSDATE,to_date('87/07/02','RR/MM/DD'),'yes','0.0.0.1',to_date('18/02/16','RR/MM/DD'),'010-2222-2222','박성호');
+
+-- ----------------------------------------------------------------------------------------
 -- 테이블과 시퀀스를 다 생성후 밑의 쿼리로 국가를 추가할것
 SET define OFF;
 Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('GH','가나','GHANA');
@@ -249,6 +254,6 @@ Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('HK','홍�
 Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('NOT','없음','NOT');
 Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('ATR','오스트레일리아','Australia');
 Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('BVI','영국령 버진 아일랜드','British Virgin Islands');
-Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('NAN','네덜란드령 안틸레스','Nederlandse Antillen');
-
+Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('NAN','네덜란드령 안틸레스','Nederlandse Antillen');	
+Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('BLS','벨라루스','Belarus');
 

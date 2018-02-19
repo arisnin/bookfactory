@@ -22,12 +22,13 @@
 </head>
 <body>
 
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />	
+	<jsp:include page="./main_header.jsp" />
 	
+		
 	<div class="service_FAQ_home_header">
 		<div class="service_FAQ_home_header_left">
 			<span>
-				<a href="${root }/serviceCenter/main.jsp">리디북스 고객센터</a>
+				<a href="${root }/serviceCenter/main.do">리디북스 고객센터</a>
 			</span>
 			<span>></span><span>문의등록</span>
 		</div>

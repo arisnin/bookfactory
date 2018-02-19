@@ -12,13 +12,7 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/genre/home.css" />
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/basic/commons.js"></script>
-<script type="text/javascript">
-$(function(){
-	//해당태그 밑에 밑줄표시
-	$(".sub_cate_element > span").removeClass();
-	$(".hw_sub_cate li").eq(0).children("span").addClass("activeBar");
-});
-</script>
+<script type="text/javascript" src="${root}/script/genre/normal.js"></script>
 </head>
 <body>
 	<!-- 책상세보기로 요청 방식 :  onclick="location.href='${root}/detail.do'"
@@ -40,9 +34,9 @@ $(function(){
 			<div class="bf-service-type-menu">
 				<!-- li 요소에 diamond class를 추가하면 구분 아이콘 변경 -->
 				<ul class="order-type-list">
-					<li class="diamond"><a class="active" href="${root}/best-sell.do?catenum=${catenum}&bookType=paper&bestSeller=weekBest">주간 베스트셀러</a></li>
-					<li class="diamond"><a href="${root}/best-sell.do?catenum=${catenum}&bookType=paper&bestSeller=monthBest">월간 베스트셀러</a></li>
-					<li class="diamond"><a href="${root}/best-sell.do?catenum=${catenum}&bookType=paper&bestSeller=steady">스테디셀러</a></li>
+					<li class="diamond"><a class="active" href="${root}/best-sell.do?firstCate=${firstCate}&bestSeller=weekBest">주간 베스트셀러</a></li>
+					<li class="diamond"><a href="${root}/best-sell.do?firstCate=${firstCate}&bestSeller=monthBest">월간 베스트셀러</a></li>
+					<li class="diamond"><a href="${root}/best-sell.do?firstCate=${firstCate}&bestSeller=steady">스테디셀러</a></li>
 				</ul>
 			</div>
 		</div>

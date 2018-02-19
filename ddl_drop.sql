@@ -33,6 +33,7 @@ DROP TABLE qna_cate1;
 
 DROP TABLE cash_charge;
 DROP TABLE cash_charge_type;
+DROP TABLE CASH_CHARGE_MENU;
 DROP TABLE point;
 DROP TABLE MEMBER;
 -- MEMBER DROP

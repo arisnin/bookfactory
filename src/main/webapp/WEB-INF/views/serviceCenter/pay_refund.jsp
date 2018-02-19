@@ -22,15 +22,14 @@
 <body>
 
 
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />
-
+	<jsp:include page="./main_header.jsp" />
 
 	<div class="service_information">
 
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
 				<span> <a
-					href="${root }/serviceCenter/main.jsp">리디북스 고객센터</a></span>
+					href="${root }/serviceCenter/main.do">리디북스 고객센터</a></span>
 					<span>></span>
 									
 					결제 / 환불
@@ -57,7 +56,7 @@
 				</div>
 
 				<div class="service_information_list">
-					<div><a href="${root }/serviceCenter/pay_refund_content.jsp">리디캐시와 리디포인트의 유효기간이 따로 있나요?</a></div>
+					<div><a href="${root }/serviceCenter/pay_refund_content.do">리디캐시와 리디포인트의 유효기간이 따로 있나요?</a></div>
 					<div>리디캐시와 리디포인트는 무엇이 다른가요?</div>
 					<div>리디캐시를 환불 받고 싶습니다.</div>
 					<div>리디캐시란 무엇인가요?</div>					

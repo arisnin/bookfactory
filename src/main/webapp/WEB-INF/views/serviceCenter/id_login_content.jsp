@@ -22,17 +22,16 @@
 <body>
 
 
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />
-
+	<jsp:include page="./main_header.jsp" />
 
 	<div class="service_information_cn">
 
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
 				<span>
-				<a href="${root }/serviceCenter/main.jsp">리디북스 고객센터</a></span>
+				<a href="${root }/serviceCenter/main.do">리디북스 고객센터</a></span>
 					<span>></span>
-					<a href="${root }/serviceCenter/id_login.jsp">아이디 / 로그인</a>
+					<a href="${root }/serviceCenter/id_login.do">아이디 / 로그인</a>
 				
 			</div>
 
@@ -56,7 +55,7 @@
 				
 					<div class="service_information_cn_cn_left_title">이 섹션의 문서</div>
 					<ul>
-						<li><a href="${root }/serviceCenter/id_login_content.jsp">회원가입은 어떻게 하나요? 회원가입을 꼭 해야하나요?</a></li>
+						<li><a href="${root }/serviceCenter/id_login_content.do">회원가입은 어떻게 하나요? 회원가입을 꼭 해야하나요?</a></li>
 						<li>아이디(ID), 비밀번호를 잊어버렸어요.</li>
 						<li>회원정보 변경은 어떻게 하나요?</li>
 						<li>아이디(ID)나 이름 정보 변경이 가능한가요?</li>
