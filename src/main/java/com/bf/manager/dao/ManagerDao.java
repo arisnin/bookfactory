@@ -3,9 +3,9 @@ package com.bf.manager.dao;
 import java.util.List;
 
 import com.bf.manager.dto.AuthorDto;
-import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookFirstCateDto;
+import com.bf.manager.dto.BookSearchDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
@@ -85,15 +85,17 @@ public interface ManagerDao {
 
 	public List<AuthorDto> checkBookAuthor(String name);
 
-	public List<BookDto> getBookList(int startRow, int endRow);
+	public List<BookSearchDto> getBookSearchList(int startRow, int endRow);
 
-	public List<BookDto> getBookList(String searchWord, int startRow, int endRow);
+	public List<BookSearchDto> getBookSearchList(String searchWord, int startRow, int endRow);
 
 	public AuthorDto getAuthor(int author_num);
 
 	public int getBookCount();
 
 	public PublisherDto getPublisher(int pub_num);
+
+	public int getBookCount(String searchWord);
 
 
 }

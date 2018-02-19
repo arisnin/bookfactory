@@ -32,6 +32,7 @@ import com.bf.manager.dao.ManagerDao;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookFirstCateDto;
+import com.bf.manager.dto.BookSearchDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
@@ -200,7 +201,7 @@ public class ManagerServiceImp implements ManagerService {
 	public void bookSearch(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		
-		String searchWord = request.getParameter("search-word");
+		String searchWord = request.getParameter("searchWord");
 		String pageNumber = request.getParameter("pageNumber");
 		if(pageNumber == null) pageNumber = "1";
 		
@@ -209,33 +210,26 @@ public class ManagerServiceImp implements ManagerService {
 		int startRow = (currentPage - 1) * boardSize + 1;
 		int endRow = currentPage * boardSize;
 		
-		List<BookDto> bookList = null;
+		List<BookSearchDto> bookList = null;
+		int count = 0;
 		if(searchWord == null) {
-			bookList = managerDao.getBookList(startRow,endRow);
+			bookList = managerDao.getBookSearchList(startRow,endRow);
+			count = managerDao.getBookCount();
 		}else {
-			bookList = managerDao.getBookList(searchWord,startRow,endRow);
+			bookList = managerDao.getBookSearchList(searchWord,startRow,endRow);
+			count = managerDao.getBookCount(searchWord);
 		}
-		
-		HashMap<Integer,AuthorDto> authorMap = new HashMap<Integer, AuthorDto>();
-		for(int i=0;i<bookList.size();i++) {
-			AuthorDto authorDto = managerDao.getAuthor(bookList.get(i).getAuthor_num());
-			authorMap.put(bookList.get(i).getAuthor_num(), authorDto);
-		}
-		
-		HashMap<Integer,PublisherDto> pubMap = new HashMap<Integer, PublisherDto>();
-		for(int i=0;i<bookList.size();i++) {
-			PublisherDto publisherDto = managerDao.getPublisher(bookList.get(i).getPub_num());
-			pubMap.put(bookList.get(i).getPub_num(), publisherDto);
-		}
-		
-		int count = managerDao.getBookCount();
 		
 		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("boardSize", boardSize);
 		mav.addObject("count", count);
 		mav.addObject("bookList", bookList);
-		mav.addObject("authorMap", authorMap);
-		mav.addObject("pubMap", pubMap);
+		mav.addObject("searchWord", searchWord);
+	}
+	
+	@Override
+	public void bookUpdate(ModelAndView mav) {
+		// TODO Auto-generated method stub
 	}
 	
 	@SuppressWarnings("unchecked")

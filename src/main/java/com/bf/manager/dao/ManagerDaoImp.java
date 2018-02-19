@@ -2,16 +2,16 @@ package com.bf.manager.dao;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookCategoryDto;
 import com.bf.manager.dto.BookDto;
-import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookFirstCateDto;
+import com.bf.manager.dto.BookSearchDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
@@ -113,25 +113,30 @@ public class ManagerDaoImp implements ManagerDao {
 	}
 	
 	@Override
-	public List<BookDto> getBookList(int startRow, int endRow) {
+	public List<BookSearchDto> getBookSearchList(int startRow, int endRow) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
-		return sqlSession.selectList("com.bf.mapper.BookMapper.getBookList1", map);
+		return sqlSession.selectList("com.bf.mapper.BookMapper.getBookSearchList1", map);
 	}
 	
 	@Override
-	public List<BookDto> getBookList(String searchWord, int startRow, int endRow) {
+	public List<BookSearchDto> getBookSearchList(String searchWord, int startRow, int endRow) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		map.put("searchWord", searchWord);
-		return sqlSession.selectList("com.bf.mapper.BookMapper.getBookList2", map);
+		return sqlSession.selectList("com.bf.mapper.BookMapper.getBookSearchList2", map);
 	}
 	
 	@Override
 	public int getBookCount() {
 		return sqlSession.selectOne("com.bf.mapper.BookMapper.getCount");
+	}
+	
+	@Override
+	public int getBookCount(String searchWord) {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getCount2",searchWord);
 	}
 	
 	@Override

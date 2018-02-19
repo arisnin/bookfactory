@@ -42,7 +42,7 @@ var pages = [
  * */
 
 var otherPage = [
-		['/bookRead.do',0,1],
+		['/bookRead.do',0,1],['/bookUpdate.do',0,1],
 		['/publisherUpdate.do',1,1],
 		['/authorUpdateRead.do',2,2],
 		['/memberRegister.do',3,0],['/memberPayDetail.do',3,1],

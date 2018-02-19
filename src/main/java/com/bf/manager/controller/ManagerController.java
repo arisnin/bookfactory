@@ -148,7 +148,14 @@ public class ManagerController {
 		managerService.bookSearch(mav);
 		return mav;
 	}
-
+	@RequestMapping(value = "/bookUpdate.do", method = RequestMethod.GET)
+	public ModelAndView bookUpdate(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("book/update.mg");
+		mav.addObject("request", request);
+		managerService.bookUpdate(mav);
+		return mav;
+	}
+	
 	@RequestMapping(value = "/publisherSearch.do", method = RequestMethod.GET)
 	public ModelAndView publisherSearch() {
 		ModelAndView mav = new ModelAndView("publisher/search.mg");

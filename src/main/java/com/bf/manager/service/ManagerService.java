@@ -45,4 +45,6 @@ public interface ManagerService {
 
 	public void bookSearch(ModelAndView mav);
 
+	public void bookUpdate(ModelAndView mav);
+
 }
