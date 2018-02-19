@@ -53,7 +53,7 @@
 			<div class="review-write-box">
 				<h4 class="hidden-block"></h4>
 				<!-- 리뷰 작성 폼 -->
-				<form action="${root}/review/write.do" method="post" onsubmit="">
+				<form action="${reviewRequestUrl}" method="post" onsubmit="">
 					<!-- 별점 평가 -->
 					<div class="star-rate-box">
 						<span>이 책을 평가해주세요!</span>
@@ -88,31 +88,38 @@
 					</div>
 					<!-- 리뷰 내용 작성 -->
 					<div class="review-write-form">
-						<c:if test="${reviewPage.self == null}">
-							<p class="review-content ">
-								<span class="update-tools">
-									<span class="date">${reviewPage.self.write_date}2018.01.31</span>
-									<button type="button" class="bf-button bf-transparent-btn" value="false" onclick="collapseViewToggle(this)">
-										<span class="material-icons">warning</span>
-									</button>
-									<button type="button" class="bf-button bf-transparent-btn" value="false" onclick="collapseViewToggle(this)">
-										<span class="material-icons">warning</span>
-									</button>
-								</span>
-								${reviewPage.content}
-								<br />Nothing Gold Can Stay<br />
-								<br />Robert Frost, 1874 - 1963<br />
-								<br />Nature’s first green is gold,<br />Her hardest hue to hold.<br />Her early leaf’s a flower;<br />But only so an hour.<br />Then leaf subsides to leaf.<br />So Eden sank to grief,<br />So dawn goes down to day.<br />Nothing gold can stay.
-							</p>
-							<textarea class="review-content hidden-block" id="review-textarea" name="content" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
+						<c:if test="${reviewSelf != null}">
+							<div>
+								<p class="review-content ">
+									<span class="update-tools">
+										<span class="date">${reviewSelf.write_date}</span>
+										<button type="button" class="bf-button bf-transparent-btn" value="delete" onclick="deleteReview(this)">
+											<span class="material-icons">delete</span>
+										</button>
+										<button type="button" class="bf-button bf-transparent-btn" value="edit" onclick="updateReview()">
+											<span class="material-icons">mode_edit</span>
+										</button>
+									</span>
+									${reviewSelf.content}
+								</p>
+							</div>
+							<div>
+								<textarea class="review-content hidden-block" id="review-textarea" name="content" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다.">${reviewSelfContent}</textarea>
+							</div>
 						</c:if>
-						<c:if test="${reviewPage.self == null}">
+						<c:if test="${reviewSelf == null}">
 							<textarea class="review-content " id="review-textarea" name="content" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
 						</c:if>
 					</div>
 					<!-- 리뷰 확인 버튼 -->
-					<div class="review-write-submit">					
+					<div class="review-write-submit">
+						<c:if test="${reviewSelf == null}">
 						<button type="submit" class="bf-button disabled" id="review-submit-btn">리뷰 남기기</button>
+						</c:if>
+						<c:if test="${reviewSelf != null}">
+							<button type="submit" class="bf-button disabled" id="review-submit-btn">수정하기</button>
+							<button type="button" class="bf-button cancel-btn disabled" id="review-cancel-btn" onclick="updateReview()">취소</button>
+						</c:if>
 						<label class="bf-custom-checkbox">
 							<input type="checkbox" name="spoiler" title="스포일러" />
 							<span class="all-mark"></span>
@@ -139,6 +146,7 @@
 					</div>
 					<!-- ID 정보는 비즈니스 로직에서 유효세션으로부터 직접 가져다 써야합니다. -->
 					<input type="hidden" name="book_num" value="${'1584'}"/>
+					<input type="hidden" name="num" value="${reviewSelf.num}"/>
 				</form>
 			</div><!-- End : review-write-box -->
 		</section><!-- End : bf-review-box -->
@@ -160,54 +168,74 @@
 				</ul>
 			</div><!-- End : bf-service-type-menu -->
 			<ul class="review-list-box" id="review-list-box-id">
+			<c:forEach var="reviewDto" items="${reviewList}">
 				<!-- 리뷰글 -->
 				<li class="review-list-item">
 					<!-- 리뷰 정보 -->
 					<div class="review-info">
 						<div class="content-star-rate review-info-row">
-							<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
+							<span class="star-icon-field material-icons"><c:forEach begin="1" end="${reviewDto.star_point}">&#xe838;</c:forEach></span><span class="non-star-icon-field material-icons"><c:forEach begin="1" end="${5 - reviewDto.star_point}">&#xe838;</c:forEach></span>
 						</div>
 						<div class="review-info-row">
-							<span class="reviewer-id">nb***</span>
+							<span class="reviewer-id">${reviewDto.id}</span>
 							<span class="badge-icon">구매자</span>
 						</div>
 						<div class="review-info-row">
-							<span class="review-date">2018.01.21</span>
+							<span class="review-date">${reviewDto.write_date}</span>
 							<button type="button" class="bf-button bf-white-btn">신고</button>
 						</div>
 					</div>
 					<!-- 리뷰 내용 -->
 					<div class="review-contents">
-						<div class="review-content review-spoiler" style="display:inline-block;">
-							<span><span class="material-icons">warning</span> 스포일러가 있는 리뷰입니다.</span>
-							<hr class="line">
-							<button type="button" class="bf-button bf-transparent-btn bf-animated-btn" onclick="collapseSpoilerView(this)">리뷰보기</button>
-						</div>
-						<p class="review-content" style="display:none;">구석구석 공감할만한 좋은 글귀가 있긴 했지만 뻔한 주입식 자기계발서의 특징을 그대로 가지고 있습니다. 사실 제목도 맘에 들지 않았는데 하도 오랫동안 상위권에 있길래 어느날 홀리듯이 구매해서 읽었으나 역시 좀 후회했습니다.</p>
+						<c:if test="${reviewDto.spoiler eq 'on'}">
+							<!-- 스포일러 -->
+							<div class="review-content review-spoiler" style="display:inline-block;">
+								<span><span class="material-icons">warning</span> 스포일러가 있는 리뷰입니다.</span>
+								<hr class="line">
+								<button type="button" class="bf-button bf-transparent-btn bf-animated-btn" onclick="collapseSpoilerView(this)">리뷰보기</button>
+							</div>
+							<!-- 리뷰 내용 -->
+							<p class="review-content" style="display:none;">${reviewDto.content}</p>
+						</c:if>
+						<c:if test="${reviewDto.spoiler ne 'on'}">
+							<div class="review-content review-spoiler" style="display:none;">
+								<span><span class="material-icons">warning</span> 스포일러가 있는 리뷰입니다.</span>
+								<hr class="line">
+								<button type="button" class="bf-button bf-transparent-btn bf-animated-btn" onclick="collapseSpoilerView(this)">리뷰보기</button>
+							</div>
+							<!-- 리뷰 내용 -->
+							<p class="review-content" style="display:inline-block;">${reviewDto.content}</p>
+						</c:if>
 						<!-- 리뷰 평가 버튼 -->
 						<div class="review-status">
 							<button type="button" class="bf-button bf-white-btn">
 								<span class="material-icons">thumb_up</span>
-								<span class="book-count">20</span>
+								<span class="book-count">${reviewDto.preference}</span>
 							</button>
 							<button type="button" class="bf-button bf-white-btn" onclick="collapseViewToggle(this)">
 								<span class="material-icons">textsms</span>
 								댓글
-								<span class="book-count">2</span>
+								<span class="book-count">${reviewDto.replyList.size()}</span>
 							</button>
 							<!-- 댓글 컨트롤 -->
 							<div class="reply-write-form" style="display:none;">
 								<!-- 댓글 목록 -->
 								<div class="reply-list-box">
 									<ul>
-										<li>
+										<c:forEach var="replyDto" items="${reviewDto.replyList}">
+											<li>
+												<p class="reply-content" style="display:inline-block;">${replyDto.content}</p>
+												<p class="reply-info">${replyDto.id}&nbsp;${replyDto.write_date}</p>
+											</li>
+										</c:forEach>
+										<!-- <li>
 											<p class="reply-content" style="display:inline-block;">작가는 불교,동양철학에 심취해있다. 제목보고 낚였다. 제목은 가볍지만 내용은 그렇지 않다. 그리고 너무 본인의 생각을 강요 또는 일반화 시기키지 않나 생각이 든다. 마지막은 갑자기 무슨 소설 끝나는 장면 같다. 개인적으로 불교의 사상을 좋아하기 때문에 그냥 좋은글 한편 잘 읽은 가분이다</p>
 											<p class="reply-info">dud***  2017.12.10 19:17</p>
 										</li>
 										<li>
 											<p class="reply-content" style="display:inline-block;">좋은 리뷰 잘봤습니다~</p>
 											<p class="reply-info">nb***  2017.12.15 20:17</p>
-										</li>
+										</li> -->
 									</ul>
 								</div>
 								<!-- 댓글 작성 -->
@@ -215,121 +243,13 @@
 									<textarea name="content"></textarea>
 									<button type="submit" class="bf-button">댓글 달기</button>
 									<!-- ID 정보는 비즈니스 로직에서 유효세션으로부터 직접 가져다 써야합니다. -->
-									<input type="hidden" name="review_num" value="${'1004'}"/>
+									<input type="hidden" name="review_num" value="${reviewDto.num}"/>
 								</form>
 							</div>
 						</div>
 					</div>					
 				</li><!--  End : review-list-item -->
-				<!-- 리뷰글 -->
-				<li class="review-list-item">
-					<!-- 리뷰 정보 -->
-					<div class="review-info">
-						<div class="content-star-rate review-info-row">
-							<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
-						</div>
-						<div class="review-info-row">
-							<span class="reviewer-id">nb***</span>
-							<span class="badge-icon">구매자</span>
-						</div>
-						<div class="review-info-row">
-							<span class="review-date">2018.01.21</span>
-							<button type="button" class="bf-button bf-white-btn">신고</button>
-						</div>
-					</div>
-					<!-- 리뷰 내용 -->
-					<div class="review-contents">
-						<div class="review-content review-spoiler" style="display:inline-block;">
-							<span><span class="material-icons">warning</span> 스포일러가 있는 리뷰입니다.</span>
-							<hr class="line">
-							<button type="button" class="bf-button bf-transparent-btn bf-animated-btn" onclick="collapseSpoilerView(this)">리뷰보기</button>
-						</div>
-						<p class="review-content" style="display:none;">맨 마지막 장만...읽어도 될듯하네요</p>
-						<!-- 리뷰 평가 버튼 -->
-						<div class="review-status">
-							<button type="button" class="bf-button bf-white-btn">
-								<span class="material-icons">thumb_up</span>
-								<span class="book-count">2</span>
-							</button>
-							<button type="button" class="bf-button bf-white-btn" onclick="collapseViewToggle(this)">
-								<span class="material-icons">textsms</span>
-								댓글
-								<span class="book-count"></span>
-							</button>
-							<!-- 댓글 컨트롤 -->
-							<div class="reply-write-form" style="display:none;">
-								<!-- 댓글 목록 -->
-								<div class="reply-list-box">
-									<ul></ul>
-								</div>
-								<!-- 댓글 작성 -->
-								<form action="${root}/review/reply.do" method="post" onsubmit="return replyValidation()">
-									<textarea name="content"></textarea>
-									<button type="submit" class="bf-button">댓글 달기</button>
-									<!-- ID 정보는 비즈니스 로직에서 유효세션으로부터 직접 가져다 써야합니다. -->
-									<input type="hidden" name="review_num" value="${'1004'}"/>
-								</form>
-							</div>
-						</div>
-					</div>					
-				</li><!--  End : review-list-item -->
-				<!-- 리뷰글 -->
-				<li class="review-list-item">
-					<!-- 리뷰 정보 -->
-					<div class="review-info">
-						<div class="content-star-rate review-info-row">
-							<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
-						</div>
-						<div class="review-info-row">
-							<span class="reviewer-id">nb***</span>
-							<span class="badge-icon">구매자</span>
-						</div>
-						<div class="review-info-row">
-							<span class="review-date">2018.01.21</span>
-							<button type="button" class="bf-button bf-white-btn">신고</button>
-						</div>
-					</div>
-					<!-- 리뷰 내용 -->
-					<div class="review-contents">
-						<div class="review-content review-spoiler" style="display:none;">
-							<span><span class="material-icons">warning</span> 스포일러가 있는 리뷰입니다.</span>
-							<hr class="line">
-							<button type="button" class="bf-button bf-transparent-btn bf-animated-btn" onclick="collapseSpoilerView(this)">리뷰보기</button>
-						</div>
-						<p class="review-content" style="display:inline-block;">작가는 불교,동양철학에 심취해있다. 제목보고 낚였다. 제목은 가볍지만 내용은 그렇지 않다. 그리고 너무 본인의 생각을 강요 또는 일반화 시기키지 않나 생각이 든다. 마지막은 갑자기 무슨 소설 끝나는 장면 같다. 개인적으로 불교의 사상을 좋아하기 때문에 그냥 좋은글 한편 잘 읽은 가분이다</p>
-						<!-- 리뷰 평가 버튼 -->
-						<div class="review-status">
-							<button type="button" class="bf-button bf-white-btn">
-								<span class="material-icons">thumb_up</span>
-								<span class="book-count">1</span>
-							</button>
-							<button type="button" class="bf-button bf-white-btn" onclick="collapseViewToggle(this)">
-								<span class="material-icons">textsms</span>
-								댓글
-								<span class="book-count">1</span>
-							</button>
-							<!-- 댓글 컨트롤 -->
-							<div class="reply-write-form" style="display:none;">
-								<!-- 댓글 목록 -->
-								<div class="reply-list-box">
-									<ul>
-										<li>
-											<p class="reply-content" style="display:inline-block;">작가는 불교,동양철학에 심취해있다. 제목보고 낚였다. 제목은 가볍지만 내용은 그렇지 않다. 그리고 너무 본인의 생각을 강요 또는 일반화 시기키지 않나 생각이 든다. 마지막은 갑자기 무슨 소설 끝나는 장면 같다. 개인적으로 불교의 사상을 좋아하기 때문에 그냥 좋은글 한편 잘 읽은 가분이다</p>
-											<p class="reply-info">dud***  2017.12.10 19:17</p>
-										</li>
-									</ul>
-								</div>
-								<!-- 댓글 작성 -->
-								<form action="${root}/review/reply.do" method="post" onsubmit="return replyValidation()">
-									<textarea name="content"></textarea>
-									<button type="submit" class="bf-button">댓글 달기</button>
-									<!-- ID 정보는 비즈니스 로직에서 유효세션으로부터 직접 가져다 써야합니다. -->
-									<input type="hidden" name="review_num" value="${'1004'}"/>
-								</form>
-							</div>
-						</div>
-					</div>					
-				</li><!--  End : review-list-item -->
+			</c:forEach>
 			</ul><!-- End : review-list-box -->
 			<div class="review-more-button">
 				<button type="button" class="bf-button bf-white-btn" onclick="appendReviewList(15,10)"><span class="more-count">10</span> 개 더보기</button>
@@ -354,9 +274,15 @@
 	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 	<script type="text/javascript" src="${root}/script/book/review.js"></script>
 	<script type="text/javascript">
-		document.querySelectorAll(".content-star-rate").forEach(function(item, index) {
+		/* document.querySelectorAll(".content-star-rate").forEach(function(item, index) {
 			createStarIcon(item, 3.7);
-		});
+		}); */
+		createStarIcon(document.querySelectorAll(".content-star-rate")[0], 3.7);
 	</script>
+	<c:if test="${reviewSelf != null}">
+		<script type="text/javascript">
+			activateStarIcon(${reviewSelf.star_point - 1});
+		</script>
+	</c:if>
 </body>
 </html>

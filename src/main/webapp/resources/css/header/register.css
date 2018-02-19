@@ -124,14 +124,17 @@
 }
 
 .hw_sign_email{
-	margin:0.625rem 0px 0px 0px;
+	margin:0.4rem 0px 0px 0px;
 	border-bottom: 1px solid #ccc;
 }
 
 .hw_sign_phone{
 	border-top:0px;
-	margin-bottom: 0.625rem;
 	border-bottom: 1px solid #ccc;
+}
+
+.hw_sign_name {
+	margin-top: 0.4rem;
 }
 
 .hw_gender_label{
@@ -198,7 +201,7 @@
 }
 
 .hw_agreement_wrapper{
-	margin-top: 0.625rem;
+	margin-top: 0.4rem;
     background: #fff;
     border: 1px solid #d6deeb;
     border-radius: 4px;
@@ -263,4 +266,20 @@
 .hw_gender_select{
 	background-color: #887AEA;
 	color: white;
+}
+
+.hw_register_wrap .error-msg-wrap {
+	width: 100%;
+	line-height: 1.5rem;
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: red;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.hw_register_wrap .invalid-error-msg:first-child {
+	display: inline-block;
+	float: left;
+	width: 100%;
 }

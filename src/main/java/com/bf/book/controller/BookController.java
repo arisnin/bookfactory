@@ -148,6 +148,15 @@ public class BookController {
 		LogAspect.info("reviewWrite():" + request.getHeader("referer"));
 		return bookService.reviewWrite(new ModelAndView("book/review.solo").addObject("request", request).addObject("reviewDto", reviewDto));
 	}
+	
+	/**
+	 * 책 상세 페이지 > 리뷰 작성
+	 */
+	@RequestMapping(value = "/review/update.do", method = RequestMethod.POST)
+	public ModelAndView reviewUpdate(HttpServletRequest request, HttpServletResponse response, ReviewDto reviewDto) {
+		LogAspect.info("reviewUpdate():" + request.getHeader("referer"));
+		return bookService.reviewUpdate(new ModelAndView("book/review.solo").addObject("request", request).addObject("reviewDto", reviewDto));
+	}
 
 	/**
 	 * 책 상세 페이지 > 리뷰 글 > 댓글 작성
@@ -162,8 +171,8 @@ public class BookController {
 	 * 책 상세 페이지 > 리뷰 리스트
 	 */
 	@RequestMapping(value = "/review/list.do", method = RequestMethod.GET)
-	public String reviewList(HttpServletRequest request, HttpServletResponse response, ReplyDto replyDto) {
-		LogAspect.info("reviewList():" + request.getHeader("referer"));
-		return "book/review.solo";
+	public ModelAndView reviewList(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("reviewList():" + request.getHeader("referer"));		
+		return bookService.reviewList(new ModelAndView("book/review.solo").addObject("request", request));
 	}
 }

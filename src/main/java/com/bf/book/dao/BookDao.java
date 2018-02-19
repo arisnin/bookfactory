@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BookDto;
+import com.bf.member.model.User;
 import com.bf.book.dto.HomeDto;
 
 /**
@@ -19,5 +20,8 @@ public interface BookDao {
 	String getFirstCateName(String firstCate);
 	List<BookDto> getNewBookList(HashMap<String, Object> map);
 	int getNewBookCount(String firstCate);
+	ReviewDto selectReviewSelf(int book_num, String username);
+	List<ReviewDto> selectReviewList(int book_num);
+	int updateReview(ReviewDto reviewDto);
 
 }

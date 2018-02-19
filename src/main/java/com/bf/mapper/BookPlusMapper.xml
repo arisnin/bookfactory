@@ -60,4 +60,16 @@
 			AND f.num=#{firstCate}
 		]]>
 	</select>
+	
+	<select id="select-review-self" parameterType="java.util.Map" resultType="com.bf.book.dto.ReviewDto">
+		SELECT * FROM review WHERE book_num = #{book_num} AND ID = #{id}
+	</select>
+	
+	<select id="select-review-list" parameterType="Integer" resultType="com.bf.book.dto.ReviewDto">
+		SELECT * FROM review WHERE book_num = #{book_num}
+	</select>
+	
+	<update id="update-review" parameterType="com.bf.book.dto.ReviewDto">
+		UPDATE review SET CONTENT = #{content}, star_point = #{star_point}, spoiler = #{spoiler} WHERE num = #{num}
+	</update>
 </mapper>

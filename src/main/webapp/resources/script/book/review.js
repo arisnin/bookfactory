@@ -112,13 +112,35 @@ function starCancel() {
  */
 Array.prototype.forEach.call(document.querySelectorAll("#star-rate-touch-box input"), function(element,count) {
 	element.addEventListener("click", function() {
-		var stars = document.getElementById("star-rate-touch-box").querySelectorAll(".star-field");
+		/*var stars = document.getElementById("star-rate-touch-box").querySelectorAll(".star-field");
 		Array.prototype.forEach.call(stars, function(e,i) {
 			if (i > count) {
 				e.classList.remove("active");
 			} else {
 				e.classList.add("active");
 			}
-		});
+		});*/
+		activateStarIcon(count);
 	});
 });
+
+function activateStarIcon(count) {
+	var stars = document.getElementById("star-rate-touch-box").querySelectorAll(".star-field");
+	Array.prototype.forEach.call(stars, function(e,i) {
+		if (i > count) {
+			e.classList.remove("active");
+		} else {
+			e.classList.add("active");
+		}
+	});
+}
+
+function updateReview() {
+	var targets = document.querySelectorAll(".review-write-form .review-content");
+	if (targets.length > 0) {
+		targets[0].classList.toggle("hidden-block");
+		targets[1].classList.toggle("hidden-block");
+	}
+	
+	document.getElementById("review-cancel-btn").classList.toggle("disabled");
+}
