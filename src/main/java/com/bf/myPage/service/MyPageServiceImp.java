@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.member.model.MemberDto;
 import com.bf.myPage.dao.MyPageDao;
 import com.bf.myPage.dto.MyPagePointDto;
 
@@ -22,6 +23,7 @@ import com.bf.myPage.dto.MyPagePointDto;
  * id는 임시id인 "abc123"으로 num은 순차적으로 오르고 포인트 타입은 "마이캐시 충전 보너스 마이포인트"로 고정
  * 상태는 소멸 or 소멸예정 or - 중 택 1
  */
+
 @Component
 public class MyPageServiceImp implements MyPageService {
 	@Autowired
@@ -47,6 +49,31 @@ public class MyPageServiceImp implements MyPageService {
 		
 		
 		LogAspect.info(request);
+	}
+
+	/**
+	 * @author : 김동환
+	 * @date : 2018. 2. 19.
+	 * comment : 회원정보 변경
+	 */
+	@Override
+	public void myInfoUpdate(ModelAndView mav) {
+		
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		MemberDto memberDto = (MemberDto) map.get("memberDto");
+		
+		LogAspect.info(memberDto.toString());
+		
+		String password = request.getParameter("password");
+		String email = request.getParameter("email");
+		
+		
+		LogAspect.info(password + ", " + email);
+		
+		
+		
+		
 	}
 
 

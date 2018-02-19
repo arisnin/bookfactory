@@ -47,10 +47,10 @@ public class ServiceCenterController {
 		return "notice/main.solo";
 	}
 	
-	@RequestMapping(value = "/notice/	.do" , method = RequestMethod.GET)
+	@RequestMapping(value = "/notice/content.do" , method = RequestMethod.GET)
 	public String noticeContent(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("공지사항_내용");
-		return "notice/main.solo";
+		return "notice/content.solo";
 	}
 	
 	

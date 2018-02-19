@@ -64,7 +64,7 @@
 		</div>
 
 		<div class="list">
-			<a class="bf-button" href="${root }/notice/main.jsp">목록으로</a>
+			<a class="bf-button" href="${root }/notice/main.do">목록으로</a>
 		</div>
 
 	</div>
