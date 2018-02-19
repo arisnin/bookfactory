@@ -39,4 +39,8 @@
 		insert into PUBLISHER values(#{pub_num},#{name},#{url},sysdate)
 	</insert>
 	
+	<select id="getPublisher" parameterType="int" resultType="com.bf.manager.dto.PublisherDto">
+		select * from PUBLISHER where PUB_NUM = #{pub_num}
+	</select>
+	
 </mapper>

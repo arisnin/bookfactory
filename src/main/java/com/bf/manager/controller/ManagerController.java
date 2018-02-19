@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.manager.dto.AuthorDto;
+import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.PublisherDto;
 import com.bf.manager.service.ManagerService;
 
@@ -81,6 +82,16 @@ public class ManagerController {
 		managerService.bookInsert(mav);
 		return mav;
 	}
+		
+	@RequestMapping(value="/bookInsertOk.do",method=RequestMethod.POST)
+	public ModelAndView bookInsertOk(HttpServletRequest request, HttpServletResponse response
+			,BookDto bookDto) {
+		ModelAndView mav = new ModelAndView("book/insertOk.mg");
+		mav.addObject("request", request);
+		mav.addObject("bookDto", bookDto);
+		managerService.bookInsertOk(mav);
+		return mav;
+	}
 
 	@RequestMapping(value="/bookCateOne.do",method=RequestMethod.GET)
 	public ModelAndView bookCateOne(HttpServletRequest request, HttpServletResponse response) {
@@ -131,9 +142,10 @@ public class ManagerController {
 	}
 
 	@RequestMapping(value = "/bookSearch.do", method = RequestMethod.GET)
-	public ModelAndView bookSearch() {
+	public ModelAndView bookSearch(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("book/search.mg");
-		LogAspect.info("bookSearch()");
+		mav.addObject("request", request);
+		managerService.bookSearch(mav);
 		return mav;
 	}
 
@@ -243,6 +255,15 @@ public class ManagerController {
 		mav.addObject("request", request);
 		mav.addObject("response", response);
 		managerService.bookInAuthorCheck(mav);
+		return null;
+	}
+	
+	@RequestMapping(value = "/bookUploadImg.do", method = RequestMethod.POST)
+	public ModelAndView bookUploadImg(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.bookUploadImg(mav);
 		return null;
 	}
 }
