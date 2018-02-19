@@ -254,6 +254,6 @@ Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('HK','홍�
 Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('NOT','없음','NOT');
 Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('ATR','오스트레일리아','Australia');
 Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('BVI','영국령 버진 아일랜드','British Virgin Islands');
-Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('NAN','네덜란드령 안틸레스','Nederlandse Antillen');
-
+Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('NAN','네덜란드령 안틸레스','Nederlandse Antillen');	
+Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('BLS','벨라루스','Belarus');
 

@@ -103,6 +103,7 @@ public class ManagerController {
 	@RequestMapping(value="/bookCategory.do",method=RequestMethod.GET)
 	public ModelAndView bookCategory() {
 		ModelAndView mav = new ModelAndView("book/category.mg");
+		managerService.bookCategory(mav);
 		return mav;
 	}
 	

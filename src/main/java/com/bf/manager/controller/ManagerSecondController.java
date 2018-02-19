@@ -125,6 +125,16 @@ public class ManagerSecondController {
 		managerService.memberRegister(mav);
 		return mav;
 	}
+	@RequestMapping(value = "/memberRegisterOk.do", method = RequestMethod.POST)
+	public ModelAndView memberRegisterOk(HttpServletRequest request, HttpServletResponse response,
+			MemberDto memberDto) {
+		ModelAndView mav = new ModelAndView("member/registerOk.mg");
+		LogAspect.info("memberRegisterOk()");
+		mav.addObject("request",request);
+		mav.addObject("memberDto",memberDto);
+		managerService.memberRegisterOk(mav);
+		return mav;
+	}
 
 	@RequestMapping(value = "/reviewReview.do", method = RequestMethod.GET)
 	public ModelAndView memberReview() {

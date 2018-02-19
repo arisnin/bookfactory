@@ -26,7 +26,7 @@ public class ServiceCenterController {
 
 	/**
 	 * 테스트용 맵핑입니다.
-	 */
+	 */	
 	@RequestMapping(value = "/test/service.do", method = RequestMethod.GET)
 	public String testService(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("testService()");
@@ -47,7 +47,7 @@ public class ServiceCenterController {
 		return "notice/main.solo";
 	}
 	
-	@RequestMapping(value = "/notice/main.do" , method = RequestMethod.GET)
+	@RequestMapping(value = "/notice/	.do" , method = RequestMethod.GET)
 	public String noticeContent(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("공지사항_내용");
 		return "notice/main.solo";

@@ -24,6 +24,14 @@
 				</div>
 				<div class="b_cate_in">
 					<label>카테고리 중</label>
+					<div id="b_cate_1" class="hwdropdown">
+						<button type="button" class="hwdropbtn">대분류</button>
+						<div id="myDropdown" class="hwdropdown-content">
+							<c:forEach items="${firstCateList}" var="firstCateDto">
+								<span>${firstCateDto.name}</span>
+							</c:forEach>
+						</div>
+					</div>
 					<input type="text" placeholder="제목"/>
 					<div align="right">
 						<button type="button" class="bf-button">등록</button>
@@ -32,6 +40,19 @@
 				</div>
 				<div class="b_cate_in">
 					<label>카테고리 소</label>
+					<div id="b_cate_11" class="hwdropdown">
+						<button type="button" class="hwdropbtn">대분류</button>
+						<div id="myDropdown" class="hwdropdown-content">
+							<c:forEach items="${firstCateList}" var="firstCateDto">
+								<span>${firstCateDto.name}</span>
+							</c:forEach>
+						</div>
+					</div>
+					<div id="b_cate_2" class="hwdropdown">
+						<button type="button" class="hwdropbtn">중분류</button>
+						<div id="myDropdown" class="hwdropdown-content">
+						</div>
+					</div>
 					<input type="text" placeholder="제목"/>
 					<div align="right">
 						<button type="button" class="bf-button">등록</button>
@@ -43,9 +64,30 @@
 		</section>
 	</div>
 	
+	<script src="${root}/script/basic/commons.js"></script>
 	<script type="text/javascript">
 		$("#crawl").click(function(){
 			location.href='${root}/manager/bookCategoryOk.do';
+		});
+		//카테고리
+		$("#b_cate_11 span").click(function(){
+			var name = $(this);
+			$.ajax({
+			  url: "${root}/manager/bookCateOne.do",
+			  method: 'get',
+			  data: {name : name.text()},
+			  success: function(arrCate){
+			  		var secondCate = arrCate.split(",");
+			  		$("#b_cate_2").find(".hwdropbtn").text("중분류");
+			  		var secondNode = $("#b_cate_2").find("#myDropdown");
+			  		secondNode.empty();
+			  		
+			  		for(var i=0;i<secondCate.length-1;i++){
+			  			secondNode.append("<span>"+secondCate[i]+"</span>");
+			  		}
+			  	},
+			  dataType: "text"
+			});
 		});
 	</script>
 </body>
