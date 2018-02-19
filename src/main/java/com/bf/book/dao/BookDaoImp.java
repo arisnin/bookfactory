@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.book.dto.HomeDto;
+import com.bf.book.dto.NewBookDto;
 
 /**
  * @author 박성호
@@ -47,7 +48,7 @@ public class BookDaoImp implements BookDao {
 	}
 
 	@Override
-	public List<BookDto> getNewBookList(HashMap<String, Object> map) {
+	public List<NewBookDto> getNewBookList(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getNewBookList",map);
 	}

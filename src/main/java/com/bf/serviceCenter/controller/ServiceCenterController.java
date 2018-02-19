@@ -38,7 +38,27 @@ public class ServiceCenterController {
 	/**
 	 * @author : 김동환
 	 * @date : 2018. 2. 19.
-	 * comment : 고객센터 연결 작업
+	 * comment : 공지사항 연결
+	 */
+	
+	@RequestMapping(value = "/notice/main.do" , method = RequestMethod.GET)
+	public String noticeMain(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("공지사항_메인");
+		return "notice/main.solo";
+	}
+	
+	@RequestMapping(value = "/notice/main.do" , method = RequestMethod.GET)
+	public String noticeContent(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("공지사항_내용");
+		return "notice/main.solo";
+	}
+	
+	
+	
+	/**
+	 * @author : 김동환
+	 * @date : 2018. 2. 19.
+	 * comment : 고객센터 연결
 	 */
 	@RequestMapping(value = "/serviceCenter/main.do" , method = RequestMethod.GET)
 	public String serviceCenterMain(HttpServletRequest request, HttpServletResponse response) {

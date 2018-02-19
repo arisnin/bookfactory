@@ -54,8 +54,8 @@
 					<span class="contact-number">1644-0331</span>
 					<ul class="order-type-list">
 						<li><a href="${root }/serviceCenter/main.do">고객센터</a></li>
-						<li><a href="#">자주 묻는 질문</a></li>
-						<li><a href="#">1:1 문의하기</a></li>
+						<li><a href="${root }/serviceCenter/manyque.do">자주 묻는 질문</a></li>
+						<li><a href="${root }/serviceCenter/FAQ.do">1:1 문의하기</a></li>
 					</ul>
 				</div>
 				<div class="row">
