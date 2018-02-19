@@ -53,7 +53,7 @@
 				<div class="row">
 					<span class="contact-number">1644-0331</span>
 					<ul class="order-type-list">
-						<li><a href="#">고객센터</a></li>
+						<li><a href="${root }/serviceCenter/main.do">고객센터</a></li>
 						<li><a href="#">자주 묻는 질문</a></li>
 						<li><a href="#">1:1 문의하기</a></li>
 					</ul>

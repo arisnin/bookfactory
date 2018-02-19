@@ -22,8 +22,10 @@
 <body>
 
 
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />
-
+	<jsp:include page="./main_header.jsp" />
+	
+	
+	
 	<div class="serviceCenter_inquriy_list">
 
 		<div class="bf-title-row title-type1">
@@ -65,7 +67,7 @@
 			</div>
 			
 			<div class="serviceCenter_inquriy_list_answer">
-				<div><a href="${root }/serviceCenter/inquriy_answer.jsp">내용내용</a></div>
+				<div><a href="${root }/serviceCenter/inquriy_answer.do">내용내용</a></div>
 				<div>2018년 1월 1일</div>
 				<div class="answer">답변완료</div>
 			</div>

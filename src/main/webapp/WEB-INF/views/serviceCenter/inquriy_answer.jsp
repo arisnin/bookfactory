@@ -22,10 +22,12 @@
 </head>
 <body>
 
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />
+	<jsp:include page="./main_header.jsp" />
+
+
 	<div class="service_FAQ_home_header">
 		<div class="service_FAQ_home_header_left">
-			<span> <a href="${root }/serviceCenter/main.jsp">리디북스
+			<span> <a href="${root }/serviceCenter/main.do">리디북스
 					고객센터</a>
 			</span> <span>></span><span>내 활동</span>
 		</div>
@@ -58,7 +60,7 @@
 			</div>
 
 			<div>
-				<p>안내가 완료되어 댓글을 추가하실수 없습니다. 추가로 문의(제안)하실 내용이 있는 경우 <br/> <a href="${root }/serviceCenter/FAQ.jsp">[문의등록]</a>을 이용해주세요.</p>
+				<p>안내가 완료되어 댓글을 추가하실수 없습니다. 추가로 문의(제안)하실 내용이 있는 경우 <br/> <a href="${root }/serviceCenter/FAQ.do">[문의등록]</a>을 이용해주세요.</p>
 			</div>
 
 

@@ -22,8 +22,7 @@
 <body>
 
 
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />
-
+	<jsp:include page="./main_header.jsp" />
 
 	<div class="serviceCenter_inquriy_list">
 
