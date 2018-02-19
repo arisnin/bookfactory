@@ -46,7 +46,7 @@
 
 										</optgroup>
 										<optgroup label="--------------------------------------" class="2" style="display: none;">
-											<c:forEach var="cate2" items="${cateList2}" begin="5" end="9">
+											<c:forEach var="cate2" items="${cateList2}" begin="5" end="10">
 												<option value="${cate2.num}">${cate2.name}</option>
 											</c:forEach>
 										</optgroup>

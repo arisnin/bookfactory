@@ -15,6 +15,7 @@ import com.bf.book.dao.BookDao;
 import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.book.dto.HomeDto;
+import com.bf.book.dto.NewBookDto;
 
 /**
  * @author 박성호
@@ -58,7 +59,7 @@ public class BookServiceImp implements BookService {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
 		int firstCate=bookDao.getFirstCate("일반");
-
+		
 		List<HomeDto> homeList=bookDao.getHomeBookInfoList();
 		//LogAspect.info(LogAspect.logMsg + homeList.toString());
 		
@@ -72,42 +73,44 @@ public class BookServiceImp implements BookService {
 		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
 		String firstCate=request.getParameter("firstCate");
 		String bookType=request.getParameter("bookType");
+		
 		String pn=request.getParameter("pageNumber");
 		if(pn==null)	pn="1";
 		
 		int pageNumber=Integer.parseInt(pn);
 		
 		String firstCateName=bookDao.getFirstCateName(firstCate);
-		List<BookDto> newList=null;
+		List<NewBookDto> newList=null;
 		
-		//페이징
 		int boardSize=20;
-		int newCount=bookDao.getNewBookCount(firstCate);
 		int startRow=(pageNumber-1)*boardSize+1;
 		int endRow=pageNumber*boardSize;
-		
-		//데이터가없어서 임시로 일반카테고리로 만들음.
-		firstCate="2";
-		
+		int newCount=0;
+
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		map.put("firstCate", firstCate);
 		
-		//작가이름, 출판사이름 이런거 다뽑아와야함 dto 새로파야함 
-		
-		if(newCount>0) {
-			newList=bookDao.getNewBookList(map);
+		//일반, 나머지카테(단행, 연재 구분)
+		//나중에 리뷰로 또 갈림 리뷰없으면 원래쿼리문 있으면 다른 질의문
+		if(bookType==null) {
+			newCount=bookDao.getNewBookCount(firstCate);
 			
-			if(newList!=null) {
-				for(int i=0;i<newList.size();i++) {
-					
-				}
-			}
+			if(newCount>0) {
+				newList=bookDao.getNewBookList(map);
+				
+			}	
+		}else if(bookType=="paper") {
+			
+		}else if(bookType=="serial") {
+			
 		}
 		
+		mav.addObject("firstCate", firstCate);
 		mav.addObject("firstCateName", firstCateName);
 		mav.addObject("newList", newList);
+		mav.addObject("bookType", bookType);
 		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("newCount", newCount);
 		mav.addObject("boardSize", boardSize);

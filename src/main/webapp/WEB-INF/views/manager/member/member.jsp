@@ -18,7 +18,7 @@
 <body>
 	<div id="sh_member">
 		<div class="sh_main_text">회원관리 페이지</div>
-		<form action="${root}/manager/memberRegister.do" method="post">
+		<form action="${root}/manager/memberRegister.do">
 		<div id="sh_board_shadow">
 			<div class="sh_member_header">
 
@@ -64,10 +64,10 @@
 						<li>순번</li>
 						<li>아이디</li>
 						<li>이름</li>
+						<li>연락처</li>
 						<li>가입일</li>
 						<li>최종방문일</li>
-						<li>방문 수</li>
-						<li>게시글 수</li>
+						<li>리뷰 수</li>
 						<li>상세보기</li>
 					</ul>
 				</div>
@@ -80,13 +80,13 @@
 						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
 						<li>${memberDto.num}</li>
 						<li>${memberDto.id} </li>
-						<li>이름</li>
+						<li>${memberDto.name}</li>
+						<li>${memberDto.phone }</li>
 						<li><fmt:formatDate value="${memberDto.register_date}" pattern="yyyy/MM/dd"/>
 						<li><fmt:formatDate value="${memberDto.last_join }" pattern="yyyy/MM/dd"/>
 						<li>5</li>
-						<li>${memberDto.phone }</li>
 						<!-- 게시글 목록 넘어가기 -->
-						<li><button type="submit" class="bf-button">상세보기</button></li>
+						<li><a href="${root}/manager/memberRegister.do?pageNumber=${pageNumber}&id=${memberDto.id}" class="bf-button">상세보기</a></li>
 						</ul>
 							
 					</c:forEach>

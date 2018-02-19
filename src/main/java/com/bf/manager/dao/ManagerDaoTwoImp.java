@@ -68,14 +68,23 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 	@Override
 	public int memberCount() {
 		
-		return sqlSession.selectOne("com.bf.manager.MemberMapper.count");
+		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.count");
 	}
 	@Override
 	public List<MemberDto> memberList(int startRow, int endRow) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startRow", startRow);
 		map.put("endRow",endRow);
-		return sqlSession.selectList("com.bf.manager.MemberMapper.list",map);
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.list",map);
 	}
-	
+	@Override
+	public MemberDto register(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.register",id);
+	}
+	@Override
+	public int registerOk(MemberDto memberDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("com.bf.manager.ManagerMemberMapper.registerOk",memberDto);
+	}
 }

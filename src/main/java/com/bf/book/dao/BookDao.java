@@ -6,6 +6,7 @@ import java.util.List;
 import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.book.dto.HomeDto;
+import com.bf.book.dto.NewBookDto;
 
 /**
  * @author 박성호
@@ -17,7 +18,7 @@ public interface BookDao {
 	List<HomeDto> getHomeBookInfoList();
 	int getFirstCate(String firstCateName);
 	String getFirstCateName(String firstCate);
-	List<BookDto> getNewBookList(HashMap<String, Object> map);
+	List<NewBookDto> getNewBookList(HashMap<String, Object> map);
 	int getNewBookCount(String firstCate);
 
 }

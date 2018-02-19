@@ -60,7 +60,6 @@
 						<option>별점 순</option>
 					</select>
 				</div>
-
 			</div>
 			<div class="sh_review_content">
 				<div class="sh_review_title">
