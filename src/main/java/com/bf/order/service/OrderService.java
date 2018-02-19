@@ -13,4 +13,10 @@ public interface OrderService {
 
 	public void cartDelete(ModelAndView mav);
 
+	public void wishListCart(ModelAndView mav);
+
+	public void getCart(ModelAndView mav);
+
+	public void cartInsert(ModelAndView mav);
+
 }

@@ -23,19 +23,22 @@ public class OrderController {
 	private OrderService orderService;
 
 	/**
-	 * 헤더 > 카트
+	 * 헤더 > 카트(cart.jsp 데이터 수집후 뿌리기)
 	 */
 	@RequestMapping(value = "/cart.do", method = RequestMethod.GET)
-	public String cart(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView cart(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("cart()");
 		request.getSession().setAttribute("userInfoId", "manager");
-		return "cart/cart.main";
+		ModelAndView mav = new ModelAndView("cart/cart.main");
+		mav.addObject("request", request);
+		orderService.getCart(mav);
+		return mav;
 	}
-
+	
 	/**
 	 * 헤더 > 위시리스트
 	 */
-	@RequestMapping(value = "/wishlist.do", method = RequestMethod.GET)
+	@RequestMapping(value = "cart/wishlist.do", method = RequestMethod.GET)
 	public String wishlist(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("wishlist()");
 		request.getSession().setAttribute("userInfoId", "manager");
@@ -95,7 +98,7 @@ public class OrderController {
 	/**
 	 * 카트의 책들을 위시리스트로 옮기는 요청
 	 */
-	@RequestMapping(value = "/cartWishList.do", method = RequestMethod.GET)
+	@RequestMapping(value = "cart/cartWishList.do", method = RequestMethod.GET)
 	public String cartWishList(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("cartWishList()");
 		ModelAndView mav = new ModelAndView();
@@ -103,8 +106,11 @@ public class OrderController {
 		orderService.cartWishList(mav);
 		return null;
 	}
-
-	@RequestMapping(value = "/cartDelete.do", method = RequestMethod.GET)
+	
+	/**
+	 * 장바구니 비우기 
+	 */
+	@RequestMapping(value = "cart/cartDelete.do", method = RequestMethod.GET)
 	public String cartDelete(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("cartDelete()");
 		ModelAndView mav = new ModelAndView();
@@ -112,4 +118,14 @@ public class OrderController {
 		orderService.cartDelete(mav);
 		return null;
 	}
+	
+	@RequestMapping(value = "/cartInsert.do", method = RequestMethod.GET)
+	public String cartInsert(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("cartInsert()");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		orderService.cartInsert(mav);
+		return null;
+	}
+	
 }
