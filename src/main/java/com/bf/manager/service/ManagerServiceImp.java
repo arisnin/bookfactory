@@ -1,5 +1,6 @@
 package com.bf.manager.service;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -22,6 +23,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
@@ -184,6 +187,55 @@ public class ManagerServiceImp implements ManagerService {
 	public void bookInsert(ModelAndView mav) {
 		List<BookFirstCateDto> firstCateList = managerDao.getFirstCate();
 		mav.addObject("firstCateList", firstCateList);
+	}
+	
+	@Override
+	public void bookInsertOk(ModelAndView mav) {
+		BookDto bookDto = (BookDto) mav.getModelMap().get("bookDto");
+		int check = managerDao.insertBook(bookDto);
+		mav.addObject("check", check);
+	}
+	
+	@Override
+	public void bookSearch(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		
+		String searchWord = request.getParameter("search-word");
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber == null) pageNumber = "1";
+		
+		int boardSize = 10;
+		int currentPage = Integer.parseInt(pageNumber);
+		int startRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize;
+		
+		List<BookDto> bookList = null;
+		if(searchWord == null) {
+			bookList = managerDao.getBookList(startRow,endRow);
+		}else {
+			bookList = managerDao.getBookList(searchWord,startRow,endRow);
+		}
+		
+		HashMap<Integer,AuthorDto> authorMap = new HashMap<Integer, AuthorDto>();
+		for(int i=0;i<bookList.size();i++) {
+			AuthorDto authorDto = managerDao.getAuthor(bookList.get(i).getAuthor_num());
+			authorMap.put(bookList.get(i).getAuthor_num(), authorDto);
+		}
+		
+		HashMap<Integer,PublisherDto> pubMap = new HashMap<Integer, PublisherDto>();
+		for(int i=0;i<bookList.size();i++) {
+			PublisherDto publisherDto = managerDao.getPublisher(bookList.get(i).getPub_num());
+			pubMap.put(bookList.get(i).getPub_num(), publisherDto);
+		}
+		
+		int count = managerDao.getBookCount();
+		
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("count", count);
+		mav.addObject("bookList", bookList);
+		mav.addObject("authorMap", authorMap);
+		mav.addObject("pubMap", pubMap);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -610,6 +662,9 @@ public class ManagerServiceImp implements ManagerService {
 					
 					DecimalFormat df = new DecimalFormat(",###");
 					Element priceTable = meta.selectFirst(".normal_price_table");
+
+					//대여 기본타입 no
+					bookDto.setRental_period("no");
 					if(priceTable == null) {
 						priceTable = meta.selectFirst(".series_price_table");
 						int insertSeries = managerDao.insertSeries(name);
@@ -672,13 +727,7 @@ public class ManagerServiceImp implements ManagerService {
 									}else if(pType.text().equals("전자책 정가") || pType.text().equals("전자책 세트 정가")) {
 										if(p.selectFirst(".discount_rate").selectFirst("span") == null ) {
 											bookDto.setDiscount(0);
-										}else {
-											/*int p1 = bookDto.getPrice();
-											int p2 = number.intValue();
-											double discount = 1- ((double) p2 / p1);
-											
-											bookDto.setDiscount(Double.parseDouble(df2.format(discount)));*/
-											Element discount = p.selectFirst(".discount_rate");
+										}else {											Element discount = p.selectFirst(".discount_rate");
 											if(discount.selectFirst("span") != null) {
 												String disStr = discount.selectFirst("span").text();
 												int start = disStr.indexOf("(");
@@ -689,13 +738,7 @@ public class ManagerServiceImp implements ManagerService {
 									}else if(pType.text().equals("판매가")) {
 										if(p.selectFirst(".discount_rate").selectFirst("span") == null ) {
 											bookDto.setDiscount2(0);
-										}else {/*
-											int p1 = bookDto.getPrice();
-											double p2 = p1 * (1-bookDto.getDiscount());
-											int p3 = number.intValue();
-											double discount2 = 1-(p3 / p2);
-											bookDto.setDiscount2(Double.parseDouble(df2.format(discount2)));	
-											*/
+										}else {
 											Element discount = p.selectFirst(".discount_rate");
 											if(discount.selectFirst("span") != null) {
 												String disStr = discount.selectFirst("span").text();
@@ -712,8 +755,6 @@ public class ManagerServiceImp implements ManagerService {
 						}
 					}
 					
-					//대여 기본타입 no
-					bookDto.setRental_period("no");
 					
 					if(bookDto.getType() == null || (!bookDto.getType().equals("paper") && !bookDto.getType().equals("series"))) {
 						bookDto.setType("ebook");
@@ -852,6 +893,34 @@ public class ManagerServiceImp implements ManagerService {
 	public void bookCategory(ModelAndView mav) {
 		List<BookFirstCateDto> firstCateList = managerDao.getFirstCate();
 		mav.addObject("firstCateList", firstCateList);
+	}
+	
+	@Override
+	public void bookUploadImg(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+		MultipartFile formFile = multiRequest.getFile("file");
+		
+		long fileSize = formFile.getSize();
+		String fileName = System.currentTimeMillis() + "_"+ formFile.getOriginalFilename();
+		
+		if (fileSize != 0) {
+			File path = new File("C:\\Users\\sist\\Desktop\\bookfactory\\src\\main\\webapp\\resources\\img\\manager\\bookImg");
+			path.mkdirs();
+			if (path.exists() && path.isDirectory()) {
+				File file = new File(path, fileName);
+
+				try {
+					formFile.transferTo(file);
+					response.setContentType("application/text;charset=utf-8");
+					response.getWriter().print(fileName);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 	
 }

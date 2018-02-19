@@ -111,6 +111,38 @@ public class ManagerDaoImp implements ManagerDao {
 		map.put("searchWord", searchWord);
 		return sqlSession.selectList("com.bf.mapper.PublisherMapper.getPublisher2", map);
 	}
+	
+	@Override
+	public List<BookDto> getBookList(int startRow, int endRow) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSession.selectList("com.bf.mapper.BookMapper.getBookList1", map);
+	}
+	
+	@Override
+	public List<BookDto> getBookList(String searchWord, int startRow, int endRow) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("searchWord", searchWord);
+		return sqlSession.selectList("com.bf.mapper.BookMapper.getBookList2", map);
+	}
+	
+	@Override
+	public int getBookCount() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getCount");
+	}
+	
+	@Override
+	public AuthorDto getAuthor(int author_num) {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getAuthor", author_num);
+	}
+	
+	@Override
+	public PublisherDto getPublisher(int pub_num) {
+		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getPublisher",pub_num);
+	}
 
 	@Override
 	public int getPublisherCount() {
@@ -235,4 +267,6 @@ public class ManagerDaoImp implements ManagerDao {
 	public List<AuthorDto> checkBookAuthor(String name) {
 		return sqlSession.selectList("com.bf.mapper.AuthorMapper.checkBookAuthor", name);
 	}
+
+	
 }

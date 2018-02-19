@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div id="b_in_wrapper">
-		<form action="#" method="post" onsubmit="return bookInsertOk()">
+		<form action="${root}/manager/bookInsertOk.do" method="post" onsubmit="return bookInsertOk()">
 			<section class="b_in_main">
 				<div class="b_in_header"><h2>도서 등록</h2></div>
 				<div class="b_in_content">
@@ -89,8 +89,10 @@
 						</div>
 						<input type="hidden" name="translator_num">
 					</div>
-					<div><label>도서가격</label><input type="text" name="price" placeholder="가격"/></div>
-					<div><label>지원기기</label>
+					<div>
+						<label>도서가격</label><input type="text" name="price" placeholder="가격"/>
+					</div>
+					<div id="b_in_support"><label>지원기기</label>
 						<label class="bf-custom-checkbox">
 							<input type="checkbox" title="전체선택" name="supportAll"/>
 							<span class="all-mark"></span>
@@ -122,11 +124,32 @@
 							<span class="checkbox-label">Mac</span>
 						</label>
 					</div>
+					<div id="b_in_payType"><label>판매종류</label>
+						<label class="bf-custom-checkbox">
+							<input type="checkbox" title="전체선택"/>
+							<span class="all-mark"></span>
+							<span class="checkbox-label">전체선택</span>
+						</label>
+						<label class="bf-custom-checkbox">
+							<input type="checkbox" title="종이책" name="payType" value="paper"/>
+							<span class="all-mark"></span>
+							<span class="checkbox-label">종이책</span>
+						</label>
+						<label class="bf-custom-checkbox">
+							<input type="checkbox" title="전자책" name="payType" value="ebook"/>
+							<span class="all-mark"></span>
+							<span class="checkbox-label">전자책</span>
+						</label>
+						<label class="bf-custom-checkbox">
+							<input type="checkbox" title="대여" name="rent" value="대여"/>
+							<span class="all-mark"></span>
+							<span class="checkbox-label">대여가능</span>
+						</label>
+					</div>
 					<div class="b_in_img">
 						<label>도서 이미지</label>
-						<div style="max-width: 11.6rem;">
-							<img src="//misc.ridibooks.com/cover/1171000007/xxlarge" style="max-width: 11.6rem;">
-							<input id="b_in_fileinput" type="file" onchange="uploadImg('${root}')">
+						<div>
+							<img src="//misc.ridibooks.com/cover/1171000007/xxlarge">
 							<button id="b_in_filebtn" type="button" class="bf-button">찾기</button>
 						</div>
 					</div>
@@ -148,9 +171,18 @@
 					<input type="hidden" name="cate2_num">
 					<input type="hidden" name="cate3_num">
 					<input type="hidden" name="support">
+					<input type="hidden" name="img_path">
+					<input type="hidden" name="rental_period">
+					<input type="hidden" name="rental_price">
+					<input type="hidden" name="type">
 				</div>
 			</section>
 		</form>
+		
+		<input id="b_in_fileinput" type="file" name="file" onchange="uploadImg('${root}')">		
+		
+		
+		
 	</div>
 
 	<script src="${root}/script/basic/commons.js"></script>
@@ -222,9 +254,6 @@
 			  dataType: "text"
 			});
 		});
-		
-	</script>
-	<script type="text/javascript">
 		var lastName ="";
 		function checkName() {
 			var node = $("input[name=name]");
@@ -234,10 +263,6 @@
 			var node = $("input[name="+name+"]");
 			suggestToServer("${root}/manager/bookInAuthorCheck.do",node,bookAuthor);
 		}
-		
-		$("#b_in_filebtn").click(function(){
-			$("#b_in_fileinput").trigger("click");
-		});
 	</script>
 </body>
 </html>

@@ -117,5 +117,23 @@
 	</select>
 	
 	
+	<select id="getBookList1" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.BookDto">
+		SELECT * FROM(
+		SELECT ROWNUM rnum, A.* FROM(
+		SELECT * FROM bookm) A)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getBookList2" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.BookDto">
+		SELECT * FROM(
+		SELECT ROWNUM rnum, A.* FROM(
+		select * from bookm where NAME like '%'||#{searchWord}||'%') A)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from bookm
+	</select>
+	
 </mapper>
 

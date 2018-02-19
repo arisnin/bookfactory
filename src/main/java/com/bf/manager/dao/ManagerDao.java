@@ -85,5 +85,15 @@ public interface ManagerDao {
 
 	public List<AuthorDto> checkBookAuthor(String name);
 
+	public List<BookDto> getBookList(int startRow, int endRow);
+
+	public List<BookDto> getBookList(String searchWord, int startRow, int endRow);
+
+	public AuthorDto getAuthor(int author_num);
+
+	public int getBookCount();
+
+	public PublisherDto getPublisher(int pub_num);
+
 
 }

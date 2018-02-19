@@ -18,10 +18,6 @@
 		<section class="b_se_main">
 			<div class="b_se_header"><h2>도서 검색</h2></div>
 			<div class="b_se_content">
-				<!-- <div class="b_se_search">
-					<input type="text"/>
-					<button type="button" class="bf-button search">검색</button>
-				</div> -->
 				<div class="bf-service-type-menu b_se_tt">
 					<!-- 서비스타입 메뉴  -->			
 					<ul class="service-type-list b_se_bar">
@@ -31,7 +27,7 @@
 					</ul>
 					<!-- 검색박스  -->
 					<div class="search-box b_se_ta">
-						<form method="get">
+						<form action="${root}/manager/bookSearch.do" method="get">
 							<span class="material-icons">search</span>
 							<input class="search-word" type="text" name="search-word" placeholder="책 제목 또는 저자명" />
 						</form>
@@ -39,9 +35,9 @@
 				</div>
 				<div class="b_se_list">
 					<ul>
-						<c:forEach begin="1" end="10">
+						<c:forEach var="bookDto" items="${bookList}">
 							<li>
-								<span><a href="${root}/manager/bookRead.do">아프니까 청춘이다</a></span>
+								<span><a href="${root}/manager/bookRead.do">${bookDto.name}</a></span>
 								<span>염현우</span>
 								<span>우리집좋아</span>
 								<span class="b_se_btn">
