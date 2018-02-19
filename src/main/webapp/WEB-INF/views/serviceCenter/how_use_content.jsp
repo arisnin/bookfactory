@@ -22,17 +22,16 @@
 <body>
 
 
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />
-
+	<jsp:include page="./main_header.jsp" />
 
 	<div class="service_information_cn">
 
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
 				<span>
-				<a href="${root }/serviceCenter/main.jsp">리디북스 고객센터</a></span>
+				<a href="${root }/serviceCenter/main.do">리디북스 고객센터</a></span>
 					<span>></span>
-					<a href="${root }/serviceCenter/pay_refund.jsp">결제 / 환불</a>				
+					<a href="${root }/serviceCenter/how_use.do">이용문의</a>				
 			</div>
 
 
@@ -55,7 +54,7 @@
 				
 					<div class="service_information_cn_cn_left_title">이 섹션의 문서</div>
 					<ul>
-						<li><a href="${root }/serviceCenter/how_use_content.jsp">종이책으로 배송이 되나요?</a></li>
+						<li><a href="${root }/serviceCenter/how_use_content.do">종이책으로 배송이 되나요?</a></li>
 						<li>정호열이 정호열이 정호열</li>
 						<li>호열이 호열이 호열이 호열이</li>
 						<li>호여뤼 호여뤼 호여뤼 호여뤼 호호여뤼</li>		

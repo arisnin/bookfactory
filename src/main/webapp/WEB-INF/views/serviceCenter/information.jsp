@@ -22,17 +22,16 @@
 <body>
 
 
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />
-
+	<jsp:include page="./main_header.jsp" />
 
 	<div class="service_information">
 
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
 				<span> <a
-					href="${root }/serviceCenter/main.jsp">리디북스 고객센터</a></span>
+					href="${root }/serviceCenter/main.do">리디북스 고객센터</a></span>
 					<span>></span>
-				<span><a href="${root }/notice/main.jsp">공지사항</a></span>
+				<span><a href="${root }/notice/main.do">공지사항</a></span>
 					<span>></span>
 					고객센터 안내사항
 			</div>
@@ -58,7 +57,7 @@
 				</div>
 
 				<div class="service_information_list">
-					<div><a href="${root }/serviceCenter/information_content1.jsp">[안내] 설 연휴 고객센터 단축 근무 및 휴무, 페이퍼 택배 배송 일정</a></div>
+					<div><a href="${root }/serviceCenter/information_content1.do">[안내] 설 연휴 고객센터 단축 근무 및 휴무, 페이퍼 택배 배송 일정</a></div>
 					<div>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</div>
 					<div>[안내] 우리(체크)카드 결제 제한</div>
 					<div>[안내] 리디북스 서비스 사용 가능 뷰어 최소 버전 변경</div>

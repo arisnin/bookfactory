@@ -22,19 +22,18 @@
 <body>
 
 
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />
-
+	<jsp:include page="./main_header.jsp" />
 
 	<div class="service_information_cn">
 
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
 				<span> <a
-					href="${root }/serviceCenter/main.jsp">리디북스 고객센터</a></span>
+					href="${root }/serviceCenter/main.do">리디북스 고객센터</a></span>
 					<span>></span>
-				<span><a href="${root }/notice/main.jsp">공지사항</a></span>
+				<span><a href="${root }/notice/main.do">공지사항</a></span>
 					<span>></span>
-					<a href="${root }/serviceCenter/information.jsp">고객센터 안내사항</a>
+					<a href="${root }/serviceCenter/information.do">고객센터 안내사항</a>
 				
 			</div>
 
@@ -58,7 +57,7 @@
 				
 					<div class="service_information_cn_cn_left_title">이 섹션의 문서</div>
 					<ul>
-						<li><a href="${root }/serviceCenter/information_content1.jsp">[안내]설 연휴 고객센터 단축 근무 및 휴무, 페이퍼 택배 배송 일정</a></li>
+						<li><a href="${root }/serviceCenter/information_content1.do">[안내]설 연휴 고객센터 단축 근무 및 휴무, 페이퍼 택배 배송 일정</a></li>
 						<li>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</li>
 						<li>[안내] 리디북스 서비스 사용 가능 뷰어 최소 버전 변경</li>
 						<li>[안내] 우리(체크)카드 결제 제한</li>
@@ -71,7 +70,7 @@
 					</ul>
 					
 					<div class="service_information_cn_cn_left_more">
-						<a href="${root }/serviceCenter/information.jsp">더보기</a>
+						<a href="${root }/serviceCenter/information.do">더보기</a>
 					</div>
 				
 			</div>
@@ -102,10 +101,10 @@
 						설 연휴 이후 빠른 시일 내에 안내 드리도록 하겠습니다.</p>
 						
 						<p>* <a class="bf-button bf-transparent-btn bf-animated-btn"
-								href="${root }/serviceCenter/main.jsp" >고객센터 바로가기</a></p>
+								href="${root }/serviceCenter/main.do" >고객센터 바로가기</a></p>
 						<p>자주 문의하시는  내용이나 리디북스 앱 사용방법에 대해서는 고객센터 홈페이지를  참고하여 주시기 <br/> 바랍니다.</p>
 						<p>* <a class="bf-button bf-transparent-btn bf-animated-btn"
-								href="${root }/serviceCenter/FAQ.jsp">고객센터 FAQ 바로가기</a></p>
+								href="${root }/serviceCenter/FAQ.do">고객센터 FAQ 바로가기</a></p>
 								
 						<p class="none">[참고사항]</p>
 						
@@ -121,14 +120,9 @@
 						
 						<p>2018년에도 저희 리디북스와 함께 행복한 도서 생활을 누리실 수 있도록 최선을 다하겠습니다.</p>
 						<p>감사합니다. <br/> 리디북스 드림</p>
-						
 
-						
-						
 						</div>
 					</div>
-			
-			
 
 		</div>
 
