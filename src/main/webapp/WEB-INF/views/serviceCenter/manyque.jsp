@@ -22,15 +22,14 @@
 <body>
 
 
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />
-
+	<jsp:include page="./main_header.jsp" />
 
 	<div class="serviceCenter_manyque">
 
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
 				<span><a
-					href="${root }/serviceCenter/main.jsp">리디북스 고객센터</a>
+					href="${root }/serviceCenter/main.do">리디북스 고객센터</a>
 				</span>
 				<span>></span>
 				리디북스 자주 묻는 질문
@@ -57,7 +56,7 @@
 				</div>
 
 				<div class="serviceCenter_manyque_list">
-					<div><a href="${root }/serviceCenter/manyque_content.jsp">아이디(ID), 비밀번호를 잊어버렸어요. 어떻게 확인하나요?</a></div>
+					<div><a href="${root }/serviceCenter/manyque_content.do">아이디(ID), 비밀번호를 잊어버렸어요. 어떻게 확인하나요?</a></div>
 					<div>다운받은 책이 파일이 손상되었다며 열리지 않아요!(파일손상, 인코딩 오류)</div>
 					<div>DRM문제로 책을 읽을 수 없습니다(104)</div>
 					<div>책은 어떻게 읽나요? - PC뷰어 이용 방법</div>

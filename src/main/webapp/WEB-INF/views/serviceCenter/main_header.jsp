@@ -24,13 +24,13 @@
 				<div class="header_left">
 					<ul>
 						<li>BookFactory</li>
-						<li><a class="header_text" href="${root }/serviceCenter/main.jsp">고객센터</a></li>
+						<li><a class="header_text" href="${root }/serviceCenter/main.do">고객센터</a></li>
 					</ul>
 				</div>
 				<div class="header_right">
 					<ul>
-						<li><a class="bf-button" href="${root }/serviceCenter/FAQ.jsp">문의하기</a></li>
-						<li><a class="bf-button" href="${root }/serviceCenter/inquriy_list2.jsp">문의내역</a></li>
+						<li><a class="bf-button" href="${root }/serviceCenter/FAQ.do">문의하기</a></li>
+						<li><a class="bf-button" href="${root }/serviceCenter/inquriy_list2.do">문의내역</a></li>
 					</ul>
 				</div>
 			</div>

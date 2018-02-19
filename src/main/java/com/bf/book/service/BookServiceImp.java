@@ -90,7 +90,6 @@ public class BookServiceImp implements BookService {
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
-		map.put("firstCate", firstCate);
 		
 		//일반, 나머지카테(단행, 연재 구분)
 		//나중에 리뷰로 또 갈림 리뷰없으면 원래쿼리문 있으면 다른 질의문
@@ -99,7 +98,6 @@ public class BookServiceImp implements BookService {
 			
 			if(newCount>0) {
 				newList=bookDao.getNewBookList(map);
-				
 			}	
 		}else if(bookType=="paper") {
 			
