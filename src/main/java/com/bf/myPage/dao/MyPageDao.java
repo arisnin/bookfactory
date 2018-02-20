@@ -1,5 +1,9 @@
 package com.bf.myPage.dao;
 
+import java.util.List;
+
+import com.bf.member.model.User;
+import com.bf.myPage.dto.MyPageCashChargeDto;
 import com.bf.myPage.dto.MyPagePointDto;
 
 /**
@@ -9,8 +13,13 @@ import com.bf.myPage.dto.MyPagePointDto;
  */
 public interface MyPageDao {
 
-	MyPagePointDto pointInsert(String id, String menu_num, String point_type);
-
 	int pointInsert(MyPagePointDto myPagePointDto);
+
+	List<MyPagePointDto> myPointList(String id);
+
+	int cashChargeInsert(MyPageCashChargeDto myPageCashChargeDto);
+
+	List<MyPageCashChargeDto> myCashChargeList(String id);
+
 
 }
