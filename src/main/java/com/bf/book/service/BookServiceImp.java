@@ -16,6 +16,7 @@ import com.bf.aop.LogAspect;
 import com.bf.book.dao.BookDao;
 import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BookDto;
+import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.member.model.User;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
@@ -155,7 +156,7 @@ public class BookServiceImp implements BookService {
 		
 		//베스트셀러 - > 구매기능완성되면 잘팔린순으로 뽑아와야함
 		
-		List<HomeDto> homeList=bookDao.getHomeBookInfoList();
+		List<HomeDto> homeList=bookDao.getHomeBookInfoList(firstCate);
 		//LogAspect.info(LogAspect.logMsg + homeList.toString());
 		
 		mav.addObject("recomList", recomList);
@@ -169,6 +170,7 @@ public class BookServiceImp implements BookService {
 		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
 		String firstCate=request.getParameter("firstCate");
 		String bookType=request.getParameter("bookType");
+		String seconCate=request.getParameter("seconCate");
 		
 		String pn=request.getParameter("pageNumber");
 		if(pn==null)	pn="1";
@@ -219,10 +221,27 @@ public class BookServiceImp implements BookService {
 		int firstCate=bookDao.getFirstCate("로맨스");
 		
 		//화면이 일반단행본인지, 연재인지로 구분되서 시작되어야함
+		String type=request.getParameter("bookType");
+		String secon=request.getParameter("seconCate");
+
+		int seconCate=0;
+		
+		if(secon!=null) {
+			seconCate=Integer.parseInt(secon);
+		}
+		if(type==null || type=="paper" || secon==null) {
+			seconCate=bookDao.getBookSecondCate(firstCate);
+		}else if(type=="serial") {
+			//연재는 아직 데이터가없음
+		}
+		
+		HashMap<String, Integer> map=new HashMap<String, Integer>();
+		map.put("firstCate", firstCate);
+		map.put("seconCate", seconCate);
 		
 		//오늘의 추천은 랜덤으로 뽑아옴
 		int preBookNum=0;
-		List<Integer> randomBookNum=bookDao.getRandomBookNum(firstCate);
+		List<Integer> randomBookNum=bookDao.getPaperRandomBookNum(map);
 		List<HomeDto> recomList=new ArrayList<HomeDto>();
 		
 		for(int i=0;i<randomBookNum.size();i++) {
@@ -242,11 +261,12 @@ public class BookServiceImp implements BookService {
 		
 		//베스트셀러 - > 구매기능완성되면 잘팔린순으로 뽑아와야함
 		
-		List<HomeDto> homeList=bookDao.getHomeBookInfoList();
+		List<HomeDto> homeList=bookDao.getPaperHomeBookInfoList(map);
 		//LogAspect.info(LogAspect.logMsg + homeList.toString());
 		
 		mav.addObject("recomList", recomList);
 		mav.addObject("homeList", homeList);
 		mav.addObject("firstCate",firstCate);
+		mav.addObject("seconCate", seconCate);
 	}
 }

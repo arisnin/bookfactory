@@ -19,12 +19,14 @@
 	
 	<select id="getHomeBookInfoList" parameterType="int" resultMap="HomeDto">
 		<![CDATA[
-			SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", t.NAME "thirdCate", b.book_num, b.price, b.type, b.author_num
-			FROM bookm b, author A, book_category c, third_cate t
-			WHERE b.author_num = A.num 
-			      AND b.book_num=c.book_num
-			      AND c.cate3_num=t.num
-			      and b.book_num>=#{min} and b.book_num<=(#{min}+20)
+			SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", t.NAME "thirdCate", b.book_num, b.price, b.TYPE, b.author_num
+			FROM bookm b, author A, book_category c, third_cate t, first_cate f
+			WHERE b.author_num=A.num
+		      AND b.book_num=c.book_num
+		      AND c.cate1_num=f.num
+		      AND c.cate3_num=t.num
+		      AND b.book_num>=#{min} AND b.book_num<=(#{min}+20)
+		      and f.num=#{firstCate}
 		]]>
 	</select>
 	
@@ -106,5 +108,44 @@
 			      AND f.num=#{firstCate}) b
 			where b.r<=20
 		]]>			                                
+	</select>
+	
+	<select id="getBookSecondCate" parameterType="int" resultType="int">
+		<![CDATA[
+			SELECT DISTINCT sc.num
+			FROM bookm b, book_category c, second_cate sc
+			WHERE b.book_num=c.book_num
+			AND c.cate2_num=sc.num
+			AND sc.NAME LIKE '%단행본%'
+			and sc.first_cate=#{firstCate}
+		]]>
+	</select>
+	
+	<select id="getPaperRandomBookNum" parameterType="java.util.HashMap" resultType="int">
+		<![CDATA[
+			SELECT b.book_num                              
+			FROM (SELECT b.book_num, ROWNUM r, sc.NAME
+			      from  bookm b, book_category c, first_cate f, second_cate sc
+			      WHERE b.book_num=c.book_num
+			      AND c.cate1_num=f.num
+			      and c.cate2_num=sc.num
+			      AND f.num=#{firstCate}
+			      and sc.num=#{seconCate}) b
+			where b.r>=40
+		]]>
+	</select>
+	
+	<select id="getPaperHomeBookInfoList" parameterType="java.util.HashMap" resultMap="HomeDto">
+		<![CDATA[
+			SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", t.NAME "thirdCate", b.book_num, b.price, b.TYPE, b.author_num
+			FROM bookm b, author A, book_category c, third_cate t, first_cate f, second_cate sc
+			WHERE b.author_num=A.num
+			AND b.book_num=c.book_num
+			AND c.cate1_num=f.num
+			AND c.cate3_num=t.num
+			and c.cate2_num=sc.num
+			AND f.num=#{firstCate}
+			and sc.num=#{seconCate}
+		]]>
 	</select>
 </mapper>

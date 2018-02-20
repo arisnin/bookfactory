@@ -31,33 +31,37 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.insert("com.bf.mapper.BookPlusMapper.insert-review", reviewDto);
 	}
 
-	@Override
-	public List<HomeDto> getHomeBookInfoList() {
+	@Override	//일반, 만화에서 사용하는 홈화면 책정보가져오기 나중에 수정해야함 - 
+	public List<HomeDto> getHomeBookInfoList(int firstCate) {
 		// TODO Auto-generated method stub
 		int min=sqlSession.selectOne("getBookNumMin");
+
+		HashMap<String, Integer> map=new HashMap<String, Integer>();
+		map.put("firstCate", firstCate);
+		map.put("min", min);
 		
-		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getHomeBookInfoList", min);
+		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getHomeBookInfoList", map);
 	}
 
-	@Override
+	@Override	//첫번째 카테고리 번호 얻기
 	public int getFirstCate(String firstCateName) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getFirstCate", firstCateName);
 	}
 
-	@Override
+	@Override	//첫번째 카테고리 이름 얻기
 	public String getFirstCateName(String firstCate) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getFirstCateName", firstCate);
 	}
 
-	@Override
+	@Override	//일반, 만화의 신간 책 들고오기
 	public List<NewBookDto> getNewBookList(HashMap<String, Integer> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getNewBookList",map);
 	}
-
-	@Override
+	
+	@Override	//일반, 만화의 신간 책 권 수
 	public int getNewBookCount(String firstCate) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getNewBookCount", firstCate);
@@ -81,18 +85,32 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.update(namespace + "update-review", reviewDto);
 	}
 	
+	@Override	//추천도서 가져오기
 	public HomeDto getRecomList(int randomBookNum) {
 		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getRecomList", randomBookNum);
 	}
 
-	@Override
-	public int getRecomCount(long book_num) {
-		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getRecomCount", book_num);
-	}
-
-	@Override	//오늘의 추천에서 랜덤값 가져오는 아이
+	@Override	//오늘의 추천에서 랜덤값 가져오는 아이 - 일반, 만화 해당
 	public List<Integer> getRandomBookNum(int firstCate) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getRandomBookNum", firstCate);
+	}
+
+	@Override	//일반,만화 제외 홈 화면에서 연재인지 단행본인지 구별하는 아이
+	public int getBookSecondCate(int firstCate) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getBookSecondCate", firstCate);
+	}
+
+	@Override	//오늘의 추천에서 랜덤값 가져오는 아이 - 로맨스, 판타지, 비엘 단행본 해당
+	public List<Integer> getPaperRandomBookNum(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getPaperRandomBookNum", map);
+	}
+
+	@Override
+	public List<HomeDto> getPaperHomeBookInfoList(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getPaperHomeBookInfoList", map);
 	}
 }

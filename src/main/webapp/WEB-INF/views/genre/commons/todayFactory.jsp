@@ -34,15 +34,15 @@ $(function(){
 				</div>
 				<!-- 책리스트 -->
 				<div class="today-recommended-list" id="today-recommended-list">
-					<c:forEach var="homeDto" items="${recomList}">
+					<c:forEach var="recom" items="${recomList}">
 						<div class="today-recommended-book" style="opacity: 1;">
 							<div class="book-spotlight" style="opacity: 0;"></div>
 							<div class="book-thumbnail-wrap">
 								<div class="recommended-book-metadata">
 									<p>
-										${homeDto.authorName }<br>${homeDto.bookName}
+										${recom.authorName }<br>${recom.bookName}
 									</p>
-									<input type="hidden" name="bookNum" value="${homeDto.book_num}">
+									<input type="hidden" name="bookNum" value="${recom.book_num}">
 								</div>
 								<div class="content-star-rate">
 									<span class="star-icon-field material-icons">star_border</span><span
@@ -50,7 +50,7 @@ $(function(){
 										class="count-field"> 9999명</span>
 								</div>
 								<div class="recommended-book-thumbnail">
-									<img alt="img" src="${homeDto.img_path}"/>
+									<img alt="img" src="${recom.img_path}"/>
 								</div>
 							</div>
 						</div>

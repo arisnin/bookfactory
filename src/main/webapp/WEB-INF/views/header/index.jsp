@@ -130,9 +130,9 @@
 				<div class="hw_sub_cate">
 					<span>단행본</span>
 					<ul>
-						<li class="sub_cate_element" onclick="location.href='${root}/${home}.do?firstCate=${firstCate}&bookType=paper'">홈 <span class="activeBar"></span></li>
-						<li class="sub_cate_element" onclick="location.href='${root}/new-book.do?firstCate=${firstCate}&bookType=paper'">신간<span></span></li>
-						<li class="sub_cate_element" onclick="location.href='${root}/best-sell.do?firstCate=${firstCate}&bookType=paper&bestSeller=weekBest'">베스트셀러<span></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/${home}.do?firstCate=${firstCate}&bookType=paper&seconCate=${seconCate}'">홈 <span class="activeBar"></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/new-book.do?firstCate=${firstCate}&bookType=paper&seconCate=${seconCate}'">신간<span></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/best-sell.do?firstCate=${firstCate}&bookType=paper&bestSeller=weekBest&seconCate=${seconCate}'">베스트셀러<span></span></li>
 						<%-- <li class="sub_cate_element" onclick="location.href='${root}/normal.main'">맞춤추천<span></span></li> --%>
 						<li class="sub_cate_element" onclick="location.href='${root}/event.do?firstCate=${firstCate}&bookType=paper'">이벤트<span></span></li>
 					</ul>
