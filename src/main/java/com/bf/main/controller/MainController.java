@@ -130,7 +130,7 @@ public class MainController {
 	 * @throws ParseException
 	 *             SimpleDateFormat.parse()에서 발생하는 예외
 	 */
-	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/register.do", method = RequestMethod.POST)
 	public ModelAndView register(HttpServletRequest request, HttpServletResponse response, RegisterDto registerDto) throws ParseException {
 		ModelAndView mav = new ModelAndView("genre/register.main");
 		Date birthday = new SimpleDateFormat("yyMMdd").parse(request.getParameter("birth"));

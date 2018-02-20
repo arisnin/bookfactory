@@ -22,17 +22,16 @@
 <body>
 
 
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />
-
+	<jsp:include page="./main_header.jsp" />
 
 	<div class="service_information_cn">
 
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
 				<span>
-				<a href="${root }/serviceCenter/main.jsp">리디북스 고객센터</a></span>
+				<a href="${root }/serviceCenter/main.do">리디북스 고객센터</a></span>
 					<span>></span>
-					<a href="${root }/serviceCenter/error_use.jsp">오류 / 활용 도움말</a>				
+					<a href="${root }/serviceCenter/error_use.do">오류 / 활용 도움말</a>				
 			</div>
 
 
@@ -55,7 +54,7 @@
 				
 					<div class="service_information_cn_cn_left_title">이 섹션의 문서</div>
 					<ul>
-						<li><a href="${root }/serviceCenter/error_use_content.jsp">도서정가제란 무엇인가요?</a></li>
+						<li><a href="${root }/serviceCenter/error_use_content.do">도서정가제란 무엇인가요?</a></li>
 						<li>연재도서는 단행본으로 교체가 가능한가요?</li>
 						<li>안돼.</li>
 						<li>가나다라마바사아자차타카파하</li>		

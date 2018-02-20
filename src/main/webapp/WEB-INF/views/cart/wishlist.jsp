@@ -8,11 +8,11 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/cart/cart.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/cart/wishlist.css">
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+<script type="text/javascript" src="${root}/script/cart/cart.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$(".service-type-list a").click(function() {
-			$(".active").removeClass();
-			$(this).addClass("active");
+		$(".cart_content input[type='checkbox']").each(function() {
+			$(this).prop("checked", false);
 		});
 	});
 </script>
@@ -50,24 +50,24 @@
 				</div>
 			</div>
 			<!-- -------------------------------------- -->
-			<%-- <c:if test=${cartSize!=0 }> --%>
-			<c:forEach begin="1" end="2">
+			<c:if test="${listSize!=0 }">
+			<c:forEach items="${listWish}" var="wishList">
 				<div class="cart_content_book">
 					<div class="book-thumbnail">
 						<label class="bf-custom-checkbox cart_content_book_span">
 							<input type="checkbox">
 							<span class="all-mark"></span>
 						</label>
-						<img class="cart_content_book_img" src="https://misc.ridibooks.com/cover/2416000043/large">
+						<img class="cart_content_book_img" src="${wishList.img_path}">
 					</div>
 					<div class="cart_content_book_content">
-						<span>개정판 | 왕들의 전쟁: 얼음과 불의 노래 제2부</span>
+						<span id="${wishList.book_num}">${wishList.bookName}</span>
 						<br>
-						<span class="font_13">조지 R. R. 마틴</span>
+						<span class="font_13">${wishList.authorName}</span>
 						<div class="float_right">
 							<span class="price"></span>
 							<div>
-								<span class="dc-price">25000원</span>
+								<span class="dc-price">${wishList.rental_price}원</span>
 								<span class="count_percent buy-type">구매</span>
 							</div>
 						</div>
@@ -126,11 +126,11 @@
 				</div>
 			</c:forEach>
 			
-			<%-- </c:if> --%>
+			</c:if>
 			<!-- -------------------------------------- -->
-			<%-- <c:if test=${cartSize==0 }> --%>
-			<!-- 	<div class="cart_content_book">대여 할수 있는 책이 없습니다.</div> -->
-			<%-- </c:if> --%>
+			<c:if test="${listSize==0 }">
+				<div class="cart_content_book cart_content_book_no">대여 할수 있는 책이 없습니다.</div>
+			</c:if>
 
 			<div class="cart_content_select">
 				<div class="float_left">

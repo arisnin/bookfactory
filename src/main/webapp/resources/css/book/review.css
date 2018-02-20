@@ -269,7 +269,7 @@
 	margin-left: 0.25rem;
 }
 
-.review-write-box .review-write-form > .review-content {
+.review-write-box .review-write-form .review-content {
 	border: 0.125rem solid #E1DFFA;
 	border-radius: 0.25rem;
 	width: 100%;
@@ -283,7 +283,7 @@
 	resize: none;
 }
 
-.review-write-box .review-write-form > p.review-content {
+.review-write-box .review-write-form p.review-content {
 	background-color: #F3F0FA;
 	font-size: 0.8125rem;
 	font-weight: 500;
@@ -302,8 +302,12 @@
 	float: right;
 }
 
-.review-write-box .review-write-submit > button ~ button {
+.review-write-box .review-write-submit > .bf-notice-btn {
 	float: left;
+}
+
+.review-write-box .review-write-submit > .cancel-btn {
+	margin-right: 0.625rem;
 }
 
 /* 리뷰 목록 & 댓글 작성 */

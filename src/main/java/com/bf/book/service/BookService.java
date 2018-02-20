@@ -11,5 +11,7 @@ public interface BookService {
 	ModelAndView reviewWrite(ModelAndView mav);
 	void normalHome(ModelAndView mav);
 	void homeNewbook(ModelAndView mav);
+	ModelAndView reviewList(ModelAndView mav);
+	ModelAndView reviewUpdate(ModelAndView mav);
 
 }

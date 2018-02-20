@@ -1,40 +1,69 @@
 /**
  * 
  */
-$("#b_date").datepicker({
-			dateFormat : 'yy-mm-dd'
-		});
 
-var checkbox = $(".bf-custom-checkbox");
 
-//디폴트 전체선택 클릭
-
-checkbox.eq(0).find("input[type=checkbox]").click(function(e){
-	if(this.checked){
-		checkbox.find("input[type=checkbox]").each(function(){
-			this.checked = true;
-		});
-	}else{
-		checkbox.find("input[type=checkbox]").each(function(){
-			this.checked = false;
-		});				
-	}
-}).trigger('click');
-
-checkbox.not(":eq(0)").find("input[type=checkbox]").click(function(){
-	
-	checkbox.eq(0).find("input[type=checkbox]").prop("checked",false);
-	var check = 0;
-	checkbox.not(":eq(0)").find("input[type=checkbox]").each(function(){
-		if($(this).prop("checked") == false){
-			check = 1;
-		}
-	});
-	if(check == 0){
-		checkbox.eq(0).find("input[type=checkbox]").prop("checked",true);
-	}
+//파일버튼 클릭
+$("#b_in_filebtn").click(function(){
+	$("#b_in_fileinput").trigger("click");
 });
 
+//jquery datepicker
+$("#b_date").datepicker({
+	dateFormat : 'yy-mm-dd'
+});
+
+//이름중복
+function checkName(root) {
+	var node = $("input[name=name]");
+	var url = root + "/manager/bookInNameCheck.do";
+	window.setTimeout(suggestToServer(url,node,bookName), 500);
+}
+
+//작가중복
+function checkAuthor(root,name){
+	var node = $("input[name="+name+"]");
+	var url = root + "/manager/bookInAuthorCheck.do";
+	suggestToServer(url,node,bookAuthor);
+}
+
+
+//디폴트 전체선택 클릭
+var support = $("#b_in_support > .bf-custom-checkbox");
+setCheckbox(support);
+var payType = $("#b_in_payType > .bf-custom-checkbox");
+setCheckbox(payType);
+
+
+function setCheckbox(checkbox){
+	checkbox.eq(0).find("input[type=checkbox]").click(function(e){
+		if(this.checked){
+			checkbox.find("input[type=checkbox]").each(function(){
+				this.checked = true;
+			});
+		}else{
+			checkbox.find("input[type=checkbox]").each(function(){
+				this.checked = false;
+			});				
+		}
+	}).trigger('click');
+	
+	checkbox.not(":eq(0)").find("input[type=checkbox]").click(function(){
+		
+		checkbox.eq(0).find("input[type=checkbox]").prop("checked",false);
+		var check = 0;
+		checkbox.not(":eq(0)").find("input[type=checkbox]").each(function(){
+			if($(this).prop("checked") == false){
+				check = 1;
+			}
+		});
+		if(check == 0){
+			checkbox.eq(0).find("input[type=checkbox]").prop("checked",true);
+		}
+	});
+	
+}
+var lastName ="";
 //써제스트
 function suggestToServer(url,node,callback) {
 	var name = node;
@@ -110,13 +139,24 @@ function focusinAuthor(node){
 
 function uploadImg(root){
 	var url = root + "/manager/bookUploadImg.do";
-	alert(root);
+	var formData = new FormData();
+	formData.append('file', $("#b_in_fileinput")[0].files[0]);
+	$.ajax({
+        url: url,
+        processData: false,
+        contentType: false,
+        data: formData,
+        type: 'POST',
+        success: function(result){
+            $(".b_in_img").find("img").attr("src",root+"/img/manager/bookImg/"+result);
+        }
+    });
 }
 
 function bookInsertOk(){
 	//도서 유효성검사
 	//도서제목 
-	/*var name = $("input[name=name]");
+	var name = $("input[name=name]");
 	if(name.val() == ""){
 		name.focus();
 		name.next().css("color","red").text("제목을 입력하시오");
@@ -141,17 +181,17 @@ function bookInsertOk(){
 	var pub_num = $("input[name=pub_num]");
 	if(pub_num.val() == ""){
 		pub_num.val(0);
-	}*/
+	}
 	
 	//카테고리
-	/*var cate1_num = $("input[name=cate1_num]");
+	var cate1_num = $("input[name=cate1_num]");
 	var cate2_num = $("input[name=cate2_num]");
 	var cate3_num = $("input[name=cate3_num]");
 	
 	if(cate1_num.val()=="" ||cate2_num.val()=="" ||cate3_num.val()=="" ){
 		$("#b_cate_ok").focus();
 		return false;
-	}*/
+	}
 	
 	//작가
 	var author_num = $("input[name=author_num]");
@@ -173,8 +213,15 @@ function bookInsertOk(){
 	for(var i=0;i<supportBox.length;i++){
 		supportValue += $(supportBox[i]).val() + ",";
 	}
+	if(supportValue == ""){
+		supportValue = "없음";
+	}
+	
+	$("input[name=support]").val(supportValue);
 	
 	//이미지
+	var img_path = $(".b_in_img").find("img").attr("src");
+	$("input[name=img_path]").val(img_path);
 	
 	//도서소개
 	var intro = $("textarea[name=intro]");
@@ -187,8 +234,31 @@ function bookInsertOk(){
 	if(pub_intro.val()==""){
 		pub_intro.val("없음");
 	}
+	//책가격
+	var price = $("input[name=price]");
+	if(price.val() == ""){
+		price.focus();
+		return false;
+	}
 	
-	return false;
+	//대여
+	var rental_period = $("input[name=rent]:checked");
+	var rentalStr = "";
+	if(rental_period.length == 1){
+		rentalStr = "대여";
+		$("input[name=rental_price]").val(Math.round(parseInt(price.val()) * 0.8));
+	}else{
+		rentalStr = "no";
+	}
+	$("input[name=rental_period]").val(rentalStr);
+	
+	var payType = $("input[name=payType]:checked");
+	var type = "";
+	if(payType.length == 2){
+		type = "paper";
+	}else{
+		type = "ebook";
+	}
+	$("input[name=type]").val(type);
+	
 }
-
-

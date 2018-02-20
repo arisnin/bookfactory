@@ -1,5 +1,6 @@
 package com.bf.manager.service;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -22,17 +23,22 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.manager.dao.ManagerDao;
 import com.bf.manager.dto.AuthorDto;
+import com.bf.manager.dto.AuthorSearchDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookFirstCateDto;
+import com.bf.manager.dto.BookSearchDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
 import com.bf.manager.dto.PublisherDto;
+import com.bf.manager.dto.PublisherSearchDto;
 
 
 /**
@@ -184,6 +190,48 @@ public class ManagerServiceImp implements ManagerService {
 	public void bookInsert(ModelAndView mav) {
 		List<BookFirstCateDto> firstCateList = managerDao.getFirstCate();
 		mav.addObject("firstCateList", firstCateList);
+	}
+	
+	@Override
+	public void bookInsertOk(ModelAndView mav) {
+		BookDto bookDto = (BookDto) mav.getModelMap().get("bookDto");
+		int check = managerDao.insertBook(bookDto);
+		mav.addObject("check", check);
+	}
+	
+	@Override
+	public void bookSearch(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		
+		String searchWord = request.getParameter("searchWord");
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber == null) pageNumber = "1";
+		
+		int boardSize = 10;
+		int currentPage = Integer.parseInt(pageNumber);
+		int startRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize;
+		
+		List<BookSearchDto> bookList = null;
+		int count = 0;
+		if(searchWord == null) {
+			bookList = managerDao.getBookSearchList(startRow,endRow);
+			count = managerDao.getBookCount();
+		}else {
+			bookList = managerDao.getBookSearchList(searchWord,startRow,endRow);
+			count = managerDao.getBookCount(searchWord);
+		}
+		
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("count", count);
+		mav.addObject("bookList", bookList);
+		mav.addObject("searchWord", searchWord);
+	}
+	
+	@Override
+	public void bookUpdate(ModelAndView mav) {
+		// TODO Auto-generated method stub
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -610,6 +658,9 @@ public class ManagerServiceImp implements ManagerService {
 					
 					DecimalFormat df = new DecimalFormat(",###");
 					Element priceTable = meta.selectFirst(".normal_price_table");
+
+					//대여 기본타입 no
+					bookDto.setRental_period("no");
 					if(priceTable == null) {
 						priceTable = meta.selectFirst(".series_price_table");
 						int insertSeries = managerDao.insertSeries(name);
@@ -672,13 +723,7 @@ public class ManagerServiceImp implements ManagerService {
 									}else if(pType.text().equals("전자책 정가") || pType.text().equals("전자책 세트 정가")) {
 										if(p.selectFirst(".discount_rate").selectFirst("span") == null ) {
 											bookDto.setDiscount(0);
-										}else {
-											/*int p1 = bookDto.getPrice();
-											int p2 = number.intValue();
-											double discount = 1- ((double) p2 / p1);
-											
-											bookDto.setDiscount(Double.parseDouble(df2.format(discount)));*/
-											Element discount = p.selectFirst(".discount_rate");
+										}else {											Element discount = p.selectFirst(".discount_rate");
 											if(discount.selectFirst("span") != null) {
 												String disStr = discount.selectFirst("span").text();
 												int start = disStr.indexOf("(");
@@ -689,13 +734,7 @@ public class ManagerServiceImp implements ManagerService {
 									}else if(pType.text().equals("판매가")) {
 										if(p.selectFirst(".discount_rate").selectFirst("span") == null ) {
 											bookDto.setDiscount2(0);
-										}else {/*
-											int p1 = bookDto.getPrice();
-											double p2 = p1 * (1-bookDto.getDiscount());
-											int p3 = number.intValue();
-											double discount2 = 1-(p3 / p2);
-											bookDto.setDiscount2(Double.parseDouble(df2.format(discount2)));	
-											*/
+										}else {
 											Element discount = p.selectFirst(".discount_rate");
 											if(discount.selectFirst("span") != null) {
 												String disStr = discount.selectFirst("span").text();
@@ -712,8 +751,6 @@ public class ManagerServiceImp implements ManagerService {
 						}
 					}
 					
-					//대여 기본타입 no
-					bookDto.setRental_period("no");
 					
 					if(bookDto.getType() == null || (!bookDto.getType().equals("paper") && !bookDto.getType().equals("series"))) {
 						bookDto.setType("ebook");
@@ -852,6 +889,150 @@ public class ManagerServiceImp implements ManagerService {
 	public void bookCategory(ModelAndView mav) {
 		List<BookFirstCateDto> firstCateList = managerDao.getFirstCate();
 		mav.addObject("firstCateList", firstCateList);
+	}
+	
+	@Override
+	public void bookUploadImg(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
+		MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+		MultipartFile formFile = multiRequest.getFile("file");
+		
+		long fileSize = formFile.getSize();
+		String fileName = System.currentTimeMillis() + "_"+ formFile.getOriginalFilename();
+		
+		if (fileSize != 0) {
+			File path = new File("C:\\Users\\sist\\Desktop\\bookfactory\\src\\main\\webapp\\resources\\img\\manager\\bookImg");
+			path.mkdirs();
+			if (path.exists() && path.isDirectory()) {
+				File file = new File(path, fileName);
+
+				try {
+					formFile.transferTo(file);
+					response.setContentType("application/text;charset=utf-8");
+					response.getWriter().print(fileName);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void insertCateOne(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String name = request.getParameter("name");
+		int maxNum = managerDao.getCateOneCount();
+		int checkName = managerDao.checkCateOne(name);
+		int check = 0;
+		if(checkName == 0) {
+			check = managerDao.insertCateOne(name, maxNum+1);
+		}
+		mav.addObject("check", check);
+	}
+	
+	@Override
+	public void insertCateTwo(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String name = request.getParameter("name");
+		int cate1 = Integer.parseInt(request.getParameter("cate1"));
+		
+		int maxNum = managerDao.getCateTwoCount();
+		int checkName = managerDao.checkCateTwo(name);
+		int check = 0;
+		if(checkName == 0) {
+			check = managerDao.insertCateTwo(name,cate1,maxNum+1);
+		}
+		mav.addObject("check", check);
+	}
+	
+	@Override
+	public void insertCateThree(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String name = request.getParameter("name");
+		int cate1 = Integer.parseInt(request.getParameter("cate1"));
+		
+		int maxNum = managerDao.getCateThreeCount();
+		int checkName = managerDao.checkCateThree(name);
+		int check = 0;
+		if(checkName == 0) {
+			check = managerDao.insertCateThree(name,cate1,maxNum+1);
+		}
+		mav.addObject("check", check);
+	}
+
+	@Override
+	public void publisherSearch(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String searchWord = request.getParameter("searchWord");
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber == null) pageNumber = "1";
+		
+		int boardSize = 10;
+		int currentPage = Integer.parseInt(pageNumber);
+		int startRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize;
+		
+		List<PublisherSearchDto> publisherList = null;
+		int count = 0;
+		if(searchWord == null) {
+			publisherList = managerDao.getPublisherSearchList(startRow,endRow);
+			count = managerDao.getPublisherCount();
+		}else {
+			publisherList = managerDao.getPublisherSearchList(searchWord,startRow,endRow);
+			count = managerDao.getPublisherCount(searchWord);
+		}
+		
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("count", count);
+		mav.addObject("publisherList", publisherList);
+		mav.addObject("searchWord", searchWord);
+	}
+	
+	@Override
+	public void publisherUpdate(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		int pub_num = Integer.parseInt(request.getParameter("pub_num"));
+		PublisherDto publisherDto= managerDao.getPublisher(pub_num);
+		
+		mav.addObject("publisherDto", publisherDto);
+	}
+	
+	@Override
+	public void publisherUpdateOk(ModelAndView mav) {
+		PublisherDto publisherDto = (PublisherDto) mav.getModelMap().get("publisherDto");
+		int check = managerDao.updatePublisher(publisherDto);
+		mav.addObject("check", check);
+	}
+
+	@Override
+	public void authorSearch(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String searchWord = request.getParameter("searchWord");
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber == null) pageNumber = "1";
+		
+		int boardSize = 10;
+		int currentPage = Integer.parseInt(pageNumber);
+		int startRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize;
+		
+		List<AuthorSearchDto> authorList = null;
+		int count = 0;
+		if(searchWord == null) {
+			authorList = managerDao.getAuthorSearchList(startRow,endRow);
+			count = managerDao.getAuthorCount();
+		}else {
+			authorList = managerDao.getAuthorSearchList(searchWord,startRow,endRow);
+			count = managerDao.getAuthorCount(searchWord);
+		}
+		
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("count", count);
+		mav.addObject("authorList", authorList);
+		mav.addObject("searchWord", searchWord);
 	}
 	
 }

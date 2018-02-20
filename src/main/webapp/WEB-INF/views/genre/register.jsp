@@ -12,17 +12,13 @@
 	<c:if test="${check>0 }">
 		<script type="text/javascript">
 			alert("회원가입이 완료되었습니다.");
-			location.href = "${root }"
 		</script>
-	</c:if>
-	
+	</c:if>	
 	<c:if test="${check==0 }">
 		<script type="text/javascript">
 			alert("회원가입에 실패하였습니다.");
-			location.href = "${root }"
 		</script>
-	</c:if>
-
-
+	</c:if>	
+	<script type="text/javascript">location.reload();</script>
 </body>
 </html>

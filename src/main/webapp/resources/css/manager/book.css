@@ -87,7 +87,7 @@ html{font-size: 16px !important;}
 .b_in_img > label,.b_in_img > button{
 	position: relative;
 }
-.b_in_img > img{
+.b_in_img  img{
 	border: 1px solid rgb(169, 169, 169);
 	background-color: white;
 	max-width: 11.6rem;
@@ -173,7 +173,10 @@ html{font-size: 16px !important;}
 	padding: 1rem;
 	border-bottom: 0.125rem solid Lavender;
 }
-
+.b_se_list li a{
+	font-size: 0.8rem;
+	font-weight: bold;
+}
 .b_se_list li{
 	position: relative;
 	height: 2rem;
@@ -186,11 +189,13 @@ html{font-size: 16px !important;}
     text-align: center;
 }
 .b_se_list li > span:nth-child(1){
-    width: 23%;
+    width: 30%;
 }
 .b_se_list li > span:nth-child(2){
-       width: 13%;
+    width: 13%;
     margin-left: 2rem;
+    font-size: 0.8rem;
+	font-weight: bold;
 }
 .b_se_list li > span:nth-child(3){
     margin-left: 2rem;
@@ -207,21 +212,23 @@ html{font-size: 16px !important;}
 	border-top: 0.125rem solid lavender;
     font-weight: 600;
 }
-
+.b_se_bar li{
+	margin-right: 0rem !important;
+}
 .b_se_bar span{
 	position: relative;
     top: 0.7rem;
 }
 .b_se_bar span:nth-child(1) {
-	left: 7rem;
-    margin-right: 7.5rem;
+	left: 10rem;
+    margin-right: 9rem;
 }
 
 .b_se_tt{
 	overflow: visible !important;
 }
 .b_se_tt > .b_se_bar > li:first-child > span{
-	left: 6rem;
+	left: 8rem;
 }
 
 .b_se_content > .b_se_tt > .b_se_ta{

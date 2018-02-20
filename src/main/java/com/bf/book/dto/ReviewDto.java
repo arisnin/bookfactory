@@ -1,6 +1,7 @@
 package com.bf.book.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -22,12 +23,14 @@ public class ReviewDto {
 	private int preference; // NUMBER(8,0) -- 좋아요 개수
 	private String display; // VARCHAR2(20 CHAR) -- 공개/비공개(true/false)
 	private int accuse_count; // 신고 개수
+	
+	private List<ReplyDto> replyList;
 
 	// Constructor
 	public ReviewDto() {
 	}
 
-	public ReviewDto(int num, String id, int book_num, String content, Date write_date, int star_point, String spoiler, int preference, String display) {
+	public ReviewDto(int num, String id, int book_num, String content, Date write_date, int star_point, String spoiler, int preference, String display, List<ReplyDto> replyList) {
 		super();
 		this.num = num;
 		this.id = id;
@@ -38,6 +41,7 @@ public class ReviewDto {
 		this.spoiler = spoiler;
 		this.preference = preference;
 		this.display = display;
+		this.replyList = replyList;
 	}
 
 	// Get, Set
@@ -118,14 +122,25 @@ public class ReviewDto {
 	}
 
 	public void setAccuse_count(int accuse_count) {
+	
 		this.accuse_count = accuse_count;
+	}
+	public List<ReplyDto> getReplyList() {
+		return replyList;
+	}
+
+	public void setReplyList(List<ReplyDto> replyList) {
+		this.replyList = replyList;
+
 	}
 
 	@Override
 	public String toString() {
+
 		return "ReviewDto [num=" + num + ", id=" + id + ", book_num=" + book_num + ", content=" + content
 				+ ", write_date=" + write_date + ", star_point=" + star_point + ", spoiler=" + spoiler + ", preference="
 				+ preference + ", display=" + display + ", accuse_count=" + accuse_count + "]";
+
 	}
 
 }

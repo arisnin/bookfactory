@@ -19,7 +19,8 @@
     border: none;
     outline: none;
     transition: 0.4s;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    font-weight:bold;
     font-family: '나눔바른고딕';
     
 }
@@ -36,7 +37,8 @@
 	padding: 0.8rem;
 	padding-left: 2rem;
 	color: #444;
-	font-size: 0.7rem;
+	font-size: 0.75rem;
+	font-weight : bold;
 	background-color: #776bce2e;
 	border-bottom: 1px solid #776bce2e;
 }

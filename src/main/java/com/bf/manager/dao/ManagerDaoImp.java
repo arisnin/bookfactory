@@ -2,20 +2,22 @@ package com.bf.manager.dao;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.manager.dto.AuthorDto;
+import com.bf.manager.dto.AuthorSearchDto;
 import com.bf.manager.dto.BookCategoryDto;
 import com.bf.manager.dto.BookDto;
-import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookFirstCateDto;
+import com.bf.manager.dto.BookSearchDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
 import com.bf.manager.dto.PublisherDto;
+import com.bf.manager.dto.PublisherSearchDto;
 
 /**
  * @이름: 염현우
@@ -27,10 +29,10 @@ public class ManagerDaoImp implements ManagerDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	@Override
+/*	@Override
 	public int insertCategory(String name) {
 		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateSecond", name);
-	}
+	}*/
 
 	@Override
 	public int insertBookCateSecond(String name, int cate1) {
@@ -111,10 +113,96 @@ public class ManagerDaoImp implements ManagerDao {
 		map.put("searchWord", searchWord);
 		return sqlSession.selectList("com.bf.mapper.PublisherMapper.getPublisher2", map);
 	}
+	
+	@Override
+	public List<BookSearchDto> getBookSearchList(int startRow, int endRow) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSession.selectList("com.bf.mapper.BookMapper.getBookSearchList1", map);
+	}
+	
+	@Override
+	public List<BookSearchDto> getBookSearchList(String searchWord, int startRow, int endRow) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("searchWord", searchWord);
+		return sqlSession.selectList("com.bf.mapper.BookMapper.getBookSearchList2", map);
+	}
+	
+	@Override
+	public List<PublisherSearchDto> getPublisherSearchList(int startRow, int endRow) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSession.selectList("com.bf.mapper.PublisherMapper.getPublisherSearchList1", map);
+	}
+	
+	@Override
+	public List<PublisherSearchDto> getPublisherSearchList(String searchWord, int startRow, int endRow) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("searchWord", searchWord);
+		return sqlSession.selectList("com.bf.mapper.PublisherMapper.getPublisherSearchList2", map);
+	}
+	
+	@Override
+	public List<AuthorSearchDto> getAuthorSearchList(int startRow, int endRow) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSession.selectList("com.bf.mapper.AuthorMapper.getAuthorSearchList", map);
+	}
+	
+	@Override
+	public List<AuthorSearchDto> getAuthorSearchList(String searchWord, int startRow, int endRow) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("searchWord", searchWord);
+		return sqlSession.selectList("com.bf.mapper.AuthorMapper.getAuthorSearchList2", map);
+	}
+	
+	@Override
+	public int getAuthorCount() {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getAuthorCount");
+	}
+	
+	@Override
+	public int getAuthorCount(String searchWord) {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getAuthorCount2",searchWord);
+	}
+	
+	@Override
+	public int getBookCount() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getCount");
+	}
+	
+	@Override
+	public int getBookCount(String searchWord) {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getCount2",searchWord);
+	}
+	
+	@Override
+	public AuthorDto getAuthor(int author_num) {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getAuthor", author_num);
+	}
+	
+	@Override
+	public PublisherDto getPublisher(int pub_num) {
+		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getPublisher",pub_num);
+	}
 
 	@Override
 	public int getPublisherCount() {
 		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getCount");
+	}
+	
+	@Override
+	public int getPublisherCount(String searchWord) {
+		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getCount2",searchWord);
 	}
 
 	@Override
@@ -158,6 +246,21 @@ public class ManagerDaoImp implements ManagerDao {
 	public int checkCateOne() {
 		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkCateOne");
 	}
+	
+	@Override
+	public int checkCateOne(String name) {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkCateOne2", name);
+	}
+	
+	@Override
+	public int checkCateTwo(String name) {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkCateTwo", name);
+	}
+	
+	@Override
+	public int checkCateThree(String name) {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkCateThree", name);
+	}
 
 	@Override
 	public int insertCateOne(String name,int num) {
@@ -165,6 +268,24 @@ public class ManagerDaoImp implements ManagerDao {
 		map.put("name", name);
 		map.put("num", num);
 		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateOne", map);
+	}
+	
+	@Override
+	public int insertCateTwo(String name, int cate1, int num) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("num", num);
+		map.put("cate1", cate1);
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateTwo", map);
+	}
+	
+	@Override
+	public int insertCateThree(String name, int cate1, int num) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("num", num);
+		map.put("cate1", cate1);
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateThree", map);
 	}
 
 	@Override
@@ -235,4 +356,27 @@ public class ManagerDaoImp implements ManagerDao {
 	public List<AuthorDto> checkBookAuthor(String name) {
 		return sqlSession.selectList("com.bf.mapper.AuthorMapper.checkBookAuthor", name);
 	}
+
+	@Override
+	public int getCateOneCount() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getCateOneCount");
+	}
+	
+	@Override
+	public int getCateTwoCount() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getCateTwoCount");
+	}
+	
+	@Override
+	public int getCateThreeCount() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getCateThreeCount");
+	}
+
+	@Override
+	public int updatePublisher(PublisherDto publisherDto) {
+		return 	sqlSession.update("com.bf.mapper.PublisherMapper.updatePublisher",publisherDto);
+	}
+
+	
+	
 }

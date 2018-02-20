@@ -1,4 +1,7 @@
 -- 다음 순서대로 테이블을 삭제하면 의존관계에 걸리지 않고 모두 삭제 가능합니다. (생성시에는 반대 순서대로 하면 됩니다.)
+DROP TABLE NOTICE;
+-- NOTICE
+
 DROP TABLE preference;
 DROP TABLE recent_lookbook;
 DROP TABLE book_list;

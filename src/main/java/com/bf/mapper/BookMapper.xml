@@ -23,6 +23,18 @@
 		select count(*) from first_cate
 	</select>
 	
+	<select id="checkCateOne2" parameterType="String" resultType="int">
+		select count(*) from first_cate where name = #{name}
+	</select>
+	
+	<select id="checkCateTwo" parameterType="String" resultType="int">
+		select count(*) from SECOND_CATE where name = #{name}
+	</select>
+	
+	<select id="checkCateThree" parameterType="String" resultType="int">
+		select count(*) from THIRD_CATE where name = #{name}
+	</select>
+	
 	<select id="getCateOneNum" parameterType="String" resultType="int">
 		select num from FIRST_CATE where NAME = #{name}
 	</select>
@@ -56,6 +68,14 @@
 	
 	<insert id="insertCateOne" parameterType="java.util.HashMap">
 		insert into FIRST_CATE values(#{num},#{name})
+	</insert>
+	
+	<insert id="insertCateTwo" parameterType="java.util.HashMap">
+		insert into SECOND_CATE values(#{num},#{name},#{cate1})
+	</insert>
+	
+	<insert id="insertCateThree" parameterType="java.util.HashMap">
+		insert into THIRD_CATE values(#{num},#{name},#{cate1})
 	</insert>
 	
 	<insert id="insertBookCategory" parameterType="java.util.HashMap">
@@ -116,6 +136,51 @@
 		select count(*) from bookm where name=#{name}
 	</select>
 	
+	
+	<select id="getBookSearchList1" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.BookSearchDto">
+		SELECT * FROM(
+		SELECT ROWNUM rnum, c.*
+    	FROM
+      		(SELECT b.BOOK_NUM, b.NAME book_name, 
+		      a.NUM author_num, a.NAME author_name,
+		      p.PUB_NUM pub_num, p.NAME pub_name
+		      FROM bookm b, AUTHOR a ,publisher p 
+      		where b.AUTHOR_NUM = a.NUM and b.PUB_NUM = p.PUB_NUM) c)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getBookSearchList2" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.BookSearchDto">
+		SELECT * FROM(
+		SELECT ROWNUM rnum, c.*
+		    FROM
+		      (SELECT b.BOOK_NUM, b.NAME book_name, 
+		      a.NUM author_num, a.NAME author_name,
+		      p.PUB_NUM pub_num, p.NAME pub_name 
+		      FROM bookm b, AUTHOR a ,publisher p 
+		      where b.AUTHOR_NUM = a.NUM  and b.PUB_NUM = p.PUB_NUM
+		      and b.NAME like '%'||#{searchWord}||'%') c)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from bookm
+	</select>
+	
+	<select id="getCount2" parameterType="String" resultType="int">
+		select count(*) from bookm where NAME like '%'||#{searchWord}||'%'
+	</select>
+	
+	<select id="getCateOneCount" resultType="int">
+		select nvl(max(num),0) from FIRST_CATE
+	</select>
+	
+	<select id="getCateTwoCount" resultType="int">
+		select nvl(max(num),0) from SECOND_CATE
+	</select>
+	
+	<select id="getCateThreeCount" resultType="int">
+		select nvl(max(num),0) from THIRD_CATE
+	</select>
 	
 </mapper>
 

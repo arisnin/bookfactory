@@ -33,8 +33,40 @@
 		insert into author(num,name,country_num,update_date) values(0,#{name},#{country_num},#{update_date})
 	</insert>
 	
-	
 	<select id="checkBookAuthor" parameterType="String" resultType="com.bf.manager.dto.AuthorDto">
 		select * from author where name like #{name}||'%'
 	</select>
+	
+	<select id="getAuthor" parameterType="int" resultType="com.bf.manager.dto.AuthorDto">
+		select * from author where NUM=#{author_num}
+	</select>
+	
+	<select id="getAuthorSearchList" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.AuthorSearchDto">
+		SELECT * FROM(
+		SELECT ROWNUM RNUM,X.* FROM(
+		SELECT a.*, NVL(B.CNTT,0) CNT
+		FROM AUTHOR a, (SELECT COUNT(AUTHOR_NUM) CNTT,AUTHOR_NUM FROM BOOKM GROUP BY AUTHOR_NUM) B
+		WHERE A.NUM = B.AUTHOR_NUM(+)
+		order by cnt desc) x) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getAuthorSearchList2" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.AuthorSearchDto">
+		SELECT * FROM(
+		SELECT ROWNUM RNUM,X.* FROM(
+		SELECT a.*, NVL(B.CNTT,0) CNT
+		FROM AUTHOR a, (SELECT COUNT(AUTHOR_NUM) CNTT,AUTHOR_NUM FROM BOOKM GROUP BY AUTHOR_NUM) B
+		WHERE A.NUM = B.AUTHOR_NUM(+) and NAME like '%'||#{searchWord}||'%'
+		order by cnt desc) x) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getAuthorCount" resultType="int">
+		select count(*) from AUTHOR
+	</select>
+	
+	<select id="getAuthorCount2" parameterType="String" resultType="int">
+		select count(*) from AUTHOR where NAME like '%'||#{searchWord}||'%'
+	</select>
+	
 </mapper>
+
+

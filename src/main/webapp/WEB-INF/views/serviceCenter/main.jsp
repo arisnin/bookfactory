@@ -21,7 +21,8 @@
 	<div class="service_home">
 		<div class="service_header">
 					
-	<jsp:include page="${root }/serviceCenter/main_header.jsp" />					
+	<jsp:include page="./main_header.jsp" />
+	 					
 					
 			<div class="service_header_second">				
 				<span class="service_header_second_title">궁금한 점이 있다면 </span><br/>
@@ -44,28 +45,28 @@
 		<div class="service_content">
 			<div class="service_notice">
 				<div class="bf-title-row title-type1">
-				<h2><a href="${root }/serviceCenter/information.jsp">고객센터 안내사항</a></h2>
+				<h2><a href="${root }/serviceCenter/information.do">고객센터 안내사항</a></h2>
 				</div>
 				<br/>
 				
 				<div class="service_notice_list">
-					<div class="service_notice_list_1"><a href="${root }/serviceCenter/information_content1.jsp">
+					<div class="service_notice_list_1"><a href="${root }/serviceCenter/information_content1.do">
 					[안내]설 연휴 고객센터 단축 근무 및 휴무, 페이퍼 택배 배송 일정</a></div>
 					<div class="service_notice_list_2"><a href="#">[고객센터 운영 시간] 평일 10:00 ~ 19:00 (점심시간 12:50 ~ 14:00)</a></div>
-					<div class="service_notice_list_3"><a href="#">[안내] 리디북스 서비스 사용 가능 뷰어 최소 버전 변경</a></div>
-					
+					<div class="service_notice_list_3"><a href="#">[안내] 리디북스 서비스 사용 가능 뷰어 최소 버전 변경</a></div>					
 				</div>
 			</div>
 			<br/><br/><br/>
 			
+			
 			<div class="service_faq">
 				<div class="bf-title-row title-type1">
-				<h2><a href="${root }/serviceCenter/manyque.jsp">리디북스 자주 묻는 질문</a></h2>
+				<h2><a href="${root }/serviceCenter/manyque.do">리디북스 자주 묻는 질문</a></h2>
 				</div>
 				<br/>
 				
 				<div class="service_faq_list">
-					<div class="service_faq_list_1"><a href="${root }/serviceCenter/manyque_content.jsp">아이디(ID), 비밀번호를 잊어버렸어요. 어떻게 확인하나요?</a></div>
+					<div class="service_faq_list_1"><a href="${root }/serviceCenter/manyque_content.do">아이디(ID), 비밀번호를 잊어버렸어요. 어떻게 확인하나요?</a></div>
 					<div class="service_faq_list_2"><a href="#">다운받은 책이 파일이 손상되었다며 열리지 않아요!(파일손상, 인코딩 오류)</a></div>
 					<div class="service_faq_list_3"><a href="#">DRM문제로 책을 읽을 수 없습니다(104)</a></div>
 				</div>
@@ -73,10 +74,10 @@
 			<br/>
 			
 			<div class="service_faq_cag">
-				<a class="bf-button" href="${root }/serviceCenter/id_login.jsp">아이디 / 로그인</a>
-				<a class="bf-button" href="${root }/serviceCenter/pay_refund.jsp">결제 / 환불</a>
-				<a class="bf-button" href="${root }/serviceCenter/how_use.jsp">이용문의</a>
-				<a class="bf-button" href="${root }/serviceCenter/error_use.jsp">오류 / 활용 도움말</a>
+				<a class="bf-button" href="${root }/serviceCenter/id_login.do">아이디 / 로그인</a>
+				<a class="bf-button" href="${root }/serviceCenter/pay_refund.do">결제 / 환불</a>
+				<a class="bf-button" href="${root }/serviceCenter/how_use.do">이용문의</a>
+				<a class="bf-button" href="${root }/serviceCenter/error_use.do">오류 / 활용 도움말</a>
 				<a class="bf-button" href="#">시스템 업데이트 안내</a>
 			</div>	
 		</div>
