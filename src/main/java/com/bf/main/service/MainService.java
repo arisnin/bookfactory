@@ -1,5 +1,7 @@
 package com.bf.main.service;
 
+import java.io.IOException;
+
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -9,6 +11,10 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public interface MainService {
 
-	public void register(ModelAndView mav);
+	public ModelAndView register(ModelAndView mav) throws IOException;
+
+	public ModelAndView idCheck(ModelAndView mav) throws IOException;
+
+	public ModelAndView emailPhoneCheck(ModelAndView mav) throws IOException;
 
 }

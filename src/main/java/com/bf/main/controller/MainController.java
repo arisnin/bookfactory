@@ -5,12 +5,16 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,8 +29,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bf.aop.LogAspect;
 import com.bf.book.dto.ReplyDto;
 import com.bf.book.dto.ReviewDto;
-import com.bf.main.dto.RegisterDto;
 import com.bf.main.service.MainService;
+import com.bf.member.model.MemberDto;
 import com.bf.member.model.User;
 import com.bf.member.service.UserDetailServiceImp;
 
@@ -127,18 +131,20 @@ public class MainController {
 	/**
 	 * 회원가입 요청
 	 * 
-	 * @throws ParseException
-	 *             SimpleDateFormat.parse()에서 발생하는 예외
+	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/member/register.do", method = RequestMethod.POST)
-	public ModelAndView register(HttpServletRequest request, HttpServletResponse response, RegisterDto registerDto) throws ParseException {
-		ModelAndView mav = new ModelAndView("genre/register.main");
-		Date birthday = new SimpleDateFormat("yyMMdd").parse(request.getParameter("birth"));
-		registerDto.setBirthday(birthday);
-		registerDto.setIp(request.getRemoteAddr());
-		mav.addObject("registerDto", registerDto);
-		LogAspect.info(registerDto.toString());
-		mainService.register(mav);
-		return mav;
+	public ModelAndView register(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) throws IOException {
+		return mainService.register(new ModelAndView("main/register.main").addObject("request", request).addObject("response", response).addObject("memberDto", memberDto));
+	}
+	
+	@RequestMapping(value = "/member/register/idCheck.do", method = RequestMethod.POST)
+	public ModelAndView idCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		return mainService.idCheck(new ModelAndView().addObject("request", request).addObject("response", response));
+	}
+	
+	@RequestMapping(value = "/member/register/emailPhoneCheck.do", method = RequestMethod.POST)
+	public ModelAndView emailPhoneCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		return mainService.emailPhoneCheck(new ModelAndView().addObject("request", request).addObject("response", response));
 	}
 }
