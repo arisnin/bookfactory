@@ -21,6 +21,7 @@ public class ReviewDto {
 	private String spoiler; // VARCHAR2(20 CHAR) -- 스포일러존재/미존재(true/false)
 	private int preference; // NUMBER(8,0) -- 좋아요 개수
 	private String display; // VARCHAR2(20 CHAR) -- 공개/비공개(true/false)
+	private int accuse_count; // 신고 개수
 
 	// Constructor
 	public ReviewDto() {
@@ -112,9 +113,19 @@ public class ReviewDto {
 		this.display = display;
 	}
 
+	public int getAccuse_count() {
+		return accuse_count;
+	}
+
+	public void setAccuse_count(int accuse_count) {
+		this.accuse_count = accuse_count;
+	}
+
 	@Override
 	public String toString() {
-		return "ReviewDto [num=" + num + ", id=" + id + ", book_num=" + book_num + ", content=" + content + ", write_date=" + write_date + ", star_point=" + star_point + ", spoiler=" + spoiler + ", preference=" + preference + ", display=" + display + "]";
+		return "ReviewDto [num=" + num + ", id=" + id + ", book_num=" + book_num + ", content=" + content
+				+ ", write_date=" + write_date + ", star_point=" + star_point + ", spoiler=" + spoiler + ", preference="
+				+ preference + ", display=" + display + ", accuse_count=" + accuse_count + "]";
 	}
 
 }

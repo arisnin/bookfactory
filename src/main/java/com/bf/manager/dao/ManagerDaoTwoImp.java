@@ -9,8 +9,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bf.book.dto.ReviewDto;
+import com.bf.manager.dto.AccuseDto;
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.manager.dto.BookDto;
+import com.bf.manager.dto.ManagerNoticeDto;
 import com.bf.manager.dto.MemberDto;
+import com.bf.manager.dto.ReviewManagerDto;
 
 @Component
 public class ManagerDaoTwoImp implements ManagerDaoTwo {
@@ -20,24 +25,24 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 	@Override
 	public int BoardInsertOk(BoardFrequencyDto boardFreDto) {
 		
-		return sqlSession.insert("com.bf.manager.boardMapper.InsertOk",boardFreDto);
+		return sqlSession.insert("com.bf.manager.ManagerboardMapper.InsertOk",boardFreDto);
 	}
 
 	@Override
 	public List<BoardFrequencyDto> catecorySearch() {
 		
-		return  sqlSession.selectList("com.bf.manager.boardMapper.select");
+		return  sqlSession.selectList("com.bf.manager.ManagerboardMapper.select");
 	}
 	@Override
 	public List<BoardFrequencyDto> catecorySearch2() {
 	
-		return sqlSession.selectList("com.bf.manager.boardMapper.select2");
+		return sqlSession.selectList("com.bf.manager.ManagerboardMapper.select2");
 	}
 
 	@Override
 	public int Boardcount() {
 		
-		return sqlSession.selectOne("com.bf.manager.boardMapper.count");
+		return sqlSession.selectOne("com.bf.manager.ManagerboardMapper.count");
 	}
 
 	@Override
@@ -45,7 +50,7 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startRow", startRow);
 		map.put("endRow",endRow);
-		return sqlSession.selectList("com.bf.manager.boardMapper.list",map);
+		return sqlSession.selectList("com.bf.manager.ManagerboardMapper.list",map);
 	}
 	 @Override
 	public List<BoardFrequencyDto> boardSearch(int startRow, int endRow, String word) {
@@ -53,7 +58,7 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		map.put("startRow",startRow);
 		map.put("endRow",endRow);
 		map.put("word",word);	
-		return sqlSession.selectList("com.bf.manager.boardMapper.listSearch",map);
+		return sqlSession.selectList("com.bf.manager.ManagerboardMapper.listSearch",map);
 	}
 	 @Override
 	public List<BoardFrequencyDto> boardSearchDate(int startRow, int endRow, Date startDate, Date endDate) {
@@ -62,8 +67,17 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 			map.put("endRow", endRow);
 			map.put("startDate",startDate);	
 			map.put("endDate",endDate);	
-			return sqlSession.selectList("com.bf.manager.boardMapper.listSearchDate",map);
+			return sqlSession.selectList("com.bf.manager.ManagerboardMapper.listSearchDate",map);
 	}
+		@Override
+		public int BoardNoitceInsertOk(ManagerNoticeDto noticeDto) {
+			
+			return sqlSession.insert("com.bf.manager.ManagerboardMapper.noticeInsert",noticeDto);
+		}
+	 
+	 
+	 
+	 
 	 //------------member------------------
 	@Override
 	public int memberCount() {
@@ -87,4 +101,31 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		// TODO Auto-generated method stub
 		return sqlSession.update("com.bf.manager.ManagerMemberMapper.registerOk",memberDto);
 	}
+	
+	//-----------------리뷰
+	@Override
+	public int reviewCount() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.manager.ManagerReviewMapper.reviewCount");
+	}
+	
+	@Override
+	public List<ReviewManagerDto> reviewList(int startRow, int endRow) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", startRow);
+		map.put("endRow",endRow);
+		return sqlSession.selectList("com.bf.manager.ManagerReviewMapper.reviewList",map);
+	}
+
+	@Override
+	public List<AccuseDto> accuseList(int num, int startRow,int endRow) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow",endRow);
+		map.put("num",num);
+		return sqlSession.selectList("com.bf.manager.ManagerReviewMapper.accuseList",map);
+	}
+
+
+	
 }
