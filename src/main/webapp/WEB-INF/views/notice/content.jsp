@@ -24,14 +24,14 @@
 		</div>
 		<br />
 
-		<div class="notice_">[공지] 공지사항 제목</div>
+		<div class="notice_">${NoticeDto.title }</div>
 		<br />
 
 		<div class="notice_box">
-			<div class="notice_writeday">2018.01.01(월)</div>
+			<div class="notice_writeday">${NoticeDto.write_date }</div>
 			<br />
 
-			<div class="notice_content_read">
+			<div class="notice_content_read">${NoticeDto.content }
 					안녕하세요 리디북스 입니다. <br/>
 					리디북스 개인정보처리방침이 아래와 같이 일부 개정되어 사전 안내드립니다.<br/><br/>
 					

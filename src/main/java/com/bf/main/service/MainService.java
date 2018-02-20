@@ -17,4 +17,8 @@ public interface MainService {
 
 	public ModelAndView emailPhoneCheck(ModelAndView mav) throws IOException;
 
+	public void noticeMain(ModelAndView mav);
+
+	//public void noticeRead(ModelAndView mav);
+
 }

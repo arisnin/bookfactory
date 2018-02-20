@@ -62,6 +62,7 @@
 		  	<li><a href="#"><span class="i-i-angle-right"></span>1:1 문의내역</a></li>
 		  	<li><a href="#"><span class="i-i-angle-right"></span>자주하는 질문 등록</a></li>
 		  	<li><a href="#"><span class="i-i-angle-right"></span>게시판 관리</a></li>
+		  	<li><a href="#"><span class="i-i-angle-right"></span>공지사항 등록</a></li>
 		  </ul>
 		</div>
 		

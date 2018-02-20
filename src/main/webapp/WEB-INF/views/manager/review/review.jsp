@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +21,8 @@
 <body>
 	<div id="sh_review">
 		<div class="sh_main_text">리뷰 관리</div>
-		
 		<div id="sh_board_shadow">
+		
 			<div class="sh_review_header">
 
 				<div class="sh_review_main">
@@ -80,99 +82,49 @@
 				<div class="sh_review_list">
 					<!-- for문으로 체크박스랑 등등 정보 돌려야함 . 임시적으로 두개 해놈 -->
 					<!-- 1번예제 -->
-					<ul>
-						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span>
-						</label></li>
-						<li>1</li>
-						<li><a href="#">아프니깐 청춘이다.</a></li>
-						<!--책정보 넘어가기-->
-						<li><a href="javascript:void(0)" class="sh_review_detail_button">정말 좋은책인 것 ...</a></li>
-						<!-- 댓글페이지 넘어가기 -->
-						<li><a href="${root}/manager/memberRegister.do">전상헌</a></li>
-						<li>
-							<div class="content-star-rate">
-								<!-- 별이 들어가는 처음 두개의 span 사이에는 공백이 들어가면 안됨-->
-								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
-							</div> <!-- <div class="sh_content-star-rate1">
-						<span class="star-icon-field material-icons"></span>
-					</div> -->
-						</li>
-						<li><button type="button" class="bf-button sh_button_point">적립금 800원</button></li>
-
-						<li>18/01/22</li>
-
-						<!-- 회원정보로 넘어가기-->
-						<li><a href="${root}/manager/reviewReport.do">2</a></li>
-						<li><button type="button" type="button" class="bf-button bf-white-btn sh_review_secret">비공개</button>
-					<button type="button" type="button" class="bf-button bf-white-btn sh_review_open" style="display: none">공개</button>
-							<button type="button" type="button" class="bf-button bf-white-btn sh_review_delete">삭제</button></li>
-					</ul>
-
-					<div class="collapsable-notice" id="sh_review_hidden" style="display: none;">
-						<p>
-							가볍게 읽기에 재밌다. 분량도 많지 않아서 두 시간 동안 뚝딱 읽어 낼 수 있다. 기존작이 떠오르는 스토리 라인에 흥미가 돋았는데, 다 읽고 나서 해설을 보고 확실히 알게 되었다. 나미야잡화점도 라플라스의 마녀도 조금씩 생각난다. 개인적인 취향으로는 장편이 훨씬 좋다. 주인공들의 기묘한 이야기들.. 상상력을 펼쳐 추리를 해야하는 부분들이 매력적인 작가라서 그런지 단편은 너무 급하게 마무리 되는 느낌이라 아쉽다. 요즘 무슨 책 읽어보지? 라는 생각이 든다면
-							<그대 눈동자에 건배> 가볍게 추천! 장르 상관 없이 단숨에 읽을 수 있는 책이다. 
-						</p>
-					</div>
-					<!-- 2번예제 -->
-					<ul>
-						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span>
-						</label></li>
-						<li>2</li>
-						<li><a href="#">자바의 정석</a></li>
-						<!--책정보 넘어가기-->
-						<li><a href="javascript:void(0)" class="sh_review_detail_button">도움이정말 되었습니다.</a></li>
-						<li><a href="${root}/manager/memberRegister.do">안주영</a></li>
-						<li>
-							<div class="content-star-rate">
-								<!-- 별이 들어가는 처음 두개의 span 사이에는 공백이 들어가면 안됨-->
-								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
-							</div> <!-- <div class="sh_content-star-rate1">
-						<span class="star-icon-field material-icons"></span>
-					</div> -->
-						</li>
-						<li><button type="button" type="button" class="bf-button sh_button_point">적립금 300원</button></li>
-						<li>18/01/11</li>
-						<!-- 회원정보로 넘어가기-->
-						<li><a href="${root}/manager/reviewReport.do">22</a></li>
-						<li><button type="button" type="button" class="bf-button bf-white-btn sh_review_secret">비공개</button>
+					<c:forEach var="reviewDto" items="${reviewDtoList}">
+						<ul>
+							<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
+							<li class="r_num">${reviewDto.r_num}</li>
+							<li title="${reviewDto.b_name}"><c:out value="${fn:substring(reviewDto.b_name,0,10)}"/>...</li>
+							<li><a href="javascript:void(0)" class="sh_review_detail_button"><c:out value="${fn:substring(reviewDto.r_content,0,10)}"/>...</a></li>	
+							<li><a href="${root}/manager/memberRegister.do?pageNumber=${pageNumber}&id=${reviewDto.r_id}">${reviewDto.r_id}</a></li>	
+							<li>
+								<div class="content-star-rate">
+									<!-- 별이 들어가는 처음 두개의 span 사이에는 공백이 들어가면 안됨-->
+									<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
+									</div> 
+							</li>
+							<li><button type="button" class="bf-button sh_button_point">적립금 100원</button></li>
+							<li><fmt:formatDate value="${reviewDto.r_write_date}" pattern="yyyy/MM/dd"/></li>
+							
+							<li><a href="#" onclick="reviewPolice('${root}',this)">${reviewDto.count}</a></li>
+							
+							<li><button type="button" type="button" class="bf-button bf-white-btn sh_review_secret">비공개</button>
 							<button type="button" type="button" class="bf-button bf-white-btn sh_review_open" style="display: none">공개</button>
 							<button type="button" type="button" class="bf-button bf-white-btn sh_review_delete">삭제</button></li>
-					</ul>
-					<div class="collapsable-notice" id="sh_review_hidden" style="display: none;">
-						<p>뒷부분이 좀 전형적인 권선징악인가 싶은 느낌이 들기도 하지만, 저자가 할머니에게 들은 옛날 얘기에 기반을 두고 쓴 것이라는 점을 염두에 둔다면 현대를 배경으로 한 훙미로운 각색이라고 생각됩니다. 유명 서양 전래동화의 다수가 본래 버전은 잔혹동화라고 하죠. 옛이야기의 그런 오리지널 느낌을 그대로 현대로 가져와 적절한 배경에서 새롭게 보여주는 이야기예요. 미리 스포를 다 알고 봤어도 흥미진진했어요.</p>
-					</div>
-					<!-- 3번예제 -->
-
-
-					<ul>
-						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="구매목록 책 전체선택" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span>
-						</label></li>
-						<li>3</li>
-						<li><a href="#">인터페이스</a></li>
-						<!--책정보 넘어가기-->
-						<li><a href="javascript:void(0)" class="sh_review_detail_button">인터페이스</a></li>
-						<li><a href="${root}/manager/memberRegister.do">김두한</a></li>
-						<li>
-							<div class="content-star-rate">
-								<!-- 별이 들어가는 처음 두개의 span 사이에는 공백이 들어가면 안됨-->
-								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
-							</div> <!-- <div class="sh_content-star-rate1">
-						<span class="star-icon-field material-icons"></span>
-					</div> -->
-						</li>
-						<li><button type="button" type="button" class="bf-button sh_button_point">적립금 700원</button></li>
-						<li>18/01/13</li>
-						<!-- 회원정보로 넘어가기-->
-						<li><a href="${root}/manager/reviewReport.do">55</a></li>
-						<li><button type="button" type="button" class="bf-button bf-white-btn sh_review_secret">비공개</button>
-							<button type="button" type="button" class="bf-button bf-white-btn sh_review_open" style="display: none">공개</button>
-							<button type="button" type="button" class="bf-button bf-white-btn sh_review_delete">삭제</button></li>
-					</ul>
-					<div class="collapsable-notice" id="sh_review_hidden" style="display: none;">
-						<p>2018.01.05 신고 잘 읽히는 편이기는하지만 일부러 자극적이게 표현하려는게 고루하다는 생각이 들었습니다. 약한 반전 이외에는 예상했던 대로 흘러가서 나중에는 흥미를 잃었습니다.</p>
-					</div>
-
+						</ul>
+						<form name="sh_review_report_form" action="${root}/manager/reviewReport.do" method="post">
+							<input type="hidden" value="${reviewDto.r_num}" name ="r_num">
+							<input type="hidden" value="${reviewDto.r_id}" name ="r_id">
+							<input type="hidden" value="${reviewDto.count}" name ="count">
+							<input type="hidden" value="${reviewDto.r_content}" name ="r_content">
+							<input type="hidden" value="${pageNumber}" name ="pageNumber">
+						</form>
+						<script type="text/javascript">
+							function reviewPolice(root,obj){
+								var url = root;
+								var ul = $(obj).parent().parent();
+								var form = ul.next("form");
+								form.submit();
+							}
+						</script>
+						<div class="collapsable-notice" id="sh_review_hidden" style="display: none;">
+							<p>
+								${reviewDto.r_content}
+							</p>
+						</div>
+					</c:forEach>	
 				</div>
 			</div>
 			<div class="sh_review_footer">
@@ -190,6 +142,7 @@
 					</ul>
 				</nav>
 			</div>
+			
 		</div>
 	</div>
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>

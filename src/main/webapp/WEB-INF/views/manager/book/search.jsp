@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,8 +40,12 @@
 						<c:forEach var="bookDto" items="${bookList}">
 							<li>
 								<span><a href="${root}/manager/bookRead.do?bnum=${bookDto.book_num}">${bookDto.book_name}</a></span>
-								<span><a href="${root}/manager/bookRead.do">${bookDto.author_name}</a></span>
-								<span><a href="${root}/manager/bookRead.do">${bookDto.pub_name}</a></span>
+								<span>
+									<a href="${root}/manager/bookRead.do" title="${bookDto.author_name}">
+										${fn:substring(bookDto.author_name,0,9)}<c:if test="${fn:length(bookDto.author_name)>9}">..</c:if>
+									</a>
+								</span>
+								<span><a href="${root}/manager/publisherSearch.do?searchWord=${bookDto.pub_name}">${bookDto.pub_name}</a></span>
 								<span class="b_se_btn">
 									<button id="${bookDto.book_num}" type="button" class="bf-button">수정</button>
 									<button type="button" class="bf-button">삭제</button>

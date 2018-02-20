@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bf.manager.ManagerReviewMapper">
+
+    <select id="reviewCount" resultType="Integer">
+        select count(*) from review
+    </select>
+    <select id="reviewList" resultType="com.bf.manager.dto.ReviewManagerDto">
+          <![CDATA[
+select rev.* from(
+SELECT rownum rnum, 
+      NVL(A.CNT,0) count, 
+      R.NUM R_NUM, 
+      R.BOOK_NUM B_NUM, 
+      R.ID R_ID, 
+      R.CONTENT R_CONTENT, 
+      R.STAR_POINT R_STAT, 
+      R.WRITE_DATE R_WRITE_DATE,
+      R.DISPLAY R_DISPLAY, 
+      B.NAME B_NAME
+FROM REVIEW R, BOOKM B, (SELECT COUNT(*) CNT,AC.REVIEW_NUM  FROM ACCUSE AC GROUP BY AC.REVIEW_NUM) A
+WHERE R.BOOK_NUM = B.BOOK_NUM AND A.REVIEW_NUM(+) = R.NUM) REV
+where REV.RNUM BETWEEN #{startRow} and #{endRow}
+    ]]>
+    </select>
+	
+	<select id="accuseList" resultType="com.bf.manager.dto.AccuseDto" parameterType="java.util.Map">
+	          <![CDATA[
+select * from(
+		SELECT rownum rnum,
+			R.NUM REVIEW_NUM,
+			R.CONTENT REVIEW_CONTENT,
+		   	CATE.DESCRIPTION DESCRIPTION, 
+  			A.ID accuse_id,
+  			A.NUM accuse_num,
+  			A.WRITE_DATE write_date,
+  			A.ACCUSE_NUM accuse_cate_num 
+FROM ACCUSE A,REVIEW R ,ACCUSE_CATE cate
+WHERE A.REVIEW_NUM=R.NUM 
+AND A.ACCUSE_NUM = CATE.NUM
+AND A.REVIEW_NUM = #{num}) WHERE RNUM BETWEEN #{startRow} and #{endRow}
+    ]]>
+	</select>
+	
+</mapper>

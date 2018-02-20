@@ -144,4 +144,62 @@ public class MainServiceImp implements MainService {
 		
 		return null;
 	}
+
+	
+	@Override
+	public void noticeMain(ModelAndView mav) {
+		
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber == null) pageNumber = "1";
+		
+		int boardSize = 10;		
+		int currentPage = Integer.parseInt(pageNumber);
+		int startRow = (currentPage-1) * boardSize + 1;
+		int endRow = currentPage * boardSize;
+		
+		int count = mainDao.noticeMainCount();
+		
+		LogAspect.info("공지사항 메인리스트 확인 : " + count);
+		
+		/*
+		
+		List<NoticeDto> noticeList = null;
+		
+		if(count > 0) {
+			noticeList = mainDao.noticeMain(startRow, endRow);
+			LogAspect.info("공지사항 리스트 사이즈 : " + noticeMainCount.size());
+		}
+		
+		mav.addObject("noticeList", noticeList);
+		mav.addObject("count", count);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("currentPage", currentPage);
+		
+		mav.setViewName("notice/main");
+		*/
+		
+		
+	}
+	
+	
+	/*
+	@Override
+	public void noticeRead(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		int num = Integer.parseInt(request.getParameter("num"));
+		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		
+		LogAspect.info("읽어오기 확인중");
+		
+	}
+	*/
+	
+	
 }

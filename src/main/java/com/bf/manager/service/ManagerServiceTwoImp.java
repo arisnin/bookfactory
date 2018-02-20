@@ -16,9 +16,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dao.ManagerDaoTwo;
+import com.bf.manager.dto.AccuseDto;
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.manager.dto.BookDto;
+import com.bf.manager.dto.ManagerNoticeDto;
 import com.bf.manager.dto.MemberDto;
+import com.bf.manager.dto.ReviewManagerDto;
 
 /**
  * @이름: 염현우 X 전상헌
@@ -240,32 +245,158 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		}
 
 		mav.addObject("memberDto", memberDto);
-		mav.addObject("pageNumber",pageNumber);
+		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("img", img);
 		mav.setViewName("member/register.mg");
 	}
-		@Override
-		public void memberRegisterOk(ModelAndView mav) {
-			Map<String, Object> map = mav.getModel();
-			HttpServletRequest request = (HttpServletRequest) map.get("request");
-			MemberDto memberDto = (MemberDto)map.get("memberDto");
-			String pageNumber =request.getParameter("pageNumber");
-			
-			LogAspect.logger.info(LogAspect.logMsg + memberDto);
-			LogAspect.logger.info(LogAspect.logMsg + pageNumber);
-			memberDto.setId(request.getParameter("id"));
-			memberDto.setName(request.getParameter("name"));
-			memberDto.setEmail(request.getParameter("email"));
-			memberDto.setPassword(request.getParameter("password"));
-			memberDto.setRole(request.getParameter("role"));
-			
-			int check = managerDao.registerOk(memberDto);
-			LogAspect.logger.info(LogAspect.logMsg + check);
-			
-			mav.addObject("check", check);
-			mav.addObject("pageNumber",pageNumber);
-			mav.addObject("memberDto",memberDto);
-			mav.setViewName("member/registerOk.mg");
+
+	@Override
+	public void memberRegisterOk(ModelAndView mav) {
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		MemberDto memberDto = (MemberDto) map.get("memberDto");
+		String pageNumber = request.getParameter("pageNumber");
+
+		LogAspect.logger.info(LogAspect.logMsg + memberDto);
+		LogAspect.logger.info(LogAspect.logMsg + pageNumber);
+		memberDto.setId(request.getParameter("id"));
+		memberDto.setName(request.getParameter("name"));
+		memberDto.setEmail(request.getParameter("email"));
+		memberDto.setPassword(request.getParameter("password"));
+		memberDto.setRole(request.getParameter("role"));
+
+		int check = managerDao.registerOk(memberDto);
+		LogAspect.logger.info(LogAspect.logMsg + check);
+
+		mav.addObject("check", check);
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("memberDto", memberDto);
+		mav.setViewName("member/registerOk.mg");
+	}
+
+	@Override
+	public void managerReview(ModelAndView mav) {
+
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		String pageNumber = request.getParameter("pageNumber");
+
+		if (pageNumber == null)
+			pageNumber = "1";
+		int boardSize = 5;
+
+		int currentPage = Integer.parseInt(pageNumber);
+
+		int startRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize + 1;
+
+		int count = managerDao.reviewCount();
+		LogAspect.logger.info(LogAspect.logMsg + count);
+
+		List<ReviewManagerDto> reviewDtoList = null;
+
+		if (count > 0) {
+			reviewDtoList = managerDao.reviewList(startRow, endRow);
+			LogAspect.logger.info(LogAspect.logMsg + reviewDtoList);
 		}
+
+		mav.addObject("reviewDtoList", reviewDtoList);
+		mav.addObject("pageNumber", currentPage);
+		mav.addObject("count", count);
+		mav.addObject("boardSize", boardSize);
+
+		mav.setViewName("review/review.mg");
+
+	}
+
+	@Override
+	public void managerReviewReport(ModelAndView mav) {
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		ReviewManagerDto reviewManagerDto = (ReviewManagerDto) map.get("ReviewManagerDto");
+
+		int num = reviewManagerDto.getR_num();
+		int count = reviewManagerDto.getCount();
+		LogAspect.info("num:" + num);
+
+		String pageNumber = request.getParameter("pageNumber");
+
+		List<AccuseDto> accuseDtoList = null;
+		if (pageNumber == null)
+			pageNumber = "1";
+		int boardSize = 5;
+
+		int currentPage = Integer.parseInt(pageNumber);
+
+		int starRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize + 1;
+
+		if (count > 0) {
+			accuseDtoList = managerDao.accuseList(num, starRow, endRow);
+			LogAspect.info(accuseDtoList);
+		}
+
+		mav.addObject("count", count);
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("accuseDtoList", accuseDtoList);
+		mav.addObject("boardSize", boardSize);
+		mav.setViewName("review/report.mg");
+
+	}
+
+	@Override
+	public void managerNoticeInsert(ModelAndView mav) {
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+
+		ManagerNoticeDto noticeDto = new ManagerNoticeDto();
+
+		noticeDto.setWrite_date(new Date());
+		noticeDto.setId("admin");
+		String boardNumber = request.getParameter("num");
+
+		if (boardNumber == null)
+			boardNumber = "1";
+		int num = Integer.parseInt(boardNumber);
+
+		mav.addObject("noticeDto", noticeDto);
+		mav.addObject("num", num);
+		mav.setViewName("board/noticeInsert.mg");
+	}
+
+	@Override
+	public void boardNoticeInsertOk(ModelAndView mav) {
+
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		int num = Integer.parseInt(request.getParameter("num"));
+		String title = request.getParameter("title");
+		String content =request.getParameter("content");
+		String id = request.getParameter("id");
+		ManagerNoticeDto noticeDto = new ManagerNoticeDto();
+		
+		String date = request.getParameter("write_date");
+		Date write_date = null;
+		
+		try {
+			write_date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		noticeDto.setWrite_date(write_date);
+		noticeDto.setId(id);
+		noticeDto.setContent(content);
+		noticeDto.setNum(num);
+		noticeDto.setTitle(title);
+		
+		LogAspect.logger.info(LogAspect.logMsg + noticeDto);
+		
+		 int check = managerDao.BoardNoitceInsertOk(noticeDto);
+		  
+		 LogAspect.logger.info(LogAspect.logMsg + check);
+		  
+	    mav.addObject("check", check);
+		mav.setViewName("board/noticeInsertOk.mg");
+	}
 
 }

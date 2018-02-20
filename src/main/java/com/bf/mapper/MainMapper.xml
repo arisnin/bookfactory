@@ -10,4 +10,20 @@
 	<select id="id-check" parameterType="String" resultType="String">
 		SELECT ID FROM MEMBER WHERE ID LIKE #{id}||'%' 
 	</select>
+	
+	<select id="email-phone-check" parameterType="String" resultType="String">
+		SELECT ID FROM MEMBER WHERE ID LIKE #{id}||'%'
+	</select>
+		
+	<select id="noticeMainCount" resultType="int">
+			select count(*) from notice
+	</select>
+	
+	<!-- 
+	
+	<select id="noticeMain" parameterType="java.util.Map" resultMap="com.bf.main.dto.NoticeDto">
+		select * from notice where num=#{num} desc;
+	</select>
+	 -->
+	
 </mapper>

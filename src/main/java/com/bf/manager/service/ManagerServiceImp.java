@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bf.aop.LogAspect;
 import com.bf.manager.dao.ManagerDao;
 import com.bf.manager.dto.AuthorDto;
+import com.bf.manager.dto.AuthorSearchDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookFirstCateDto;
 import com.bf.manager.dto.BookSearchDto;
@@ -37,6 +38,7 @@ import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
 import com.bf.manager.dto.PublisherDto;
+import com.bf.manager.dto.PublisherSearchDto;
 
 
 /**
@@ -914,7 +916,123 @@ public class ManagerServiceImp implements ManagerService {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void insertCateOne(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String name = request.getParameter("name");
+		int maxNum = managerDao.getCateOneCount();
+		int checkName = managerDao.checkCateOne(name);
+		int check = 0;
+		if(checkName == 0) {
+			check = managerDao.insertCateOne(name, maxNum+1);
+		}
+		mav.addObject("check", check);
+	}
+	
+	@Override
+	public void insertCateTwo(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String name = request.getParameter("name");
+		int cate1 = Integer.parseInt(request.getParameter("cate1"));
 		
+		int maxNum = managerDao.getCateTwoCount();
+		int checkName = managerDao.checkCateTwo(name);
+		int check = 0;
+		if(checkName == 0) {
+			check = managerDao.insertCateTwo(name,cate1,maxNum+1);
+		}
+		mav.addObject("check", check);
+	}
+	
+	@Override
+	public void insertCateThree(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String name = request.getParameter("name");
+		int cate1 = Integer.parseInt(request.getParameter("cate1"));
+		
+		int maxNum = managerDao.getCateThreeCount();
+		int checkName = managerDao.checkCateThree(name);
+		int check = 0;
+		if(checkName == 0) {
+			check = managerDao.insertCateThree(name,cate1,maxNum+1);
+		}
+		mav.addObject("check", check);
+	}
+
+	@Override
+	public void publisherSearch(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String searchWord = request.getParameter("searchWord");
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber == null) pageNumber = "1";
+		
+		int boardSize = 10;
+		int currentPage = Integer.parseInt(pageNumber);
+		int startRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize;
+		
+		List<PublisherSearchDto> publisherList = null;
+		int count = 0;
+		if(searchWord == null) {
+			publisherList = managerDao.getPublisherSearchList(startRow,endRow);
+			count = managerDao.getPublisherCount();
+		}else {
+			publisherList = managerDao.getPublisherSearchList(searchWord,startRow,endRow);
+			count = managerDao.getPublisherCount(searchWord);
+		}
+		
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("count", count);
+		mav.addObject("publisherList", publisherList);
+		mav.addObject("searchWord", searchWord);
+	}
+	
+	@Override
+	public void publisherUpdate(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		int pub_num = Integer.parseInt(request.getParameter("pub_num"));
+		PublisherDto publisherDto= managerDao.getPublisher(pub_num);
+		
+		mav.addObject("publisherDto", publisherDto);
+	}
+	
+	@Override
+	public void publisherUpdateOk(ModelAndView mav) {
+		PublisherDto publisherDto = (PublisherDto) mav.getModelMap().get("publisherDto");
+		int check = managerDao.updatePublisher(publisherDto);
+		mav.addObject("check", check);
+	}
+
+	@Override
+	public void authorSearch(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String searchWord = request.getParameter("searchWord");
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber == null) pageNumber = "1";
+		
+		int boardSize = 10;
+		int currentPage = Integer.parseInt(pageNumber);
+		int startRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize;
+		
+		List<AuthorSearchDto> authorList = null;
+		int count = 0;
+		if(searchWord == null) {
+			authorList = managerDao.getAuthorSearchList(startRow,endRow);
+			count = managerDao.getAuthorCount();
+		}else {
+			authorList = managerDao.getAuthorSearchList(searchWord,startRow,endRow);
+			count = managerDao.getAuthorCount(searchWord);
+		}
+		
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("count", count);
+		mav.addObject("authorList", authorList);
+		mav.addObject("searchWord", searchWord);
 	}
 	
 }

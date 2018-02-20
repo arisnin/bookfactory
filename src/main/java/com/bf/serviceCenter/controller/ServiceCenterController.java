@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.member.model.User;
@@ -35,25 +36,7 @@ public class ServiceCenterController {
 		return "present/present.main";
 	}
 	
-	/**
-	 * @author : 김동환
-	 * @date : 2018. 2. 19.
-	 * comment : 공지사항 연결
-	 */
-	
-	@RequestMapping(value = "/notice/main.do" , method = RequestMethod.GET)
-	public String noticeMain(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("공지사항_메인");
-		return "notice/main.solo";
-	}
-	
-	@RequestMapping(value = "/notice/content.do" , method = RequestMethod.GET)
-	public String noticeContent(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("공지사항_내용");
-		return "notice/content.solo";
-	}
-	
-	
+		
 	
 	/**
 	 * @author : 김동환

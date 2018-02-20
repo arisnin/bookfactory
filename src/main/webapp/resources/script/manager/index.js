@@ -33,7 +33,7 @@ var pages = [
 		['/authorInsert.do',2,0],['/authorSearch.do',2,1],['/authorUpdate.do',2,2],
 		['/memberMember.do',3,0],['/memberPay.do',3,1],
 		['/reviewReview.do',4,1],
-		['/boardContact.do',5,0],['/boardInsert.do',5,1],['/boardList.do',5,2],
+		['/boardContact.do',5,0],['/boardInsert.do',5,1],['/boardList.do',5,2],['/boardNoticeInsert.do',5,3],
 		['/statPreference.do',6,0],['/statTotal.do',6,1],['/statSales.do',6,2],
 		['/auto.do',7,0]
 	];

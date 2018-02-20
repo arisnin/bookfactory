@@ -13,4 +13,9 @@ public interface MainDao {
 
 	public String idCheck(String id);
 
+	public int noticeMainCount();
+
+
+	//public List<NoticeDto> noticeMain(int startRow, int endRow);
+
 }

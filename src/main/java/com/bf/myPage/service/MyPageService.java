@@ -9,8 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public interface MyPageService {
 
-	void ridiCashOk(ModelAndView mav);
+	void myCashOk(ModelAndView mav);
 
 	void myInfoUpdate(ModelAndView mav);
+
+	void myPoint(ModelAndView mav);
+
+	void myCashHistoryCash(ModelAndView mav);
+	
 
 }

@@ -25,9 +25,9 @@
 			<!-- 마이캐시 충전  -->
 			<div class="bf-service-type-menu">
 				<ul class="service-type-list">
-					<li><a class="active" href="${root}/payment/ridiCash.do">마이캐시 충전</a></li>
+					<li><a class="active" href="${root}/payment/myCash.do">마이캐시 충전</a></li>
 					<li><a href="javascript:alert('자동충전 미구현')">자동충전</a></li>
-					<li><a href="${root}/payment/ridiCashHistoryCash.do">충전 내역</a></li>
+					<li><a href="${root}/payment/myCashHistoryCash.do">충전 내역</a></li>
 					<li><a href="javascript:alert('입금 대기 미구현')">입금 대기</a></li>
 				</ul>
 			</div>
@@ -53,7 +53,7 @@
 			</div>
 
 			<!-- 충전 금액 padding-top: 5px, padding-bottom: 25px-->
-			<form name="cash_form" method="get" onsubmit="return myCashForm(this)" action="${root}/payment/ridiCashOk.do">
+			<form name="cash_form" method="get" onsubmit="return myCashForm(this)" action="${root}/payment/myCashOk.do">
 				<div class="wrapper">
 					<div class="cash_select">
 						<ul class="cash_select_ul">
@@ -66,16 +66,16 @@
 						<div class="select_input_wrapper_divide_firstbefore">
 							<div class="select_body_1">
 								<div class="input_cell">
-									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="1"/> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge">2,000</span>원
+									<span class="input_wrapper"><label><input type="radio" class="radio" name="menu_num" value="1"/> <span class="radio_mark"></span><span class="radio_span"> <span class="cash_charge"></span>원
 										</span></label> </span>
 								</div>
 								<div class="percentage_cell">
-									<span class="percentage_wrapper"> <span class="point_percentage"> <span class="cash_saving">3</span>%
+									<span class="percentage_wrapper"> <span class="point_percentage"> <span class="cash_saving"></span>%
 									</span>
 									</span>
 								</div>
 								<div class="point_cell">
-									<span class="point_wrapper"> <span class="point_percentage"> <span class="point_saving"> <span class="point_plus">+</span> <span class="radio_span">60</span>원
+									<span class="point_wrapper"> <span class="point_percentage"> <span class="point_saving"> <span class="point_plus">+</span> <span class="radio_span"></span>원
 										</span>
 									</span>
 									</span>

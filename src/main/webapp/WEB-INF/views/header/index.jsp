@@ -91,7 +91,7 @@
 					<c:if test="${true}">
 						<li class="hw_mid_item list_manager" onclick="location.href='${root}/manager/index.do'"><img class="hw_mid_icon" src="${root}/img/index/213111_gray.png"> <span class="hw_mid_font">관리자</span></li>
 					</c:if>
-					<li class="hw_mid_item list_cash" onclick="location.href='${root}/payment/ridiCash.do'"><img class="hw_mid_icon" src="${root}/img/index/213111_gray.png"> <span class="hw_mid_font">캐시충전</span></li>
+					<li class="hw_mid_item list_cash" onclick="location.href='${root}/payment/myCash.do'"><img class="hw_mid_icon" src="${root}/img/index/213111_gray.png"> <span class="hw_mid_font">캐시충전</span></li>
 				</ul>
 				<!-- 전체메뉴 클릭시 나오는 뷰 -->
 				<jsp:include page="indexAllMenu.jsp"/>

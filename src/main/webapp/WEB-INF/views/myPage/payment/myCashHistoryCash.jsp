@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,9 +28,9 @@
 			<!-- 마이캐시 충전  -->
 			<div class="bf-service-type-menu">
 				<ul class="service-type-list">
-					<li><a href="${root}/payment/ridiCash.do">마이캐시 충전</a></li>
+					<li><a href="${root}/payment/myCash.do">마이캐시 충전</a></li>
 					<li><a href="javascript:alert('자동충전 미구현')">자동충전</a></li>
-					<li><a class="active" href="${root}/payment/ridiCashHistoryCash.do">충전 내역</a></li>
+					<li><a class="active" href="${root}/payment/myCashHistoryCash.do">충전 내역</a></li>
 					<li><a href="javascript:alert('입금 대기 미구현')">입금 대기</a></li>
 				</ul>
 			</div>
@@ -37,7 +38,7 @@
 				<p class="mypoint_amount_title">
 					내 마이캐시
 					<span class="total_amount">
-						<span>2,000</span>원
+						<span></span>원
 					</span>
 				</p>
 			</div>
@@ -49,13 +50,15 @@
 					<li class="status m-point">적립 포인트</li>
 					<li class="default">결제수단</li>
 				</ul>
+				<c:forEach var="myPageCashChargeDto" items="${myPageCashChargeDtoList}">
 				<ul class="mypoint_history_table_body" onclick="javasciprt:alert('결제내역')">
-					<li class="default">2018.01.14 18:52</li>
-					<li class="division">마이캐시 충전</li>
-					<li class="main_value"><span>2,000</span>원</li>
-					<li class="status"><span>60</span>원</li>
-					<li class="default">네이버페이<span class = "icon-angle-right"></span></li>
+					<li class="default"><fmt:formatDate value = "${myPageCashChargeDto.charge_date}" pattern="yyyy.MM.dd hh:mm"/></li>
+					<li class="division">${myPageCashChargeDto.cash_type}</li>
+					<li class="main_value"><span><fmt:formatNumber value = "${myPageCashChargeDto.charge_cash}" pattern="#,###"/></span>원</li>
+					<li class="status"><span>${myPageCashChargeDto.point_num}</span>원</li>
+					<li class="default"><span class = "icon-angle-right">${myPageCashChargeDto.charge_type_num}</span></li>
 				</ul>
+				</c:forEach>
 			</div>
 		</section>
 	</div>
