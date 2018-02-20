@@ -914,7 +914,48 @@ public class ManagerServiceImp implements ManagerService {
 				}
 			}
 		}
-		
 	}
 	
+	@Override
+	public void insertCateOne(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String name = request.getParameter("name");
+		int maxNum = managerDao.getCateOneCount();
+		int checkName = managerDao.checkCateOne(name);
+		int check = 0;
+		if(checkName == 0) {
+			check = managerDao.insertCateOne(name, maxNum+1);
+		}
+		mav.addObject("check", check);
+	}
+	
+	@Override
+	public void insertCateTwo(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String name = request.getParameter("name");
+		int cate1 = Integer.parseInt(request.getParameter("cate1"));
+		
+		int maxNum = managerDao.getCateTwoCount();
+		int checkName = managerDao.checkCateTwo(name);
+		int check = 0;
+		if(checkName == 0) {
+			check = managerDao.insertCateTwo(name,cate1,maxNum+1);
+		}
+		mav.addObject("check", check);
+	}
+	
+	@Override
+	public void insertCateThree(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String name = request.getParameter("name");
+		int cate1 = Integer.parseInt(request.getParameter("cate1"));
+		
+		int maxNum = managerDao.getCateThreeCount();
+		int checkName = managerDao.checkCateThree(name);
+		int check = 0;
+		if(checkName == 0) {
+			check = managerDao.insertCateThree(name,cate1,maxNum+1);
+		}
+		mav.addObject("check", check);
+	}
 }

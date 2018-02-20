@@ -16,9 +16,9 @@
 			<div class="b_in_content">
 				<div class="b_cate_in">
 					<label>카테고리 대</label>
-					<input type="text" placeholder="제목"/>
+					<input id="b_cate_c1" type="text" placeholder="제목"/>
 					<div align="right">
-						<button type="button" class="bf-button">등록</button>
+						<button type="button" class="bf-button" onclick="cate1('${root}')">등록</button>
 						<button type="button" class="bf-button">취소</button>
 					</div>
 				</div>
@@ -28,13 +28,14 @@
 						<button type="button" class="hwdropbtn">대분류</button>
 						<div id="myDropdown" class="hwdropdown-content">
 							<c:forEach items="${firstCateList}" var="firstCateDto">
-								<span>${firstCateDto.name}</span>
+								<span id="${firstCateDto.num}">${firstCateDto.name}</span>
 							</c:forEach>
 						</div>
 					</div>
-					<input type="text" placeholder="제목"/>
+					<input id="b_cate_c2" type="text" placeholder="제목"/>
+					<input type="hidden" name="secondCate1">
 					<div align="right">
-						<button type="button" class="bf-button">등록</button>
+						<button type="button" class="bf-button" onclick="cate2('${root}')">등록</button>
 						<button type="button" class="bf-button">취소</button>
 					</div>
 				</div>
@@ -44,7 +45,7 @@
 						<button type="button" class="hwdropbtn">대분류</button>
 						<div id="myDropdown" class="hwdropdown-content">
 							<c:forEach items="${firstCateList}" var="firstCateDto">
-								<span>${firstCateDto.name}</span>
+								<span id="${firstCateDto.num}">${firstCateDto.name}</span>
 							</c:forEach>
 						</div>
 					</div>
@@ -53,22 +54,21 @@
 						<div id="myDropdown" class="hwdropdown-content">
 						</div>
 					</div>
-					<input type="text" placeholder="제목"/>
+					<input type="hidden" name="secondCate2">
+					<input type="hidden" name="secondCate3">
+					<input id="b_cate_c3" type="text" placeholder="제목"/>
 					<div align="right">
-						<button type="button" class="bf-button">등록</button>
+						<button type="button" class="bf-button" onclick="cate3('${root}')">등록</button>
 						<button type="button" class="bf-button">취소</button>
 					</div>
 				</div>
-				
 			</div>
 		</section>
 	</div>
 	
 	<script src="${root}/script/basic/commons.js"></script>
+	<script src="${root}/script/manager/book/category.js"></script>
 	<script type="text/javascript">
-		$("#crawl").click(function(){
-			location.href='${root}/manager/bookCategoryOk.do';
-		});
 		//카테고리
 		$("#b_cate_11 span").click(function(){
 			var name = $(this);
@@ -77,14 +77,17 @@
 			  method: 'get',
 			  data: {name : name.text()},
 			  success: function(arrCate){
-			  		var secondCate = arrCate.split(",");
+			  		var secondCate = JSON.parse(arrCate);
 			  		$("#b_cate_2").find(".hwdropbtn").text("중분류");
 			  		var secondNode = $("#b_cate_2").find("#myDropdown");
 			  		secondNode.empty();
 			  		
-			  		for(var i=0;i<secondCate.length-1;i++){
-			  			secondNode.append("<span>"+secondCate[i]+"</span>");
+			  		for(var i=0;i<secondCate.cate1.length;i++){
+			  			secondNode.append("<span id='"+ secondCate.cate1[i].num +"'>"+secondCate.cate1[i].name+"</span>");
 			  		}
+			  		$("#b_cate_2 span").click(function (){
+			  			$("input[name=secondCate3]").val($(this).attr("id"));
+			  		});
 			  	},
 			  dataType: "text"
 			});

@@ -27,10 +27,10 @@ public class ManagerDaoImp implements ManagerDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	@Override
+/*	@Override
 	public int insertCategory(String name) {
 		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateSecond", name);
-	}
+	}*/
 
 	@Override
 	public int insertBookCateSecond(String name, int cate1) {
@@ -195,6 +195,21 @@ public class ManagerDaoImp implements ManagerDao {
 	public int checkCateOne() {
 		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkCateOne");
 	}
+	
+	@Override
+	public int checkCateOne(String name) {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkCateOne2", name);
+	}
+	
+	@Override
+	public int checkCateTwo(String name) {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkCateTwo", name);
+	}
+	
+	@Override
+	public int checkCateThree(String name) {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.checkCateThree", name);
+	}
 
 	@Override
 	public int insertCateOne(String name,int num) {
@@ -202,6 +217,24 @@ public class ManagerDaoImp implements ManagerDao {
 		map.put("name", name);
 		map.put("num", num);
 		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateOne", map);
+	}
+	
+	@Override
+	public int insertCateTwo(String name, int cate1, int num) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("num", num);
+		map.put("cate1", cate1);
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateTwo", map);
+	}
+	
+	@Override
+	public int insertCateThree(String name, int cate1, int num) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("num", num);
+		map.put("cate1", cate1);
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertCateThree", map);
 	}
 
 	@Override
@@ -273,5 +306,19 @@ public class ManagerDaoImp implements ManagerDao {
 		return sqlSession.selectList("com.bf.mapper.AuthorMapper.checkBookAuthor", name);
 	}
 
+	@Override
+	public int getCateOneCount() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getCateOneCount");
+	}
+	
+	@Override
+	public int getCateTwoCount() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getCateTwoCount");
+	}
+	
+	@Override
+	public int getCateThreeCount() {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getCateThreeCount");
+	}
 	
 }

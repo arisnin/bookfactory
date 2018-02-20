@@ -47,4 +47,10 @@ public interface ManagerService {
 
 	public void bookUpdate(ModelAndView mav);
 
+	public void insertCateOne(ModelAndView mav);
+
+	public void insertCateTwo(ModelAndView mav);
+
+	public void insertCateThree(ModelAndView mav);
+
 }

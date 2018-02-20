@@ -19,8 +19,8 @@ import com.bf.manager.dto.PublisherDto;
 public interface ManagerDao {
 
 
-	public int insertCategory(String name);
-
+/*	public int insertCategory(String name);
+*/
 	public int insertBookCateSecond(String name, int cate1);
 
 	public int insertBookCateThird(String name, int cateNum);
@@ -96,6 +96,22 @@ public interface ManagerDao {
 	public PublisherDto getPublisher(int pub_num);
 
 	public int getBookCount(String searchWord);
+
+	public int getCateOneCount();
+
+	public int checkCateOne(String name);
+
+	public int getCateTwoCount();
+
+	public int checkCateTwo(String name);
+
+	public int insertCateTwo(String name, int cate1, int num);
+
+	public int getCateThreeCount();
+
+	public int checkCateThree(String name);
+
+	public int insertCateThree(String name, int cate1, int num);
 
 
 }
