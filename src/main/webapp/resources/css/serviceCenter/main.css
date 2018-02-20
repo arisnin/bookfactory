@@ -152,7 +152,14 @@
 	color : #776bce;
 }
 
-
+/*로고로고*/
+.service_header .logo{
+	text-decoration: none;
+    color: #fff;
+    font-family: '주아체';
+	vertical-align: middle;
+	font-size: 2rem;
+}
 
 
 

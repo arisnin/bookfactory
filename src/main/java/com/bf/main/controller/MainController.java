@@ -47,6 +47,8 @@ import com.bf.member.service.UserDetailServiceImp;
  * @date 2018. 2. 13.
  * @description 회원가입, 로그아웃
  */
+
+
 @Controller
 public class MainController {
 	@Autowired
@@ -141,4 +143,44 @@ public class MainController {
 		mainService.register(mav);
 		return mav;
 	}
+	
+	/**
+	 * @author : 김동환
+	 * @date : 2018. 2. 20.
+	 * comment : 공지사항
+	 */
+	
+	@RequestMapping(value = "/notice/main.do" , method = RequestMethod.GET)
+	public ModelAndView noticeMain(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("공지사항_메인");
+		
+		ModelAndView mav = new ModelAndView("notice/main.solo");
+		
+		mav.addObject("request", request);
+		
+		mainService.noticeMain(mav);
+		
+		//return "notice/main.solo";		
+		return mav;
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/notice/content.do" , method = RequestMethod.GET)
+	public String noticeContent(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("공지사항_내용부르기");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		//mainService.noticeRead(mav);
+		
+		return "notice/cotent.solo";
+		//return mav;
+	}
+	
+	
+	
 }

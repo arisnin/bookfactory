@@ -7,7 +7,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="root" value="${pageContext.request.contextPath}" />
-
+<link rel="stylesheet" type="text/css" href="/bookFactory/css/header/index.css">
 <link href="${root}/css/serviceCenter/main.css"
 	type="text/css" rel="stylesheet">
 <link href="${root}/css/basic/reset.css" type="text/css"
@@ -19,11 +19,12 @@
 
 </head>
 <body>
+
 	<div class="service_header">
 			<div class="service_header_first">
 				<div class="header_left">
 					<ul>
-						<li>BookFactory</li>
+						<li><a class="logo" href="${root}/normal.do">북팩토리</a></li>
 						<li><a class="header_text" href="${root }/serviceCenter/main.do">고객센터</a></li>
 					</ul>
 				</div>
