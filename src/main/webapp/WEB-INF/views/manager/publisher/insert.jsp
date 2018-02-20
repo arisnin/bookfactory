@@ -25,34 +25,20 @@
 					<div>
 						<label>출판사 사이트</label>
 						<input type="text" placeholder="출판사 홈페이지" name="url"/>
-						<span class="p_in_check">중복입니다 다시 입력하세요</span>
 					</div>
 					<div align="right">
-						<button id="p_in_btn" type="button" class="bf-button">등록</button>
+						<button type="button" class="bf-button" onclick="pubinFun('${root}')">등록</button>
 						<button type="reset" class="bf-button">취소</button>
 					</div>
 				</div>
 			</section>
 		</form>
 	</div>
-	<script type="text/javascript">
-		$("#p_in_btn").click(function(){
-			var name = $("input[name=name]");
-			$.ajax({
-				  url: "${root}/manager/publisherNameCheck.do",
-				  method: 'get',
-				  data: {name : $.trim(name.val())},
-				  success: function(check){
-				  		if(check > 0){
-				  			name.next("span").text("중복입니다 다시 입력하세요");
-				  			return;
-				  		}else{
-				  			$("#pub_form").submit();
-				  		}
-				  	},
-				  dataType: "text"
-			});
-		});
-	</script>
+	
+	<script src="${root}/script/manager/publisher/insert.js"></script>
+	
 </body>
 </html>
+
+
+

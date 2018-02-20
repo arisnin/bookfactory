@@ -24,9 +24,32 @@
 		where rnum between #{startRow} and #{endRow}
 	</select>
 	
+	<select id="getPublisherSearchList1" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.PublisherSearchDto">
+		SELECT * FROM(
+		SELECT ROWNUM RNUM,X.* FROM(
+		SELECT p.*, NVL(B.CNTt,0) cnt
+		FROM PUBLISHER P, (SELECT COUNT(PUB_NUM) CNTT,PUB_NUM FROM BOOKM GROUP BY PUB_NUM) B
+		WHERE P.PUB_NUM = B.PUB_NUM(+)
+		order by cnt desc) x) where rnum BETWEEN #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getPublisherSearchList2" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.PublisherSearchDto">
+		SELECT * FROM(
+		SELECT ROWNUM RNUM,X.* FROM(
+		SELECT p.*, NVL(B.CNTt,0) cnt
+		FROM PUBLISHER P, (SELECT COUNT(PUB_NUM) CNTT,PUB_NUM FROM BOOKM GROUP BY PUB_NUM) B
+		WHERE P.PUB_NUM = B.PUB_NUM(+) and NAME like '%'||#{searchWord}||'%'
+		order by cnt desc) x) where rnum BETWEEN #{startRow} and #{endRow}
+	</select>
+		
 	<select id="getCount" resultType="int">
 		select count(*) from publisher
 	</select>
+	
+	<select id="getCount2" parameterType="String" resultType="int">
+		select count(*) from publisher where NAME like '%'||#{searchWord}||'%'
+	</select>
+	
 	<select id="getNum" parameterType="String" resultType="int">
 		select pub_num from publisher where name=#{name}
 	</select>
@@ -42,5 +65,9 @@
 	<select id="getPublisher" parameterType="int" resultType="com.bf.manager.dto.PublisherDto">
 		select * from PUBLISHER where PUB_NUM = #{pub_num}
 	</select>
+	
+	<update id="updatePublisher" parameterType="com.bf.manager.dto.PublisherDto">
+		update PUBLISHER set name = #{name} , url = #{url} where pub_num = #{pub_num}
+	</update>
 	
 </mapper>

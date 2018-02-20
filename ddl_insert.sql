@@ -257,3 +257,34 @@ Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('BVI','영�
 Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('NAN','네덜란드령 안틸레스','Nederlandse Antillen');	
 Insert into BF.COUNTRY (COUNTRY_NUM,COUNTRY_NAME,COUNTRY_EN) values ('BLS','벨라루스','Belarus');
 
+-- ----------------------------------------------------------------------------------------
+-- CASH_CHARG_MENU 삽입 데이터
+INSERT INTO CASH_CHARGE_MENU VALUES(1, 1, 2000, 3);
+INSERT INTO CASH_CHARGE_MENU VALUES(2, 2, 5000, 5);
+INSERT INTO CASH_CHARGE_MENU VALUES(3, 3, 10000, 5);
+INSERT INTO CASH_CHARGE_MENU VALUES(4, 4, 20000, 5);
+INSERT INTO CASH_CHARGE_MENU VALUES(5, 5, 30000, 7);
+INSERT INTO CASH_CHARGE_MENU VALUES(6, 6, 50000, 7);
+INSERT INTO CASH_CHARGE_MENU VALUES(7, 7, 70000, 7);
+INSERT INTO CASH_CHARGE_MENU VALUES(8, 8, 100000, 9);
+INSERT INTO CASH_CHARGE_MENU VALUES(9, 9, 200000, 9);
+INSERT INTO CASH_CHARGE_MENU VALUES(10, 10, 300000, 9);
+INSERT INTO CASH_CHARGE_MENU VALUES(11, 11, 400000, 9);
+INSERT INTO CASH_CHARGE_MENU VALUES(12, 12, 500000, 9);
+
+-- ----------------------------------------------------------------------------------------
+-- CASH_CHARGE_TYPE 삽입 데이터
+INSERT INTO cash_charge_type VALUES(1, '네이버페이');
+INSERT INTO cash_charge_type VALUES(2, '카카오페이');
+INSERT INTO cash_charge_type VALUES(3, '삼성페이');
+INSERT INTO cash_charge_type VALUES(4, '페이코');
+INSERT INTO cash_charge_type VALUES(5, '페이나우');
+INSERT INTO cash_charge_type VALUES(6, '신용카드');
+INSERT INTO cash_charge_type VALUES(7, '휴대폰');
+INSERT INTO cash_charge_type VALUES(8, '유선전화');
+INSERT INTO cash_charge_type VALUES(9, '계좌이체');
+INSERT INTO cash_charge_type VALUES(10, '컬쳐랜드문화상품권');
+INSERT INTO cash_charge_type VALUES(11, '도서문화상품권');
+INSERT INTO cash_charge_type VALUES(12, '해피머니(모바일팝)');
+INSERT INTO cash_charge_type VALUES(13, '해외 발행 신용카드');
+INSERT INTO cash_charge_type VALUES(14, '무통장입금');

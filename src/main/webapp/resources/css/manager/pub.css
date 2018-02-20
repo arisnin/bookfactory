@@ -30,6 +30,7 @@
 	top: 0.4rem;
     display: inline-block;
     text-align: center;
+    font-weight: bold;
 }
 .p_se_list li > span:nth-child(1){
     width: 22%;
@@ -72,6 +73,9 @@
 .p_in_check{
 	color:red;
 	font-size: 0.9rem;
+	position: absolute;
+    top: 0.8rem;
+    left: 38rem;
 }
 
 

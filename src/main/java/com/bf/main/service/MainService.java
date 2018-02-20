@@ -11,4 +11,8 @@ public interface MainService {
 
 	public void register(ModelAndView mav);
 
+	public void noticeMain(ModelAndView mav);
+
+	//public void noticeRead(ModelAndView mav);
+
 }

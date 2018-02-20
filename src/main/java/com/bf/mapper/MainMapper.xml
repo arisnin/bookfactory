@@ -6,4 +6,17 @@
 	<insert id="register" parameterType="com.bf.main.dto.RegisterDto">
 		insert into member values(member_num_seq.nextval,#{id},#{password},#{email},#{gender},sysdate,#{birthday},#{marketing_check},#{ip},sysdate,#{phone},#{name})
 	</insert>
-</mapper>
+		
+	
+	<select id="noticeMainCount" resultType="int">
+			select count(*) from notice
+	</select>
+	
+	<!-- 
+	
+	<select id="noticeMain" parameterType="java.util.Map" resultMap="com.bf.main.dto.NoticeDto">
+		select * from notice where num=#{num} desc;
+	</select>
+	 -->
+	
+</mapper>	

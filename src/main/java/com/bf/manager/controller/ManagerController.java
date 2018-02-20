@@ -55,9 +55,11 @@ public class ManagerController {
 	}
 
 	@RequestMapping(value = "/authorSearch.do", method = RequestMethod.GET)
-	public ModelAndView authorsearch() {
+	public ModelAndView authorSearch(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("author/search.mg");
-		LogAspect.info("authorsearch()");
+		mav.addObject("request", request);
+		managerService.authorSearch(mav);
+		
 		return mav;
 	}
 
@@ -77,7 +79,6 @@ public class ManagerController {
 	
 	@RequestMapping(value="/bookInsert.do",method=RequestMethod.GET)
 	public ModelAndView bookInsert(HttpServletRequest request, HttpServletResponse response) {
-
 		ModelAndView mav = new ModelAndView("book/insert.mg");
 		managerService.bookInsert(mav);
 		return mav;
@@ -140,6 +141,13 @@ public class ManagerController {
 		LogAspect.info("bookRead()");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/bookReadTwo.do", method = RequestMethod.GET)
+	public ModelAndView bookReadTwo() {
+		ModelAndView mav = new ModelAndView("book/readtwo.mg");
+		LogAspect.info("bookReadTwo()");
+		return mav;
+	}
 
 	@RequestMapping(value = "/bookSearch.do", method = RequestMethod.GET)
 	public ModelAndView bookSearch(HttpServletRequest request, HttpServletResponse response) {
@@ -157,9 +165,10 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value = "/publisherSearch.do", method = RequestMethod.GET)
-	public ModelAndView publisherSearch() {
+	public ModelAndView publisherSearch(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("publisher/search.mg");
-		LogAspect.info("publisherSearch()");
+		mav.addObject("request", request);
+		managerService.publisherSearch(mav);
 		return mav;
 	}
 
@@ -189,9 +198,21 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value="/publisherUpdate.do",method=RequestMethod.GET)
-	public ModelAndView publisherUpdate() {
+	public ModelAndView publisherUpdate(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("publisher/update.mg");
-		LogAspect.info("publisherUpdate()");
+		mav.addObject("request", request);
+		managerService.publisherUpdate(mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/publisherUpdateOk.do",method=RequestMethod.POST)
+	public ModelAndView publisherUpdateOk(HttpServletRequest request, HttpServletResponse response
+			,PublisherDto publisherDto) {
+		ModelAndView mav = new ModelAndView("publisher/updateOk.mg");
+		mav.addObject("publisherDto", publisherDto);
+		managerService.publisherUpdateOk(mav);
+		
 		return mav;
 	}
 
@@ -272,5 +293,29 @@ public class ManagerController {
 		mav.addObject("response", response);
 		managerService.bookUploadImg(mav);
 		return null;
+	}
+	
+	@RequestMapping(value = "/insertCateOne.do", method = RequestMethod.GET)
+	public ModelAndView insertCateOne(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("book/categoryOk.mg");
+		mav.addObject("request", request);
+		managerService.insertCateOne(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/insertCateTwo.do", method = RequestMethod.GET)
+	public ModelAndView insertCateTwo(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("book/categoryOk.mg");
+		mav.addObject("request", request);
+		managerService.insertCateTwo(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/insertCateThree.do", method = RequestMethod.GET)
+	public ModelAndView insertCateThree(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("book/categoryOk.mg");
+		mav.addObject("request", request);
+		managerService.insertCateThree(mav);
+		return mav;
 	}
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bf.manager.boardMapper">
+<mapper namespace="com.bf.manager.ManagerboardMapper">
 	<insert id="InsertOk" parameterType="com.bf.manager.dto.BoardFrequencyDto">
 		insert into
 		BOARD_FREQUENCY(num,title,category,content,write_date,file_name,file_size,file_path)
@@ -44,6 +44,11 @@
 			where rnum >=#{startRow} and rnum <=#{endRow}
 	]]>
 	</select>
+	<insert id="noticeInsert" parameterType="com.bf.manager.dto.ManagerNoticeDto">
+	insert into
+		notice(num,id,title,content,write_date)
+		values(NOTICE_NUM_SEQ.nextval,#{id},#{title},#{content},#{write_date})
+	</insert>
 
 </mapper>
 

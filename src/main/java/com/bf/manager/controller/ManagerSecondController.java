@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.manager.dto.ManagerNoticeDto;
 import com.bf.manager.dto.MemberDto;
+import com.bf.manager.dto.ReviewManagerDto;
 import com.bf.manager.service.ManagerServiceTwo;
 
 /**
@@ -137,16 +140,38 @@ public class ManagerSecondController {
 	}
 
 	@RequestMapping(value = "/reviewReview.do", method = RequestMethod.GET)
-	public ModelAndView memberReview() {
+	public ModelAndView memberReview(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("review/review.mg");
 		LogAspect.info("memberReview()");
+		mav.addObject("request",request);
+		managerService.managerReview(mav);
 		return mav;
 	}
 
-	@RequestMapping(value = "/reviewReport.do", method = RequestMethod.GET)
-	public ModelAndView memberReport() {
+	@RequestMapping(value = "/reviewReport.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView memberReport(HttpServletRequest request, HttpServletResponse response,ReviewManagerDto ReviewManagerDto) {
 		ModelAndView mav = new ModelAndView("review/report.mg");
-		LogAspect.info("memberReport()");
+		LogAspect.info("memberReview()");
+		mav.addObject("request",request);
+		mav.addObject("ReviewManagerDto",ReviewManagerDto);
+		managerService.managerReviewReport(mav);
+		LogAspect.info("reviewReport()");
+		return mav;
+	}
+	@RequestMapping(value = "/boardNoticeInsert.do", method = RequestMethod.GET)
+	public ModelAndView memberReport(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("board/noticeInsert.mg");
+		LogAspect.info("boardNoticeInsert()");
+		mav.addObject("request",request);
+		managerService.managerNoticeInsert(mav);
+		return mav;
+	}
+	@RequestMapping(value = "/boardNoticeInsertOk.do", method = RequestMethod.POST)
+	public ModelAndView boardInsertOk(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("board/insertOk.mg");
+		LogAspect.info("boardNoticeInsertOk)");
+		mav.addObject("request", request);
+		managerService.boardNoticeInsertOk(mav);
 		return mav;
 	}
 
