@@ -24,7 +24,8 @@ public interface BookDao {
 	ReviewDto selectReviewSelf(int book_num, String username);
 	List<ReviewDto> selectReviewList(int book_num);
 	int updateReview(ReviewDto reviewDto);
-	List<HomeDto> getRecomList(int firstCate);
+	HomeDto getRecomList(int randomBookNum);
 	int getRecomCount(long book_num);
+	List<Integer> getRandomBookNum(int firstCate);
 
 }

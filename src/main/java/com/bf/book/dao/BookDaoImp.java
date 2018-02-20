@@ -81,12 +81,18 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.update(namespace + "update-review", reviewDto);
 	}
 	
-	public List<HomeDto> getRecomList(int firstCate) {
-		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getRecomList", firstCate);
+	public HomeDto getRecomList(int randomBookNum) {
+		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getRecomList", randomBookNum);
 	}
 
 	@Override
 	public int getRecomCount(long book_num) {
 		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getRecomCount", book_num);
+	}
+
+	@Override	//오늘의 추천에서 랜덤값 가져오는 아이
+	public List<Integer> getRandomBookNum(int firstCate) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getRandomBookNum", firstCate);
 	}
 }

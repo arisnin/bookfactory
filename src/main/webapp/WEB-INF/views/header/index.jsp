@@ -99,12 +99,38 @@
 			</div>
 		</div>
 		<!-- --------------------------- -->
+		<!-- 홈화면 가는게 각각 카테에맞게 바뀌어야함으로 추가 -->
+					<c:choose>
+						<c:when test="${firstCate==1}">
+							<c:set var="home" value="normal"/>
+						</c:when>
+						
+						<c:when test="${firstCate==2}">
+							<c:set var="home" value="romance"/>
+						</c:when>
+						
+						<c:when test="${firstCate==3}">
+							<c:set var="home" value="fantasy"/>
+						</c:when>
+						
+						<c:when test="${firstCate==4}">
+							<c:set var="home" value="comic"/>
+						</c:when>
+						
+						<c:when test="${firstCate==5}">
+							<c:set var="home" value="bl"/>
+						</c:when>
+						
+						<c:otherwise>
+							<c:set var="home" value="normal"/>
+						</c:otherwise>
+					</c:choose>
 		<div class="hw_sub_wrap">
 			<c:if test="${firstCate!=1 && firstCate!=4}">
 				<div class="hw_sub_cate">
 					<span>단행본</span>
 					<ul>
-						<li class="sub_cate_element" onclick="location.href='${root}/normal.do?firstCate=${firstCate}&bookType=paper'">홈 <span class="activeBar"></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/${home}.do?firstCate=${firstCate}&bookType=paper'">홈 <span class="activeBar"></span></li>
 						<li class="sub_cate_element" onclick="location.href='${root}/new-book.do?firstCate=${firstCate}&bookType=paper'">신간<span></span></li>
 						<li class="sub_cate_element" onclick="location.href='${root}/best-sell.do?firstCate=${firstCate}&bookType=paper&bestSeller=weekBest'">베스트셀러<span></span></li>
 						<%-- <li class="sub_cate_element" onclick="location.href='${root}/normal.main'">맞춤추천<span></span></li> --%>
@@ -124,7 +150,7 @@
 			<c:if test="${firstCate==1 || firstCate==4}">
 				<div class="hw_sub_cate">
 					<ul>
-						<li class="sub_cate_element" onclick="location.href='${root}/normal.do?firstCate=${firstCate}'">홈 <span class="activeBar"></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/${home}.do?firstCate=${firstCate}'">홈 <span class="activeBar"></span></li>
 						<li class="sub_cate_element" onclick="location.href='${root}/new-book.do?firstCate=${firstCate}'">신간<span></span></li>
 						<li class="sub_cate_element" onclick="location.href='${root}/best-sell.do?firstCate=${firstCate}&bestSeller=weekBest'">베스트셀러<span></span></li>
 						<%-- <li class="sub_cate_element" onclick="location.href='${root}/normal.main'">맞춤추천<span></span></li> --%>

@@ -1,11 +1,13 @@
 package com.bf.book.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.aspectj.weaver.tools.cache.AsynchronousFileCacheBacking.RemoveCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,12 +24,18 @@ import com.bf.book.dto.NewBookDto;
  * @author 박성호
  * @date 2018. 2. 14.
  * @description 대분류별 보기 / 책 상세보기 관련 서비스 구현 클래스
+ *
+ * @author choi jung eun
+ * @date 2018. 2. 20.
+ * @description 각각의 홈화면, 신간 등 리스트뿌려주기, 상세보기 화면 담당
  */
+
 @Component
 public class BookServiceImp implements BookService {
 	@Autowired
 	private BookDao bookDao;
-
+	
+	//리뷰는 위에 해주세요 홈은 아래에다가 하겠습니다
 	@Override
 	public ModelAndView reviewWrite(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -53,82 +61,6 @@ public class BookServiceImp implements BookService {
 		int check = bookDao.insertReview(reviewDto);
 
 		return mav.addObject("checkReview", check).addObject("book_num",reviewDto.getBook_num());
-	}
-
-	@Override
-	public void normalHome(ModelAndView mav) {
-		// TODO Auto-generated method stub
-		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
-		int firstCate=bookDao.getFirstCate("일반");
-		
-		List<HomeDto> recomList=bookDao.getRecomList(firstCate);
-		
-		if(recomList!=null) {
-			//중복값제거
-			for(int i=0;i<recomList.size();i++) {
-				int recomCount=bookDao.getRecomCount(recomList.get(i).getBook_num());
-				
-				if(recomCount>1) {
-					recomList.remove(i);
-				}
-			}
-		}
-		
-		List<HomeDto> homeList=bookDao.getHomeBookInfoList();
-		//LogAspect.info(LogAspect.logMsg + homeList.toString());
-		
-		mav.addObject("recomList", recomList);
-		mav.addObject("homeList", homeList);
-		mav.addObject("firstCate",firstCate);
-	}
-
-	@Override
-	public void homeNewbook(ModelAndView mav) {
-		// TODO Auto-generated method stub
-		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
-		String firstCate=request.getParameter("firstCate");
-		String bookType=request.getParameter("bookType");
-		
-		String pn=request.getParameter("pageNumber");
-		if(pn==null)	pn="1";
-		
-		int pageNumber=Integer.parseInt(pn);
-		
-		String firstCateName=bookDao.getFirstCateName(firstCate);
-		List<NewBookDto> newList=null;
-		
-		int boardSize=20;
-		int startRow=(pageNumber-1)*boardSize+1;
-		int endRow=pageNumber*boardSize;
-		int newCount=0;
-
-		HashMap<String, Integer> map=new HashMap<String, Integer>();
-		map.put("startRow", startRow);
-		map.put("endRow", endRow);
-		map.put("firstCate", Integer.parseInt(firstCate));
-		
-		//일반, 나머지카테(단행, 연재 구분)
-		//나중에 리뷰로 또 갈림 리뷰없으면 원래쿼리문 있으면 다른 질의문
-		if(bookType==null) {
-			newCount=bookDao.getNewBookCount(firstCate);
-			
-			if(newCount>0) {
-				newList=bookDao.getNewBookList(map);
-			
-			}	
-		}else if(bookType=="paper") {
-			
-		}else if(bookType=="serial") {
-			
-		}
-		
-		mav.addObject("firstCate", firstCate);
-		mav.addObject("firstCateName", firstCateName);
-		mav.addObject("newList", newList);
-		mav.addObject("bookType", bookType);
-		mav.addObject("pageNumber", pageNumber);
-		mav.addObject("newCount", newCount);
-		mav.addObject("boardSize", boardSize);
 	}
 
 	@Override
@@ -194,5 +126,127 @@ public class BookServiceImp implements BookService {
 		}
 
 		return mav.addObject("checkReview", checkReview).addObject("book_num",reviewDto.getBook_num());
+	}
+	
+	//여기서부터 홈입니다.
+	@Override
+	public void normalHome(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
+		int firstCate=bookDao.getFirstCate("일반");
+		
+		//오늘의 추천은 랜덤으로 뽑아옴
+		int preBookNum=0;
+		List<Integer> randomBookNum=bookDao.getRandomBookNum(firstCate);
+		List<HomeDto> recomList=new ArrayList<HomeDto>();
+		
+		for(int i=0;i<randomBookNum.size();i++) {
+			int random=randomBookNum.get(i);
+			
+			if(preBookNum!=random) {
+				HomeDto dto=bookDao.getRecomList(random);
+				recomList.add(dto);
+			}
+			
+			preBookNum=randomBookNum.get(i);
+		}
+		
+		//사람들이 지금 많이 읽는 책 => 나중에 어떤식으로들어갈지 모름
+		
+		//베스트셀러 - > 구매기능완성되면 잘팔린순으로 뽑아와야함
+		
+		List<HomeDto> homeList=bookDao.getHomeBookInfoList();
+		//LogAspect.info(LogAspect.logMsg + homeList.toString());
+		
+		mav.addObject("recomList", recomList);
+		mav.addObject("homeList", homeList);
+		mav.addObject("firstCate",firstCate);
+	}
+	
+	@Override
+	public void homeNewbook(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
+		String firstCate=request.getParameter("firstCate");
+		String bookType=request.getParameter("bookType");
+		
+		String pn=request.getParameter("pageNumber");
+		if(pn==null)	pn="1";
+		
+		int pageNumber=Integer.parseInt(pn);
+		
+		String firstCateName=bookDao.getFirstCateName(firstCate);
+		List<NewBookDto> newList=null;
+		
+		int boardSize=20;
+		int startRow=(pageNumber-1)*boardSize+1;
+		int endRow=pageNumber*boardSize;
+		int newCount=0;
+		
+		HashMap<String, Integer> map=new HashMap<String, Integer>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("firstCate", Integer.parseInt(firstCate));
+		
+		//일반, 나머지카테(단행, 연재 구분)
+		//나중에 리뷰로 또 갈림 리뷰없으면 원래쿼리문 있으면 다른 질의문
+		if(bookType==null) {
+			newCount=bookDao.getNewBookCount(firstCate);
+			
+			if(newCount>0) {
+				newList=bookDao.getNewBookList(map);
+				
+			}	
+		}else if(bookType=="paper") {
+			
+		}else if(bookType=="serial") {
+			
+		}
+		
+		mav.addObject("firstCate", firstCate);
+		mav.addObject("firstCateName", firstCateName);
+		mav.addObject("newList", newList);
+		mav.addObject("bookType", bookType);
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("newCount", newCount);
+		mav.addObject("boardSize", boardSize);
+	}
+
+	@Override
+	public void romanceHome(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
+		int firstCate=bookDao.getFirstCate("로맨스");
+		
+		//화면이 일반단행본인지, 연재인지로 구분되서 시작되어야함
+		
+		//오늘의 추천은 랜덤으로 뽑아옴
+		int preBookNum=0;
+		List<Integer> randomBookNum=bookDao.getRandomBookNum(firstCate);
+		List<HomeDto> recomList=new ArrayList<HomeDto>();
+		
+		for(int i=0;i<randomBookNum.size();i++) {
+			int random=randomBookNum.get(i);
+			
+			if(preBookNum!=random) {
+				HomeDto dto=bookDao.getRecomList(random);
+				recomList.add(dto);
+			}
+			
+			preBookNum=randomBookNum.get(i);
+		}
+		
+		//키워드는 아직 어찌할지 모름
+		
+		//사람들이 지금 많이 읽는 책 => 나중에 어떤식으로들어갈지 모름
+		
+		//베스트셀러 - > 구매기능완성되면 잘팔린순으로 뽑아와야함
+		
+		List<HomeDto> homeList=bookDao.getHomeBookInfoList();
+		//LogAspect.info(LogAspect.logMsg + homeList.toString());
+		
+		mav.addObject("recomList", recomList);
+		mav.addObject("homeList", homeList);
+		mav.addObject("firstCate",firstCate);
 	}
 }

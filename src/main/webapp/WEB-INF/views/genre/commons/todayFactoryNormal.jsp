@@ -22,7 +22,8 @@
 <script type="text/javascript">
 $(function(){
 	$(".today-recommended-book").click(function(){
-		location.href="/bookFactory/detail.do?book_num=${homeDto.book_num}";
+		var booknum=$(".recommended-book-metadata > input[name=bookNum]").val();
+		location.href="/bookFactory/detail.do?book_num="+booknum;
 	});
 });
 </script>
@@ -50,6 +51,7 @@ $(function(){
 									<p>
 										${homeDto.authorName }<br>${homeDto.bookName}
 									</p>
+									<input type="hidden" name="bookNum" value="${homeDto.book_num}">
 								</div>
 								<div class="content-star-rate">
 									<span class="star-icon-field material-icons">star_border</span><span
@@ -66,10 +68,5 @@ $(function(){
 			</div>
 		</article>
 	</section>
-	<!-- JavaScript -->
-	<%-- 	<script type="text/javascript" src="${root}/script/genre/todayFactory.js"></script>
-	<script type="text/javascript">
-		initRecList("today-recommended-list-normal");
-	</script> --%>
 </body>
 </html>

@@ -72,9 +72,13 @@ public class BookController {
 	 * 메인 > 로맨스 > 홈
 	 */
 	@RequestMapping(value = "/romance.do", method = RequestMethod.GET)
-	public String homeRomance(HttpServletRequest request, HttpServletResponse response) {
-
-		return "genre/romance.main";
+	public ModelAndView homeRomance(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("genre/romance.main");
+		mav.addObject("request", request);
+		
+		bookService.romanceHome(mav);
+		
+		return mav;
 	}
 
 	/**
