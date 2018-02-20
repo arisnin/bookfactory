@@ -3,6 +3,7 @@ package com.bf.manager.dao;
 import java.util.List;
 
 import com.bf.manager.dto.AuthorDto;
+import com.bf.manager.dto.AuthorSearchDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookFirstCateDto;
 import com.bf.manager.dto.BookSearchDto;
@@ -10,6 +11,7 @@ import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
 import com.bf.manager.dto.PublisherDto;
+import com.bf.manager.dto.PublisherSearchDto;
 
 /**
  * @이름: 염현우
@@ -112,6 +114,22 @@ public interface ManagerDao {
 	public int checkCateThree(String name);
 
 	public int insertCateThree(String name, int cate1, int num);
+
+	public int getPublisherCount(String searchWord);
+
+	public List<PublisherSearchDto> getPublisherSearchList(int startRow, int endRow);
+
+	public List<PublisherSearchDto> getPublisherSearchList(String searchWord, int startRow, int endRow);
+
+	public int updatePublisher(PublisherDto publisherDto);
+
+	public List<AuthorSearchDto> getAuthorSearchList(int startRow, int endRow);
+
+	public List<AuthorSearchDto> getAuthorSearchList(String searchWord, int startRow, int endRow);
+
+	public int getAuthorCount();
+
+	public int getAuthorCount(String searchWord);
 
 
 }

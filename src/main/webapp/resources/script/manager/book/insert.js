@@ -13,6 +13,20 @@ $("#b_date").datepicker({
 	dateFormat : 'yy-mm-dd'
 });
 
+//이름중복
+function checkName(root) {
+	var node = $("input[name=name]");
+	var url = root + "/manager/bookInNameCheck.do";
+	window.setTimeout(suggestToServer(url,node,bookName), 500);
+}
+
+//작가중복
+function checkAuthor(root,name){
+	var node = $("input[name="+name+"]");
+	var url = root + "/manager/bookInAuthorCheck.do";
+	suggestToServer(url,node,bookAuthor);
+}
+
 
 //디폴트 전체선택 클릭
 var support = $("#b_in_support > .bf-custom-checkbox");
@@ -49,7 +63,7 @@ function setCheckbox(checkbox){
 	});
 	
 }
-
+var lastName ="";
 //써제스트
 function suggestToServer(url,node,callback) {
 	var name = node;
@@ -248,5 +262,3 @@ function bookInsertOk(){
 	$("input[name=type]").val(type);
 	
 }
-
-

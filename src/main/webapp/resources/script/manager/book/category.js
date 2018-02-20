@@ -1,6 +1,21 @@
 /**
  * 
  */
+//취소버튼 이벤트
+var input1 = $("#b_cate_c1");
+input1.next().find("button[type=reset]").click(function() {
+	input1.val("");
+});
+var input2 = $("#b_cate_c2");
+input2.next().find("button[type=reset]").click(function() {
+	input2.val("");
+});
+var input3 = $("#b_cate_c3");
+input3.next().find("button[type=reset]").click(function() {
+	input3.val("");
+});
+
+
 //대분류 등록
 function cate1(root){
 	var url = root + "/manager/insertCateOne.do";

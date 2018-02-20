@@ -19,7 +19,7 @@
 					<input id="b_cate_c1" type="text" placeholder="제목"/>
 					<div align="right">
 						<button type="button" class="bf-button" onclick="cate1('${root}')">등록</button>
-						<button type="button" class="bf-button">취소</button>
+						<button type="reset" class="bf-button">취소</button>
 					</div>
 				</div>
 				<div class="b_cate_in">
@@ -32,11 +32,11 @@
 							</c:forEach>
 						</div>
 					</div>
-					<input id="b_cate_c2" type="text" placeholder="제목"/>
 					<input type="hidden" name="secondCate1">
+					<input id="b_cate_c2" type="text" placeholder="제목"/>
 					<div align="right">
 						<button type="button" class="bf-button" onclick="cate2('${root}')">등록</button>
-						<button type="button" class="bf-button">취소</button>
+						<button type="reset" class="bf-button">취소</button>
 					</div>
 				</div>
 				<div class="b_cate_in">
@@ -59,7 +59,7 @@
 					<input id="b_cate_c3" type="text" placeholder="제목"/>
 					<div align="right">
 						<button type="button" class="bf-button" onclick="cate3('${root}')">등록</button>
-						<button type="button" class="bf-button">취소</button>
+						<button type="reset" class="bf-button">취소</button>
 					</div>
 				</div>
 			</div>

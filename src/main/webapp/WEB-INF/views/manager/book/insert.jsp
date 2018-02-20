@@ -19,7 +19,7 @@
 				<div class="b_in_content">
 					<div>
 						<label>도서 제목</label>
-						<input type="text" name="name" placeholder="제목" oninput="checkName()"/>
+						<input type="text" name="name" placeholder="제목" oninput="checkName('${root}')"/>
 						<span class="b_in_check"></span>
 					</div>
 					<div>
@@ -64,7 +64,7 @@
 					</div>
 					<div>
 						<label>작가</label>
-						<input type="text" name="author" placeholder="작가이름" oninput="checkAuthor('author')"/>
+						<input type="text" name="author" placeholder="작가이름" oninput="checkAuthor('${root}','author')"/>
 						<span class="b_in_check"></span>
 						<div class="b_in_author_list">
 							<ul></ul>
@@ -73,7 +73,7 @@
 					</div>
 					<div>
 						<label>일러스트</label>
-						<input type="text" name="illustrator" placeholder="일러스트이름" oninput="checkAuthor('illustrator')"/>
+						<input type="text" name="illustrator" placeholder="일러스트이름" oninput="checkAuthor('${root}','illustrator')"/>
 						<span class="b_in_check"></span>
 						<div class="b_in_author_list">
 							<ul></ul>
@@ -82,7 +82,7 @@
 					</div>
 					<div>
 						<label>번역가</label>
-						<input type="text" name="translator" placeholder="번역이름" oninput="checkAuthor('translator')"/>
+						<input type="text" name="translator" placeholder="번역이름" oninput="checkAuthor('${root}','translator')"/>
 						<span class="b_in_check"></span>
 						<div class="b_in_author_list">
 							<ul></ul>
@@ -163,7 +163,7 @@
 					</div>
 					<div align="right">
 						<button type="submit" class="bf-button">등록</button>
-						<button type="button" class="bf-button">취소</button>
+						<button type="reset" class="bf-button">취소</button>
 					</div>
 					
 					<input type="hidden" name="pub_num">
@@ -254,15 +254,6 @@
 			  dataType: "text"
 			});
 		});
-		var lastName ="";
-		function checkName() {
-			var node = $("input[name=name]");
-			window.setTimeout(suggestToServer("${root}/manager/bookInNameCheck.do",node,bookName), 500);
-		}
-		function checkAuthor(name){
-			var node = $("input[name="+name+"]");
-			suggestToServer("${root}/manager/bookInAuthorCheck.do",node,bookAuthor);
-		}
 	</script>
 </body>
 </html>

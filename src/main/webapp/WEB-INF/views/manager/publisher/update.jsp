@@ -15,28 +15,32 @@
 </head>
 <body>
 	<div id="b_in_wrapper">
-		<section class="b_in_main">
-			<div class="b_in_header"><h2>출판사 수정</h2></div>
-			<div class="b_in_content p_in_center">
-				<div>
-					<label>출판사 명</label>
-					<input type="text" placeholder="출판사 이름"/>
-					<span class="p_in_check">중복입니다 다시 입력하세요</span>
+		<form id="pubUpdateForm" action="${root}/manager/publisherUpdateOk.do" method="post">
+			<section class="b_in_main">
+				<div class="b_in_header"><h2>출판사 수정</h2></div>
+				<div class="b_in_content p_in_center">
+					<div>
+						<label>출판사 명</label>
+						<input type="text" name="name" placeholder="출판사 이름" value="${publisherDto.name}" oninput="checkName('${root}')"/>
+						<span class="p_in_check"></span>
+					</div>
+					<div>
+						<label>출판사 사이트</label>
+						<input type="text" name="url" placeholder="출판사 홈페이지" value="${publisherDto.url}"/>
+					</div>
+					<div align="right">
+						<button type="button" class="bf-button" onclick="updateFun('${publisherDto.name}')">수정하기</button>
+						<button type="button" class="bf-button" onclick="history.back()">뒤로가기</button>
+					</div>
 				</div>
-				<div>
-					<label>출판사 사이트</label>
-					<input type="text" placeholder="출판사 홈페이지"/>
-					<span class="p_in_check">중복입니다 다시 입력하세요</span>
-				</div>
-				<div align="right">
-					<button type="button" class="bf-button">수정</button>
-					<button type="button" class="bf-button">취소</button>
-				</div>
-			</div>
-		</section>
+				<input type="hidden" name="pub_num" value="${publisherDto.pub_num}">
+				<input type="hidden" name="original_name" value="${publisherDto.name}">
+			</section>
+		</form>
 	</div>
-	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
-	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
+	<script src="${root}/script/basic/jquery.js"></script>
+	<script src="${root}/script/basic/commons.js"></script>
+	<script src="${root}/script/manager/publisher/update.js"></script>
 	
 </body>
 </html>

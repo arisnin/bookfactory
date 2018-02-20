@@ -45,7 +45,7 @@
 										${fn:substring(bookDto.author_name,0,9)}<c:if test="${fn:length(bookDto.author_name)>9}">..</c:if>
 									</a>
 								</span>
-								<span><a href="${root}/manager/bookReadTwo.do">${bookDto.pub_name}</a></span>
+								<span><a href="${root}/manager/publisherSearch.do?searchWord=${bookDto.pub_name}">${bookDto.pub_name}</a></span>
 								<span class="b_se_btn">
 									<button id="${bookDto.book_num}" type="button" class="bf-button">수정</button>
 									<button type="button" class="bf-button">삭제</button>

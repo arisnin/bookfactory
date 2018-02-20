@@ -53,4 +53,12 @@ public interface ManagerService {
 
 	public void insertCateThree(ModelAndView mav);
 
+	public void publisherSearch(ModelAndView mav);
+
+	public void publisherUpdate(ModelAndView mav);
+
+	public void publisherUpdateOk(ModelAndView mav);
+
+	public void authorSearch(ModelAndView mav);
+
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bf.manager.dto.AuthorDto;
+import com.bf.manager.dto.AuthorSearchDto;
 import com.bf.manager.dto.BookCategoryDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookFirstCateDto;
@@ -16,6 +17,7 @@ import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
 import com.bf.manager.dto.PublisherDto;
+import com.bf.manager.dto.PublisherSearchDto;
 
 /**
  * @이름: 염현우
@@ -130,6 +132,50 @@ public class ManagerDaoImp implements ManagerDao {
 	}
 	
 	@Override
+	public List<PublisherSearchDto> getPublisherSearchList(int startRow, int endRow) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSession.selectList("com.bf.mapper.PublisherMapper.getPublisherSearchList1", map);
+	}
+	
+	@Override
+	public List<PublisherSearchDto> getPublisherSearchList(String searchWord, int startRow, int endRow) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("searchWord", searchWord);
+		return sqlSession.selectList("com.bf.mapper.PublisherMapper.getPublisherSearchList2", map);
+	}
+	
+	@Override
+	public List<AuthorSearchDto> getAuthorSearchList(int startRow, int endRow) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSession.selectList("com.bf.mapper.AuthorMapper.getAuthorSearchList", map);
+	}
+	
+	@Override
+	public List<AuthorSearchDto> getAuthorSearchList(String searchWord, int startRow, int endRow) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("searchWord", searchWord);
+		return sqlSession.selectList("com.bf.mapper.AuthorMapper.getAuthorSearchList2", map);
+	}
+	
+	@Override
+	public int getAuthorCount() {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getAuthorCount");
+	}
+	
+	@Override
+	public int getAuthorCount(String searchWord) {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getAuthorCount2",searchWord);
+	}
+	
+	@Override
 	public int getBookCount() {
 		return sqlSession.selectOne("com.bf.mapper.BookMapper.getCount");
 	}
@@ -152,6 +198,11 @@ public class ManagerDaoImp implements ManagerDao {
 	@Override
 	public int getPublisherCount() {
 		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getCount");
+	}
+	
+	@Override
+	public int getPublisherCount(String searchWord) {
+		return sqlSession.selectOne("com.bf.mapper.PublisherMapper.getCount2",searchWord);
 	}
 
 	@Override
@@ -320,5 +371,12 @@ public class ManagerDaoImp implements ManagerDao {
 	public int getCateThreeCount() {
 		return sqlSession.selectOne("com.bf.mapper.BookMapper.getCateThreeCount");
 	}
+
+	@Override
+	public int updatePublisher(PublisherDto publisherDto) {
+		return 	sqlSession.update("com.bf.mapper.PublisherMapper.updatePublisher",publisherDto);
+	}
+
+	
 	
 }
