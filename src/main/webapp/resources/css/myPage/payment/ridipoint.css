@@ -86,7 +86,7 @@
 
 .mypoint_history_table_title > .division{
 	text-align: left;
-	width: 17.75rem;
+	width: 15.375rem;
 	float: left;
 }
 
@@ -96,7 +96,7 @@
 }
 
 .mypoint_history_table_title > .status{
-	width: 5.625rem;
+	width: 8rem;
 	float: left;
 }
 
@@ -129,7 +129,7 @@
 	color: #40474d;
     font-weight: 700;
     text-align: left;
-    width: 17.75rem;
+    width: 15.375rem;
 
 }
 
@@ -146,6 +146,6 @@
 .mypoint_history_table_body > .status{
 	color: #40474d;
     font-size: 0.8rem;
-    width: 5.625rem;
+    width: 8rem;
     text-align: center;
 }

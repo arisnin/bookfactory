@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@	taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,15 +27,15 @@
 				<p class="mypoint_amount_title">
 					내 마이포인트
 					<span class="total_amount">
-						<span>60</span>원
+						<span>${point}</span>원
 					</span>
 				</p>
 				<div>
 					<p class="expiring_amount_title">
 					<img class="exclamation_mark_icon" src="${root}/img/exclamationmark.png" >
-					소멸 예정
+					
 					<span class="expiring_amount">
-						<span>0</span>원
+						<span>${point}</span>원
 					</span>
 				</p>
 				</div>
@@ -48,13 +49,15 @@
 					<li class="status">소멸일시</li>
 					<li class="default">상태</li>
 				</ul>
+				<c:forEach var="myPagePointDto" items="${myPagePointDtoList}">
 				<ul class="mypoint_history_table_body">
-					<li class="default">2018.01.14 18:52</li>
-					<li class="division">마이캐시 충전 보너스 마이포인트</li>
-					<li class="main_value"><span>60</span>원</li>
-					<li class="status">-</li>
-					<li class="default">-</li>
+					<li class="default"><fmt:formatDate value = "${myPagePointDto.charge_date}" pattern="yyyy.MM.dd hh:mm"/></li>
+					<li class="division">${myPagePointDto.point_type}</li>
+					<li class="main_value"><span>${myPagePointDto.point}</span>원</li>
+					<li class="status"><fmt:formatDate value = "${myPagePointDto.destory_date}" pattern="yyyy.MM.dd hh:mm"/></li>
+					<li class="default">${myPagePointDto.state}</li>
 				</ul>
+				</c:forEach>
 			</div>		
 		</section>
 	</div>
