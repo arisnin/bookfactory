@@ -22,7 +22,8 @@
 	<div id="sh_register">
 		<div class="sh_main_text">회원정보상세</div>
 		<div id="sh_board_shadow">
-		<form action="${root}/manager/memberRegisterOk.do" method="post">
+		<form name="sh_register_form" action="${root}/manager/memberRegisterOk.do" method="post">
+		
 			<div class="sh_register_1">
 				<ul>
 					<li>회원정보</li>
@@ -51,7 +52,13 @@
 					<li><fmt:formatDate value="${memberDto.last_join}" pattern="yyyy년 MM월 dd일"/></li>
 					<li><font>댓글 :  </font></li>
 					<li><font>방문수 :</font> 5번</li>
-					<li><font>등급 : </font><span>${memberDto.role}</span>
+					<li><font>등급 : </font>
+						<c:if test="${memberDto.role=='role_admin'}">
+							<span>관리자</span>
+						</c:if>
+						<c:if test="${memberDto.role==' role_user'}">
+							<span>유저</span>
+						</c:if>
 						<select id="select-sh" style="padding: 0.2rem" name ="role">
 							<option>role_admin</option>
 							<option>role_user</option>
@@ -65,7 +72,7 @@
 				<button type="button" class="bf-button sh_button_out">강제탈퇴</button>
 				<button type="submit" class="bf-button">수정</button>
 				<button type="button" class="bf-button"
-					onclick="javascript:location ='${root}/manager/memberPayDetail.do'">결제페이지</button>
+					onclick="javascript:location ='${root}/manager/memberPayDetail.do?id=${memberDto.id}'">결제페이지</button>
 				<button type="button" class="bf-button"
 					onclick="javascript:location ='${root}/manager/memberMember.do'">목록</button>
 			</div>
@@ -82,9 +89,22 @@
 	
 
 	<script type="text/javascript">
+		
+	
+	
 		$(function() {
-
-			$('.sh_button_out').click(function(event) {
+			 $('.sh_button_out').click(function(event){
+				 var txt;
+				 var r = confirm("정말로 이 회원을 탈퇴 시키겠습니까?");	
+				 if(r == true) {
+				     javascript:location ="${root}/manager/memberDelete.do?id=${memberDto.id}";
+				 }else {
+					 alert("탈퇴가 시키지 않았습니다.");
+					 javascript:location ="${root}/manager/memberRegister.do?id=${memberDto.id}";
+				 }
+			 });
+			
+			/* $('.sh_button_out').click(function(event) {
 				$.confirm({
 					title : '강제탈퇴',
 					content : '정말로 이 회원을 탈퇴 시키겠습니까?',
@@ -105,7 +125,7 @@
 						}
 					}
 				});
-			});
+			}); */
 
 				$("#select-sh").change(function() {
 					var value = $(this).val();
