@@ -27,6 +27,14 @@
 		#{charge_type_num}, SYSDATE, #{cash_type})
 	</insert>
 	
+	<select id="point_select" parameterType="String" resultType="int">
+		<![CDATA[
+			SELECT sum(remain) FROM point
+			WHERE destory_date - 11 < SYSDATE AND num in
+			(SELECT num FROM point WHERE destory_date >= SYSDATE)
+		]]>
+	</select>
+	
 	<select id="point_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPagePointDto">
 		select * from point where id = #{id} order by charge_date desc
 	</select>

@@ -13,11 +13,12 @@ public class MyPagePointDto {
 	private Date charge_date;
 	private Date destory_date;
 	private String state;
+	private int remain;
 	
 	public MyPagePointDto(){}
 
 	public MyPagePointDto(int num, String id, int point, String point_type,
-			Date charge_date, Date destory_date, String state) {
+			Date charge_date, Date destory_date, String state, int remain) {
 		this.num = num;
 		this.id = id;
 		this.point = point;
@@ -25,6 +26,7 @@ public class MyPagePointDto {
 		this.charge_date = charge_date;
 		this.destory_date = destory_date;
 		this.state = state;
+		this.remain = remain;
 	}
 
 	public int getNum() {
@@ -83,10 +85,19 @@ public class MyPagePointDto {
 		this.state = state;
 	}
 
+	public int getRemain() {
+		return remain;
+	}
+
+	public void setRemain(int remain) {
+		this.remain = remain;
+	}
+
 	@Override
 	public String toString() {
 		return "MyPagePointDto [num=" + num + ", id=" + id + ", point=" + point
 				+ ", point_type=" + point_type + ", charge_date=" + charge_date
-				+ ", destory_date=" + destory_date + ", state=" + state + "]";
+				+ ", destory_date=" + destory_date + ", state=" + state
+				+ ", remain=" + remain + "]";
 	}
 }

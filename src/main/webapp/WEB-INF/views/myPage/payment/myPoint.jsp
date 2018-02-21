@@ -13,7 +13,7 @@
 <link href="${root}/css/myPage/myRidi.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/home.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/payment/purchasedAll.css" type="text/css" rel="stylesheet">
-<link href="${root}/css/myPage/payment/ridipoint.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/myPage/payment/mypoint.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 	<div class="myridi-contents-page">
@@ -27,15 +27,15 @@
 				<p class="mypoint_amount_title">
 					내 마이포인트
 					<span class="total_amount">
-						<span>${point}</span>원
+						<span><fmt:formatNumber value = "${total}" pattern="#,###"/></span>원
 					</span>
 				</p>
 				<div>
 					<p class="expiring_amount_title">
 					<img class="exclamation_mark_icon" src="${root}/img/exclamationmark.png" >
-					
+					소멸 예정
 					<span class="expiring_amount">
-						<span>${point}</span>원
+						<span><fmt:formatNumber value = "${extinction}" pattern="#,###"/></span>원
 					</span>
 				</p>
 				</div>
