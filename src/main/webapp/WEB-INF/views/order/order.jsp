@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="${root}/css/order/order.css">
-<link rel="stylesheet" type="text/css" href="${root}/css/myPage/payment/ridicash.css">
+<link rel="stylesheet" type="text/css" href="${root}/css/myPage/payment/mycash.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/cart/cart.css">
 </head>
 <body>

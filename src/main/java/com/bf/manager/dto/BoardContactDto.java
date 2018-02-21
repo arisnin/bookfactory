@@ -12,30 +12,66 @@ public class BoardContactDto {
 	private String title;
 	private String content;
 	private String id;
-	private Date WRITE_DATE;
-	private int CATEGORY;
-	private String REPLY_CONTENT;
-	private String REPLY_CHECK;
-	private String FILE_NAME;
-	private int FILE_SIZE;
-	private String FILE_PATH;
+	private Date write_date;
+	private int category;
+	private String reply_content;
+	private String reply_check;
+	private Date reply_date;
+	private String file_name;
+	private int file_size;
+	private String file_path;
+	
+	private String q1_name;
+	private String mem_phone;
+	private String q2_name;
 	
 	public BoardContactDto() {}
+
 	
-	public BoardContactDto(int num, String title, String content, String id, Date wRITE_DATE, int cATEGORY,
-			String rEPLY_CONTENT, String rEPLY_CHECK, String fILE_NAME, int fILE_SIZE, String fILE_PATH) {
+	public BoardContactDto(int num, String title, String content, String id, Date write_date, int category,
+			String reply_content, String reply_check, Date reply_date, String file_name, int file_size,
+			String file_path, String q1_name, String mem_phone, String q2_name) {
 		super();
 		this.num = num;
 		this.title = title;
 		this.content = content;
 		this.id = id;
-		WRITE_DATE = wRITE_DATE;
-		CATEGORY = cATEGORY;
-		REPLY_CONTENT = rEPLY_CONTENT;
-		REPLY_CHECK = rEPLY_CHECK;
-		FILE_NAME = fILE_NAME;
-		FILE_SIZE = fILE_SIZE;
-		FILE_PATH = fILE_PATH;
+		this.write_date = write_date;
+		this.category = category;
+		this.reply_content = reply_content;
+		this.reply_check = reply_check;
+		this.reply_date = reply_date;
+		this.file_name = file_name;
+		this.file_size = file_size;
+		this.file_path = file_path;
+		this.q1_name = q1_name;
+		this.mem_phone = mem_phone;
+		this.q2_name = q2_name;
+	}
+
+
+	public String getQ1_name() {
+		return q1_name;
+	}
+
+	public void setQ1_name(String q1_name) {
+		this.q1_name = q1_name;
+	}
+
+	public String getMem_phone() {
+		return mem_phone;
+	}
+
+	public void setMem_phone(String mem_phone) {
+		this.mem_phone = mem_phone;
+	}
+
+	public String getQ2_name() {
+		return q2_name;
+	}
+
+	public void setQ2_name(String q2_name) {
+		this.q2_name = q2_name;
 	}
 
 	public int getNum() {
@@ -70,68 +106,79 @@ public class BoardContactDto {
 		this.id = id;
 	}
 
-	public Date getWRITE_DATE() {
-		return WRITE_DATE;
+	public Date getWrite_date() {
+		return write_date;
 	}
 
-	public void setWRITE_DATE(Date wRITE_DATE) {
-		WRITE_DATE = wRITE_DATE;
+	public void setWrite_date(Date write_date) {
+		this.write_date = write_date;
 	}
 
-	public int getCATEGORY() {
-		return CATEGORY;
+	public int getCategory() {
+		return category;
 	}
 
-	public void setCATEGORY(int cATEGORY) {
-		CATEGORY = cATEGORY;
+	public void setCategory(int category) {
+		this.category = category;
 	}
 
-	public String getREPLY_CONTENT() {
-		return REPLY_CONTENT;
+	public String getReply_content() {
+		return reply_content;
 	}
 
-	public void setREPLY_CONTENT(String rEPLY_CONTENT) {
-		REPLY_CONTENT = rEPLY_CONTENT;
+	public void setReply_content(String reply_content) {
+		this.reply_content = reply_content;
 	}
 
-	public String getREPLY_CHECK() {
-		return REPLY_CHECK;
+	public String getReply_check() {
+		return reply_check;
 	}
 
-	public void setREPLY_CHECK(String rEPLY_CHECK) {
-		REPLY_CHECK = rEPLY_CHECK;
+	public void setReply_check(String reply_check) {
+		this.reply_check = reply_check;
 	}
 
-	public String getFILE_NAME() {
-		return FILE_NAME;
+	public String getFile_name() {
+		return file_name;
 	}
 
-	public void setFILE_NAME(String fILE_NAME) {
-		FILE_NAME = fILE_NAME;
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
 	}
 
-	public int getFILE_SIZE() {
-		return FILE_SIZE;
+	public int getFile_size() {
+		return file_size;
 	}
 
-	public void setFILE_SIZE(int fILE_SIZE) {
-		FILE_SIZE = fILE_SIZE;
+	public void setFile_size(int file_size) {
+		this.file_size = file_size;
 	}
 
-	public String getFILE_PATH() {
-		return FILE_PATH;
+	public String getFile_path() {
+		return file_path;
 	}
 
-	public void setFILE_PATH(String fILE_PATH) {
-		FILE_PATH = fILE_PATH;
+	public void setFile_path(String file_path) {
+		this.file_path = file_path;
 	}
+	
+	public Date getReply_date() {
+		return reply_date;
+	}
+
+
+	public void setReply_date(Date reply_date) {
+		this.reply_date = reply_date;
+	}
+
 
 	@Override
 	public String toString() {
-		return "ManagerBoardContact [num=" + num + ", title=" + title + ", content=" + content + ", id=" + id
-				+ ", WRITE_DATE=" + WRITE_DATE + ", CATEGORY=" + CATEGORY + ", REPLY_CONTENT=" + REPLY_CONTENT
-				+ ", REPLY_CHECK=" + REPLY_CHECK + ", FILE_NAME=" + FILE_NAME + ", FILE_SIZE=" + FILE_SIZE
-				+ ", FILE_PATH=" + FILE_PATH + "]";
+		return "BoardContactDto [num=" + num + ", title=" + title + ", content=" + content + ", id=" + id
+				+ ", write_date=" + write_date + ", category=" + category + ", reply_content=" + reply_content
+				+ ", reply_check=" + reply_check + ", reply_date=" + reply_date + ", file_name=" + file_name
+				+ ", file_size=" + file_size + ", file_path=" + file_path + ", q1_name=" + q1_name + ", mem_phone="
+				+ mem_phone + ", q2_name=" + q2_name + "]";
 	}
 	
 	

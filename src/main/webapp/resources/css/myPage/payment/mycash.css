@@ -6,41 +6,41 @@
 }
 
 .cash_header{
-	background-size: 269px 177px;
-	padding: 42px 0 30px 0;
+	background-size: 16.8125rem 11.0625rem;
+	padding: 2.625rem 0 1.875rem 0;
 	display: block;
 }
 
 .cash_header .header_title{
-	font-size: 26px;
+	font-size: 1.625rem;
     color: #212529;
-    line-height: 36px;
+    line-height: 2.25rem;
 }
 .cash_header > div > div{
 	display: inline-block;
 }
 
 .cash_header .sub_description{
-	font-size: 13px;
+	font-size: 0.8125rem;
     color: #808991;
-    line-height: 21px;
-    margin-top: 10px;
+    line-height: 1.3125rem;
+    margin-top: 0.625rem;
 }
 
 .cash_header > .my_cash_amount{
-	width: 180px;
+	width: 18.75rem;
 	margin-top: 5rem;
 	display: inline-block;
-	font-size: 16px;
+	font-size: 1rem;
     font-weight: 700;
     color: #40474d;
 }
 
 .my_cash_amount > .amount{
-	font-size: 20px;
+	font-size: 1.25rem;
     font-weight: 700;
     color: #776BCE;
-    padding-left: 3px;
+    padding-left: 0.1875rem;
 }
 
 .cash_header .cash_img{
@@ -231,7 +231,7 @@
 }
 
 .select_body_1 .point_cell{
-	width: 208px;
+	width: 13rem;
 }
 
 .select_body_1 .radio{
@@ -242,7 +242,7 @@
 .input_cell > .input_wrapper{
     position: relative;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 1.375rem;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -280,7 +280,7 @@
 }
 
 .input_wrapper:hover input ~ .radio_mark {
-    border: 1px solid black;
+    border: 0.0625rem solid black;
 }
 
 .input_wrapper input:checked ~ .radio_mark {
@@ -293,10 +293,10 @@
 }
 
 .input_wrapper .radio_mark:after{
-	top: 4px;
-	left: 4px;
-	width: 8px;
-	height: 8px;
+	top: 0.25rem;
+	left: 0.25rem;
+	width: 0.5rem;
+	height: 0.5rem;
 	border-radius: 50%;
 	background: white;
 }
@@ -306,12 +306,12 @@
 	font-size: 0.9375rem;
 	font-weight: 700;
 	cursor: pointer;
-	width: 600px;
+	width: 37.5rem;
     position: absolute;
     top: 0;
     left: 0;
     text-align: right;
-    padding-right: 431px;
+    padding-right: 26.9375rem;
 }
 
 .point_saving > .radio_span{
@@ -351,12 +351,12 @@
 }
 
 .payment_select_wrapper{
-	border-bottom: 2px solid Lavender;
+	border-bottom: 0.125rem solid Lavender;
 	padding: 1.875rem 0 1.25rem 0;
 }
 
 .payment_select_wrapper{
-	border-bottom: 2px solid Lavender;
+	border-bottom: 0.125rem solid Lavender;
 	padding: 1.875rem 0 1.25rem 0;
 }
 
@@ -452,7 +452,7 @@
 }
 
 .payment_list:hover input ~ .radio_mark {
-    border: 1px solid black;
+    border: 0.0625rem solid black;
 }
 
 .payment_list input:checked ~ .radio_mark {
@@ -465,10 +465,10 @@
 }
 
 .payment_list .radio_mark:after{
-	top: 4px;
-	left: 4px;
-	width: 8px;
-	height: 8px;
+	top: 0.25rem;
+	left: 0.25rem;
+	width: 0.5rem;
+	height: 0.5rem;
 	border-radius: 50%;
 	background: white;
 }
@@ -557,7 +557,7 @@
 }
 
 .caution_wrapper{
-	padding: 0.4rem 0;
+	padding: 1.5rem 0;
 }
 
 .caution_wrapper > .warning{

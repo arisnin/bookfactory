@@ -29,5 +29,7 @@ public interface BookDao {
 	int getBookSecondCate(int firstCate);
 	List<Integer> getPaperRandomBookNum(HashMap<String, Integer> map);
 	List<HomeDto> getPaperHomeBookInfoList(HashMap<String, Integer> map);
+	int getPaperNewBookCount(HashMap<String, String> cateMap);
+	List<NewBookDto> getPaperNewBookList(HashMap<String, String> cateMap);
 
 }

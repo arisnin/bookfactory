@@ -34,13 +34,8 @@ public class BookDaoImp implements BookDao {
 	@Override	//일반, 만화에서 사용하는 홈화면 책정보가져오기 나중에 수정해야함 - 
 	public List<HomeDto> getHomeBookInfoList(int firstCate) {
 		// TODO Auto-generated method stub
-		int min=sqlSession.selectOne("getBookNumMin");
-
-		HashMap<String, Integer> map=new HashMap<String, Integer>();
-		map.put("firstCate", firstCate);
-		map.put("min", min);
 		
-		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getHomeBookInfoList", map);
+		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getHomeBookInfoList", firstCate);
 	}
 
 	@Override	//첫번째 카테고리 번호 얻기
@@ -108,9 +103,21 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.selectList("getPaperRandomBookNum", map);
 	}
 
-	@Override
+	@Override	//일반, 만화 제외 홈 화면 리스트 뿌리기
 	public List<HomeDto> getPaperHomeBookInfoList(HashMap<String, Integer> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getPaperHomeBookInfoList", map);
+	}
+
+	@Override	//일반, 만화 제외 신간 권 수 가져오기
+	public int getPaperNewBookCount(HashMap<String, String> cateMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getPaperNewBookCount", cateMap);
+	}
+
+	@Override
+	public List<NewBookDto> getPaperNewBookList(HashMap<String, String> cateMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getPaperNewBookList", cateMap);
 	}
 }

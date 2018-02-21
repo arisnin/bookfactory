@@ -16,6 +16,8 @@ public interface MyPageService {
 	void myPoint(ModelAndView mav);
 
 	void myCashHistoryCash(ModelAndView mav);
+
+	void myCash(ModelAndView mav);
 	
 
 }
