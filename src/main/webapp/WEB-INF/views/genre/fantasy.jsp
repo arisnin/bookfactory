@@ -41,40 +41,43 @@
 		<div class="list0_head">
 			<div class="bf-title-row title-type3">
 				<h3>전체보기</h3>
-				<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='${root}/best-sell.do'">전체보기</button>
+				<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='${root}/best-sell.do?firstCate=${firstCate}&bestSeller=weekBest'">전체보기</button>
 			</div>
 			<div class="bf-service-type-menu">
 				<!-- li 요소에 diamond class를 추가하면 구분 아이콘 변경 -->
 				<ul class="order-type-list">
-					<li class="diamond"><a class="active" href="${root}/best-sell.do">주간 베스트셀러</a></li>
-					<li class="diamond"><a href="${root}/best-sell.do">월간 베스트셀러</a></li>
-					<li class="diamond"><a href="${root}/best-sell.do">스테디셀러</a></li>
+					<li class="diamond"><a class="active" href="${root}/best-sell.do?firstCate=${firstCate}&bestSeller=weekBest">주간 베스트셀러</a></li>
+					<li class="diamond"><a href="${root}/best-sell.do?firstCate=${firstCate}&bestSeller=monthBest">월간 베스트셀러</a></li>
+					<li class="diamond"><a href="${root}/best-sell.do?firstCate=${firstCate}&bestSeller=steady">스테디셀러</a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="list0_largeDiv">
-			<div class="list_big">
-				<div class="list_number">1</div>
-				<div class="list_img">
-					<img src="" onclick="location.href='${root}/detail.do'">
-				</div>
-				<div class="list_book" onclick="location.href='${root}/detail.do'">모모</div>
-				<div class="list0_author" onclick="location.href='${root}/author.do'">미하엘 엔데</div>
-				<div class="content-star-rate">
-					<!-- 별이 들어가는 처음 두개의 span 사이에는 공백이 들어가면 안됨-->
-					<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
-					<!-- 카운팅 숫자 표시는 필요없으면 빼도 됨 -->
-					<span class="count-field"> 9999명</span>
-				</div>
-			</div>
-			<c:forEach var="i" begin="1" end="10">
-				<div class="list0_midDiv">
-					<div class="list_number">${i+1}</div>
-					<div class="list0_img">
-						<img src="" onclick="location.href='${root}/detail.do'">
+			<c:forEach var="one" items="${homeList}" begin="0" end="0">
+				<div class="list_big">
+					<div class="list_number">1</div>
+					<div class="list_img">
+						<img src="${one.img_path}" onclick="location.href='${root}/detail.do?book_num=${homeDto.book_num}'">
 					</div>
-					<div class="list0_book" onclick="location.href='${root}/detail.do'">모모</div>
-					<div class="list0_author" onclick="location.href='${root}/author.do'">미하엘 엔데</div>
+					<div class="list_book" onclick="location.href='${root}/detail.do?book_num=${homeDto.book_num}'">${one.bookName}</div>
+					<div class="list0_author" onclick="location.href='${root}/author.do?author_num=${homeDto.author_num}'">${one.authorName}</div>
+					<div class="content-star-rate">
+						<!-- 별이 들어가는 처음 두개의 span 사이에는 공백이 들어가면 안됨-->
+						<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
+						<!-- 카운팅 숫자 표시는 필요없으면 빼도 됨 -->
+						<span class="count-field"> 9999명</span>
+					</div>
+				</div>
+			</c:forEach>
+			<c:set var="count" value="${1}"/>
+			<c:forEach var="homeDto" begin="1" end="10" items="${homeList}" >
+				<div class="list0_midDiv">
+					<div class="list_number">${count=count+1}</div>
+					<div class="list0_img">
+						<img src="${homeDto.img_path}" onclick="location.href='${root}/detail.do?book_num=${homeDto.book_num}'">
+					</div>
+					<div class="list0_book" onclick="location.href='${root}/detail.do?book_num=${homeDto.book_num}'">${homeDto.bookName}</div>
+					<div class="list0_author" onclick="location.href='${root}/author.do?author_num=${homeDto.author_num}'">${homeDto.authorName}</div>
 					<div class="content-star-rate">
 						<!-- 별이 들어가는 처음 두개의 span 사이에는 공백이 들어가면 안됨-->
 						<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>

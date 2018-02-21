@@ -70,19 +70,19 @@
 						<li class="hw_mid_item list_all" style="padding: 0px 12px 0px 0px;" onclick="allMenuOpen()">
 							<img class="hw_mid_icon" src="${root}/img/index/213111_gray.png"> <span class="hw_mid_font">전체분야</span>
 						</li>
-						<li class="hw_mid_item list_general" onclick="location.href='${root}/normal.do'">
+						<li class="hw_mid_item list_general" onclick="location.href='${root}/normal.do?firstCateNum=1'">
 							<img class="hw_mid_icon" src="${root}/img/index/ilban.png"> <span class="hw_mid_font">일반</span>
 						</li>
-						<li class="hw_mid_item list_romance" onclick="location.href='${root}/romance.do'">
+						<li class="hw_mid_item list_romance" onclick="location.href='${root}/romance.do?firstCateNum=2'">
 							<img class="hw_mid_icon" src="${root}/img/index/love.png"> <span class="hw_mid_font">로맨스</span>
 						</li>
-						<li class="hw_mid_item list_fantasy" onclick="location.href='${root}/fantasy.do'">
+						<li class="hw_mid_item list_fantasy" onclick="location.href='${root}/fantasy.do?firstCateNum=3'">
 							<img class="hw_mid_icon" src="${root}/img/index/fantasi.png"> <span class="hw_mid_font">판타지</span>
 						</li>
-						<li class="hw_mid_item list_comic" onclick="location.href='${root}/comic.do'">
+						<li class="hw_mid_item list_comic" onclick="location.href='${root}/comic.do?firstCateNum=4'">
 							<img class="hw_mid_icon" src="${root}/img/index/manhwa.png"> <span class="hw_mid_font">만화</span>
 						</li>
-						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do'">
+						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do?firstCateNum=5'">
 							<img class="hw_mid_icon" src="${root}/img/index/bl.png"> <span class="hw_mid_font">BL</span>
 						</li>
 					</ul>
