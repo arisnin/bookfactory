@@ -8,89 +8,99 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 	<c:set var="root" value="${pageContext.request.contextPath}"/>
-  	<link rel="stylesheet" href="${root}/css/basic/reset.css">
-  	<link rel="stylesheet" href="${root}/css/basic/commons.css">
   	<link rel="stylesheet" href="${root}/css/manager/book.css">
   	<link rel="stylesheet" href="${root}/css/manager/author.css">
+  	<link rel="stylesheet" href="${root}/css/basic/jquery-ui.css">
 </head>
 <body>
-	<div id="b_se_wrapper">
-		<section class="b_se_main">
-			<div class="b_se_header"><h2>작가 정보 수정 요청사항</h2></div>
-			<div class="b_se_content">
-				<div class="a_up_checkbox">
-					<ul class="category-filter-list">
-						<li>
-							<label class="bf-custom-checkbox">
-								<input type="checkbox" title="구매목록 책 전체선택">
-								<span class="all-mark"></span>
-								<span class="checkbox-label">미확인</span>
-							</label>
-						</li>
-						<li>
-							<label class="bf-custom-checkbox">
-								<input type="checkbox" title="구매목록 책 전체선택">
-								<span class="all-mark"></span>
-								<span class="checkbox-label">반영</span>
-							</label>
-						</li>
-						<li>
-							<label class="bf-custom-checkbox">
-								<input type="checkbox" title="구매목록 책 전체선택">
-								<span class="all-mark"></span>
-								<span class="checkbox-label">거절</span>
-							</label>
-						</li>
-					</ul>
-				</div>
-				<div class="bf-service-type-menu a_up_tt">
-					<!-- 서비스타입 메뉴  -->			
-					<ul class="service-type-list a_up_bar">
-						<li><span>번호</span></li>
-						<li><span>작가</span></li>
-						<li><span>내용</span></li>
-						<li><span>상태</span></li>
-					</ul>
-				</div>
-				<div class="a_up_list">
-					<ul>
-						<c:forEach begin="1" end="10">
-							<li>
-								<span>1</span>
-								<span>염현우</span>
-								<span>현우경력은신입이다</span>
-								<span>거절</span>
-								<button type="button" class="bf-button" onclick="linkA('/manager/author/updateRead.jsp')">상세보기</button>
-							</li>	
-						</c:forEach>
-					</ul>
-				</div>
-				<nav class="bf-pagination">
-					<ul class="bf-animated-btn">
-						<li class="first"><a href="#0"><span></span></a></li>
-						<li class="prev"><a href="#0"><span></span></a></li>
-						<li><a href="#0">1</a></li>
-						<li><a href="#0">2</a></li>
-						<li><a class="active" href="#0">3</a></li>
-						<li><a href="#0">4</a></li>
-						<li><a href="#0">5</a></li>
-						<li class="next"><a href="#0"><span></span></a></li>
-						<li class="last"><a href="#0"><span></span></a></li>
-					</ul>
-				</nav>
-			</div>
-		</section>
-	</div>
+	<div id="a_in_wrapper">
+		<form action="${root}/manager/authorUpdateOk.do" method="post">
+			<section class="a_in_main">
+				<div class="a_in_header"><h2>작가 정보 수정</h2></div>
 
+				<div class="a_in_content">
+					<div>
+						<label>이름</label>
+						<input type="text" placeholder="이름" value="${authorDto.name}" disabled="disabled"/>
+					</div>
+					<div>
+						<label>국적</label>
+						<select name="country_num" class="a_in_select">
+							<c:forEach items="${countryList}" var="country">
+								<c:if test="${country.country_num != authorDto.country_num}">
+									<option value="${country.country_num}">${country.country_name}</option>							
+								</c:if>
+								<c:if test="${country.country_num == authorDto.country_num}">
+									<option value="${country.country_num}" selected="selected">${country.country_name}</option>							
+								</c:if>
+							</c:forEach>
+						</select>
+					</div>
+					<div>
+						<label>출생년도</label>
+						<div class="b_in_date">
+						 	<input type="text" id="b_date" name="birthday" placeholder="YY-MM-DD" value="${authorDto.birthday}">
+						</div>
+					</div>
+					<div>
+						<label>데뷔</label>
+						<div class="b_in_date">
+						 	<input type="text" id="b_date2" name="debut" placeholder="YY-MM-DD" value="${authorDto.debut }">
+						</div>
+					</div>
+					<div>
+						<label>학력</label>
+						<input type="text" placeholder="학력"/>
+						<button id="education_btn" type="button" class="bf-button search">추가</button>
+						<input type="hidden" name="education" value="${authorDto.education }">
+					</div>
+					<div class="a_in_list">
+						<ul>
+						</ul>
+					</div>
+					<div>
+						<label>경력</label>
+						<input type="text" placeholder="경력"/>
+						<button id="career_btn" type="button" class="bf-button search">추가</button>
+						<input type="hidden" name="career" value="${authorDto.career }">
+					</div>
+					<div class="a_in_list">
+						<ul>
+						</ul>
+					</div>
+					<div>
+						<label>수상</label>
+						<input type="text" placeholder="수상"/>
+						<button id="awards_btn" type="button" class="bf-button search">추가</button>
+						<input type="hidden" name="awards" value="${authorDto.awards }">
+					</div>
+					<div class="a_in_list">
+						<ul>
+						</ul>
+					</div>
+					<div>
+						<label>링크</label>
+						<span>${authorDto.link }</span>
+					</div>
+					<div class="a_in_textarea">
+						<label>작가 소개</label>
+						<textarea rows="" cols="" name="describe">${authorDto.describe }</textarea>
+					</div>
+					<div align="right">
+						<button id="a_form_btn" type="submit" class="bf-button">수정</button>
+						<button type="button" class="bf-button">취소</button>
+					</div>
+				</div>
+			</section>
+			<input type="hidden" name="num" value="${authorDto.num}">
+			<input type="hidden" name="searchWord" value="${param.searchWord}">
+			<input type="hidden" name="pageNumber" value="${param.pageNumber}">
+		</form>
+	</div>
 	
-	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
-	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
-	<script type="text/javascript">
-		/* $('.hwdropbtn').text($('#myDropdown > .select').text()); */
-		$('.hwdropdown').each(function (i,e) {
-			var value = $(e).find('.select').text();
-			$(e).find('.hwdropbtn').text(value);
-		})
-	</script>
+	<script src="${root}/script/basic/jquery-ui.js"></script>
+	<script src="${root}/script/manager/author/insert.js"></script>
+	<script src="${root}/script/manager/author/updateRead.js"></script>
+	
 </body>
 </html>

@@ -53,15 +53,16 @@ html{font-size: 16px !important;}
     left: 7.22rem;
     top: 0.23rem;
     height: 1.7rem;
-    width: 9.45rem;
+    width: 11.6rem;
     padding: 0.3rem;
     border: 1px solid silver;
     background-color: white;
+    font-size: 0.9rem;
 }
 
 .b_in_content .search,.a_in_content .search{
 	position: absolute;
-    left: 16.9rem;
+    left: 19.9rem;
     top: 0.1rem;
 }
 
@@ -75,9 +76,9 @@ html{font-size: 16px !important;}
 	font-weight: 700;
 }
 .b_in_main > .b_in_content >div > textarea,.a_in_content >div > textarea{
-	height: 7rem;
+	height: 13rem;
     width: 78%;
-    
+    line-height: 1.3rem;
 	resize: none;
     overflow: auto;
 }
@@ -101,7 +102,7 @@ html{font-size: 16px !important;}
 
 .b_in_content .b_in_textarea > label, .a_in_textarea > label {
 	position: relative;
-	top: -6rem;
+	top: -12rem;
 }
 .b_in_content .b_in_textarea{
 	position: relative;
@@ -130,15 +131,16 @@ html{font-size: 16px !important;}
 }
 .b_in_date > input{
     height: 1.7rem;
-    width: 9.45rem;
+    width: 11.6rem;
     padding: 0.3rem;
-    border: 1px solid rgb(169, 169, 169);
+    border: 1px solid silver;
     background-color: white;
+    font-size: 0.9rem;
 }
 
 .b_in_check{
 	position: relative;
-    left: 10rem;
+    left: 13rem;
     color: red;
     font-size: 0.9rem;
     top: 0.1rem;
@@ -262,7 +264,7 @@ html{font-size: 16px !important;}
     border-top: 1px solid silver;
     border-left: 1px solid silver;
     border-right: 1px solid silver;
-	width: 9.45rem;
+	width: 11.6rem;
 	font-size: 0.7rem;
 }
 .b_in_author_list li:last-child {

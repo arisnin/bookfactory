@@ -55,6 +55,7 @@
 					</ul>
 				</div>
 			</div>
+			<!-- 페이징 -->
 			<div class="b_se_foot">
 				<nav class="bf-pagination">
 					<ul class="bf-animated-btn">

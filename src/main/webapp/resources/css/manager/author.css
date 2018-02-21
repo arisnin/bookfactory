@@ -81,14 +81,14 @@
 	position: relative;
     top: 0.7rem;
 }
-.a_se_bar span:nth-child(1) {
-	left: 7rem;
-    margin-right: 5.5rem;
-}
+.a_se_bar span:nth-child(1) {left: 4.5rem;}
 
-.a_se_list > ul > li > span:nth-child(1) {min-width: 14rem;}
-.a_se_list > ul > li > span:nth-child(2) {min-width: 5rem;margin-right: 3rem;}
-.a_se_list > ul > li > span:nth-child(3) {min-width: 9rem;margin-right: 2.5rem;}
+#b_se_wrapper > section > div.b_se_content > div.bf-service-type-menu.b_se_tt > ul > li:nth-child(1) > span{margin-right: 7.8rem}
+#b_se_wrapper > section > div.b_se_content > div.bf-service-type-menu.b_se_tt > ul > li:nth-child(2) > span{margin-right: 7.8rem}
+#b_se_wrapper > section > div.b_se_content > div.bf-service-type-menu.b_se_tt > ul > li:nth-child(3) > span{margin-right: 3.5rem;}
+.a_se_list > ul > li > span:nth-child(1) {max-width: 9rem;min-width: 9rem;}
+.a_se_list > ul > li > span:nth-child(2) {min-width: 12rem;max-width: 12rem;}
+.a_se_list > ul > li > span:nth-child(3) {min-width: 12rem;margin-right: 2.5rem;max-width: 12rem;}
 
 .a_in_list{
 	margin-left: 7.6rem;
@@ -107,6 +107,7 @@
 
 .a_ur_top{
 	border-bottom: 0px;
+	margin-bottom: 0.5rem;
 }
 .a_ur_d3{
 	position: relative;
@@ -122,4 +123,60 @@
 
 .a_in_select{
 	padding: 0.3rem;
+}
+
+/* 작가 상세보기 */
+section > div.a_in_content > div.a_in_textarea2 > label{top: 0rem;}
+section > div.a_in_content > div.a_in_textarea2 > p{
+    margin-top: 1rem;
+    border: 1px solid #776BCE;
+    padding: 1rem;
+    line-height: 1.7rem;
+}
+section > div.a_in_content > div.a_in_textarea2{
+	padding: 1rem;
+}
+
+section > div.a_in_content > div.a_read_info_wrap{
+	display: flex;
+}
+
+section > div.a_in_content > div.a_read_info_wrap > div.a_read_left{
+	flex-grow: 1;
+    border-right: 1px solid #776BCE;
+    padding: 1rem;
+    min-width: 26rem;
+    max-width: 26rem;
+}
+section > div.a_in_content > div.a_read_info_wrap > div.a_read_right{
+
+    flex-grow: 1;
+	padding: 1rem;
+}
+section > div.a_in_content > div.a_read_info_wrap > div > div{
+	margin-bottom: 0.8rem;
+	display: flex;
+	line-height: 1.6rem;
+	max-width: 24rem;
+}
+section > div.a_in_content > div.a_read_info_wrap > div > div> label{
+	min-width: 7rem;
+    font-weight: 700;
+    display: inline-block;
+}
+
+section > div.a_in_content > div.a_read_info_wrap > div > div> span{
+
+}
+
+#a_in_wrapper > form > section > div > div > ul > li > span{
+	margin-left: 2rem;
+	color : red;
+	cursor: pointer;
+}
+#author_form > section > div.a_in_content > div > ul > li > span{
+	margin-left: 2rem;
+	color : red;
+	cursor: pointer;
+	
 }
