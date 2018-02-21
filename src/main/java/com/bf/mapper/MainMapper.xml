@@ -14,16 +14,24 @@
 	<select id="email-phone-check" parameterType="String" resultType="String">
 		SELECT ID FROM MEMBER WHERE ID LIKE #{id}||'%'
 	</select>
-		
+	
+	
+	<!-- 김동환 / 공지사항 -->
 	<select id="noticeMainCount" resultType="int">
 			select count(*) from notice
+	</select>	
+	
+	<select id="noticeMain" parameterType="java.util.Map"  resultType="com.bf.main.dto.NoticeDto">
+		<![CDATA[
+			select * from(
+				select rownum rnum, a.* from(
+					select * from notice order by num desc) a)
+			where rnum >=#{startRow} and rnum <=#{endRow}
+		]]>		
 	</select>
 	
-	<!-- 
-	
-	<select id="noticeMain" parameterType="java.util.Map" resultMap="com.bf.main.dto.NoticeDto">
-		select * from notice where num=#{num} desc;
+	<select id="noticeRead" parameterType="int" resultType="com.bf.main.dto.NoticeDto">
+		select * from notice where num=#{num}
 	</select>
-	 -->
 	
 </mapper>

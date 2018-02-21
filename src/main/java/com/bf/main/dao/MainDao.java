@@ -1,5 +1,8 @@
 package com.bf.main.dao;
 
+import java.util.List;
+
+import com.bf.main.dto.NoticeDto;
 import com.bf.member.model.MemberDto;
 
 /**
@@ -15,7 +18,10 @@ public interface MainDao {
 
 	public int noticeMainCount();
 
+	public List<NoticeDto> noticeMain(int startRow, int endRow);
 
-	//public List<NoticeDto> noticeMain(int startRow, int endRow);
+	public NoticeDto noticeRead(int num);
+
+	
 
 }

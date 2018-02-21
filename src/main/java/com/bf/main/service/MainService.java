@@ -19,6 +19,6 @@ public interface MainService {
 
 	public void noticeMain(ModelAndView mav);
 
-	//public void noticeRead(ModelAndView mav);
+	public void noticeRead(ModelAndView mav);
 
 }

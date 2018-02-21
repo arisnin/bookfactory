@@ -160,7 +160,7 @@ public class MainController {
 	public ModelAndView noticeMain(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("공지사항_메인");
 		
-		ModelAndView mav = new ModelAndView("notice/main.solo");
+		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("request", request);
 		
@@ -170,21 +170,18 @@ public class MainController {
 		return mav;
 	}
 	
-	
-	
-	
 	@RequestMapping(value = "/notice/content.do" , method = RequestMethod.GET)
-	public String noticeContent(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView noticeContent(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("공지사항_내용부르기");
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("request", request);
 		
-		//mainService.noticeRead(mav);
+		mainService.noticeRead(mav);
 		
-		return "notice/cotent.solo";
-		//return mav;
+		//return "notice/cotent.solo";
+		return mav;
 	}
 	
 	

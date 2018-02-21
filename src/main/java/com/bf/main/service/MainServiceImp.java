@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.main.dao.MainDao;
+import com.bf.main.dto.NoticeDto;
 import com.bf.member.model.MemberDto;
 
 /**
@@ -24,6 +26,7 @@ import com.bf.member.model.MemberDto;
  * @Author 박성호
  * @Description
  */
+
 @Component
 public class MainServiceImp implements MainService {
 	@Autowired
@@ -145,10 +148,14 @@ public class MainServiceImp implements MainService {
 		return null;
 	}
 
+	/**
+	 * @author : 김동환
+	 * @date : 2018. 2. 20.
+	 * comment : 공지사항
+	 */
 	
 	@Override
-	public void noticeMain(ModelAndView mav) {
-		
+	public void noticeMain(ModelAndView mav) {		
 		Map<String, Object> map = mav.getModelMap();
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
@@ -161,17 +168,14 @@ public class MainServiceImp implements MainService {
 		int startRow = (currentPage-1) * boardSize + 1;
 		int endRow = currentPage * boardSize;
 		
-		int count = mainDao.noticeMainCount();
-		
+		int count = mainDao.noticeMainCount();		
 		LogAspect.info("공지사항 메인리스트 확인 : " + count);
-		
-		/*
 		
 		List<NoticeDto> noticeList = null;
 		
 		if(count > 0) {
 			noticeList = mainDao.noticeMain(startRow, endRow);
-			LogAspect.info("공지사항 리스트 사이즈 : " + noticeMainCount.size());
+			LogAspect.info("공지사항 리스트 사이즈 : " + noticeList.size());
 		}
 		
 		mav.addObject("noticeList", noticeList);
@@ -179,14 +183,10 @@ public class MainServiceImp implements MainService {
 		mav.addObject("boardSize", boardSize);
 		mav.addObject("currentPage", currentPage);
 		
-		mav.setViewName("notice/main");
-		*/
-		
+		mav.setViewName("notice/main.solo");
 		
 	}
 	
-	
-	/*
 	@Override
 	public void noticeRead(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -196,10 +196,17 @@ public class MainServiceImp implements MainService {
 		int num = Integer.parseInt(request.getParameter("num"));
 		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		
-		LogAspect.info("읽어오기 확인중");
+		LogAspect.info("읽어오기 확인중 : " + num + ", " + pageNumber);
 		
+		NoticeDto noticeDto = mainDao.noticeRead(num);
+		LogAspect.info("NoticeDto 확인 : " + noticeDto.toString());
+		
+		mav.addObject("noticeDto", noticeDto);
+		mav.addObject("pageNumber", pageNumber);
+		
+		mav.setViewName("notice/content.solo");		
 	}
-	*/
+	
 	
 	
 }
