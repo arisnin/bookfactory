@@ -30,11 +30,6 @@ public class MainDaoImp implements MainDao {
 	}
 
 	@Override
-	public String idCheck(String id) {
-		return sqlSession.selectOne(namespace + "id-check", id);
-	}
-
-	@Override
 	public List<String> registerValidation(String type, String keyword) {
 		return sqlSession.selectList(namespace + type + "-check", keyword);
 	}
@@ -43,24 +38,19 @@ public class MainDaoImp implements MainDao {
 	public int noticeMainCount() {
 		return sqlSession.selectOne(namespace + "noticeMainCount");
 	}
-	
-	/*@Override
-	public int noticeMainCount(int startRow, int endRow) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("startRow", startRow);
-		map.put("endRow", endRow);
-		return sqlSession.selectOne(namespace + "noticeMainCount", map);
-	}*/
-
-	
-	/*
+		
 	@Override
 	public List<NoticeDto> noticeMain(int startRow, int endRow) {
 		Map<String, Integer> hMap = new HashMap<String, Integer>();
 		hMap.put("startRow", startRow);
 		hMap.put("endRow", endRow);
 		
-		return sqlSession.selectList("com.bf.mapper.MainMapper.noticeMain", hMap);
+		return sqlSession.selectList(namespace + "noticeMain", hMap);
 	}
-	*/
+
+	@Override
+	public NoticeDto noticeRead(int num) {
+		return sqlSession.selectOne(namespace + "noticeRead", num);
+	}
+	
 }

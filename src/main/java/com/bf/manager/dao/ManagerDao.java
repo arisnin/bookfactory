@@ -131,5 +131,11 @@ public interface ManagerDao {
 
 	public int getAuthorCount(String searchWord);
 
+	public String getCountryName(String country_num);
+
+	public List<BookDto> getBookList(int author_num);
+
+	public int updateAuthor(AuthorDto authorDto);
+
 
 }

@@ -13,12 +13,10 @@ public interface MainService {
 
 	public ModelAndView register(ModelAndView mav) throws IOException;
 
-	public ModelAndView idCheck(ModelAndView mav) throws IOException;
-
 	public ModelAndView registerValidation(ModelAndView mav) throws IOException;
 
 	public void noticeMain(ModelAndView mav);
 
-	//public void noticeRead(ModelAndView mav);
+	public void noticeRead(ModelAndView mav);
 
 }

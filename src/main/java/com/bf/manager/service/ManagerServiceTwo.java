@@ -14,17 +14,28 @@ public interface ManagerServiceTwo {
 	public void boardInsertOk(ModelAndView mav);
 
 	public void boardList(ModelAndView mav);
+	
+	public void boardContact(ModelAndView mav);
 
 	public void managerNoticeInsert(ModelAndView mav);
+	
 	public void boardNoticeInsertOk(ModelAndView mav);
+	
 	public void memberList(ModelAndView mav);
 
 	public void memberRegister(ModelAndView mav);
 
 	public void memberRegisterOk(ModelAndView mav);
 	
+	public void memberDelete(ModelAndView mav);
+	
+	public void memberPayDetail(ModelAndView mav);
+	
 	public void managerReview(ModelAndView mav);
 	
 	public void managerReviewReport(ModelAndView mav);
+	
 
+	public void boardReply(ModelAndView mav);
+	public void boardReplyOk(ModelAndView mav);
 }

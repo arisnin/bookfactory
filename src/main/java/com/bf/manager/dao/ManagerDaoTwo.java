@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.AccuseDto;
+import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.ManagerNoticeDto;
@@ -26,12 +27,15 @@ public interface ManagerDaoTwo {
     public List<BoardFrequencyDto> boardSearch(int startRow,int endRow,String word);
     public List<BoardFrequencyDto> boardSearchDate(int startRow,int endRow,Date startDate,Date endDate);
     public int BoardNoitceInsertOk(ManagerNoticeDto noticeDto);
-    
+    public int BoardContactcount();
+    public List<BoardContactDto> boardContact(int startRow, int endRow);
     //member
     public int memberCount();
     public List<MemberDto> memberList(int starRow,int endRow);
     public MemberDto register(String id);
     public int registerOk(MemberDto memberDto);
+    public int registerDelete(String id);
+    
     
    //review
     public int reviewCount();

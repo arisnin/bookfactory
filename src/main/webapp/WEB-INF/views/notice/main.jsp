@@ -7,12 +7,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="root" value="${pageContext.request.contextPath}" />
-<link href="${root}/css/basic/reset.css" type="text/css"
-	rel="stylesheet">
-<link href="${root}/css/basic/commons.css" type="text/css"
-	rel="stylesheet" />
-<link href="${root}/css/notice/main.css" type="text/css"
-	rel="stylesheet">
+<link href="${root}/css/basic/reset.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet" />
+<link href="${root}/css/notice/main.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="${root }/script/notice/notice.js"></script>
 
 <title>공지사항</title>
 </head>
@@ -20,6 +18,9 @@
 	<div id="notice">
 		<div class="bf-title-row title-type1">
 		<h2>공지사항</h2>
+		
+		확인중
+		${count }, ${boardSize }, ${currentPage }
 		</div>
 		<br />
 
@@ -29,75 +30,67 @@
 				<li>제목</li>
 			</ul>			
 			
+			<c:if test="${count==0 }">
 				<div>
 					<div>공지사항 내용이 없습니당. 상헌이형</div>
 				</div>
-			
+			</c:if>
 			
 			<!-- li는 한 블럭 라인? / div로 싹다 고치기 -->
-			
+		
+			<c:if test="${count>0 }">
+				<c:forEach var="noticeDto" items="${noticeList }"	>
+					<ul class="notice_list_list">
 						
-			<ul class="notice_list_list">
-				<a href="${root }/notice/content.do">
-				<li>2018.01.01</li>
-				<li>[안내] 마케팅 수신 동의 설정 오류로 인한 쿠폰 발급 안내</li>
-				</a>
-			</ul>
-			<ul class="notice_list_list">
-				<a href="${root }/notice/content.do">
-				<li>2018.01.01</li>
-				<li>[업데이트] 안드로이드 앱 v8.8.5</li>
-				</a>
-			</ul>
-			<ul class="notice_list_list">
-				<li>2018.01.01</li>
-				<li>[안내] 1월 1일(월) 시스템 점검 안내</li>
-			</ul>
-			<ul class="notice_list_list">
-				<li>2018.01.01</li>
-				<li>[안내] 1월 1일(월) 고객센터 단축근무</li>
-			</ul>
-			<ul class="notice_list_list">
-				<li>2018.01.01</li>
-				<li>[안내] 1월 1일(월) 시스템 점검 안내</li>
-			</ul>
-			<ul class="notice_list_list">
-				<li>2018.01.01</li>	
-				<li>[업데이트] iOS 앱 v8.8.4</li>
-			</ul>
-			<ul class="notice_list_list">
-				<li>2018.01.01</li>
-				<li>[안내] 리디북스 서비스 사용 가능 뷰어 최소 버전 변경</li>
-			</ul>
-			<ul class="notice_list_list">
-				<li>2018.01.01</li>
-				<li>[안내] 개인정보처리방침 개정 안내(v2.6)</li>
-			</ul>
-			<ul class="notice_list_list">
-				<li>2018.01.01</li>
-				<li>[공지] 리디스토리-리디북스 연재 서비스 통합 안내</li>
-			</ul>
-			<ul class="notice_list_list">
-				<li>2018.01.01</li>
-				<li>[안내] 개인정보처리방침 개정 안내(v2.5)</li>
-			</ul>
+						<a href = "javascript:readFun('${root}','${noticeDto.num}','${currentPage}')">
+						<li><fmt:formatDate value="${noticeDto.write_date}" pattern="yyyy-MM-dd" /></li>
+						<li>${noticeDto.title }</li>
+						</a>
+												
+					</ul>
+				</c:forEach>				
+			</c:if>
 			
 			
+			<fmt:parseNumber var="pageCount" value="${count/boardSize+(count%boardSize==0?0:1) }" integerOnly="true"></fmt:parseNumber>
+			<c:set var="pageBlock" value="${5}"/>
+			<fmt:parseNumber var="rs" value="${(currentPage-1)/pageBlock}" integerOnly="true"/>
+			<c:set var="startPage" value="${rs*pageBlock+1}"/>
+			<c:set var="endPage" value="${startPage+pageBlock-1 }"/>
+			<c:if test="${endPage>pageCount }">
+				<c:set var="endPage" value="${pageCount }"/>
+			</c:if>
 			
+			
+			<nav class="bf-pagination">
+			<ul class="bf-animated-btn">
+			<c:if test="${startPage>pageBlock}">
+				<li class="prev"><a href="${root}/notice/main.do?pageNumber=${startPage-pageBlock}"><span></span></a></li>
+			</c:if>	
+			
+			<c:forEach var="i" begin="${startPage }" end="${endPage}">
+				<c:choose>
+					<c:when test="${currentPage==i}">
+						<li><a class="active" href = "${root}/notice/main.do?pageNumber=${i}" >${i}</a></li>
+					</c:when>
+					
+					<c:otherwise>
+						<li><a href = "${root}/notice/main.do?pageNumber=${i}" >${i}</a></li>
+					</c:otherwise>				
+				</c:choose>
+			</c:forEach>
+			
+			<c:if test="${endPage<pageCount}">
+				<li class="next"><a href = "${root}/notice/main.do?pageNumber=${startPage+pageBlock}"><span></span></a></li>
+			</c:if>
+			
+				</ul>
+			</nav>
+			
+			<a class="logo" href="${root}/normal.do">임시 메인메인</a>			
 		</div>
-		<nav class="bf-pagination">
-		<ul class="bf-animated-btn">
-			<li class="first"><a href="#0"><span></span></a></li>
-			<li class="prev"><a href="#0"><span></span></a></li>
-			<li><a href="#0">1</a></li>
-			<li><a href="#0">2</a></li>
-			<li><a class="active" href="#0">3</a></li>
-			<li><a href="#0">4</a></li>
-			<li><a href="#0">5</a></li>
-			<li class="next"><a href="#0"><span></span></a></li>
-			<li class="last"><a href="#0"><span></span></a></li>
-		</ul>
-		</nav>
+		
+		
 	</div>
 	
 </body>

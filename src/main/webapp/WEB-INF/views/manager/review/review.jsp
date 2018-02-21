@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +22,7 @@
 	<div id="sh_review">
 		<div class="sh_main_text">리뷰 관리</div>
 		<div id="sh_board_shadow">
-		
+
 			<div class="sh_review_header">
 
 				<div class="sh_review_main">
@@ -86,33 +86,28 @@
 						<ul>
 							<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
 							<li class="r_num">${reviewDto.r_num}</li>
-							<li title="${reviewDto.b_name}"><c:out value="${fn:substring(reviewDto.b_name,0,10)}"/>...</li>
-							<li><a href="javascript:void(0)" class="sh_review_detail_button"><c:out value="${fn:substring(reviewDto.r_content,0,10)}"/>...</a></li>	
-							<li><a href="${root}/manager/memberRegister.do?pageNumber=${pageNumber}&id=${reviewDto.r_id}">${reviewDto.r_id}</a></li>	
+							<li title="${reviewDto.b_name}"><c:out value="${fn:substring(reviewDto.b_name,0,10)}" />...</li>
+							<li><a href="javascript:void(0)" class="sh_review_detail_button"><c:out value="${fn:substring(reviewDto.r_content,0,10)}" />...</a></li>
+							<li><a href="${root}/manager/memberRegister.do?pageNumber=${pageNumber}&id=${reviewDto.r_id}">${reviewDto.r_id}</a></li>
 							<li>
-								<div class="content-star-rate">
-									<!-- 별이 들어가는 처음 두개의 span 사이에는 공백이 들어가면 안됨-->
-									<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
-									</div> 
+								<div class="content-star-rate review-info-row">
+									<span class="star-icon-field material-icons"><c:forEach begin="1" end="${reviewDto.r_stat}">&#xe838;</c:forEach></span><span class="non-star-icon-field material-icons"><c:forEach begin="1" end="${5 - reviewDto.r_stat}">&#xe838;</c:forEach></span>
+								</div>
 							</li>
 							<li><button type="button" class="bf-button sh_button_point">적립금 100원</button></li>
-							<li><fmt:formatDate value="${reviewDto.r_write_date}" pattern="yyyy/MM/dd"/></li>
-							
+							<li><fmt:formatDate value="${reviewDto.r_write_date}" pattern="yyyy/MM/dd" /></li>
+
 							<li><a href="#" onclick="reviewPolice('${root}',this)">${reviewDto.count}</a></li>
-							
+
 							<li><button type="button" type="button" class="bf-button bf-white-btn sh_review_secret">비공개</button>
-							<button type="button" type="button" class="bf-button bf-white-btn sh_review_open" style="display: none">공개</button>
-							<button type="button" type="button" class="bf-button bf-white-btn sh_review_delete">삭제</button></li>
+								<button type="button" type="button" class="bf-button bf-white-btn sh_review_open" style="display: none">공개</button>
+								<button type="button" type="button" class="bf-button bf-white-btn sh_review_delete">삭제</button></li>
 						</ul>
 						<form name="sh_review_report_form" action="${root}/manager/reviewReport.do" method="post">
-							<input type="hidden" value="${reviewDto.r_num}" name ="r_num">
-							<input type="hidden" value="${reviewDto.r_id}" name ="r_id">
-							<input type="hidden" value="${reviewDto.count}" name ="count">
-							<input type="hidden" value="${reviewDto.r_content}" name ="r_content">
-							<input type="hidden" value="${pageNumber}" name ="pageNumber">
+							<input type="hidden" value="${reviewDto.r_num}" name="r_num"> <input type="hidden" value="${reviewDto.r_id}" name="r_id"> <input type="hidden" value="${reviewDto.count}" name="count"> <input type="hidden" value="${reviewDto.r_content}" name="r_content"> <input type="hidden" value="${pageNumber}" name="pageNumber">
 						</form>
 						<script type="text/javascript">
-							function reviewPolice(root,obj){
+							function reviewPolice(root, obj) {
 								var url = root;
 								var ul = $(obj).parent().parent();
 								var form = ul.next("form");
@@ -120,11 +115,9 @@
 							}
 						</script>
 						<div class="collapsable-notice" id="sh_review_hidden" style="display: none;">
-							<p>
-								${reviewDto.r_content}
-							</p>
+							<p>${reviewDto.r_content}</p>
 						</div>
-					</c:forEach>	
+					</c:forEach>
 				</div>
 			</div>
 			<div class="sh_review_footer">
@@ -142,7 +135,7 @@
 					</ul>
 				</nav>
 			</div>
-			
+
 		</div>
 	</div>
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
@@ -153,6 +146,6 @@
 	<script type="text/javascript" src="${root}/script/manager/total.js"></script>
 
 
-	
+
 </body>
 </html>

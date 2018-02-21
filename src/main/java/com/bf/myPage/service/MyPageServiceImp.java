@@ -14,6 +14,7 @@ import com.bf.member.model.MemberDto;
 import com.bf.member.model.User;
 import com.bf.myPage.dao.MyPageDao;
 import com.bf.myPage.dto.MyPageCashChargeDto;
+import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 
 /**
@@ -67,7 +68,9 @@ public class MyPageServiceImp implements MyPageService {
 		
 		MyPageCashChargeDto myPageCashChargeDto = new MyPageCashChargeDto();
 		myPageCashChargeDto.setId(id);
+		// charge_cash와 percentage가 담겨있는 번호
 		myPageCashChargeDto.setCharge_cash(Integer.parseInt(menu_num));
+		// 결제수단이 담겨있는 번호
 		myPageCashChargeDto.setCharge_type_num(Integer.parseInt(type_num));
 		myPageCashChargeDto.setCash_type(cash_type);
 		LogAspect.info(myPageCashChargeDto.toString());
@@ -79,7 +82,7 @@ public class MyPageServiceImp implements MyPageService {
 		mav.addObject("check2", check2);
 		mav.addObject("myPagePointDto", myPagePointDto);
 		mav.addObject("myPageCashChargeDto", myPageCashChargeDto);
-		mav.setViewName("/myPage/payment/myCashOk.my");
+		mav.setViewName("myPage/payment/myCashOk.my");
 	}
 
 	/**
@@ -89,7 +92,6 @@ public class MyPageServiceImp implements MyPageService {
 	 */
 	@Override
 	public void myInfoUpdate(ModelAndView mav) {
-		
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		MemberDto memberDto = (MemberDto) map.get("memberDto");
@@ -115,18 +117,32 @@ public class MyPageServiceImp implements MyPageService {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
+		//찾아봐랑
+		
 		User user = (User) request.getSession().getAttribute("userInfo");
 		String id = user.getUsername();
 		
 		List<MyPagePointDto> myPagePointDtoList = myPageDao.myPointList(id);
 		LogAspect.info(myPagePointDtoList.size());
 		
+		int total = 0;
+		for(int i = 0; i < myPagePointDtoList.size(); i++){
+			 total += myPagePointDtoList.get(i).getRemain();
+		}
 		
+		int extinction = myPageDao.myPointExtinctionSelect(id);
 		
 		mav.addObject("myPagePointDtoList", myPagePointDtoList);
+		mav.addObject("total", total);
+		mav.addObject("extinction", extinction);
 		mav.setViewName("myPage/payment/myPoint.my");
 	}
 
+	/**
+	 * @author : 정호열
+	 * @date : 2018. 2. 21.
+	 * comment : 마이캐시히스토리캐시 페이지에 데이터 순차적으로 출력.
+	 */
 	@Override
 	public void myCashHistoryCash(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -135,11 +151,40 @@ public class MyPageServiceImp implements MyPageService {
 		User user = (User) request.getSession().getAttribute("userInfo");
 		String id = user.getUsername();
 		
-		List<MyPageCashChargeDto> myPageCashChargeDtoList = myPageDao.myCashChargeList(id);
-		LogAspect.info(myPageCashChargeDtoList.size());
+		List<MyPageCashPageDto> myPageCashPageDtoList = myPageDao.myCashPageList(id);
+		LogAspect.info(myPageCashPageDtoList.size());
 		
-		mav.addObject("myPageCashChargeDtoList", myPageCashChargeDtoList);
+		// 멍청이
+		
+		int total = 0;
+		for(int i = 0; i < myPageCashPageDtoList.size(); i++){
+			 total += myPageCashPageDtoList.get(i).getCharge_cash();
+		}
+		
+		mav.addObject("myPageCashPageDtoList", myPageCashPageDtoList);
+		mav.addObject("total", total);
 		mav.setViewName("myPage/payment/myCashHistoryCash.my");
+	}
+
+	@Override
+	public void myCash(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		
+		List<MyPageCashPageDto> myPageCashPageDtoList = myPageDao.myCashPageList(id);
+		LogAspect.info(myPageCashPageDtoList.size());
+		
+		int total = 0;
+		for(int i = 0; i < myPageCashPageDtoList.size(); i++){
+			total += myPageCashPageDtoList.get(i).getCharge_cash();
+		}
+		
+		mav.addObject("myPageCashPageDtoList", myPageCashPageDtoList);
+		mav.addObject("total", total);
+		mav.setViewName("myPage/payment/myCash.my");
 	}
 
 

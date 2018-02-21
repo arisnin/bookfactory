@@ -209,6 +209,16 @@ public class ManagerDaoImp implements ManagerDao {
 	public String getCountry(String country) {
 		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getCountryOne", country);
 	}
+	
+	@Override
+	public String getCountryName(String country_num) {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getCountryName", country_num);
+	}
+	
+	@Override
+	public List<BookDto> getBookList(int author_num) {
+		return sqlSession.selectList("com.bf.mapper.BookMapper.getBookList", author_num);
+	}
 
 	@Override
 	public int authorCheck(AuthorDto authorDto) {
@@ -377,6 +387,10 @@ public class ManagerDaoImp implements ManagerDao {
 		return 	sqlSession.update("com.bf.mapper.PublisherMapper.updatePublisher",publisherDto);
 	}
 
+	@Override
+	public int updateAuthor(AuthorDto authorDto) {
+		return sqlSession.update("com.bf.mapper.AuthorMapper.updateAuthor", authorDto);
+	}
 	
 	
 }
