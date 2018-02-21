@@ -30,7 +30,7 @@ if(num2 != -1){
 var pages = [ 
 		['/bookInsert.do',0,0],['/bookSearch.do',0,1],['/bookCategory.do',0,2],
 		['/publisherInsert.do',1,0],['/publisherSearch.do',1,1],
-		['/authorInsert.do',2,0],['/authorSearch.do',2,1],['/authorUpdate.do',2,2],
+		['/authorInsert.do',2,0],['/authorSearch.do',2,1],['/authorUpdateBoard.do',2,2],
 		['/memberMember.do',3,0],['/memberPay.do',3,1],
 		['/reviewReview.do',4,1],
 		['/boardContact.do',5,0],['/boardInsert.do',5,1],['/boardList.do',5,2],['/boardNoticeInsert.do',5,3],
@@ -44,7 +44,7 @@ var pages = [
 var otherPage = [
 		['/bookRead.do',0,1],['/bookUpdate.do',0,1],
 		['/publisherUpdate.do',1,1],
-		['/authorUpdateRead.do',2,2],
+		['/authorUpdateRead.do',2,2],['/authorRead.do',2,1],['/authorUpdate.do',2,1],
 		['/memberRegister.do',3,0],['/memberPayDetail.do',3,1],
 		['/reviewReport.do',4,1],
 		['/boardReply.do',5,0],['/boardDelete.do',5,2],['/boardUpdate.do',5,2]

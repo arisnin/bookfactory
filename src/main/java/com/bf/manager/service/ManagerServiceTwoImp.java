@@ -19,6 +19,7 @@ import com.bf.aop.LogAspect;
 import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dao.ManagerDaoTwo;
 import com.bf.manager.dto.AccuseDto;
+import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.ManagerNoticeDto;
@@ -164,6 +165,97 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 	}
 
 	@Override
+	public void boardContact(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		String pageNumber = request.getParameter("pageNumber");
+
+		String word = request.getParameter("search-word");
+		String sDate = request.getParameter("startDate");
+		String eDate = request.getParameter("endDate");
+		Date startDate = null;
+		Date endDate = null;
+		try {
+			if (sDate != null && eDate != null) {
+				startDate = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+				endDate = new SimpleDateFormat("yyyy-MM-dd").parse(eDate);
+				LogAspect.logger.info(LogAspect.logMsg + startDate + "zzzzzzzzzzzzzzzz" + endDate);
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		if (pageNumber == null)
+			pageNumber = "1";
+		int boardSize = 5;
+
+		int currentPage = Integer.parseInt(pageNumber);
+
+		int startRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize + 1;
+
+		int count = managerDao.BoardContactcount();
+
+		LogAspect.logger.info(LogAspect.logMsg + count + "-------------" + currentPage);
+
+		List<BoardContactDto> contactDtoList = null;
+		if (count > 0) {
+			contactDtoList = managerDao.boardContact(startRow, endRow);
+			LogAspect.logger.info(LogAspect.logMsg + contactDtoList);
+
+
+		}
+		mav.addObject("contactDtoList", contactDtoList);
+		mav.addObject("pageNumber", currentPage);
+		mav.addObject("count", count);
+		mav.addObject("boardSize", boardSize);
+
+		mav.setViewName("board/contact.mg");
+	}
+
+	@Override
+	public void boardReply(ModelAndView mav) {
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		BoardContactDto boardContactDto = (BoardContactDto) map.get("boardContactDto");
+		String pageNumber=request.getParameter("pageNumber");
+		
+		
+		/*		String date = request.getParameter("writeDate");
+		LogAspect.info(date);
+		Date write_date = null;
+
+	try {
+			write_date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+			boardContactDto.setWrite_date(write_date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}*/
+		
+		LogAspect.info(boardContactDto);
+		mav.addObject("boardContactDto", boardContactDto);
+		mav.addObject("pageNumber", pageNumber);
+		mav.setViewName("board/reply.mg");
+		
+	}
+	@Override
+	public void boardReplyOk(ModelAndView mav) {
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		BoardContactDto boardContactDto = (BoardContactDto) map.get("boardContactDto");
+		String pageNumber=request.getParameter("pageNumber");
+		
+		Date reply_date = new Date();
+		
+		boardContactDto.setReply_date(reply_date);
+		
+		
+	}
+	
+	
+	
+	@Override
 	public void memberList(ModelAndView mav) {
 		Map<String, Object> map = mav.getModel();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
@@ -202,17 +294,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		if (count > 0) {
 			memberDtoList = managerDao.memberList(starRow, endRow);
 			LogAspect.logger.info(LogAspect.logMsg + memberDtoList);
-			/*
-			 * if (startDate != null && endDate != null) { memberDtoList =
-			 * managerDao.memberSearchDate(starRow, endRow, startDate, endDate);
-			 * LogAspect.logger.info(LogAspect.logMsg + memberDtoList + startDate +
-			 * endDate);
-			 * 
-			 * } else if (word != null) { memberDtoList = managerDao.memberSearch(starRow,
-			 * endRow, word); LogAspect.logger.info(LogAspect.logMsg + memberDtoList); }
-			 * else { memberDtoList = managerDao.memberList(starRow, endRow);
-			 * LogAspect.logger.info(LogAspect.logMsg + memberDtoList); }
-			 */
+	
 		}
 		mav.addObject("memberDto", memberDtoList);
 		mav.addObject("pageNumber", currentPage);
@@ -272,6 +354,35 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("memberDto", memberDto);
 		mav.setViewName("member/registerOk.mg");
+	}
+
+	@Override
+	public void memberDelete(ModelAndView mav) {
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		String id = request.getParameter("id");
+
+		String pageNumber = request.getParameter("pageNumber");
+		LogAspect.logger.info(LogAspect.logMsg + id);
+
+		int check = managerDao.registerDelete(id);
+		LogAspect.logger.info(LogAspect.logMsg + check);
+
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("id", id);
+		mav.addObject("check", check);
+		mav.setViewName("member/delete.mg");
+
+	}
+
+	@Override
+	public void memberPayDetail(ModelAndView mav) {
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		String id = request.getParameter("id");
+		String pageNumber = request.getParameter("pageNumber");
+		LogAspect.logger.info(LogAspect.logMsg + id);
+
 	}
 
 	@Override
@@ -371,13 +482,13 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		int num = Integer.parseInt(request.getParameter("num"));
 		String title = request.getParameter("title");
-		String content =request.getParameter("content");
+		String content = request.getParameter("content");
 		String id = request.getParameter("id");
 		ManagerNoticeDto noticeDto = new ManagerNoticeDto();
-		
+
 		String date = request.getParameter("write_date");
 		Date write_date = null;
-		
+
 		try {
 			write_date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
 		} catch (ParseException e) {
@@ -388,15 +499,17 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		noticeDto.setContent(content);
 		noticeDto.setNum(num);
 		noticeDto.setTitle(title);
-		
+
 		LogAspect.logger.info(LogAspect.logMsg + noticeDto);
-		
-		 int check = managerDao.BoardNoitceInsertOk(noticeDto);
-		  
-		 LogAspect.logger.info(LogAspect.logMsg + check);
-		  
-	    mav.addObject("check", check);
+
+		int check = managerDao.BoardNoitceInsertOk(noticeDto);
+
+		LogAspect.logger.info(LogAspect.logMsg + check);
+
+		mav.addObject("check", check);
 		mav.setViewName("board/noticeInsertOk.mg");
 	}
+
+
 
 }

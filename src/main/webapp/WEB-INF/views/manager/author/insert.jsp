@@ -11,7 +11,6 @@
   	<link rel="stylesheet" href="${root}/resources/css/manager/book.css">
   	<link rel="stylesheet" href="${root}/resources/css/manager/author.css">
   	<link rel="stylesheet" href="${root}/css/basic/jquery-ui.css">
-  	
 </head>
 <body>
 	<div id="a_in_wrapper">
@@ -51,32 +50,32 @@
 					</div>
 					<div>
 						<label>학력</label>
-						<input type="text" placeholder="학력" name="education"/>
-						<button type="button" class="bf-button search">추가</button>
+						<input type="text" placeholder="학력"/>
+						<button id="education_btn" type="button" class="bf-button search">추가</button>
+						<input type="hidden" name="education">
 					</div>
 					<div class="a_in_list">
 						<ul>
-							<li>남서울대 4년 재학</li>
 						</ul>
 					</div>
 					<div>
 						<label>경력</label>
-						<input type="text" placeholder="경력" name="career"/>
-						<button type="button" class="bf-button search">추가</button>
+						<input type="text" placeholder="경력"/>
+						<button id="career_btn" type="button" class="bf-button search">추가</button>
+						<input type="hidden" name="career">
 					</div>
 					<div class="a_in_list">
 						<ul>
-							<li>남서울대 4년 재학</li>
 						</ul>
 					</div>
 					<div>
 						<label>수상</label>
-						<input type="text" placeholder="수상" name="awards"/>
-						<button type="button" class="bf-button search">추가</button>
+						<input type="text" placeholder="수상"/>
+						<button id="awards_btn" type="button" class="bf-button search">추가</button>
+						<input type="hidden" name="awards">
 					</div>
 					<div class="a_in_list">
 						<ul>
-							<li>쌍용 수료!</li>
 						</ul>
 					</div>
 					<div>
@@ -95,29 +94,9 @@
 			</section>
 		</form>
 	</div>
-
 	
 	<script src="${root}/script/basic/jquery-ui.js"></script>
-	<script type="text/javascript">
-		$(".search").click(function(){
-			var input = $(this).prev();
-			
-			if(input.val() == ""){
-				alert("공백 입력 불가능");
-				return;
-			}
-			var ul = $(this).parent().next().find("ul");
-			ul.append("<li>"+input.val()+"</li>");
-			input.val("");
-		});
-		$("#b_date").datepicker({
-			dateFormat : 'yy-mm-dd'
-		});
-		$("#b_date2").datepicker({
-			dateFormat : 'yy-mm-dd'
-		});
-		
-		/* $("#a_form_btn").click(); */
-	</script>
+	<script src="${root}/script/manager/author/insert.js"></script>
+	
 </body>
 </html>

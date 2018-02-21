@@ -17,7 +17,12 @@
 		select * from qna_cate2
 	</select>
 	<select id="count" resultType="Integer">
-		select count(*) from BOARD_FREQUENCY
+		select count(*) from
+		BOARD_FREQUENCY
+	</select>
+	<select id="contactCount" resultType="Integer">
+		select count(*) from
+		board_contact
 	</select>
 	<select id="list" parameterType="java.util.Map"
 		resultType="com.bf.manager.dto.BoardFrequencyDto">
@@ -25,6 +30,22 @@
 		select * from (select rownum rnum, a.* from(
 			select * from BOARD_FREQUENCY) a)
 			where rnum >=#{startRow} and rnum <=#{endRow}
+	]]>
+	</select>
+	<select id="boardContact" parameterType="java.util.Map"
+		resultType="com.bf.manager.dto.BoardContactDto">
+		<![CDATA[
+		SELECT A.* FROM (
+		SELECT ROWNUM rnum,bc.*,
+			q1.NAME q1_name,
+			mem.PHONE mem_phone,
+			q2.NAME q2_name
+FROM BOARD_CONTACT bc, QNA_CATE1 q1 ,MEMBER mem ,QNA_CATE2 q2 
+WHERE bc.CATEGORY =q2.NUM 
+AND bc.ID = mem.ID
+AND q1.NUM = q2.CATE1_NUM) A
+where rnum >=#{startRow} and rnum <=#{endRow}
+
 	]]>
 	</select>
 	<select id="listSearch" parameterType="java.util.Map"
@@ -35,7 +56,7 @@
 			where rnum >=#{startRow} and rnum <=#{endRow}
 	]]>
 	</select>
-	
+
 	<select id="listSearchDate" parameterType="java.util.Map"
 		resultType="com.bf.manager.dto.BoardFrequencyDto">
 		<![CDATA[
@@ -45,7 +66,7 @@
 	]]>
 	</select>
 	<insert id="noticeInsert" parameterType="com.bf.manager.dto.ManagerNoticeDto">
-	insert into
+		insert into
 		notice(num,id,title,content,write_date)
 		values(NOTICE_NUM_SEQ.nextval,#{id},#{title},#{content},#{write_date})
 	</insert>
