@@ -114,17 +114,22 @@ public class MyPageController {
 	 * 
 	 */
 	@RequestMapping(value="/payment/myCash.do")
-	public String ridiCash(HttpServletRequest request, HttpServletResponse response, MyPagePointDto myPagePointDto) {
+	public ModelAndView ridiCash(HttpServletRequest request, HttpServletResponse response, MyPagePointDto myPagePointDto) {
 		LogAspect.info("MyCash()");
 		
-		return "myPage/payment/myCash.my";
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.myCash(mav);
+		
+		return mav;
 	}
 	
 	/**
 	 * 마이페이지 > 마이캐시 > 충전완료
 	 */
 	@RequestMapping(value="/payment/myCashOk.do")
-	public String myCashOk(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView myCashOk(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("MyCashOk()");
 
 		ModelAndView mav = new ModelAndView();
@@ -132,7 +137,7 @@ public class MyPageController {
 		
 		mypageService.myCashOk(mav);
 		
-		return "myPage/payment/myCashOk.my";
+		return mav;
 	}
 	
 	/**

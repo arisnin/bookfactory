@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <c:set var="root" value="${pageContext.request.contextPath }" />
 <link rel="stylesheet" type="text/css" href="${root}/css/order/order.css">
-<link rel="stylesheet" type="text/css" href="${root}/css/myPage/payment/ridicash.css">
+<link rel="stylesheet" type="text/css" href="${root}/css/myPage/payment/mycash.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/present/present.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/present/presentPay.css">
 </head>

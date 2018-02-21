@@ -28,8 +28,13 @@ public class MyPageDaoImp implements MyPageDao {
 	}
 
 	@Override
-	public List<MyPagePointDto> myPointList(String id) {		
+	public List<MyPagePointDto> myPointList(String id) {
 		return sqlSession.selectList(nameSpace + "point_select_list", id);
+	}
+	
+	@Override
+	public int myPointExtinctionSelect(String id) {
+		return sqlSession.selectOne(nameSpace + "point_select", id);
 	}
 
 	@Override
@@ -42,6 +47,4 @@ public class MyPageDaoImp implements MyPageDao {
 		return sqlSession.selectList(nameSpace + "cash_page_select_list", id);
 	}
 
-	
-	
 }

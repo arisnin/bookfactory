@@ -22,5 +22,7 @@ public interface MyPageDao {
 
 	List<MyPageCashPageDto> myCashPageList(String id);
 
+	int myPointExtinctionSelect(String id);
+
 
 }

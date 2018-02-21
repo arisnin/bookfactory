@@ -11,10 +11,10 @@
 <link href="${root}/css/basic/reset.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/myRidi.css" type="text/css" rel="stylesheet">
-<link href="${root}/css/myPage/payment/ridicash.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/myPage/payment/mycash.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/purchasedAll.css" type="text/css" rel="stylesheet">
-<link href="${root}/css/myPage/payment/ridipoint.css" type="text/css" rel="stylesheet">
-<link href="${root}/css/myPage/payment/ridicashhistorycash.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/myPage/payment/mypoint.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/myPage/payment/mycashhistorycash.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/rightarrow/css/fontello.css" type="text/css" rel="stylesheet">
 </head>
 <body>
@@ -38,7 +38,7 @@
 				<p class="mypoint_amount_title">
 					내 마이캐시
 					<span class="total_amount">
-						<span></span>원
+						<span><fmt:formatNumber value = "${total}" pattern="#,###"/></span>원
 					</span>
 				</p>
 			</div>
