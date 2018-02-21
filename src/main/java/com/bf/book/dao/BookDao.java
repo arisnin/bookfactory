@@ -16,7 +16,7 @@ import com.bf.book.dto.NewBookDto;
  */
 public interface BookDao {
 	int insertReview(ReviewDto reviewDto);
-	List<HomeDto> getHomeBookInfoList();
+	List<HomeDto> getHomeBookInfoList(int firstCate);
 	int getFirstCate(String firstCateName);
 	String getFirstCateName(String firstCate);
 	List<NewBookDto> getNewBookList(HashMap<String, Integer> map);
@@ -24,7 +24,12 @@ public interface BookDao {
 	ReviewDto selectReviewSelf(int book_num, String username);
 	List<ReviewDto> selectReviewList(int book_num);
 	int updateReview(ReviewDto reviewDto);
-	List<HomeDto> getRecomList(int firstCate);
-	int getRecomCount(long book_num);
+	HomeDto getRecomList(int randomBookNum);
+	List<Integer> getRandomBookNum(int firstCate);
+	int getBookSecondCate(int firstCate);
+	List<Integer> getPaperRandomBookNum(HashMap<String, Integer> map);
+	List<HomeDto> getPaperHomeBookInfoList(HashMap<String, Integer> map);
+	int getPaperNewBookCount(HashMap<String, String> cateMap);
+	List<NewBookDto> getPaperNewBookList(HashMap<String, String> cateMap);
 
 }

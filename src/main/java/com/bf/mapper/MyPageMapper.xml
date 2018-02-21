@@ -3,5 +3,43 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bf.mapper.MyPageMapper">
+	<resultMap type="com.bf.myPage.dto.MyPagePointDto" id="myPagePointDto">
+		<result property="num" column="num"/>
+		<result property="id" column="id"/>
+		<result property="point" column="point"/>
+		<result property="point_type" column="point_type"/>
+		<result property="charge_date" column="charge_date"/>
+		<result property="destory_date" column="destory_date"/>
+		<result property="state" column="state"/>
+	</resultMap>
 
+	<insert id="point_insert" parameterType="com.bf.myPage.dto.MyPagePointDto">
+		insert into point(num, id, point, point_type, state, remain)
+		values(POINT_num_seq.nextval, #{id}, (SELECT CHARGE_CASH * PERCENTAGE / 100 "POINT"
+		from CASH_CHARGE_MENU where id = #{point}), #{point_type}, #{state}, (SELECT CHARGE_CASH * PERCENTAGE / 100 "POINT"
+		from CASH_CHARGE_MENU where id = #{point}))
+	</insert>
+	
+	<insert id="cash_charge_insert" parameterType="com.bf.myPage.dto.MyPageCashChargeDto">
+		INSERT INTO cash_charge
+		VALUES(CASH_CHARGE_num_seq.nextval, #{id}, (SELECT charge_cash FROM CASH_CHARGE_MENU WHERE ID = #{charge_cash}),
+		(SELECT num FROM POINT WHERE num = (SELECT MAX(num) FROM point)),
+		#{charge_type_num}, SYSDATE, #{cash_type})
+	</insert>
+	
+	<select id="point_select" parameterType="String" resultType="int">
+		<![CDATA[
+			SELECT sum(remain) FROM point
+			WHERE destory_date - 11 < SYSDATE AND num in
+			(SELECT num FROM point WHERE destory_date >= SYSDATE)
+		]]>
+	</select>
+	
+	<select id="point_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPagePointDto">
+		select * from point where id = #{id} order by charge_date desc
+	</select>
+	
+	<select id="cash_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPageCashPageDto">
+		select cash_charge.CHARGE_DATE, cash_charge.CASH_TYPE, cash_charge.CHARGE_CASH, point.POINT, cash_charge_type.charge_type from cash_charge, cash_charge_type, point where cash_charge.POINT_NUM = point.num and cash_charge.CHARGE_TYPE_NUM = cash_charge_type.num and cash_charge.id = #{id} order by charge_date desc
+	</select>
 </mapper>

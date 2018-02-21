@@ -11,8 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.member.model.MemberDto;
-import com.bf.myPage.dto.MyPageCashChargeMenuDto;
-import com.bf.myPage.dto.MyPageCashChargeTypeDto;
 import com.bf.myPage.dto.MyPagePointDto;
 import com.bf.myPage.service.MyPageService;
 
@@ -115,46 +113,63 @@ public class MyPageController {
 	 * 마이페이지 > 마이캐시
 	 * 
 	 */
-	@RequestMapping(value="/payment/ridiCash.do")
-	public String ridiCash(HttpServletRequest request, HttpServletResponse response, MyPagePointDto myPagePointDto) {
-		LogAspect.info("RidiCash()");
+	@RequestMapping(value="/payment/myCash.do")
+	public ModelAndView ridiCash(HttpServletRequest request, HttpServletResponse response, MyPagePointDto myPagePointDto) {
+		LogAspect.info("MyCash()");
 		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
 		
+		mypageService.myCash(mav);
 		
-		return "myPage/payment/ridiCash.my";
+		return mav;
 	}
 	
 	/**
 	 * 마이페이지 > 마이캐시 > 충전완료
 	 */
-	@RequestMapping(value="/payment/ridiCashOk.do")
-	public String ridiCashOk(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("RidiCashOk()");
+	@RequestMapping(value="/payment/myCashOk.do")
+	public ModelAndView myCashOk(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("MyCashOk()");
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
 		
-		mypageService.ridiCashOk(mav);
+		mypageService.myCashOk(mav);
 		
-		return "myPage/payment/ridiCashOk.my";
+		return mav;
 	}
 	
 	/**
 	 * 마이페이지 > 마이캐시 > 충전내역
 	 */
-	@RequestMapping(value="/payment/ridiCashHistoryCash.do")
-	public String ridiCashHistoryCash(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("ridiCashHistoryCash()");
-		return "myPage/payment/ridiCashHistoryCash.my";
+	@RequestMapping(value="/payment/myCashHistoryCash.do")
+	public ModelAndView myCashHistoryCash(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("MyCashHistoryCash()");
+		request.getSession().setAttribute("userInfoId", "user");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.myCashHistoryCash(mav);
+		
+		return mav;
 	}
 	
 	/**
 	 * 마이페이지 > 마이포인트
 	 */
-	@RequestMapping(value="/payment/ridiPoint.do")
-	public String ridiPoint(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("ridiPoint()");
-		return "myPage/payment/ridiPoint.my";
+	@RequestMapping(value="/payment/myPoint.do")
+	public ModelAndView myPoint(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("MyPoint()");
+		request.getSession().setAttribute("userInfoId", "user");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.myPoint(mav);
+		
+		return mav;
 	}
 	
 	/**

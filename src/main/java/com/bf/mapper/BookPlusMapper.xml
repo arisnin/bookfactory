@@ -13,18 +13,20 @@
 		INSERT INTO review VALUES(review_num_seq.nextval, #{id}, #{book_num}, #{content}, sysdate, #{star_point}, #{spoiler}, #{preference}, #{display})
 	</insert>
 	
-	<select id="getBookNumMin" resultType="int">
-		select nvl(min(book_num),0) from bookm
-	</select>
-	
 	<select id="getHomeBookInfoList" parameterType="int" resultMap="HomeDto">
 		<![CDATA[
-			SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", t.NAME "thirdCate", b.book_num, b.price, b.type, b.author_num
-			FROM bookm b, author A, book_category c, third_cate t
-			WHERE b.author_num = A.num 
-			      AND b.book_num=c.book_num
-			      AND c.cate3_num=t.num
-			      and b.book_num>=#{min} and b.book_num<=(#{min}+20)
+			SELECT *
+			from (SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", dis.NAME "thirdCate", b.book_num, b.price, b.TYPE, b.author_num, b.rental_price, rownum r
+						FROM bookm b, author A, (SELECT DISTINCT b.book_num, t.NAME
+					                              FROM bookm b, book_category c, first_cate f, second_cate s, third_cate t
+					                              WHERE b.book_num=c.book_num
+					                              AND c.cate1_num=f.num
+					                              AND c.cate2_num=s.num
+					                              AND c.cate1_num=#{firstCate}) dis
+									
+						WHERE b.author_num=A.num
+						AND dis.book_num=b.book_num) rn
+			where rn.r <20
 		]]>
 	</select>
 	
@@ -82,13 +84,10 @@
 
 	<select id="getRecomList" parameterType="int" resultMap="HomeDto">
 		<![CDATA[
-			SELECT  b.img_path, A.NAME "authorName", b.NAME "bookName", t.NAME "thirdCate", b.book_num, b.price, b.type, b.author_num
-			FROM bookm b, author A, book_category c, third_cate t
-			WHERE b.author_num = A.num 
-			      AND b.book_num=c.book_num
-			      AND c.cate3_num=t.num
-					AND c.cate1_num=#{firstCate}
-			ORDER BY write_date desc
+			SELECT  b.img_path, A.NAME "authorName", b.NAME "bookName", b.book_num
+			FROM bookm b, author A
+			WHERE b.author_num = A.num
+			and b.book_num=#{randomBookNum}
 		]]>
 	</select>
 	
@@ -99,4 +98,91 @@
 		AND b.book_num =#{book_num}
 	</select>
 	
+	<select id="getRandomBookNum" parameterType="int" resultType="int">
+		<![CDATA[
+			SELECT b.book_num                                
+			from (SELECT b.book_num, ROWNUM r
+			      from  bookm b, book_category c, first_cate f
+			      WHERE b.book_num=c.book_num
+			      AND c.cate1_num=f.num
+			      AND f.num=#{firstCate}) b
+			where b.r<=20
+		]]>			                                
+	</select>
+	
+	<select id="getBookSecondCate" parameterType="int" resultType="int">
+		<![CDATA[
+			SELECT DISTINCT sc.num
+			FROM bookm b, book_category c, second_cate sc
+			WHERE b.book_num=c.book_num
+			AND c.cate2_num=sc.num
+			AND sc.NAME LIKE '%단행본%'
+			and sc.first_cate=#{firstCate}
+		]]>
+	</select>
+	
+	<select id="getPaperRandomBookNum" parameterType="java.util.HashMap" resultType="int">
+		<![CDATA[
+			SELECT b.book_num                              
+			FROM (SELECT b.book_num, ROWNUM r, sc.NAME
+			      from  bookm b, book_category c, first_cate f, second_cate sc
+			      WHERE b.book_num=c.book_num
+			      AND c.cate1_num=f.num
+			      and c.cate2_num=sc.num
+			      AND f.num=#{firstCate}
+			      and sc.num=#{seconCate}) b
+			where b.r>=40
+		]]>
+	</select>
+	
+	<select id="getPaperHomeBookInfoList" parameterType="java.util.HashMap" resultMap="HomeDto">
+		<![CDATA[
+			select *
+			from (SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", t.NAME "thirdCate", b.book_num, b.price, b.TYPE, b.author_num, rownum r
+			      FROM bookm b, author A, book_category c, third_cate t, first_cate f, second_cate sc
+			      WHERE b.author_num=A.num
+			      AND b.book_num=c.book_num
+			      AND c.cate1_num=f.num
+			      AND c.cate3_num=t.num
+			      and c.cate2_num=sc.num
+			      AND f.num=#{firstCate}
+			      and sc.num=#{seconCate}) dis
+			where dis.r<=20
+		]]>
+	</select>
+	
+	<select id="getPaperNewBookCount" parameterType="java.util.HashMap" resultType="int">
+		<![CDATA[
+			SELECT count(*)
+			FROM bookm b, book_category c, first_cate f, second_cate sc
+			WHERE b.book_num=c.book_num
+			AND c.cate1_num=f.num
+			AND f.num=#{firstCate}
+			AND c.cate2_num=sc.num
+			and sc.num=#{seconCate}
+		]]>
+	</select>
+	
+	<select id="getPaperNewBookList" parameterType="java.util.HashMap" resultType="com.bf.book.dto.NewBookDto">
+		<![CDATA[
+			SELECT *
+			FROM (SELECT ROWNUM rnum, A.* 
+			      FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", b.intro, b.discount, b.discount2, b.price, b.rental_price
+			      FROM bookm b, author au, author il, author tr, publisher pu, (SELECT DISTINCT b.book_num
+			                                                                    FROM bookm b, book_category c, first_cate f, second_cate s
+			                                                                    WHERE b.book_num=c.book_num
+			                                                                    AND c.cate1_num=f.num
+			                                                                    AND c.cate2_num=s.num
+			                                                                    AND c.cate1_num=#{firstCate}
+			                                                                    and c.cate2_num=#{seconCate}) dis
+			      WHERE b.author_num=au.num
+			            and dis.book_num=b.book_num
+			      AND b.illustrator_num=il.num
+			      AND b.translator_num=tr.num
+			      AND b.pub_num=pu.pub_num
+			      ORDER BY b.write_date DESC)A
+			      )r
+			where r.rnum >= #{startRow} and r.rnum <= #{endRow}
+		]]>
+	</select>
 </mapper>

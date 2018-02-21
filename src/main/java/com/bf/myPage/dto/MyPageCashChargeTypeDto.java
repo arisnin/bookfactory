@@ -1,8 +1,5 @@
 package com.bf.myPage.dto;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class MyPageCashChargeTypeDto {
 	private int num;
 	private String charge_type;
@@ -35,5 +32,4 @@ public class MyPageCashChargeTypeDto {
 		return "MyPageCashChargeTypeDto [num=" + num + ", charge_type="
 				+ charge_type + "]";
 	}
-	
 }

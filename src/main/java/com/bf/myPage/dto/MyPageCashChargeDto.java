@@ -12,17 +12,19 @@ public class MyPageCashChargeDto {
 	private int point_num;
 	private int charge_type_num;
 	private Date charge_date;
+	private String cash_type;
 	
 	public MyPageCashChargeDto(){}
 
 	public MyPageCashChargeDto(int num, String id, int charge_cash, int point_num,
-			int charge_type_num, Date charge_date) {
+			int charge_type_num, Date charge_date, String cash_type) {
 		this.num = num;
 		this.id = id;
 		this.charge_cash = charge_cash;
 		this.point_num = point_num;
 		this.charge_type_num = charge_type_num;
 		this.charge_date = charge_date;
+		this.cash_type = cash_type;
 	}
 
 	public int getNum() {
@@ -73,11 +75,20 @@ public class MyPageCashChargeDto {
 		this.charge_date = charge_date;
 	}
 
+	public String getCash_type() {
+		return cash_type;
+	}
+
+	public void setCash_type(String cash_type) {
+		this.cash_type = cash_type;
+	}
+
 	@Override
 	public String toString() {
-		return "MyPagePointDto [num=" + num + ", id=" + id + ", charge_cash="
-				+ charge_cash + ", point_num=" + point_num
+		return "MyPageCashChargeDto [num=" + num + ", id=" + id
+				+ ", charge_cash=" + charge_cash + ", point_num=" + point_num
 				+ ", charge_type_num=" + charge_type_num + ", charge_date="
-				+ charge_date + "]";
+				+ charge_date + ", cash_type=" + cash_type + "]";
 	}
+
 }

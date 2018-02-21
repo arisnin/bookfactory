@@ -41,8 +41,8 @@
 				</h4>
 				<ul class="myridi-menu-list">
 					<li class="menu-list-item"><a class="item-link" href="${root}/payment/orderhistory.do">결제내역</a></li>
-					<li class="menu-list-item"><a class="item-link" href="${root}/payment/ridiCash.do">마이캐시</a></li>
-					<li class="menu-list-item"><a class="item-link" href="${root}/payment/ridiPoint.do">마이포인트</a></li>
+					<li class="menu-list-item"><a class="item-link" href="${root}/payment/myCash.do">마이캐시</a></li>
+					<li class="menu-list-item"><a class="item-link" href="${root}/payment/myPoint.do">마이포인트</a></li>
 					<li class="menu-list-item"><a class="item-link" href="${root}/payment/coupon.do">쿠폰</a></li>
 					<li class="menu-list-item"><a class="item-link" href="${root}/payment/freepassTicket.do">이용권 관리</a></li>
 				</ul>

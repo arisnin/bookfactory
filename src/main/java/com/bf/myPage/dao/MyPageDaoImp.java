@@ -1,9 +1,13 @@
 package com.bf.myPage.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bf.myPage.dto.MyPageCashChargeDto;
+import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 
 /**
@@ -15,19 +19,32 @@ import com.bf.myPage.dto.MyPagePointDto;
 public class MyPageDaoImp implements MyPageDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
-	@Override
-	public int pointInsert(MyPagePointDto myPagePointDto) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public MyPagePointDto pointInsert(String id, String menu_num,
-			String point_type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
+	private final String nameSpace = "com.bf.mapper.MyPageMapper.";
+
+	@Override
+	public int pointInsert(MyPagePointDto myPagePointDto) {		
+		return sqlSession.insert(nameSpace + "point_insert", myPagePointDto);
+	}
+
+	@Override
+	public List<MyPagePointDto> myPointList(String id) {
+		return sqlSession.selectList(nameSpace + "point_select_list", id);
+	}
+	
+	@Override
+	public int myPointExtinctionSelect(String id) {
+		return sqlSession.selectOne(nameSpace + "point_select", id);
+	}
+
+	@Override
+	public int cashChargeInsert(MyPageCashChargeDto myPageCashChargeDto) {
+		return sqlSession.insert(nameSpace + "cash_charge_insert", myPageCashChargeDto);
+	}
+
+	@Override
+	public List<MyPageCashPageDto> myCashPageList(String id) {
+		return sqlSession.selectList(nameSpace + "cash_page_select_list", id);
+	}
+
 }

@@ -6,14 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="root" value = "${pageContext.request.contextPath}"/>
-<script type="text/javascript" src="${root}/jquery/jquery.js"></script>
+<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <title>ridiCashOk(결제 완료)</title>
 </head>
 <body>
-	<c:if test="${check > 0}">
+	<c:if test="${check2 > 0}">
 		<script type="text/javascript">
 			alert('결제 실패따윈 없다.');
-			$(location).attr("href", "${root}/payment/ridiCash.do");
+			$(location).attr("href", "${root}/payment/myCash.do");
 		</script>
 	</c:if>
 </body>

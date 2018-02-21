@@ -70,19 +70,19 @@
 						<li class="hw_mid_item list_all" style="padding: 0px 12px 0px 0px;" onclick="allMenuOpen()">
 							<img class="hw_mid_icon" src="${root}/img/index/213111_gray.png"> <span class="hw_mid_font">전체분야</span>
 						</li>
-						<li class="hw_mid_item list_general" onclick="location.href='${root}/normal.do'">
+						<li class="hw_mid_item list_general" onclick="location.href='${root}/normal.do?firstCateNum=1'">
 							<img class="hw_mid_icon" src="${root}/img/index/ilban.png"> <span class="hw_mid_font">일반</span>
 						</li>
-						<li class="hw_mid_item list_romance" onclick="location.href='${root}/romance.do'">
+						<li class="hw_mid_item list_romance" onclick="location.href='${root}/romance.do?firstCateNum=2'">
 							<img class="hw_mid_icon" src="${root}/img/index/love.png"> <span class="hw_mid_font">로맨스</span>
 						</li>
-						<li class="hw_mid_item list_fantasy" onclick="location.href='${root}/fantasy.do'">
+						<li class="hw_mid_item list_fantasy" onclick="location.href='${root}/fantasy.do?firstCateNum=3'">
 							<img class="hw_mid_icon" src="${root}/img/index/fantasi.png"> <span class="hw_mid_font">판타지</span>
 						</li>
-						<li class="hw_mid_item list_comic" onclick="location.href='${root}/comic.do'">
+						<li class="hw_mid_item list_comic" onclick="location.href='${root}/comic.do?firstCateNum=4'">
 							<img class="hw_mid_icon" src="${root}/img/index/manhwa.png"> <span class="hw_mid_font">만화</span>
 						</li>
-						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do'">
+						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do?firstCateNum=5'">
 							<img class="hw_mid_icon" src="${root}/img/index/bl.png"> <span class="hw_mid_font">BL</span>
 						</li>
 					</ul>
@@ -91,7 +91,7 @@
 					<c:if test="${true}">
 						<li class="hw_mid_item list_manager" onclick="location.href='${root}/manager/index.do'"><img class="hw_mid_icon" src="${root}/img/index/213111_gray.png"> <span class="hw_mid_font">관리자</span></li>
 					</c:if>
-					<li class="hw_mid_item list_cash" onclick="location.href='${root}/payment/ridiCash.do'"><img class="hw_mid_icon" src="${root}/img/index/213111_gray.png"> <span class="hw_mid_font">캐시충전</span></li>
+					<li class="hw_mid_item list_cash" onclick="location.href='${root}/payment/myCash.do'"><img class="hw_mid_icon" src="${root}/img/index/213111_gray.png"> <span class="hw_mid_font">캐시충전</span></li>
 				</ul>
 				<!-- 전체메뉴 클릭시 나오는 뷰 -->
 				<jsp:include page="indexAllMenu.jsp"/>
@@ -99,14 +99,40 @@
 			</div>
 		</div>
 		<!-- --------------------------- -->
+		<!-- 홈화면 가는게 각각 카테에맞게 바뀌어야함으로 추가 -->
+					<c:choose>
+						<c:when test="${firstCate==1}">
+							<c:set var="home" value="normal"/>
+						</c:when>
+						
+						<c:when test="${firstCate==2}">
+							<c:set var="home" value="romance"/>
+						</c:when>
+						
+						<c:when test="${firstCate==3}">
+							<c:set var="home" value="fantasy"/>
+						</c:when>
+						
+						<c:when test="${firstCate==4}">
+							<c:set var="home" value="comic"/>
+						</c:when>
+						
+						<c:when test="${firstCate==5}">
+							<c:set var="home" value="bl"/>
+						</c:when>
+						
+						<c:otherwise>
+							<c:set var="home" value="normal"/>
+						</c:otherwise>
+					</c:choose>
 		<div class="hw_sub_wrap">
 			<c:if test="${firstCate!=1 && firstCate!=4}">
 				<div class="hw_sub_cate">
 					<span>단행본</span>
 					<ul>
-						<li class="sub_cate_element" onclick="location.href='${root}/normal.do?firstCate=${firstCate}&bookType=paper'">홈 <span class="activeBar"></span></li>
-						<li class="sub_cate_element" onclick="location.href='${root}/new-book.do?firstCate=${firstCate}&bookType=paper'">신간<span></span></li>
-						<li class="sub_cate_element" onclick="location.href='${root}/best-sell.do?firstCate=${firstCate}&bookType=paper&bestSeller=weekBest'">베스트셀러<span></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/${home}.do?firstCate=${firstCate}&bookType=paper&seconCate=${seconCate}'">홈 <span class="activeBar"></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/new-book.do?firstCate=${firstCate}&bookType=paper&seconCate=${seconCate}'">신간<span></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/best-sell.do?firstCate=${firstCate}&bookType=paper&bestSeller=weekBest&seconCate=${seconCate}'">베스트셀러<span></span></li>
 						<%-- <li class="sub_cate_element" onclick="location.href='${root}/normal.main'">맞춤추천<span></span></li> --%>
 						<li class="sub_cate_element" onclick="location.href='${root}/event.do?firstCate=${firstCate}&bookType=paper'">이벤트<span></span></li>
 					</ul>
@@ -124,7 +150,7 @@
 			<c:if test="${firstCate==1 || firstCate==4}">
 				<div class="hw_sub_cate">
 					<ul>
-						<li class="sub_cate_element" onclick="location.href='${root}/normal.do?firstCate=${firstCate}'">홈 <span class="activeBar"></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/${home}.do?firstCate=${firstCate}'">홈 <span class="activeBar"></span></li>
 						<li class="sub_cate_element" onclick="location.href='${root}/new-book.do?firstCate=${firstCate}'">신간<span></span></li>
 						<li class="sub_cate_element" onclick="location.href='${root}/best-sell.do?firstCate=${firstCate}&bestSeller=weekBest'">베스트셀러<span></span></li>
 						<%-- <li class="sub_cate_element" onclick="location.href='${root}/normal.main'">맞춤추천<span></span></li> --%>

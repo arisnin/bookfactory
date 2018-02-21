@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,10 +27,15 @@
 			<ul class="notice_list_title">
 				<li>등록일</li>
 				<li>제목</li>
-			</ul>
+			</ul>			
+			
+				<div>
+					<div>공지사항 내용이 없습니당. 상헌이형</div>
+				</div>
 			
 			
 			<!-- li는 한 블럭 라인? / div로 싹다 고치기 -->
+			
 						
 			<ul class="notice_list_list">
 				<a href="${root }/notice/content.do">
@@ -56,7 +62,7 @@
 				<li>[안내] 1월 1일(월) 시스템 점검 안내</li>
 			</ul>
 			<ul class="notice_list_list">
-				<li>2018.01.01</li>
+				<li>2018.01.01</li>	
 				<li>[업데이트] iOS 앱 v8.8.4</li>
 			</ul>
 			<ul class="notice_list_list">
@@ -75,6 +81,9 @@
 				<li>2018.01.01</li>
 				<li>[안내] 개인정보처리방침 개정 안내(v2.5)</li>
 			</ul>
+			
+			
+			
 		</div>
 		<nav class="bf-pagination">
 		<ul class="bf-animated-btn">

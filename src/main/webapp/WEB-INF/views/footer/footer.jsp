@@ -38,7 +38,7 @@
 	<div class="footer_background">
 		<div class="footer_header">
 			<div class="footer_header_border">
-				<span class="footer_header_notice">공지사항<i class="material-icons">play_arrow</i></span>
+				<span class="footer_header_notice"><a href="${root }/notice/main.do">공지사항</a><i class="material-icons">play_arrow</i></span>
 				<div class="footer_haeder_notice_text">
 					<ul>
 						<li class="footer_header_notice_change"><a>[업데이트] iOS 앱 v8.8.4</a></li>

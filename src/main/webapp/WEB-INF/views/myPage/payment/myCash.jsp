@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
 <link href="${root}/css/myPage/myRidi.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/home.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/purchasedAll.css" type="text/css" rel="stylesheet">
-<link href="${root}/css/myPage/payment/ridicash.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/myPage/payment/mycash.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 	<!--  -->
@@ -25,9 +26,9 @@
 			<!-- 마이캐시 충전  -->
 			<div class="bf-service-type-menu">
 				<ul class="service-type-list">
-					<li><a class="active" href="${root}/payment/ridiCash.do">마이캐시 충전</a></li>
+					<li><a class="active" href="${root}/payment/myCash.do">마이캐시 충전</a></li>
 					<li><a href="javascript:alert('자동충전 미구현')">자동충전</a></li>
-					<li><a href="${root}/payment/ridiCashHistoryCash.do">충전 내역</a></li>
+					<li><a href="${root}/payment/myCashHistoryCash.do">충전 내역</a></li>
 					<li><a href="javascript:alert('입금 대기 미구현')">입금 대기</a></li>
 				</ul>
 			</div>
@@ -47,13 +48,13 @@
 					</div>
 				</div>
 				<p class="my_cash_amount">
-					내 마이캐시 <span class="amount"> <span>2,000</span>원
+					내 마이캐시 <span class="amount"> <span><fmt:formatNumber value = "${total}" pattern="#,###"/></span>원
 					</span>
 				</p>
 			</div>
 
 			<!-- 충전 금액 padding-top: 5px, padding-bottom: 25px-->
-			<form name="cash_form" method="get" onsubmit="return myCashForm(this)" action="${root}/payment/ridiCashOk.do">
+			<form name="cash_form" method="get" onsubmit="return myCashForm(this)" action="${root}/payment/myCashOk.do">
 				<div class="wrapper">
 					<div class="cash_select">
 						<ul class="cash_select_ul">
@@ -431,25 +432,25 @@
 		
 		function myCashForm(obj){
 			//alert("Ok");
-			var cradio1 = $(":input[name=menu_num]:radio:checked").val();
-			var cradio2 = $(":input[name=type_num]:radio:checked").val();
-			var cbox = document.cash_form.paybox.checked;
+			var cradio1 = $(":input[name=menu_num]:radio:checked");
+			var cradio2 = $(":input[name=type_num]:radio:checked");
+			var cbox = $(":input[name=paybox]:checkbox:checked");
 			
-			if(!cradio1){
+			if(!cradio1.val()){
 				alert("충전할 금액을 선택하십시오");
-				obj.cradio1.focus();
+				cradio1.focus();
 				return false;
 			}
 			
-			if(!cradio2){
+			if(!cradio2.val()){
 				alert("결제 수단을 선택하십시오");
-				obj.cradio2.focus();
+				cradio2.focus();
 				return false;
 			}
 			
-			if(!cbox){
+			if(!cbox.val()){
 				alert("구매 동의를 체크하십시오");
-				obj.cbox.focus();
+				cbox.focus();
 				return false;
 			}
 		}	

@@ -1,17 +1,14 @@
 package com.bf.myPage.dto;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class MyPageCashChargeMenuDto {
 	private int num;
-	private String id;
+	private int id;
 	private int charge_cash;
 	private int percentage;
 	
 	public MyPageCashChargeMenuDto(){}
 
-	public MyPageCashChargeMenuDto(int num, String id, int charge_cash,
+	public MyPageCashChargeMenuDto(int num, int id, int charge_cash,
 			int percentage) {
 		this.num = num;
 		this.id = id;
@@ -27,11 +24,11 @@ public class MyPageCashChargeMenuDto {
 		this.num = num;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

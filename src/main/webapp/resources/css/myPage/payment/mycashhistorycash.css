@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+/* 대부분 리디포인트 것 사용 */
+
+.mypoint_history_table_title > .division{
+	width: 14.4375rem;
+}
+
+.mypoint_history_table_title > .status{
+	padding-left: 0.8125rem;
+	width: 5.5625rem;
+}
+
+.mypoint_history_table_title > li:last-child{
+	width: 11.375rem;
+	padding-right: 2rem;
+} 
+
+/* mypoint_history_table_body */
+.mypoint_history_table_body{
+	text-align: center;
+    word-break: keep-all;
+    color: #F3F0FA;
+    border-bottom: solid 1px #FAF0FA;
+    cursor: pointer;
+    float: left;
+}
+
+.mypoint_history_table_body > .division{
+	width: 14.4375rem;
+}
+
+.mypoint_history_table_body > .main_value{
+	text-align: right;
+	padding-right: 0.8125rem;
+} 
+
+.mypoint_history_table_body > .status{
+	text-align: right;
+	width: 5.5625rem;
+} 
+
+.mypoint_history_table_body > li:last-child{
+	width: 11.375rem;
+} 
+
+.mypoint_history_table_body:hover{
+	background-color: #FAF0FA;
+}
