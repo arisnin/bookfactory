@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -127,19 +128,42 @@ public class MainServiceImp implements MainService {
 	}
 
 	@Override
-	public ModelAndView emailPhoneCheck(ModelAndView mav) throws IOException {
+	public ModelAndView registerValidation(ModelAndView mav) throws IOException {
 		Map<String,Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		HttpServletResponse response = (HttpServletResponse)map.get("response");
 		
 		String type = request.getParameter("type");
-		String email = request.getParameter("email");
-		String phone = request.getParameter("phone");
+		String keyword = request.getParameter("keyword");
 		
 		if (type != null) {
-			LogAspect.info(type);
-			LogAspect.info(email);
-			LogAspect.info(phone);
+			LogAspect.info("registerValidation(): " + type + "/" + keyword);
+			String errMsg = "";
+			
+			List<String> check = mainDao.registerValidation(type,keyword);
+			
+			if ("email".equalsIgnoreCase(type)) {
+				errMsg = "이미 존재하는 이메일입니다.";
+			} else if ("phone".equalsIgnoreCase(type)) {
+				errMsg = "이미 존재하는 전화번호입니다.";
+			} else if ("id".equalsIgnoreCase(type)) {
+				errMsg = "이미 존재하는 아이디입니다.";
+			}
+			
+			JSONObject json = new JSONObject();
+			if (check.size() > 0) {
+				// 이미 존재하는 email(phone)
+				json.put("type", "error");
+				json.put("error", errMsg);
+			} else {
+				json.put("type", "ok");
+			}
+			
+			response.setContentType("application/x-json;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.print(json);
+			out.flush();
+			out.close();
 		}
 		
 		return null;

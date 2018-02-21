@@ -35,6 +35,11 @@ public class MainDaoImp implements MainDao {
 	}
 
 	@Override
+	public List<String> registerValidation(String type, String keyword) {
+		return sqlSession.selectList(namespace + type + "-check", keyword);
+	}
+
+	@Override
 	public int noticeMainCount() {
 		return sqlSession.selectOne(namespace + "noticeMainCount");
 	}

@@ -8,11 +8,15 @@
 	</insert>
 	
 	<select id="id-check" parameterType="String" resultType="String">
-		SELECT ID FROM MEMBER WHERE ID LIKE #{id}||'%' 
+		SELECT ID FROM MEMBER WHERE ID = #{keyword} 
 	</select>
 	
-	<select id="email-phone-check" parameterType="String" resultType="String">
-		SELECT ID FROM MEMBER WHERE ID LIKE #{id}||'%'
+	<select id="email-check" parameterType="String" resultType="String">
+		SELECT email FROM MEMBER WHERE email = #{keyword}
+	</select>
+	
+	<select id="phone-check" parameterType="String" resultType="String">
+		SELECT phone FROM MEMBER WHERE phone = #{keyword}
 	</select>
 		
 	<select id="noticeMainCount" resultType="int">

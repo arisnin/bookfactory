@@ -145,9 +145,9 @@ public class MainController {
 		return mainService.idCheck(new ModelAndView().addObject("request", request).addObject("response", response));
 	}
 	
-	@RequestMapping(value = "/member/register/emailPhoneCheck.do", method = RequestMethod.POST)
-	public ModelAndView emailPhoneCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		return mainService.emailPhoneCheck(new ModelAndView().addObject("request", request).addObject("response", response));
+	@RequestMapping(value = "/member/register/validation.do", method = RequestMethod.POST)
+	public ModelAndView registerValidation(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		return mainService.registerValidation(new ModelAndView().addObject("request", request).addObject("response", response));
 	}
 	
 	/**

@@ -1,5 +1,7 @@
 package com.bf.main.dao;
 
+import java.util.List;
+
 import com.bf.member.model.MemberDto;
 
 /**
@@ -14,6 +16,8 @@ public interface MainDao {
 	public String idCheck(String id);
 
 	public int noticeMainCount();
+
+	public List<String> registerValidation(String type, String keyword);
 
 
 	//public List<NoticeDto> noticeMain(int startRow, int endRow);

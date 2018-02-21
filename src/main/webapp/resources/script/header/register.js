@@ -10,13 +10,14 @@
  * @Author	박성호
  * @Date	2018. 2. 18.
  */
-function clickCheck(obj){
-	var span = obj.children[1];
-	var checkbox = obj.children[0];
+function clickCheck(event){
+	var span = event.children[1];
+	var checkbox = event.children[0];
 	
 	span.classList.toggle("hw_accheck");
 	checkbox.checked = !checkbox.checked;
 	
+	doConfirmCheck(event);
 	return checkbox.checked;
 }
 
@@ -38,6 +39,7 @@ function allCheck(event) {
 			e.children[0].checked = true;
 		});
 	}
+	doConfirmCheck(event);
 }
 
 function closeRegi(){

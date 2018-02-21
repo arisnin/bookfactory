@@ -15,7 +15,7 @@ public interface MainService {
 
 	public ModelAndView idCheck(ModelAndView mav) throws IOException;
 
-	public ModelAndView emailPhoneCheck(ModelAndView mav) throws IOException;
+	public ModelAndView registerValidation(ModelAndView mav) throws IOException;
 
 	public void noticeMain(ModelAndView mav);
 
