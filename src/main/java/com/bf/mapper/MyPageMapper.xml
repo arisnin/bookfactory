@@ -31,7 +31,7 @@
 		select * from point where id = #{id} order by charge_date desc
 	</select>
 	
-	<select id="cash_charge_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPageCashChargeDto">
-		select * from cash_charge where id = #{id} order by point_num desc
+	<select id="cash_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPageCashPageDto">
+		select cash_charge.CHARGE_DATE, cash_charge.CASH_TYPE, cash_charge.CHARGE_CASH, point.POINT, cash_charge_type.charge_type from cash_charge, cash_charge_type, point where cash_charge.POINT_NUM = point.num and cash_charge.CHARGE_TYPE_NUM = cash_charge_type.num and cash_charge.id = #{id} order by charge_date desc
 	</select>
 </mapper>

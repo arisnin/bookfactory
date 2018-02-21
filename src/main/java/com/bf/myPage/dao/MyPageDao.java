@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bf.member.model.User;
 import com.bf.myPage.dto.MyPageCashChargeDto;
+import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 
 /**
@@ -19,7 +20,7 @@ public interface MyPageDao {
 
 	int cashChargeInsert(MyPageCashChargeDto myPageCashChargeDto);
 
-	List<MyPageCashChargeDto> myCashChargeList(String id);
+	List<MyPageCashPageDto> myCashPageList(String id);
 
 
 }

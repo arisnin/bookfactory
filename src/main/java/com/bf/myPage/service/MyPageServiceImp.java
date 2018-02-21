@@ -14,6 +14,8 @@ import com.bf.member.model.MemberDto;
 import com.bf.member.model.User;
 import com.bf.myPage.dao.MyPageDao;
 import com.bf.myPage.dto.MyPageCashChargeDto;
+import com.bf.myPage.dto.MyPageCashChargeTypeDto;
+import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 
 /**
@@ -67,7 +69,9 @@ public class MyPageServiceImp implements MyPageService {
 		
 		MyPageCashChargeDto myPageCashChargeDto = new MyPageCashChargeDto();
 		myPageCashChargeDto.setId(id);
+		// charge_cash와 percentage가 담겨있는 번호
 		myPageCashChargeDto.setCharge_cash(Integer.parseInt(menu_num));
+		// 결제수단이 담겨있는 번호
 		myPageCashChargeDto.setCharge_type_num(Integer.parseInt(type_num));
 		myPageCashChargeDto.setCash_type(cash_type);
 		LogAspect.info(myPageCashChargeDto.toString());
@@ -89,7 +93,6 @@ public class MyPageServiceImp implements MyPageService {
 	 */
 	@Override
 	public void myInfoUpdate(ModelAndView mav) {
-		
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		MemberDto memberDto = (MemberDto) map.get("memberDto");
@@ -135,10 +138,12 @@ public class MyPageServiceImp implements MyPageService {
 		User user = (User) request.getSession().getAttribute("userInfo");
 		String id = user.getUsername();
 		
-		List<MyPageCashChargeDto> myPageCashChargeDtoList = myPageDao.myCashChargeList(id);
-		LogAspect.info(myPageCashChargeDtoList.size());
+		List<MyPageCashPageDto> myPageCashPageDtoList = myPageDao.myCashPageList(id);
+		LogAspect.info(myPageCashPageDtoList.size());
 		
-		mav.addObject("myPageCashChargeDtoList", myPageCashChargeDtoList);
+		
+		
+		mav.addObject("myPageCashPageDtoList", myPageCashPageDtoList);
 		mav.setViewName("myPage/payment/myCashHistoryCash.my");
 	}
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bf.myPage.dto.MyPageCashChargeDto;
+import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 
 /**
@@ -37,8 +38,8 @@ public class MyPageDaoImp implements MyPageDao {
 	}
 
 	@Override
-	public List<MyPageCashChargeDto> myCashChargeList(String id) {
-		return sqlSession.selectList(nameSpace + "cash_charge_select_list", id);
+	public List<MyPageCashPageDto> myCashPageList(String id) {
+		return sqlSession.selectList(nameSpace + "cash_page_select_list", id);
 	}
 
 	
