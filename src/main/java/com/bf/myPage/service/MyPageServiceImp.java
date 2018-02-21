@@ -82,7 +82,7 @@ public class MyPageServiceImp implements MyPageService {
 		mav.addObject("check2", check2);
 		mav.addObject("myPagePointDto", myPagePointDto);
 		mav.addObject("myPageCashChargeDto", myPageCashChargeDto);
-		mav.setViewName("/myPage/payment/myCashOk.my");
+		mav.setViewName("myPage/payment/myCashOk.my");
 	}
 
 	/**
