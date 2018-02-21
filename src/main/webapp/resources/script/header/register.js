@@ -62,6 +62,10 @@ $(document).ready(function() {
 			$(".hw_gender_label").removeClass("hw_gender_select");
 			label.addClass("hw_gender_select");
 		}
-		$("#hw_gender").val(label.text());
+		if (label.text().search("여") != -1) {
+			$("#hw_gender").val('female');
+		} else {
+			$("#hw_gender").val('male');
+		}
 	});
 });

@@ -4,10 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bf.mapper.MainMapper">
 	<insert id="register" parameterType="com.bf.main.dto.RegisterDto">
-		insert into member values(member_num_seq.nextval,#{id},#{password},#{email},#{gender},sysdate,#{birthday},#{marketing_check},#{ip},sysdate,#{phone},#{name})
+		INSERT INTO MEMBER (num,ID,PASSWORD,email,gender,register_date,birthday,marketing_check,ip,last_join,phone,NAME) VALUES(member_num_seq.nextval,#{id},#{password},#{email},#{gender},SYSDATE,#{birthday},#{marketing_check},#{ip},SYSDATE,#{phone},#{name})
 	</insert>
-		
 	
+	<select id="id-check" parameterType="String" resultType="String">
+		SELECT ID FROM MEMBER WHERE ID LIKE #{id}||'%' 
+	</select>
+	
+	<select id="email-phone-check" parameterType="String" resultType="String">
+		SELECT ID FROM MEMBER WHERE ID LIKE #{id}||'%'
+	</select>
+		
 	<select id="noticeMainCount" resultType="int">
 			select count(*) from notice
 	</select>
@@ -19,4 +26,4 @@
 	</select>
 	 -->
 	
-</mapper>	
+</mapper>

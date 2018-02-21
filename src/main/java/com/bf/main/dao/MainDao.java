@@ -1,9 +1,6 @@
 package com.bf.main.dao;
 
-import java.util.List;
-
-import com.bf.main.dto.NoticeDto;
-import com.bf.main.dto.RegisterDto;
+import com.bf.member.model.MemberDto;
 
 /**
  * @Date 2018. 2. 4.
@@ -12,7 +9,9 @@ import com.bf.main.dto.RegisterDto;
  */
 public interface MainDao {
 
-	public int register(RegisterDto registerDto);
+	public int register(MemberDto memberDto);
+
+	public String idCheck(String id);
 
 	public int noticeMainCount();
 

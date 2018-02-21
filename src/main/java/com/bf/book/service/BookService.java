@@ -13,5 +13,6 @@ public interface BookService {
 	void homeNewbook(ModelAndView mav);
 	ModelAndView reviewList(ModelAndView mav);
 	ModelAndView reviewUpdate(ModelAndView mav);
+	void romanceHome(ModelAndView mav);
 
 }
