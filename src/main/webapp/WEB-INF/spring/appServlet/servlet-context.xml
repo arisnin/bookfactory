@@ -22,6 +22,7 @@
 	<resources mapping="/img/**" location="/resources/img/" />
 	<resources mapping="/icon/**" location="/resources/icon/" />
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/*.json" location="/WEB-INF/views/book/"/>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles2.TilesViewResolver">

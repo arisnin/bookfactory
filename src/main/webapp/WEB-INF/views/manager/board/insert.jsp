@@ -32,7 +32,7 @@
 								<li><span>문의유형</span></li>
 								<li><select id="sh_board_insert_change" name="catecory_1">
 										<option>대분류</option>
-										<c:forEach var="cate1" items="${cateList}">
+										<c:forEach var="cate1" items="${cateList}" begin="0" end="2">
 											<option value="${cate1.num}">${cate1.name}</option>
 										</c:forEach>
 
@@ -40,18 +40,18 @@
 								<li><select id="sh_board_insert_1" name="catecory_2">
 										<option>중분류</option>
 										<optgroup label="--------------------------------------" class="1" style="display: none;">
-											<c:forEach var="cate2" items="${cateList2}" begin="1" end="4">
+											<c:forEach var="cate2" items="${cateList2}" begin="0" end="3">
 												<option value="${cate2.num}">${cate2.name}</option>
 											</c:forEach>
 
 										</optgroup>
 										<optgroup label="--------------------------------------" class="2" style="display: none;">
-											<c:forEach var="cate2" items="${cateList2}" begin="5" end="10">
+											<c:forEach var="cate2" items="${cateList2}" begin="4" end="8">
 												<option value="${cate2.num}">${cate2.name}</option>
 											</c:forEach>
 										</optgroup>
 										<optgroup label="--------------------------------------" class="3" style="display: none;">
-											<c:forEach var="cate2" items="${cateList2}" begin="10" end="15">
+											<c:forEach var="cate2" items="${cateList2}" begin="9" end="13">
 												<option value="${cate2.num}">${cate2.name}</option>
 											</c:forEach>
 										</optgroup>

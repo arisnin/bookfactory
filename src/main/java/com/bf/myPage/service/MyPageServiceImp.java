@@ -16,6 +16,8 @@ import com.bf.myPage.dao.MyPageDao;
 import com.bf.myPage.dto.MyPageCashChargeDto;
 import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
+import com.bf.myPage.dto.MyPagePurchasedPageDto;
+import com.bf.myPage.dto.MyPageRecentPageDto;
 
 /**
  * @author	박성호
@@ -185,6 +187,36 @@ public class MyPageServiceImp implements MyPageService {
 		mav.addObject("myPageCashPageDtoList", myPageCashPageDtoList);
 		mav.addObject("total", total);
 		mav.setViewName("myPage/payment/myCash.my");
+	}
+
+	@Override
+	public void recentLookBook(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		
+		List<MyPageRecentPageDto> myPageRecentPageDtoList = myPageDao.MyRecentPageList(id);
+		LogAspect.info(myPageRecentPageDtoList.size());
+		LogAspect.info(myPageRecentPageDtoList.toString());
+		
+		mav.addObject("myPageRecentPageDtoList", myPageRecentPageDtoList);
+		mav.setViewName("myPage/library/recentLookBook.my");
+	}
+
+	@Override
+	public void purchased(ModelAndView mav) {	
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		
+		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoList = myPageDao.PurchasedPageList(id);
+		
+		mav.addObject("myPagePurchasedPageDtoList", myPagePurchasedPageDtoList);
+		mav.setViewName("myPage/library/purchased.my");
 	}
 
 

@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div id="b_in_wrapper">
-		<form action="${root}/manager/bookInsertOk.do" method="post" onsubmit="return bookInsertOk()">
+		<form id="bookInsertForm" action="${root}/manager/bookInsertOk.do" method="post" onsubmit="return bookInsertOk()">
 			<section class="b_in_main">
 				<div class="b_in_header"><h2>도서 등록</h2></div>
 				<div class="b_in_content">
@@ -30,10 +30,7 @@
 						<label>출간일</label>
 						<div class="b_in_date">
 						 	<input type="text" id="b_date" name="write_date" placeholder="YY-MM-DD">
-							<!-- <button type="button" class="bf-button search">추가</button>			 -->
-							<!-- <span class="b_in_check">입력하세요!</span>	  -->
 						</div>
-						
 					</div>
 					<div>
 						<label>출판사</label>
@@ -61,6 +58,11 @@
 							</div>
 						</div>
 						<span id="b_cate_ok" class="b_in_check">입력하세요!</span>
+					</div>
+					<div>
+						<label>키워드</label><input type="text" placeholder="키워드" onkeyup="enter()"/>
+						<button type="button" id="keywordPush" class="bf-button search">추가</button>
+						<label></label>
 					</div>
 					<div>
 						<label>작가</label>
@@ -162,7 +164,7 @@
 						<textarea name="pub_intro" rows="" cols=""></textarea>
 					</div>
 					<div align="right">
-						<button type="submit" class="bf-button">등록</button>
+						<button type="button" class="bf-button" onclick="$('#bookInsertForm').submit()">등록</button>
 						<button type="reset" class="bf-button">취소</button>
 					</div>
 					
@@ -175,6 +177,7 @@
 					<input type="hidden" name="rental_period">
 					<input type="hidden" name="rental_price">
 					<input type="hidden" name="type">
+					<input type="hidden" name="keyword">
 				</div>
 			</section>
 		</form>

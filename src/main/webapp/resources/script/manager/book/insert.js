@@ -1,7 +1,46 @@
 /**
  * 
  */
+function enter() {
+	if(window.event.keyCode == 13){
+		$("#keywordPush").trigger("click");
+	}
+}
 
+//keyword추가 버튼
+$("#keywordPush").click(function(){
+	var input = $(this).prev();
+	var span = $(this).next();
+	
+	if(input.val() == ""){
+		alert('키워드를 입력하시오');
+		input.focus();
+		return ;
+	}
+	if(span.text() == ""){
+		span.append("<a onclick='removeKeyword(this)'>#" + input.val() + "</a>");
+	}else{
+		span.append("<a onclick='removeKeyword(this)'>#" + input.val() + "</a>");		
+	}
+	if($("input[name=keyword]").val() == ""){
+		$("input[name=keyword]").val($("input[name=keyword]").val() + input.val());
+	}else{
+		$("input[name=keyword]").val($("input[name=keyword]").val() +","+ input.val());		
+	}
+	input.val("").focus();
+});
+
+function removeKeyword(obj){
+	var value = "";
+	$(obj).parent().find("a").not(obj).each(function(i, element) {
+		if(value == "")
+			value += $(element).text().substring(1);
+		else
+			value += "," + $(element).text().substring(1);
+	});
+	$("input[name=keyword]").val(value);
+	$(obj).remove();
+}
 
 //파일버튼 클릭
 $("#b_in_filebtn").click(function(){
@@ -234,6 +273,7 @@ function bookInsertOk(){
 	if(pub_intro.val()==""){
 		pub_intro.val("없음");
 	}
+	
 	//책가격
 	var price = $("input[name=price]");
 	if(price.val() == ""){

@@ -17,10 +17,15 @@ public class BoardFrequencyDto {
 	private long file_size;
 	private String file_path;
 	
+	private String qcate1_name;
+	private String qcate2_name;
+	
 	public BoardFrequencyDto() {}
 
+
+
 	public BoardFrequencyDto(int num, String title, int category, String content, Date write_date, String file_name,
-			long file_size, String file_path) {
+			long file_size, String file_path, String qcate1_name, String qcate2_name) {
 		super();
 		this.num = num;
 		this.title = title;
@@ -30,7 +35,34 @@ public class BoardFrequencyDto {
 		this.file_name = file_name;
 		this.file_size = file_size;
 		this.file_path = file_path;
+		this.qcate1_name = qcate1_name;
+		this.qcate2_name = qcate2_name;
 	}
+
+
+	public String getQcate1_name() {
+		return qcate1_name;
+	}
+
+
+
+	public void setQcate1_name(String qcate1_name) {
+		this.qcate1_name = qcate1_name;
+	}
+
+
+
+	public String getQcate2_name() {
+		return qcate2_name;
+	}
+
+
+
+	public void setQcate2_name(String qcate2_name) {
+		this.qcate2_name = qcate2_name;
+	}
+
+
 
 	public int getNum() {
 		return num;
@@ -100,7 +132,7 @@ public class BoardFrequencyDto {
 	public String toString() {
 		return "BoardFrequencyDto [num=" + num + ", title=" + title + ", category=" + category + ", content=" + content
 				+ ", write_date=" + write_date + ", file_name=" + file_name + ", file_size=" + file_size
-				+ ", file_path=" + file_path + "]";
+				+ ", file_path=" + file_path + ", qcate1_name=" + qcate1_name + ", qcate2_name=" + qcate2_name + "]";
 	}
 	
 	
