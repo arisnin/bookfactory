@@ -10,8 +10,11 @@
 	</select>
 	
 	<select id="infoMain" parameterType="int" resultType="com.bf.serviceCenter.dto.ServiceCenterDtoFre">
-		select title from board_frequency
+		select * from board_frequency order by num desc
 	</select>
 	
+	<select id="infoRead" parameterType="int" resultType="com.bf.serviceCenter.dto.ServiceCenterDtoFre">
+		select * from board_frequency where num=#{num}
+	</select>
 	
 </mapper>

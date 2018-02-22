@@ -13,4 +13,8 @@ public interface ServiceCenterService {
 
 	void serviceCenterInfoRead(ModelAndView mav);
 
+	void serviceCenterInformationDownLoad(ModelAndView mav);
+
+	
+
 }

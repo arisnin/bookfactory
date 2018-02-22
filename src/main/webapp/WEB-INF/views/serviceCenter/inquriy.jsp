@@ -16,7 +16,7 @@
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link href="${root}/css/serviceCenter/inquriy.css"
 	type="text/css" rel="stylesheet">
-
+<script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
 
 <title>Insert title here</title>
 </head>
@@ -45,11 +45,15 @@
 		</div>
 	</div>
 
+	
 	<div class="serviceCenter_inquriy">
+		<form action = "${root }/serviceCenter/inquriyOk.do" method="post"
+		enctype="multipart/form-data" onsubmit="return inquriy(this)">
 		<div class="serviceCenter_inquriy_title">
-			리디북스 문의
+			북팩토리 문의
 		</div>
 
+		
 		<div class="serviceCenter_inquriy_name">
 			<div>제목<span class="star">*</span></div>
 			<div>
@@ -71,15 +75,13 @@
 					<option>-</option>
 					<option>이용 문의</option>
 					<option>오류 신고</option>
-					<option>제안</option>
+					<option>서비스제안</option>
 					<option>이벤트 문의</option>
 					<option>기타</option>
 				</select>
 			</div>
 		</div>
-
-
-
+		
 		<div class="serviceCenter_inquriy_call">
 			<div>연락 수단<span class="star">*</span></div>
 			<div class="serviceCenter_inquriy_call_list">
@@ -111,9 +113,11 @@
 		
 
 		<div class="serviceCenter_inquriy_sub">
-			<a class="bf-button" href="#">제출</a>
+			<input type="submit" class="bf-button" value="제출하기"/>
 		</div>
+		</form>
 		</div>
+		
 
 
 
