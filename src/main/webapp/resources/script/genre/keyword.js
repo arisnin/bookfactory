@@ -26,7 +26,7 @@ $(function(){
 	var maxTags=5;
 	
 	//키워드선택하기
-	$(".keyword_top_list_button li").click(function(){
+	$(".bf-custom-checkbox").click(function(){
 		maxTags=maxTags-1;
 		
 		if(maxTags==0){	

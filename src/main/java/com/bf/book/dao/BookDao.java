@@ -1,5 +1,6 @@
 package com.bf.book.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,5 +40,6 @@ public interface BookDao {
 	int getSecondCateNum(long book_num);
 	String getSecondCateName(long book_num);
 	String getPubName(long book_num);
+	int getTagListCount(String query);
 
 }

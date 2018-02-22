@@ -119,6 +119,7 @@ public class BookController {
 	public ModelAndView keyword(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView("genre/commons/keyword.main");
 		mav.addObject("request", request);
+		mav.addObject("response", response);
 		
 		bookService.keyword(mav);
 		
