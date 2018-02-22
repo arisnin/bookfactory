@@ -7,6 +7,7 @@ import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 import com.bf.myPage.dto.MyPagePurchasedPageDto;
 import com.bf.myPage.dto.MyPageRecentPageDto;
+import com.bf.order.dto.OrderDto;
 
 /**
  * @author	박성호
@@ -32,6 +33,9 @@ public interface MyPageDao {
 	int PurchasedDelete(String id, List<String> book_num);
 
 	int RecentDelete(String id);
+
+	int HistoryCashClick(OrderDto orderDto);
+
 
 
 }

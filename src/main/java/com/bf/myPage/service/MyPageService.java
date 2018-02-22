@@ -26,6 +26,8 @@ public interface MyPageService {
 	void purchasedDelete(ModelAndView mav);
 
 	void recentLookBookDelete(ModelAndView mav);
+
+	void myCashHistoryCashClick(ModelAndView mav);
 	
 
 }

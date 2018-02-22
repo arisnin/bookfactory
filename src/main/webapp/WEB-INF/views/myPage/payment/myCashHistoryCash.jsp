@@ -51,7 +51,7 @@
 					<li class="default">결제수단</li>
 				</ul>
 				<c:forEach var="myPageCashPageDto" items="${myPageCashPageDtoList}">
-				<ul class="mypoint_history_table_body" onclick="javasciprt:alert('결제내역')">
+				<ul class="mypoint_history_table_body" onclick="${root}/myCashHistoryCashClick.do">
 					<li class="default"><fmt:formatDate value = "${myPageCashPageDto.charge_date}" pattern="yyyy.MM.dd hh:mm"/></li>
 					<li class="division">${myPageCashPageDto.cash_type}</li>
 					<li class="main_value"><span><fmt:formatNumber value = "${myPageCashPageDto.charge_cash}" pattern="#,###"/></span>원</li>

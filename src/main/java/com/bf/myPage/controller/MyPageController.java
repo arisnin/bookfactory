@@ -198,6 +198,22 @@ public class MyPageController {
 	}
 	
 	/**
+	 * 마이페이지 > 마이캐시 > 충전내역 > 결제내역
+	 */
+	@RequestMapping(value="/payment/myCashHistoryCashClick.do")
+	public String myCashHistoryCashClick(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("MyCashHistoryCashClick()");
+		request.getSession().setAttribute("userInfoId", "user");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.myCashHistoryCashClick(mav);
+		
+		return "myPage/payment/myCashHistoryCashClick.my";
+	}
+	
+	/**
 	 * 마이페이지 > 마이포인트
 	 */
 	@RequestMapping(value="/payment/myPoint.do")

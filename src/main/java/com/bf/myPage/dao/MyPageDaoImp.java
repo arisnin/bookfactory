@@ -13,6 +13,7 @@ import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 import com.bf.myPage.dto.MyPagePurchasedPageDto;
 import com.bf.myPage.dto.MyPageRecentPageDto;
+import com.bf.order.dto.OrderDto;
 
 /**
  * @author	박성호
@@ -73,6 +74,12 @@ public class MyPageDaoImp implements MyPageDao {
 	@Override
 	public int RecentDelete(String id) {
 		return sqlSession.delete(nameSpace + "recent_delete", id);
+	}
+
+	@Override
+	public int HistoryCashClick(OrderDto orderDto) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

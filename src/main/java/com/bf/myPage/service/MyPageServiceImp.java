@@ -19,6 +19,7 @@ import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 import com.bf.myPage.dto.MyPagePurchasedPageDto;
 import com.bf.myPage.dto.MyPageRecentPageDto;
+import com.bf.order.dto.OrderDto;
 
 /**
  * @author	박성호
@@ -122,8 +123,6 @@ public class MyPageServiceImp implements MyPageService {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
-		//찾아봐랑
-		
 		User user = (User) request.getSession().getAttribute("userInfo");
 		String id = user.getUsername();
 		
@@ -159,8 +158,6 @@ public class MyPageServiceImp implements MyPageService {
 		
 		List<MyPageCashPageDto> myPageCashPageDtoList = myPageDao.myCashPageList(id);
 		LogAspect.info(myPageCashPageDtoList.size());
-		
-		// 멍청이
 		
 		int total = 0;
 		for(int i = 0; i < myPageCashPageDtoList.size(); i++){
@@ -274,6 +271,21 @@ public class MyPageServiceImp implements MyPageService {
 		
 		mav.addObject("check", check);
 		mav.setViewName("myPage/library/recentLookBookDelete.my");
+	}
+
+	@Override
+	public void myCashHistoryCashClick(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		
+		OrderDto orderDto = new OrderDto();
+		orderDto.setId(id);
+		
+		int check = myPageDao.HistoryCashClick(orderDto);
+		
 	}
 
 	
