@@ -11,14 +11,14 @@
 	 <c:if test="${check > 0}">
       <script type="text/javascript">
        alert("글쓰기 작성완료");
-         $(location).attr("href", "${root}/manager/boardInsert.do");
+         $(location).attr("href", "${root}/manager/boardContact.do?pageNumber=${pageNumber}");
       </script>
    </c:if>
    
    <c:if test="${check == 0}">
       <script type="text/javascript">
       	alert("글쓰기 실패");
-         $(location).attr("href", "${root}/manager/boardInsert.do");
+         $(location).attr("href", "${root}/manager/boardContact.do?pageNumber=${pageNumber}");
       </script>
    </c:if>
 </body>
