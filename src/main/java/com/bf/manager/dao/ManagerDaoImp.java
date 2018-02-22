@@ -391,6 +391,11 @@ public class ManagerDaoImp implements ManagerDao {
 	public int updateAuthor(AuthorDto authorDto) {
 		return sqlSession.update("com.bf.mapper.AuthorMapper.updateAuthor", authorDto);
 	}
+
+	@Override
+	public int authorCheckName(String name) {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.authorCheckName",name);
+	}
 	
 	
 }

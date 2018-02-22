@@ -1,0 +1,66 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<c:set var="root" value="${pageContext.request.contextPath}" />
+<title>마이리디, 최근 본 책</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="${root}/css/basic/reset.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/myPage/myRidi.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/myPage/library/purchasedAll.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/myPage/library/recentLookBook.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+	<div class="myridi-contents-page myridi-nearbyRead-box">
+		<section class="wrap-container myridi-purchased-box">
+			<!-- 타이틀 -->
+			<div class="bf-title-row title-type4">
+				<h3>최근 본 책</h3>
+			</div>
+			<div class="purchased-action-button">
+				<button class="bf-button bf-white-btn" type="button" onclick="javascript:alert('최근 본 책 전체삭제 미구현')">전체 삭제</button>
+			</div>
+		</section>
+		<!-- 최근 본 책 목록 -->
+		<div class="purchased-form-list-box">
+			<form name="purchased-form-list" method="post">
+				<ul class="ridi-book-list">
+					<c:forEach var="myRecentPageDto" items="${myPageRecentPageDtoList}">
+					<li class="ridi-book-item">
+						<div class="ridi-book-thumbnail">
+							<div class="ridi-book-thumbnail-image" onclick="javascript:alert('해당 도서 페이지 미구현')">
+								<img class="" src="${myRecentPageDto.img_path}"/>
+							</div>
+						</div>
+						<div class="ridi-book-metadata">
+							<h3 class="book-metadata-text">
+								<a href="javascript:alert('책 페이지')">${myRecentPageDto.book_name}</a>
+							</h3>
+							<p class="book-metadata-author">
+								<a class="book_metadata-author-link" href="javascript:alert('작가페이지')">${myRecentPageDtoauthor_name}</a>
+							</p>
+							<p class="book-metadata-publisher">
+								<a class="book-metadata-publisher-link" href="javascript:alert('출판사페이지')">문학사상</a>
+							</p>
+							<div class="content-star-rate">
+								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span> <span class="count-field">${myRecentPageDto.star_count}</span>
+							</div>
+						</div>
+					</li>
+					</c:forEach>
+				</ul>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
+	<script type="text/javascript" src="${root}/jquery/jquery.js"></script>
+	<script type="text/javascript">
+		document.querySelectorAll(".content-star-rate").forEach(function(item, index) {
+			createStarIcon(item, 3.7);
+		});
+	</script>
+</body>
+</html>
