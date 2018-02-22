@@ -21,6 +21,7 @@
 	<resources mapping="/font/**" location="/resources/font/" />
 	<resources mapping="/img/**" location="/resources/img/" />
 	<resources mapping="/icon/**" location="/resources/icon/" />
+	<resources mapping="/alert/**" location="/resources/alert/" />
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/*.json" location="/WEB-INF/views/book/"/>
 

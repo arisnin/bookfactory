@@ -3,6 +3,7 @@ package com.bf.order.dao;
 import java.util.List;
 
 import com.bf.book.dto.HomeDto;
+import com.bf.order.dto.OrderDto;
 
 /**
  * @author	박성호
@@ -24,6 +25,8 @@ public interface OrderDao {
 	public int oneCart_Wish(String id, int bookNum);	//카트 중복검사
 	
 	public int wishListInsert(int bookNum, String id);
+
+	public int paymentInsert(OrderDto orderDto);
 	
 
 }
