@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import com.bf.myPage.dto.MyPageCashChargeDto;
 import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
+import com.bf.myPage.dto.MyPagePurchasedPageDto;
+import com.bf.myPage.dto.MyPageRecentPageDto;
 
 /**
  * @author	박성호
@@ -45,6 +47,16 @@ public class MyPageDaoImp implements MyPageDao {
 	@Override
 	public List<MyPageCashPageDto> myCashPageList(String id) {
 		return sqlSession.selectList(nameSpace + "cash_page_select_list", id);
+	}
+
+	@Override
+	public List<MyPageRecentPageDto> MyRecentPageList(String id) {
+		return sqlSession.selectList(nameSpace + "recent_page_select_list", id);
+	}
+
+	@Override
+	public List<MyPagePurchasedPageDto> PurchasedPageList(String id) {
+		return sqlSession.selectList(nameSpace + "purchased_page_select_list", id);
 	}
 
 }

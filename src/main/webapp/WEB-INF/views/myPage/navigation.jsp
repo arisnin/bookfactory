@@ -29,7 +29,7 @@
 					<li class="menu-list-item"><a class="item-link" href="${root}/library/purchased.do" title="purchased">구매목록</a></li>
 					<li class="menu-list-item"><a class="item-link" href="${root}/library/noticeCenter.do">알림센터</a></li>
 					<li class="menu-list-item"><a class="item-link" href="${root}/library/newRelease.do">신간알림</a></li>
-					<li class="menu-list-item"><a class="item-link" href="${root}/library/nearbyRead.do">최근 본 책</a></li>
+					<li class="menu-list-item"><a class="item-link" href="${root}/library/recentLookBook.do">최근 본 책</a></li>
 					<li class="menu-list-item"><a class="item-link" href="${root}/library/preferBook.do">연재 선호작품</a></li>
 				</ul>
 			</div>
