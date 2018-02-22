@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.order.dto.OrderDto;
 import com.bf.order.service.OrderService;
 
 /**
@@ -146,6 +147,20 @@ public class OrderController {
 		mav.addObject("response", response);
 		orderService.wishListInsert(mav);
 		return null;
+	}
+	
+	/**
+	 * 구매목록 추가
+	 */
+	@RequestMapping(value = "/orderOk.do", method = RequestMethod.POST)
+	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response, OrderDto orderDto) {
+		LogAspect.info("payment()");
+		ModelAndView mav = new ModelAndView("order/orderOk.main");
+		mav.addObject("request", request);
+//		LogAspect.info(orderDto.toString());
+		mav.addObject("orderDto", orderDto);
+		orderService.payment(mav);
+		return mav;
 	}
 	
 }

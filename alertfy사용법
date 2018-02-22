@@ -1,0 +1,32 @@
+alertfy사용법
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" href="${root }/alert/alertify_core.css" />
+<link rel="stylesheet" href="${root }/alert/alertify_default.css" id="toggleCSS" />
+<script src="${root }/alert/alertifymin.js"></script>
+링크와 스크립트를 추가후(
+
+jquery안에 원하는 선택자와 원하는 이벤트를 넣은후 alertify.~~~ 를 입력하여 원하는 함수를 선택하여 사용한다.
+
+.confirm - 확인창
+
+.prompt - 입력창-alert이미지에 텍스트창이 나타난다.
+
+.alert - 일반 alert창
+
+.log - 화면 하단에 간단한 메세지가 나옴
+
+.success - 화면 하단에 성공 메세지가 나옴
+
+.error - 화면 하단에 에러 메세지가 나옴
+
+.set({delay:1/1000}) - 1/1000초 후 사라짐
+
+.set({ labels: {
+    ok     : "Accept", - 확인버튼 이름 및 버튼 강조
+    cancel : "Deny" - 취소버튼 이름
+}}
+
+.set({ buttonFocus: "cancel" }) - 원하는 버튼에 강조
+
+.set({ buttonReverse: true }) 버튼위치 변경	

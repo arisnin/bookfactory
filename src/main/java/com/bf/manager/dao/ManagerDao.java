@@ -1,5 +1,6 @@
 package com.bf.manager.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.bf.manager.dto.AuthorDto;
@@ -137,5 +138,14 @@ public interface ManagerDao {
 
 	public int updateAuthor(AuthorDto authorDto);
 
+	public int authorCheckName(String name);
+
+	public int insertKeyWord(String name);
+
+	public int keyNameCheck(String keyName);
+
+	public int bookKeyWordCheck(String keyName, int currentNum);
+
+	public void insertKeyWordList(String keyName, int currentNum);
 
 }

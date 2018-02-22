@@ -18,6 +18,16 @@ public interface MyPageService {
 	void myCashHistoryCash(ModelAndView mav);
 
 	void myCash(ModelAndView mav);
+
+	void recentLookBook(ModelAndView mav);
+
+	void purchased(ModelAndView mav);
+
+	void purchasedDelete(ModelAndView mav);
+
+	void recentLookBookDelete(ModelAndView mav);
+
+	void myCashHistoryCashClick(ModelAndView mav);
 	
 
 }

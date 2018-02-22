@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 
 <html>
@@ -72,9 +73,9 @@
 							<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
 							<li>${freDtoList.num}</li>
 							<li>${freDtoList.title}</li>
-							<li>${freDtoList.content}</li>
+							<li><c:out value="${fn:substring(freDtoList.content,0,10)}" />...</li>
 							<li><fmt:formatDate value="${freDtoList.write_date}" pattern="yyyy-MM-dd" /></li>
-							<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardUpdate.do?pageNumber='${pageNumber}'">수정</button></li>
+							<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardUpdate.do?pageNumber=${pageNumber}&num=${freDtoList.num}'">수정</button></li>
 							<li><button type="button" class="bf-button sh_list_delete">삭제</button></li>
 						</ul>
 					</c:forEach>

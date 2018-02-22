@@ -87,12 +87,16 @@ public class BookController {
 	}
 
 	/**
-	 * 단행본 > 책 상세보기
+	 * 책(일반, 만화, 단행본) > 책 상세보기
 	 */
 	@RequestMapping(value = "/detail.do", method = RequestMethod.GET)
-	public String bookPlus(HttpServletRequest request, HttpServletResponse response) {
-
-		return "book/plus.main";
+	public ModelAndView bookDetail(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("book/plus.main");
+		mav.addObject("request", request);
+		
+		bookService.bookDetail(mav);
+		
+		return mav;
 	}
 
 	/**
@@ -114,12 +118,17 @@ public class BookController {
 	}
 
 	/**
-	 * 홈 > 키워드검색
+	 * 일반 제외 홈화면들 > 키워드검색
 	 */
 	@RequestMapping(value = "/keyword.do", method = RequestMethod.GET)
-	public String keyword(HttpServletRequest request, HttpServletResponse response) {
-
-		return "genre/commons/keyword.main";
+	public ModelAndView keyword(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("genre/commons/keyword.main");
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		
+		bookService.keyword(mav);
+		
+		return mav;
 	}
 
 	/**

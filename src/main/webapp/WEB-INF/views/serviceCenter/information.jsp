@@ -16,6 +16,7 @@
 	type="text/css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
 
 <title>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</title>
 </head>
@@ -58,7 +59,7 @@
 
 				<div class="service_information_list">
 				<c:forEach var="infoDto" items="${infoList }"	>
-					<div><a href="${root }/serviceCenter/information_content1.do">${infoDto.title}</a></div>
+					<div><a href="javascript:readFun('${root}','${infoDto.num}')">${infoDto.title}</a></div>
 				</c:forEach>					
 				</div>
 			</div>

@@ -1,5 +1,6 @@
 package com.bf.manager.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -391,6 +392,37 @@ public class ManagerDaoImp implements ManagerDao {
 	public int updateAuthor(AuthorDto authorDto) {
 		return sqlSession.update("com.bf.mapper.AuthorMapper.updateAuthor", authorDto);
 	}
+
+	@Override
+	public int authorCheckName(String name) {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.authorCheckName",name);
+	}
+
+	@Override
+	public int insertKeyWord(String name) {
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertKeyWord",name);
+	}
 	
+	@Override
+	public int keyNameCheck(String keyName) {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.keyNameCheck",keyName);
+	}
+	
+	@Override
+	public int bookKeyWordCheck(String keyName, int currentNum) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		map.put("keyName", keyName);
+		map.put("currentNum", currentNum);
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.bookKeyWordCheck",map);
+	}
+	
+	@Override
+	public void insertKeyWordList(String keyName, int currentNum) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		int keyNum = sqlSession.selectOne("com.bf.mapper.BookMapper.getKeyWordNum",keyName);
+		map.put("keyNum", keyNum);
+		map.put("currentNum", currentNum);
+		sqlSession.insert("com.bf.mapper.BookMapper.insertKeyWordList",map);
+	}
 	
 }

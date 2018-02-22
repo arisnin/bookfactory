@@ -112,6 +112,15 @@ public class ManagerController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/authorNameCheck.do", method = RequestMethod.GET)
+	public ModelAndView authorNameCheck(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.authorNameCheck(mav);
+		return null;
+	}
+	
 	@RequestMapping(value="/bookInsert.do",method=RequestMethod.GET)
 	public ModelAndView bookInsert(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("book/insert.mg");
@@ -352,5 +361,13 @@ public class ManagerController {
 		mav.addObject("request", request);
 		managerService.insertCateThree(mav);
 		return mav;
+	}
+	
+	@RequestMapping(value = "/keyword.do", method = RequestMethod.GET)
+	public ModelAndView keyword(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("book/keyword.mg");
+		mav.addObject("request", request);
+		managerService.keyword(mav);
+		return null;
 	}
 }

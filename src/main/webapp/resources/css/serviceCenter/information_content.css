@@ -41,19 +41,20 @@
 }
 
 .service_information_cn_cn_left{
+	margin-top:0.5rem;
 	width: 13rem;
 	display: inline-block;
 }
 
 .service_information_cn_cn_right{
-	width: 39rem;
+	width: 42rem;
 	display: inline-block;
 	float: right;
 }
 
 .service_information_cn_cn li{
 	list-style: square;
-	margin-left: 1.2rem;
+	margin-right: 1.2rem;
 	margin-bottom: 0.3rem;
 	line-height: 1.4rem;
 }
@@ -96,9 +97,7 @@
 	margin: 0px 0.5rem;	
 }
 
-.service_information_cn_cn_left li:nth-child(1){
-	background-color: #F3F0FA;
-}
+
 
 .service_information_cn_cn_right .bf-button.bf-transparent-btn.bf-animated-btn{
 	color: #776bce;
@@ -121,4 +120,8 @@
  	font-weight: bold;
  	margin-top: 0.2rem;
  	line-height: 2.7rem;
+}
+
+.service_information_cn div.service_information_cn_cn_left > ul li.active{
+	background-color:#776bce60;;
 }

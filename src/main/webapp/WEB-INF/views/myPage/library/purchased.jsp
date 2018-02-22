@@ -43,242 +43,35 @@
 					</label>
 				</div>
 				<div class="purchased-action-button">
-					<button class="bf-button bf-white-btn" type="button">영구삭제</button>
+					<button class="bf-button bf-white-btn" type="button" onclick="everLastingDelete()">영구삭제</button>
 					<button class="bf-button" type="button" onclick="alert('미구현 기능입니다.')">다운로드</button>
 				</div>
 			</div>
 			<!-- 구매목록 출력  -->
 			<div class="purchased-form-list-box">
-				<form name="purchased-form-list" method="post">
+				<form name="purchased-form-list" method="post" onsubmit="return purchasedForm(this)" action="${root}/library/purchasedDelete.do">
 					<ul class="mf-book-list">
+						<c:forEach var="myPurchasedPageDto" items="${myPagePurchasedPageDtoList}">
 						<li class="mf-book-item">
 							<div class="mf-book-checkbox">
 								<label class="bf-custom-checkbox">
-									<input type="checkbox" title="구매목록 책 선택" />
+									<input type="checkbox" title="구매목록 책 선택" name="book_num" value="${myPurchasedPageDto.book_num}"/>
 									<span class="all-mark"></span>
 								</label>
 							</div>
 							<div class="mf-book-thumbnail">
 								<div class="mf-book-thumbnail-image">
-									<img class="" src="//misc.ridibooks.com/cover/111000138/large" alt="image" />
+									<img class="" src="${myPurchasedPageDto.img_path}"/>
 								</div>
 							</div>
 							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text">운현궁의 봄</h3>
+								<h3 class="book-metadata-text">${myPurchasedPageDto.book_name}</h3>
 								<p class="book-metadata-author">
-									<a class="" href="javascript:alert('작가페이지')">김동인</a>
+									<a class="" href="javascript:alert('작가페이지')">${myPurchasedPageDto.author_name}</a>
 								</p>
 							</div>
 						</li>
-						<li class="mf-book-item">
-							<div class="mf-book-checkbox">
-								<label class="bf-custom-checkbox">
-									<input type="checkbox" title="구매목록 책 선택" />
-									<span class="all-mark"></span>
-								</label>
-							</div>
-							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image">
-									<img class="" src="//misc.ridibooks.com/cover/111014017/large" />
-								</div>
-							</div>
-							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text">추리 스릴러 길라잡이</h3>
-								<p class="book-metadata-author">
-									<a class="" href="javascript:alert('작가페이지')">리디북스 콘텐츠팀</a>
-								</p>
-							</div>
-						</li>
-						<li class="mf-book-item">
-							<div class="mf-book-checkbox">
-								<label class="bf-custom-checkbox">
-									<input type="checkbox" title="구매목록 책 선택" />
-									<span class="all-mark"></span>
-								</label>
-							</div>
-							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image">
-									<img class="" src="//misc.ridibooks.com/cover/682000659/large" />
-								</div>
-							</div>
-							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text">[체험판] 데프 보이스</h3>
-								<p class="book-metadata-author">
-									<a class="" href="javascript:alert('작가페이지')">마루야마 마사키</a>
-								</p>
-							</div>
-						</li>
-						<li class="mf-book-item">
-							<div class="mf-book-checkbox">
-								<label class="bf-custom-checkbox">
-									<input type="checkbox" title="구매목록 책 선택" />
-									<span class="all-mark"></span>
-								</label>
-							</div>
-							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image">
-									<img class="" src="//misc.ridibooks.com/cover/945012245/large" />
-								</div>
-							</div>
-							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text">책을 읽으면 경험이 쌓여! 1화</h3>
-								<p class="book-metadata-author">
-									<a class="" href="javascript:alert('작가페이지')">형상준</a>
-								</p>
-							</div>
-						</li>
-						<li class="mf-book-item">
-							<div class="mf-book-checkbox">
-								<label class="bf-custom-checkbox">
-									<input type="checkbox" title="구매목록 책 선택" />
-									<span class="all-mark"></span>
-								</label>
-							</div>
-							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image">
-									<img class="" src="//misc.ridibooks.com/cover/3026000001/large" />
-								</div>
-							</div>
-							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text">이스닐다 1화</h3>
-								<p class="book-metadata-author">
-									<a class="" href="javascript:alert('작가페이지')">리모란</a>
-								</p>
-							</div>
-						</li>
-						<li class="mf-book-item">
-							<div class="mf-book-checkbox">
-								<label class="bf-custom-checkbox">
-									<input type="checkbox" title="구매목록 책 선택" />
-									<span class="all-mark"></span>
-								</label>
-							</div>
-							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image">
-									<img class="" src="//misc.ridibooks.com/cover/3026000001/large" />
-								</div>
-							</div>
-							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text">이스닐다 1화</h3>
-								<p class="book-metadata-author">
-									<a class="" href="javascript:alert('작가페이지')">리모란</a>
-								</p>
-							</div>
-						</li>
-						<li class="mf-book-item">
-							<div class="mf-book-checkbox">
-								<label class="bf-custom-checkbox">
-									<input type="checkbox" title="구매목록 책 선택" />
-									<span class="all-mark"></span>
-								</label>
-							</div>
-							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image">
-									<img class="" src="//misc.ridibooks.com/cover/3026000001/large" />
-								</div>
-							</div>
-							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text">이스닐다 1화</h3>
-								<p class="book-metadata-author">
-									<a class="" href="javascript:alert('작가페이지')">리모란</a>
-								</p>
-							</div>
-						</li>
-						<li class="mf-book-item">
-							<div class="mf-book-checkbox">
-								<label class="bf-custom-checkbox">
-									<input type="checkbox" title="구매목록 책 선택" />
-									<span class="all-mark"></span>
-								</label>
-							</div>
-							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image">
-									<img class="" src="//misc.ridibooks.com/cover/3026000001/large" />
-								</div>
-							</div>
-							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text">이스닐다 1화</h3>
-								<p class="book-metadata-author">
-									<a class="" href="javascript:alert('작가페이지')">리모란</a>
-								</p>
-							</div>
-						</li>
-						<li class="mf-book-item">
-							<div class="mf-book-checkbox">
-								<label class="bf-custom-checkbox">
-									<input type="checkbox" title="구매목록 책 선택" />
-									<span class="all-mark"></span>
-								</label>
-							</div>
-							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image">
-									<img class="" src="//misc.ridibooks.com/cover/3026000001/large" />
-								</div>
-							</div>
-							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text">이스닐다 1화</h3>
-								<p class="book-metadata-author">
-									<a class="" href="javascript:alert('작가페이지')">리모란</a>
-								</p>
-							</div>
-						</li>
-						<li class="mf-book-item">
-							<div class="mf-book-checkbox">
-								<label class="bf-custom-checkbox">
-									<input type="checkbox" title="구매목록 책 선택" />
-									<span class="all-mark"></span>
-								</label>
-							</div>
-							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image">
-									<img class="" src="//misc.ridibooks.com/cover/3026000001/large" />
-								</div>
-							</div>
-							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text">이스닐다 1화</h3>
-								<p class="book-metadata-author">
-									<a class="" href="javascript:alert('작가페이지')">리모란</a>
-								</p>
-							</div>
-						</li>
-						<li class="mf-book-item">
-							<div class="mf-book-checkbox">
-								<label class="bf-custom-checkbox">
-									<input type="checkbox" title="구매목록 책 선택" />
-									<span class="all-mark"></span>
-								</label>
-							</div>
-							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image">
-									<img class="" src="//misc.ridibooks.com/cover/3026000001/large" />
-								</div>
-							</div>
-							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text">이스닐다 1화</h3>
-								<p class="book-metadata-author">
-									<a class="" href="javascript:alert('작가페이지')">리모란</a>
-								</p>
-							</div>
-						</li>
-						<li class="mf-book-item">
-							<div class="mf-book-checkbox">
-								<label class="bf-custom-checkbox">
-									<input type="checkbox" title="구매목록 책 선택" />
-									<span class="all-mark"></span>
-								</label>
-							</div>
-							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image">
-									<img class="" src="//misc.ridibooks.com/cover/3026000001/large" />
-								</div>
-							</div>
-							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text">이스닐다 1화</h3>
-								<p class="book-metadata-author">
-									<a class="" href="javascript:alert('작가페이지')">리모란</a>
-								</p>
-							</div>
-						</li>
+						</c:forEach>
 					</ul>
 				</form>
 			</div>
@@ -287,5 +80,20 @@
 	</div>
 	<!-- 자바 스크립트 -->
 	<script type="text/javascript" src="${root}/script/myPage/myPage.js"></script>
+	<script type="text/javascript">
+		function purchasedForm(obj){
+			var cbox = $(":input[name=book_num]:checkbox:checked");
+			
+			if(!cbox.val()){
+				alert("삭제할 책을 선택하세요");
+				cbox.focus();
+				return false;
+			}
+		}
+	
+		function everLastingDelete(){
+			$("form[name=purchased-form-list]").submit();
+		}
+	</script>
 </body>
 </html>

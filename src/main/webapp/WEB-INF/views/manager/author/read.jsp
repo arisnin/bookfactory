@@ -73,22 +73,11 @@
 				</div>
 				<div align="right">
 					<button class="bf-button" onclick="goUpdate('${root}/manager/authorUpdate.do?num=${authorDto.num}')">수정하기</button>
-					<button class="bf-button" onclick="history.back()">뒤로가기</button>
+					<button class="bf-button" onclick="goBack('${root}/manager/authorSearch.do?')">뒤로가기</button>
 				</div>
 			</div>
 		</section>
 	</div>
 	<input type="hidden" name="href">
-	<script type="text/javascript">
-		function goUpdate(url){
-			location.href=url + $("input[name=href]").val();
-		}
-		if("${param.searchWord}" != ""){
-			$("input[name=href]").val($("input[name=href]").val()+"&searchWord=${param.searchWord}");
-		}
-		if("${param.pageNumber}" != ""){
-			$("input[name=href]").val($("input[name=href]").val()+"&pageNumber=${param.pageNumber}");
-		}
-	</script>
 </body>
 </html>

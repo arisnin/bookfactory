@@ -14,6 +14,7 @@ import com.bf.aop.LogAspect;
 import com.bf.book.dto.HomeDto;
 import com.bf.member.model.User;
 import com.bf.order.dao.OrderDao;
+import com.bf.order.dto.OrderDto;
 
 /**
  * @author 박성호
@@ -130,4 +131,21 @@ public class OrderServiceImp implements OrderService {
 		}
 		// System.out.println(check);
 	}
+
+	@Override
+	public void payment(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		OrderDto orderDto = (OrderDto) mav.getModelMap().get("orderDto");
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		orderDto.setId(id);
+		orderDto.setOrder_num(System.currentTimeMillis());
+		orderDto.setPresent_check("no");
+		orderDto.setCancel_check("no");
+		orderDto.setRental_state("no");
+		orderDto.setFree_pass("no");
+		int check = orderDao.paymentInsert(orderDto);
+		mav.addObject("check", check);
+	}
+	
 }

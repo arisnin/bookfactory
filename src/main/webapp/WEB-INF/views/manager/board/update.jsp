@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,57 +18,77 @@
 	<div id="sh_board_update">
 		<div class="sh_board_update_header">
 			<div class="sh_main_text">게시판관리(자주하는 질문 등록)</div>
-			<div class="sh_board_update_main">
+			<form action="${root}/manager/boardupdateOk.do" method="post" enctype="multipart/form-data">
 				<div id="sh_board_shadow">
-					<div class="sh_board_update_search">
-						<ul>
-							<li><span>제목</span></li>
-							<li><input type="text" placeholder=" 제목입력"></li>
-							<li><span>문의유형</span></li>
-							<li><select id="sh_board_update_change">
-									<option>대분류</option>
-									<option value="member">회원/이용 관련</option>
-									<option value="pay">결제관련</option>
-									<option value="update">업데이트/오류</option>
-							</select></li>
-							<li><select id="sh_board_update_1">
-									<option>중분류</option>
-									<optgroup label="------------------------------------------------------------------" class="member" style="display: none;">
-										<option>회원가입</option>
-										<option>로그인/비밀번호</option>
-										<option>성인인증</option>
-										<option>회원탈퇴</option>
-									</optgroup>
-									<optgroup label="------------------------------------------------------------------" class="pay" style="display: none;">
-										<option>적립금/포인트</option>
-										<option>리디캐시</option>
-										<option>쿠폰</option>
-										<option>신용카드 결제</option>
-										<option>휴대폰결제</option>
-										<option>현금 결제</option>
-									</optgroup>
-									<optgroup label="------------------------------------------------------------------" class="update" style="display: none;">
-										<option>인터넷오류</option>
-										<option>성인인증오류</option>
-										<option>화면 오류</option>
-										<option>버튼 오류</option>
-										<option>시스템 업그레이드 </option>
-									</optgroup>
-							</select></li>
-							<li><span>파일첨부</span></li>
-							<li><input type="file" class="bf-button bf-white-btn" style="width: 48rem; height: 1.9rem;"></li>
-							<li><span>내용</span></li>
-							<li><textarea class="sh_reply_text"></textarea></li>
-						</ul>
+					<div class="sh_board_update_main">
+
+						<div class="sh_board_update_search">
+
+							<ul>
+								<li><span>제목</span></li>
+								<li><input type="text" name="title" value="${boardFreqDto.title}"></li>
+								<li><span>문의유형</span></li>
+								<li><select id="sh_board_update_change" name="catecory_1">
+										<option>대분류</option>
+										<c:forEach var="cate1" items="${cateList}" begin="0" end="2">
+											<option value="${cate1.num}" selected="${boardFreqDto.qcate1_name}">${cate1.name}</option>
+										</c:forEach>
+
+								</select></li>
+								<li><select id="sh_board_update_1" name="catecory_2">
+										<option>중분류</option>
+										<optgroup label="--------------------------------------" class="1" style="display: none;">
+											<c:forEach var="cate2" items="${cateList2}" begin="0" end="3">
+												<option value="${cate2.num}" selected="${boardFreqDto.qcate2_name}">${cate2.name}</option>
+											</c:forEach>
+
+										</optgroup>
+										<optgroup label="--------------------------------------" class="2" style="display: none;">
+											<c:forEach var="cate2" items="${cateList2}" begin="4" end="8">
+												<option value="${cate2.num}" selected="${boardFreqDto.qcate2_name}">${cate2.name}</option>
+											</c:forEach>
+										</optgroup>
+										<optgroup label="--------------------------------------" class="3" style="display: none;">
+											<c:forEach var="cate2" items="${cateList2}" begin="9" end="13">
+												<option value="${cate2.num}" selected="${boardFreqDto.qcate2_name}">${cate2.name}</option>
+											</c:forEach>
+										</optgroup>
+								</select></li>
+								<li><span>파일첨부</span></li>
+								<li><c:choose>
+										<c:when test="${boardFreqDto.file_size > 0}">
+											<a href="javascript:location.href='${root}/manager/boardDownload.do?num=${boardFreqDto.num}&pageNumber=${param.pageNumber}'">
+													${boardFreqDto.file_name}</a>
+										</c:when>
+										<c:otherwise>
+											<div>
+												<span>파일명</span> <input type="file" name="file" size="40"/>
+											</div>
+										</c:otherwise>
+										
+									</c:choose>
+								<li><span>내용</span></li>
+								<li><textarea class="sh_reply_text" name="content">${boardFreqDto.content}</textarea></li>
+							</ul>
+						</div>
+						<input type="hidden" name="num" value="${boardFreqDto.num}"> 
+						<input type="hidden" name="title" value="${boardFreqDto.title}">
+						<%-- <input type="hidden" name="file_name" value="${boardFreqDto.file_name}"> --%> 
+						<input type="hidden" name="content" value="${boardFreqDto.content}"> 
+						<input type="hidden" name="qcate2_name" value="${boardFreqDto.qcate2_name}"> 
+						<input type="hidden" name="qcate1_name" value="${boardFreqDto.qcate1_name}"> 
+			
+						 
+						<input type="hidden" name="pageNumber" value="${pageNumber}">
+
 					</div>
 					<div class="sh_board_update_content">
-						<button type="button" class="bf-button">등록</button>
-						<input type="reset" value="취소" class="bf-button" />
+
+						<button type="submit" class="bf-button">등록</button>
+						<input type="reset" value="취소" class="bf-button"></input>
 					</div>
-
 				</div>
-
-			</div>
+			</form>
 		</div>
 	</div>
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
@@ -77,15 +98,16 @@
 	<script type="text/javascript" src="${root}/script/manager/total.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			$("#sh_board_update_change").change(function() {
+			$("#sh_board_update_change").change(
+					function() {
 						var value = $(this).val();
 						var me = $("#sh_board_update_1").find("." + value);
 						me.css("display", "block");
-						$("#sh_board_update_1 >optgroup").not(me).css("display","none");
-						$("#sh_board_update_1 >option").prop("selected",true);
-				}); 
-			});
-
+						$("#sh_board_update_1 >optgroup").not(me).css(
+								"display", "none");
+						$("#sh_board_update_1 >option").prop("selected", true);
+					});
+		});
 	</script>
 </body>
 </html>

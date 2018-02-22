@@ -7,8 +7,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>책등록확인창</title>
 	<c:set var="root" value="${pageContext.request.contextPath}"/>
+	<link rel="stylesheet" href="${root }/alert/alertify_core.css" />
+	<link rel="stylesheet" href="${root }/alert/alertify_default.css" id="toggleCSS" />	
 </head>
 <body>
+	<script src="${root }/alert/alertifymin.js"></script>
+
 	<c:if test="${check > 0}">
 		<script type="text/javascript">
 			alert("책등록 완료");

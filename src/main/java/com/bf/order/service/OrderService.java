@@ -23,4 +23,6 @@ public interface OrderService {
 
 	public void getWish(ModelAndView mav);
 
+	public void payment(ModelAndView mav);
+
 }

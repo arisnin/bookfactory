@@ -1,5 +1,6 @@
 package com.bf.book.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
+import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
 
@@ -18,7 +20,21 @@ import com.bf.book.dto.NewBookDto;
  * @author 박성호
  * @date 2018. 2. 14.
  * @description 대분류별 보기 / 책 상세보기 관련 DAO 구현 클래스
+ * 
+ * @author choi jung eun
+ * @date 2018. 2. 22.
+ * @description 화면에 책정보 보여주기, 상세보기 등 구현 
+ * 
+ *   SELECT bm.img_path "img_path", bm.NAME "book_name", A.NAME "author_name", rs."star_point", rs."star_count" FROM bookm bm, (
+  SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num FROM review
+  GROUP BY book_num
+) rs, author a
+WHERE bm.book_num = rs.book_num
+AND bm.author_num = a.num;
+
+책 정보 + 별점평균 + 별점평가수 같이 나오는 쿼리
  */
+
 @Component
 public class BookDaoImp implements BookDao {
 	@Autowired
@@ -115,9 +131,58 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.selectOne("getPaperNewBookCount", cateMap);
 	}
 
-	@Override
+	@Override	//단행본인 아이들 신권 리스트 가져오기
 	public List<NewBookDto> getPaperNewBookList(HashMap<String, String> cateMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getPaperNewBookList", cateMap);
 	}
+
+	@Override	//카테고리 중복인 아이들 뽑아내기
+	public int getOverlapThirdCate(long book_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getOverlapThirdCate", book_num);
+	}
+
+	@Override	//카테고리 중복인 아이들 이름 뽑아내기
+	public List<String> getOverlapCateName(long book_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getOverlapCateName", book_num);
+	}
+
+	@Override	//카테고리 중복인 아이들 번호 뽑아내기
+	public int getThirdCateNum(String third_cate_name) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getThirdCateNum", third_cate_name);
+	}
+
+	@Override	//책 상세보기 정보 가져오기
+	public DetailDto getBookAllInfo(long book_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getBookAllInfo", book_num);
+	}
+
+	@Override	//두번째 카테고리 번호가져오기
+	public int getSecondCateNum(long book_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getSecondCateNum", book_num);
+	}
+
+	@Override	//두번째 카테고리 이름 가져오기
+	public String getSecondCateName(long book_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getSecondCateName", book_num);
+	}
+
+	@Override	//출판사 이름 가져오기
+	public String getPubName(long book_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getPubName", book_num);
+	}
+
+	@Override
+	public int getTagListCount(String query) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getTagListCount", query);
+	}
+
 }

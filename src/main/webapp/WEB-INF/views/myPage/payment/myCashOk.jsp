@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="root" value = "${pageContext.request.contextPath}"/>
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
-<title>ridiCashOk(결제 완료)</title>
+<title>myCashOk(결제 완료)</title>
 </head>
 <body>
 	<c:if test="${check2 > 0}">

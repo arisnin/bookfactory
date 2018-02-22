@@ -1,11 +1,13 @@
 package com.bf.book.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
+import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
 
@@ -31,5 +33,13 @@ public interface BookDao {
 	List<HomeDto> getPaperHomeBookInfoList(HashMap<String, Integer> map);
 	int getPaperNewBookCount(HashMap<String, String> cateMap);
 	List<NewBookDto> getPaperNewBookList(HashMap<String, String> cateMap);
+	int getOverlapThirdCate(long book_num);
+	List<String> getOverlapCateName(long book_num);
+	int getThirdCateNum(String third_cate_name);
+	DetailDto getBookAllInfo(long book_num);
+	int getSecondCateNum(long book_num);
+	String getSecondCateName(long book_num);
+	String getPubName(long book_num);
+	int getTagListCount(String query);
 
 }
