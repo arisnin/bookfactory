@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
-Built-By: STST3
+<<<<<<< HEAD
+Built-By: sist
 Build-Jdk: 1.8.0_144
+=======
+Built-By: sist3
+Build-Jdk: 1.8.0_151
+>>>>>>> 3ac6a48360e3b0c49c2ebcb408fbd83d3ba36bfb
 Created-By: Maven Integration for Eclipse
 

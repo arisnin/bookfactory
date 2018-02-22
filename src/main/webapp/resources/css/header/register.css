@@ -15,7 +15,7 @@
     margin-right: 0.625rem;
 }
 .hw_accheck:before{
-	content: url("../../img/register/checkbox-black.png") !important;
+	content: url("../../img/register/checkbox-limegreen.png") !important;
 	top: 5px;
     left: 3px;
     position: relative;
@@ -282,4 +282,59 @@
 	display: inline-block;
 	float: left;
 	width: 100%;
+}
+
+/**/
+.hw_register_wrap input.valid {
+	color: limegreen;
+	background: #ddfaea;
+}
+
+.hw_register_wrap input.invalid {
+	color: red;
+	background: #fddfdc;
+}
+
+@-webkit-keyframes autofill-default {
+    to {
+        color: #333;
+        background: white;
+    }
+}
+
+@-webkit-keyframes autofill-valid {
+    to {
+        color: limegreen;
+        background: #ddfaea;
+    }
+}
+
+@-webkit-keyframes autofill-invalid {
+    to {
+        color: red;
+        background: #fddfdc;
+    }
+}
+
+.hw_register_wrap input:-webkit-autofill {
+    -webkit-animation-name: autofill-default;
+    -webkit-animation-fill-mode: both;
+}
+
+.hw_register_wrap input.valid:-webkit-autofill {
+    -webkit-animation-name: autofill-valid;
+    -webkit-animation-fill-mode: both;
+}
+
+.hw_register_wrap input.invalid:-webkit-autofill {
+    -webkit-animation-name: autofill-invalid;
+    -webkit-animation-fill-mode: both;
+}
+
+.hw_register_wrap div.valid {
+	border: 2px solid limegreen;
+}
+
+.hw_register_wrap div.invalid {
+	border: 2px solid red;
 }

@@ -182,5 +182,11 @@
 		select nvl(max(num),0) from THIRD_CATE
 	</select>
 	
+	<select id="getBookList" parameterType="int" resultType="com.bf.manager.dto.BookDto">
+		SELECT B.* FROM BOOKM B, AUTHOR A 
+		WHERE A.NUM IN (B.AUTHOR_NUM, B.TRANSLATOR_NUM, B.ILLUSTRATOR_NUM) AND A.NUM = #{author_num}
+		order by B.PREFERENCE
+	</select>
+	
 </mapper>
 

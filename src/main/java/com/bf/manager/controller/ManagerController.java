@@ -39,7 +39,6 @@ public class ManagerController {
 	
 	@RequestMapping(value="/authorInsert.do",method=RequestMethod.GET)
 	public ModelAndView authorInsert(HttpServletRequest request, HttpServletResponse response) {
-
 		ModelAndView mav = new ModelAndView("author/insert.mg");
 		managerService.authorInsert(mav);
 		return mav;
@@ -62,19 +61,64 @@ public class ManagerController {
 		
 		return mav;
 	}
-
+	
+	@RequestMapping(value = "/authorRead.do", method = RequestMethod.GET)
+	public ModelAndView authorRead(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("author/read.mg");
+		mav.addObject("request", request);
+		managerService.authorRead(mav);
+		return mav;
+	}
+	
 	@RequestMapping(value = "/authorUpdate.do", method = RequestMethod.GET)
-	public ModelAndView authorUpdate() {
+	public ModelAndView authorUpdate(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("author/update.mg");
-		LogAspect.info("authorUpdate()");
+		mav.addObject("request", request);
+		managerService.authorUpdate(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/authorUpdateOk.do", method = RequestMethod.POST)
+	public ModelAndView authorUpdateOk(HttpServletRequest request, HttpServletResponse response,
+			AuthorDto authorDto) {
+		ModelAndView mav = new ModelAndView("author/updateOk.mg");
+		mav.addObject("request", request);
+		mav.addObject("authorDto", authorDto);
+		managerService.authorUpdateOk(mav);
+		return mav;
+	}
+
+	@RequestMapping(value = "/authorUpdateBoard.do", method = RequestMethod.GET)
+	public ModelAndView authorUpdateBoard() {
+		ModelAndView mav = new ModelAndView("author/updateBoard.mg");
+		LogAspect.info("authorUpdateBoard()");
 		return mav;
 	}
 
 	@RequestMapping(value = "/authorUpdateRead.do", method = RequestMethod.GET)
-	public ModelAndView authorUpdateRead() {
+	public ModelAndView authorUpdateRead(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("author/updateRead.mg");
-		LogAspect.info("authorUpdateRead()");
+		mav.addObject("request", request);
+		managerService.authorUpdateRead(mav);
 		return mav;
+	}
+	
+	@RequestMapping(value = "/authorUpdateReadOk.do", method = RequestMethod.POST)
+	public ModelAndView authorUpdateReadOk(HttpServletRequest request, HttpServletResponse response,
+			AuthorDto authorDto) {
+		ModelAndView mav = new ModelAndView("author/updateReadOk.mg");
+		mav.addObject("authorDto", authorDto);
+		managerService.authorUpdateReadOk(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/authorNameCheck.do", method = RequestMethod.GET)
+	public ModelAndView authorNameCheck(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.authorNameCheck(mav);
+		return null;
 	}
 	
 	@RequestMapping(value="/bookInsert.do",method=RequestMethod.GET)

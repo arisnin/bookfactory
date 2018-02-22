@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bf.mapper.ServiceCenterMapper">
+	
+	<!-- 김동환 / 고객센터 -->
+	<select id="infoCount" resultType="int">
+			select count(*) from board_frequency
+	</select>
+	
+	<select id="infoMain" parameterType="int" resultType="com.bf.serviceCenter.dto.ServiceCenterDtoFre">
+		select title from board_frequency
+	</select>
+	
+	
+</mapper>

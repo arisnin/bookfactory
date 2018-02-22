@@ -44,7 +44,7 @@ import com.bf.manager.dto.PublisherSearchDto;
 /**
  * @이름: 염현우 X 전상헌
  * @날짜: 2018. 2. 12.
- * @설명:
+ * @설명: 관리자 페이지 서비스 메뉴 [도서, 출판사, 작가, 통계]
  */
 @Component
 public class ManagerServiceImp implements ManagerService {
@@ -180,9 +180,105 @@ public class ManagerServiceImp implements ManagerService {
 		if(authorDto.getAwards() == null)	authorDto.setAwards("-");
 		if(authorDto.getLink() == null)	authorDto.setLink("-");
 		if(authorDto.getDescribe() == null)	authorDto.setDescribe("-");
+		authorDto.setDescribe(authorDto.getDescribe().replace("\n",	"<br>"));
 		
 		int check = managerDao.authorInsertOk(authorDto);
 		
+		mav.addObject("check", check);
+	}
+	
+	@Override
+	public void authorUpdate(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		List<CountryDto> countryList = managerDao.getCountry();
+		int num = Integer.parseInt(request.getParameter("num"));
+		AuthorDto authorDto = managerDao.getAuthor(num);
+		authorDto.setDescribe(authorDto.getDescribe().replace("<br>", "\n"));
+		
+		
+		mav.addObject("authorDto", authorDto);
+		mav.addObject("countryList", countryList);
+	}
+	
+	@Override
+	public void authorUpdateOk(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		AuthorDto authorDto = (AuthorDto) mav.getModelMap().get("authorDto");
+		authorDto.setUpdate_date(new Date());
+		authorDto.setDescribe(authorDto.getDescribe().replace("\n", "<br>"));
+		
+		String params = "";
+		String searchWord = request.getParameter("searchWord");
+		if(searchWord != null) {
+			params += "&searchWord="+searchWord;
+		}
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber != null && pageNumber != "") {
+			params += "&pageNumber="+pageNumber;
+		}
+		System.out.println(params);
+		
+		int check = managerDao.updateAuthor(authorDto);
+		mav.addObject("check", check);
+		mav.addObject("num", authorDto.getNum());
+		mav.addObject("params", params);
+	}
+	
+	@Override
+	public void authorRead(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		int num = Integer.parseInt(request.getParameter("num"));
+		AuthorDto authorDto = managerDao.getAuthor(num);
+		String country_name = managerDao.getCountryName(authorDto.getCountry_num());
+		List<BookDto> bookList = managerDao.getBookList(authorDto.getNum());
+		
+		mav.addObject("country_name", country_name);
+		mav.addObject("authorDto", authorDto);
+		mav.addObject("count", bookList.size());
+		mav.addObject("bookList", bookList);
+	}
+	
+	@Override
+	public void authorNameCheck(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
+		
+		String name = request.getParameter("name");
+		int check = -1;
+		
+		if(name == null || name == "") {
+			check = -1;
+		}else {
+			check = managerDao.authorCheckName(name);
+		}
+		
+		try {
+			response.setContentType("application/text;charset=utf-8");
+			response.getWriter().print(check);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void authorUpdateRead(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		List<CountryDto> countryList = managerDao.getCountry();
+		int num = Integer.parseInt(request.getParameter("num"));
+		AuthorDto authorDto = managerDao.getAuthor(num);
+		authorDto.setDescribe(authorDto.getDescribe().replace("<br>", "\n"));
+		
+		mav.addObject("authorDto", authorDto);
+		mav.addObject("countryList", countryList);
+	}
+	
+	@Override
+	public void authorUpdateReadOk(ModelAndView mav) {
+		AuthorDto authorDto = (AuthorDto) mav.getModelMap().get("authorDto");
+		authorDto.setUpdate_date(new Date());
+		authorDto.setDescribe(authorDto.getDescribe().replace("\n", "<br>"));
+		
+		int check = managerDao.updateAuthor(authorDto);
 		mav.addObject("check", check);
 	}
 	
