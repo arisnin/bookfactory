@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.management.Query;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.aspectj.weaver.tools.cache.AsynchronousFileCacheBacking.RemoveCommand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -339,9 +341,34 @@ public class BookServiceImp implements BookService {
 	public void keyword(ModelAndView mav) {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		HttpServletResponse response=(HttpServletResponse) mav.getModel().get("response");
+
 		int firstCate=Integer.parseInt(request.getParameter("firstCate"));
 		
+		String tags=request.getParameter("tags");
+		String query="";
+		int tagListCount=0;
+		
+		if(tags!=null) {
+			String tag[]=tags.split(",");
+			
+			for(int i=0;i<tag.length;i++) {
+				if(i==0) {
+					query+=tag[i];
+				}else {
+					query+="and keyword.name='"+tag[i]+"'";
+				}
+			}
+			
+			tagListCount=bookDao.getTagListCount(query);
+		}
+		
+		System.out.println(query);
+		System.out.println(tagListCount);
+		
 		mav.addObject("firstCate", firstCate);
+		
+		
 	}
 
 }

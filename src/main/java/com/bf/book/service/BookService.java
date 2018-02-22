@@ -16,5 +16,4 @@ public interface BookService {
 	void romanceHome(ModelAndView mav);
 	void bookDetail(ModelAndView mav);
 	void keyword(ModelAndView mav);
-
 }

@@ -249,4 +249,15 @@
 		WHERE b.pub_num=p.pub_num
 		and b.book_num=#{book_num}
 	</select>
+	
+	<select id="getTagListCount" parameterType="String" resultType="int">
+		<![CDATA[
+			SELECT nvl(count(KEYWORD.NAME),0) 
+			FROM KEYWORD_LIST,BOOKM,KEYWORD 
+			WHERE keyword.num = keyword_list.keyword_num 
+			AND keyword_list.book_num = bookm.book_num 
+			and KEYWORD.NAME = #{query}
+			order by BOOKM.NAME
+		]]>
+	</select>
 </mapper>
