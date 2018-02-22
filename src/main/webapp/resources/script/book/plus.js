@@ -49,4 +49,7 @@ $(document).ready(function(){
 		$(".profile_masterpiece > div:nth-child(1) li").removeClass();
 		$(this).addClass("activeFont");
 	});
+	
+	//홈, 신간, 베스트셀러 숨기는 이벤트
+	$(".hw_sub_wrap").hide();
 });
