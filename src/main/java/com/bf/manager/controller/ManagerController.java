@@ -112,6 +112,15 @@ public class ManagerController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/authorNameCheck.do", method = RequestMethod.GET)
+	public ModelAndView authorNameCheck(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.authorNameCheck(mav);
+		return null;
+	}
+	
 	@RequestMapping(value="/bookInsert.do",method=RequestMethod.GET)
 	public ModelAndView bookInsert(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("book/insert.mg");

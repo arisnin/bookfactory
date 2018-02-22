@@ -48,7 +48,7 @@
 								<span>${author.cnt}권</span>
 								<span class="a_se_btn">
 									<button type="button" class="bf-button" onclick="goUpdate('${root}/manager/authorRead.do?num=${author.num}')">상세보기</button>
-									<button type="button" class="bf-button" onclick="alert('삭제')">삭제</button>
+									<button type="button" class="bf-button" onclick="alert('삭제준비중')">삭제</button>
 								</span>
 							</li>
 						</c:forEach>

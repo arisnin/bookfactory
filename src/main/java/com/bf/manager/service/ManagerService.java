@@ -71,5 +71,7 @@ public interface ManagerService {
 
 	public void authorUpdateOk(ModelAndView mav);
 
+	public void authorNameCheck(ModelAndView mav);
+
 
 }

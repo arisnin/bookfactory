@@ -78,6 +78,10 @@
 		where num = #{num}
 	</update>
 	
+	<select id="authorCheckName" parameterType="String" resultType="int">
+		select count(*) from author where name=#{name}
+	</select>
+	
 </mapper>
 
 

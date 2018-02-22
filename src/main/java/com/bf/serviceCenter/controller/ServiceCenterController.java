@@ -68,15 +68,32 @@ public class ServiceCenterController {
 	}
 	
 	@RequestMapping(value = "/serviceCenter/information.do" , method = RequestMethod.GET)
-	public String serviceCenterInformation(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterInformation(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("고객센터 안내사항");
-		return "serviceCenter/information.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterInfo(mav);
+		
+		//return "serviceCenter/information.solo";
+		
+		return mav;
 	}
 	
 	@RequestMapping(value = "/serviceCenter/information_content1.do" , method = RequestMethod.GET)
-	public String serviceCenterInformationContent(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterInformationContent(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("고객센터 안내사항_내용");
-		return "serviceCenter/information_content1.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterInfoRead(mav);
+		
+		//return "serviceCenter/information_content1.solo";
+		return mav;
 	}
 	
 	@RequestMapping(value = "/serviceCenter/manyque.do" , method = RequestMethod.GET)
