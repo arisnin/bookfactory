@@ -7,13 +7,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="root" value = "${pageContext.request.contextPath}"/>
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
-<title>myCashOk(결제 완료)</title>
+<title>recentLookBookDelete(전체삭제 완료)</title>
 </head>
 <body>
-	<c:if test="${check2 > 0}">
+	<c:if test="${check > 0}">
 		<script type="text/javascript">
-			alert('결제 실패따윈 없다.');
-			$(location).attr("href", "${root}/payment/myCash.do");
+			$(location).attr("href", "${root}/library/recentLookBook.do");
+		</script>
+	</c:if>
+	
+	<c:if test="${check == 0}">
+		<script type="text/javascript">
+			$(location).attr("href", "${root}/library/recentLookBook.do");
 		</script>
 	</c:if>
 </body>

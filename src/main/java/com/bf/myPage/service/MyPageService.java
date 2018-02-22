@@ -22,6 +22,10 @@ public interface MyPageService {
 	void recentLookBook(ModelAndView mav);
 
 	void purchased(ModelAndView mav);
+
+	void purchasedDelete(ModelAndView mav);
+
+	void recentLookBookDelete(ModelAndView mav);
 	
 
 }

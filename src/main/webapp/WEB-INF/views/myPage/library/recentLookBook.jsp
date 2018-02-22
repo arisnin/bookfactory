@@ -21,12 +21,12 @@
 				<h3>최근 본 책</h3>
 			</div>
 			<div class="purchased-action-button">
-				<button class="bf-button bf-white-btn" type="button" onclick="javascript:alert('최근 본 책 전체삭제 미구현')">전체 삭제</button>
+				<button class="bf-button bf-white-btn" type="button" onclick="allDelete()">전체 삭제</button>
 			</div>
 		</section>
 		<!-- 최근 본 책 목록 -->
 		<div class="purchased-form-list-box">
-			<form name="purchased-form-list" method="post">
+			<form name="purchased-form-list" method="post" action="${root}/library/recentLookBookDelete.do">
 				<ul class="ridi-book-list">
 					<c:forEach var="myRecentPageDto" items="${myPageRecentPageDtoList}">
 					<li class="ridi-book-item">
@@ -56,11 +56,25 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
-	<script type="text/javascript" src="${root}/jquery/jquery.js"></script>
+	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 	<script type="text/javascript">
 		document.querySelectorAll(".content-star-rate").forEach(function(item, index) {
 			createStarIcon(item, 3.7);
 		});
+		
+		function allDelete(){
+			$("form[name=purchased-form-list]").submit();
+			
+			var cf = confirm("최근 본 책 목록을 삭제하시겠습니까?");
+			if(cf == false){
+				$(location).attr("href", "${root}/library/recentLookBook.do");
+			}else if(cf==true){
+				alert("hello");
+			}
+			if(cf == null){
+				alert("최근 본 책이 없습니다.");
+			}
+		}
 	</script>
 </body>
 </html>
