@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.AccuseDto;
+import com.bf.manager.dto.BoardCate2Dto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.manager.dto.BookDto;
@@ -27,6 +28,11 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 	public int BoardInsertOk(BoardFrequencyDto boardFreDto) {
 
 		return sqlSession.insert("com.bf.manager.ManagerboardMapper.InsertOk", boardFreDto);
+	}
+	@Override
+	public int BoardfileInsertOk(BoardFrequencyDto boardFreDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("com.bf.manager.ManagerboardMapper.fileInsertOk", boardFreDto);
 	}
 
 	@Override
@@ -53,6 +59,11 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		return sqlSession.selectList("com.bf.manager.ManagerboardMapper.list", map);
+	}
+	@Override
+	public BoardFrequencyDto selectBoard(int num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.manager.ManagerboardMapper.selectBoard",num);
 	}
 
 	@Override
@@ -92,6 +103,21 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		map.put("endRow", endRow);
 
 		return sqlSession.selectList("com.bf.manager.ManagerboardMapper.boardContact",map);
+	}
+	@Override
+	public int boardReplyOk(BoardContactDto boardContactDto) {
+		
+		
+	return sqlSession.update("com.bf.manager.ManagerboardMapper.boardReplyUpdate",boardContactDto);
+	}
+	
+	@Override
+	public BoardFrequencyDto catelist(int num,int cateNum) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("num", num);
+		map.put("cateNum", cateNum);
+		
+		return sqlSession.selectOne("com.bf.manager.ManagerboardMapper.catelist",map);
 	}
 	// ------------member------------------
 	@Override
@@ -149,5 +175,6 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		map.put("num", num);
 		return sqlSession.selectList("com.bf.manager.ManagerReviewMapper.accuseList", map);
 	}
+
 
 }

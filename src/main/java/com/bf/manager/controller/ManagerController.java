@@ -362,4 +362,12 @@ public class ManagerController {
 		managerService.insertCateThree(mav);
 		return mav;
 	}
+	
+	@RequestMapping(value = "/keyword.do", method = RequestMethod.GET)
+	public ModelAndView keyword(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("book/keyword.mg");
+		mav.addObject("request", request);
+		managerService.keyword(mav);
+		return null;
+	}
 }

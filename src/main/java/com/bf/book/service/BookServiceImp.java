@@ -18,6 +18,7 @@ import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.member.model.User;
+import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
 
@@ -284,8 +285,6 @@ public class BookServiceImp implements BookService {
 		List<HomeDto> homeList=bookDao.getPaperHomeBookInfoList(map);
 //		LogAspect.info(LogAspect.logMsg + homeList.toString());
 		
-		System.out.println("firstCateNum" + firstCateNum);
-		
 		mav.addObject("recomList", recomList);
 		mav.addObject("homeList", homeList);
 		mav.addObject("firstCate",firstCate);
@@ -298,6 +297,51 @@ public class BookServiceImp implements BookService {
 		}else if(firstCate==5) {
 			mav.setViewName("genre/bl.main");
 		}
+	}
+
+	@Override	//책 상세보기
+	public void bookDetail(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		long book_num=Long.parseLong(request.getParameter("book_num"));
+		DetailDto dto=new DetailDto();
+		
+		//두번째 카테고리뽑아오기
+		dto.setSecond_cate_num(bookDao.getSecondCateNum(book_num));
+		dto.setSecond_cate_name(bookDao.getSecondCateName(book_num));
+		
+		//세번째 카테고리뽑아오기. 중복카테고리 있는지, 없는지 구별해야함.
+		int overlapCate=bookDao.getOverlapThirdCate(book_num);
+		
+		List<String> thirdCateName=bookDao.getOverlapCateName(book_num);
+		dto.setThird_cate_name_a(thirdCateName.get(0));
+		dto.setThird_cate_num_a(bookDao.getThirdCateNum(dto.getThird_cate_name_a()));
+		
+		if(overlapCate>1) {
+			dto.setThird_cate_name_b(thirdCateName.get(1));
+			dto.setThird_cate_num_b(bookDao.getThirdCateNum(dto.getThird_cate_name_b()));
+			
+			if(overlapCate==3) {
+				dto.setThird_cate_name_c(thirdCateName.get(2));
+				dto.setThird_cate_num_c(bookDao.getThirdCateNum(dto.getThird_cate_name_c()));
+			}
+		}
+		
+		dto=bookDao.getBookAllInfo(book_num);
+		
+		//출판사 이름뽑아오기
+		dto.setPub_name(bookDao.getPubName(book_num));
+		
+		//작가,번역,일러 정보뽑아오기
+	}
+
+	@Override
+	public void keyword(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		int firstCate=Integer.parseInt(request.getParameter("firstCate"));
+		
+		mav.addObject("firstCate", firstCate);
 	}
 
 }

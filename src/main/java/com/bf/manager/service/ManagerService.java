@@ -73,5 +73,7 @@ public interface ManagerService {
 
 	public void authorNameCheck(ModelAndView mav);
 
+	public void keyword(ModelAndView mav);
+
 
 }

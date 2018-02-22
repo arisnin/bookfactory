@@ -188,5 +188,25 @@
 		order by B.PREFERENCE
 	</select>
 	
+	<insert id="insertKeyWord" parameterType="String">
+		insert into keyword values(keyword_num_seq.nextval,#{name})
+	</insert>
+	
+	<select id="keyNameCheck" parameterType="String" resultType="int">
+		select count(*) from keyword where name=#{keyName}
+	</select>
+	
+	<select id="bookKeyWordCheck" parameterType="java.util.HashMap" resultType="int">
+		select count(*) from keyword_list a, keyword b,bookm c where a.KEYWORD_NUM = b.num and a.book_num = c.book_num and c.book_num=#{currentNum} and b.name=#{keyName} 
+	</select>
+	
+	<select id="getKeyWordNum" parameterType="String" resultType="int">
+		select num from keyword where name=#{keyName}
+	</select>
+	
+	<insert id="insertKeyWordList" parameterType="java.util.HashMap">
+		insert into keyword_list values(keyword_list_num_seq.nextval ,#{keyNum} ,#{currentNum})
+	</insert>
+	
 </mapper>
 

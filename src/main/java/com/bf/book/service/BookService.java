@@ -14,5 +14,7 @@ public interface BookService {
 	ModelAndView reviewList(ModelAndView mav);
 	ModelAndView reviewUpdate(ModelAndView mav);
 	void romanceHome(ModelAndView mav);
+	void bookDetail(ModelAndView mav);
+	void keyword(ModelAndView mav);
 
 }

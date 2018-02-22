@@ -52,7 +52,7 @@
 			</div>
 			<div class="service_FAQ_home_content_category">
 				<a class="bf-button"
-					href="${root }/serviceCenter/inquriy.do">리디북스 문의</a>
+					href="${root }/serviceCenter/inquriy.do">북팩토리 문의</a>
 				<a class="bf-button"
 					href="${root }/serviceCenter/service_suggestion.do">서비스
 					제안</a> <a class="bf-button"

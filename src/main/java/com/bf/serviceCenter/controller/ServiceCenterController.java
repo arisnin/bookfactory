@@ -48,11 +48,37 @@ public class ServiceCenterController {
 		LogAspect.info("서비스 센터");
 		return "serviceCenter/main.solo";
 	}
+		
 	
 	@RequestMapping(value = "/serviceCenter/FAQ.do" , method = RequestMethod.GET)
 	public String serviceCenterFaq(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("문의하기");
+		LogAspect.info("문의하기");				
 		return "serviceCenter/FAQ.solo";
+	}
+	
+	@RequestMapping(value = "/serviceCenter/inquriy.do" , method = RequestMethod.GET)
+	public String serviceCenterInquriy(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("북팩토리 문의");
+				
+		return "serviceCenter/inquriy.solo";		
+	}
+	
+	@RequestMapping(value = "/serviceCenter/inquriyOk.do" , method = RequestMethod.POST)
+	public String serviceCenterInquriyOk(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("북팩토리 문의 완성");
+		return "serviceCenter/inquriyOk.solo";
+	}
+	
+	@RequestMapping(value = "/serviceCenter/service_suggestion.do" , method = RequestMethod.GET)
+	public String serviceCenterServiceSuggestion(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("서비스 제안");
+		return "serviceCenter/service_suggestion.solo";
+	}
+	
+	@RequestMapping(value = "/serviceCenter/book_suggestion.do" , method = RequestMethod.GET)
+	public String serviceCenterBookSuggestion(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("도서 제안");
+		return "serviceCenter/book_suggestion.solo";
 	}
 	
 	@RequestMapping(value = "/serviceCenter/inquriy_list2.do" , method = RequestMethod.GET)
@@ -95,6 +121,22 @@ public class ServiceCenterController {
 		//return "serviceCenter/information_content1.solo";
 		return mav;
 	}
+	
+	@RequestMapping(value = "/serviceCenter/information_download.do" , method = RequestMethod.GET)
+	public ModelAndView serviceCenterInformationDownLoad(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("다운로드 시작");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		
+		serviceCenterService.serviceCenterInformationDownLoad(mav);
+		
+		return null;
+	}
+	
+	
 	
 	@RequestMapping(value = "/serviceCenter/manyque.do" , method = RequestMethod.GET)
 	public String serviceCenterManyQuestion(HttpServletRequest request, HttpServletResponse response) {
@@ -156,22 +198,6 @@ public class ServiceCenterController {
 		return "serviceCenter/error_use_content.solo";
 	}
 	
-	@RequestMapping(value = "/serviceCenter/inquriy.do" , method = RequestMethod.GET)
-	public String serviceCenterInquriy(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("북팩토리 문의");
-		return "serviceCenter/inquriy.solo";
-	}
-	
-	@RequestMapping(value = "/serviceCenter/service_suggestion.do" , method = RequestMethod.GET)
-	public String serviceCenterServiceSuggestion(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("서비스 제안");
-		return "serviceCenter/service_suggestion.solo";
-	}
-	
-	@RequestMapping(value = "/serviceCenter/book_suggestion.do" , method = RequestMethod.GET)
-	public String serviceCenterBookSuggestion(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("도서 제안");
-		return "serviceCenter/book_suggestion.solo";
-	}
+
 	
 }
