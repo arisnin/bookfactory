@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.main.dao.MainDao;
+import com.bf.main.dto.NoticeDto;
 import com.bf.member.model.MemberDto;
 
 /**
@@ -24,6 +26,7 @@ import com.bf.member.model.MemberDto;
  * @Author 박성호
  * @Description
  */
+
 @Component
 public class MainServiceImp implements MainService {
 	@Autowired
@@ -96,22 +99,33 @@ public class MainServiceImp implements MainService {
 	}
 
 	@Override
-	public ModelAndView idCheck(ModelAndView mav) throws IOException {
+	public ModelAndView registerValidation(ModelAndView mav) throws IOException {
 		Map<String,Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		HttpServletResponse response = (HttpServletResponse)map.get("response");
 		
-		String id = request.getParameter("id");
+		String type = request.getParameter("type");
+		String keyword = request.getParameter("keyword");
 		
-		if (id != null) {
-			String check = mainDao.idCheck(id);
-			LogAspect.info("idCheck:" + check);
+		if (type != null) {
+			LogAspect.info("registerValidation(): " + type + "/" + keyword);
+			String errMsg = "";
+			
+			List<String> check = mainDao.registerValidation(type,keyword);
+			
+			if ("email".equalsIgnoreCase(type)) {
+				errMsg = "이미 존재하는 이메일입니다.";
+			} else if ("phone".equalsIgnoreCase(type)) {
+				errMsg = "이미 존재하는 전화번호입니다.";
+			} else if ("id".equalsIgnoreCase(type)) {
+				errMsg = "이미 존재하는 아이디입니다.";
+			}
 			
 			JSONObject json = new JSONObject();
-			if (check != null) {
-				// 이미 존재하는 ID
+			if (check.size() > 0) {
+				// 이미 존재하는 email(phone)
 				json.put("type", "error");
-				json.put("error", "이미 존재하는 아이디입니다.");
+				json.put("error", errMsg);
 			} else {
 				json.put("type", "ok");
 			}
@@ -126,29 +140,14 @@ public class MainServiceImp implements MainService {
 		return null;
 	}
 
-	@Override
-	public ModelAndView emailPhoneCheck(ModelAndView mav) throws IOException {
-		Map<String,Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest)map.get("request");
-		HttpServletResponse response = (HttpServletResponse)map.get("response");
-		
-		String type = request.getParameter("type");
-		String email = request.getParameter("email");
-		String phone = request.getParameter("phone");
-		
-		if (type != null) {
-			LogAspect.info(type);
-			LogAspect.info(email);
-			LogAspect.info(phone);
-		}
-		
-		return null;
-	}
-
+	/**
+	 * @author : 김동환
+	 * @date : 2018. 2. 20.
+	 * comment : 공지사항
+	 */
 	
 	@Override
-	public void noticeMain(ModelAndView mav) {
-		
+	public void noticeMain(ModelAndView mav) {		
 		Map<String, Object> map = mav.getModelMap();
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
@@ -161,17 +160,14 @@ public class MainServiceImp implements MainService {
 		int startRow = (currentPage-1) * boardSize + 1;
 		int endRow = currentPage * boardSize;
 		
-		int count = mainDao.noticeMainCount();
-		
+		int count = mainDao.noticeMainCount();		
 		LogAspect.info("공지사항 메인리스트 확인 : " + count);
-		
-		/*
 		
 		List<NoticeDto> noticeList = null;
 		
 		if(count > 0) {
 			noticeList = mainDao.noticeMain(startRow, endRow);
-			LogAspect.info("공지사항 리스트 사이즈 : " + noticeMainCount.size());
+			LogAspect.info("공지사항 리스트 사이즈 : " + noticeList.size());
 		}
 		
 		mav.addObject("noticeList", noticeList);
@@ -179,14 +175,10 @@ public class MainServiceImp implements MainService {
 		mav.addObject("boardSize", boardSize);
 		mav.addObject("currentPage", currentPage);
 		
-		mav.setViewName("notice/main");
-		*/
-		
+		mav.setViewName("notice/main.solo");
 		
 	}
 	
-	
-	/*
 	@Override
 	public void noticeRead(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -196,10 +188,17 @@ public class MainServiceImp implements MainService {
 		int num = Integer.parseInt(request.getParameter("num"));
 		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 		
-		LogAspect.info("읽어오기 확인중");
+		LogAspect.info("읽어오기 확인중 : " + num + ", " + pageNumber);
 		
+		NoticeDto noticeDto = mainDao.noticeRead(num);
+		LogAspect.info("NoticeDto 확인 : " + noticeDto.toString());
+		
+		mav.addObject("noticeDto", noticeDto);
+		mav.addObject("pageNumber", pageNumber);
+		
+		mav.setViewName("notice/content.solo");		
 	}
-	*/
+	
 	
 	
 }

@@ -34,11 +34,11 @@ public class BookController {
 	}
 
 	/**
-	 * 메인 > 일반 > 홈
+	 * 메인 > 일반, 만화 > 홈
 	 */
-	@RequestMapping(value = {"/","/normal.do"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/","/normal.do", "/comic.do"}, method = RequestMethod.GET)
 	public ModelAndView normalHome(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav=new ModelAndView("genre/normal.main");
+		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
 		
 		bookService.normalHome(mav);
@@ -47,7 +47,20 @@ public class BookController {
 	}
 
 	/**
-	 * 메인 > 일반 > 신간
+	 * 메인 > 로맨스, 판타지, bl > 홈
+	 */
+	@RequestMapping(value = {"/romance.do","/fantasy.do","/bl.do"}, method = RequestMethod.GET)
+	public ModelAndView homeRomance(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		
+		bookService.romanceHome(mav);
+		
+		return mav;
+	}
+	
+	/**
+	 * 메인 > 카테고리들 > 신간
 	 */
 	@RequestMapping(value = "/new-book.do", method = RequestMethod.GET)
 	public ModelAndView homeNewbook(HttpServletRequest request, HttpServletResponse response) {
@@ -60,7 +73,7 @@ public class BookController {
 	}
 
 	/**
-	 * 메인 > 일반 > 베스트셀러
+	 * 메인 > 카테고리들 > 베스트셀러
 	 */
 	@RequestMapping(value = "/best-sell.do", method = RequestMethod.GET)
 	public String homeBestSeller(HttpServletRequest request, HttpServletResponse response) {
@@ -69,52 +82,16 @@ public class BookController {
 	}
 
 	/**
-	 * 메인 > 로맨스 > 홈
-	 */
-	@RequestMapping(value = "/romance.do", method = RequestMethod.GET)
-	public ModelAndView homeRomance(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav=new ModelAndView("genre/romance.main");
-		mav.addObject("request", request);
-		
-		bookService.romanceHome(mav);
-		
-		return mav;
-	}
-
-	/**
-	 * 메인 > 판타지 > 홈
-	 */
-	@RequestMapping(value = "/fantasy.do", method = RequestMethod.GET)
-	public String homeFantasy(HttpServletRequest request, HttpServletResponse response) {
-
-		return "genre/fantasy.main";
-	}
-
-	/**
-	 * 메인 > 만화 > 홈
-	 */
-	@RequestMapping(value = "/comic.do", method = RequestMethod.GET)
-	public String homeComic(HttpServletRequest request, HttpServletResponse response) {
-
-		return "genre/comic.main";
-	}
-
-	/**
-	 * 메인 > bl > 홈
-	 */
-	@RequestMapping(value = "/bl.do", method = RequestMethod.GET)
-	public String homeBl(HttpServletRequest request, HttpServletResponse response) {
-
-		return "genre/bl.main";
-	}
-
-	/**
-	 * 단행본 > 책 상세보기
+	 * 책(일반, 만화, 단행본) > 책 상세보기
 	 */
 	@RequestMapping(value = "/detail.do", method = RequestMethod.GET)
-	public String bookPlus(HttpServletRequest request, HttpServletResponse response) {
-
-		return "book/plus.main";
+	public ModelAndView bookDetail(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("book/plus.main");
+		mav.addObject("request", request);
+		
+		bookService.bookDetail(mav);
+		
+		return mav;
 	}
 
 	/**
@@ -136,12 +113,16 @@ public class BookController {
 	}
 
 	/**
-	 * 홈 > 키워드검색
+	 * 일반 제외 홈화면들 > 키워드검색
 	 */
 	@RequestMapping(value = "/keyword.do", method = RequestMethod.GET)
-	public String keyword(HttpServletRequest request, HttpServletResponse response) {
-
-		return "genre/commons/keyword.main";
+	public ModelAndView keyword(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("genre/commons/keyword.main");
+		mav.addObject("request", request);
+		
+		bookService.keyword(mav);
+		
+		return mav;
 	}
 
 	/**

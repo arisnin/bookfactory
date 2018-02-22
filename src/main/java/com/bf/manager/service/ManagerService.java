@@ -61,4 +61,17 @@ public interface ManagerService {
 
 	public void authorSearch(ModelAndView mav);
 
+	public void authorRead(ModelAndView mav);
+
+	public void authorUpdateRead(ModelAndView mav);
+
+	public void authorUpdateReadOk(ModelAndView mav);
+
+	public void authorUpdate(ModelAndView mav);
+
+	public void authorUpdateOk(ModelAndView mav);
+
+	public void authorNameCheck(ModelAndView mav);
+
+
 }

@@ -176,7 +176,7 @@
 								<span class="icon-gift"
 									onclick="javascript:location.href='${root}/present.do?book_num=101'"></span>
 							</button></li>
-						<li><button type="button">구매하기</button></li>
+						<li><button type="button" onclick="javascript:location.href='${root}/payment.do?book_num=101'">구매하기</button></li>
 					</ol>
 				</div>
 			</div>

@@ -9,21 +9,7 @@
 		dateFormat : 'yy-mm-dd'
 	});
 
-	// function createStarIcon(target, full, half) {}
-	// target : <div class="content-star-rate"> 태그
-	// full : 꽉 찬 별 개수
-	// half : 반개짜리 별 개수(0 아니면 1)
-	/* //createStarIcon2(document.querySelector(".content-star-rate"), 3, 1); */
 
-	// function createStarIcon(target, score) {}
-	// target : 위와 동일
-	// score : 평점(예, 4.7)
-	// createStarIcon(document.querySelector(".sh_content-star-rate"),3.7);
-	// createStarIcon(document.querySelector(".sh_content-star-rate1"),3.7);
-	document.querySelectorAll(".content-star-rate").forEach(
-			function(item, index) {
-				createStarIcon(item, 4.7);
-			});
 
 		/* 체크 태그 */
 		$("#allCheck").click(function() {

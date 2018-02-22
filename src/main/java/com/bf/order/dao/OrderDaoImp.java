@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bf.book.dto.HomeDto;
+import com.bf.order.dto.OrderDto;
+import com.bf.order.dto.PointDto;
 
 /**
  * @author 박성호
@@ -35,12 +37,12 @@ public class OrderDaoImp implements OrderDao {
 
 	@Override
 	public List<HomeDto> getCart(String id) {
-		return sqlSession.selectList("com.bf.mapper.OrderMapper.getCart",id);
+		return sqlSession.selectList("com.bf.mapper.OrderMapper.getCart", id);
 	}
-	
+
 	@Override
 	public List<HomeDto> getWish(String id) {
-		return sqlSession.selectList("com.bf.mapper.OrderMapper.getWish",id);
+		return sqlSession.selectList("com.bf.mapper.OrderMapper.getWish", id);
 	}
 
 	@Override
@@ -48,7 +50,7 @@ public class OrderDaoImp implements OrderDao {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("bookNum", bookNum);
 		map.put("id", id);
-		System.out.println(bookNum+id);
+		System.out.println(bookNum + id);
 		return sqlSession.insert("com.bf.mapper.OrderMapper.insertCart", map);
 	}
 
@@ -65,12 +67,41 @@ public class OrderDaoImp implements OrderDao {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("bookNum", bookNum);
 		map.put("id", id);
-//		System.out.println(bookNum+id);
-		if(sqlSession.selectList("com.bf.mapper.OrderMapper.oneCart_Wish", map).size()>0) {
+		// System.out.println(bookNum+id);
+		if (sqlSession.selectList("com.bf.mapper.OrderMapper.oneCart_Wish", map).size() > 0) {
 			return 0;
-		}else {
+		} else {
 			return 1;
 		}
+	}
+
+	@Override
+	public int paymentInsert(OrderDto orderDto) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		PointDto pointDto = null;
+		int rnum = 1;
+		int remain = orderDto.getPoint_use();
+		do {
+			map.put("id", orderDto.getId());
+			map.put("rnum", rnum);
+			pointDto = sqlSession.selectOne("com.bf.mapper.OrderMapper.pointSelect", map);
+			System.out.println(pointDto.toString());
+			map.put("remain", Math.abs(remain));
+			System.out.println(map.get("remain"));
+			int check = sqlSession.update("com.bf.mapper.OrderMapper.updatePoint", map);
+			System.out.println(check);
+			pointDto = sqlSession.selectOne("com.bf.mapper.OrderMapper.pointSelect", map);
+			System.out.println(pointDto.toString());
+			remain = pointDto.getRemain();
+			System.out.println(remain);
+			if (remain > 0)
+				break;
+			else
+				sqlSession.update("com.bf.mapper.OrderMapper.updateZero", pointDto.getNum());
+			rnum++;
+		} while (remain < 0);
+		return sqlSession.insert("com.bf.mapper.OrderMapper.paymentInsert", orderDto);
+
 	}
 
 }

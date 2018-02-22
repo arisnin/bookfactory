@@ -149,7 +149,7 @@
 					<div class="b_in_img">
 						<label>도서 이미지</label>
 						<div>
-							<img src="//misc.ridibooks.com/cover/1171000007/xxlarge">
+							<img src="${root}/img/manager/no_image.png">
 							<button id="b_in_filebtn" type="button" class="bf-button">찾기</button>
 						</div>
 					</div>

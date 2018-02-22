@@ -44,11 +44,11 @@
 			<c:forEach var="one" items="${homeList}" begin="0" end="0">
 				<div class="list_big">
 					<div class="list_number">1</div>
-					<div class="list_img">
-						<img src="${one.img_path}" onclick="location.href='${root}/detail.do?book_num=${homeDto.book_num}'">
+					<div class="list_img"  onclick="location.href='${root}/detail.do?book_num=${one.book_num}'">
+						<img src="${one.img_path}">
 					</div>
-					<div class="list_book" onclick="location.href='${root}/detail.do?book_num=${homeDto.book_num}'">${one.bookName}</div>
-					<div class="list0_author" onclick="location.href='${root}/author.do?author_num=${homeDto.author_num}'">${one.authorName}</div>
+					<div class="list_book" onclick="location.href='${root}/detail.do?book_num=${one.book_num}'">${one.bookName}</div>
+					<div class="list0_author" onclick="location.href='${root}/author.do?author_num=${one.author_num}'">${one.authorName}</div>
 					<div class="content-star-rate">
 						<!-- 별이 들어가는 처음 두개의 span 사이에는 공백이 들어가면 안됨-->
 						<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>

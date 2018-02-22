@@ -7,7 +7,8 @@
 	width: 56.25rem;			
 }
 
-#notice > .notice_list ul, li{
+#notice > .notice_list ul, 
+#notice > .notice_list li{
 	height: 3rem;
 	line-height: 3rem;
 }
@@ -22,13 +23,13 @@
 	background-color: #776bce40;	
 }
 
-#notice > .notice_list li:nth-child(1){	
+#notice > .notice_list > ul li:nth-child(1){	
 	width: 8.23rem;
 	text-align: center;	
 	color: #555;
 }
 
-#notice > .notice_list li:nth-child(2){
+#notice > .notice_list > ul li:nth-child(2){
 	width: 48rem;	
 }
 
@@ -46,4 +47,9 @@
 
 .notice_list_title{
 	color : #555;
+}
+
+#notice > div.notice_list > nav > ul li{
+	float: none;
+	border: 0px;
 }

@@ -12,9 +12,35 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/genre/keyword.css" />
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/basic/commons.js"></script>
-<script type="text/javascript" src="${root}/script/genre/keyword_check.js"></script>
+<%-- <script type="text/javascript" src="${root}/script/genre/keyword_check.js"></script> --%>
+<script type="text/javascript">
+$(function(){
+	var cateNum=$("input[name=firstCate]").val();
+	var jsonFile="";
+	
+	if(cateNum==2){
+		jsonFile="keyword_romance.json";
+	}else if(cateNum==3){
+		jsonFile="keyword_fantasy.json";
+	}else if(cateNum==4){
+		jsonFile="keyword_comic.json";
+	}else if(cateNum==5){
+		jsonFile="keyword_bl.json";
+	}
+	
+	$.getJSON("keyword_romance.json", function(data){ 
+		$(".keyword_top_head > .title").text(data["title"]);
+		
+		$(data["groups"]).each(function(i, title) {
+            var fieldset=document.c;
+        });
+	});				
+});
+
+</script>
 </head>
 <body>
+	<input type="hidden" name="firstCate" value="${firstCate}"/>
 	<div class="keyword wrap-container">
 		<div class="keyword_top">
 			<div class="keyword_top_head">

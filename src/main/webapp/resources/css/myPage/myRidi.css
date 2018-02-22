@@ -46,6 +46,11 @@
 	margin-top: 1.25rem;
 }
 
+.ridi-book-item:nth-child(5n+1){
+	clear: both;
+	float: left;
+}
+
 .ridi-book-checkbox {
 	display: block;
 	position: absolute;

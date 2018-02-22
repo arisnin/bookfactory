@@ -11,10 +11,10 @@
 <link href="${root}/css/basic/reset.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/myRidi.css" type="text/css" rel="stylesheet">
-<link href="${root}/css/myPage/payment/ridicash.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/myPage/payment/mycash.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/purchasedAll.css" type="text/css" rel="stylesheet">
-<link href="${root}/css/myPage/payment/ridipoint.css" type="text/css" rel="stylesheet">
-<link href="${root}/css/myPage/payment/ridicashhistorycash.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/myPage/payment/mypoint.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/myPage/payment/mycashhistorycash.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/rightarrow/css/fontello.css" type="text/css" rel="stylesheet">
 </head>
 <body>
@@ -38,7 +38,7 @@
 				<p class="mypoint_amount_title">
 					내 마이캐시
 					<span class="total_amount">
-						<span></span>원
+						<span><fmt:formatNumber value = "${total}" pattern="#,###"/></span>원
 					</span>
 				</p>
 			</div>
@@ -50,13 +50,13 @@
 					<li class="status m-point">적립 포인트</li>
 					<li class="default">결제수단</li>
 				</ul>
-				<c:forEach var="myPageCashChargeDto" items="${myPageCashChargeDtoList}">
+				<c:forEach var="myPageCashPageDto" items="${myPageCashPageDtoList}">
 				<ul class="mypoint_history_table_body" onclick="javasciprt:alert('결제내역')">
-					<li class="default"><fmt:formatDate value = "${myPageCashChargeDto.charge_date}" pattern="yyyy.MM.dd hh:mm"/></li>
-					<li class="division">${myPageCashChargeDto.cash_type}</li>
-					<li class="main_value"><span><fmt:formatNumber value = "${myPageCashChargeDto.charge_cash}" pattern="#,###"/></span>원</li>
-					<li class="status"><span>${myPageCashChargeDto.point_num}</span>원</li>
-					<li class="default"><span class = "icon-angle-right">${myPageCashChargeDto.charge_type_num}</span></li>
+					<li class="default"><fmt:formatDate value = "${myPageCashPageDto.charge_date}" pattern="yyyy.MM.dd hh:mm"/></li>
+					<li class="division">${myPageCashPageDto.cash_type}</li>
+					<li class="main_value"><span><fmt:formatNumber value = "${myPageCashPageDto.charge_cash}" pattern="#,###"/></span>원</li>
+					<li class="status"><span>${myPageCashPageDto.point}</span>원</li>
+					<li class="default"><span class = "icon-angle-right">${myPageCashPageDto.charge_type}</span></li>
 				</ul>
 				</c:forEach>
 			</div>

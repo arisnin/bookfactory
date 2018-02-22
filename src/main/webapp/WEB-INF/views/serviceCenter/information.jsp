@@ -57,17 +57,9 @@
 				</div>
 
 				<div class="service_information_list">
-					<div><a href="${root }/serviceCenter/information_content1.do">[안내] 설 연휴 고객센터 단축 근무 및 휴무, 페이퍼 택배 배송 일정</a></div>
-					<div>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</div>
-					<div>[안내] 우리(체크)카드 결제 제한</div>
-					<div>[안내] 리디북스 서비스 사용 가능 뷰어 최소 버전 변경</div>
-					<div>연재 작품의 '선호작품'과 화별댓글' 기능 추가</div>
-					<div>문화가 있는날 이벤트 종료</div>
-					<div>개인정보처리방침 개정 안내(v2.2)</div>
-					<div>리디북스 서점의 도서 평점순 정렬 기준</div>
-					<div>구매자 배지 표시 기준 변경</div>
-					<div>이용약관 개정 안내(v2.8)</div>
-					<div>판타지 주간 뉴스레터 발송일 안내</div>
+				<c:forEach var="infoDto" items="${infoList }"	>
+					<div><a href="${root }/serviceCenter/information_content1.do">${infoDto.title}</a></div>
+				</c:forEach>					
 				</div>
 			</div>
 

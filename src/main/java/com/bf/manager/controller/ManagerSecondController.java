@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.book.dto.ReviewDto;
+import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.manager.dto.ManagerNoticeDto;
 import com.bf.manager.dto.MemberDto;
@@ -41,6 +42,8 @@ public class ManagerSecondController {
 	public ModelAndView boardContact(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("board/contact.mg");
 		LogAspect.info("boardContact()");
+		mav.addObject("request", request);
+		managerService.boardContact(mav);
 		return mav;
 	}
 
@@ -80,10 +83,23 @@ public class ManagerSecondController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/boardReply.do", method = RequestMethod.GET)
-	public ModelAndView boardReply() {
+	@RequestMapping(value = "/boardReply.do", method = RequestMethod.POST)
+	public ModelAndView boardReply(HttpServletRequest request, HttpServletResponse response,BoardContactDto boardContactDto) {
 		ModelAndView mav = new ModelAndView("board/reply.mg");
 		LogAspect.info("boardReply()");
+		mav.addObject("boardContactDto",boardContactDto);
+		mav.addObject("request",request);
+		managerService.boardReply(mav);
+		return mav;
+	}
+	@RequestMapping(value = "/boardReplyOk.do", method = RequestMethod.POST)
+	public ModelAndView boardReplyOk(HttpServletRequest request, HttpServletResponse response,
+			BoardContactDto boardContactDto) {
+		ModelAndView mav = new ModelAndView("board/insertOk.mg");
+		LogAspect.info("boardReplyOk()");
+		mav.addObject("request", request);
+		mav.addObject("boardContactDto", boardContactDto);
+		managerService.boardReplyOk(mav);
 		return mav;
 	}
 
@@ -112,9 +128,11 @@ public class ManagerSecondController {
 	}
 
 	@RequestMapping(value = "/memberPayDetail.do", method = RequestMethod.GET)
-	public ModelAndView memberPayDetail() {
+	public ModelAndView memberPayDetail(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("member/payDetail.mg");
 		LogAspect.info("memberPayDetail()");
+		mav.addObject("request",request);
+		managerService.memberPayDetail(mav);
 		return mav;
 	}
 
@@ -136,6 +154,16 @@ public class ManagerSecondController {
 		mav.addObject("request",request);
 		mav.addObject("memberDto",memberDto);
 		managerService.memberRegisterOk(mav);
+		return mav;
+	}
+	@RequestMapping(value = "/memberDelete.do", method = RequestMethod.GET)
+	public ModelAndView memberDelete(HttpServletRequest request, HttpServletResponse response,
+			MemberDto memberDto) {
+		ModelAndView mav = new ModelAndView("member/delete.mg");
+		LogAspect.info("memberDelete()");
+		mav.addObject("request",request);
+		mav.addObject("memberDto",memberDto);
+		managerService.memberDelete(mav);
 		return mav;
 	}
 

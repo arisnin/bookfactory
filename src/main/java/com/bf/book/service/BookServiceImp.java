@@ -18,6 +18,7 @@ import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.member.model.User;
+import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
 
@@ -134,7 +135,11 @@ public class BookServiceImp implements BookService {
 	public void normalHome(ModelAndView mav) {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
-		int firstCate=bookDao.getFirstCate("일반");
+		String firstCateNum=request.getParameter("firstCateNum");
+		
+		if(firstCateNum==null)	firstCateNum="1";
+		
+		int firstCate=Integer.parseInt(firstCateNum);
 		
 		//오늘의 추천은 랜덤으로 뽑아옴
 		int preBookNum=0;
@@ -162,6 +167,12 @@ public class BookServiceImp implements BookService {
 		mav.addObject("recomList", recomList);
 		mav.addObject("homeList", homeList);
 		mav.addObject("firstCate",firstCate);
+
+		if(firstCate==1) {
+			mav.setViewName("genre/normal.main");
+		}else if(firstCate==4) {
+			mav.setViewName("genre/comic.main");
+		}
 	}
 	
 	@Override
@@ -185,6 +196,12 @@ public class BookServiceImp implements BookService {
 		int endRow=pageNumber*boardSize;
 		int newCount=0;
 		
+		HashMap<String, String> cateMap=new HashMap<String, String>();
+		cateMap.put("firstCate", firstCate);
+		cateMap.put("seconCate", seconCate);
+		cateMap.put("startRow", String.valueOf(startRow));
+		cateMap.put("endRow", String.valueOf(endRow));
+
 		HashMap<String, Integer> map=new HashMap<String, Integer>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
@@ -199,10 +216,12 @@ public class BookServiceImp implements BookService {
 				newList=bookDao.getNewBookList(map);
 				
 			}	
-		}else if(bookType=="paper") {
+		}else if(bookType.equalsIgnoreCase("paper") || bookType.equalsIgnoreCase("serial")) {
+			newCount=bookDao.getPaperNewBookCount(cateMap);
 			
-		}else if(bookType=="serial") {
-			
+			if(newCount>0) {
+				newList=bookDao.getPaperNewBookList(cateMap);
+			}
 		}
 		
 		mav.addObject("firstCate", firstCate);
@@ -218,7 +237,9 @@ public class BookServiceImp implements BookService {
 	public void romanceHome(ModelAndView mav) {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
-		int firstCate=bookDao.getFirstCate("로맨스");
+		String firstCateNum=request.getParameter("firstCateNum");
+		
+		int firstCate=Integer.parseInt(firstCateNum);
 		
 		//화면이 일반단행본인지, 연재인지로 구분되서 시작되어야함
 		String type=request.getParameter("bookType");
@@ -262,11 +283,65 @@ public class BookServiceImp implements BookService {
 		//베스트셀러 - > 구매기능완성되면 잘팔린순으로 뽑아와야함
 		
 		List<HomeDto> homeList=bookDao.getPaperHomeBookInfoList(map);
-		//LogAspect.info(LogAspect.logMsg + homeList.toString());
+//		LogAspect.info(LogAspect.logMsg + homeList.toString());
 		
 		mav.addObject("recomList", recomList);
 		mav.addObject("homeList", homeList);
 		mav.addObject("firstCate",firstCate);
 		mav.addObject("seconCate", seconCate);
+		
+		if(firstCate==2) {
+			mav.setViewName("genre/romance.main");
+		}else if(firstCate==3) {
+			mav.setViewName("genre/fantasy.main");
+		}else if(firstCate==5) {
+			mav.setViewName("genre/bl.main");
+		}
 	}
+
+	@Override	//책 상세보기
+	public void bookDetail(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		long book_num=Long.parseLong(request.getParameter("book_num"));
+		DetailDto dto=new DetailDto();
+		
+		//두번째 카테고리뽑아오기
+		dto.setSecond_cate_num(bookDao.getSecondCateNum(book_num));
+		dto.setSecond_cate_name(bookDao.getSecondCateName(book_num));
+		
+		//세번째 카테고리뽑아오기. 중복카테고리 있는지, 없는지 구별해야함.
+		int overlapCate=bookDao.getOverlapThirdCate(book_num);
+		
+		List<String> thirdCateName=bookDao.getOverlapCateName(book_num);
+		dto.setThird_cate_name_a(thirdCateName.get(0));
+		dto.setThird_cate_num_a(bookDao.getThirdCateNum(dto.getThird_cate_name_a()));
+		
+		if(overlapCate>1) {
+			dto.setThird_cate_name_b(thirdCateName.get(1));
+			dto.setThird_cate_num_b(bookDao.getThirdCateNum(dto.getThird_cate_name_b()));
+			
+			if(overlapCate==3) {
+				dto.setThird_cate_name_c(thirdCateName.get(2));
+				dto.setThird_cate_num_c(bookDao.getThirdCateNum(dto.getThird_cate_name_c()));
+			}
+		}
+		
+		dto=bookDao.getBookAllInfo(book_num);
+		
+		//출판사 이름뽑아오기
+		dto.setPub_name(bookDao.getPubName(book_num));
+		
+		//작가,번역,일러 정보뽑아오기
+	}
+
+	@Override
+	public void keyword(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		int firstCate=Integer.parseInt(request.getParameter("firstCate"));
+		
+		mav.addObject("firstCate", firstCate);
+	}
+
 }

@@ -39,9 +39,14 @@ public class MyPageController {
 	 * 마이페이지 > 구매목록
 	 */
 	@RequestMapping(value="/library/purchased.do")
-	public String purchased(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView purchased(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("purchased()");
-		return "myPage/library/purchased.my";
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.purchased(mav);
+		
+		return mav;
 	}
 	
 	/**
@@ -65,10 +70,16 @@ public class MyPageController {
 	/**
 	 * 마이페이지 > 최근본책
 	 */
-	@RequestMapping(value="/library/nearbyRead.do")
-	public String nearbyRead(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("nearbyRead()");
-		return "myPage/library/nearbyRead.my";
+	@RequestMapping(value="/library/recentLookBook.do")
+	public ModelAndView recentLookBook(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("recentLookBook()");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.recentLookBook(mav);
+		
+		return mav;
 	}
 	
 	/**
@@ -114,17 +125,22 @@ public class MyPageController {
 	 * 
 	 */
 	@RequestMapping(value="/payment/myCash.do")
-	public String ridiCash(HttpServletRequest request, HttpServletResponse response, MyPagePointDto myPagePointDto) {
+	public ModelAndView myCash(HttpServletRequest request, HttpServletResponse response, MyPagePointDto myPagePointDto) {
 		LogAspect.info("MyCash()");
 		
-		return "myPage/payment/myCash.my";
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.myCash(mav);
+		
+		return mav;
 	}
 	
 	/**
 	 * 마이페이지 > 마이캐시 > 충전완료
 	 */
 	@RequestMapping(value="/payment/myCashOk.do")
-	public String myCashOk(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView myCashOk(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("MyCashOk()");
 
 		ModelAndView mav = new ModelAndView();
@@ -132,7 +148,7 @@ public class MyPageController {
 		
 		mypageService.myCashOk(mav);
 		
-		return "myPage/payment/myCashOk.my";
+		return mav;
 	}
 	
 	/**
