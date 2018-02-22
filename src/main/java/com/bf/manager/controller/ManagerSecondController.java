@@ -83,7 +83,7 @@ public class ManagerSecondController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/boardReply.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/boardReply.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView boardReply(HttpServletRequest request, HttpServletResponse response,BoardContactDto boardContactDto) {
 		ModelAndView mav = new ModelAndView("board/reply.mg");
 		LogAspect.info("boardReply()");
@@ -104,12 +104,32 @@ public class ManagerSecondController {
 	}
 
 	@RequestMapping(value = "/boardUpdate.do", method = RequestMethod.GET)
-	public ModelAndView boardUpdate() {
+	public ModelAndView boardUpdate(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("board/update.mg");
 		LogAspect.info("boardUpdate()");
+		mav.addObject("request",request);
+		managerService.boardUpdate(mav);
 		return mav;
 	}
-
+	@RequestMapping(value = "/boardupdateOk.do", method = RequestMethod.POST)
+	public ModelAndView boardUpdateOk(HttpServletRequest request, HttpServletResponse response,BoardFrequencyDto boardFrequencyDto) {
+		ModelAndView mav = new ModelAndView("board/update.mg");
+		LogAspect.info("boardUpdateOk()");
+		mav.addObject("request",request);
+		mav.addObject("boardFrequencyDto",boardFrequencyDto);
+		managerService.boardUpdateOk(mav);
+		return mav;
+	}
+	@RequestMapping(value="/boardDownload.do", method=RequestMethod.GET)
+	public ModelAndView fileDownLoad(HttpServletRequest request , HttpServletResponse response) {
+		ModelAndView mav =new ModelAndView();
+		mav.addObject("request",request);
+		mav.addObject("response",response);
+		
+		managerService.boardDownLoad(mav);
+		return null;
+	}
+//----------------------멤버----------------------------------------------
 	@RequestMapping(value = "/memberMember.do", method = RequestMethod.GET)
 	public ModelAndView memberMember(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("member/member.mg");

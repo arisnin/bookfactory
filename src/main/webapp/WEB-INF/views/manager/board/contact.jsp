@@ -103,11 +103,13 @@
 						<input type="hidden" value="${contactDto.q2_name}" name ="q2_name">
 						<input type="hidden" value="${contactDto.id}" name ="id">
 						<input type="hidden" value="${contactDto.category}" name ="category">
+						<input type="hidden" value="${contactDto.reply_check}" name ="reply_check">
+						<input type="hidden" value="${contactDto.reply_content}" name ="reply_content">
 						<input type="hidden" value="${contactDto.mem_phone}" name ="mem_phone">
 						<input type="hidden" value="${contactDto.file_name}" name ="file_name">
 						<input type="hidden" value="${contactDto.file_size}" name ="file_size">
 						<input type="hidden" value="${contactDto.file_path}" name ="file_path">
-						
+						<input type="hidden" value="${pageNumber}" name ="pageNumber">
 					</form>
 					</c:forEach>
 				</div>

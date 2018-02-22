@@ -16,6 +16,13 @@ public interface ManagerServiceTwo {
 	public void boardList(ModelAndView mav);
 	
 	public void boardContact(ModelAndView mav);
+	
+	public void boardDownLoad(ModelAndView mav);
+	
+	public void boardUpdate(ModelAndView mav);
+	
+	public void boardUpdateOk(ModelAndView mav);
+
 
 	public void managerNoticeInsert(ModelAndView mav);
 	

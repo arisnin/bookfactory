@@ -1,5 +1,6 @@
 package com.bf.myPage.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +47,9 @@ public class MyPageServiceImp implements MyPageService {
 		
 		// menu_num : 첫 번째 라디오 타입 번호 / 해당 번호의 cash_charge_menu 테이블의 내용
 		// type_num : 두 번째 라디오 타입 번호 / 해당 번호의 cash_charge_type 테이블의 내용
-		String id = "user";
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		
 		String menu_num = request.getParameter("menu_num");
 		String type_num = request.getParameter("type_num");
 		String point_type = "마이캐시 충전 보너스 마이포인트";
@@ -144,6 +147,7 @@ public class MyPageServiceImp implements MyPageService {
 	 * @author : 정호열
 	 * @date : 2018. 2. 21.
 	 * comment : 마이캐시히스토리캐시 페이지에 데이터 순차적으로 출력.
+	 * 			  마이캐시히스토리캐시 페이지에 총 마이캐시 출력
 	 */
 	@Override
 	public void myCashHistoryCash(ModelAndView mav) {
@@ -168,6 +172,11 @@ public class MyPageServiceImp implements MyPageService {
 		mav.setViewName("myPage/payment/myCashHistoryCash.my");
 	}
 
+	/**
+	 * @author : 정호열
+	 * @date : 2018. 2. 21.
+	 * comment : 마이캐시 페이지에 총 마이캐시 출력.
+	 */
 	@Override
 	public void myCash(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -189,6 +198,11 @@ public class MyPageServiceImp implements MyPageService {
 		mav.setViewName("myPage/payment/myCash.my");
 	}
 
+	/**
+	 * @author : 정호열
+	 * @date : 2018. 2. 22.
+	 * comment : 최근 본 책 페이지에 데이터 순차적으로 출력.
+	 */
 	@Override
 	public void recentLookBook(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -205,6 +219,11 @@ public class MyPageServiceImp implements MyPageService {
 		mav.setViewName("myPage/library/recentLookBook.my");
 	}
 
+	/**
+	 * @author : 정호열
+	 * @date : 2018. 2. 22.
+	 * comment : 구매목록 페이지에 state가 'yes'로 되있는 데이터 순차적으로 출력.
+	 */
 	@Override
 	public void purchased(ModelAndView mav) {	
 		Map<String, Object> map = mav.getModelMap();
@@ -214,10 +233,48 @@ public class MyPageServiceImp implements MyPageService {
 		String id = user.getUsername();
 		
 		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoList = myPageDao.PurchasedPageList(id);
+		LogAspect.info(myPagePurchasedPageDtoList.size());
 		
 		mav.addObject("myPagePurchasedPageDtoList", myPagePurchasedPageDtoList);
 		mav.setViewName("myPage/library/purchased.my");
 	}
 
+	/**
+	 * @author : 정호열
+	 * @date : 2018. 2. 22.
+	 * comment : 구매목록 페이지에 check된 책 영구삭제 버튼 누르면 state가 'no'로 변경 및 화면상에서 사라짐.
+	 */
+	@Override
+	public void purchasedDelete(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		
+		String[] book_num = request.getParameterValues("book_num");
+		
+		int check = myPageDao.PurchasedDelete(id, Arrays.asList(book_num));
+		LogAspect.info(check);
+		
+		mav.addObject("check", check);
+		mav.setViewName("myPage/library/purchasedDelete.my");
+	}
 
+	@Override
+	public void recentLookBookDelete(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		
+		int check = myPageDao.RecentDelete(id);
+		LogAspect.info(check);
+		
+		mav.addObject("check", check);
+		mav.setViewName("myPage/library/recentLookBookDelete.my");
+	}
+
+	
 }

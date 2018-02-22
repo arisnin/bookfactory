@@ -29,5 +29,9 @@ public interface MyPageDao {
 
 	List<MyPagePurchasedPageDto> PurchasedPageList(String id);
 
+	int PurchasedDelete(String id, List<String> book_num);
+
+	int RecentDelete(String id);
+
 
 }

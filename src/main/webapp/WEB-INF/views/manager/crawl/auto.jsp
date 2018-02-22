@@ -32,12 +32,19 @@
 						<button id="b_bl" type="button" class="bf-button">BL</button>
 						<button id="urlSet" type="button" class="bf-button">ALL자동 테스트</button>
 					</div>
+					<div align="right">
+						<button id="keyword" type="button" class="bf-button">키워드테스트</button>
+					</div>
 				</div>
 			</div>
 		</section>
 	</div>
 	
 	<script type="text/javascript">
+	
+		$("#keyword").click(function(){
+			location.href="${root}/manager/keyword.do";
+		});
 	
 		function cAjax(url, val){
 			$.ajax({
