@@ -199,10 +199,12 @@ function bookInsertOk(){
 	if(name.val() == ""){
 		name.focus();
 		name.next().css("color","red").text("제목을 입력하시오");
+		alertify.error("제목을 입력하시오");
 		return false;
 	}
 	if(name.next().val() == "중복입니다 다시 입력하세요"){
 		name.focus();
+		alertify.error("중복입니다");
 		return false;
 	}
 	//도서부제목
@@ -229,6 +231,7 @@ function bookInsertOk(){
 	
 	if(cate1_num.val()=="" ||cate2_num.val()=="" ||cate3_num.val()=="" ){
 		$("#b_cate_ok").focus();
+		alertify.error("카테고리 입력하세요");
 		return false;
 	}
 	

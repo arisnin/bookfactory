@@ -10,6 +10,8 @@
 	<c:set var="root" value="${pageContext.request.contextPath}"/>
   	<link rel="stylesheet" href="${root}/css/manager/book.css">
   	<link rel="stylesheet" href="${root}/css/basic/jquery-ui.css">
+  	<link rel="stylesheet" href="${root }/alert/alertify_core.css" />
+	<link rel="stylesheet" href="${root }/alert/alertify_default.css" id="toggleCSS" />
 </head>
 <body>
 	<div id="b_in_wrapper">
@@ -190,6 +192,7 @@
 
 	<script src="${root}/script/basic/commons.js"></script>
 	<script src="${root}/script/basic/jquery-ui.js"></script>
+	<script src="${root}/alert/alertifymin.js"></script>
 	<script src="${root}/script/manager/book/insert.js"></script>
 	<script>
 		$("#b_in_pub_open").click(function(){
