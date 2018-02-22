@@ -7,18 +7,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<<<<<<< HEAD
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css"
 	href="${root}/css/order/order.css">
 <link rel="stylesheet" type="text/css"
 	href="${root}/css/myPage/payment/mycash.css">
-=======
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="${root}/css/order/order.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/myPage/payment/mycash.css">
->>>>>>> a6e4b8495a7ee5aef29bb1dcf719ece7d2e1881b
 <link rel="stylesheet" type="text/css" href="${root}/css/cart/cart.css">
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <c:set var="totalPrice" value="27000" />
