@@ -187,7 +187,8 @@ function uploadImg(root){
         data: formData,
         type: 'POST',
         success: function(result){
-            $(".b_in_img").find("img").attr("src",root+"/img/manager/bookImg/"+result);
+        	alertify.success("이미지 업로드 성공");
+        	$(".b_in_img").find("img").attr("src",root+result);
         }
     });
 }

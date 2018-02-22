@@ -363,11 +363,12 @@ public class ManagerController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/keyword.do", method = RequestMethod.GET)
-	public ModelAndView keyword(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("book/keyword.mg");
+	@RequestMapping(value = "/test.do", method = RequestMethod.GET)
+	public ModelAndView test(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("crawl/auto.mg");
 		mav.addObject("request", request);
-		managerService.keyword(mav);
-		return null;
+		managerService.test(mav);
+		return mav;
 	}
+	
 }
