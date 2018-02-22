@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -145,8 +146,10 @@
 						</div>
 					</div>
 					<!-- ID 정보는 비즈니스 로직에서 유효세션으로부터 직접 가져다 써야합니다. -->
-					<input type="hidden" name="book_num" value="${'1584'}"/>
-					<input type="hidden" name="num" value="${reviewSelf.num}"/>
+					<input type="hidden" name="book_num" value="${'3327'}"/>
+					<c:if test="${reviewSelf.num != null}">
+						<input type="hidden" name="num" value="${reviewSelf.num}"/>
+					</c:if>					
 				</form>
 			</div><!-- End : review-write-box -->
 		</section><!-- End : bf-review-box -->
@@ -161,19 +164,19 @@
 				</ul>
 				<!-- 정렬기준 메뉴 -->
 				<ul class="order-type-list f-right">
-					<li class="diamond"><a class="active" href="#">최신순</a></li>
-					<li class="diamond"><a href="#">공감순</a></li>
-					<li class="diamond"><a href="#">별점높은순</a></li>
-					<li><a href="#">별점낮은순</a></li>
+					<li class="diamond"><a class="active" href="javascript:reviewListSort('recent');" title="recent">최신순</a></li>
+					<li class="diamond"><a href="javascript:reviewListSort('preference');" title="preference">공감순</a></li>
+					<li class="diamond"><a href="javascript:reviewListSort('descending');" title="descending">별점높은순</a></li>
+					<li><a href="javascript:reviewListSort('ascending');" title="ascending">별점낮은순</a></li>
 				</ul>
 			</div><!-- End : bf-service-type-menu -->
 			<ul class="review-list-box" id="review-list-box-id">
 			<c:forEach var="reviewDto" items="${reviewList}">
 				<!-- 리뷰글 -->
-				<li class="review-list-item">
+				<li class="review-list-item" >
 					<!-- 리뷰 정보 -->
 					<div class="review-info">
-						<div class="content-star-rate review-info-row">
+						<div class="content-star-rate review-info-row" data-star-point="${reviewDto.star_point}">
 							<span class="star-icon-field material-icons"><c:forEach begin="1" end="${reviewDto.star_point}">&#xe838;</c:forEach></span><span class="non-star-icon-field material-icons"><c:forEach begin="1" end="${5 - reviewDto.star_point}">&#xe838;</c:forEach></span>
 						</div>
 						<div class="review-info-row">
@@ -181,7 +184,7 @@
 							<span class="badge-icon">구매자</span>
 						</div>
 						<div class="review-info-row">
-							<span class="review-date">${reviewDto.write_date}</span>
+							<span class="review-date" data-review-date="${reviewDto.num}"><fmt:formatDate value="${reviewDto.write_date}" pattern="yy-MM-dd"/></span>
 							<button type="button" class="bf-button bf-white-btn">신고</button>
 						</div>
 					</div>
@@ -210,7 +213,7 @@
 						<div class="review-status">
 							<button type="button" class="bf-button bf-white-btn">
 								<span class="material-icons">thumb_up</span>
-								<span class="book-count">${reviewDto.preference}</span>
+								<span class="book-count" data-preference="${reviewDto.preference}">${reviewDto.preference}</span>
 							</button>
 							<button type="button" class="bf-button bf-white-btn" onclick="collapseViewToggle(this)">
 								<span class="material-icons">textsms</span>
@@ -274,10 +277,12 @@
 	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 	<script type="text/javascript" src="${root}/script/book/review.js"></script>
 	<script type="text/javascript">
-		/* document.querySelectorAll(".content-star-rate").forEach(function(item, index) {
-			createStarIcon(item, 3.7);
-		}); */
-		createStarIcon(document.querySelectorAll(".content-star-rate")[0], 3.7);
+		function reviewListSort(type) {
+			var dFrag = document.createDocumentFragment();
+			var target = document.getElementById("review-list-box-id");
+			
+			
+		}
 	</script>
 	<c:if test="${reviewSelf != null}">
 		<script type="text/javascript">

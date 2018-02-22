@@ -46,7 +46,8 @@ public class BookServiceImp implements BookService {
 		// 책 번호(book_num)는 presentation단에서 넘어옵니다.
 
 		// TODO: 아이디(id) 설정. 아이디는 유효세션으로부터 받아와야 합니다.
-		reviewDto.setId("user");
+		User user = (User) request.getSession().getAttribute("userInfo");
+		reviewDto.setId(user.getUsername());
 
 		// 스포일러(spoiler)는 존재하면 'on', 존재하지 않으면 'off'입니다.
 		if (!"on".equals(reviewDto.getSpoiler())) {
