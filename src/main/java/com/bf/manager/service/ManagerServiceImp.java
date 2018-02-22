@@ -207,14 +207,21 @@ public class ManagerServiceImp implements ManagerService {
 		authorDto.setUpdate_date(new Date());
 		authorDto.setDescribe(authorDto.getDescribe().replace("\n", "<br>"));
 		
+		String params = "";
 		String searchWord = request.getParameter("searchWord");
+		if(searchWord != null) {
+			params += "&searchWord="+searchWord;
+		}
 		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber != null && pageNumber != "") {
+			params += "&pageNumber="+pageNumber;
+		}
+		System.out.println(params);
 		
 		int check = managerDao.updateAuthor(authorDto);
 		mav.addObject("check", check);
 		mav.addObject("num", authorDto.getNum());
-		mav.addObject("searchWord", searchWord);
-		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("params", params);
 	}
 	
 	@Override
@@ -229,6 +236,28 @@ public class ManagerServiceImp implements ManagerService {
 		mav.addObject("authorDto", authorDto);
 		mav.addObject("count", bookList.size());
 		mav.addObject("bookList", bookList);
+	}
+	
+	@Override
+	public void authorNameCheck(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
+		
+		String name = request.getParameter("name");
+		int check = -1;
+		
+		if(name == null || name == "") {
+			check = -1;
+		}else {
+			check = managerDao.authorCheckName(name);
+		}
+		
+		try {
+			response.setContentType("application/text;charset=utf-8");
+			response.getWriter().print(check);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

@@ -137,5 +137,7 @@ public interface ManagerDao {
 
 	public int updateAuthor(AuthorDto authorDto);
 
+	public int authorCheckName(String name);
+
 
 }

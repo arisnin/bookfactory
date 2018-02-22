@@ -20,8 +20,8 @@
 				<div class="a_in_content">
 					<div>
 						<label>이름</label>
-						<input type="text" placeholder="이름" name="name"/>
-						<span class="b_in_check">중복입니다 다시 입력하세요</span>
+						<input type="text" placeholder="이름" name="name" required="required"/>
+						<span class="b_in_check"></span>
 					</div>
 					<div>
 						<label>국적</label>
@@ -71,7 +71,7 @@
 					<div>
 						<label>수상</label>
 						<input type="text" placeholder="수상"/>
-						<button id="awards_btn" type="button" class="bf-button search">추가</button>
+						<button id="awards_btn" type="submit" class="bf-button search">추가</button>
 						<input type="hidden" name="awards">
 					</div>
 					<div class="a_in_list">
@@ -87,7 +87,7 @@
 						<textarea rows="" cols="" name="describe"></textarea>
 					</div>
 					<div align="right">
-						<button id="a_form_btn" type="submit" class="bf-button">등록</button>
+						<button id="a_form_btn" type="button" class="bf-button">등록</button>
 						<button type="button" class="bf-button">취소</button>
 					</div>
 				</div>
