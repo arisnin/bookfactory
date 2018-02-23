@@ -17,4 +17,15 @@
 		select * from board_frequency where num=#{num}
 	</select>
 	
+	<insert id="board_ContactInsert" parameterType="com.bf.manager.dto.BoardContactDto">
+		insert into board_contact(num, title, content, id, write_date, category)
+		values(board_contact_num_seq.nextval, #{title}, #{content}, #{id}, #{write_date}, #{category})
+	</insert>
+	
+	<insert id="board_ContactFileInsert" parameterType="com.bf.manager.dto.BoardContactDto">
+		insert into board_contact(num, title, content, id, write_date, category, file_name, file_size, file_path)
+		values(board_contact_num_seq.nextval, #{title}, #{content}, #{id}, #{write_date}, #{category}, #{file_name}, #{file_size}, #{file_path})
+	</insert>
+	
+	
 </mapper>

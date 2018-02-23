@@ -2,7 +2,9 @@ package com.bf.serviceCenter.service;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.manager.dto.BoardCate1Dto;
+import com.bf.manager.dto.BoardCate2Dto;
+import com.bf.manager.dto.BoardContactDto;
 import com.bf.serviceCenter.dao.ServiceCenterDao;
 import com.bf.serviceCenter.dto.ServiceCenterDtoFre;
 
@@ -144,6 +151,82 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		}		
 	}
 
+
+	@Override
+	public void inquriyWrite(ModelAndView mav) {
+		
+		Map<String, Object> map = mav.getModel();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");		
+		
+		mav.setViewName("serviceCenter/inquriy.solo");
+		
+	}
+
+
+	@Override
+	public void inquriyWriteOk(ModelAndView mav) {
+		
+		Map<String, Object> map = mav.getModel();
+		
+		MultipartHttpServletRequest request = (MultipartHttpServletRequest) map.get("request");
+
+		BoardContactDto boardContactDto = (BoardContactDto) map.get("boardContactDto");
+								
+		MultipartFile fileUp = request.getFile("file");
+		String fileName = Long.toString(System.currentTimeMillis()) + "_" + fileUp.getOriginalFilename();
+		int fileSize = (int) fileUp.getSize();
+		
+		if(fileSize == 0) {
+			LogAspect.info("파일 없지롱");
+		}else {
+			LogAspect.info("파일 이름 /사이즈 확인 : " + fileName + " / " + fileSize);
+		}		
+		
+		if(fileSize !=0) {
+			File path = new File("C:\\BookFactory\\");
+			
+			path.mkdir();
+			
+			if(path.exists() && path.isDirectory()) {
+				File file = new File(path, fileName);
+				try {
+					fileUp.transferTo(file);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				boardContactDto.setFile_path(file.getAbsolutePath());
+				boardContactDto.setFile_name(fileName);
+				boardContactDto.setFile_size(fileSize);				
+			}
+		}
+		
+		boardContactDto.setWrite_date(new Date());
+		boardContactDto.setId("admin");
+		
+		LogAspect.info("디티오 확인 : " + boardContactDto.toString() );
+		
+		int check = serviceCenterDao.inquriyWrite(boardContactDto);
+		LogAspect.info("write값 확인 : " + check);
+		
+		mav.addObject("check", check);
+		mav.setViewName("serviceCenter/inquriyOk.solo");
+			
+			
+	}
+
+
+	@Override
+	public void inquriyList(ModelAndView mav) {
+		
+		Map<String, Object> map = mav.getModel();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		BoardContactDto boardContactDto = (BoardContactDto) map.get("boardContactDto");
+		
+		int num = Integer.parseInt(request.getParameter("num"));
+	}
 
 
 	
