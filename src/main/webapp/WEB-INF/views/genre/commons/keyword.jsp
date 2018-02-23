@@ -15,6 +15,9 @@
 <%-- <script type="text/javascript" src="${root}/script/genre/keyword_check.js"></script> --%>
 <script type="text/javascript">
 $(function(){
+	//단행본, 연재 숨기는 이벤트
+	$(".hw_sub_wrap").hide();
+	
 	var cateNum=$("input[name=firstCate]").val();
 	var jsonFile="";
 	
@@ -111,7 +114,7 @@ $(function(){
 				type:"get",
 				url: root+"/keyword.do",
 				data:sendData+"&firstCate="+first,
-				success: "list(tagList)",
+				success: list,
 				error:function(e) {	// 이곳의 ajax에서 에러가 나면 얼럿창으로 에러 메시지 출력
 			    	alert(e.responseText);
 			    }
@@ -123,8 +126,8 @@ $(function(){
 	display(listCount);
 });
 
-function list(tagList){
-	alert(tagList);
+function list(text){
+	alert(text);
 }
 
 function display(listCount){
