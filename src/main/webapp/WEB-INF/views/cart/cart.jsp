@@ -8,8 +8,7 @@
 <c:set var="root" value="${pageContext.request.contextPath }" />
 <link rel="stylesheet" type="text/css" href="${root}/css/cart/cart.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/order/order.css">
-<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
-<script type="text/javascript" src="${root}/script/cart/cart.js"></script>
+<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>	
 </head>
 <body>
 	<div id="cart_main">
@@ -49,7 +48,7 @@
 						<br>
 						<div class="book-info"><span class="font_13">${cartList.authorName}</span></div>
 						<div class="float_right">
-							<span class="price">9100</span>
+							<span class="price">${cartList.price}</span>
 							<div>
 								<span class="dc-price">${cartList.rental_price}원</span>
 								<span class="count_percent">50</span>
@@ -60,49 +59,18 @@
 						<button class="bf-button bf-white-btn">삭제</button>
 					</div>
 				</div>
-<!-- 				<div class="cart_content_book">
-					<div class="book-thumbnail">
-						<label class="bf-custom-checkbox cart_content_book_span"> <input type="checkbox"> <span class="all-mark"></span>
-						</label> <img class="cart_content_book_img" src="https://misc.ridibooks.com/cover/1650000107/large">
-					</div>
-					<div class="cart_content_book_content">
-						<span>콘텐츠 4.0: 4차산업혁명과 콘텐츠의 미래</span>
-						<br>
-						<div class="book-info"><span class="font_13">한국콘텐츠진흥원</span></div>
-						<div class="float_right">
-							<span class="price"></span>
-							<div>
-								<span class="dc-price">무료</span>
-								<span class="count_percent hidden-block"></span>
-							</div>
-						</div>
-						<br>
-						<button class="bf-button bf-white-btn">위시리스트로 이동</button>
-						<button class="bf-button bf-white-btn">삭제</button>
-					</div>
-				</div>
-				<div class="cart_content_book">
-					<div class="book-thumbnail">
-						<label class="bf-custom-checkbox cart_content_book_span"> <input type="checkbox"> <span class="all-mark"></span>
-						</label> <img class="cart_content_book_img" src="https://misc.ridibooks.com/cover/2200011577/large">
-					</div>
-					<div class="cart_content_book_content">
-						<span>달이 차오른다</span>
-						<br>
-						<div class="book-info"><span class="font_13">온누리</span></div>
-						<div class="float_right">
-							<span class="price"></span>
-							<div>
-								<span class="dc-price">3800원</span>
-								<span class="count_percent no-discount"></span>
-							</div>
-						</div>
-						<br>
-						<button class="bf-button bf-white-btn">위시리스트로 이동</button>
-						<button class="bf-button bf-white-btn">삭제</button>
-					</div>
-				</div> -->
 			</c:forEach>
+				<script type="text/javascript">
+				function CartList(root){
+					var bookList ="";
+					var bookSize = document.getElementsByClassName("cart_content_book").length;
+					for (var i = 0; i < bookSize; i++) {
+					var bookNum = document.getElementsByClassName("cart_content_book_content")[i].children[0].getAttribute("id");
+						bookList += bookNum+","
+					}
+					location.href=root+"/order.do?bookList="+bookList
+				}
+				</script>
 						</c:if>
 			<!-- -------------------------------------- -->
 						<c:if test="${listSize==0 }">
@@ -126,27 +94,38 @@
 		<div class="cart_right_menu">
 			<div class="cart_right_menu_content">
 				<span class="icon-ok-circled"></span>
-				<label>총 <strong>N권</strong>을 선택하셨습니다.
+				<label>총 <strong>${listSize}권</strong>을 선택하셨습니다.
 				</label>
 			</div>
 			<div class="cart_right_menu_content">
 				<span>총 상품금액</span>
-				<span class="float_right">15000원</span>
+				<span class="float_right">0원</span>
 			</div>
+			<script type="text/javascript">
+				$(function(){
+					var abc = "";
+					$(".cart_content_book").each(function(){
+						abc = $(".float_right > .price").text();												
+					});				
+					alert(abc);
+// 					alert($(".cart_right_menu_content:nth-child(2)").find("span").last().text(abc+"원"));
+				});
+			</script>
 			<div class="cart_right_menu_content">
 				<span>할인 가격</span>
-				<span class="float_right">15000원</span>
+				<span class="float_right">${accountPrice}</span>
 			</div>
 
 			<div class="cart_right_menu_content cart_right_menu_count">
 				<span>합계</span>
-				<span class="float_right">15000원</span>
+				<span class="float_right">${totalPrice-accountPrice}원</span>
 			</div>
 
 			<div class="cart_button_div">
-				<button class="order_right_menu_paybutton bf-button bf-animated-btn" onclick="javascript:location.href='${root}/order.do'">선택대여하기</button>
+				<button class="order_right_menu_paybutton bf-button bf-animated-btn" onclick="CartList('${root}')">선택대여하기</button>
 			</div>
 		</div>
 	</div>
+<script type="text/javascript" src="${root}/script/cart/cart.js"></script>
 </body>
 </html>

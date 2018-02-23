@@ -49,6 +49,7 @@
 	<div class="serviceCenter_inquriy">
 		<form action = "${root }/serviceCenter/inquriyOk.do" method="post"
 		enctype="multipart/form-data" onsubmit="return inquriy(this)">
+		
 		<div class="serviceCenter_inquriy_title">
 			북팩토리 문의
 		</div>
@@ -57,27 +58,27 @@
 		<div class="serviceCenter_inquriy_name">
 			<div>제목<span class="star">*</span></div>
 			<div>
-				<input type="text" />
+				<input name="title" type="text" />
 			</div>
 		</div>
 
 		<div class="serviceCenter_inquriy_det">
 			<div>상세 설명<span class="star">*</span></div>
 			<div>
-				<textarea></textarea>
+				<textarea name="content"></textarea>
 			</div>
 		</div>
 
 		<div class="serviceCenter_inquriy_ex">
 			<div>질문 유형<span class="star">*</span></div>
 			<div>
-				<select>
+				<select name="question">
 					<option>-</option>
-					<option>이용 문의</option>
-					<option>오류 신고</option>
-					<option>서비스제안</option>
-					<option>이벤트 문의</option>
-					<option>기타</option>
+					<option value="102">이용 문의</option>
+					<option value="103">오류 신고</option>
+					<option value="104">이벤트 문의</option>
+					<option value="105">서비스제안</option>					
+					<option value="106">기타</option>
 				</select>
 			</div>
 		</div>
@@ -85,11 +86,11 @@
 		<div class="serviceCenter_inquriy_call">
 			<div>연락 수단<span class="star">*</span></div>
 			<div class="serviceCenter_inquriy_call_list">
-				<select>
+				<select name="call">
 					<option>-</option>
-					<option>이메일</option>
-					<option>문자</option>
-					<option>전화</option>
+					<option value="이메일">이메일</option>
+					<option value="문자">문자</option>
+					<option value="전화">전화</option>
 				</select>
 			</div>
 			<div>안내 받으실 방법을 선택해 주세요.</div>
@@ -104,7 +105,7 @@
 		<div class="serviceCenter_inquriy_file">
 			<div>첨부 파일</div>
 			<div class="serviceCenter_inquriy_file_add">
-				<label class="bf-custom-checkbox"> <input type="file" multiple="true"/>				
+				<label class="bf-custom-checkbox"> <input type="file" name="file"/>				
 					<span class="checkbox-label">파일 추가</span>
 				</label>
 			</div>

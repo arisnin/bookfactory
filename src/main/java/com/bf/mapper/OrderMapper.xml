@@ -7,9 +7,10 @@
 	<!-- <result column="authorName" property="authorName"/> -->
 	<!-- <result column="bookName" property="bookName"/> -->
 	<!-- </resultMap> -->
-	<delete id="delete_cartWishtList" parameterType="int">
-		delete from cart_wish
-		where BOOK_NUM = #{num} and id=#{id}
+	<delete id="delete_cartWishtList" parameterType="java.util.HashMap">
+		delete from
+		cart_wish
+		where BOOK_NUM = #{bookNum} and id=#{id}
 	</delete>
 
 	<select id="getCart" parameterType="String" resultType="com.bf.book.dto.HomeDto">
@@ -22,7 +23,7 @@
 		and cart_wish.CART_WISH ='cart'
 		]]>
 	</select>
-	
+
 	<select id="getWish" parameterType="String" resultType="com.bf.book.dto.HomeDto">
 		<![CDATA[
 		select bookm.*, bookm.name "bookName", AUTHOR.name "authorName" 
@@ -39,32 +40,47 @@
 		values(cart_num_seq.nextval, #{id}, #{bookNum},'cart')
 	</insert>
 
-	<select id="oneCart_Wish" parameterType="java.util.HashMap" resultType="String">
-		select nvl(num,0) from cart_wish where id=#{id} and book_num=#{bookNum}
+	<select id="oneCart_Wish" parameterType="java.util.HashMap"
+		resultType="String">
+		select nvl(num,0) from cart_wish where id=#{id} and
+		book_num=#{bookNum}
 	</select>
-	
+
 	<insert id="insertWishList" parameterType="java.util.HashMap">
 		insert into cart_wish
 		values(cart_num_seq.nextval, #{id}, #{bookNum},'wish')
 	</insert>
 	<insert id="paymentInsert" parameterType="com.bf.order.dto.OrderDto">
 		insert into payment
-		values(payment_num_seq.nextval, #{order_num}, #{book_num}, #{price}, sysdate, #{present_check},#{cancel_check},#{free_pass},#{id},#{pay_type},#{point_use},#{cash_use},sysdate+3,#{rental_state})
+		values(payment_num_seq.nextval, #{order_num}, #{book_num}, #{price},
+		sysdate,
+		#{present_check},#{cancel_check},#{free_pass},#{id},#{pay_type},#{point_use},#{cash_use},sysdate+3,#{rental_state})
 	</insert>
 	<update id="updatePoint" parameterType="java.util.HashMap">
-		UPDATE point SET remain=(remain-(#{remain})) WHERE num = (
-			SELECT b.num FROM (
-    			SELECT ROWNUM rnum, A.* FROM (
-        			SELECT * FROM point WHERE destory_date>SYSDATE AND ID=#{id} ORDER BY destory_date ASC)A
-          	)b WHERE rnum = #{rnum})
+		UPDATE point SET
+		remain=(remain-(#{remain})) WHERE num = (
+		SELECT b.num FROM (
+		SELECT ROWNUM rnum, A.* FROM (
+		SELECT * FROM point WHERE destory_date>SYSDATE AND ID=#{id} ORDER BY
+		destory_date ASC)A
+		)b WHERE rnum = #{rnum})
 	</update>
-	<select id="pointSelect" parameterType="java.util.HashMap" resultType="com.bf.order.dto.PointDto">
+	<select id="pointSelect" parameterType="java.util.HashMap"
+		resultType="com.bf.order.dto.PointDto">
 		SELECT * FROM (
-    		SELECT ROWNUM rnum, A.* FROM (
-        		SELECT * FROM point WHERE destory_date>SYSDATE AND ID=#{id} ORDER BY destory_date ASC)A
-          	)b WHERE rnum = #{rnum}
+		SELECT ROWNUM rnum, A.* FROM (
+		SELECT * FROM point WHERE destory_date>SYSDATE AND ID=#{id} ORDER BY
+		destory_date ASC)A
+		)b WHERE rnum = #{rnum}
 	</select>
 	<update id="updateZero">
-		update point set remain=0, state = 'off' where num = #{num} 
+		update point set remain=0, state = 'off' where num =
+		#{num}
 	</update>
+	<select id="getBookSelect" parameterType="int"
+		resultType="com.bf.book.dto.HomeDto">
+		select bookM.*, bookm.name "bookName", AUTHOR.name "authorName" 
+		from bookM, AUTHOR where bookM.AUTHOR_NUM =
+		AUTHOR.NUM and book_num=#{book_num}
+	</select>
 </mapper>

@@ -11,7 +11,13 @@ function readFun(root, num){
 }
 
 function inquriy(obj) {
-	alert("Ok");
+	//alert("Ok");
+	
+//	if(obj.title.value == ""){
+//		alert("제목을 입력해주세요.");
+//		obj.title.focus();
+//		return false;
+//	}
 	
 }
 

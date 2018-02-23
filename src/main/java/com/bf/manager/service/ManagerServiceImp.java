@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,8 +38,10 @@ import com.bf.manager.dto.BookSearchDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
+import com.bf.manager.dto.KeywordDto;
 import com.bf.manager.dto.PublisherDto;
 import com.bf.manager.dto.PublisherSearchDto;
+import com.bf.manager.dto.StatPreferenceDto;
 
 
 /**
@@ -361,7 +364,62 @@ public class ManagerServiceImp implements ManagerService {
 	
 	@Override
 	public void bookUpdate(ModelAndView mav) {
-		// TODO Auto-generated method stub
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		int book_num = Integer.parseInt(request.getParameter("book_num"));
+		BookDto bookDto = managerDao.getBook(book_num);
+		
+		AuthorDto author = managerDao.getAuthor(bookDto.getAuthor_num());
+		AuthorDto illustrator = managerDao.getAuthor(bookDto.getIllustrator_num());
+		AuthorDto translator = managerDao.getAuthor(bookDto.getTranslator_num());
+		
+		PublisherDto publisherDto =  managerDao.getPublisher(bookDto.getPub_num());
+		
+		List<KeywordDto> keywordList = managerDao.getKeywordList(bookDto.getBook_num());
+		String keyword = "";
+		for(KeywordDto key : keywordList) {
+			if(keyword.equals("")) {
+				keyword += key.getName();				
+			}else {
+				keyword += "," + key.getName();
+			}
+		}
+		
+		mav.addObject("bookDto", bookDto);
+		mav.addObject("author", author);
+		mav.addObject("illustrator", illustrator);
+		mav.addObject("translator", translator);
+		mav.addObject("publisherDto", publisherDto);
+		mav.addObject("keyword", keyword);
+	}
+	
+	@Override
+	public void bookUpdateOk(ModelAndView mav) {
+		BookDto bookDto = (BookDto) mav.getModelMap().get("bookDto");
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		
+		LogAspect.info(LogAspect.logMsg+ bookDto);
+		
+		int check = managerDao.updateBook(bookDto);
+		
+		String keyword_list = request.getParameter("keyword");
+		if(keyword_list != null && check == 1) {
+			String[] keyword = keyword_list.split(",");
+			LogAspect.info(LogAspect.logMsg +keyword);
+			for(String key : keyword) {
+				int checkKey = managerDao.keyNameCheck(key);
+				
+				if(checkKey == 0) {
+					managerDao.insertKeyWord(key);
+				}
+				checkKey = managerDao.bookKeyWordCheck(key,bookDto.getBook_num());
+				
+				if(checkKey == 0) {
+					managerDao.insertKeyWordList(key,bookDto.getBook_num());
+				}
+			}
+		}
+		mav.addObject("check", check);
+		mav.addObject("num", bookDto.getBook_num());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -1056,11 +1114,13 @@ public class ManagerServiceImp implements ManagerService {
 		if (fileSize != 0) {
 			/*String appPath = System.getProperty("catalina.home") + "/wtpwebapps/projectBookFactory/resources/img/manager/bookImg";*/
 			String appPath = "C:/bfStore";
+			/*String appPath = request.getSession().getServletContext().getRealPath("/resources/img/manager/bookimg");*/
+			/*String appPath = "/img/manager/bookimg";*/
 			File path = new File(appPath);
 			path.mkdirs();
 			if (path.exists() && path.isDirectory()) {
 				File file = new File(path, fileName);
-
+				System.out.println(path.getAbsolutePath());
 				try {
 					formFile.transferTo(file);
 					response.setContentType("application/text;charset=utf-8");
@@ -1197,6 +1257,26 @@ public class ManagerServiceImp implements ManagerService {
 		dirlist(currentdir);
 		File dir = new File(".");
 		System.out.println(dir.getAbsolutePath());
+		
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String pathSet = request.getSession().getServletContext().getRealPath("/resources/img/manager/bookimg");
+
+		System.out.println(pathSet.toString());
+		Set<String> pathSet2 = request.getSession().getServletContext().getResourcePaths("/");
+		/*String path3 = new HttpServletRequestWrapper(request).getRealPath("/");
+		System.out.println("path3: = = " + path3);*/
+		Iterator<String> iter = pathSet2.iterator();
+		while(iter.hasNext()) {
+			System.out.println(new File(iter.next()).getAbsolutePath());
+		}
+		
+		System.out.println(pathSet2);
+		/*System.out.println(ResourcesPlugin.getWorkspace());*/
+		try {
+			System.out.println(new File(".").getCanonicalPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void dirlist(String fname) {
@@ -1204,6 +1284,144 @@ public class ManagerServiceImp implements ManagerService {
 		String parentpath = dir.getParent();
 		System.out.println("Current Directory : " + dir);
 		System.out.println("parent Directory : " + parentpath);
+	}
+
+	@Override
+	public void randomPreference(ModelAndView mav) {
+		int size = managerDao.getBookCount();
+		for(int i=0;i<1000;i++) {
+			int value = (int)(Math.random() * 1000) + 1;
+			int book_num = (int)(Math.random() * size) + 1;
+			managerDao.updateRandomPreference(value,book_num);
+		}
+	}
+
+	@Override
+	public void statPreference(ModelAndView mav) {
+		HashMap<String, Integer> countMap = new HashMap<String, Integer>();
+		int max = 0;
+		for(int i=0;i<5;i++) {
+			int count = managerDao.getPreferenceTotalCount(i+1);
+			if(count > max) {
+				max = count;
+			}
+			if(i==0)
+				countMap.put("ilban", count);
+			else if(i==1)
+				countMap.put("romance", count);
+			else if(i==2)
+				countMap.put("fantasy", count);
+			else if(i==3)
+				countMap.put("manhwa", count);
+			else if(i==4)
+				countMap.put("bl", count);
+		}
+		
+		int maxCount = 0;
+		HashMap<String, Integer> heightMap = new HashMap<String, Integer>();
+		for(int i=0;i<5;i++) {
+			String key = "";
+			if(i==0)
+				key = "ilban";
+			else if(i==1)
+				key = "romance";
+			else if(i==2)
+				key = "fantasy";
+			else if(i==3)
+				key = "manhwa";
+			else if(i==4)
+				key = "bl";
+			
+			if(maxCount < countMap.get(key)) {
+				maxCount = countMap.get(key);
+			}
+			int height = (int)(((float)countMap.get(key)/max) * 300);
+			heightMap.put(key, height);
+		}
+		
+		//랭킹5가져오기
+		List<StatPreferenceDto> rankList = managerDao.getStatPreferenceList();
+		
+		mav.addObject("rankList", rankList);
+		mav.addObject("countMap", countMap);
+		mav.addObject("heightMap", heightMap);
+		mav.addObject("maxCount", maxCount);
+	}
+
+	@Override
+	public void ilbanPrefer(ModelAndView mav) {
+		HashMap<String, Integer> countMap = new HashMap<String, Integer>();
+		List<StatPreferenceDto> rankList = new ArrayList<StatPreferenceDto>();
+		int max = 0;
+		for(int i=0;i<5;i++) {
+			StatPreferenceDto statPreferenceDto = managerDao.getPreferenceTotalCount(1,i+1);
+			rankList.add(statPreferenceDto);
+			if(statPreferenceDto.getPreference() > max) {
+				max = statPreferenceDto.getPreference();
+			}
+			if(i==0)
+				countMap.put("one", statPreferenceDto.getPreference());
+			else if(i==1)
+				countMap.put("two", statPreferenceDto.getPreference());
+			else if(i==2)
+				countMap.put("three", statPreferenceDto.getPreference());
+			else if(i==3)
+				countMap.put("four", statPreferenceDto.getPreference());
+			else if(i==4)
+				countMap.put("five", statPreferenceDto.getPreference());
+		}
+		
+		int maxCount = 0;
+		HashMap<String, Integer> heightMap = new HashMap<String, Integer>();
+		for(int i=0;i<5;i++) {
+			String key = "";
+			if(i==0)
+				key = "one";
+			else if(i==1)
+				key = "two";
+			else if(i==2)
+				key = "three";
+			else if(i==3)
+				key = "four";
+			else if(i==4)
+				key = "five";
+			
+			if(maxCount < countMap.get(key)) {
+				maxCount = countMap.get(key);
+			}
+			int height = (int)(((float)countMap.get(key)/max) * 300);
+			heightMap.put(key, height);
+		}
+		
+		//랭킹5가져오기
+		mav.addObject("rankList", rankList);
+		mav.addObject("countMap", countMap);
+		mav.addObject("heightMap", heightMap);
+		mav.addObject("maxCount", maxCount);
+	}
+
+	@Override
+	public void romancePrefer(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void fantasyPrefer(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void manhwaPrefer(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void blPrefer(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

@@ -21,6 +21,8 @@ public class OrderDto {
 	private int cash_use;
 	private java.util.Date rental_date;
 	private String rental_state;
+	private int point;
+	private String cash_type;
 
 	public int getPoint_use() {
 		return point_use;
@@ -134,13 +136,32 @@ public class OrderDto {
 		this.pay_type = pay_type;
 	}
 
-	@Override
-	public String toString() {
-		return "OrderDto [num=" + num + ", order_num=" + order_num + ", book_num=" + book_num + ", price=" + price
-				+ ", payment_date=" + payment_date + ", present_check=" + present_check + ", cancel_check="
-				+ cancel_check + ", free_pass=" + free_pass + ", id=" + id + ", pay_type=" + pay_type + ", point_use="
-				+ point_use + ", cash_use=" + cash_use + ", rental_date=" + rental_date + ", rental_state="
-				+ rental_state + "]";
+	public int getPoint() {
+		return point;
 	}
 
+	public void setPoint(int point) {
+		this.point = point;
+	}
+
+	public String getCash_type() {
+		return cash_type;
+	}
+
+	public void setCash_type(String cash_type) {
+		this.cash_type = cash_type;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderDto [num=" + num + ", order_num=" + order_num
+				+ ", book_num=" + book_num + ", price=" + price
+				+ ", payment_date=" + payment_date + ", present_check="
+				+ present_check + ", cancel_check=" + cancel_check
+				+ ", free_pass=" + free_pass + ", id=" + id + ", pay_type="
+				+ pay_type + ", point_use=" + point_use + ", cash_use="
+				+ cash_use + ", rental_date=" + rental_date + ", rental_state="
+				+ rental_state + ", point=" + point + ", cash_type="
+				+ cash_type + "]";
+	}
 }

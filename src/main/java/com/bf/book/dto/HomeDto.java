@@ -1,7 +1,5 @@
 package com.bf.book.dto;
 
-import java.util.Date;
-
 /**
  * @author choi jung eun
  * @date 2018. 2. 18.
@@ -25,6 +23,15 @@ public class HomeDto {
 	private long price;
 	private String type;
 	private long rental_price;
+	private String rental_period;
+
+	public String getRental_period() {
+		return rental_period;
+	}
+
+	public void setRental_period(String rental_period) {
+		this.rental_period = rental_period;
+	}
 
 	public long getRental_price() {
 		return rental_price;
@@ -128,7 +135,7 @@ public class HomeDto {
 		return "HomeDto [img_path=" + img_path + ", bookName=" + bookName + ", authorName=" + authorName
 				+ ", author_num=" + author_num + ", thirdCate=" + thirdCate + ", star_point=" + star_point
 				+ ", book_num=" + book_num + ", price=" + price + ", type=" + type + ", rental_price=" + rental_price
-				+ "]";
+				+ ", rental_period="+rental_period+"]";
 	}
 
 }

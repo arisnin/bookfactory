@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.manager.dto.BoardContactDto;
 import com.bf.member.model.User;
 import com.bf.serviceCenter.service.ServiceCenterService;
 
@@ -57,23 +58,39 @@ public class ServiceCenterController {
 	}
 	
 	@RequestMapping(value = "/serviceCenter/inquriy.do" , method = RequestMethod.GET)
-	public String serviceCenterInquriy(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterInquriy(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("북팩토리 문의");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.inquriyWrite(mav);
 				
-		return "serviceCenter/inquriy.solo";		
+		//return "serviceCenter/inquriy.solo";
+		return mav;
 	}
 	
 	@RequestMapping(value = "/serviceCenter/inquriyOk.do" , method = RequestMethod.POST)
-	public String serviceCenterInquriyOk(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("북팩토리 문의 완성");
-		return "serviceCenter/inquriyOk.solo";
+	public ModelAndView serviceCenterInquriyOk(HttpServletRequest request, HttpServletResponse response, BoardContactDto boardContactDto) {
+		LogAspect.info("북팩토리 문의 작성완료");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		mav.addObject("boardContactDto", boardContactDto);
+		
+		serviceCenterService.inquriyWriteOk(mav);
+		
+		//return "serviceCenter/inquriyOk.solo";
+		return mav;
 	}
 	
-	@RequestMapping(value = "/serviceCenter/service_suggestion.do" , method = RequestMethod.GET)
-	public String serviceCenterServiceSuggestion(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("서비스 제안");
-		return "serviceCenter/service_suggestion.solo";
-	}
+//	@RequestMapping(value = "/serviceCenter/service_suggestion.do" , method = RequestMethod.GET)
+//	public String serviceCenterServiceSuggestion(HttpServletRequest request, HttpServletResponse response) {
+//		LogAspect.info("서비스 제안");
+//		return "serviceCenter/service_suggestion.solo";
+//	}
 	
 	@RequestMapping(value = "/serviceCenter/book_suggestion.do" , method = RequestMethod.GET)
 	public String serviceCenterBookSuggestion(HttpServletRequest request, HttpServletResponse response) {
@@ -82,9 +99,19 @@ public class ServiceCenterController {
 	}
 	
 	@RequestMapping(value = "/serviceCenter/inquriy_list2.do" , method = RequestMethod.GET)
-	public String serviceCenterInquriyList(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterInquriyList(HttpServletRequest request, HttpServletResponse response, BoardContactDto boardContactDto) {
 		LogAspect.info("문의내역");
-		return "serviceCenter/inquriy_list2.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		mav.addObject("boardContactDto", boardContactDto);
+		
+		serviceCenterService.inquriyList(mav);
+		
+		//return "serviceCenter/inquriy_list2.solo";
+		return mav;
+		
 	}
 		
 	@RequestMapping(value = "/serviceCenter/inquriy_answer.do" , method = RequestMethod.GET)

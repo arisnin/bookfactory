@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,14 +21,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
-import com.bf.book.dto.ReviewDto;
+
 import com.bf.manager.dao.ManagerDaoTwo;
 import com.bf.manager.dto.AccuseDto;
-import com.bf.manager.dto.BoardCate1Dto;
-import com.bf.manager.dto.BoardCate2Dto;
+
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
-import com.bf.manager.dto.BookDto;
+
+import com.bf.manager.dto.ManagerCashDto;
 import com.bf.manager.dto.ManagerNoticeDto;
 import com.bf.manager.dto.MemberDto;
 import com.bf.manager.dto.ReviewManagerDto;
@@ -134,6 +135,11 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 		cateList = managerDao.catecorySearch();
 		cateList2 = managerDao.catecorySearch2();
+		
+		if (boardFreqDto.getFile_name() != null) {
+			int index = boardFreqDto.getFile_name().indexOf("_") + 1;
+			boardFreqDto.setFile_name(boardFreqDto.getFile_name().substring(index));
+		}
 
 		LogAspect.info("과연?" + boardFreqDto);
 
@@ -303,6 +309,176 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		mav.setViewName("board/replyOk.mg");
 
 	}
+	@Override
+	public void managerNoticeInsert(ModelAndView mav) {
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+
+		ManagerNoticeDto noticeDto = new ManagerNoticeDto();
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+
+		noticeDto.setWrite_date(new Date());
+		noticeDto.setId(id);
+		String boardNumber = request.getParameter("num");
+
+		if (boardNumber == null)
+			boardNumber = "1";
+		int num = Integer.parseInt(boardNumber);
+
+		mav.addObject("noticeDto", noticeDto);
+		mav.addObject("num", num);
+		mav.setViewName("board/noticeInsert.mg");
+	}
+
+	@Override
+	public void boardNoticeInsertOk(ModelAndView mav) {
+
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		int num = Integer.parseInt(request.getParameter("num"));
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String id = request.getParameter("id");
+		ManagerNoticeDto noticeDto = new ManagerNoticeDto();
+
+		String date = request.getParameter("write_date");
+		Date write_date = null;
+
+		try {
+			write_date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		noticeDto.setWrite_date(write_date);
+		noticeDto.setId(id);
+		noticeDto.setContent(content);
+		noticeDto.setNum(num);
+		noticeDto.setTitle(title);
+
+		LogAspect.logger.info(LogAspect.logMsg + noticeDto);
+
+		int check = managerDao.BoardNoitceInsertOk(noticeDto);
+
+		LogAspect.logger.info(LogAspect.logMsg + check);
+
+		mav.addObject("check", check);
+		mav.setViewName("board/noticeInsertOk.mg");
+	}
+
+	@Override
+	public void boardUpdateOk(ModelAndView mav) {
+		
+		Map<String, Object> map = mav.getModel();
+		MultipartHttpServletRequest request = (MultipartHttpServletRequest) map.get("request");
+		BoardFrequencyDto boardFrequencyDto = (BoardFrequencyDto) map.get("boardFrequencyDto");
+		String pageNumber = request.getParameter("pageNumber");
+
+		
+		LogAspect.logger.info(LogAspect.logMsg + pageNumber);
+		boardFrequencyDto.setContent(request.getParameter("content"));
+		boardFrequencyDto.setTitle(request.getParameter("title"));
+		
+		LogAspect.logger.info(LogAspect.logMsg + boardFrequencyDto);
+		
+		String filePath = boardFrequencyDto.getFile_path();
+		MultipartFile upFile = request.getFile("file");
+		LogAspect.info(upFile+filePath);
+		
+		String fileName = Long.toString(System.currentTimeMillis()) + "_" + upFile.getOriginalFilename();
+		long fileSize = upFile.getSize();
+
+
+		int check = 0;
+
+		if (fileSize == 0) {
+			check = managerDao.boardUpdateOk(boardFrequencyDto);
+		} else {
+			File path = new File("C:\\sanghun\\");
+			path.mkdirs();
+
+			if (path.exists() && path.isDirectory()) {
+				File file = new File(path, fileName);
+				try {
+					upFile.transferTo(file);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				boardFrequencyDto.setFile_path(file.getAbsolutePath());
+				boardFrequencyDto.setFile_name(fileName);
+				boardFrequencyDto.setFile_size(fileSize);
+				LogAspect.logger.info(LogAspect.logMsg + boardFrequencyDto.toString());
+
+				check = managerDao.fileboardUpdateOk(boardFrequencyDto);
+				LogAspect.logger.info(LogAspect.logMsg + check);
+
+			}
+			if (check > 0) {
+				if (path != null) {
+					File originalFile = new File(filePath);
+					if (originalFile.exists() && originalFile.isFile()) {
+						originalFile.delete();
+					}
+				}
+				LogAspect.logger.info(LogAspect.logMsg + check);
+
+				mav.addObject("check", check);
+				mav.setViewName("board/updateOk.mg");
+			}
+		}
+	}
+
+	@Override
+	public void boardDownLoad(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		HttpServletResponse response = (HttpServletResponse) map.get("response");
+
+		int boardNumber = Integer.parseInt(request.getParameter("num"));
+		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+
+		LogAspect.logger.info(LogAspect.logMsg + boardNumber + "===" + pageNumber);
+
+		BoardFrequencyDto boardFrequencyDto = managerDao.selectBoard(boardNumber);
+		LogAspect.logger.info(LogAspect.logMsg + boardFrequencyDto);
+		BufferedInputStream fis = null;
+		BufferedOutputStream fos = null;
+
+		try {
+			int index = boardFrequencyDto.getFile_name().indexOf("_") + 1;
+			String dbFileName = boardFrequencyDto.getFile_name().substring(index);
+			String fileName = new String(dbFileName.getBytes("utf-8"), "ISO-8859-1");
+
+			response.setContentType("application/octet-stream");
+			response.setContentLength((int) boardFrequencyDto.getFile_size());
+			response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";");// 창나오게 해줌
+
+			fis = new BufferedInputStream(new FileInputStream(boardFrequencyDto.getFile_path()));
+			fos = new BufferedOutputStream(response.getOutputStream());
+
+			while (true) {
+				int data = fis.read();
+				if (data == -1)
+					break;
+				fos.write(data);
+			}
+			fos.flush();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fis != null)
+					fis.close();
+				if (fos != null)
+					fos.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 
 	// ------------------멤버---------------------------------------------------
 	@Override
@@ -424,17 +600,52 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		mav.setViewName("member/delete.mg");
 
 	}
+	@Override
+	public void memberPay(ModelAndView mav) {
+		Map<String, Object> map = mav.getModel();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		String pageNumber = request.getParameter("pageNumber");
 
+
+		if (pageNumber == null)
+			pageNumber = "1";
+		int boardSize = 5;
+
+		int currentPage = Integer.parseInt(pageNumber);
+		
+		int startRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize + 1;
+
+		List<ManagerCashDto> cashDtoList = null;
+		
+		cashDtoList=managerDao.memberCashList(startRow,endRow);
+		LogAspect.info(cashDtoList);
+		
+		mav.addObject("cashDtoList", cashDtoList);
+		mav.addObject("pageNumber", currentPage);
+		mav.addObject("boardSize", boardSize);
+
+		mav.setViewName("member/pay.mg");
+	}
+	
 	@Override
 	public void memberPayDetail(ModelAndView mav) {
 		Map<String, Object> map = mav.getModel();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		String id = request.getParameter("id");
+		ManagerCashDto managerCashDto =(ManagerCashDto) map.get("managerCashDto");
+		
 		String pageNumber = request.getParameter("pageNumber");
-		LogAspect.logger.info(LogAspect.logMsg + id);
+		LogAspect.info(managerCashDto);
+	
+		
+
+		mav.setViewName("member/pay.mg");
+		
+		
 
 	}
-
+//--------------------------------------리뷰------------------------------------------
 	@Override
 	public void managerReview(ModelAndView mav) {
 
@@ -502,173 +713,6 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		mav.addObject("accuseDtoList", accuseDtoList);
 		mav.addObject("boardSize", boardSize);
 		mav.setViewName("review/report.mg");
-
-	}
-
-	@Override
-	public void managerNoticeInsert(ModelAndView mav) {
-		Map<String, Object> map = mav.getModel();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
-
-		ManagerNoticeDto noticeDto = new ManagerNoticeDto();
-		User user = (User) request.getSession().getAttribute("userInfo");
-		String id = user.getUsername();
-
-		noticeDto.setWrite_date(new Date());
-		noticeDto.setId(id);
-		String boardNumber = request.getParameter("num");
-
-		if (boardNumber == null)
-			boardNumber = "1";
-		int num = Integer.parseInt(boardNumber);
-
-		mav.addObject("noticeDto", noticeDto);
-		mav.addObject("num", num);
-		mav.setViewName("board/noticeInsert.mg");
-	}
-
-	@Override
-	public void boardNoticeInsertOk(ModelAndView mav) {
-
-		Map<String, Object> map = mav.getModel();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		int num = Integer.parseInt(request.getParameter("num"));
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String id = request.getParameter("id");
-		ManagerNoticeDto noticeDto = new ManagerNoticeDto();
-
-		String date = request.getParameter("write_date");
-		Date write_date = null;
-
-		try {
-			write_date = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		noticeDto.setWrite_date(write_date);
-		noticeDto.setId(id);
-		noticeDto.setContent(content);
-		noticeDto.setNum(num);
-		noticeDto.setTitle(title);
-
-		LogAspect.logger.info(LogAspect.logMsg + noticeDto);
-
-		int check = managerDao.BoardNoitceInsertOk(noticeDto);
-
-		LogAspect.logger.info(LogAspect.logMsg + check);
-
-		mav.addObject("check", check);
-		mav.setViewName("board/noticeInsertOk.mg");
-	}
-
-	@Override
-	public void boardUpdateOk(ModelAndView mav) {
-		
-		Map<String, Object> map = mav.getModel();
-		MultipartHttpServletRequest request = (MultipartHttpServletRequest) map.get("request");
-		BoardFrequencyDto boardFrequencyDto = (BoardFrequencyDto) map.get("boardFrequencyDto");
-		String pageNumber = request.getParameter("pageNumber");
-
-		LogAspect.logger.info(LogAspect.logMsg + boardFrequencyDto);
-		LogAspect.logger.info(LogAspect.logMsg + pageNumber);
-
-		int boardNumber = Integer.parseInt(request.getParameter("boardNumber"));
-		String filePath = boardFrequencyDto.getFile_path();
-		MultipartFile upFile = request.getFile("file");
-
-		String fileName = Long.toString(System.currentTimeMillis()) + "_" + upFile.getOriginalFilename();
-		long fileSize = upFile.getSize();
-		LogAspect.logger.info(LogAspect.logMsg + fileName + "_____" + fileSize);
-
-		int check = 0;
-
-	/*	if (fileSize == 0) {
-			check = boardFrequencyDto.boardUpdateOk(boardFrequencyDto);
-		} else {
-			File path = new File("C:\\sanghun\\");
-			path.mkdirs();
-
-			if (path.exists() && path.isDirectory()) {
-				File file = new File(path, fileName);
-				try {
-					upFile.transferTo(file);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				boardFrequencyDto.setFile_path(file.getAbsolutePath());
-				boardFrequencyDto.setFile_name(fileName);
-				boardFrequencyDto.setFile_size(fileSize);
-				LogAspect.logger.info(LogAspect.logMsg + boardFrequencyDto.toString());
-
-				check = managerDao.fileboardUpdateOk(boardFrequencyDto);
-				LogAspect.logger.info(LogAspect.logMsg + check);
-
-			}*/
-		/*	if (check > 0) {
-				if (path != null) {
-					File originalFile = new File(filePath);
-					if (originalFile.exists() && originalFile.isFile()) {
-						originalFile.delete();
-					}
-				}
-				LogAspect.logger.info(LogAspect.logMsg + check);
-
-				mav.addObject("check", check);
-				mav.setViewName("board/updateOk.mg");
-			}*/
-		}
-	
-
-	@Override
-	public void boardDownLoad(ModelAndView mav) {
-		Map<String, Object> map = mav.getModelMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		HttpServletResponse response = (HttpServletResponse) map.get("response");
-
-		int boardNumber = Integer.parseInt(request.getParameter("num"));
-		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-
-		LogAspect.logger.info(LogAspect.logMsg + boardNumber + "===" + pageNumber);
-
-		BoardFrequencyDto boardFrequencyDto = managerDao.selectBoard(boardNumber);
-		LogAspect.logger.info(LogAspect.logMsg + boardFrequencyDto);
-		BufferedInputStream fis = null;
-		BufferedOutputStream fos = null;
-
-		try {
-			int index = boardFrequencyDto.getFile_name().indexOf("_") + 1;
-			String dbFileName = boardFrequencyDto.getFile_name().substring(index);
-			String fileName = new String(dbFileName.getBytes("utf-8"), "ISO-8859-1");
-
-			response.setContentType("application/octet-stream");
-			response.setContentLength((int) boardFrequencyDto.getFile_size());
-			response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";");// 창나오게 해줌
-
-			fis = new BufferedInputStream(new FileInputStream(boardFrequencyDto.getFile_path()));
-			fos = new BufferedOutputStream(response.getOutputStream());
-
-			while (true) {
-				int data = fis.read();
-				if (data == -1)
-					break;
-				fos.write(data);
-			}
-			fos.flush();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (fis != null)
-					fis.close();
-				if (fos != null)
-					fos.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 
 	}
 

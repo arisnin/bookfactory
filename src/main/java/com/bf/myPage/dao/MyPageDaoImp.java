@@ -77,9 +77,12 @@ public class MyPageDaoImp implements MyPageDao {
 	}
 
 	@Override
-	public int HistoryCashClick(OrderDto orderDto) {
-		// TODO Auto-generated method stub
-		return 0;
+	public OrderDto HistoryCashClick(String id, long order_num) {	
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("order_num", order_num);
+		
+		return sqlSession.selectOne(nameSpace + "history_click_select", map);
 	}
 
 }
