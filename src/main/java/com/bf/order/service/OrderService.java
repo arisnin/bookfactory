@@ -25,4 +25,9 @@ public interface OrderService {
 
 	public void payment(ModelAndView mav);
 
+<<<<<<< HEAD
+	public void getBookSelect(ModelAndView mav);
+
+=======
+>>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
 }

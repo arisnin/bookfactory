@@ -53,20 +53,26 @@ public class OrderController {
 	 * 헤더 > 카트 > 구매
 	 */
 	@RequestMapping(value = "/order.do", method = RequestMethod.GET)
-	public String order(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView order(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("order()");
-		request.getSession().setAttribute("userInfoId", "manager");
-		return "order/order.main";
+		ModelAndView mav = new ModelAndView("order/order.main");
+		mav.addObject("request", request);
+		orderService.getBookSelect(mav);
+		return mav;
 	}
 
 	/**
-	 * 헤더 > 카트 > 구매 완료
+	 * 헤더 > 카트 > 구매 완료, 구매목록 추가
 	 */
 	@RequestMapping(value = "/orderOk.do", method = RequestMethod.GET)
-	public String orderOk(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("orderOk()");
-		request.getSession().setAttribute("userInfoId", "manager");
-		return "order/orderOk.main";
+	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response, OrderDto orderDto) {
+		LogAspect.info("payment()");
+		ModelAndView mav = new ModelAndView("order/orderOk.main");
+		mav.addObject("request", request);
+//		LogAspect.info(orderDto.toString());
+		mav.addObject("orderDto", orderDto);
+		orderService.payment(mav);
+		return mav;
 	}
 
 	/**
@@ -114,7 +120,7 @@ public class OrderController {
 	/**
 	 * 장바구니 비우기 
 	 */
-	@RequestMapping(value = "/cartDelete.do", method = RequestMethod.GET)
+	@RequestMapping(value = "cart/cartDelete.do", method = RequestMethod.GET)
 	public ModelAndView cartDelete(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("cartDelete()");
 		ModelAndView mav = new ModelAndView("cart/cart.main");
@@ -149,6 +155,8 @@ public class OrderController {
 		return null;
 	}
 	
+<<<<<<< HEAD
+=======
 	/**
 	 * 구매목록 추가
 	 */
@@ -162,5 +170,6 @@ public class OrderController {
 		orderService.payment(mav);
 		return mav;
 	}
+>>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
 	
 }

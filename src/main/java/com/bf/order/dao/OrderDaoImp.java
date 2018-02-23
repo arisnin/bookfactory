@@ -31,8 +31,11 @@ public class OrderDaoImp implements OrderDao {
 	}
 
 	@Override
-	public int cartDelete(int bookNum) {
-		return sqlSession.delete("com.bf.mapper.OrderMapper.delete_cartWishtList", bookNum);
+	public int cartDelete(int bookNum, String id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bookNum", bookNum);
+		map.put("id", id);
+		return sqlSession.delete("com.bf.mapper.OrderMapper.delete_cartWishtList", map);
 	}
 
 	@Override
@@ -104,4 +107,12 @@ public class OrderDaoImp implements OrderDao {
 
 	}
 
+<<<<<<< HEAD
+	@Override
+	public HomeDto getBookSelect(int book_num) {
+		return sqlSession.selectOne("com.bf.mapper.OrderMapper.getBookSelect",book_num);
+	}
+
+=======
+>>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
 }

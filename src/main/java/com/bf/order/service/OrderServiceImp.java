@@ -1,6 +1,7 @@
 package com.bf.order.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,11 +57,12 @@ public class OrderServiceImp implements OrderService {
 	public void cartDelete(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		LogAspect.info("cartDelete()");
-		int num = Integer.parseInt(request.getParameter("num"));
-		int check = orderDao.cartDelete(num);
+		int book_num = Integer.parseInt(request.getParameter("bookNum"));
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		int check = orderDao.cartDelete(book_num, id);
 
 		mav.addObject("check", check);
-		mav.setViewName("/cart.main");
 	}
 
 	@Override
@@ -69,8 +71,14 @@ public class OrderServiceImp implements OrderService {
 		LogAspect.info("getCart()");
 		User user = (User) request.getSession().getAttribute("userInfo");
 		List<HomeDto> list = orderDao.getCart(user.getUsername());
+		long totalPrice = 0;
+		for (int i = 0; i < list.size(); i++) {
+			HomeDto homeDto = list.get(i);
+			totalPrice = homeDto.getPrice();
+		}
 		LogAspect.info(list.toString());
 		mav.addObject("listCart", list);
+		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("listSize", list.size());
 	}
 
@@ -94,7 +102,7 @@ public class OrderServiceImp implements OrderService {
 		User user = (User) request.getSession().getAttribute("userInfo");
 		String id = user.getUsername();
 		int count = orderDao.oneCart_Wish(id, bookNum);
-//		System.out.println(count);
+		// System.out.println(count);
 		try {
 			response.setContentType("application/text;charset=utf-8");
 			if (count == 0) {
@@ -147,5 +155,38 @@ public class OrderServiceImp implements OrderService {
 		int check = orderDao.paymentInsert(orderDto);
 		mav.addObject("check", check);
 	}
+<<<<<<< HEAD
+
+	@Override
+	public void getBookSelect(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String book_num = request.getParameter("book_num");
+		List<HomeDto> list = new ArrayList<HomeDto>();
+		HomeDto homeDto=null;
+		long totalPrice = 0;
+		
+		if (request.getParameter("bookList") != null) {
+			String[] bookList = request.getParameter("bookList").split(",");
+			for (int i = 0; i < bookList.length; i++) {
+				homeDto = orderDao.getBookSelect(Integer.parseInt(bookList[i]));
+//				System.out.println(homeDto.toString());
+				list.add(homeDto);
+			}
+		} else {
+			homeDto = orderDao.getBookSelect(Integer.parseInt(book_num));
+			list.add(homeDto);
+		}
+		
+		for (int i = 0; i < list.size(); i++) {
+			homeDto = list.get(i);
+			totalPrice += homeDto.getPrice();
+		}
+		System.out.println(list.toString());
+		mav.addObject("aList", list);
+		mav.addObject("totalPrice", totalPrice);
+	}
+
+=======
 	
+>>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
 }

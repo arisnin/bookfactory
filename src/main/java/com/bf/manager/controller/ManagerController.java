@@ -208,6 +208,16 @@ public class ManagerController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/bookUpdateOk.do", method = RequestMethod.POST)
+	public ModelAndView bookUpdateOk(HttpServletRequest request, HttpServletResponse response
+			,BookDto bookDto) {
+		ModelAndView mav = new ModelAndView("book/updateOk.mg");
+		mav.addObject("request", request);
+		mav.addObject("bookDto", bookDto);
+		managerService.bookUpdateOk(mav);
+		return mav;
+	}
+	
 	@RequestMapping(value = "/publisherSearch.do", method = RequestMethod.GET)
 	public ModelAndView publisherSearch(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("publisher/search.mg");
