@@ -75,5 +75,7 @@ public interface ManagerService {
 
 	public void test(ModelAndView mav);
 
+	public void bookUpdateOk(ModelAndView mav);
+
 	
 }

@@ -11,6 +11,7 @@ import com.bf.manager.dto.BookSearchDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
+import com.bf.manager.dto.KeywordDto;
 import com.bf.manager.dto.PublisherDto;
 import com.bf.manager.dto.PublisherSearchDto;
 
@@ -147,5 +148,11 @@ public interface ManagerDao {
 	public int bookKeyWordCheck(String keyName, int currentNum);
 
 	public void insertKeyWordList(String keyName, int currentNum);
+
+	public BookDto getBook(int book_num);
+
+	public List<KeywordDto> getKeywordList(int book_num);
+
+	public int updateBook(BookDto bookDto);
 
 }

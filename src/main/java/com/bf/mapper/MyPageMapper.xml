@@ -40,7 +40,7 @@
 	</select>
 	
 	<select id="cash_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPageCashPageDto">
-		select cash_charge.CHARGE_DATE, cash_charge.CASH_TYPE, cash_charge.CHARGE_CASH, point.POINT, cash_charge_type.charge_type from cash_charge, cash_charge_type, point where cash_charge.POINT_NUM = point.num and cash_charge.CHARGE_TYPE_NUM = cash_charge_type.num and cash_charge.id = #{id} order by charge_date desc
+		select cash_charge.CHARGE_DATE, cash_charge.CASH_TYPE, cash_charge.CHARGE_CASH, point.POINT, cash_charge_type.charge_type, cash_charge.ORDER_NUM from cash_charge, cash_charge_type, point where cash_charge.POINT_NUM = point.num and cash_charge.CHARGE_TYPE_NUM = cash_charge_type.num and cash_charge.id = #{id} order by charge_date desc
 	</select>
 	
 	<select id="recent_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPageRecentPageDto">
@@ -65,4 +65,10 @@
 	<delete id="recent_delete" parameterType="String">
 		delete from RECENT_LOOKBOOK where id = #{id}
 	</delete>
+	
+	<select id="history_click_select" parameterType="java.util.Map" resultType="com.bf.order.dto.OrderDto">
+		select cc.order_num, cc.cash_type, cc.CHARGE_CASH "PRICE", 0 "cash_use", 0 "point_use", cct.CHARGE_TYPE "pay_type", p.POINT
+		from cash_charge cc, CASH_CHARGE_TYPE cct, point p
+		where cc.id = #{id} and cc.ORDER_NUM= #{order_num} and cc.POINT_NUM = p.NUM and cct.NUM = cc.CHARGE_TYPE_NUM
+	</select>
 </mapper>
