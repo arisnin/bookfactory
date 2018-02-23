@@ -41,5 +41,6 @@ public interface BookDao {
 	String getSecondCateName(long book_num);
 	String getPubName(long book_num);
 	int getTagListCount(ArrayList<String> list);
+	List<HomeDto> getTagBookList(HashMap<String, ArrayList<String>> listMap);
 
 }
