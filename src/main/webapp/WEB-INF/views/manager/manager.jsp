@@ -60,7 +60,7 @@
         <div>
           <a href="${root}/manager/boardContact.do">
              <img src="${root}/img/manager/board.png"/>
-             <span>최근 공지일:<strong>3</strong><br/>Q&A:<strong>3</strong></span>
+             <span>최근 공지일:<strong>3</strong><br/>Q&amp;A:<strong>3</strong></span>
               <span>게시판</span>
          </a>
           <a href="${root}/manager/statPreference.do">

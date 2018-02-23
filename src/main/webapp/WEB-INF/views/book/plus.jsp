@@ -169,14 +169,18 @@
 								<span class="icon-heart" onclick="wishInsert(3,'${root}')"></span>
 							</button></li>
 						<li><button type="button">
-								<span class="icon-basket" onclick="cartInsert(101,'${root}')"></span>
+								<span class="icon-basket" onclick="cartInsert(4447,'${root}')"></span>
 							</button></li>
 
 						<li><button type="button">
 								<span class="icon-gift"
 									onclick="javascript:location.href='${root}/present.do?book_num=101'"></span>
 							</button></li>
+<<<<<<< HEAD
+						<li><button type="button" onclick="javascript:location.href='${root}/order.do?book_num=101'">구매하기</button></li>
+=======
 						<li><button type="button" onclick="javascript:location.href='${root}/payment.do?book_num=101'">구매하기</button></li>
+>>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
 					</ol>
 				</div>
 			</div>

@@ -61,7 +61,7 @@
 							<label>보유책 리스트</label>
 							<span>
 								<c:forEach items="${bookList}" var="bookDto">
-									<a href="#">${bookDto.name}</a><br>
+									<a href="${root}/detail.do?book_num=${bookDto.book_num}">${bookDto.name}</a><br>
 								</c:forEach>
 							</span>
 						</div>

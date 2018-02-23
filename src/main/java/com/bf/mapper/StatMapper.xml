@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bf.mapper.StatMapper">
+	<select id="getStatPreferenceList" resultType="com.bf.manager.dto.StatPreferenceDto">
+		select * from(
+		SELECT ROWNUM RNUM, E.* FROM(
+		SELECT A.BOOK_NUM book_num,A.NAME BOOK_NAME, B.NAME AUTHOR_NAME, PREFERENCE, C.NAME PUB_NAME, NVL(sp,0) SCORE
+		FROM BOOKM A, AUTHOR B, PUBLISHER C, (SELECT AVG(STAR_POINT) SP, BOOK_NUM FROM REVIEW GROUP BY BOOK_NUM) D
+		WHERE A.AUTHOR_NUM = B.NUM AND A.PUB_NUM = C.PUB_NUM AND A.BOOK_NUM = D.BOOK_NUM(+)
+		ORDER BY PREFERENCE DESC) E)
+		where rnum BETWEEN 1 and 5
+	</select>
+	
+	<select id="getPreferenceTotalCount" parameterType="int" resultType="int">
+		select sum(A.PREFERENCE) from bookm a, BOOK_CATEGORY b where A.BOOK_NUM = B.BOOK_NUM and cate1_num = #{cate_num} group by B.CATE1_NUM
+	</select>
+	
+	<select id="getPreferenceTotalCount2" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.StatPreferenceDto">
+		SELECT * FROM(
+		SELECT ROWNUM RNUM, F.* FROM(
+		SELECT A.BOOK_NUM BOOK_NUM,A.NAME BOOK_NAME, C.NAME AUTHOR_NAME, A.PREFERENCE preference, D.NAME PUB_NAME, NVL(sp,0) SCORE
+		FROM BOOKM A, BOOK_CATEGORY B, AUTHOR C, PUBLISHER D, (SELECT AVG(STAR_POINT) SP, BOOK_NUM FROM REVIEW GROUP BY BOOK_NUM) E 
+		WHERE A.BOOK_NUM = B.BOOK_NUM AND CATE1_NUM = #{cate_num} 
+		and A.AUTHOR_NUM = C.NUM and A.PUB_NUM = D.PUB_NUM and A.BOOK_NUM = e.book_num
+		ORDER BY A.PREFERENCE DESC
+		) f) where rnum =#{rnum}
+	</select>
+</mapper>

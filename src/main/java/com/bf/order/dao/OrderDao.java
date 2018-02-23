@@ -14,7 +14,7 @@ public interface OrderDao {
 
 	public int cartWishList(int num, String id);
 
-	public int cartDelete(int num);
+	public int cartDelete(int num, String id);
 
 	public List<HomeDto> getCart(String id);
 	
@@ -27,6 +27,8 @@ public interface OrderDao {
 	public int wishListInsert(int bookNum, String id);
 
 	public int paymentInsert(OrderDto orderDto);
-	
 
+	public HomeDto getBookSelect(int book_num);
+	
+	
 }

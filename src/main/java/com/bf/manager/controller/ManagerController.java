@@ -271,9 +271,11 @@ public class ManagerController {
 	}
 
 	@RequestMapping(value = "/statPreference.do", method = RequestMethod.GET)
-	public ModelAndView statPreference() {
+	public ModelAndView statPreference(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("statistics/preference.mg");
-		LogAspect.info("statPreference()");
+		mav.addObject("request", request);
+		managerService.statPreference(mav);
+		
 		return mav;
 	}
 
@@ -378,6 +380,48 @@ public class ManagerController {
 		ModelAndView mav = new ModelAndView("crawl/auto.mg");
 		mav.addObject("request", request);
 		managerService.test(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/randomPreference.do", method = RequestMethod.GET)
+	public ModelAndView randomPreference(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("crawl/auto.mg");
+		managerService.randomPreference(mav);
+		return null;
+	}
+	
+	@RequestMapping(value = "/ilbanPrefer.do", method = RequestMethod.GET)
+	public ModelAndView ilbanPrefer(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("statistics/ilbanPrefer.mg");
+		managerService.ilbanPrefer(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/romancePrefer.do", method = RequestMethod.GET)
+	public ModelAndView romancePrefer(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("statistics/romancePrefer.mg");
+		managerService.romancePrefer(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/fantasyPrefer.do", method = RequestMethod.GET)
+	public ModelAndView fantasyPrefer(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("statistics/fantasyPrefer.mg");
+		managerService.fantasyPrefer(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/manhwaPrefer.do", method = RequestMethod.GET)
+	public ModelAndView manhwaPrefer(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("statistics/manhwaPrefer.mg");
+		managerService.manhwaPrefer(mav);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/blPrefer.do", method = RequestMethod.GET)
+	public ModelAndView blPrefer(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("statistics/blPrefer.mg");
+		managerService.blPrefer(mav);
 		return mav;
 	}
 	

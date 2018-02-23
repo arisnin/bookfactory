@@ -14,7 +14,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
@@ -42,6 +41,7 @@ import com.bf.manager.dto.CountryDto;
 import com.bf.manager.dto.KeywordDto;
 import com.bf.manager.dto.PublisherDto;
 import com.bf.manager.dto.PublisherSearchDto;
+import com.bf.manager.dto.StatPreferenceDto;
 
 
 /**
@@ -1253,18 +1253,18 @@ public class ManagerServiceImp implements ManagerService {
 	
 	@Override
 	public void test(ModelAndView mav) {
-		/*String currentdir = System.getProperty("catalina.home");
+		String currentdir = System.getProperty("catalina.home");
 		dirlist(currentdir);
 		File dir = new File(".");
-		System.out.println(dir.getAbsolutePath());*/
+		System.out.println(dir.getAbsolutePath());
 		
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		String pathSet = request.getSession().getServletContext().getRealPath("/resources/img/manager/bookimg");
 
 		System.out.println(pathSet.toString());
 		Set<String> pathSet2 = request.getSession().getServletContext().getResourcePaths("/");
-		String path3 = new HttpServletRequestWrapper(request).getRealPath("/");
-		System.out.println("path3: = = " + path3);
+		/*String path3 = new HttpServletRequestWrapper(request).getRealPath("/");
+		System.out.println("path3: = = " + path3);*/
 		Iterator<String> iter = pathSet2.iterator();
 		while(iter.hasNext()) {
 			System.out.println(new File(iter.next()).getAbsolutePath());
@@ -1284,6 +1284,144 @@ public class ManagerServiceImp implements ManagerService {
 		String parentpath = dir.getParent();
 		System.out.println("Current Directory : " + dir);
 		System.out.println("parent Directory : " + parentpath);
+	}
+
+	@Override
+	public void randomPreference(ModelAndView mav) {
+		int size = managerDao.getBookCount();
+		for(int i=0;i<1000;i++) {
+			int value = (int)(Math.random() * 1000) + 1;
+			int book_num = (int)(Math.random() * size) + 1;
+			managerDao.updateRandomPreference(value,book_num);
+		}
+	}
+
+	@Override
+	public void statPreference(ModelAndView mav) {
+		HashMap<String, Integer> countMap = new HashMap<String, Integer>();
+		int max = 0;
+		for(int i=0;i<5;i++) {
+			int count = managerDao.getPreferenceTotalCount(i+1);
+			if(count > max) {
+				max = count;
+			}
+			if(i==0)
+				countMap.put("ilban", count);
+			else if(i==1)
+				countMap.put("romance", count);
+			else if(i==2)
+				countMap.put("fantasy", count);
+			else if(i==3)
+				countMap.put("manhwa", count);
+			else if(i==4)
+				countMap.put("bl", count);
+		}
+		
+		int maxCount = 0;
+		HashMap<String, Integer> heightMap = new HashMap<String, Integer>();
+		for(int i=0;i<5;i++) {
+			String key = "";
+			if(i==0)
+				key = "ilban";
+			else if(i==1)
+				key = "romance";
+			else if(i==2)
+				key = "fantasy";
+			else if(i==3)
+				key = "manhwa";
+			else if(i==4)
+				key = "bl";
+			
+			if(maxCount < countMap.get(key)) {
+				maxCount = countMap.get(key);
+			}
+			int height = (int)(((float)countMap.get(key)/max) * 300);
+			heightMap.put(key, height);
+		}
+		
+		//랭킹5가져오기
+		List<StatPreferenceDto> rankList = managerDao.getStatPreferenceList();
+		
+		mav.addObject("rankList", rankList);
+		mav.addObject("countMap", countMap);
+		mav.addObject("heightMap", heightMap);
+		mav.addObject("maxCount", maxCount);
+	}
+
+	@Override
+	public void ilbanPrefer(ModelAndView mav) {
+		HashMap<String, Integer> countMap = new HashMap<String, Integer>();
+		List<StatPreferenceDto> rankList = new ArrayList<StatPreferenceDto>();
+		int max = 0;
+		for(int i=0;i<5;i++) {
+			StatPreferenceDto statPreferenceDto = managerDao.getPreferenceTotalCount(1,i+1);
+			rankList.add(statPreferenceDto);
+			if(statPreferenceDto.getPreference() > max) {
+				max = statPreferenceDto.getPreference();
+			}
+			if(i==0)
+				countMap.put("one", statPreferenceDto.getPreference());
+			else if(i==1)
+				countMap.put("two", statPreferenceDto.getPreference());
+			else if(i==2)
+				countMap.put("three", statPreferenceDto.getPreference());
+			else if(i==3)
+				countMap.put("four", statPreferenceDto.getPreference());
+			else if(i==4)
+				countMap.put("five", statPreferenceDto.getPreference());
+		}
+		
+		int maxCount = 0;
+		HashMap<String, Integer> heightMap = new HashMap<String, Integer>();
+		for(int i=0;i<5;i++) {
+			String key = "";
+			if(i==0)
+				key = "one";
+			else if(i==1)
+				key = "two";
+			else if(i==2)
+				key = "three";
+			else if(i==3)
+				key = "four";
+			else if(i==4)
+				key = "five";
+			
+			if(maxCount < countMap.get(key)) {
+				maxCount = countMap.get(key);
+			}
+			int height = (int)(((float)countMap.get(key)/max) * 300);
+			heightMap.put(key, height);
+		}
+		
+		//랭킹5가져오기
+		mav.addObject("rankList", rankList);
+		mav.addObject("countMap", countMap);
+		mav.addObject("heightMap", heightMap);
+		mav.addObject("maxCount", maxCount);
+	}
+
+	@Override
+	public void romancePrefer(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void fantasyPrefer(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void manhwaPrefer(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void blPrefer(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

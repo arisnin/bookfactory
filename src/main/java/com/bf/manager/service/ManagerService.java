@@ -77,5 +77,19 @@ public interface ManagerService {
 
 	public void bookUpdateOk(ModelAndView mav);
 
+	public void randomPreference(ModelAndView mav);
+
+	public void statPreference(ModelAndView mav);
+
+	public void ilbanPrefer(ModelAndView mav);
+
+	public void romancePrefer(ModelAndView mav);
+
+	public void fantasyPrefer(ModelAndView mav);
+
+	public void manhwaPrefer(ModelAndView mav);
+
+	public void blPrefer(ModelAndView mav);
+
 	
 }

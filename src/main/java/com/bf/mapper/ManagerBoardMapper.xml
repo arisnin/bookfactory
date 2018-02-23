@@ -89,6 +89,14 @@ where rnum >=#{startRow} and rnum <=#{endRow}
 			AND cate2.num =#{cateNum}
 			and fre.num=#{num}
 	</select>
+	
+	<update id="fileBoardUpdate" parameterType="com.bf.manager.dto.BoardFrequencyDto">
+		update BOARD_FREQUENCY set title =#{title},category =#{category},content =#{content},file_name=#{file_name},file_path=#{file_path},file_size=#{file_size} 
+		where num =#{num}
+	</update>
+		<update id="boardUpdate" parameterType="com.bf.manager.dto.BoardFrequencyDto">
+		update BOARD_FREQUENCY set title =#{title},category =#{category},content =#{content} where num =#{num}
+	</update>
 </mapper>
 
 	
