@@ -201,7 +201,7 @@ public class MyPageController {
 	 * 마이페이지 > 마이캐시 > 충전내역 > 결제내역
 	 */
 	@RequestMapping(value="/payment/myCashHistoryCashClick.do")
-	public String myCashHistoryCashClick(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView myCashHistoryCashClick(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("MyCashHistoryCashClick()");
 		request.getSession().setAttribute("userInfoId", "user");
 		
@@ -210,7 +210,7 @@ public class MyPageController {
 		
 		mypageService.myCashHistoryCashClick(mav);
 		
-		return "myPage/payment/myCashHistoryCashClick.my";
+		return mav;
 	}
 	
 	/**

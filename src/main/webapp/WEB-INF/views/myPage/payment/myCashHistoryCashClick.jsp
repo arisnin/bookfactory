@@ -23,22 +23,20 @@
 				<li>포인트 상품권</li>
 				<li>리디캐시 사용액</li>
 				<li>리디포인트 사용액</li>
-				<li>PG결제금액</li>
 				<li>결제수단</li>
 				<li>적립 리디포인트</li>
 			</ul>
 			
 			<ul class="orderhistory_rightside">
-				<li>2018011539796034</li>
-				<li><a class="title" href="#">소설로 읽는 내 인생의 영화</a></li>
+				<li>${orderDto.order_num}</li>
+				<li><a class="title" href="#">${orderDto.cash_type}</a></li>
+				<li><strong>${orderDto.price}원</strong></li>
 				<li><strong>0원</strong></li>
 				<li><strong>0원</strong></li>
-				<li><strong>0원</strong></li>
-				<li><strong>0원</strong></li>
-				<li><strong>0원</strong></li>
-				<li><strong>0원</strong></li>
-				<li>리디캐시</li>
-				<li>0원</li>
+				<li><strong>${orderDto.cash_use}원</strong></li>
+				<li><strong>${orderDto.point_use}원</strong></li>
+				<li>${orderDto.pay_type}</li>
+				<li>${orderDto.point}원</li>
 			</ul>
 		</div>
 

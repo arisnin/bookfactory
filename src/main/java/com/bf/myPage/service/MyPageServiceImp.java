@@ -258,6 +258,11 @@ public class MyPageServiceImp implements MyPageService {
 		mav.setViewName("myPage/library/purchasedDelete.my");
 	}
 
+	/**
+	 * @author : 정호열
+	 * @date : 2018. 2. 22.
+	 * comment : 최근본책 페이지에 전체삭제 버튼 누르면 recent_lookbook 테이블의 모든 데이터가 지워져  화면상에서 사라짐.
+	 */
 	@Override
 	public void recentLookBookDelete(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -273,6 +278,11 @@ public class MyPageServiceImp implements MyPageService {
 		mav.setViewName("myPage/library/recentLookBookDelete.my");
 	}
 
+	/**
+	 * @author : 정호열
+	 * @date : 2018. 2. 23.
+	 * comment : 마이캐시 충전내역에서 선택하고자 하는 부분을 클릭하면 그 주문번호와 id에 맞는 데이터를 뽑아옴.
+	 */
 	@Override
 	public void myCashHistoryCashClick(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -281,11 +291,13 @@ public class MyPageServiceImp implements MyPageService {
 		User user = (User) request.getSession().getAttribute("userInfo");
 		String id = user.getUsername();
 		
-		OrderDto orderDto = new OrderDto();
-		orderDto.setId(id);
+		long order_num = Long.parseLong(request.getParameter("order_num"));
 		
-		int check = myPageDao.HistoryCashClick(orderDto);
+		OrderDto orderDto = myPageDao.HistoryCashClick(id, order_num);
+		LogAspect.info(orderDto.toString());
 		
+		mav.addObject("orderDto", orderDto);
+		mav.setViewName("myPage/payment/myCashHistoryCashClick.my");
 	}
 
 	
