@@ -8,6 +8,9 @@
 <title>자동 등록</title>
 	<c:set var="root" value="${pageContext.request.contextPath}"/>
   	<link rel="stylesheet" href="${root}/css/manager/book.css">
+  	<link rel="stylesheet" href="${root }/alert/alertify_core.css" />
+	<link rel="stylesheet" href="${root }/alert/alertify_default.css" id="toggleCSS" />
+
 </head>
 <body>
 	<div id="b_in_wrapper">
@@ -18,7 +21,6 @@
 				</div>
 				<div class="b_cate_in">
 					<label>리디북스 책넣는방법</label><br><br>
-					<!-- <input name="url" class="b_crawinput" type="text" placeholder="url"/><br><br> -->
 					<label>1.카테고리 등록버튼 클릭</label><br><br>
 					<label>2.넣고싶은 책분류 클릭</label><br><br>
 					<label>3.에러가 날수도 있다 당황하지 말고 현우한테 말하자</label><br><br>
@@ -32,7 +34,9 @@
 						<button id="b_bl" type="button" class="bf-button">BL</button>
 						<button id="urlSet" type="button" class="bf-button">ALL자동 테스트</button>
 					</div>
+					<hr>
 					<div align="right">
+						<button id="preference" type="button" class="bf-button">선호도 랜덤 주기 테스트</button>
 						<button id="test" type="button" class="bf-button">테스트용</button>
 					</div>
 				</div>
@@ -40,7 +44,20 @@
 		</section>
 	</div>
 	
+	<script src="${root }/alert/alertifymin.js"></script>
 	<script type="text/javascript">
+	
+		$("#preference").click(function(){
+			var url ="${root}/manager/randomPreference.do";
+			$.ajax({
+				  url: url,
+				  method: 'get',
+				  success: function(){
+					  alertify.success('선호도1000개 랜덤조작 완료');
+				  },
+				  dataType: "text"
+			});
+		});
 	
 		$("#test").click(function(){
 			location.href="${root}/manager/test.do";
