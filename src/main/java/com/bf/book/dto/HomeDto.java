@@ -17,8 +17,6 @@ public class HomeDto {
 	private String bookName;
 	private String authorName;
 	private long author_num;
-	private String pub_name;
-	private long pub_num;
 	private String thirdCate; // 리뷰작성된거끌어와야함 잠시 null처리
 	private int star_point;
 	private long book_num;
@@ -27,9 +25,6 @@ public class HomeDto {
 	private long rental_price;
 	private String rental_period;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	public String getRental_period() {
 		return rental_period;
 	}
@@ -38,28 +33,23 @@ public class HomeDto {
 		this.rental_period = rental_period;
 	}
 
-	public HomeDto() {}
+	public long getRental_price() {
+		return rental_price;
+	}
 
-=======
-	public HomeDto() {}
+	public void setRental_price(long rental_price) {
+		this.rental_price = rental_price;
+	}
 
->>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
-=======
-	public HomeDto() {}
+	public HomeDto() {
+	}
 
->>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
-=======
-	public HomeDto() {}
-
->>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
-	public HomeDto(String img_path, String bookName, String authorName, long author_num, String pub_name, long pub_num,
-			String thirdCate, int star_point, long book_num, long price, String type, long rental_price) {
+	public HomeDto(String img_path, String bookName, String authorName, long author_num, String thirdCate,
+			int star_point, long book_num, long price, String type, long rental_price) {
 		this.img_path = img_path;
 		this.bookName = bookName;
 		this.authorName = authorName;
 		this.author_num = author_num;
-		this.pub_name = pub_name;
-		this.pub_num = pub_num;
 		this.thirdCate = thirdCate;
 		this.star_point = star_point;
 		this.book_num = book_num;
@@ -98,22 +88,6 @@ public class HomeDto {
 
 	public void setAuthor_num(long author_num) {
 		this.author_num = author_num;
-	}
-
-	public String getPub_name() {
-		return pub_name;
-	}
-
-	public void setPub_name(String pub_name) {
-		this.pub_name = pub_name;
-	}
-
-	public long getPub_num() {
-		return pub_num;
-	}
-
-	public void setPub_num(long pub_num) {
-		this.pub_num = pub_num;
 	}
 
 	public String getThirdCate() {
@@ -156,44 +130,12 @@ public class HomeDto {
 		this.type = type;
 	}
 
-	public long getRental_price() {
-		return rental_price;
-	}
-
-	public void setRental_price(long rental_price) {
-		this.rental_price = rental_price;
-	}
-
 	@Override
 	public String toString() {
 		return "HomeDto [img_path=" + img_path + ", bookName=" + bookName + ", authorName=" + authorName
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 				+ ", author_num=" + author_num + ", thirdCate=" + thirdCate + ", star_point=" + star_point
 				+ ", book_num=" + book_num + ", price=" + price + ", type=" + type + ", rental_price=" + rental_price
-				+ ", rental_period="+ rental_period +"]";
-=======
-				+ ", author_num=" + author_num + ", pub_name=" + pub_name + ", pub_num=" + pub_num + ", thirdCate="
-				+ thirdCate + ", star_point=" + star_point + ", book_num=" + book_num + ", price=" + price + ", type="
-				+ type + ", rental_price=" + rental_price + "]";
->>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
-=======
-				+ ", author_num=" + author_num + ", pub_name=" + pub_name + ", pub_num=" + pub_num + ", thirdCate="
-				+ thirdCate + ", star_point=" + star_point + ", book_num=" + book_num + ", price=" + price + ", type="
-				+ type + ", rental_price=" + rental_price + "]";
->>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
-=======
-				+ ", author_num=" + author_num + ", pub_name=" + pub_name + ", pub_num=" + pub_num + ", thirdCate="
-				+ thirdCate + ", star_point=" + star_point + ", book_num=" + book_num + ", price=" + price + ", type="
-				+ type + ", rental_price=" + rental_price + "]";
->>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
-=======
-				+ ", author_num=" + author_num + ", pub_name=" + pub_name + ", pub_num=" + pub_num + ", thirdCate="
-				+ thirdCate + ", star_point=" + star_point + ", book_num=" + book_num + ", price=" + price + ", type="
-				+ type + ", rental_price=" + rental_price + "]";
->>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
+				+ ", rental_period="+rental_period+"]";
 	}
-	
+
 }

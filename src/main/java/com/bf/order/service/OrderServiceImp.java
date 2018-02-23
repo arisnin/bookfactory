@@ -155,7 +155,6 @@ public class OrderServiceImp implements OrderService {
 		int check = orderDao.paymentInsert(orderDto);
 		mav.addObject("check", check);
 	}
-<<<<<<< HEAD
 
 	@Override
 	public void getBookSelect(ModelAndView mav) {
@@ -186,7 +185,4 @@ public class OrderServiceImp implements OrderService {
 		mav.addObject("totalPrice", totalPrice);
 	}
 
-=======
-	
->>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
 }

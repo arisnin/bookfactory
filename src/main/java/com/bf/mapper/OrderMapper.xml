@@ -52,7 +52,6 @@
 	</insert>
 	<insert id="paymentInsert" parameterType="com.bf.order.dto.OrderDto">
 		insert into payment
-<<<<<<< HEAD
 		values(payment_num_seq.nextval, #{order_num}, #{book_num}, #{price},
 		sysdate,
 		#{present_check},#{cancel_check},#{free_pass},#{id},#{pay_type},#{point_use},#{cash_use},sysdate+3,#{rental_state})
@@ -84,24 +83,4 @@
 		from bookM, AUTHOR where bookM.AUTHOR_NUM =
 		AUTHOR.NUM and book_num=#{book_num}
 	</select>
-=======
-		values(payment_num_seq.nextval, #{order_num}, #{book_num}, #{price}, sysdate, #{present_check},#{cancel_check},#{free_pass},#{id},#{pay_type},#{point_use},#{cash_use},sysdate+3,#{rental_state})
-	</insert>
-	<update id="updatePoint" parameterType="java.util.HashMap">
-		UPDATE point SET remain=(remain-(#{remain})) WHERE num = (
-			SELECT b.num FROM (
-    			SELECT ROWNUM rnum, A.* FROM (
-        			SELECT * FROM point WHERE destory_date>SYSDATE AND ID=#{id} ORDER BY destory_date ASC)A
-          	)b WHERE rnum = #{rnum})
-	</update>
-	<select id="pointSelect" parameterType="java.util.HashMap" resultType="com.bf.order.dto.PointDto">
-		SELECT * FROM (
-    		SELECT ROWNUM rnum, A.* FROM (
-        		SELECT * FROM point WHERE destory_date>SYSDATE AND ID=#{id} ORDER BY destory_date ASC)A
-          	)b WHERE rnum = #{rnum}
-	</select>
-	<update id="updateZero">
-		update point set remain=0, state = 'off' where num = #{num} 
-	</update>
->>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
 </mapper>

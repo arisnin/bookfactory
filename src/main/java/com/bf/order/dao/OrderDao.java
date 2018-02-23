@@ -25,12 +25,6 @@ public interface OrderDao {
 	public int oneCart_Wish(String id, int bookNum);	//카트 중복검사
 	
 	public int wishListInsert(int bookNum, String id);
-<<<<<<< HEAD
-=======
-
-	public int paymentInsert(OrderDto orderDto);
-	
->>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
 
 	public int paymentInsert(OrderDto orderDto);
 

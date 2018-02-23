@@ -155,21 +155,5 @@ public class OrderController {
 		return null;
 	}
 	
-<<<<<<< HEAD
-=======
-	/**
-	 * 구매목록 추가
-	 */
-	@RequestMapping(value = "/orderOk.do", method = RequestMethod.POST)
-	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response, OrderDto orderDto) {
-		LogAspect.info("payment()");
-		ModelAndView mav = new ModelAndView("order/orderOk.main");
-		mav.addObject("request", request);
-//		LogAspect.info(orderDto.toString());
-		mav.addObject("orderDto", orderDto);
-		orderService.payment(mav);
-		return mav;
-	}
->>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
 	
 }
