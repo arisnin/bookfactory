@@ -188,5 +188,42 @@
 		order by B.PREFERENCE
 	</select>
 	
+	<insert id="insertKeyWord" parameterType="String">
+		insert into keyword values(keyword_num_seq.nextval,#{name})
+	</insert>
+	
+	<select id="keyNameCheck" parameterType="String" resultType="int">
+		select count(*) from keyword where name=#{keyName}
+	</select>
+	
+	<select id="bookKeyWordCheck" parameterType="java.util.HashMap" resultType="int">
+		select count(*) from keyword_list a, keyword b,bookm c where a.KEYWORD_NUM = b.num and a.book_num = c.book_num and c.book_num=#{currentNum} and b.name=#{keyName} 
+	</select>
+	
+	<select id="getKeyWordNum" parameterType="String" resultType="int">
+		select num from keyword where name=#{keyName}
+	</select>
+	
+	<insert id="insertKeyWordList" parameterType="java.util.HashMap">
+		insert into keyword_list values(keyword_list_num_seq.nextval ,#{keyNum} ,#{currentNum})
+	</insert>
+	
+	<select id="getBook" parameterType="int" resultType="com.bf.manager.dto.BookDto">
+		select * from bookm where book_num = #{book_num}
+	</select>
+	
+	<select id="getKeywordList" parameterType="int" resultType="com.bf.manager.dto.KeywordDto">
+		select a.NUM , a.name from keyword a, keyword_list b, bookm c 
+		where a.num = b.keyword_num and b.book_num = c.book_num and b.book_num = #{book_num}
+	</select>
+	
+	<update id="updateBook" parameterType="com.bf.manager.dto.BookDto">
+		update bookm set write_date = #{write_date} , pub_num = #{pub_num}, author_num = #{author_num},
+			illustrator_num = #{illustrator_num}, translator_num = #{translator_num}, price = #{price},
+			support = #{support}, img_path = #{img_path} , sub_title = #{sub_title}, type = #{type},
+			intro = #{intro}, pub_intro = #{pub_intro}, rental_period = #{rental_period}, rental_price = #{rental_price}
+		where book_num = #{book_num}
+	</update>
+	
 </mapper>
 

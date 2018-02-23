@@ -11,8 +11,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
@@ -37,6 +39,7 @@ import com.bf.manager.dto.BookSearchDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
+import com.bf.manager.dto.KeywordDto;
 import com.bf.manager.dto.PublisherDto;
 import com.bf.manager.dto.PublisherSearchDto;
 
@@ -56,10 +59,22 @@ public class ManagerServiceImp implements ManagerService {
 	public void bookCategoryOk(ModelAndView mav) {
 		//대분류 설정
 		int thae = managerDao.checkCateOne();
-		if(thae != 5) {
+		if(thae < 5) {
 			String[] cateOne = {"일반","로맨스","판타지","만화","BL"};
 			for(int i=0;i<cateOne.length;i++) {
 				managerDao.insertCateOne(cateOne[i],i+1);
+			}
+			//초기 키워드 삽입
+			String keyword = "실존역사물, 가상시대물, 궁정로맨스, 캠퍼스물, 한국씨, 백합/GL, 차원이동, 회귀/타임슬립, 영혼체인지/빙의, 초월적존재, 외국인/혼혈, 남장여자, 바람둥이, 맞선, 속도위반, 베이비메신저, 법조계, 메디컬, 군대물, 경찰/형사/수사관, 연예인, 불치병/장애, 기억상실, 오해, 시월드, 신데렐라, 권선징악, 나이차커플, 비밀연애, 삼각관계, 계약연애/결혼, 정략결혼, 선결혼후연애, 몸정>맘정, 소유욕/독점욕/질투, 여공남수, 운명적사랑, 로맨틱코미디, 애잔물, 신파, 추리/미스터리/스릴러, 육아물, 악녀시점, 더티토크, 이야기중심, 고수위, 씬중심, 삽화, 2016년출간, 2015년출간, 2014년출간, 2013년이전출간, 3000원이하, 3000~6000원, 6000~10000원, 1만원 초과, 현대판타지, 게임판타지, 퓨전판타지, 정통판타지, 기갑판타지, 신무협, 전통무협, 차원이동물, 복수물, 전쟁물, 하렘물, 먼치킨, 레이드물, 생존물, 전문직, 경영물, 귀환물, 환생물, 빙의물, 오래된연인, 라이벌/앙숙, 갑을관계, 질투/복수, 황제, 가족, 종교, 장군/기사, 반역물, 마법사/소환사/정령사, 도적/암살자, 검사/군인, 도사/퇴마사, 통쾌함, 유쾌함, 고독함, 비장함, 에로틱함, 오만함, 잔잔함, 서정적, 순정만화, 소년만화, 청장년만화, 웹툰, 판타지/SF, 시대/역사물, 스포츠물, 학원물, 코믹물, 추리물, 공포물, 액션물, 백합물, 무협물, 회사, 캠퍼스, 병원배경, 던전/모험, 성장, 일상, 동물, 음악, 요괴, 요리/음식, 퇴마, 도박/범죄, 복수/배신, 현대배경, 미래배경, 대체역사, 이계/이세계, 세계멸망, 타임슬립, 남녀성전환(TS), 연상연하, 짝사랑, 사제지간, 삼각로맨스, 동거, 러브코믹, 금지된사랑, 하렘, 역하렘, 결혼생활, 평범남, 뇌섹남, 능력남, 재벌남, 사이다남, 직진남, 계략남, 능글남, 다정남, 애교남, 유혹남, 절륜남, 집착남, 나쁜남자, 후회남, 상처남, 짝사랑남, 순정남, 철벽남, 동정남, 순진남, 까칠남, 냉정남, 무심남, 오만남, 카리스마남, 존댓말남, 대형견남, 연하남, 사차원남, 평범녀, 뇌섹녀, 능력녀, 재벌녀, 사이다녀, 직진녀, 계략녀, 능글녀, 다정녀, 애교녀, 유혹녀, 절륜녀, 집착녀, 나쁜여자, 후회녀, 상처녀, 짝사랑녀, 순정녀, 철벽녀, 동정녀, 순진녀, 까칠녀, 냉정녀, 무심녀, 도도녀, 외유내강, 우월녀, 걸크러시, 털털녀, 엉뚱녀, 쾌활발랄녀, 한국, 일본, 완결, 치유, 감동, 달달함, 진지함, 잔인함, 애니화, 드라마화, 영화화, 단편, 4컷만화, 고화질, 현대물, 시대물, SF/미래물, 동양풍, 서양풍, 판타지물, OO버스, 오메가버스, 추리/스릴러, 미스터리/오컬트, 학원/캠퍼스물, 궁정물, 차원이동/영혼바뀜, 회귀물, 전생/환생, 초능력, 인외존재, 복수, 질투, 오해/착각, 감금, SM, 외국인, 왕족/귀족, 연예계, 조직/암흑가, 스포츠, 리맨물, 사내연애, 전문직물, 정치/사회/재벌, 할리킹, 게임물, 키잡물, 소꿉친구, 친구>연인, 동거/배우자, 첫사랑, 재회물, 라이벌/열등감, 배틀연애, 애증, 하극상, 계약, 원나잇, 스폰서, 금단의관계, 사제관계, 신분차이, 나이차이, 다공일수, 서브공있음, 서브수있음, 리버스, 미인공, 다정공, 울보공, 대형견공, 순진공, 귀염공, 호구공, 헌신공, 강공, 냉혈공, 능욕공, 무심공, 능글공, 까칠공, 츤데레공, 초딩공, 집착공, 광공, 개아가공, 복흑/계략공, 연하공, 재벌공, 황제공, 후회공, 사랑꾼공, 순정공, 짝사랑공, 상처공, 절륜공, 천재공, 존댓말공, 미인수, 다정수, 순진수, 명랑수, 적극수, 소심수, 잔망수, 허당수, 평범수, 호구수, 헌신수, 강수, 냉혈수, 까칠수, 츤데레수, 외유내강수, 단정수, 무심수, 우월수, 여왕수, 유혹수, 계략수, 떡대수, 재벌수, 연상수, 중년수, 임신수, 순정수, 짝사랑수, 상처수, 굴림수, 도망수, 후회수, 능력수, 얼빠수, 단행본, 연재중, 연재완결, 코믹/개그물, 달달물, 삽질물, 일상물, 힐링물, 시리어스물, 피폐물, 사건물, 성장물, 잔잔물, 애절물, 하드코어, 3인칭시점, 공시점, 수시점, 해외소설, 평점4점이상, 리뷰100개이상, 만원 미만, 10000~20000원, 2만원 초과";
+			String[] original = keyword.split(",");
+			
+			ArrayList<String> result = new ArrayList<String>();
+			
+			for(int i=0;i<original.length;i++) {
+				result.add(original[i]);
+			}
+			for(int i=0;i<result.size();i++) {
+				managerDao.insertKeyWord(result.get(i).trim());
 			}
 		}
 		
@@ -291,7 +306,29 @@ public class ManagerServiceImp implements ManagerService {
 	@Override
 	public void bookInsertOk(ModelAndView mav) {
 		BookDto bookDto = (BookDto) mav.getModelMap().get("bookDto");
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+
 		int check = managerDao.insertBook(bookDto);
+		
+		int currentNum = managerDao.getMaxBookNum();
+		String keyword_list = request.getParameter("keyword");
+		if(keyword_list != null) {
+			String[] keyword = keyword_list.split(",");
+			LogAspect.info(LogAspect.logMsg +keyword);
+			for(String key : keyword) {
+				int checkKey = managerDao.keyNameCheck(key);
+				
+				if(checkKey == 0) {
+					managerDao.insertKeyWord(key);
+				}
+				checkKey = managerDao.bookKeyWordCheck(key,currentNum);
+				
+				if(checkKey == 0) {
+					managerDao.insertKeyWordList(key,currentNum);
+				}
+			}
+		}
+		
 		mav.addObject("check", check);
 	}
 	
@@ -327,7 +364,62 @@ public class ManagerServiceImp implements ManagerService {
 	
 	@Override
 	public void bookUpdate(ModelAndView mav) {
-		// TODO Auto-generated method stub
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		int book_num = Integer.parseInt(request.getParameter("book_num"));
+		BookDto bookDto = managerDao.getBook(book_num);
+		
+		AuthorDto author = managerDao.getAuthor(bookDto.getAuthor_num());
+		AuthorDto illustrator = managerDao.getAuthor(bookDto.getIllustrator_num());
+		AuthorDto translator = managerDao.getAuthor(bookDto.getTranslator_num());
+		
+		PublisherDto publisherDto =  managerDao.getPublisher(bookDto.getPub_num());
+		
+		List<KeywordDto> keywordList = managerDao.getKeywordList(bookDto.getBook_num());
+		String keyword = "";
+		for(KeywordDto key : keywordList) {
+			if(keyword.equals("")) {
+				keyword += key.getName();				
+			}else {
+				keyword += "," + key.getName();
+			}
+		}
+		
+		mav.addObject("bookDto", bookDto);
+		mav.addObject("author", author);
+		mav.addObject("illustrator", illustrator);
+		mav.addObject("translator", translator);
+		mav.addObject("publisherDto", publisherDto);
+		mav.addObject("keyword", keyword);
+	}
+	
+	@Override
+	public void bookUpdateOk(ModelAndView mav) {
+		BookDto bookDto = (BookDto) mav.getModelMap().get("bookDto");
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		
+		LogAspect.info(LogAspect.logMsg+ bookDto);
+		
+		int check = managerDao.updateBook(bookDto);
+		
+		String keyword_list = request.getParameter("keyword");
+		if(keyword_list != null && check == 1) {
+			String[] keyword = keyword_list.split(",");
+			LogAspect.info(LogAspect.logMsg +keyword);
+			for(String key : keyword) {
+				int checkKey = managerDao.keyNameCheck(key);
+				
+				if(checkKey == 0) {
+					managerDao.insertKeyWord(key);
+				}
+				checkKey = managerDao.bookKeyWordCheck(key,bookDto.getBook_num());
+				
+				if(checkKey == 0) {
+					managerDao.insertKeyWordList(key,bookDto.getBook_num());
+				}
+			}
+		}
+		mav.addObject("check", check);
+		mav.addObject("num", bookDto.getBook_num());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -450,7 +542,7 @@ public class ManagerServiceImp implements ManagerService {
 
 		try {
 			response.setContentType("application/text;charset=utf-8");
-			response.getWriter().print("ㅋㅋㅋ");
+			response.getWriter().print("완료");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -514,7 +606,7 @@ public class ManagerServiceImp implements ManagerService {
 	}
 	
 	
-	public void autoPublisherTest(String href) {
+	private void autoPublisherTest(String href) {
 		if(managerDao.getPublisherZero() == 0) {
 			PublisherDto publisherDto = new PublisherDto();
 			publisherDto.setPub_num(0);
@@ -551,7 +643,7 @@ public class ManagerServiceImp implements ManagerService {
 		
 	}
 	
-	public void autoAuthorTest(String href1) {
+	private void autoAuthorTest(String href1) {
 		
 		//0번처리
 		int init = managerDao.getZeroAuthor();
@@ -681,7 +773,7 @@ public class ManagerServiceImp implements ManagerService {
 		
 	}
 	
-	public void autoBookTest(String href) {
+	private void autoBookTest(String href) {
 		
 		String url = href;
 		//책정보 
@@ -744,6 +836,8 @@ public class ManagerServiceImp implements ManagerService {
 						bookDto.setIllustrator_num(authorStr.get(1));
 						bookDto.setTranslator_num(authorStr.get(2));
 					}
+					
+					
 					
 					Elements publisher = meta.select(".publisher_detail_link");
 					int pub_num = managerDao.getPublisherNum(publisher.text());
@@ -900,6 +994,26 @@ public class ManagerServiceImp implements ManagerService {
 							managerDao.insertBookCategory(cateList.get(j),currentNum);						
 						}
 					}
+					//키워드
+					Elements keyword_list = subDoc.select(".keyword_list");
+					if(keyword_list != null) {
+						Elements lis = keyword_list.select("li");
+						for(Element li : lis) {
+							String value = li.selectFirst("span").text();
+							int valueSubNum = value.indexOf("#")+1;
+							String keyName = value.substring(valueSubNum);
+							int checkKey = managerDao.keyNameCheck(keyName);
+							
+							if(checkKey == 0) {
+								managerDao.insertKeyWord(keyName);
+							}
+							checkKey = managerDao.bookKeyWordCheck(keyName,currentNum);
+							System.out.println("checkKey : " + checkKey);
+							if(checkKey == 0) {
+								managerDao.insertKeyWordList(keyName,currentNum);
+							}
+						}
+					}
 				}
 				
 			}
@@ -998,15 +1112,21 @@ public class ManagerServiceImp implements ManagerService {
 		String fileName = System.currentTimeMillis() + "_"+ formFile.getOriginalFilename();
 		
 		if (fileSize != 0) {
-			File path = new File("C:\\Users\\sist\\Desktop\\bookfactory\\src\\main\\webapp\\resources\\img\\manager\\bookImg");
+			/*String appPath = System.getProperty("catalina.home") + "/wtpwebapps/projectBookFactory/resources/img/manager/bookImg";*/
+			String appPath = "C:/bfStore";
+			/*String appPath = request.getSession().getServletContext().getRealPath("/resources/img/manager/bookimg");*/
+			/*String appPath = "/img/manager/bookimg";*/
+			File path = new File(appPath);
 			path.mkdirs();
 			if (path.exists() && path.isDirectory()) {
 				File file = new File(path, fileName);
-
+				System.out.println(path.getAbsolutePath());
 				try {
 					formFile.transferTo(file);
 					response.setContentType("application/text;charset=utf-8");
-					response.getWriter().print(fileName);
+					response.getWriter().print("/bfStore/" + fileName);
+					
+					/*response.getWriter().print(file.getPath());*/
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -1130,5 +1250,41 @@ public class ManagerServiceImp implements ManagerService {
 		mav.addObject("authorList", authorList);
 		mav.addObject("searchWord", searchWord);
 	}
+	
+	@Override
+	public void test(ModelAndView mav) {
+		/*String currentdir = System.getProperty("catalina.home");
+		dirlist(currentdir);
+		File dir = new File(".");
+		System.out.println(dir.getAbsolutePath());*/
+		
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String pathSet = request.getSession().getServletContext().getRealPath("/resources/img/manager/bookimg");
+
+		System.out.println(pathSet.toString());
+		Set<String> pathSet2 = request.getSession().getServletContext().getResourcePaths("/");
+		String path3 = new HttpServletRequestWrapper(request).getRealPath("/");
+		System.out.println("path3: = = " + path3);
+		Iterator<String> iter = pathSet2.iterator();
+		while(iter.hasNext()) {
+			System.out.println(new File(iter.next()).getAbsolutePath());
+		}
+		
+		System.out.println(pathSet2);
+		/*System.out.println(ResourcesPlugin.getWorkspace());*/
+		try {
+			System.out.println(new File(".").getCanonicalPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void dirlist(String fname) {
+		File dir = new File(fname);
+		String parentpath = dir.getParent();
+		System.out.println("Current Directory : " + dir);
+		System.out.println("parent Directory : " + parentpath);
+	}
+	
 	
 }

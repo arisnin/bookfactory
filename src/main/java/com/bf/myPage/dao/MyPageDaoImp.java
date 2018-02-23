@@ -1,6 +1,8 @@
 package com.bf.myPage.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 import com.bf.myPage.dto.MyPagePurchasedPageDto;
 import com.bf.myPage.dto.MyPageRecentPageDto;
+import com.bf.order.dto.OrderDto;
 
 /**
  * @author	박성호
@@ -57,6 +60,29 @@ public class MyPageDaoImp implements MyPageDao {
 	@Override
 	public List<MyPagePurchasedPageDto> PurchasedPageList(String id) {
 		return sqlSession.selectList(nameSpace + "purchased_page_select_list", id);
+	}
+
+	@Override
+	public int PurchasedDelete(String id, List<String> book_num) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("book_num", book_num);
+		
+		return sqlSession.update(nameSpace + "purchased_delete", map);
+	}
+
+	@Override
+	public int RecentDelete(String id) {
+		return sqlSession.delete(nameSpace + "recent_delete", id);
+	}
+
+	@Override
+	public OrderDto HistoryCashClick(String id, long order_num) {	
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("order_num", order_num);
+		
+		return sqlSession.selectOne(nameSpace + "history_click_select", map);
 	}
 
 }

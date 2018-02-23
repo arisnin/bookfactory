@@ -49,6 +49,21 @@ public class MyPageController {
 		return mav;
 	}
 	
+	
+	/**
+	 * 마이페이지 > 구매목록 > 영구삭제
+	 */
+	@RequestMapping(value="/library/purchasedDelete.do")
+	public ModelAndView purchasedDelete(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("purchasedDelete()");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.purchasedDelete(mav);
+		
+		return mav;
+	}
 	/**
 	 * 마이페이지 > 알림센터
 	 */
@@ -78,6 +93,21 @@ public class MyPageController {
 		mav.addObject("request", request);
 		
 		mypageService.recentLookBook(mav);
+		
+		return mav;
+	}
+	
+	/**
+	 * 마이페이지 > 최근본책 > 전체 삭제
+	 */
+	@RequestMapping(value="/library/recentLookBookDelete.do")
+	public ModelAndView recentLookBookDelete(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("recentLookBook()");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.recentLookBookDelete(mav);
 		
 		return mav;
 	}
@@ -163,6 +193,22 @@ public class MyPageController {
 		mav.addObject("request", request);
 		
 		mypageService.myCashHistoryCash(mav);
+		
+		return mav;
+	}
+	
+	/**
+	 * 마이페이지 > 마이캐시 > 충전내역 > 결제내역
+	 */
+	@RequestMapping(value="/payment/myCashHistoryCashClick.do")
+	public ModelAndView myCashHistoryCashClick(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("MyCashHistoryCashClick()");
+		request.getSession().setAttribute("userInfoId", "user");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.myCashHistoryCashClick(mav);
 		
 		return mav;
 	}

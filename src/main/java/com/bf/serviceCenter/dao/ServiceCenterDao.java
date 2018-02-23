@@ -15,5 +15,9 @@ public interface ServiceCenterDao {
 
 	List<ServiceCenterDtoFre> infoMain();
 
+	ServiceCenterDtoFre infoRead(int num);
+
+	ServiceCenterDtoFre infoFile(int num);
+
 
 }

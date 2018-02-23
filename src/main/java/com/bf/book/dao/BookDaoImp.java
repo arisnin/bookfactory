@@ -1,5 +1,6 @@
 package com.bf.book.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -176,6 +177,18 @@ public class BookDaoImp implements BookDao {
 	public String getPubName(long book_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getPubName", book_num);
+	}
+
+	@Override	//태그선택시 카운트수 가져오기
+	public int getTagListCount(ArrayList<String> list) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getTagListCount", list);
+	}
+
+	@Override	//태그선택시 해당값에 맞는 책정보들고오기
+	public List<HomeDto> getTagBookList(HashMap<String, ArrayList<String>> listMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getTagBookList", listMap);
 	}
 
 }

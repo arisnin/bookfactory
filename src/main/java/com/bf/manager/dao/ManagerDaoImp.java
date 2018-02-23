@@ -1,5 +1,6 @@
 package com.bf.manager.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.bf.manager.dto.BookSearchDto;
 import com.bf.manager.dto.BookSecondCateDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.manager.dto.CountryDto;
+import com.bf.manager.dto.KeywordDto;
 import com.bf.manager.dto.PublisherDto;
 import com.bf.manager.dto.PublisherSearchDto;
 
@@ -396,6 +398,47 @@ public class ManagerDaoImp implements ManagerDao {
 	public int authorCheckName(String name) {
 		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.authorCheckName",name);
 	}
+
+	@Override
+	public int insertKeyWord(String name) {
+		return sqlSession.insert("com.bf.mapper.BookMapper.insertKeyWord",name);
+	}
 	
+	@Override
+	public int keyNameCheck(String keyName) {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.keyNameCheck",keyName);
+	}
+	
+	@Override
+	public int bookKeyWordCheck(String keyName, int currentNum) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		map.put("keyName", keyName);
+		map.put("currentNum", currentNum);
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.bookKeyWordCheck",map);
+	}
+	
+	@Override
+	public void insertKeyWordList(String keyName, int currentNum) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		int keyNum = sqlSession.selectOne("com.bf.mapper.BookMapper.getKeyWordNum",keyName);
+		map.put("keyNum", keyNum);
+		map.put("currentNum", currentNum);
+		sqlSession.insert("com.bf.mapper.BookMapper.insertKeyWordList",map);
+	}
+
+	@Override
+	public BookDto getBook(int book_num) {
+		return sqlSession.selectOne("com.bf.mapper.BookMapper.getBook",book_num);
+	}
+	
+	@Override
+	public List<KeywordDto> getKeywordList(int book_num) {
+		return sqlSession.selectList("com.bf.mapper.BookMapper.getKeywordList",book_num);
+	}
+	
+	@Override
+	public int updateBook(BookDto bookDto) {
+		return sqlSession.update("com.bf.mapper.BookMapper.updateBook", bookDto);
+	}
 	
 }

@@ -29,6 +29,17 @@ public class ServiceCenterDaoImp implements ServiceCenterDao {
 	public List<ServiceCenterDtoFre> infoMain() {
 		return sqlSession.selectList(namespace + "infoMain");
 	}
+
+	@Override
+	public ServiceCenterDtoFre infoRead(int num) {
+		
+		return sqlSession.selectOne(namespace + "infoRead", num);
+	}
+
+	@Override
+	public ServiceCenterDtoFre infoFile(int num) {
+		return sqlSession.selectOne(namespace + "infoRead", num);
+	}
 	
 	
 }

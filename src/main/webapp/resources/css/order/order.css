@@ -255,3 +255,7 @@
 .order_right_menu_list .payment_list .payment_label {
     top: -0.15rem;
 }
+.right-item input[type='text']{
+	text-align: right;
+	width: 100px;
+}

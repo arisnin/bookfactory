@@ -1,7 +1,53 @@
 /**
  * 
  */
+function enter() {
+	if(window.event.keyCode == 13){
+		$("#keywordPush").trigger("click");
+	}
+}
 
+//keyword추가 버튼
+$("#keywordPush").click(function(){
+	var input = $(this).prev();
+	var span = $(this).next();
+	
+	if(input.val() == ""){
+		alert('키워드를 입력하시오');
+		input.focus();
+		return ;
+	}
+	if((span.find("a").length%5) == 0){
+		span.append("<br>");
+	}
+	span.append("<a onclick='removeKeyword(this)'>#" + input.val() + "</a>");		
+	
+	
+	if($("input[name=keyword]").val() == ""){
+		$("input[name=keyword]").val($("input[name=keyword]").val() + input.val());
+	}else{
+		$("input[name=keyword]").val($("input[name=keyword]").val() +","+ input.val());		
+	}
+	input.val("").focus();
+});
+
+function removeKeyword(obj){
+	var value = "";
+	$(obj).parent().find("a").not(obj).each(function(i, element) {
+		if(value == "")
+			value += $(element).text().substring(1);
+		else
+			value += "," + $(element).text().substring(1);
+	});
+	$("input[name=keyword]").val(value);
+	$(obj).remove();
+	
+	var aSize = $("#keywordLabel > a").length/5;
+	var brSize = $("#keywordLabel > br").length;
+	if(aSize <= brSize){
+		$("#keywordLabel > br").eq(brSize-1).remove();
+	}
+}
 
 //파일버튼 클릭
 $("#b_in_filebtn").click(function(){
@@ -10,7 +56,7 @@ $("#b_in_filebtn").click(function(){
 
 //jquery datepicker
 $("#b_date").datepicker({
-	dateFormat : 'yy-mm-dd'
+	dateFormat : 'yy년 mm월 dd일 출간'
 });
 
 //이름중복
@@ -148,7 +194,8 @@ function uploadImg(root){
         data: formData,
         type: 'POST',
         success: function(result){
-            $(".b_in_img").find("img").attr("src",root+"/img/manager/bookImg/"+result);
+        	alertify.success("이미지 업로드 성공");
+        	$(".b_in_img").find("img").attr("src",root+result);
         }
     });
 }
@@ -160,10 +207,12 @@ function bookInsertOk(){
 	if(name.val() == ""){
 		name.focus();
 		name.next().css("color","red").text("제목을 입력하시오");
+		alertify.error("제목을 입력하시오");
 		return false;
 	}
 	if(name.next().val() == "중복입니다 다시 입력하세요"){
 		name.focus();
+		alertify.error("중복입니다");
 		return false;
 	}
 	//도서부제목
@@ -190,6 +239,7 @@ function bookInsertOk(){
 	
 	if(cate1_num.val()=="" ||cate2_num.val()=="" ||cate3_num.val()=="" ){
 		$("#b_cate_ok").focus();
+		alertify.error("카테고리 입력하세요");
 		return false;
 	}
 	
@@ -234,6 +284,7 @@ function bookInsertOk(){
 	if(pub_intro.val()==""){
 		pub_intro.val("없음");
 	}
+	
 	//책가격
 	var price = $("input[name=price]");
 	if(price.val() == ""){
@@ -249,6 +300,7 @@ function bookInsertOk(){
 		$("input[name=rental_price]").val(Math.round(parseInt(price.val()) * 0.8));
 	}else{
 		rentalStr = "no";
+		$("input[name=rental_price]").val(0);
 	}
 	$("input[name=rental_period]").val(rentalStr);
 	

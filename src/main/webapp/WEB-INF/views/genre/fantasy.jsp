@@ -29,13 +29,13 @@
 	<div id="mainHome">
 		<div class="keyword">
 			<ul>
-				<li><button type="button" class="bf-button bf-white-btn" onclick="location.href='${root}/keyword.do'">키워드로 검색하기</button></li>
-				<li><button type="button" class="bf-button keyword-btn" onclick="location.href='${root}/keyword.do'">판타지물</button></li>
-				<li><button type="button" class="bf-button keyword-btn" onclick="location.href='${root}/keyword.do'">리뷰100개이상</button></li>
-				<li><button type="button" class="bf-button keyword-btn" onclick="location.href='${root}/keyword.do'">평점4점이상</button></li>
-				<li><button type="button" class="bf-button keyword-btn" onclick="location.href='${root}/keyword.do'">친구>연인</button></li>
-				<li><button type="button" class="bf-button keyword-btn" onclick="location.href='${root}/keyword.do'">차원이동</button></li>
-				<li><button type="button" class="bf-button keyword-btn" onclick="location.href='${root}/keyword.do'">전생/환생</button></li>
+				<li><button type="button" class="bf-button bf-white-btn" onclick="location.href='${root}/keyword.do?firstCate=${firstCate}'">키워드로 검색하기</button></li>
+				<li><button type="button" class="bf-button keyword-btn" onclick="location.href='${root}/keyword.do?firstCate=${firstCate}'">판타지물</button></li>
+				<li><button type="button" class="bf-button keyword-btn" onclick="location.href='${root}/keyword.do?firstCate=${firstCate}'">리뷰100개이상</button></li>
+				<li><button type="button" class="bf-button keyword-btn" onclick="location.href='${root}/keyword.do?firstCate=${firstCate}'">평점4점이상</button></li>
+				<li><button type="button" class="bf-button keyword-btn" onclick="location.href='${root}/keyword.do?firstCate=${firstCate}'">친구>연인</button></li>
+				<li><button type="button" class="bf-button keyword-btn" onclick="location.href='${root}/keyword.do?firstCate=${firstCate}'">차원이동</button></li>
+				<li><button type="button" class="bf-button keyword-btn" onclick="location.href='${root}/keyword.do?firstCate=${firstCate}'">전생/환생</button></li>
 			</ul>
 		</div>
 		<div class="list0_head">

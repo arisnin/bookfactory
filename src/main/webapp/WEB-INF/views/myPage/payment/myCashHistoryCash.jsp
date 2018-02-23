@@ -50,8 +50,10 @@
 					<li class="status m-point">적립 포인트</li>
 					<li class="default">결제수단</li>
 				</ul>
+				
 				<c:forEach var="myPageCashPageDto" items="${myPageCashPageDtoList}">
-				<ul class="mypoint_history_table_body" onclick="javasciprt:alert('결제내역')">
+				<ul class="mypoint_history_table_body" onclick="historyCashClick(this)">
+					<li class="hidden-block"><input type="hidden" name= "order_num" value="${myPageCashPageDto.order_num}"/></li>
 					<li class="default"><fmt:formatDate value = "${myPageCashPageDto.charge_date}" pattern="yyyy.MM.dd hh:mm"/></li>
 					<li class="division">${myPageCashPageDto.cash_type}</li>
 					<li class="main_value"><span><fmt:formatNumber value = "${myPageCashPageDto.charge_cash}" pattern="#,###"/></span>원</li>
@@ -62,5 +64,12 @@
 			</div>
 		</section>
 	</div>
+	
+	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+	<script type="text/javascript">
+		function historyCashClick(obj){
+			$(location).attr("href", "${root}/payment/myCashHistoryCashClick.do?order_num="+$(obj).find("input[name=order_num]").val());
+		}
+	</script>
 </body>
 </html>

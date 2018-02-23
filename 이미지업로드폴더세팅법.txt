@@ -1,0 +1,11 @@
+이미지를 업로드 하는 방법이다(업로드 하자마자 이미지가 보이도록 하는법)
+
+1. <-프로젝트 메뉴중 Server 폴더에서 server.xml을 찾는다
+2. server.xml에서 <host> 테그를 찾는다 (보통 <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true"> 이케 생김)
+3. <host> 테그 안을 잘 보면 요런거 있을꺼다 (<Context docBase="projectBookFactory" path="/bookFactory" reloadable="true" source="org.eclipse.jst.jee.server:projectBookFactory"/>)
+4. 그밑에 <Context docBase="C:/bfStore/" path="/bookFactory/bfStore/" reloadable="true"/> 추가해주자
+5. 오류걸리면 C: 위치에 bfStore 폴더만들어야댐
+
+-- 부연설명
+5. 설명 docBase는 실제 경로뜻함 이 실제경로를 path="주소"에 맵핑시키는거랑 똑같음 이런 작업을 안해주면 보안상 엑박이 뜬다고 한다.
+6. 이제 업로드를 하면 업데이트가 된다.

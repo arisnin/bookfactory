@@ -15,6 +15,9 @@
 <%-- <script type="text/javascript" src="${root}/script/genre/keyword_check.js"></script> --%>
 <script type="text/javascript">
 $(function(){
+	//단행본, 연재 숨기는 이벤트
+	$(".hw_sub_wrap").hide();
+	
 	var cateNum=$("input[name=firstCate]").val();
 	var jsonFile="";
 	
@@ -28,18 +31,128 @@ $(function(){
 		jsonFile="keyword_bl.json";
 	}
 	
-	$.getJSON("keyword_romance.json", function(data){ 
+	$.getJSON(jsonFile, function(data){ 
 		$(".keyword_top_head > .title").text(data["title"]);
 		
-		$(data["groups"]).each(function(i, title) {
-            var fieldset=document.c;
+		var group=data.sets[0].groups;
+		
+		$(group).each(function(i, ex) {
+            var fieldset=document.createElement("fieldset");
+            $(fieldset).addClass("keyword_filed");
+            $("#keyword_top_list").append(fieldset);
+            
+            var fieldDiv=document.createElement("div");
+            $(fieldDiv).addClass("keyword_top_list_show wrap-container");
+            fieldset.append(fieldDiv);
+            
+            var titleDiv=document.createElement("div");
+            $(titleDiv).text(group[i].title);
+            fieldDiv.append(titleDiv);
+            
+            var listDiv=document.createElement("div");
+            $(listDiv).addClass("keyword_top_list_button wrap-container");
+            fieldDiv.append(listDiv);
+            
+            var listUl=document.createElement("ul");
+            listDiv.append(listUl);
+            
+            var tags=group[i].tags;
+            $(tags).each(function(j, ext){
+	            var listLi=document.createElement("li");
+	            listUl.append(listLi);
+	            
+	            var label=document.createElement("label");
+	            $(label).addClass("bf-custom-checkbox checkbox-btn");
+	            listLi.append(label);
+	            
+	            var labelCheck=document.createElement("input");
+	            $(labelCheck).attr("type","checkbox");
+	            $(labelCheck).attr("title",tags[j].name);
+	            label.append(labelCheck);
+	            
+	            var labelSpan=document.createElement("span");
+	            $(labelSpan).addClass("bf-button bf-transparent-btn");
+	            $(labelSpan).text(tags[j].name);
+	            label.append(labelSpan);
+            });
         });
-	});				
+	});
+	
+	var listCount=0;
+	var sendData="tags=";
+	
+	//키워드 선택시 밑에 나오는 태그
+	$("#keyword_top_list").on("click",".keyword_top_list_button label > input",function(){
+		event.preventDefault();
+		
+		if (this.checked == true) {
+// 			alert('true');
+			$(this).parent().parent().css({
+				backgroundColor : "#A59AF6"
+			});
+			
+			$(".keyword_not_choice").attr("style","display:none");
+			$(".keyword_choice").attr("style","display:inline-block");
+			
+			var key=document.createElement("li");
+			
+			var button = '<button type="button" class="bf-button keyword-btn">'+$(this).next().text()+'<span class="button_x">X</span></button>';
+			key.innerHTML = button;
+
+			$(".keyword_choice ul.tag-list").append(key);
+			
+			sendData+=$(this).next().text()+",";
+// 			alert(sendData);
+			
+			listCount=listCount+1;
+			display(listCount);
+			
+			var root=$("input[name=rootJS]").val();
+
+			$.ajax({
+				type:"get",
+				url: root+"/keywordSearch.do",
+				data:sendData,
+				success: list,
+				error:function(jqXHR, textStatus, errorThrown ) {	// 이곳의 ajax에서 에러가 나면 얼럿창으로 에러 메시지 출력
+			    	alert(jqXHR);
+			    	alert(textStatus);
+			    	alert(errorThrown);
+			    }
+			});
+		}
+	});
+	
+	display(listCount);
 });
+
+function list(text){
+	alert(text);
+
+}
+
+function display(listCount){
+	if(listCount==0){
+		$(".keyword_no_search").attr("style","display:none");
+		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").css({
+			display:"none"
+		});
+	}else if(listCount==5){
+		$(".keyword_not_choice").attr("style","display:table");
+		$(".keyword_choice").attr("style","display:none");
+		$(".keyword_no_search").attr("style","display:none");
+		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").attr("style","display:none");
+	}else{
+		$(".keyword_not_choice").attr("style","display:none");
+		$(".keyword_no_search").attr("style","display:none");
+		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").attr("style","display:inline-block")
+	}
+}
 
 </script>
 </head>
 <body>
+	<input type="hidden" name="rootJS" value="${root}"/>
 	<input type="hidden" name="firstCate" value="${firstCate}"/>
 	<div class="keyword wrap-container">
 		<div class="keyword_top">
@@ -50,350 +163,7 @@ $(function(){
 				<button type="button" class="bf-button bf-transparent-btn">전체 해제</button>
 			</div>
 			
-			<form id="keyword_top_list">
-				<fieldset class="keyword_filed">
-					<div class="keyword_top_list_show wrap-container">
-						<div>장르/배경</div>
-						<div class="keyword_top_list_button wrap-container">
-							<ul>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드1</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드2</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드3</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드4</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드5</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드6</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드7</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드8</span>
-									</label>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</fieldset>
-				<fieldset class="keyword_filed">
-					<div class="keyword_top_list_show wrap-container">
-						<div>소재</div>
-						<div class="keyword_top_list_button wrap-container">
-							<ul>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드11</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드22</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드33</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드44</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드55</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드66</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드77</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드88</span>
-									</label>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</fieldset>
-				<fieldset class="keyword_filed">
-					<div class="keyword_top_list_show wrap-container">
-						<div>관계</div>
-						<div class="keyword_top_list_button wrap-container">
-							<ul>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드111</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드222</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드333</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드444</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드555</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드666</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드777</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드888</span>
-									</label>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</fieldset>
-				<fieldset class="keyword_filed">
-					<div class="keyword_top_list_show wrap-container">
-						<div>남자 주인공</div>
-						<div class="keyword_top_list_button wrap-container">
-							<ul>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드1111</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드2222</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드3333</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드4444</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드5555</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드6666</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드7777</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드8888</span>
-									</label>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</fieldset>
-				<fieldset class="keyword_filed">
-					<div class="keyword_top_list_show wrap-container">
-						<div>여자 주인공</div>
-						<div class="keyword_top_list_button wrap-container">
-							<ul>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드11111</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드22222</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드33333</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드44444</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드55555</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드66666</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드77777</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드88888</span>
-									</label>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</fieldset>
-				<fieldset class="keyword_filed">
-					<div class="keyword_top_list_show wrap-container">
-						<div>분위기/기타</div>
-						<div class="keyword_top_list_button wrap-container">
-							<ul>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드111111</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드222222</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드333333</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드444444</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드555555</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드666666</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드777777</span>
-									</label>
-								</li>
-								<li>
-									<label class="bf-custom-checkbox checkbox-btn"> 
-										<input type="checkbox" title="" /> 
-										<span class="bf-button bf-transparent-btn">키워드888888</span>
-									</label>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</fieldset>
-			</form>
+			<form id="keyword_top_list"></form>
 		</div>
 		
 		<div class="keyword_bottom">
@@ -546,109 +316,6 @@ $(function(){
 							</div>
 						</li>
 						<!--  -------------------------------------------------------------------------- -->
-						<!-- <li>
-							<div class="keyword_bottom_book">
-								<div>
-									<a><img></a>
-								</div>
-								
-								<div class="keyword_bottom_book_content">
-									<div><a>책 제목</a></div>
-									<div class="keyword_bottom_book_star">
-										<p class="content-star-rate">
-											별이 들어가는 처음 두개의 span 사이에는 공백이 들어가면 안됨
-											<span class="star-icon-field material-icons"></span>
-											<span class="non-star-icon-field material-icons"></span>
-											카운팅 숫자 표시는 필요없으면 빼도 됨
-											<span class="count-field"> 9999명</span>
-										</p>
-										<p><a>작가</a></p>
-										<p><a>출판사</a></p>
-									</div>
-									<div class="keyword_bottom_book_intro">
-										<a>
-											책소개 블라블라블라책소개 블라블라블라책소개 블라블라블라책소개 블라블라블라
-											책소개 블라블라블라책소개 블라블라블라책소개 블라블라블라책소개 블라블라블라
-											책소개 블라블라블라책소개 블라블라블라
-										</a>
-									</div>
-									<div class="keyword_bottom_book_buy">
-										<span>구매</span>
-										<span>가격</span>
-									</div>
-									<div class="keyword_bottom_book_hava_key">
-										<ol>
-											<li>
-												<button>#갖고있는키워드뿌려주긔</button>
-											</li>
-											<li>
-												<button>#11111</button>
-											</li>
-											<li>
-												<button>#2222222</button>
-											</li>
-											<li>
-												<button>#3333</button>
-											</li>
-											<li>
-												<button>#4444444</button>
-											</li>
-											<li>
-												<button>#555555</button>
-											</li>
-											<li>
-												<button>#23123</button>
-											</li>
-											<li>
-												<button>#2132</button>
-											</li>
-											<li>
-												<button>#11111</button>
-											</li>
-											<li>
-												<button>#2222222</button>
-											</li>
-											<li>
-												<button>#3333</button>
-											</li>
-											<li>
-												<button>#4444444</button>
-											</li>
-											<li>
-												<button>#555555</button>
-											</li>
-											<li>
-												<button>#23123</button>
-											</li>
-											<li>
-												<button>#2132</button>
-											</li>
-											<li>
-												<button>#11111</button>
-											</li>
-											<li>
-												<button>#2222222</button>
-											</li>
-											<li>
-												<button>#3333</button>
-											</li>
-											<li>
-												<button>#4444444</button>
-											</li>
-											<li>
-												<button>#555555</button>
-											</li>
-											<li>
-												<button>#23123</button>
-											</li>
-											<li>
-												<button>#2132</button>
-											</li>
-										</ol>
-									</div>									
-								</div>
-							</div>
-						</li> -->
 					</c:forEach>
 				</ul>
 			</div>
@@ -656,19 +323,46 @@ $(function(){
 		</div>
 		<nav class="bf-pagination">
 			<ul class="bf-animated-btn">
-				<li class="first"><a href="#0"><span></span></a></li>
-				<li class="prev"><a href="#0"><span></span></a></li>
-				<li><a href="#0">1</a></li>
-				<li><a href="#0">2</a></li>
-				<li><a class="active" href="#0">3</a></li>
-				<li><a href="#0">4</a></li>
-				<li><a href="#0">5</a></li>
-				<li class="next"><a href="#0"><span></span></a></li>
-				<li class="last"><a href="#0"><span></span></a></li>
+				<c:if test="${newCount>0 }">			
+					<fmt:parseNumber var="pageCount" value="${newCount/boardSize+(newCount%boardSize==0? 0:1)}" integerOnly="true"/>
+					<c:set var="pageBlock" value="${10}"/>
+				
+					<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/>
+					<c:set var="startPage" value="${rs*pageBlock+1}"/>
+					
+					<c:set var="endPage" value="${startPage+pageBlock-1 }"/>
+					
+					<c:if test="${endPage>pageCount }">
+						<c:set var="endPage" value="${pageCount}"/>
+					</c:if>
+					
+					<li class="first"><a href="${root}/new-book.do?pageNumber=1&firstCate=${firstCate}"><span></span></a></li>
+					
+					<c:if test="${startPage>pageBlock }">
+						<li class="prev"><a class="prev" href="${root}/new-book.do?pageNumber=${startPage-pageBlock}&firstCate=${firstCate}"><span></span></a></li>
+					</c:if>
+					
+					<c:forEach var="i" begin="${startPage}" end="${endPage}">
+						<c:choose>
+							<c:when test="${pageNumber==i}">
+								<li><a class="active" href="${root}/new-book.do?pageNumber=${i}&firstCate=${firstCate}">${i}</a></li>
+							</c:when>
+							
+							<c:otherwise>
+								<li><a href="${root}/new-book.do?pageNumber=${i}&firstCate=${firstCate}">${i}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					
+					<c:if test="${endPage<pageCount }">
+						<li class="next"><a href="${root}/new-book.do?pageNumber=${startPage+pageBlock}&firstCate=${firstCate}"><span></span></a></li>
+					</c:if>
+					
+					<li class="last"><a href="${root}/new-book.do?pageNumber=${pageCount}&firstCate=${firstCate}"><span></span></a></li>
+				</c:if>
 			</ul>
 		</nav>
 	</div>
-
 	
 	<script type="text/javascript">
 	document.querySelectorAll(".content-star-rate").forEach(function(e,i){
