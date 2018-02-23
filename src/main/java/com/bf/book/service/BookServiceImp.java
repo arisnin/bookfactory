@@ -396,9 +396,11 @@ public class BookServiceImp implements BookService {
 				//밑에 뿌려줄 책정보 가져와야함 덤으로 페이지 번호도.
 				tagList=bookDao.getTagBookList(listMap);
 			}
-
+			
+			HashMap<String, Object> json=new HashMap<String, Object>();
+			json.put("tagListCount", tagListCount);
+			
 			HashMap<String, Object> jsMap=new HashMap<String, Object>();
-			jsMap.put("tagListCount", tagListCount);
 			
 			for(int i=0;i<tagList.size();i++) {
 				HomeDto dto=tagList.get(i);
@@ -415,9 +417,10 @@ public class BookServiceImp implements BookService {
 				dtoMap.put("rental_price", dto.getRental_price());
 				jsMap.put("HomeDto"+i+"", dtoMap);
 			}
+			json.put("tagList", jsMap);
 			
-			String text=JSONValue.toJSONString(jsMap);
-			LogAspect.info(LogAspect.logMsg + text);
+			String text=JSONValue.toJSONString(json);
+//			LogAspect.info(LogAspect.logMsg + text);
 									//x-json으로 보내줘야함
 			
 			response.setContentType("application/x-json;charset=utf-8");
@@ -426,6 +429,7 @@ public class BookServiceImp implements BookService {
 				out = response.getWriter();
 				out.print(text);
 				out.flush();
+				System.out.println(text);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
