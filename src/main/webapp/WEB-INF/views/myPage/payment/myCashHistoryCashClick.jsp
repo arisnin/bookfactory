@@ -42,7 +42,7 @@
 
 		<div class="orderhistory_top">
 			<button class="bf-button" onclick="javascript:alert('미구현')">영수증 인쇄</button>
-			<button class="bf-button" onclick="javascript:alert('미구현')">신용카드 전표 인쇄</button>
+			<button class="bf-button" onclick="javascript:alert('네이버페이 결제 건에 대한 신용카드 전표는 (네이버페이 > 결제내역)에서 확인해주세요.')">신용카드 전표 인쇄</button>
 			
 			<div class="notice">
 			<ul class="notice-tip">
