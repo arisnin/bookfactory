@@ -29,6 +29,7 @@ public class HomeDto {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public String getRental_period() {
 		return rental_period;
 	}
@@ -39,6 +40,10 @@ public class HomeDto {
 
 	public HomeDto() {}
 
+=======
+	public HomeDto() {}
+
+>>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
 =======
 	public HomeDto() {}
 
@@ -165,9 +170,15 @@ public class HomeDto {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				+ ", author_num=" + author_num + ", thirdCate=" + thirdCate + ", star_point=" + star_point
 				+ ", book_num=" + book_num + ", price=" + price + ", type=" + type + ", rental_price=" + rental_price
 				+ ", rental_period="+ rental_period +"]";
+=======
+				+ ", author_num=" + author_num + ", pub_name=" + pub_name + ", pub_num=" + pub_num + ", thirdCate="
+				+ thirdCate + ", star_point=" + star_point + ", book_num=" + book_num + ", price=" + price + ", type="
+				+ type + ", rental_price=" + rental_price + "]";
+>>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
 =======
 				+ ", author_num=" + author_num + ", pub_name=" + pub_name + ", pub_num=" + pub_num + ", thirdCate="
 				+ thirdCate + ", star_point=" + star_point + ", book_num=" + book_num + ", price=" + price + ", type="

@@ -1,0 +1,54 @@
+diff a/src/main/java/com/bf/book/dto/HomeDto.java b/src/main/java/com/bf/book/dto/HomeDto.java	(rejected hunks)
+@@ -17,30 +17,44 @@
+ 	private String bookName;
+ 	private String authorName;
+ 	private long author_num;
++	private String pub_name;
++	private long pub_num;
+ 	private String thirdCate; // 리뷰작성된거끌어와야함 잠시 null처리
+ 	private int star_point;
+ 	private long book_num;
+ 	private long price;
+ 	private String type;
+ 	private long rental_price;
++	private String rental_period;
+ 
+-	public long getRental_price() {
+-		return rental_price;
++<<<<<<< HEAD
++<<<<<<< HEAD
++	public String getRental_period() {
++		return rental_period;
+ 	}
+ 
+-	public void setRental_price(long rental_price) {
+-		this.rental_price = rental_price;
++	public void setRental_period(String rental_period) {
++		this.rental_period = rental_period;
+ 	}
+ 
+-	public HomeDto() {
+-	}
++	public HomeDto() {}
++
++=======
++	public HomeDto() {}
+ 
+-	public HomeDto(String img_path, String bookName, String authorName, long author_num, String thirdCate,
+-			int star_point, long book_num, long price, String type, long rental_price) {
++>>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
++=======
++	public HomeDto() {}
++
++>>>>>>> 80c0d57457a14a49ac7856c0fd68229ca9cd97d1
++	public HomeDto(String img_path, String bookName, String authorName, long author_num, String pub_name, long pub_num,
++			String thirdCate, int star_point, long book_num, long price, String type, long rental_price) {
+ 		this.img_path = img_path;
+ 		this.bookName = bookName;
+ 		this.authorName = authorName;
+ 		this.author_num = author_num;
++		this.pub_name = pub_name;
++		this.pub_num = pub_num;
+ 		this.thirdCate = thirdCate;
+ 		this.star_point = star_point;
+ 		this.book_num = book_num;
