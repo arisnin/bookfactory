@@ -40,6 +40,6 @@ public interface BookDao {
 	int getSecondCateNum(long book_num);
 	String getSecondCateName(long book_num);
 	String getPubName(long book_num);
-	int getTagListCount(String query);
+	int getTagListCount(ArrayList<String> list);
 
 }

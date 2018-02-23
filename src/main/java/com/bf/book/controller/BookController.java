@@ -1,8 +1,13 @@
 package com.bf.book.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +34,7 @@ public class BookController {
 	 */
 	@RequestMapping(value = "/test/book.do", method = RequestMethod.GET)
 	public String testBook(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("testBook()");
+		LogAspect.info(StringUtils.join(Arrays.asList(new String[]{"a1","a2","a3"}), ","));
 		return "present/present.main";
 	}
 

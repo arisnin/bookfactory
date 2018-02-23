@@ -1,5 +1,7 @@
 package com.bf.book.service;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.aspectj.weaver.tools.cache.AsynchronousFileCacheBacking.RemoveCommand;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,7 +52,8 @@ public class BookServiceImp implements BookService {
 		// 책 번호(book_num)는 presentation단에서 넘어옵니다.
 
 		// TODO: 아이디(id) 설정. 아이디는 유효세션으로부터 받아와야 합니다.
-		reviewDto.setId("user");
+		User user = (User) request.getSession().getAttribute("userInfo");
+		reviewDto.setId(user.getUsername());
 
 		// 스포일러(spoiler)는 존재하면 'on', 존재하지 않으면 'off'입니다.
 		if (!"on".equals(reviewDto.getSpoiler())) {
@@ -337,7 +341,7 @@ public class BookServiceImp implements BookService {
 		//작가,번역,일러 정보뽑아오기
 	}
 
-	@Override
+	@Override	//키워드검색
 	public void keyword(ModelAndView mav) {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
@@ -346,28 +350,65 @@ public class BookServiceImp implements BookService {
 		int firstCate=Integer.parseInt(request.getParameter("firstCate"));
 		
 		String tags=request.getParameter("tags");
-		String query="";
+		ArrayList<String> list=new ArrayList<String>();
+		
 		int tagListCount=0;
+		
+		String pn=request.getParameter("pageNumber");
+		if(pn==null)	pn="1";
+		int pageNumber=Integer.parseInt(pn);
+		
+		List<HomeDto> tagList=null;
+		
+		int boardSize=10;
+		int startRow=(pageNumber-1)*boardSize+1;
+		int endRow=pageNumber*boardSize;
+		
+		HashMap<String, Object> listMap=new HashMap<String, Object>();
+		listMap.put("startRow", startRow);
+		listMap.put("endRow", endRow);
 		
 		if(tags!=null) {
 			String tag[]=tags.split(",");
+			String query="";
 			
 			for(int i=0;i<tag.length;i++) {
-				if(i==0) {
-					query+=tag[i];
-				}else {
-					query+="and keyword.name='"+tag[i]+"'";
-				}
+//				query="and l.book_num in(SELECT DISTINCT book_num "
+//										+ "FROM keyword_list "
+//										+ "where keyword_num =(SELECT num FROM keyword WHERE NAME='"+tag[i]+"'))";
+//				
+				query=tag[i];
+				list.add(query);
+			}
+			listMap.put("list", list);
+			
+			tagListCount=bookDao.getTagListCount(list);
+			
+			if(tagListCount>0) {
+				//밑에 뿌려줄 책정보 가져와야함 덤으로 페이지 번호도.
 			}
 			
-			tagListCount=bookDao.getTagListCount(query);
+			HashMap<String, Object> jsMap=new HashMap<String, Object>();
+			jsMap.put("tagListCount", tagListCount);
+			
+			String text=JSONValue.toJSONString(jsMap);
+			LogAspect.info(LogAspect.logMsg + text);
+									//x-json으로 보내줘야함
+			response.setContentType("application/x-json;charset=utf-8");
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.print(text);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			//화면변화막아줌
+			mav.setViewName(null);
 		}
 		
-		System.out.println(query);
-		System.out.println(tagListCount);
-		
 		mav.addObject("firstCate", firstCate);
-		
+			
 		
 	}
 

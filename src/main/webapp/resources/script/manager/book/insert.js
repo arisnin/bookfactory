@@ -17,11 +17,12 @@ $("#keywordPush").click(function(){
 		input.focus();
 		return ;
 	}
-	if(span.text() == ""){
-		span.append("<a onclick='removeKeyword(this)'>#" + input.val() + "</a>");
-	}else{
-		span.append("<a onclick='removeKeyword(this)'>#" + input.val() + "</a>");		
+	if((span.find("a").length%5) == 0){
+		span.append("<br>");
 	}
+	span.append("<a onclick='removeKeyword(this)'>#" + input.val() + "</a>");		
+	
+	
 	if($("input[name=keyword]").val() == ""){
 		$("input[name=keyword]").val($("input[name=keyword]").val() + input.val());
 	}else{
@@ -40,6 +41,12 @@ function removeKeyword(obj){
 	});
 	$("input[name=keyword]").val(value);
 	$(obj).remove();
+	
+	var aSize = $("#keywordLabel > a").length/5;
+	var brSize = $("#keywordLabel > br").length;
+	if(aSize <= brSize){
+		$("#keywordLabel > br").eq(brSize-1).remove();
+	}
 }
 
 //파일버튼 클릭
@@ -49,7 +56,7 @@ $("#b_in_filebtn").click(function(){
 
 //jquery datepicker
 $("#b_date").datepicker({
-	dateFormat : 'yy-mm-dd'
+	dateFormat : 'yy년 mm월 dd일 출간'
 });
 
 //이름중복
@@ -187,7 +194,8 @@ function uploadImg(root){
         data: formData,
         type: 'POST',
         success: function(result){
-            $(".b_in_img").find("img").attr("src",root+"/img/manager/bookImg/"+result);
+        	alertify.success("이미지 업로드 성공");
+        	$(".b_in_img").find("img").attr("src",root+result);
         }
     });
 }
@@ -292,6 +300,7 @@ function bookInsertOk(){
 		$("input[name=rental_price]").val(Math.round(parseInt(price.val()) * 0.8));
 	}else{
 		rentalStr = "no";
+		$("input[name=rental_price]").val(0);
 	}
 	$("input[name=rental_period]").val(rentalStr);
 	

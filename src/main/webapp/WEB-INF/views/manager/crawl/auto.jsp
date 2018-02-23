@@ -24,7 +24,7 @@
 					<label>3.에러가 날수도 있다 당황하지 말고 현우한테 말하자</label><br><br>
 					<label>4.에러가 나도 이미 몇백권의 책은 들어갓으니 각자 테스트 하자</label><br><br>
 					<div align="right">
-						<button id="crawl" type="button" class="bf-button">카테고리등록</button>
+						<button id="crawl" type="button" class="bf-button">카테고리 및 초기 키워드 등록</button>
 						<button id="b_ilban" type="button" class="bf-button">일반</button>
 						<button id="b_romance"type="button" class="bf-button">로맨스</button>
 						<button id="b_fantasy" type="button" class="bf-button">판타지</button>
@@ -33,7 +33,7 @@
 						<button id="urlSet" type="button" class="bf-button">ALL자동 테스트</button>
 					</div>
 					<div align="right">
-						<button id="keyword" type="button" class="bf-button">키워드테스트</button>
+						<button id="test" type="button" class="bf-button">테스트용</button>
 					</div>
 				</div>
 			</div>
@@ -42,8 +42,8 @@
 	
 	<script type="text/javascript">
 	
-		$("#keyword").click(function(){
-			location.href="${root}/manager/keyword.do";
+		$("#test").click(function(){
+			location.href="${root}/manager/test.do";
 		});
 	
 		function cAjax(url, val){

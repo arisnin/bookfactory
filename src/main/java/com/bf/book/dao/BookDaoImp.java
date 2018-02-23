@@ -180,9 +180,9 @@ public class BookDaoImp implements BookDao {
 	}
 
 	@Override
-	public int getTagListCount(String query) {
+	public int getTagListCount(ArrayList<String> list) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("getTagListCount", query);
+		return sqlSession.selectOne("getTagListCount", list);
 	}
 
 }
