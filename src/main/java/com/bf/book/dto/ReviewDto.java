@@ -13,25 +13,24 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReviewDto {
 	// Field
-	private int num; // NUMBER(8,0) -- index
-	private String id; // VARCHAR2(40 CHAR) -- 회원 아이디
-	private int book_num; // NUMBER(8,0) -- 책 번호(외래키)
-	private String content; // VARCHAR2(4000 BYTE) -- 리뷰 내용
-	private java.util.Date write_date; // DATE -- 작성일
-	private int star_point; // NUMBER(3,0) -- 별점
-	private String spoiler; // VARCHAR2(20 CHAR) -- 스포일러존재/미존재(true/false)
-	private int preference; // NUMBER(8,0) -- 좋아요 개수
-	private String display; // VARCHAR2(20 CHAR) -- 공개/비공개(true/false)
-	private int accuse_count; // 신고 개수
-	
-	private List<ReplyDto> replyList;
+	protected int num; // NUMBER(8,0) -- index
+	protected String id; // VARCHAR2(40 CHAR) -- 회원 아이디
+	protected int book_num; // NUMBER(8,0) -- 책 번호(외래키)
+	protected String content; // VARCHAR2(4000 BYTE) -- 리뷰 내용
+	protected java.util.Date write_date; // DATE -- 작성일
+	protected int star_point; // NUMBER(3,0) -- 별점
+	protected String spoiler; // VARCHAR2(20 CHAR) -- 스포일러존재/미존재(true/false)
+	protected int preference; // NUMBER(8,0) -- 좋아요 개수
+	protected String display; // VARCHAR2(20 CHAR) -- 공개/비공개(true/false)
+	protected int accuse_count; // 신고 개수
+
+	protected List<ReplyDto> replyList;
 
 	// Constructor
 	public ReviewDto() {
 	}
 
-	public ReviewDto(int num, String id, int book_num, String content, Date write_date, int star_point, String spoiler, int preference, String display, List<ReplyDto> replyList) {
-		super();
+	public ReviewDto(int num, String id, int book_num, String content, Date write_date, int star_point, String spoiler, int preference, String display, int accuse_count, List<ReplyDto> replyList) {
 		this.num = num;
 		this.id = id;
 		this.book_num = book_num;
@@ -41,6 +40,7 @@ public class ReviewDto {
 		this.spoiler = spoiler;
 		this.preference = preference;
 		this.display = display;
+		this.accuse_count = accuse_count;
 		this.replyList = replyList;
 	}
 
@@ -122,9 +122,10 @@ public class ReviewDto {
 	}
 
 	public void setAccuse_count(int accuse_count) {
-	
+
 		this.accuse_count = accuse_count;
 	}
+
 	public List<ReplyDto> getReplyList() {
 		return replyList;
 	}
@@ -136,11 +137,7 @@ public class ReviewDto {
 
 	@Override
 	public String toString() {
-
-		return "ReviewDto [num=" + num + ", id=" + id + ", book_num=" + book_num + ", content=" + content
-				+ ", write_date=" + write_date + ", star_point=" + star_point + ", spoiler=" + spoiler + ", preference="
-				+ preference + ", display=" + display + ", accuse_count=" + accuse_count + "]";
-
-	}
+		return "ReviewDto [num=" + num + ", id=" + id + ", book_num=" + book_num + ", content=" + content + ", write_date=" + write_date + ", star_point=" + star_point + ", spoiler=" + spoiler + ", preference=" + preference + ", display=" + display + ", accuse_count=" + accuse_count + ", replyList=" + (replyList == null ? null : replyList.size()) + "]";
+	}	
 
 }

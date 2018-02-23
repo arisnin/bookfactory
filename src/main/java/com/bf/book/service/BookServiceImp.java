@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bf.aop.LogAspect;
 import com.bf.book.dao.BookDao;
 import com.bf.book.dto.ReviewDto;
+import com.bf.book.dto.ReviewPageDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.member.model.User;
@@ -82,7 +83,7 @@ public class BookServiceImp implements BookService {
 			User user = (User) request.getSession().getAttribute("userInfo");
 			LogAspect.info("userInfo:" + user);
 			
-			// TODO: reviewSelf 생성
+			// reviewSelf 생성
 			if (user != null) {
 				ReviewDto reviewSelf = bookDao.selectReviewSelf(book_num, user.getUsername());
 				if (reviewSelf != null) reviewRequestUrl = request.getContextPath() + "/review/update.do";
@@ -91,10 +92,13 @@ public class BookServiceImp implements BookService {
 				LogAspect.info("reviewSelf:" + reviewSelf);
 			}
 			
-			// TODO: reviewList 생성
+			// reviewList 생성
 			List<ReviewDto> reviewList = bookDao.selectReviewList(book_num);
 			mav.addObject("reviewList",reviewList).addObject("book_num",book_num);
 			LogAspect.info("reviewList:" + reviewList.size());
+			
+			// default review 정보 생성
+			// TODO: 구매자 별점
 		}
 		
 		return mav.addObject("reviewRequestUrl", reviewRequestUrl);

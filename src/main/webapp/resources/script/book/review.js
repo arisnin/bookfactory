@@ -35,56 +35,44 @@ function collapseSpoilerView(active) {
 }
 
 /**
- * 리뷰목록 개수를 확장하는 함수.(리뷰 목록은 한번에 10개씩만 출력하기 때문) 
- * @param remain 남아있는 리뷰글 개수(전체 리뷰 개수 - 출력된 리뷰 개수)
- * @param count 출력할 리뷰목록 개수(default = 10)
+ * 리뷰목록 개수를 확장하는 함수.(리뷰 목록은 한번에 10개씩만 확장 가능)
+ * @param event 이벤트가 발생한 요소
  * @returns 없음
  *
  * @author 박성호
- * @date 2018. 1. 23.
+ * @date 2018. 1. 23.(최초)
+ * @date 2018. 2. 23.(수정)
  */
-function appendReviewList(remain, count) {
-	// AJAX(리뷰 데이터 로드)
+function appendReviewList(event) {
+	var target = document.getElementById("review-list-box-id");
+	var targetList = target.children;
+	var remain = Number(target.getAttribute("data-remain-list"));
+	var count = 10;
 
-	// Create HTML Elements(document에 추가할 리뷰 요소 생성)
-	var dFrag = document.createDocumentFragment();
-
+	// remain list의 시작 위치
+	var begin = targetList.length - remain;
+	
+	// 출력 후에 남는 remain list의 개수와 실제 출력한 list 개수 계산
 	if (remain > count) {
 		remain -= count;
 	} else {
 		count = remain;
 		remain = 0;
 	}
+	
+	// 출력할 list의 끝 offset
+	var end = begin + count;
 
-	for (let i = 0; i < count; i++) {
-		// documentFragment에 리뷰(list-item) 요소 추가 및 데이터 삽입
-		insertReviewData(addReviewItem(dFrag));
+	for (let i=begin; i < end; i++) {
+		targetList[i].classList.remove("hidden-block");
 	}
-
-	document.getElementById("review-list-box-id").appendChild(dFrag);
-}
-
-/**
- * documentFragment에 리뷰글 요소(li element)를 하나 생성해서 추가함
- * @param dFrag documentFragment
- * @returns documentFragment
- *
- * @author 박성호
- * @date 2018. 1. 23.
- */
-function addReviewItem(dFrag) {
-	var listItem = document.createElement("li");
-	var innerHTML = '<!-- 리뷰 정보 --> <div class="review-info"> <div class="content-star-rate review-info-row"> <span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span> </div> <div class="review-info-row"> <span class="reviewer-id">admin***</span> <span class="badge-icon">구매자</span> </div> <div class="review-info-row"> <span class="review-date">2018.01.01</span> <button type="button" class="bf-button bf-white-btn">신고</button> </div> </div> <!-- 리뷰 내용 --> <div class="review-contents"> <div class="review-content review-spoiler" style="display:none;"> <span><span class="material-icons">warning</span> 스포일러가 있는 리뷰입니다.</span> <hr class="line"> <button type="button" class="bf-button bf-transparent-btn bf-animated-btn" onclick="collapseSpoilerView(this)">리뷰보기</button> </div> <p class="review-content" style="display:inline-block;">리뷰내용</p> <!-- 리뷰 평가 버튼 --> <div class="review-status"> <button type="button" class="bf-button bf-white-btn"> <span class="material-icons">thumb_up</span> <span class="book-count"></span> </button> <button type="button" class="bf-button bf-white-btn" onclick="collapseViewToggle(this)"> <span class="material-icons">textsms</span> 댓글 <span class="book-count"></span> </button> <!-- 댓글 컨트롤 --> <div class="reply-write-form" style="display:none;"> <!-- 댓글 목록 --> <div class="reply-list-box"> <ul></ul> </div> <!-- 댓글 작성 --> <form action="${root}/review/reply.do" method="post" onsubmit="return replyValidation()"> <textarea name="content"></textarea> <button type="submit" class="bf-button">댓글 달기</button> <input type="hidden" name="review_num" value="${review_num}"/> </form> </div> </div> </div>';
-
-	listItem.className = "review-list-item";
-	listItem.innerHTML = innerHTML;
-
-	return dFrag.appendChild(listItem);
-}
-
-function insertReviewData(listItem) {
-	// TODO: insert data
-
+	
+	target.setAttribute("data-remain-list", remain);
+	event.querySelector(".more-count").innerHTML = remain;
+	
+	if (remain == 0) {
+		event.classList.add("hidden-block");
+	}
 }
 
 /**

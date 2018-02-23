@@ -48,7 +48,8 @@
 							<div class="score-bar"></div>
 						</div></li>
 				</ul>
-				<span class="score-rater-num">5명이 평가함</span>
+				<c:set var="listSize" value="${reviewList.size()}"/>
+				<span class="score-rater-num"><c:out value="${listSize}" />명이 평가함</span>
 			</div>
 			<!-- 리뷰 작성 -->
 			<div class="review-write-box">
@@ -155,7 +156,7 @@
 		</section><!-- End : bf-review-box -->
 		<!-- 리뷰 목록 & 댓글 작성 -->
 		<section class="bf-review-box">
-			<!-- 리뷰 목록 -->
+			<!-- 리뷰 목록 메뉴 -->
 			<div class="bf-service-type-menu line-bottom">
 				<!-- 서비스타입 메뉴  -->
 				<ul class="service-type-list f-left">
@@ -164,16 +165,17 @@
 				</ul>
 				<!-- 정렬기준 메뉴 -->
 				<ul class="order-type-list f-right">
-					<li class="diamond"><a class="active" href="javascript:reviewListSort('recent');" title="recent">최신순</a></li>
-					<li class="diamond"><a href="javascript:reviewListSort('preference');" title="preference">공감순</a></li>
-					<li class="diamond"><a href="javascript:reviewListSort('descending');" title="descending">별점높은순</a></li>
-					<li><a href="javascript:reviewListSort('ascending');" title="ascending">별점낮은순</a></li>
+					<li class="diamond"><a class="active" href="javascript:void(0)" title="recent" onclick="reviewListSort(this, 'recent')">최신순</a></li>
+					<li class="diamond"><a href="javascript:void(0)" title="preference" onclick="reviewListSort(this, 'preference')">공감순</a></li>
+					<li class="diamond"><a href="javascript:void(0)" title="descending" onclick="reviewListSort(this, 'descending')">별점높은순</a></li>
+					<li><a href="javascript:void(0)" title="ascending" onclick="reviewListSort(this, 'ascending')">별점낮은순</a></li>
 				</ul>
 			</div><!-- End : bf-service-type-menu -->
-			<ul class="review-list-box" id="review-list-box-id">
+			<!-- 리뷰 목록 -->
+			<ul class="review-list-box" id="review-list-box-id" data-remain-list="${listSize - 10}">
 			<c:forEach var="reviewDto" items="${reviewList}">
-				<!-- 리뷰글 -->
 				<li class="review-list-item" >
+					<!-- 리뷰글 시작(review-list-item) -->
 					<!-- 리뷰 정보 -->
 					<div class="review-info">
 						<div class="content-star-rate review-info-row" data-star-point="${reviewDto.star_point}">
@@ -184,7 +186,7 @@
 							<span class="badge-icon">구매자</span>
 						</div>
 						<div class="review-info-row">
-							<span class="review-date" data-review-date="${reviewDto.num}"><fmt:formatDate value="${reviewDto.write_date}" pattern="yy-MM-dd"/></span>
+							<span class="review-date" data-review-date="<fmt:formatDate value="${reviewDto.write_date}" pattern="yyMMdd"/>"><fmt:formatDate value="${reviewDto.write_date}" pattern="yy-MM-dd"/></span>
 							<button type="button" class="bf-button bf-white-btn">신고</button>
 						</div>
 					</div>
@@ -250,12 +252,13 @@
 								</form>
 							</div>
 						</div>
-					</div>					
-				</li><!--  End : review-list-item -->
+					</div>
+					<!--  End : review-list-item -->					
+				</li>
 			</c:forEach>
 			</ul><!-- End : review-list-box -->
 			<div class="review-more-button">
-				<button type="button" class="bf-button bf-white-btn" onclick="appendReviewList(15,10)"><span class="more-count">10</span> 개 더보기</button>
+				<button type="button" class="bf-button bf-white-btn" onclick="appendReviewList(this)"><span class="more-count">${listSize - 10}</span> 개 더보기</button>
 			</div>
 			<hr class="line block">
 			<button type="button" class="bf-button bf-notice-btn bf-transparent-btn bf-animated-btn" value="false" onclick="collapseViewToggle(this)">
@@ -277,11 +280,78 @@
 	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 	<script type="text/javascript" src="${root}/script/book/review.js"></script>
 	<script type="text/javascript">
-		function reviewListSort(type) {
+		reviewListSort(null, 'recent');
+		function reviewListSort(event, type) {
 			var dFrag = document.createDocumentFragment();
 			var target = document.getElementById("review-list-box-id");
 			
+			// Create array list & Sorting
+			var sorted = Array.prototype.slice.call(target.children,0).sort(function(a,b) {
+				// compare method
+				return compareWith(a,b,type);
+			});
 			
+			// Clone?
+			//sorted.forEach(e => dFrag.appendChild(e.cloneNode(true)));
+			
+			let countDisplayList = Number(sorted.length - target.getAttribute("data-remain-list"));
+			// Move?
+			sorted.forEach(function(e,i) {
+				if (i > (countDisplayList-1)) {
+					// 한 번에 10개씩 display 하므로 나머지는 display="none" 설정
+					e.classList.add("hidden-block");
+				} else {
+					e.classList.remove("hidden-block");
+				}
+				dFrag.appendChild(e);
+			});
+			
+			// Append Child to target element
+			target.appendChild(dFrag);
+			
+			// 활성화된 메뉴 요소에 active 클래스 속성값 추가
+			activeOrderMenu(event);
+		}
+		
+		function activeOrderMenu(event) {
+			if (event == null) return;
+			var menus = document.querySelectorAll("section.bf-review-box > div.bf-service-type-menu > ul.order-type-list a");
+			menus.forEach((e)=>e.classList.remove("active"));
+			event.classList.add("active");
+		}
+		
+		function compareWith(a,b,option) {
+			switch (option) {
+			case 'descending': // b - a
+			{
+				let aData = getAttributeFromSelector(a, ".review-info > .content-star-rate.review-info-row", "data-star-point");
+				let bData = getAttributeFromSelector(b, ".review-info > .content-star-rate.review-info-row", "data-star-point");
+				return bData - aData;
+			}
+			case 'ascending': // a - b
+			{
+				let aData = getAttributeFromSelector(a, ".review-info > .content-star-rate.review-info-row", "data-star-point");
+				let bData = getAttributeFromSelector(b, ".review-info > .content-star-rate.review-info-row", "data-star-point");
+				return aData - bData;
+			}
+			case 'preference':
+			{
+				let aData = getAttributeFromSelector(a, ".review-contents > .review-status > button:nth-child(1) > span.book-count", "data-preference");
+				let bData = getAttributeFromSelector(b, ".review-contents > .review-status > button:nth-child(1) > span.book-count", "data-preference");
+				return bData - aData;
+			}
+			default:
+			{
+				let aData = getAttributeFromSelector(a, ".review-info > div:last-child > .review-date", "data-review-date");
+				let bData = getAttributeFromSelector(b, ".review-info > div:last-child > .review-date", "data-review-date");
+				return bData - aData;
+			}
+			}
+			return true;
+		}
+		
+		function getAttributeFromSelector(target, selector, attribute) {
+			return parseInt(target.querySelector(selector).getAttribute(attribute));
 		}
 	</script>
 	<c:if test="${reviewSelf != null}">
