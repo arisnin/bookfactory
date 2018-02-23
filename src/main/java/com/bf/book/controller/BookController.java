@@ -124,11 +124,24 @@ public class BookController {
 	public ModelAndView keyword(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView("genre/commons/keyword.main");
 		mav.addObject("request", request);
-		mav.addObject("response", response);
-		
+
 		bookService.keyword(mav);
 		
 		return mav;
+	}
+	
+	/**
+	 * 일반 제외 홈화면들 > 키워드 검색 ajax
+	 */
+	@RequestMapping(value = "/keywordSearch.do", method = RequestMethod.GET)
+	public ModelAndView keywordSearch(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		
+		bookService.keywordSearch(mav);
+		
+		return null;
 	}
 
 	/**

@@ -36,6 +36,8 @@ public interface ManagerServiceTwo {
 	
 	public void memberDelete(ModelAndView mav);
 	
+	public void memberPay(ModelAndView mav);
+	
 	public void memberPayDetail(ModelAndView mav);
 	
 	public void managerReview(ModelAndView mav);

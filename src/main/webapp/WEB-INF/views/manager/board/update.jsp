@@ -57,12 +57,15 @@
 								<li><span>파일첨부</span></li>
 								<li><c:choose>
 										<c:when test="${boardFreqDto.file_size > 0}">
-											<a href="javascript:location.href='${root}/manager/boardDownload.do?num=${boardFreqDto.num}&pageNumber=${param.pageNumber}'">
-													${boardFreqDto.file_name}</a>
+											<a href="javascript:location.href='${root}/manager/boardDownload.do?num=${boardFreqDto.num}&pageNumber=${param.pageNumber}'" id ="before_file">${boardFreqDto.file_name}</a>
+											<span>&nbsp;변경 >>&nbsp;</span><input type="file" name="file" size="40" id ="fileClick"/>
+											<a href="javascript:location.href='${root}/manager/boardDownload.do?num=${boardFreqDto.num}&pageNumber=${param.pageNumber}'" id="after_file"></a>
+									
+												
 										</c:when>
 										<c:otherwise>
 											<div>
-												<span>파일명</span> <input type="file" name="file" size="40"/>
+												<span></span> <input type="file" name="file" size="40"/>
 											</div>
 										</c:otherwise>
 										
@@ -71,16 +74,15 @@
 								<li><textarea class="sh_reply_text" name="content">${boardFreqDto.content}</textarea></li>
 							</ul>
 						</div>
-						<input type="hidden" name="num" value="${boardFreqDto.num}"> 
-						<input type="hidden" name="title" value="${boardFreqDto.title}">
-						<%-- <input type="hidden" name="file_name" value="${boardFreqDto.file_name}"> --%> 
+						<input type="hidden" name="num" value="${boardFreqDto.num}"> 	
 						<input type="hidden" name="content" value="${boardFreqDto.content}"> 
 						<input type="hidden" name="qcate2_name" value="${boardFreqDto.qcate2_name}"> 
-						<input type="hidden" name="qcate1_name" value="${boardFreqDto.qcate1_name}"> 
-			
-						 
+						<input type="hidden" name="qcate1_name" value="${boardFreqDto.qcate1_name}"> 	 
+						<input type="hidden" name="file_size" value="${boardFreqDto.file_size}">
+						<input type="hidden" name="file_name" value="${boardFreqDto.file_name}">
+						<input type="hidden" name="file_path" value="${boardFreqDto.file_path}">
+						<input type="hidden" name="category" value="${boardFreqDto.category}">
 						<input type="hidden" name="pageNumber" value="${pageNumber}">
-
 					</div>
 					<div class="sh_board_update_content">
 
@@ -108,6 +110,9 @@
 						$("#sh_board_update_1 >option").prop("selected", true);
 					});
 		});
+		
+		
+		
 	</script>
 </body>
 </html>

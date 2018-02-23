@@ -34,8 +34,7 @@ public interface MyPageDao {
 
 	int RecentDelete(String id);
 
-	int HistoryCashClick(OrderDto orderDto);
-
+	OrderDto HistoryCashClick(String id, long order_num);
 
 
 }

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.aspectj.weaver.tools.cache.AsynchronousFileCacheBacking.RemoveCommand;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -345,12 +347,18 @@ public class BookServiceImp implements BookService {
 	public void keyword(ModelAndView mav) {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
-		HttpServletResponse response=(HttpServletResponse) mav.getModel().get("response");
-
 		int firstCate=Integer.parseInt(request.getParameter("firstCate"));
 		
+		mav.addObject("firstCate", firstCate);
+	}
+
+	@Override
+	public void keywordSearch(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		HttpServletResponse response=(HttpServletResponse) mav.getModel().get("response");
+		
 		String tags=request.getParameter("tags");
-		ArrayList<String> list=new ArrayList<String>();
 		
 		int tagListCount=0;
 		
@@ -364,19 +372,19 @@ public class BookServiceImp implements BookService {
 		int startRow=(pageNumber-1)*boardSize+1;
 		int endRow=pageNumber*boardSize;
 		
-		HashMap<String, Object> listMap=new HashMap<String, Object>();
-		listMap.put("startRow", startRow);
-		listMap.put("endRow", endRow);
+		HashMap<String, ArrayList<String>> listMap=new HashMap<String, ArrayList<String>>();
 		
+		ArrayList<String> page=new ArrayList<String>();
+		page.add(String.valueOf(startRow));
+		page.add(String.valueOf(endRow));
+		listMap.put("page", page);
+		
+		ArrayList<String> list=new ArrayList<String>();
 		if(tags!=null) {
 			String tag[]=tags.split(",");
 			String query="";
 			
 			for(int i=0;i<tag.length;i++) {
-//				query="and l.book_num in(SELECT DISTINCT book_num "
-//										+ "FROM keyword_list "
-//										+ "where keyword_num =(SELECT num FROM keyword WHERE NAME='"+tag[i]+"'))";
-//				
 				query=tag[i];
 				list.add(query);
 			}
@@ -386,30 +394,43 @@ public class BookServiceImp implements BookService {
 			
 			if(tagListCount>0) {
 				//밑에 뿌려줄 책정보 가져와야함 덤으로 페이지 번호도.
+				tagList=bookDao.getTagBookList(listMap);
 			}
-			
+
 			HashMap<String, Object> jsMap=new HashMap<String, Object>();
 			jsMap.put("tagListCount", tagListCount);
+			
+			for(int i=0;i<tagList.size();i++) {
+				HomeDto dto=tagList.get(i);
+				
+				HashMap<String, Object> dtoMap=new HashMap<String, Object>();
+				dtoMap.put("img_path", dto.getImg_path());
+				dtoMap.put("book_name", dto.getBookName());
+				dtoMap.put("book_num", dto.getBook_num());
+				dtoMap.put("authorName", dto.getAuthorName());
+				dtoMap.put("authorNum", dto.getAuthor_num());
+				dtoMap.put("pub_num", dto.getPub_num());
+				dtoMap.put("pub_name", dto.getPub_name());
+				dtoMap.put("price", dto.getPrice());
+				dtoMap.put("rental_price", dto.getRental_price());
+				jsMap.put("HomeDto"+i+"", dtoMap);
+			}
 			
 			String text=JSONValue.toJSONString(jsMap);
 			LogAspect.info(LogAspect.logMsg + text);
 									//x-json으로 보내줘야함
+			
 			response.setContentType("application/x-json;charset=utf-8");
 			PrintWriter out;
 			try {
 				out = response.getWriter();
 				out.print(text);
+				out.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
-			//화면변화막아줌
-			mav.setViewName(null);
 		}
-		
-		mav.addObject("firstCate", firstCate);
-			
-		
 	}
 
 }

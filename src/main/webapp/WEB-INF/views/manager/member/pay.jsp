@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +19,9 @@
 	<div id="sh_member_pay">
 		<div class="sh_main_text">회원 결제 관리 페이지</div>
 		<div id="sh_board_shadow">
+			<form action="${root}/manager/memberPayDetail.do" method="post" >
 			<div class="sh_member_pay_header">
-
+			
 				<div class="sh_member_pay_main">
 
 					<div class="sh_member_pay_search">
@@ -71,31 +73,26 @@
 				</div>
 
 				<div class="sh_member_pay_list">
-					<!-- for문으로 체크박스랑 등등 정보 돌려야함 . 임시적으로 두개 해놈 -->
-					<!-- 첫번째 예제 -->
-					<ul>
-						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
-						<li>1</li>
-						<li>jeonsh1220</li>
-						<li>전상헌</li>
-						<li>70000만원</li>
-						<li>5000 point</li>
-						<li>18/11/20</li>
-						<li>10</li>
-						<li><a class="bf-button bf-animated-btn" href="${root}/manager/memberPayDetail.do">상세보기</a></li>
-					</ul>
-					<!-- 두번째 예제 -->
-					<ul>
-						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
-						<li>2</li>
-						<li>jeonsh1220</li>
-						<li>전상헌</li>
-						<li>70000만원</li>
-						<li>5000 point</li>
-						<li>18/11/20</li>
-						<li>10</li>
-						<li><a class="bf-button bf-animated-btn" href="${root}/manager/memberPayDetail.do">상세보기</a></li>
-					</ul>
+					<c:forEach var="cashDto" items="${cashDtoList }">
+						<ul>
+							<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
+							<li>${cashDto.cash_num }</li>
+							<li>${cashDto.cash_id }</li>
+							<li>${cashDto.member_name}</li>
+							<li>${cashDto.cash_total }원</li>
+							<li>${cashDto.point_total }point</li>
+							<li><fmt:formatDate value="${cashDto.last_date }" pattern="yyyy-MM-dd"/></li>
+							<li>쿠폰미구현</li>
+							<li><button type="submit" class="bf-button" >상세보기</button></li>						
+						</ul>
+							<input type="hidden" name="cash_num" value="${cashDto.cash_num }">
+							<input type="hidden" name="cash_id" value="${cashDto.cash_id }">
+							<input type="hidden" name="member_name" value="${cashDto.member_name }">
+							<input type="hidden" name="cash_total" value="${cashDto.cash_total }">
+							<input type="hidden" name="point_total" value="${cashDto.point_total }">
+							<input type="hidden" name="cash_num" value="${cashDto.cash_num }">
+							
+					</c:forEach>
 				</div>
 			</div>
 
@@ -114,6 +111,7 @@
 					</ul>
 				</nav>
 			</div>
+			</form>
 		</div>
 	</div>
 
