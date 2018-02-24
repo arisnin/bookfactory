@@ -23,6 +23,7 @@ import com.bf.aop.LogAspect;
 import com.bf.book.dao.BookDao;
 import com.bf.book.dto.ReviewDto;
 import com.bf.book.dto.ReviewPageDto;
+import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.member.model.User;
@@ -324,12 +325,13 @@ public class BookServiceImp implements BookService {
 		
 		//세번째 카테고리뽑아오기. 중복카테고리 있는지, 없는지 구별해야함.
 		int overlapCate=bookDao.getOverlapThirdCate(book_num);
+		System.out.println(overlapCate);
 		
 		List<String> thirdCateName=bookDao.getOverlapCateName(book_num);
-		dto.setThird_cate_name_a(thirdCateName.get(0));
-		dto.setThird_cate_num_a(bookDao.getThirdCateNum(dto.getThird_cate_name_a()));
 		
 		if(overlapCate>1) {
+			dto.setThird_cate_name_a(thirdCateName.get(0));
+			dto.setThird_cate_num_a(bookDao.getThirdCateNum(dto.getThird_cate_name_a()));
 			dto.setThird_cate_name_b(thirdCateName.get(1));
 			dto.setThird_cate_num_b(bookDao.getThirdCateNum(dto.getThird_cate_name_b()));
 			
@@ -337,6 +339,9 @@ public class BookServiceImp implements BookService {
 				dto.setThird_cate_name_c(thirdCateName.get(2));
 				dto.setThird_cate_num_c(bookDao.getThirdCateNum(dto.getThird_cate_name_c()));
 			}
+		}else {
+			dto.setThird_cate_name_a(thirdCateName.get(0));
+			dto.setThird_cate_num_a(bookDao.getThirdCateNum(dto.getThird_cate_name_a()));
 		}
 		
 		dto=bookDao.getBookAllInfo(book_num);
@@ -344,7 +349,44 @@ public class BookServiceImp implements BookService {
 		//출판사 이름뽑아오기
 		dto.setPub_name(bookDao.getPubName(book_num));
 		
+		AuthorDto auDto=null;
+		AuthorDto ilDto=null;
+		AuthorDto trDto=null;
+		
 		//작가,번역,일러 정보뽑아오기
+		//작가 대표저서
+		List<HomeDto> authorBook=null;
+		List<HomeDto> illorBook=null;
+		List<HomeDto> transBook=null;
+		if(dto.getAuthor_num()!=0) {
+			auDto=bookDao.getAuthorInfo(dto.getAuthor_num());
+			authorBook=bookDao.getAuthorBook(dto.getAuthor_num());
+		}
+		
+		//이거는 ajax로 나중에 다른곳으로 빼야할듯.
+		if(dto.getIllu_num()!=0) {
+			ilDto=bookDao.getAuthorInfo(dto.getIllu_num());
+			illorBook=bookDao.getAuthorBook(dto.getIllu_num());
+		}
+		
+		if(dto.getTrans_num()!=0) {
+			trDto=bookDao.getAuthorInfo(dto.getTrans_num());
+			transBook=bookDao.getAuthorBook(dto.getTrans_num());
+		}
+		
+		//할인률은 데이터들어가면 테스트해야함
+		
+		//별점정보 뽑기
+		
+		//이벤트기간뽑기
+		
+		mav.addObject("detailDto", dto);
+		mav.addObject("authorDto", auDto);
+		mav.addObject("illoDto", ilDto);
+		mav.addObject("transDto", trDto);
+		mav.addObject("authorBook", authorBook);
+		mav.addObject("illorBook", illorBook);
+		mav.addObject("transBook", transBook);
 	}
 
 	@Override	//키워드검색

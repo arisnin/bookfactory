@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.bf.book.dto.ReviewDto;
+import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
 import com.bf.book.dto.DetailDto;
@@ -42,5 +43,7 @@ public interface BookDao {
 	String getPubName(long book_num);
 	int getTagListCount(ArrayList<String> list);
 	List<HomeDto> getTagBookList(HashMap<String, ArrayList<String>> listMap);
+	AuthorDto getAuthorInfo(long author_num);
+	List<HomeDto> getAuthorBook(long author_num);
 
 }

@@ -222,9 +222,11 @@
 	</select>
 	
 	<select id="getThirdCateNum" parameterType="String" resultType="int">
-		SELECT num
-		FROM third_cate
-		where name=#{third_cate_name}
+		select rn.num
+		from (SELECT num, rownum r
+		      FROM third_cate
+		      WHERE NAME=#{third_cate_name})rn
+		where rn.r=1
 	</select>
 	
 	<select id="getBookAllInfo" parameterType="long" resultMap="DetailDto">
@@ -256,6 +258,21 @@
 		FROM bookm b, publisher p
 		WHERE b.pub_num=p.pub_num
 		and b.book_num=#{book_num}
+	</select>
+	
+	<select id="getAuthorInfo" parameterType="long" resultType="com.bf.manager.dto.AuthorDto">
+		SELECT A.*, c.country_name
+		FROM author a, country c
+		WHERE num=#{author_num}
+		and A.country_num=c.country_num
+	</select>
+	
+	<select id="getAuthorBook" parameterType="long" resultMap="HomeDto">
+		SELECT b.img_path, b.name "bookName", A.NAME "authorName", b.book_num, A.num "author_num"
+		FROM bookm b, author A
+		WHERE b.author_num=A.num
+		AND A.num=#{author_num}
+		ORDER BY b.write_date desc
 	</select>
 	
 	<select id="getTagListCount" parameterType="java.util.ArrayList" resultType="int">
