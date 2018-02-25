@@ -10,12 +10,11 @@
 <body>
 	<c:if test="${checkReview <= 0}">
 		<script type="text/javascript">
-			// 리뷰 수정 실패(로그인)
+			// 리뷰 수정 실패
 			alert('${error}');
 		</script>
 	</c:if>
 	<script type="text/javascript">
-		// 리뷰 수정 실패(데이터베이스 오류)
 		location.href = "${root}/review/list.do?book_num=${book_num}";
 	</script>
 </body>

@@ -2,6 +2,7 @@ package com.bf.book.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +30,7 @@ import com.bf.member.model.User;
 import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
+import com.bf.book.dto.ReplyDto;
 
 /**
  * @author 박성호
@@ -54,7 +56,6 @@ public class BookServiceImp implements BookService {
 
 		// 책 번호(book_num)는 presentation단에서 넘어옵니다.
 
-		// TODO: 아이디(id) 설정. 아이디는 유효세션으로부터 받아와야 합니다.
 		User user = (User) request.getSession().getAttribute("userInfo");
 		reviewDto.setId(user.getUsername());
 
@@ -79,6 +80,9 @@ public class BookServiceImp implements BookService {
 		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
 		String reviewRequestUrl = request.getContextPath() + "/review/write.do";
 		
+		int buyerCount = 0;
+		int scoreGraph[] = new int[] {0,0,0,0,0,0};
+		
 		if (request.getParameter("book_num") == null) {
 			LogAspect.warning("요청 객체에 책 번호가 없습니다.");
 		} else {
@@ -90,21 +94,35 @@ public class BookServiceImp implements BookService {
 			
 			// reviewSelf 생성
 			if (user != null) {
-				ReviewDto reviewSelf = bookDao.selectReviewSelf(book_num, user.getUsername());
+				ReviewPageDto reviewSelf = bookDao.selectReviewSelf(book_num, user.getUsername());
+				
 				if (reviewSelf != null) reviewRequestUrl = request.getContextPath() + "/review/update.do";
+				
 				mav.addObject("reviewSelf",reviewSelf);
 				mav.addObject("reviewSelfContent",reviewSelf.getContent().replace("<br />", "\r\n"));
 				LogAspect.info("reviewSelf:" + reviewSelf);
 			}
 			
 			// reviewList 생성
-			List<ReviewDto> reviewList = bookDao.selectReviewList(book_num);
+			List<ReviewPageDto> reviewList = bookDao.selectReviewList(book_num);
+			
 			mav.addObject("reviewList",reviewList).addObject("book_num",book_num);
 			LogAspect.info("reviewList:" + reviewList.size());
 			
-			// default review 정보 생성
-			// TODO: 구매자 별점
+			// 기본 리뷰 정보 생성 & replyList 생성
+			for (ReviewPageDto e : reviewList) {
+				// 리뷰 정보
+				if ("on".equalsIgnoreCase(e.getBuyer())) {
+					buyerCount++;
+					scoreGraph[e.getStar_point()]++;
+				}
+				// 댓글 리스트
+				List<ReplyDto> replyList = bookDao.selectReplyList(e.getNum());
+				e.setReplyList(replyList);
+			}
 		}
+		
+		mav.addObject("buyerCount",buyerCount).addObject("scoreGraph",scoreGraph);
 		
 		return mav.addObject("reviewRequestUrl", reviewRequestUrl);
 	}
@@ -138,8 +156,92 @@ public class BookServiceImp implements BookService {
 		if (checkReview == 0) {
 			mav.addObject("error","시스템 오류입니다.");
 		}
-
+		
 		return mav.addObject("checkReview", checkReview).addObject("book_num",reviewDto.getBook_num());
+	}
+
+	@Override
+	public void reviewReply(HttpServletRequest request, HttpServletResponse response, ReplyDto replyDto) throws IOException {
+		int check = -1;
+		
+		// Get user info.
+		User user = (User)request.getSession().getAttribute("userInfo");
+		if (user != null) {
+			// Set user id
+			replyDto.setId(user.getUsername());
+			replyDto.setContent(replyDto.getContent().replace("\r\n", "<br />"));
+			replyDto.setWrite_date(new java.util.Date());
+			LogAspect.info(replyDto);
+			
+			check = bookDao.insertReply(replyDto);
+		}
+		
+		LogAspect.info("insertReply():" + check);
+		
+		JSONObject json = new JSONObject();
+		
+		if (check > 0) {
+			json.put("type", "ok");
+			json.put("id", replyDto.getId());
+			json.put("content", replyDto.getContent());
+			json.put("write_date", new SimpleDateFormat("yy-MM-dd hh:mm").format(replyDto.getWrite_date()));
+		} else if (check == -1) {
+			json.put("type", "login");
+			json.put("error", "로그인이 필요한 서비스입니다.");
+		} else {
+			json.put("type", "system");
+			json.put("error", "시스템 에러로 댓글 달기에 실패했습니다.");
+		}
+		
+		LogAspect.info(json);
+		
+		response.setContentType("application/x-json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(json.toJSONString());
+		out.flush();
+		out.close();
+	}
+
+	@Override
+	public void reviewDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String review_num = request.getParameter("review_num");
+		String id = "";
+		int check = -2;
+		
+		if (review_num != null) {
+			int num = Integer.parseInt(review_num);
+			
+			// Get user info.
+			User user = (User)request.getSession().getAttribute("userInfo");
+			if (user == null) {
+				check = -1;
+			} else {
+				id = user.getUsername();
+				check = bookDao.deleteReview(id, num);
+			}
+		}
+		
+		LogAspect.info("reviewDelete():" + id + "/" + review_num);
+		
+		JSONObject json = new JSONObject();
+		
+		if (check > 0) {
+			json.put("type", "ok");
+		} else if (check == -1) {
+			json.put("type", "login");
+			json.put("error", "로그인이 필요한 서비스입니다.");
+		} else {
+			json.put("type", "system");
+			json.put("error", "시스템 에러로 댓글 달기에 실패했습니다.");
+		}
+		
+		LogAspect.info(json);
+		
+		response.setContentType("application/x-json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(json.toJSONString());
+		out.flush();
+		out.close();
 	}
 	
 	//여기서부터 홈입니다.

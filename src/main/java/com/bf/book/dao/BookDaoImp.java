@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bf.book.dto.ReviewDto;
+import com.bf.book.dto.ReviewPageDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
 import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
+import com.bf.book.dto.ReplyDto;
 
 /**
  * @author 박성호
@@ -44,7 +46,7 @@ public class BookDaoImp implements BookDao {
 
 	@Override
 	public int insertReview(ReviewDto reviewDto) {
-		return sqlSession.insert("com.bf.mapper.BookPlusMapper.insert-review", reviewDto);
+		return sqlSession.insert( namespace + "insert-review", reviewDto);
 	}
 
 	@Override	//일반, 만화에서 사용하는 홈화면 책정보가져오기 나중에 수정해야함 - 
@@ -79,7 +81,7 @@ public class BookDaoImp implements BookDao {
 	}
 
 	@Override
-	public ReviewDto selectReviewSelf(int book_num, String username) {
+	public ReviewPageDto selectReviewSelf(int book_num, String username) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("book_num", book_num);
 		map.put("id", username);
@@ -87,13 +89,31 @@ public class BookDaoImp implements BookDao {
 	}
 
 	@Override
-	public List<ReviewDto> selectReviewList(int book_num) {
+	public List<ReviewPageDto> selectReviewList(int book_num) {
 		return sqlSession.selectList(namespace + "select-review-list", book_num);
 	}
 
 	@Override
 	public int updateReview(ReviewDto reviewDto) {
 		return sqlSession.update(namespace + "update-review", reviewDto);
+	}
+
+	@Override
+	public List<ReplyDto> selectReplyList(int num) {
+		return sqlSession.selectList(namespace + "select-reply-list", num);
+	}
+
+	@Override
+	public int insertReply(ReplyDto replyDto) {
+		return sqlSession.insert(namespace + "insert-reply", replyDto);
+	}
+
+	@Override
+	public int deleteReview(String id, int num) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("id", id);
+		map.put("num", num);
+		return sqlSession.delete(namespace + "delete-review", map);
 	}
 	
 	@Override	//추천도서 가져오기
