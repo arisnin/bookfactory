@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.bf.book.dto.ReviewDto;
 import com.bf.book.dto.ReviewPageDto;
+import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
 import com.bf.book.dto.DetailDto;
@@ -209,6 +210,18 @@ public class BookDaoImp implements BookDao {
 	public List<HomeDto> getTagBookList(HashMap<String, ArrayList<String>> listMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getTagBookList", listMap);
+	}
+
+	@Override
+	public AuthorDto getAuthorInfo(long author_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getAuthorInfo", author_num);
+	}
+
+	@Override
+	public List<HomeDto> getAuthorBook(long author_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getAuthorBook", author_num);
 	}
 
 }

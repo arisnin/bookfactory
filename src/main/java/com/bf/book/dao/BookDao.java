@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.bf.book.dto.ReviewDto;
 import com.bf.book.dto.ReviewPageDto;
+import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
 import com.bf.book.dto.DetailDto;
@@ -47,5 +48,7 @@ public interface BookDao {
 	List<ReplyDto> selectReplyList(int num);
 	int insertReply(ReplyDto replyDto);
 	int deleteReview(String id, int num);
+	AuthorDto getAuthorInfo(long author_num);
+	List<HomeDto> getAuthorBook(long author_num);
 
 }

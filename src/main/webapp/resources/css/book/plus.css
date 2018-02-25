@@ -166,6 +166,10 @@
 	content: '그림';
 }
 
+.head_right>div.author-info span.translator:after {
+	content: '번역';
+}
+
 .head_right>div.author-info span.illustrator:after {
 	content: '글/그림';
 }
@@ -238,7 +242,7 @@
 	font-size: 0.9rem;
 	line-height: 0.8em;
 	padding: 0px 5px;
-	border-right: 0.8px solid darkgray;
+/* 	border-right: 0.8px solid darkgray; */
 }
 
 .head_right>ul.book-info>li:FIRST-CHILD>ul>li:FIRST-CHILD>p:FIRST-CHILD {
@@ -399,7 +403,7 @@
 
 .bookIntro_con .readAll {
 	width: 100%;
-	line-height: 1rem;
+	line-height: 2rem;
 	overflow: hidden;
 	color: #666;
 }
@@ -409,7 +413,7 @@
 }
 
 .bookIntro_con .readAll.collapse {
-	height: 11rem;
+	height: 14rem;
 }
 
 .bookIntro_con .readAll.collapse + button > i:last-child,
