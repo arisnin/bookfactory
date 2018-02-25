@@ -39,10 +39,10 @@
 			}
 			//console.log(root + "," + cnum + "," + snum);
 			var mainNumber = Math.round((cnum / 100)) * 100;
-			var main = document.querySelector("a[data-main-category-num='" + mainNumber + "']");
+			var main = document.querySelector("a[data-second-cate='" + mainNumber + "']");
 			main.classList.add("active");
 	
-			var sub = document.querySelector("a[data-sub-category-num='" + cnum + "']");
+			var sub = document.querySelector("a[data-third-cate='" + cnum + "']");
 			sub.classList.add("active");
 	
 			// 타이틀 설정
