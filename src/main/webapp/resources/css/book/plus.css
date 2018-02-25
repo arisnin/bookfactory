@@ -403,7 +403,7 @@
 
 .bookIntro_con .readAll {
 	width: 100%;
-	line-height: 1rem;
+	line-height: 2rem;
 	overflow: hidden;
 	color: #666;
 }
@@ -413,7 +413,7 @@
 }
 
 .bookIntro_con .readAll.collapse {
-	height: 11rem;
+	height: 14rem;
 }
 
 .bookIntro_con .readAll.collapse + button > i:last-child,

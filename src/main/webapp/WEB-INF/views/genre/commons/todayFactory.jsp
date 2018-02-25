@@ -14,7 +14,7 @@
 <script type="text/javascript">
 $(function(){
 	$(".today-recommended-book").click(function(){
-		var booknum=$(".recommended-book-metadata > input[name=bookNum]").val();
+		var booknum=$(this).children("input[name=bookNum]").val();
 		location.href="/bookFactory/detail.do?book_num="+booknum;
 	});
 });
@@ -36,13 +36,13 @@ $(function(){
 				<div class="today-recommended-list" id="today-recommended-list">
 					<c:forEach var="recom" items="${recomList}">
 						<div class="today-recommended-book" style="opacity: 1;">
+							<input type="hidden" name="bookNum" value="${recom.book_num}">
 							<div class="book-spotlight" style="opacity: 0;"></div>
 							<div class="book-thumbnail-wrap">
 								<div class="recommended-book-metadata">
 									<p>
 										${recom.authorName }<br>${recom.bookName}
 									</p>
-									<input type="hidden" name="bookNum" value="${recom.book_num}">
 								</div>
 								<div class="content-star-rate">
 									<span class="star-icon-field material-icons">star_border</span><span

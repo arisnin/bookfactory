@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.management.Query;
 import javax.servlet.http.HttpServletRequest;
@@ -317,7 +319,7 @@ public class BookServiceImp implements BookService {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
 		long book_num=Long.parseLong(request.getParameter("book_num"));
-		DetailDto dto=new DetailDto();
+		DetailDto dto=bookDao.getBookAllInfo(book_num);
 		
 		//두번째 카테고리뽑아오기
 		dto.setSecond_cate_num(bookDao.getSecondCateNum(book_num));
@@ -344,8 +346,6 @@ public class BookServiceImp implements BookService {
 			dto.setThird_cate_num_a(bookDao.getThirdCateNum(dto.getThird_cate_name_a()));
 		}
 		
-		dto=bookDao.getBookAllInfo(book_num);
-		
 		//출판사 이름뽑아오기
 		dto.setPub_name(bookDao.getPubName(book_num));
 		
@@ -361,24 +361,27 @@ public class BookServiceImp implements BookService {
 		if(dto.getAuthor_num()!=0) {
 			auDto=bookDao.getAuthorInfo(dto.getAuthor_num());
 			authorBook=bookDao.getAuthorBook(dto.getAuthor_num());
+			System.out.println("작가 : "+auDto.toString());
 		}
 		
 		//이거는 ajax로 나중에 다른곳으로 빼야할듯.
 		if(dto.getIllu_num()!=0) {
 			ilDto=bookDao.getAuthorInfo(dto.getIllu_num());
 			illorBook=bookDao.getAuthorBook(dto.getIllu_num());
+			System.out.println("일러 : "+ilDto.toString());
 		}
 		
 		if(dto.getTrans_num()!=0) {
 			trDto=bookDao.getAuthorInfo(dto.getTrans_num());
 			transBook=bookDao.getAuthorBook(dto.getTrans_num());
+			System.out.println("번역 : "+trDto.toString());
 		}
-		
-		//할인률은 데이터들어가면 테스트해야함
 		
 		//별점정보 뽑기
 		
 		//이벤트기간뽑기
+		
+		System.out.println(dto.toString());
 		
 		mav.addObject("detailDto", dto);
 		mav.addObject("authorDto", auDto);
