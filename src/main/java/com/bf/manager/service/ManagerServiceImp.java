@@ -1289,8 +1289,8 @@ public class ManagerServiceImp implements ManagerService {
 	@Override
 	public void randomPreference(ModelAndView mav) {
 		int size = managerDao.getBookCount();
-		for(int i=0;i<1000;i++) {
-			int value = (int)(Math.random() * 1000) + 1;
+		for(int i=0;i<2000;i++) {
+			int value = (int)(Math.random() * i) + 1;
 			int book_num = (int)(Math.random() * size) + 1;
 			managerDao.updateRandomPreference(value,book_num);
 		}
@@ -1355,7 +1355,10 @@ public class ManagerServiceImp implements ManagerService {
 		int max = 0;
 		for(int i=0;i<5;i++) {
 			StatPreferenceDto statPreferenceDto = managerDao.getPreferenceTotalCount(1,i+1);
+			LogAspect.info(LogAspect.logMsg +statPreferenceDto);
+			
 			rankList.add(statPreferenceDto);
+			
 			if(statPreferenceDto.getPreference() > max) {
 				max = statPreferenceDto.getPreference();
 			}
@@ -1398,6 +1401,11 @@ public class ManagerServiceImp implements ManagerService {
 		mav.addObject("countMap", countMap);
 		mav.addObject("heightMap", heightMap);
 		mav.addObject("maxCount", maxCount);
+		mav.addObject("oneName", rankList.get(0).getBook_name());
+		mav.addObject("twoName", rankList.get(1).getBook_name());
+		mav.addObject("threeName", rankList.get(2).getBook_name());
+		mav.addObject("fourName", rankList.get(3).getBook_name());
+		mav.addObject("fiveName", rankList.get(4).getBook_name());
 	}
 
 	@Override

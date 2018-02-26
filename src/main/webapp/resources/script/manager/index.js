@@ -47,7 +47,8 @@ var otherPage = [
 		['/authorUpdateRead.do',2,2],['/authorRead.do',2,1],['/authorUpdate.do',2,1],
 		['/memberRegister.do',3,0],['/memberPayDetail.do',3,1],
 		['/reviewReport.do',4,1],
-		['/boardReply.do',5,0],['/boardDelete.do',5,2],['/boardUpdate.do',5,2]
+		['/boardReply.do',5,0],['/boardDelete.do',5,2],['/boardUpdate.do',5,2],
+		['/ilbanPrefer.do',6,0],['/fantasyPrefer.do',6,0],['/manhwaPrefer.do',6,0],['/blPrefer.do',6,0]
 	]
 
 /*왼쪽 메뉴 이벤트 걸어주고 href값도 세팅한다*/
