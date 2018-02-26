@@ -21,12 +21,12 @@
 			<div class="s_pr_content">
 				<div class="bf-service-type-menu">
 					<ul class="service-type-list s_t_cate">
-						<li><a class="active" href="javascript:alert('전체')">전체</a></li>
-						<li><a href="javascript:alert('일반')">일반</a></li>
-						<li><a href="javascript:alert('로맨스')">로맨스</a></li>
-						<li><a href="javascript:alert('판타지')">판타지</a></li>
-						<li><a href="javascript:alert('만화')">만화</a></li>
-						<li><a href="javascript:alert('BL')">BL</a></li>
+						<li><a href="${root}/manager/statPreference.do">전체</a></li>
+						<li><a class="active" href="${root}/manager/ilbanPrefer.do">일반</a></li>
+						<li><a href="${root}/manager/romancePrefer.do">로맨스</a></li>
+						<li><a href="${root}/manager/fantasyPrefer.do">판타지</a></li>
+						<li><a href="${root}/manager/manhwaPrefer.do">만화</a></li>
+						<li><a href="${root}/manager/blPrefer.do">BL</a></li>
 					</ul>
 				</div>
 				<div id="prefer-graph">
@@ -39,24 +39,24 @@
 						</thead>
 						<tbody>
 							<tr class="qtr" id="q1">
-								<th scope="row">일반</th>
-								<td class="sent bar"><p>${countMap.one}개</p><input type="hidden" value="${heightMap.ilban}"></td>
+								<th scope="row">${oneName }</th>
+								<td class="sent bar"><p>${countMap.one}개</p><input type="hidden" value="${heightMap.one}"></td>
 							</tr>
 							<tr class="qtr" id="q2">
-								<th scope="row">로맨스</th>
-								<td class="sent bar"><p>${countMap.two}개</p><input type="hidden" value="${heightMap.romance}"></td>
+								<th scope="row">${twoName }</th>
+								<td class="sent bar"><p>${countMap.two}개</p><input type="hidden" value="${heightMap.two}"></td>
 							</tr>
 							<tr class="qtr" id="q3">
-								<th scope="row">판타지</th>
-								<td class="sent bar"><p>${countMap.three}개</p><input type="hidden" value="${heightMap.fantasy}"></td>
+								<th scope="row">${threeName }</th>
+								<td class="sent bar"><p>${countMap.three}개</p><input type="hidden" value="${heightMap.three}"></td>
 							</tr>
 							<tr class="qtr" id="q4">
-								<th scope="row">만화</th>
-								<td class="sent bar"><p>${countMap.four}개</p><input type="hidden" value="${heightMap.manhwa}"></td>
+								<th scope="row">${fourName }</th>
+								<td class="sent bar"><p>${countMap.four}개</p><input type="hidden" value="${heightMap.four}"></td>
 							</tr>
 							<tr class="qtr" id="q5">
-								<th scope="row">BL</th>
-								<td class="sent bar"><p>${countMap.five}개</p><input type="hidden" value="${heightMap.bl}"></td>
+								<th scope="row">${fiveName }</th>
+								<td class="sent bar"><p>${countMap.five}개</p><input type="hidden" value="${heightMap.five}"></td>
 							</tr>
 						</tbody>
 					</table>

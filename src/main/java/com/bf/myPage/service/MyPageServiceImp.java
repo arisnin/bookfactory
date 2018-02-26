@@ -229,7 +229,17 @@ public class MyPageServiceImp implements MyPageService {
 		User user = (User) request.getSession().getAttribute("userInfo");
 		String id = user.getUsername();
 		
-		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoList = myPageDao.PurchasedPageList(id);
+		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoList = null;
+		
+		String search = request.getParameter("search-word");
+		LogAspect.info(search);
+		
+		if(search != null){
+			//myPagePurchasedPageDtoList = myPageDao.PurchasedPageList(id, search);
+		}else{
+			myPagePurchasedPageDtoList = myPageDao.PurchasedPageList(id);
+		}
+		
 		LogAspect.info(myPagePurchasedPageDtoList.size());
 		
 		mav.addObject("myPagePurchasedPageDtoList", myPagePurchasedPageDtoList);

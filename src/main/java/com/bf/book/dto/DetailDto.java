@@ -7,17 +7,20 @@ package com.bf.book.dto;
  * 
  */
 public class DetailDto {
-	//책 카테고리
-	private int first_cate_num;
-	private String first_cate_name;
-	private int second_cate_num;
-	private String second_cate_name;
-	private int third_cate_num_a;	//카테고리여러개인애들 위해 만들음
-	private String third_cate_name_a;
-	private int third_cate_num_b;
-	private String third_cate_name_b;
-	private int third_cate_num_c;
-	private String third_cate_name_c;
+	//책 카테고리 따로 dto 뺌. 중복인애들있어서 이리만들음
+	private int second_num_1;
+	private int second_num_2;
+	private int second_num_3;
+	private String second_name_1;
+	private String second_name_2;
+	private String second_name_3;
+	
+	private int third_num_1;
+	private int third_num_2;
+	private int third_num_3;
+	private String third_name_1;
+	private String third_name_2;
+	private String third_name_3;
 	
 	//책 상단 정보
 	private long book_num;
@@ -61,27 +64,28 @@ public class DetailDto {
 	private int star_point;
 	
 	//저자프로필정보는 따로 dto 뺀다.
-	
 	public DetailDto() {}
 
-	public DetailDto(int first_cate_num, String first_cate_name, int second_cate_num, String second_cate_name,
-			int third_cate_num_a, String third_cate_name_a, int third_cate_num_b, String third_cate_name_b,
-			int third_cate_num_c, String third_cate_name_c, long book_num, String book_name, String book_sub_title,
+	public DetailDto(int second_num_1, int second_num_2, int second_num_3, String second_name_1, String second_name_2,
+			String second_name_3, int third_num_1, int third_num_2, int third_num_3, String third_name_1,
+			String third_name_2, String third_name_3, long book_num, String book_name, String book_sub_title,
 			String write_date, long pub_num, String pub_name, long author_num, String author_name, long illu_num,
 			String illu_name, long trans_num, String trans_name, double discount, double discount2, long book_price,
 			long rental_price, String rental_period, long preference, long series_num, String support, String img_path,
 			String file_path, String file_name, long file_size, String type, String intro, String pub_intro,
 			int star_point) {
-		this.first_cate_num = first_cate_num;
-		this.first_cate_name = first_cate_name;
-		this.second_cate_num = second_cate_num;
-		this.second_cate_name = second_cate_name;
-		this.third_cate_num_a = third_cate_num_a;
-		this.third_cate_name_a = third_cate_name_a;
-		this.third_cate_num_b = third_cate_num_b;
-		this.third_cate_name_b = third_cate_name_b;
-		this.third_cate_num_c = third_cate_num_c;
-		this.third_cate_name_c = third_cate_name_c;
+		this.second_num_1 = second_num_1;
+		this.second_num_2 = second_num_2;
+		this.second_num_3 = second_num_3;
+		this.second_name_1 = second_name_1;
+		this.second_name_2 = second_name_2;
+		this.second_name_3 = second_name_3;
+		this.third_num_1 = third_num_1;
+		this.third_num_2 = third_num_2;
+		this.third_num_3 = third_num_3;
+		this.third_name_1 = third_name_1;
+		this.third_name_2 = third_name_2;
+		this.third_name_3 = third_name_3;
 		this.book_num = book_num;
 		this.book_name = book_name;
 		this.book_sub_title = book_sub_title;
@@ -112,84 +116,100 @@ public class DetailDto {
 		this.star_point = star_point;
 	}
 
-	public int getFirst_cate_num() {
-		return first_cate_num;
+	public int getSecond_num_1() {
+		return second_num_1;
 	}
 
-	public void setFirst_cate_num(int first_cate_num) {
-		this.first_cate_num = first_cate_num;
+	public void setSecond_num_1(int second_num_1) {
+		this.second_num_1 = second_num_1;
 	}
 
-	public String getFirst_cate_name() {
-		return first_cate_name;
+	public int getSecond_num_2() {
+		return second_num_2;
 	}
 
-	public void setFirst_cate_name(String first_cate_name) {
-		this.first_cate_name = first_cate_name;
+	public void setSecond_num_2(int second_num_2) {
+		this.second_num_2 = second_num_2;
 	}
 
-	public int getSecond_cate_num() {
-		return second_cate_num;
+	public int getSecond_num_3() {
+		return second_num_3;
 	}
 
-	public void setSecond_cate_num(int second_cate_num) {
-		this.second_cate_num = second_cate_num;
+	public void setSecond_num_3(int second_num_3) {
+		this.second_num_3 = second_num_3;
 	}
 
-	public String getSecond_cate_name() {
-		return second_cate_name;
+	public String getSecond_name_1() {
+		return second_name_1;
 	}
 
-	public void setSecond_cate_name(String second_cate_name) {
-		this.second_cate_name = second_cate_name;
+	public void setSecond_name_1(String second_name_1) {
+		this.second_name_1 = second_name_1;
 	}
 
-	public int getThird_cate_num_a() {
-		return third_cate_num_a;
+	public String getSecond_name_2() {
+		return second_name_2;
 	}
 
-	public void setThird_cate_num_a(int third_cate_num_a) {
-		this.third_cate_num_a = third_cate_num_a;
+	public void setSecond_name_2(String second_name_2) {
+		this.second_name_2 = second_name_2;
 	}
 
-	public String getThird_cate_name_a() {
-		return third_cate_name_a;
+	public String getSecond_name_3() {
+		return second_name_3;
 	}
 
-	public void setThird_cate_name_a(String third_cate_name_a) {
-		this.third_cate_name_a = third_cate_name_a;
+	public void setSecond_name_3(String second_name_3) {
+		this.second_name_3 = second_name_3;
 	}
 
-	public int getThird_cate_num_b() {
-		return third_cate_num_b;
+	public int getThird_num_1() {
+		return third_num_1;
 	}
 
-	public void setThird_cate_num_b(int third_cate_num_b) {
-		this.third_cate_num_b = third_cate_num_b;
+	public void setThird_num_1(int third_num_1) {
+		this.third_num_1 = third_num_1;
 	}
 
-	public String getThird_cate_name_b() {
-		return third_cate_name_b;
+	public int getThird_num_2() {
+		return third_num_2;
 	}
 
-	public void setThird_cate_name_b(String third_cate_name_b) {
-		this.third_cate_name_b = third_cate_name_b;
+	public void setThird_num_2(int third_num_2) {
+		this.third_num_2 = third_num_2;
 	}
 
-	public int getThird_cate_num_c() {
-		return third_cate_num_c;
+	public int getThird_num_3() {
+		return third_num_3;
 	}
 
-	public void setThird_cate_num_c(int third_cate_num_c) {
-		this.third_cate_num_c = third_cate_num_c;
+	public void setThird_num_3(int third_num_3) {
+		this.third_num_3 = third_num_3;
 	}
 
-	public String getThird_cate_name_c() {
-		return third_cate_name_c;
+	public String getThird_name_1() {
+		return third_name_1;
 	}
 
-	public void setThird_cate_name_c(String third_cate_name_c) {
-		this.third_cate_name_c = third_cate_name_c;
+	public void setThird_name_1(String third_name_1) {
+		this.third_name_1 = third_name_1;
+	}
+
+	public String getThird_name_2() {
+		return third_name_2;
+	}
+
+	public void setThird_name_2(String third_name_2) {
+		this.third_name_2 = third_name_2;
+	}
+
+	public String getThird_name_3() {
+		return third_name_3;
+	}
+
+	public void setThird_name_3(String third_name_3) {
+		this.third_name_3 = third_name_3;
 	}
 
 	public long getBook_num() {
@@ -418,21 +438,19 @@ public class DetailDto {
 
 	@Override
 	public String toString() {
-		return "DetailDto [first_cate_num=" + first_cate_num + ", first_cate_name=" + first_cate_name
-				+ ", second_cate_num=" + second_cate_num + ", second_cate_name=" + second_cate_name
-				+ ", third_cate_num_a=" + third_cate_num_a + ", third_cate_name_a=" + third_cate_name_a
-				+ ", third_cate_num_b=" + third_cate_num_b + ", third_cate_name_b=" + third_cate_name_b
-				+ ", third_cate_num_c=" + third_cate_num_c + ", third_cate_name_c=" + third_cate_name_c + ", book_num="
-				+ book_num + ", book_name=" + book_name + ", book_sub_title=" + book_sub_title + ", write_date="
-				+ write_date + ", pub_num=" + pub_num + ", pub_name=" + pub_name + ", author_num=" + author_num
-				+ ", author_name=" + author_name + ", illu_num=" + illu_num + ", illu_name=" + illu_name
-				+ ", trans_num=" + trans_num + ", trans_name=" + trans_name + ", discount=" + discount + ", discount2="
-				+ discount2 + ", book_price=" + book_price + ", rental_price=" + rental_price + ", rental_period="
-				+ rental_period + ", preference=" + preference + ", series_num=" + series_num + ", support=" + support
-				+ ", img_path=" + img_path + ", file_path=" + file_path + ", file_name=" + file_name + ", file_size="
-				+ file_size + ", type=" + type + ", intro=" + intro + ", pub_intro=" + pub_intro + ", star_point="
-				+ star_point + "]";
+		return "DetailDto [second_num_1=" + second_num_1 + ", second_num_2=" + second_num_2 + ", second_num_3="
+				+ second_num_3 + ", second_name_1=" + second_name_1 + ", second_name_2=" + second_name_2
+				+ ", second_name_3=" + second_name_3 + ", third_num_1=" + third_num_1 + ", third_num_2=" + third_num_2
+				+ ", third_num_3=" + third_num_3 + ", third_name_1=" + third_name_1 + ", third_name_2=" + third_name_2
+				+ ", third_name_3=" + third_name_3 + ", book_num=" + book_num + ", book_name=" + book_name
+				+ ", book_sub_title=" + book_sub_title + ", write_date=" + write_date + ", pub_num=" + pub_num
+				+ ", pub_name=" + pub_name + ", author_num=" + author_num + ", author_name=" + author_name
+				+ ", illu_num=" + illu_num + ", illu_name=" + illu_name + ", trans_num=" + trans_num + ", trans_name="
+				+ trans_name + ", discount=" + discount + ", discount2=" + discount2 + ", book_price=" + book_price
+				+ ", rental_price=" + rental_price + ", rental_period=" + rental_period + ", preference=" + preference
+				+ ", series_num=" + series_num + ", support=" + support + ", img_path=" + img_path + ", file_path="
+				+ file_path + ", file_name=" + file_name + ", file_size=" + file_size + ", type=" + type + ", intro="
+				+ intro + ", pub_intro=" + pub_intro + ", star_point=" + star_point + "]";
 	}
-	
 	
 }
