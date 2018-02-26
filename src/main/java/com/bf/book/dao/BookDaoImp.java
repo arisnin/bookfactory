@@ -14,6 +14,7 @@ import com.bf.book.dto.ReviewPageDto;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
+import com.bf.book.dto.DetailCateDto;
 import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
@@ -158,24 +159,6 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.selectList("getPaperNewBookList", cateMap);
 	}
 
-	@Override	//카테고리 중복인 아이들 뽑아내기
-	public int getOverlapThirdCate(long book_num) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("getOverlapThirdCate", book_num);
-	}
-
-	@Override	//카테고리 중복인 아이들 이름 뽑아내기
-	public List<String> getOverlapCateName(long book_num) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("getOverlapCateName", book_num);
-	}
-
-	@Override	//카테고리 중복인 아이들 번호 뽑아내기
-	public int getThirdCateNum(String third_cate_name) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("getThirdCateNum", third_cate_name);
-	}
-
 	@Override	//책 상세보기 정보 가져오기
 	public DetailDto getBookAllInfo(long book_num) {
 		// TODO Auto-generated method stub
@@ -212,16 +195,22 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.selectList("getTagBookList", listMap);
 	}
 
-	@Override
+	@Override	//작가 정보가져오기
 	public AuthorDto getAuthorInfo(long author_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getAuthorInfo", author_num);
 	}
 
-	@Override
+	@Override	//작가 대표저서 가져오기
 	public List<HomeDto> getAuthorBook(long author_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getAuthorBook", author_num);
+	}
+
+	@Override	//상세보기에서의 카테고리들
+	public List<DetailCateDto> getDetailCate(long book_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getDetailCate",book_num);
 	}
 
 }
