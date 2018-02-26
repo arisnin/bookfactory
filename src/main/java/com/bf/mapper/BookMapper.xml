@@ -225,5 +225,13 @@
 		where book_num = #{book_num}
 	</update>
 	
+	<update id="updateRandomPreference" parameterType="java.util.HashMap">
+		UPDATE BOOKM SET PREFERENCE = #{value}
+		WHERE BOOK_NUM = 
+			(SELECT BOOK_NUM FROM(
+			SELECT ROWNUM RNUM, BOOKM.* FROM BOOKM) A
+			where rnum = #{book_num})
+	</update>
+	
 </mapper>
 

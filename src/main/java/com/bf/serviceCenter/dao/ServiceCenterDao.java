@@ -2,6 +2,7 @@ package com.bf.serviceCenter.dao;
 
 import java.util.List;
 
+import com.bf.manager.dto.BoardContactDto;
 import com.bf.serviceCenter.dto.ServiceCenterDtoFre;
 
 /**
@@ -18,6 +19,8 @@ public interface ServiceCenterDao {
 	ServiceCenterDtoFre infoRead(int num);
 
 	ServiceCenterDtoFre infoFile(int num);
+
+	int inquriyWrite(BoardContactDto boardContactDto);
 
 
 }

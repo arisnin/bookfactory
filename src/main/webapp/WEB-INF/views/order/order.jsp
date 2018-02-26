@@ -13,59 +13,49 @@
 	href="${root}/css/order/order.css">
 <link rel="stylesheet" type="text/css"
 	href="${root}/css/myPage/payment/mycash.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="${root}/css/order/order.css">
-<link rel="stylesheet" type="text/css" href="${root}/css/myPage/payment/mycash.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="${root}/css/order/order.css">
+<link rel="stylesheet" type="text/css"
+	href="${root}/css/myPage/payment/mycash.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/cart/cart.css">
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
-<c:set var="totalPrice" value="27000" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<link rel="stylesheet" href="${root }/alert/alertify_core.css" />
-<link rel="stylesheet" href="${root }/alert/alertify_default.css" id="toggleCSS" />
-<script src="${root }/alert/alertifymin.js"></script>
-
 </head>
-<script type="text/javascript">
-$(function(){
-	
- $("#alert").on( 'click', function () {
-	     alertify.log("경고창입니다.");
-	    });
-});
-</script>
 <body>
-<div id="alert">경고창</div><br>
-
 	<div id="order_header">
 		<div class="bf-title-row title-type1 order_header_child">
 			<div class="order_header_content1">주문 목록</div>
 			<div class="order_header_content2">결제 목록</div>
 		</div>
 
-		<form action="${root}/orderOk.do" method="post">
+		<form>
 			<div class="order_content ">
-				<c:forEach begin="1" end="3">
+				<c:forEach items="${aList}" var="list">
 					<div class="order_content_book_check cart_content_book">
 						<div class="float_left">
 							<!-- <label class="bf-custom-checkbox cart_content_book_span">
 							<input type="checkbox" title="구매목록 책 전체선택">
 							<span class="all-mark"></span>
 						</label> -->
-							<img class="cart_content_book_img"
-								src="https://misc.ridibooks.com/cover/593000658/xxlarge">
+							<img class="cart_content_book_img" src="${list.img_path }">
 						</div>
 						<div class="cart_content_book_content">
-							<span>그대 눈동자에 건배</span> <br> <span class="font_13">히가시노
-								게이고</span>
+							<span>${list.bookName }</span> <br> <span class="font_13">${list.authorName }</span>
 							<div class="float_right">
-								<span class="price hidden-block">10000원</span>
+								<span class="price hidden-block">${list.price }</span>
 								<div>
-									<span class="dc-price">9000원</span> <span class="count_percent">10</span>
-									<input type="hidden" value="9000" name="price">
+									<span class="dc-price">${list.rental_price }원</span>
+									<c:if test="${list.rental_price!=0 || list.price!=0 }">
+										<span class="count_percent">10</span>
+									</c:if>
+									<input type="hidden" value="${list.price }" name="price">
 								</div>
 							</div>
-							<span class="rental-period"> <i class="material-icons">access_alarm</i>대여기간<strong>1일</strong>
-							</span> <input type="hidden" name="book_num" value="4447" />
+							<c:if test="${list.rental_period !='no'}">
+							<span class="rental-period"> <i class="material-icons">access_alarm</i>대여기간<strong>${list.rental_period}</strong>
+							</span> <input type="hidden" name="book_num" value="${list.book_num }" />
+							</c:if>
 						</div>
 					</div>
 				</c:forEach>
@@ -73,18 +63,9 @@ $(function(){
 			<!-- End : order_content -->
 
 			<div class="order_right_menu">
-				<div class="order_right_menu_list first-line">
-					<label class="bf-custom-checkbox benefit_cancel"> <input
-						type="checkbox" title="구매목록 책 전체선택"> <span
-						class="all-mark"></span> <span
-						class="checkbox-label benefit_active">최대 혜택으로 적용되었습니다.</span>
-					</label>
-					<button class="bf-button bf-white-btn benefit_cancel float_right">해제</button>
-				</div>
 				<div class="order_right_menu_list">
 					<span>총 주문금액</span> <span class="right-item total">0원</span>
 				</div>
-
 				<div class="order_right_menu_list">
 					<span style="padding-top: 0.1rem">할인 쿠폰</span> <span
 						class="right-item">0원</span>
@@ -103,20 +84,16 @@ $(function(){
 						type="text" value="0" placeholder="0" name="point_use">원</span>
 				</div>
 				<script type="text/javascript">
-				$(function(){
-					$(".right-item  input[type='text']").on("keyup", function(){
-						var point = $(this).val();
-						
-						if((${totalPrice} - point) >= 0 ){
-						$(".order_right_menu_count>span>strong").first().text(${totalPrice}-point);
-						}else{
-							alert("주문금액보다 많은 양을 사용하실수 없습니다.");
-							point = ${totalPrice};
-						}
-						
-					});
-				});
-					
+//				$(function(){
+// 					$(".right-item  input[type='text']").on("keyup", function(){
+// 						var point = $(this).val();
+// 						if((${totalPrice} - point) >= 0 ){
+// 						$(".order_right_menu_count>span>strong").first().text(${totalPrice}-point);
+// 						}else{
+// 							alert("주문금액보다 많은 양을 사용하실수 없습니다.");
+// 							point = 0;
+// 						}
+// 					});
 				</script>
 
 				<div class="order_right_menu_list">
@@ -129,11 +106,9 @@ $(function(){
 					<span> 총 결재 금액<strong>${totalPrice}</strong>원
 
 					</span>
-					<c:if test="${totalPrice!=0}">
 						<span> 적립 리디포인트 :<strong><fmt:formatNumber
 									pattern="#원" value="${totalPrice*0.01 }" var="fmtPrice" />${fmtPrice}</strong>(1%)
 						</span>
-					</c:if>
 				</div>
 
 				<div class="order_right_menu_list">
@@ -245,7 +220,8 @@ $(function(){
 					</div>
 					<div style="text-align: center;">
 						<button
-							class="order_right_menu_paybutton bf-button bf-animated-btn">결제하기</button>
+							class="order_right_menu_paybutton bf-button bf-animated-btn"
+							onclick="javascript:location.href='${root}/orderOk.do'">결제하기</button>
 					</div>
 					<div class="menu_notice_tip">
 						<ul>

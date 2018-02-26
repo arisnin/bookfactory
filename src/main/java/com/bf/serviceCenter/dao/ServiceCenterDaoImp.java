@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bf.manager.dto.BoardContactDto;
 import com.bf.serviceCenter.dto.ServiceCenterDtoFre;
 
 /**
@@ -39,6 +40,19 @@ public class ServiceCenterDaoImp implements ServiceCenterDao {
 	@Override
 	public ServiceCenterDtoFre infoFile(int num) {
 		return sqlSession.selectOne(namespace + "infoRead", num);
+	}
+
+	@Override
+	public int inquriyWrite(BoardContactDto boardContactDto) {
+		int check = 0;
+		
+		if(boardContactDto.getFile_size()== 0) {
+			check = sqlSession.insert(namespace + "board_ContactInsert", boardContactDto);
+		}else {
+			check = sqlSession.insert(namespace + "board_ContactFileInsert", boardContactDto); 
+		}
+		
+		return check;
 	}
 	
 	

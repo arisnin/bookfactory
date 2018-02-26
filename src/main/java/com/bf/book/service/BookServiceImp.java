@@ -2,16 +2,21 @@ package com.bf.book.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.management.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.aspectj.weaver.tools.cache.AsynchronousFileCacheBacking.RemoveCommand;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,12 +25,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bf.aop.LogAspect;
 import com.bf.book.dao.BookDao;
 import com.bf.book.dto.ReviewDto;
+import com.bf.book.dto.ReviewPageDto;
+import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.member.model.User;
 import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
+import com.bf.book.dto.ReplyDto;
 
 /**
  * @author 박성호
@@ -51,7 +59,6 @@ public class BookServiceImp implements BookService {
 
 		// 책 번호(book_num)는 presentation단에서 넘어옵니다.
 
-		// TODO: 아이디(id) 설정. 아이디는 유효세션으로부터 받아와야 합니다.
 		User user = (User) request.getSession().getAttribute("userInfo");
 		reviewDto.setId(user.getUsername());
 
@@ -76,6 +83,9 @@ public class BookServiceImp implements BookService {
 		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
 		String reviewRequestUrl = request.getContextPath() + "/review/write.do";
 		
+		int buyerCount = 0;
+		int scoreGraph[] = new int[] {0,0,0,0,0,0};
+		
 		if (request.getParameter("book_num") == null) {
 			LogAspect.warning("요청 객체에 책 번호가 없습니다.");
 		} else {
@@ -85,20 +95,37 @@ public class BookServiceImp implements BookService {
 			User user = (User) request.getSession().getAttribute("userInfo");
 			LogAspect.info("userInfo:" + user);
 			
-			// TODO: reviewSelf 생성
+			// reviewSelf 생성
 			if (user != null) {
-				ReviewDto reviewSelf = bookDao.selectReviewSelf(book_num, user.getUsername());
+				ReviewPageDto reviewSelf = bookDao.selectReviewSelf(book_num, user.getUsername());
+				
 				if (reviewSelf != null) reviewRequestUrl = request.getContextPath() + "/review/update.do";
+				
 				mav.addObject("reviewSelf",reviewSelf);
 				mav.addObject("reviewSelfContent",reviewSelf.getContent().replace("<br />", "\r\n"));
 				LogAspect.info("reviewSelf:" + reviewSelf);
 			}
 			
-			// TODO: reviewList 생성
-			List<ReviewDto> reviewList = bookDao.selectReviewList(book_num);
+			// reviewList 생성
+			List<ReviewPageDto> reviewList = bookDao.selectReviewList(book_num);
+			
 			mav.addObject("reviewList",reviewList).addObject("book_num",book_num);
 			LogAspect.info("reviewList:" + reviewList.size());
+			
+			// 기본 리뷰 정보 생성 & replyList 생성
+			for (ReviewPageDto e : reviewList) {
+				// 리뷰 정보
+				if ("on".equalsIgnoreCase(e.getBuyer())) {
+					buyerCount++;
+					scoreGraph[e.getStar_point()]++;
+				}
+				// 댓글 리스트
+				List<ReplyDto> replyList = bookDao.selectReplyList(e.getNum());
+				e.setReplyList(replyList);
+			}
 		}
+		
+		mav.addObject("buyerCount",buyerCount).addObject("scoreGraph",scoreGraph);
 		
 		return mav.addObject("reviewRequestUrl", reviewRequestUrl);
 	}
@@ -132,8 +159,92 @@ public class BookServiceImp implements BookService {
 		if (checkReview == 0) {
 			mav.addObject("error","시스템 오류입니다.");
 		}
-
+		
 		return mav.addObject("checkReview", checkReview).addObject("book_num",reviewDto.getBook_num());
+	}
+
+	@Override
+	public void reviewReply(HttpServletRequest request, HttpServletResponse response, ReplyDto replyDto) throws IOException {
+		int check = -1;
+		
+		// Get user info.
+		User user = (User)request.getSession().getAttribute("userInfo");
+		if (user != null) {
+			// Set user id
+			replyDto.setId(user.getUsername());
+			replyDto.setContent(replyDto.getContent().replace("\r\n", "<br />"));
+			replyDto.setWrite_date(new java.util.Date());
+			LogAspect.info(replyDto);
+			
+			check = bookDao.insertReply(replyDto);
+		}
+		
+		LogAspect.info("insertReply():" + check);
+		
+		JSONObject json = new JSONObject();
+		
+		if (check > 0) {
+			json.put("type", "ok");
+			json.put("id", replyDto.getId());
+			json.put("content", replyDto.getContent());
+			json.put("write_date", new SimpleDateFormat("yy-MM-dd hh:mm").format(replyDto.getWrite_date()));
+		} else if (check == -1) {
+			json.put("type", "login");
+			json.put("error", "로그인이 필요한 서비스입니다.");
+		} else {
+			json.put("type", "system");
+			json.put("error", "시스템 에러로 댓글 달기에 실패했습니다.");
+		}
+		
+		LogAspect.info(json);
+		
+		response.setContentType("application/x-json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(json.toJSONString());
+		out.flush();
+		out.close();
+	}
+
+	@Override
+	public void reviewDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String review_num = request.getParameter("review_num");
+		String id = "";
+		int check = -2;
+		
+		if (review_num != null) {
+			int num = Integer.parseInt(review_num);
+			
+			// Get user info.
+			User user = (User)request.getSession().getAttribute("userInfo");
+			if (user == null) {
+				check = -1;
+			} else {
+				id = user.getUsername();
+				check = bookDao.deleteReview(id, num);
+			}
+		}
+		
+		LogAspect.info("reviewDelete():" + id + "/" + review_num);
+		
+		JSONObject json = new JSONObject();
+		
+		if (check > 0) {
+			json.put("type", "ok");
+		} else if (check == -1) {
+			json.put("type", "login");
+			json.put("error", "로그인이 필요한 서비스입니다.");
+		} else {
+			json.put("type", "system");
+			json.put("error", "시스템 에러로 댓글 달기에 실패했습니다.");
+		}
+		
+		LogAspect.info(json);
+		
+		response.setContentType("application/x-json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(json.toJSONString());
+		out.flush();
+		out.close();
 	}
 	
 	//여기서부터 홈입니다.
@@ -310,7 +421,7 @@ public class BookServiceImp implements BookService {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
 		long book_num=Long.parseLong(request.getParameter("book_num"));
-		DetailDto dto=new DetailDto();
+		DetailDto dto=bookDao.getBookAllInfo(book_num);
 		
 		//두번째 카테고리뽑아오기
 		dto.setSecond_cate_num(bookDao.getSecondCateNum(book_num));
@@ -318,12 +429,13 @@ public class BookServiceImp implements BookService {
 		
 		//세번째 카테고리뽑아오기. 중복카테고리 있는지, 없는지 구별해야함.
 		int overlapCate=bookDao.getOverlapThirdCate(book_num);
+		System.out.println(overlapCate);
 		
 		List<String> thirdCateName=bookDao.getOverlapCateName(book_num);
-		dto.setThird_cate_name_a(thirdCateName.get(0));
-		dto.setThird_cate_num_a(bookDao.getThirdCateNum(dto.getThird_cate_name_a()));
 		
 		if(overlapCate>1) {
+			dto.setThird_cate_name_a(thirdCateName.get(0));
+			dto.setThird_cate_num_a(bookDao.getThirdCateNum(dto.getThird_cate_name_a()));
 			dto.setThird_cate_name_b(thirdCateName.get(1));
 			dto.setThird_cate_num_b(bookDao.getThirdCateNum(dto.getThird_cate_name_b()));
 			
@@ -331,26 +443,73 @@ public class BookServiceImp implements BookService {
 				dto.setThird_cate_name_c(thirdCateName.get(2));
 				dto.setThird_cate_num_c(bookDao.getThirdCateNum(dto.getThird_cate_name_c()));
 			}
+		}else {
+			dto.setThird_cate_name_a(thirdCateName.get(0));
+			dto.setThird_cate_num_a(bookDao.getThirdCateNum(dto.getThird_cate_name_a()));
 		}
-		
-		dto=bookDao.getBookAllInfo(book_num);
 		
 		//출판사 이름뽑아오기
 		dto.setPub_name(bookDao.getPubName(book_num));
 		
+		AuthorDto auDto=null;
+		AuthorDto ilDto=null;
+		AuthorDto trDto=null;
+		
 		//작가,번역,일러 정보뽑아오기
+		//작가 대표저서
+		List<HomeDto> authorBook=null;
+		List<HomeDto> illorBook=null;
+		List<HomeDto> transBook=null;
+		if(dto.getAuthor_num()!=0) {
+			auDto=bookDao.getAuthorInfo(dto.getAuthor_num());
+			authorBook=bookDao.getAuthorBook(dto.getAuthor_num());
+			System.out.println("작가 : "+auDto.toString());
+		}
+		
+		//이거는 ajax로 나중에 다른곳으로 빼야할듯.
+		if(dto.getIllu_num()!=0) {
+			ilDto=bookDao.getAuthorInfo(dto.getIllu_num());
+			illorBook=bookDao.getAuthorBook(dto.getIllu_num());
+			System.out.println("일러 : "+ilDto.toString());
+		}
+		
+		if(dto.getTrans_num()!=0) {
+			trDto=bookDao.getAuthorInfo(dto.getTrans_num());
+			transBook=bookDao.getAuthorBook(dto.getTrans_num());
+			System.out.println("번역 : "+trDto.toString());
+		}
+		
+		//별점정보 뽑기
+		
+		//이벤트기간뽑기
+		
+		System.out.println(dto.toString());
+		
+		mav.addObject("detailDto", dto);
+		mav.addObject("authorDto", auDto);
+		mav.addObject("illoDto", ilDto);
+		mav.addObject("transDto", trDto);
+		mav.addObject("authorBook", authorBook);
+		mav.addObject("illorBook", illorBook);
+		mav.addObject("transBook", transBook);
 	}
 
 	@Override	//키워드검색
 	public void keyword(ModelAndView mav) {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
-		HttpServletResponse response=(HttpServletResponse) mav.getModel().get("response");
-
 		int firstCate=Integer.parseInt(request.getParameter("firstCate"));
 		
+		mav.addObject("firstCate", firstCate);
+	}
+
+	@Override
+	public void keywordSearch(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		HttpServletResponse response=(HttpServletResponse) mav.getModel().get("response");
+		
 		String tags=request.getParameter("tags");
-		ArrayList<String> list=new ArrayList<String>();
 		
 		int tagListCount=0;
 		
@@ -364,19 +523,19 @@ public class BookServiceImp implements BookService {
 		int startRow=(pageNumber-1)*boardSize+1;
 		int endRow=pageNumber*boardSize;
 		
-		HashMap<String, Object> listMap=new HashMap<String, Object>();
-		listMap.put("startRow", startRow);
-		listMap.put("endRow", endRow);
+		HashMap<String, ArrayList<String>> listMap=new HashMap<String, ArrayList<String>>();
 		
+		ArrayList<String> page=new ArrayList<String>();
+		page.add(String.valueOf(startRow));
+		page.add(String.valueOf(endRow));
+		listMap.put("page", page);
+		
+		ArrayList<String> list=new ArrayList<String>();
 		if(tags!=null) {
 			String tag[]=tags.split(",");
 			String query="";
 			
 			for(int i=0;i<tag.length;i++) {
-//				query="and l.book_num in(SELECT DISTINCT book_num "
-//										+ "FROM keyword_list "
-//										+ "where keyword_num =(SELECT num FROM keyword WHERE NAME='"+tag[i]+"'))";
-//				
 				query=tag[i];
 				list.add(query);
 			}
@@ -386,30 +545,47 @@ public class BookServiceImp implements BookService {
 			
 			if(tagListCount>0) {
 				//밑에 뿌려줄 책정보 가져와야함 덤으로 페이지 번호도.
+				tagList=bookDao.getTagBookList(listMap);
 			}
 			
-			HashMap<String, Object> jsMap=new HashMap<String, Object>();
-			jsMap.put("tagListCount", tagListCount);
+			HashMap<String, Object> json=new HashMap<String, Object>();
+			json.put("tagListCount", tagListCount);
 			
-			String text=JSONValue.toJSONString(jsMap);
-			LogAspect.info(LogAspect.logMsg + text);
+			HashMap<String, Object> jsMap=new HashMap<String, Object>();
+			
+			for(int i=0;i<tagList.size();i++) {
+				HomeDto dto=tagList.get(i);
+				
+				HashMap<String, Object> dtoMap=new HashMap<String, Object>();
+				dtoMap.put("img_path", dto.getImg_path());
+				dtoMap.put("book_name", dto.getBookName());
+				dtoMap.put("book_num", dto.getBook_num());
+				dtoMap.put("authorName", dto.getAuthorName());
+				dtoMap.put("authorNum", dto.getAuthor_num());
+				dtoMap.put("pub_num", dto.getPub_num());
+				dtoMap.put("pub_name", dto.getPub_name());
+				dtoMap.put("price", dto.getPrice());
+				dtoMap.put("rental_price", dto.getRental_price());
+				jsMap.put("HomeDto"+i+"", dtoMap);
+			}
+			json.put("tagList", jsMap);
+			
+			String text=JSONValue.toJSONString(json);
+//			LogAspect.info(LogAspect.logMsg + text);
 									//x-json으로 보내줘야함
+			
 			response.setContentType("application/x-json;charset=utf-8");
 			PrintWriter out;
 			try {
 				out = response.getWriter();
 				out.print(text);
+				out.flush();
+				System.out.println(text);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
-			//화면변화막아줌
-			mav.setViewName(null);
 		}
-		
-		mav.addObject("firstCate", firstCate);
-			
-		
 	}
 
 }

@@ -32,47 +32,68 @@
 				</div>
 				<div class="hw_general_sub" style="border-bottom: 1px solid #e1e8ee;">
 					<a class="hw_menu_title" href="#">자기계발<span class="hw_menu_tticon"></span></a>
+					<ul class="hw_sub_category_wrapper">
+					</ul>
 				</div>
 				<div class="hw_general_sub">
 					<a class="hw_menu_title" href="#">에세이/시<span class="hw_menu_tticon"></span></a>
+					<ul class="hw_sub_category_wrapper">
+					</ul>
 				</div>
 				<div class="hw_general_sub">
 					<a class="hw_menu_title" href="#">여행<span class="hw_menu_tticon"></span></a>
+					<ul class="hw_sub_category_wrapper">
+					</ul>
 				</div>
 				<div class="hw_general_sub">
 					<a class="hw_menu_title" href="#">종교<span class="hw_menu_tticon"></span></a>
+					<ul class="hw_sub_category_wrapper">
+					</ul>
 				</div>
 				<div class="hw_general_sub">
 					<a class="hw_menu_title" href="#">외국어<span class="hw_menu_tticon"></span></a>
+					<ul class="hw_sub_category_wrapper">
+					</ul>
 				</div>
 				<div class="hw_general_sub">
 					<a class="hw_menu_title" href="#">과학<span class="hw_menu_tticon"></span></a>
+					<ul class="hw_sub_category_wrapper">
+					</ul>
 				</div>
 				<div class="hw_general_sub">
 					<a class="hw_menu_title" href="#">진로/교육/교재<span class="hw_menu_tticon"></span></a>
+					<ul class="hw_sub_category_wrapper">
+					</ul>
 				</div>
 				<div class="hw_general_sub">
 					<a class="hw_menu_title" href="#">컴퓨터/IT<span class="hw_menu_tticon"></span></a>
+					<ul class="hw_sub_category_wrapper">
+					</ul>
 				</div>
 				<div class="hw_general_sub">
-					<a class="hw_menu_title" href="#">건강/다이어트<span class="hw_menu_tticon"></span>
-					</a>
+					<a class="hw_menu_title" href="#">건강/다이어트<span class="hw_menu_tticon"></span></a>
+					<ul class="hw_sub_category_wrapper">
+					</ul>
 				</div>
 				<div class="hw_general_sub">
-					<a class="hw_menu_title" href="#">가정/생활<span class="hw_menu_tticon"></span>
-					</a>
+					<a class="hw_menu_title" href="#">가정/생활<span class="hw_menu_tticon"></span></a>
+					<ul class="hw_sub_category_wrapper">
+					</ul>
 				</div>
 				<div class="hw_general_sub">
-					<a class="hw_menu_title" href="#">어린이/청소년<span class="hw_menu_tticon"></span>
-					</a>
+					<a class="hw_menu_title" href="#">어린이/청소년<span class="hw_menu_tticon"></span></a>
+					<ul class="hw_sub_category_wrapper">
+					</ul>
 				</div>
 				<div class="hw_general_sub">
-					<a class="hw_menu_title" href="#">해외도서<span class="hw_menu_tticon"></span>
-					</a>
+					<a class="hw_menu_title" href="#">해외도서<span class="hw_menu_tticon"></span></a>
+					<ul class="hw_sub_category_wrapper">
+					</ul>
 				</div>
 				<div class="hw_general_sub">
-					<a class="hw_menu_title" href="#">잡지<span class="hw_menu_tticon"></span>
-					</a>
+					<a class="hw_menu_title" href="#">잡지<span class="hw_menu_tticon"></span></a>
+					<ul class="hw_sub_category_wrapper">
+					</ul>
 				</div>
 			</div>
 
@@ -82,23 +103,12 @@
 					<span>
 						<a class="hw_menu_etc_title" href="">로맨스 단행본<span class="hw_menu_tticon" style="color: white;"></span></a>
 					</span>
-					<ul>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">현대물</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">역사/시대물</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">판타지물</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">할리퀸소설</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">19+</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">TL소설</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">섹슈얼 로맨스</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">하이틴</a></li>
+					<ul class="hw_etc_category_wrapper">
 					</ul>
 					<span>
 						<a class="hw_menu_etc_title" href="">로맨스 연재<span class="hw_menu_tticon" style="color: white;"></span></a>
 					</span>
-					<ul>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">현대물</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">역사/시대물</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">판타지물</a></li>
+					<ul class="hw_etc_category_wrapper">
 					</ul>
 				</div>
 			</div>
@@ -107,24 +117,12 @@
 					<span>
 						<a class="hw_menu_etc_title" href="">판타지 단행본<span class="hw_menu_tticon" style="color: white;"></span></a>
 					</span>
-					<ul>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">정통판타지</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">퓨전판타지</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">현대판타지</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">게임판타지</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">대체역사물</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">스포츠물</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">신무협</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">전통무협</a></li>
+					<ul class="hw_etc_category_wrapper">
 					</ul>
 					<span>
 						<a class="hw_menu_etc_title" href="">판타지 연재<span class="hw_menu_tticon" style="color: white;"></span></a>
 					</span>
-					<ul>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">정통판타지</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">퓨전판타지</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">현대판타지</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">무협소설</a></li>
+					<ul class="hw_etc_category_wrapper">
 					</ul>
 					<!-- 					<div class="hw_fantasy_banner">
 						<a class="hw_banner_link" href="">
@@ -140,20 +138,7 @@
 					<span>
 						<a class="hw_menu_etc_title" href="">만화<span class="hw_menu_tticon" style="color: white;"></span></a>
 					</span>
-					<ul>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">국내순정</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">해외순정</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">드라마</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">성인</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">할리퀸</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">무협</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">학원</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">액션</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">판타지/SF</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">스포츠</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">코믹</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">공포/추리</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">만화잡지</a></li>
+					<ul class="hw_etc_category_wrapper">
 					</ul>
 					<!-- <div class="hw_fantasy_banner">
 						<a class="hw_banner_link" href="">
@@ -169,26 +154,17 @@
 					<span>
 						<a class="hw_menu_etc_title" href="">BL 단행본<span class="hw_menu_tticon" style="color: white;"></span></a>
 					</span>
-					<ul>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">국내소설</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">해외소설</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">국내만화</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">해외만화</a></li>
+					<ul class="hw_etc_category_wrapper">
 					</ul>
 					<span>
 						<a class="hw_menu_etc_title" href="">BL 연재<span class="hw_menu_tticon" style="color: white;"></span></a>
 					</span>
-					<ul>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">소설</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">만화</a></li>
+					<ul class="hw_etc_category_wrapper">
 					</ul>
 					<span>
 						<a class="hw_menu_etc_title" href="">라이트노벨<span class="hw_menu_tticon" style="color: white;"></span></a>
 					</span>
-					<ul>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">남성향 라노벨</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">여성향 라노벨</a></li>
-						<li class="hw_menu_etc_li"><a class="hw_menu_etc_cate" href="">TL</a></li>
+					<ul class="hw_etc_category_wrapper">
 					</ul>
 				</div>
 			</div>

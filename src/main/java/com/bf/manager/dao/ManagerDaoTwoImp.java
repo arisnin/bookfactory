@@ -16,6 +16,7 @@ import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.ManagerNoticeDto;
+import com.bf.manager.dto.ManagerCashDto;
 import com.bf.manager.dto.MemberDto;
 import com.bf.manager.dto.ReviewManagerDto;
 
@@ -119,12 +120,25 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		
 		return sqlSession.selectOne("com.bf.manager.ManagerboardMapper.catelist",map);
 	}
+	
+	@Override
+	public int fileboardUpdateOk(BoardFrequencyDto boardFrequencyDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("com.bf.manager.ManagerboardMapper.fileBoardUpdate",boardFrequencyDto);
+	}
+	@Override
+	public int boardUpdateOk(BoardFrequencyDto boardFrequencyDto) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("com.bf.manager.ManagerboardMapper.boardUpdate",boardFrequencyDto);
+	}
+	
 	// ------------member------------------
 	@Override
 	public int memberCount() {
 
 		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.count");
 	}
+	
 
 	@Override
 	public List<MemberDto> memberList(int startRow, int endRow) {
@@ -151,7 +165,15 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 
 		return sqlSession.delete("com.bf.manager.ManagerMemberMapper.delete", id);
 	}
-
+	
+	@Override
+	public List<ManagerCashDto> memberCashList(int startRow, int endRow) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.cashList", map);
+	}
 	// -----------------리뷰
 	@Override
 	public int reviewCount() {

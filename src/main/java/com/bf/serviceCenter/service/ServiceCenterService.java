@@ -15,6 +15,12 @@ public interface ServiceCenterService {
 
 	void serviceCenterInformationDownLoad(ModelAndView mav);
 
+	void inquriyWrite(ModelAndView mav);
+
+	void inquriyWriteOk(ModelAndView mav);
+
+	void inquriyList(ModelAndView mav);
+
 	
 
 }

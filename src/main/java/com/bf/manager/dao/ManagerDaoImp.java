@@ -20,6 +20,7 @@ import com.bf.manager.dto.CountryDto;
 import com.bf.manager.dto.KeywordDto;
 import com.bf.manager.dto.PublisherDto;
 import com.bf.manager.dto.PublisherSearchDto;
+import com.bf.manager.dto.StatPreferenceDto;
 
 /**
  * @이름: 염현우
@@ -440,5 +441,30 @@ public class ManagerDaoImp implements ManagerDao {
 	public int updateBook(BookDto bookDto) {
 		return sqlSession.update("com.bf.mapper.BookMapper.updateBook", bookDto);
 	}
+
+	@Override
+	public void updateRandomPreference(int value, int book_num) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		map.put("value", value);
+		map.put("book_num", book_num);
+		sqlSession.update("com.bf.mapper.BookMapper.updateRandomPreference", map);
+	}
+
+	@Override
+	public List<StatPreferenceDto> getStatPreferenceList() {
+		return sqlSession.selectList("com.bf.mapper.StatMapper.getStatPreferenceList");
+	}
+
+	@Override
+	public int getPreferenceTotalCount(int cate_num) {
+		return sqlSession.selectOne("com.bf.mapper.StatMapper.getPreferenceTotalCount",cate_num);
+	}
 	
+	@Override
+	public StatPreferenceDto getPreferenceTotalCount(int cate_num, int rnum) {
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		map.put("cate_num", cate_num);
+		map.put("rnum", rnum);
+		return sqlSession.selectOne("com.bf.mapper.StatMapper.getPreferenceTotalCount2",map);
+	}
 }

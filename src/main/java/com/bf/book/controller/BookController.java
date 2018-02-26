@@ -1,5 +1,6 @@
 package com.bf.book.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -124,11 +125,24 @@ public class BookController {
 	public ModelAndView keyword(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView("genre/commons/keyword.main");
 		mav.addObject("request", request);
-		mav.addObject("response", response);
-		
+
 		bookService.keyword(mav);
 		
 		return mav;
+	}
+	
+	/**
+	 * 일반 제외 홈화면들 > 키워드 검색 ajax
+	 */
+	@RequestMapping(value = "/keywordSearch.do", method = RequestMethod.GET)
+	public ModelAndView keywordSearch(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		
+		bookService.keywordSearch(mav);
+		
+		return null;
 	}
 
 	/**
@@ -141,21 +155,22 @@ public class BookController {
 	}
 	
 	/**
-	 * 책 상세 페이지 > 리뷰 작성
+	 * 책 상세 페이지 > 리뷰 수정
 	 */
 	@RequestMapping(value = "/review/update.do", method = RequestMethod.POST)
 	public ModelAndView reviewUpdate(HttpServletRequest request, HttpServletResponse response, ReviewDto reviewDto) {
 		LogAspect.info("reviewUpdate():" + request.getHeader("referer"));
-		return bookService.reviewUpdate(new ModelAndView("book/review.solo").addObject("request", request).addObject("reviewDto", reviewDto));
+		return bookService.reviewUpdate(new ModelAndView("book/reviewUpdateOk.solo").addObject("request", request).addObject("reviewDto", reviewDto));
 	}
 
 	/**
 	 * 책 상세 페이지 > 리뷰 글 > 댓글 작성
+	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/review/reply.do", method = RequestMethod.POST)
-	public String reviewReply(HttpServletRequest request, HttpServletResponse response, ReplyDto replyDto) {
+	public void reviewReply(HttpServletRequest request, HttpServletResponse response, ReplyDto replyDto) throws IOException {
 		LogAspect.info("reviewReply():" + request.getHeader("referer"));
-		return "book/review.solo";
+		bookService.reviewReply(request, response, replyDto);
 	}
 
 	/**
@@ -165,5 +180,15 @@ public class BookController {
 	public ModelAndView reviewList(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("reviewList():" + request.getHeader("referer"));		
 		return bookService.reviewList(new ModelAndView("book/review.solo").addObject("request", request));
+	}
+	
+	/**
+	 * 책 상세 페이지 > 리뷰 리스트
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/review/delete.do", method = RequestMethod.GET)
+	public void reviewDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		LogAspect.info("reviewDelete():" + request.getHeader("referer"));
+		bookService.reviewDelete(request, response);
 	}
 }

@@ -234,11 +234,11 @@
 .order_right_menu>.bf-title-row {
 	width: 100%;
 }
-.order_right_menu>.order_right_menu_list.first-line {
+.order_right_menu>.order_right_menu_list:first-child {
 	border-radius: 0.5rem 0.5rem 0 0;
 }
 
-.order_right_menu>.order_right_menu_list:nth-child(8) {
+.order_right_menu>.order_right_menu_count + .order_right_menu_list{
 	border-bottom-width: 1px;
 	border-radius: 0 0 0.5rem 0.5rem;
 	padding: 0px;
@@ -257,5 +257,6 @@
 }
 .right-item input[type='text']{
 	text-align: right;
-	width: 100px;
+	width: 9rem;
+	box-shadow: 0px 0px 1px 0px;
 }

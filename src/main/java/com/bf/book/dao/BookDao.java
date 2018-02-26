@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.bf.book.dto.ReviewDto;
+import com.bf.book.dto.ReviewPageDto;
+import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
 import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
+import com.bf.book.dto.ReplyDto;
 
 /**
  * @author 박성호
@@ -23,8 +26,8 @@ public interface BookDao {
 	String getFirstCateName(String firstCate);
 	List<NewBookDto> getNewBookList(HashMap<String, Integer> map);
 	int getNewBookCount(String firstCate);
-	ReviewDto selectReviewSelf(int book_num, String username);
-	List<ReviewDto> selectReviewList(int book_num);
+	ReviewPageDto selectReviewSelf(int book_num, String username);
+	List<ReviewPageDto> selectReviewList(int book_num);
 	int updateReview(ReviewDto reviewDto);
 	HomeDto getRecomList(int randomBookNum);
 	List<Integer> getRandomBookNum(int firstCate);
@@ -41,5 +44,11 @@ public interface BookDao {
 	String getSecondCateName(long book_num);
 	String getPubName(long book_num);
 	int getTagListCount(ArrayList<String> list);
+	List<HomeDto> getTagBookList(HashMap<String, ArrayList<String>> listMap);
+	List<ReplyDto> selectReplyList(int num);
+	int insertReply(ReplyDto replyDto);
+	int deleteReview(String id, int num);
+	AuthorDto getAuthorInfo(long author_num);
+	List<HomeDto> getAuthorBook(long author_num);
 
 }

@@ -14,6 +14,7 @@ import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.manager.dto.ManagerNoticeDto;
+import com.bf.manager.dto.ManagerCashDto;
 import com.bf.manager.dto.MemberDto;
 import com.bf.manager.dto.ReviewManagerDto;
 import com.bf.manager.service.ManagerServiceTwo;
@@ -141,16 +142,21 @@ public class ManagerSecondController {
 	}
 
 	@RequestMapping(value = "/memberPay.do", method = RequestMethod.GET)
-	public ModelAndView memberPay() {
+	public ModelAndView memberPay(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("member/pay.mg");
 		LogAspect.info("memberPay()");
+		mav.addObject("request",request);
+		managerService.memberPay(mav);
 		return mav;
 	}
 
-	@RequestMapping(value = "/memberPayDetail.do", method = RequestMethod.GET)
-	public ModelAndView memberPayDetail(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/memberPayDetail.do", method = RequestMethod.POST)
+	public ModelAndView memberPayDetail(HttpServletRequest request, HttpServletResponse response,
+			ManagerCashDto managerCashDto) {
 		ModelAndView mav = new ModelAndView("member/payDetail.mg");
 		LogAspect.info("memberPayDetail()");
+		
+		mav.addObject("managerCashDto",managerCashDto);
 		mav.addObject("request",request);
 		managerService.memberPayDetail(mav);
 		return mav;

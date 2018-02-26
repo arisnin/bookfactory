@@ -20,9 +20,9 @@
 		<!-- 리뷰 작성 -->
 		<section class="bf-review-box">
 			<!-- 구매자 별점 -->
-			<div class="buyer-score-info">
+			<div class="buyer-score-info" id="buyer-score-info-id">
 				<h4 class="title">구매자 별점</h4>
-				<span class="score">4.6</span>
+				<span class="score"></span>
 				<div class="content-star-rate">
 					<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
 				</div>
@@ -48,13 +48,13 @@
 							<div class="score-bar"></div>
 						</div></li>
 				</ul>
-				<span class="score-rater-num">5명이 평가함</span>
+				<span class="score-rater-num"><c:out value="${buyerCount}" />명이 평가함</span>
 			</div>
 			<!-- 리뷰 작성 -->
 			<div class="review-write-box">
 				<h4 class="hidden-block"></h4>
 				<!-- 리뷰 작성 폼 -->
-				<form action="${reviewRequestUrl}" method="post" onsubmit="">
+				<form action="${reviewRequestUrl}" method="post" onsubmit="return reviewFormValidation(this)">
 					<!-- 별점 평가 -->
 					<div class="star-rate-box">
 						<span>이 책을 평가해주세요!</span>
@@ -93,8 +93,8 @@
 							<div>
 								<p class="review-content ">
 									<span class="update-tools">
-										<span class="date">${reviewSelf.write_date}</span>
-										<button type="button" class="bf-button bf-transparent-btn" value="delete" onclick="deleteReview(this)">
+										<span class="date"><fmt:formatDate value="${reviewSelf.write_date}" pattern="yy-MM-dd hh:mm"/></span>
+										<button type="button" class="bf-button bf-transparent-btn" value="delete" onclick="deleteReview(this,'${root}','${reviewSelf.num}')">
 											<span class="material-icons">delete</span>
 										</button>
 										<button type="button" class="bf-button bf-transparent-btn" value="edit" onclick="updateReview()">
@@ -115,10 +115,10 @@
 					<!-- 리뷰 확인 버튼 -->
 					<div class="review-write-submit">
 						<c:if test="${reviewSelf == null}">
-						<button type="submit" class="bf-button disabled" id="review-submit-btn">리뷰 남기기</button>
+						<button type="submit" class="bf-button disabled" title="write" id="review-submit-btn">리뷰 남기기</button>
 						</c:if>
 						<c:if test="${reviewSelf != null}">
-							<button type="submit" class="bf-button disabled" id="review-submit-btn">수정하기</button>
+							<button type="submit" class="bf-button disabled" title="update" id="review-submit-btn">수정하기</button>
 							<button type="button" class="bf-button cancel-btn disabled" id="review-cancel-btn" onclick="updateReview()">취소</button>
 						</c:if>
 						<label class="bf-custom-checkbox">
@@ -146,34 +146,36 @@
 						</div>
 					</div>
 					<!-- ID 정보는 비즈니스 로직에서 유효세션으로부터 직접 가져다 써야합니다. -->
-					<input type="hidden" name="book_num" value="${'3327'}"/>
+					<input type="hidden" name="book_num" value="${'1004'}"/>
 					<c:if test="${reviewSelf.num != null}">
 						<input type="hidden" name="num" value="${reviewSelf.num}"/>
-					</c:if>					
+					</c:if>
 				</form>
 			</div><!-- End : review-write-box -->
 		</section><!-- End : bf-review-box -->
+		<c:set var="reviewListSize" value="${reviewList == null ? 0 : reviewList.size()}" />
 		<!-- 리뷰 목록 & 댓글 작성 -->
 		<section class="bf-review-box">
-			<!-- 리뷰 목록 -->
+			<!-- 리뷰 목록 메뉴 -->
 			<div class="bf-service-type-menu line-bottom">
 				<!-- 서비스타입 메뉴  -->
 				<ul class="service-type-list f-left">
-					<li><a class="active" href="javascript:alert('구매자')">구매자<span class="book-count">3</span></a></li>
-					<li><a href="javascript:alert('전체')">전체<span class="book-count">5</span></a></li>
+					<li><a class="active" href="javascript:void(0)" title="all" onclick="reviewListBuyerToggle(this)">전체<span class="book-count">${reviewListSize}</span></a></li>
+					<li><a class="" href="javascript:void(0)" title="buyer" onclick="reviewListBuyerToggle(this)">구매자<span class="book-count">${buyerCount}</span></a></li>
 				</ul>
 				<!-- 정렬기준 메뉴 -->
 				<ul class="order-type-list f-right">
-					<li class="diamond"><a class="active" href="javascript:reviewListSort('recent');" title="recent">최신순</a></li>
-					<li class="diamond"><a href="javascript:reviewListSort('preference');" title="preference">공감순</a></li>
-					<li class="diamond"><a href="javascript:reviewListSort('descending');" title="descending">별점높은순</a></li>
-					<li><a href="javascript:reviewListSort('ascending');" title="ascending">별점낮은순</a></li>
+					<li class="diamond"><a class="active" href="javascript:void(0)" title="recent" onclick="reviewListSort(this, 'recent')">최신순</a></li>
+					<li class="diamond"><a href="javascript:void(0)" title="preference" onclick="reviewListSort(this, 'preference')">공감순</a></li>
+					<li class="diamond"><a href="javascript:void(0)" title="descending" onclick="reviewListSort(this, 'descending')">별점높은순</a></li>
+					<li><a href="javascript:void(0)" title="ascending" onclick="reviewListSort(this, 'ascending')">별점낮은순</a></li>
 				</ul>
 			</div><!-- End : bf-service-type-menu -->
-			<ul class="review-list-box" id="review-list-box-id">
+			<!-- 리뷰 목록 -->
+			<ul class="review-list-box" id="review-list-box-id" data-remain-list="${reviewListSize > 10 ? reviewListSize - 10 : 0}">
 			<c:forEach var="reviewDto" items="${reviewList}">
-				<!-- 리뷰글 -->
-				<li class="review-list-item" >
+				<li class="review-list-item ${reviewDto.buyer} hidden-block" data-buyer="${reviewDto.buyer}">
+					<!-- 리뷰글 시작(review-list-item) -->
 					<!-- 리뷰 정보 -->
 					<div class="review-info">
 						<div class="content-star-rate review-info-row" data-star-point="${reviewDto.star_point}">
@@ -184,7 +186,7 @@
 							<span class="badge-icon">구매자</span>
 						</div>
 						<div class="review-info-row">
-							<span class="review-date" data-review-date="${reviewDto.num}"><fmt:formatDate value="${reviewDto.write_date}" pattern="yy-MM-dd"/></span>
+							<span class="review-date" data-review-date="<fmt:formatDate value="${reviewDto.write_date}" pattern="yyMMdd"/>"><fmt:formatDate value="${reviewDto.write_date}" pattern="yy-MM-dd"/></span>
 							<button type="button" class="bf-button bf-white-btn">신고</button>
 						</div>
 					</div>
@@ -228,21 +230,13 @@
 										<c:forEach var="replyDto" items="${reviewDto.replyList}">
 											<li>
 												<p class="reply-content" style="display:inline-block;">${replyDto.content}</p>
-												<p class="reply-info">${replyDto.id}&nbsp;${replyDto.write_date}</p>
+												<p class="reply-info">${replyDto.id}&nbsp;<fmt:formatDate value="${replyDto.write_date}" pattern="yy-MM-dd hh:mm"/></p>
 											</li>
 										</c:forEach>
-										<!-- <li>
-											<p class="reply-content" style="display:inline-block;">작가는 불교,동양철학에 심취해있다. 제목보고 낚였다. 제목은 가볍지만 내용은 그렇지 않다. 그리고 너무 본인의 생각을 강요 또는 일반화 시기키지 않나 생각이 든다. 마지막은 갑자기 무슨 소설 끝나는 장면 같다. 개인적으로 불교의 사상을 좋아하기 때문에 그냥 좋은글 한편 잘 읽은 가분이다</p>
-											<p class="reply-info">dud***  2017.12.10 19:17</p>
-										</li>
-										<li>
-											<p class="reply-content" style="display:inline-block;">좋은 리뷰 잘봤습니다~</p>
-											<p class="reply-info">nb***  2017.12.15 20:17</p>
-										</li> -->
 									</ul>
 								</div>
 								<!-- 댓글 작성 -->
-								<form action="${root}/review/reply.do" method="post" onsubmit="return replyValidation()">
+								<form action="#" method="post" onsubmit="return writeReply(this,'${root}')">
 									<textarea name="content"></textarea>
 									<button type="submit" class="bf-button">댓글 달기</button>
 									<!-- ID 정보는 비즈니스 로직에서 유효세션으로부터 직접 가져다 써야합니다. -->
@@ -250,16 +244,28 @@
 								</form>
 							</div>
 						</div>
-					</div>					
-				</li><!--  End : review-list-item -->
+					</div>
+					<!--  End : review-list-item -->
+				</li>
 			</c:forEach>
+			<c:if test="${reviewList == null}">
+				<li class="review-list-item">
+					<div class="review-contents review-empty">
+						<div class="review-content review-spoiler" style="display: inline-block;">
+							<span>
+								<span class="material-icons">info</span>
+								아직 등록된 리뷰가 없습니다.<br />첫 번째 리뷰를 남겨주세요!
+							</span>
+						</div>
+					</div>
+				</li>
+			</c:if>
 			</ul><!-- End : review-list-box -->
 			<div class="review-more-button">
-				<button type="button" class="bf-button bf-white-btn" onclick="appendReviewList(15,10)"><span class="more-count">10</span> 개 더보기</button>
+				<button type="button" class="bf-button bf-white-btn" onclick="appendReviewList(this)"><span class="more-count">${reviewListSize == 0 ? '' : reviewListSize - 10}</span> 개 더보기</button>
 			</div>
-			<hr class="line block">
 			<button type="button" class="bf-button bf-notice-btn bf-transparent-btn bf-animated-btn" value="false" onclick="collapseViewToggle(this)">
-				리뷰작성 유의사항
+				구매자 표시 기준은 무엇인가요?
 			</button>
 			<div class="collapsable-notice" style="display: none;">
 				<p>‘구매자’ 표시는 유료 도서를 결제하고 다운로드 하신 경우에만 표시됩니다.<br /><br /></p>
@@ -274,20 +280,49 @@
 	</div>
 
 	<%-- 자바 스크립트 --%>
+	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 	<script type="text/javascript" src="${root}/script/book/review.js"></script>
 	<script type="text/javascript">
-		function reviewListSort(type) {
+		setScoreGraph(${scoreGraph[1]},${scoreGraph[2]},${scoreGraph[3]},${scoreGraph[4]},${scoreGraph[5]});
+		initReviewPage(${reviewListSize}, ${reviewSelf == null ? -1 : (reviewSelf.star_point - 1)});
+
+		function writeReply(event, url) {
+			var parameter = {
+					content : event.content.value,
+					review_num : event.review_num.value
+			};
+			
+			$.post(url + "/review/reply.do", parameter, function(data,status) {
+				if (data.type == 'ok') {
+					// 댓글 달기 성공
+					insertReplyNode(event.parentElement.firstElementChild.firstElementChild ,data);					
+				} else {
+					alert("에러(" + data.type + ") : " + data.error);
+				}
+			});
+			
+			return false;
+		}
+		
+		function insertReplyNode(targetList, data) {
 			var dFrag = document.createDocumentFragment();
-			var target = document.getElementById("review-list-box-id");
+			var listItem = document.createElement("li");
 			
+			// 새로운 li 요소 생성(최신 댓글)
+			listItem.innerHTML = '<p class="reply-content" style="display:inline-block;">' + data.content + '</p><p class="reply-info">' + data.id + '&nbsp;' + data.write_date + '</p>';
 			
+			// fragment에 새로운 li 요소 추가
+			dFrag.appendChild(listItem);
+			
+			// fragment에 기존 댓글 list 추가(최신 댓글에 이어서 추가하는 과정)
+			Array.prototype.forEach.call(targetList.querySelectorAll("li"), function(e) {
+				dFrag.appendChild(e);
+			});
+			
+			// target-list(UL Element)에 댓글 list를 추가
+			targetList.appendChild(dFrag);
 		}
 	</script>
-	<c:if test="${reviewSelf != null}">
-		<script type="text/javascript">
-			activateStarIcon(${reviewSelf.star_point - 1});
-		</script>
-	</c:if>
 </body>
 </html>
