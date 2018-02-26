@@ -903,6 +903,7 @@ div.collapsable-notice {
 .book-metadata-author,
 .book-metadata-translator,
 .book-metadata-publisher,
+.book-metadata-illustrator,
 .book-metadata-price {
 	display: block;
 	display: -webkit-box;
@@ -930,6 +931,9 @@ div.collapsable-notice {
 .book-metadata-publisher > a,
 .book-metadata-publisher > a:link,
 .book-metadata-publisher > a:visited,
+.book-metadata-illustrator > a,
+.book-metadata-illustrator > a:link,
+.book-metadata-illustrator > a:visited,
 .book-metadata-price {
 	font-size: 0.8rem;
 	font-weight: normal;
@@ -1021,7 +1025,8 @@ div.collapsable-notice {
 
 .mf-book-list.list-landscape .book-metadata-author:before,
 .mf-book-list.list-landscape .book-metadata-translator:before,
-.mf-book-list.list-landscape .book-metadata-publisher:before {
+.mf-book-list.list-landscape .book-metadata-publisher:before,
+.mf-book-list.list-landscape .book-metadata-illustrator:before {
 	content: '\007C';
 	font-size: 0.8rem;
 	font-weight: normal;

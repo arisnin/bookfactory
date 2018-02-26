@@ -19,6 +19,65 @@
 		SELECT phone FROM MEMBER WHERE phone = #{keyword}
 	</select>
 	
+	<select id="select-category-all" parameterType="Integer" resultType="com.bf.main.dto.CategoryPageDto">
+		SELECT bm.book_num, bm.img_path, bm.name "book_name", rs."star_point", rs."star_count", au.num "author_num", au.name "author_name", il.num "illur_num", il.name "illur_name", tr.num "trans_num", tr.name "trans_name", pub.pub_num, pub.name "pub_name", tc.num "third_cate_num", tc.name "third_cate_name", bm.intro, bm.discount, bm.discount2, bm.rental_price, bm.price  FROM bookm bm, (
+			SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+			FROM (
+				SELECT rw.* FROM review rw, (
+					SELECT DISTINCT ID, book_num
+					FROM payment
+				) pm
+				WHERE rw.book_num = pm.book_num
+				AND rw.ID = pm.ID
+			)
+			GROUP BY book_num
+		) rs, (
+			SELECT DISTINCT book_num, cate2_num, cate3_num
+			FROM book_category
+			WHERE cate2_num = #{secondCateNum}
+			<if test="thirdCateNum > 0">
+				AND cate3_num = #{thirdCateNum}
+			</if>
+			
+		) bc, author au, author il, author tr, publisher pub, third_cate tc
+		WHERE bm.book_num = rs.book_num(+)
+		AND bm.book_num = bc.book_num
+		AND bm.author_num = au.num
+		AND bm.illustrator_num = il.num
+		AND bm.translator_num = tr.num
+		AND bm.pub_num = pub.pub_num
+		AND bc.cate3_num = tc.num
+		ORDER BY bm.book_num
+	</select>
+	
+	<select id="select-third-category-all" parameterType="java.util.Map" resultType="com.bf.main.dto.CategoryPageDto">
+		SELECT bm.book_num, bm.img_path, bm.name "book_name", rs."star_point", rs."star_count", au.num "author_num", au.name "author_name", il.num "illur_num", il.name "illur_name", tr.num "trans_num", tr.name "trans_name", pub.pub_num, pub.name "pub_name", tc.num "third_cate_num", tc.name "third_cate_name", bm.intro, bm.discount, bm.discount2, bm.rental_period, bm.rental_price, bm.price  FROM bookm bm, (
+			SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+			FROM (
+				SELECT rw.* FROM review rw, (
+					SELECT DISTINCT ID, book_num
+					FROM payment
+				) pm
+				WHERE rw.book_num = pm.book_num
+				AND rw.ID = pm.ID
+			)
+			GROUP BY book_num
+		) rs, (
+			SELECT DISTINCT book_num, cate2_num, cate3_num
+			FROM book_category
+			WHERE cate2_num = #{secondCateNum}
+			AND cate3_num = #{thirdCateNum}
+		) bc, author au, author il, author tr, publisher pub, third_cate tc
+		WHERE bm.book_num = rs.book_num(+)
+		AND bm.book_num = bc.book_num
+		AND bm.author_num = au.num
+		AND bm.illustrator_num = il.num
+		AND bm.translator_num = tr.num
+		AND bm.pub_num = pub.pub_num
+		AND bc.cate3_num = tc.num
+		ORDER BY bm.book_num
+	</select>
+	
 	
 	<!-- 김동환 / 공지사항 -->
 	<select id="noticeMainCount" resultType="int">

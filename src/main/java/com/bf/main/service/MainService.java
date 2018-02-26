@@ -19,4 +19,6 @@ public interface MainService {
 
 	public void noticeRead(ModelAndView mav);
 
+	public ModelAndView category(ModelAndView mav);
+
 }

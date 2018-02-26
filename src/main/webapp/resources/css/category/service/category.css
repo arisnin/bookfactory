@@ -57,3 +57,8 @@
 .ca-category-box hr.line {
 	margin: 0.125rem;
 }
+
+/* 별점아이콘 위치 조정 */
+.ca-category-box > .result-search-book-box .content-star-rate > .material-icons {
+	transform: translateY(-0.0625rem)
+}

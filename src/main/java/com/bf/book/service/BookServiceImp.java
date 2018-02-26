@@ -99,10 +99,12 @@ public class BookServiceImp implements BookService {
 			if (user != null) {
 				ReviewPageDto reviewSelf = bookDao.selectReviewSelf(book_num, user.getUsername());
 				
-				if (reviewSelf != null) reviewRequestUrl = request.getContextPath() + "/review/update.do";
+				if (reviewSelf != null) {
+					reviewRequestUrl = request.getContextPath() + "/review/update.do";
+					mav.addObject("reviewSelfContent",reviewSelf.getContent().replace("<br />", "\r\n"));
+				}
 				
-				mav.addObject("reviewSelf",reviewSelf);
-				mav.addObject("reviewSelfContent",reviewSelf.getContent().replace("<br />", "\r\n"));
+				mav.addObject("reviewSelf",reviewSelf);				
 				LogAspect.info("reviewSelf:" + reviewSelf);
 			}
 			
