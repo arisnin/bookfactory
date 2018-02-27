@@ -12,6 +12,13 @@
 		<result property="destory_date" column="destory_date"/>
 		<result property="state" column="state"/>
 	</resultMap>
+	
+	<resultMap type="com.bf.myPage.dto.MyPagePurchasedPageDto" id="myPagePurchasedPageDto">
+		<result property="book_num" column="book_num"/>
+		<result property="img_path" column="img_path"/>
+		<result property="book_name" column="book_name"/>
+		<result property="author_name" column="author_name"/>
+	</resultMap>
 
 	<insert id="point_insert" parameterType="com.bf.myPage.dto.MyPagePointDto">
 		insert into point(num, id, point, point_type, state, remain)
@@ -24,7 +31,7 @@
 		INSERT INTO cash_charge
 		VALUES(CASH_CHARGE_num_seq.nextval, #{id}, (SELECT charge_cash FROM CASH_CHARGE_MENU WHERE ID = #{charge_cash}),
 		(SELECT num FROM POINT WHERE num = (SELECT MAX(num) FROM point)),
-		#{charge_type_num}, SYSDATE, #{cash_type})
+		#{charge_type_num}, SYSDATE, #{cash_type}, (select #{order_num} || lpad(num, 3, '0') from member where id = #{id}))
 	</insert>
 	
 	<select id="point_select" parameterType="String" resultType="int">
@@ -72,7 +79,7 @@
 		where cc.id = #{id} and cc.ORDER_NUM= #{order_num} and cc.POINT_NUM = p.NUM and cct.NUM = cc.CHARGE_TYPE_NUM
 	</select>
 	
-	<select id="search_purchased_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPagePurchasedPageDto">
-		
+	 <select id="search_purchased_page_select_list" parameterType="java.util.Map" resultType="com.bf.myPage.dto.MyPagePurchasedPageDto">
+		select distinct bm.book_num "book_num", bm.img_path "img_path", bm.NAME "book_name", A.NAME "author_name" from bookm bm, author a, payment pm where bm.book_num = pm.book_num and bm.author_num = a.num and pm.id = #{id} and pm.state = 'yes' and (bm.name like '%'||#{searchValue}||'%' or a.name like '%'||#{searchValue}||'%')
 	</select>
 </mapper>

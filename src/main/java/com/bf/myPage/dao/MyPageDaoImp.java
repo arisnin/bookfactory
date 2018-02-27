@@ -85,15 +85,15 @@ public class MyPageDaoImp implements MyPageDao {
 		return sqlSession.selectOne(nameSpace + "history_click_select", map);
 	}
 
-	/*@Override
+	@Override
 	public List<MyPagePurchasedPageDto> PurchasedPageList(String id,
-			String search) {
-		Map<String, String> map = new HashMap<String, String>();
+			String searchValue) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
-		map.put("search", search);
+		map.put("searchValue", searchValue);
 		
-		return sqlSession.selectList(nameSpace + "search_purchased_page_select_list", id);
+		return sqlSession.selectList(nameSpace + "search_purchased_page_select_list", map);
 	}
-*/
+
 	
 }

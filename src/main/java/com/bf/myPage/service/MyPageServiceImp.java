@@ -79,6 +79,7 @@ public class MyPageServiceImp implements MyPageService {
 		// 결제수단이 담겨있는 번호
 		myPageCashChargeDto.setCharge_type_num(Integer.parseInt(type_num));
 		myPageCashChargeDto.setCash_type(cash_type);
+		myPageCashChargeDto.setOrder_num(System.currentTimeMillis());
 		LogAspect.info(myPageCashChargeDto.toString());
 		
 		int check2 = myPageDao.cashChargeInsert(myPageCashChargeDto);
@@ -231,18 +232,23 @@ public class MyPageServiceImp implements MyPageService {
 		
 		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoList = null;
 		
-		String search = request.getParameter("search-word");
-		LogAspect.info(search);
-		
-		if(search != null){
-			//myPagePurchasedPageDtoList = myPageDao.PurchasedPageList(id, search);
+		String searchValue = request.getParameter("searchWord");
+		LogAspect.info(searchValue);
+		int purchased_count = -1;
+		if(searchValue != null){
+			myPagePurchasedPageDtoList = myPageDao.PurchasedPageList(id, searchValue);
 		}else{
 			myPagePurchasedPageDtoList = myPageDao.PurchasedPageList(id);
+			purchased_count = myPagePurchasedPageDtoList.size();
 		}
 		
 		LogAspect.info(myPagePurchasedPageDtoList.size());
 		
+		if (purchased_count >= 0) mav.addObject("purchased_count", purchased_count);
+		else mav.addObject("purchased_count",request.getParameter("purchased_count"));
+		
 		mav.addObject("myPagePurchasedPageDtoList", myPagePurchasedPageDtoList);
+		mav.addObject("searchValue", searchValue);
 		mav.setViewName("myPage/library/purchased.my");
 	}
 
