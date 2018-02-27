@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,9 +21,9 @@
 				<div class="sh_member_detail_main">
 					<div class="sh_member_detail_inf">
 						<ul>
-							<li><p>전상헌</p> <span>(jeonsh1220) 님</span></li>
-							<li><p>북팩 충전금</p> <span>70000 원</span></li>
-							<li><p>적립금</p> <span>10000 point</span></li>
+							<li><p>${managerCashDto.member_name }</p> <span>(${managerCashDto.cash_id })님</span></li>
+							<li><p>북팩 충전금</p> <span>${managerCashDto.cash_total } 원</span></li>
+							<li><p>적립금</p> <span>${managerCashDto.point_total} point</span></li>
 							<li><p>쿠폰</p> <span>3 장</span></li>
 						</ul>
 					</div>
@@ -39,102 +40,32 @@
 							<li><a href="#sh_member_detail_list-2"><span>충전관리</span></a></li>
 							<li><a href="#sh_member_detail_list-3"><span>적립내역</span></a></li>
 						</ul>
-
+							
 						<!--  결제관리페이지 -->
 						<div class="sh_member_detail_list" id="sh_member_detail_list-1">
 							<div class="sh_member_detail_title">
 								<ul>
 									<li>순번</li>
 									<li>주문번호</li>
-									<li>사용/충전내역</li>
-									<li>사용/충전금액(적립금)</li>
-									<li>남은금액</li>
+									<li>사용내역</li>
+									<li>현금사용(충전금)</li>
+									<li>포인트 사용</li>
 									<li>등록일자</li>
 								</ul>
 							</div>
-							<!-- for문으로 체크박스랑 등등 정보 돌려야함 . 임시적으로 두개 해놈 -->
-							<!-- 첫번째 예제 -->
 							<div class="sh_member_detail_ex">
-								<ul>
-									<li>1</li>
-									<li>2017221321</li>
-									<li>BL-돈까스와의 사랑</li>
-									<li>-9900원(100원)</li>
-									<li>10000원</li>
-									<li>2018/01/23</li>
+								<c:forEach var="managerPayDto" items="${managerPayDtoList}">
+									<ul>
+									<li>${managerPayDto.num }</li>
+									<li>${managerPayDto.order_num }</li>
+									<li>${managerPayDto.book_name }</li>
+									<li>${managerPayDto.direct_cash}원(${managerPayDto.cash_use}원)</li>
+									<li>${managerPayDto.point_use}point</li>
+									<li><fmt:formatDate value="${managerPayDto.payment_date}" pattern="yyyy-MM-dd"/></li>
+								
 								</ul>
-								<!-- 두번째 예제 -->
-								<ul>
-									<li>2</li>
-									<li>201566421</li>
-									<li>1000원 충전</li>
-									<li>1000원</li>
-									<li>20000원</li>
-									<li>2018/01/22</li>
-								</ul>
-								<!-- 세번째예제 -->
-								<ul>
-									<li>3</li>
-									<li>20187451221</li>
-									<li>만화-헬퍼</li>
-									<li>-9900원(990원)</li>
-									<li>19000원</li>
-									<li>2018/01/21</li>
-								</ul>
-
-								<ul>
-									<li>4</li>
-									<li>2017221321</li>
-									<li>BL-돈까스와의 사랑</li>
-									<li>-9900원(100원)</li>
-									<li>10000원</li>
-									<li>2018/01/23</li>
-								</ul>
-								<!-- 두번째 예제 -->
-								<ul>
-									<li>5</li>
-									<li>201566421</li>
-									<li>1000원 충전</li>
-									<li>1000원</li>
-									<li>20000원</li>
-									<li>2018/01/22</li>
-								</ul>
-								<!-- 세번째예제 -->
-								<ul>
-									<li>6</li>
-									<li>20187451221</li>
-									<li>만화-헬퍼</li>
-									<li>-9900원(990원)</li>
-									<li>19000원</li>
-									<li>2018/01/21</li>
-								</ul>
-								<ul>
-									<li>7</li>
-									<li>2017221321</li>
-									<li>BL-돈까스와의 사랑</li>
-									<li>-9900원(100원)</li>
-									<li>10000원</li>
-									<li>2018/01/23</li>
-								</ul>
-								<!-- 두번째 예제 -->
-
-								<ul>
-									<li>9</li>
-									<li>20187451221</li>
-									<li>만화-헬퍼</li>
-									<li>-9900원(990원)</li>
-									<li>19000원</li>
-									<li>2018/01/21</li>
-								</ul>
-								<!-- 세번째예제 -->
-								<ul>
-									<li>10</li>
-									<li>20187451221</li>
-									<li>만화-헬퍼</li>
-									<li>-9900원(990원)</li>
-									<li>19000원</li>
-									<li>2018/01/21</li>
-								</ul>
+								</c:forEach>						
+				
 							</div>
 						</div>
 						
@@ -153,43 +84,18 @@
 									</ul>
 								</div>
 								<!-- for문으로 체크박스랑 등등 정보 돌려야함 . 임시적으로 두개 해놈 -->
-								<!-- 첫번째 예제 -->
+						
 								<div class="sh_member_detail_ex">
+								<c:forEach var="managerChargeDto" items="${managerChargeDtoList}">
 									<ul>
-										<li>1</li>
-										<li>201566421</li>
-										<li>카카오페이</li>
-										<li>1000원</li>
-										<li>50point</li>
-										<li>2018/01/22</li>
+										<li>${managerChargeDto.num }</li>
+										<li>${managerChargeDto.order_num }</li>
+										<li>${managerChargeDto.charge_type}</li>
+										<li>${managerChargeDto.charge_cash }원</li>
+										<li>${managerChargeDto.point}point</li>
+										<li><fmt:formatDate value="${managerChargeDto.charge_date}" pattern="yyyy-MM-dd"/></li>
 									</ul>
-									<!-- 두번째 예제 -->
-									<ul>
-										<li>2</li>
-										<li>201566421</li>
-										<li>네이버페이</li>
-										<li>10000원 충전</li>
-										<li>500point</li>
-										<li>2018/01/22</li>
-									</ul>
-									<!-- 세번째예제 -->
-									<ul>
-										<li>3</li>
-										<li>201566421</li>
-										<li>삼성페이</li>
-										<li>100000원</li>
-										<li>9000point</li>
-										<li>2018/01/22</li>
-									</ul>
-									<ul>
-										<li>4</li>
-										<li>201566421</li>
-										<li>상헌페이</li>
-										<li>5000원</li>
-										<li>200point</li>
-										<li>2018/01/22</li>
-									</ul>
-									
+								</c:forEach>
 								</div>
 							</div>
 
@@ -211,32 +117,17 @@
 								<!-- for문으로 체크박스랑 등등 정보 돌려야함 . 임시적으로 두개 해놈 -->
 								<!-- 첫번째 예제 -->
 								<div class="sh_member_detail_ex">
+									<c:forEach var="managerPointDto" items="${managerPointDtoList}">
 									<ul>
-										<li>1</li>
-										<li>20180122111</li>
-										<li>리뷰로 인한 적립금부여</li>
-										<li>500원</li>
-										<li>2018/01/22</li>
-										<li>2020/01/23</li>
+										<li>${managerPointDto.num }</li>
+										<li>${managerPointDto.order_num }</li>
+										<li>${managerPointDto.point_type}</li>
+										<li>${managerPointDto.point }point</li>
+										<li><fmt:formatDate value="${managerPointDto.charge_date}" pattern="yyyy-MM-dd"/></li>
+										<li><fmt:formatDate value="${managerPointDto.dstrory_date}" pattern="yyyy-MM-dd"/></li>
 									</ul>
-									<!-- 두번째 예제 -->
-									<ul>
-										<li>2</li>
-										<li>20180123111</li>
-										<li>적립금 사용</li>
-										<li>-500원</li>
-										<li>2018/01/23</li>
-										<li>2030/01/23</li>
-									</ul>
-									<!-- 세번째예제 -->
-									<ul>
-										<li>3</li>
-										<li>20180123111</li>
-										<li>적립금 사용</li>
-										<li>-500원</li>
-										<li>2018/01/23</li>
-										<li>2019/01/23</li>
-									</ul>
+								</c:forEach>
+								
 								</div>
 							</div>
 						

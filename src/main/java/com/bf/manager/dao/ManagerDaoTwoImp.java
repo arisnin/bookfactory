@@ -16,7 +16,10 @@ import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.ManagerNoticeDto;
+import com.bf.manager.dto.ManagerPayDto;
+import com.bf.manager.dto.ManagerPointDto;
 import com.bf.manager.dto.ManagerCashDto;
+import com.bf.manager.dto.ManagerChargeDto;
 import com.bf.manager.dto.MemberDto;
 import com.bf.manager.dto.ReviewManagerDto;
 
@@ -174,7 +177,37 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		
 		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.cashList", map);
 	}
-	// -----------------리뷰
+	
+	@Override
+	public List<ManagerPayDto> payDetail(int startRow,int endRow,String id) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("id",id);
+		
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.payDetail",map);
+	}
+	@Override
+	public List<ManagerChargeDto> chargeDetail(int startRow, int endRow, String id) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("id",id);
+		
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.chargeDetail",map);
+	}
+	@Override
+	public List<ManagerPointDto> pointDetail(int startRow, int endRow, String id) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("id",id);
+		
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.pointDetail",map);
+	}
+	
+	
+	// -----------------리뷰---------------------------
 	@Override
 	public int reviewCount() {
 		// TODO Auto-generated method stub
