@@ -63,6 +63,11 @@
     display: flex;
 }
 
+/*각 카테고리마다 필드셋 너비가 바뀜*/
+#keyword_top_list > .fantasyKeyword{
+	width: 25%;
+}
+
 .keyword_filed{
 	display: inline-block;
 	position: relative;
