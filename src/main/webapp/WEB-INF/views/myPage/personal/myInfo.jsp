@@ -39,9 +39,12 @@
 			<div class="left">이메일</div>
 			<div class="right_right">
 				<div class="right_right_first user-email" >dongsu@naver.com</div>
+				<input class="right_right_first user-email" type="hidden" >
 				<div class="right_right_second"><span class="email_authentication">인증된 이메일 주소입니다.</span></div>
 				<div class="right_right_third">
 					<a class="bf-button" href="#">이메일변경</a>
+					
+					
 				</div>
 				
 				<script type="text/javascript">

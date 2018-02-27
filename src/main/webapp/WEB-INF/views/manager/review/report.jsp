@@ -22,9 +22,11 @@
 			<div id="sh_board_shadow">
 				<div class="sh_review_report_main">
 					<ul>
-						<li><span>해당리뷰 번호 :</span></li>
+						<c:forEach var="accuseDto" items="${accuseDtoList}">
+						<li><span>해당리뷰 번호 :${accuseDto.review_num}</span></li>
+						</c:forEach>
 						<li><span>총 신고수 : </span>${count }</li>
-						<li><button type="button" class="bf-button">리뷰로 돌아가기</button></li>
+						<li><a href="javascript:history.back()">리뷰로 돌아가기</a></li>
 					</ul>
 		
 				</div>

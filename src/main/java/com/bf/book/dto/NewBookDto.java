@@ -10,7 +10,6 @@ public class NewBookDto {
 	private long book_num;
 	private String img_path;
 	private String book_name;
-	private int star_point;	//별점
 	
 	private long author_num;
 	private String author_name;	//작가, 일러, 번역 이름
@@ -28,16 +27,19 @@ public class NewBookDto {
 	private long price;
 	private long rental_price;
 	
+	//별점
+	private float star_point;
+	private int star_count;
+	
 	public NewBookDto() {}
 
-	public NewBookDto(long book_num, String img_path, String book_name, int star_point, long author_num,
-			String author_name, long illur_num, String illur_name, long trans_num, String trans_name, long pub_num,
-			String publisher_name, String third_cate_name, String intro, double discount, double discount2, long price,
-			long rental_price) {
+	public NewBookDto(long book_num, String img_path, String book_name, long author_num, String author_name,
+			long illur_num, String illur_name, long trans_num, String trans_name, long pub_num, String publisher_name,
+			String third_cate_name, String intro, double discount, double discount2, long price, long rental_price,
+			float star_point, int star_count) {
 		this.book_num = book_num;
 		this.img_path = img_path;
 		this.book_name = book_name;
-		this.star_point = star_point;
 		this.author_num = author_num;
 		this.author_name = author_name;
 		this.illur_num = illur_num;
@@ -52,6 +54,8 @@ public class NewBookDto {
 		this.discount2 = discount2;
 		this.price = price;
 		this.rental_price = rental_price;
+		this.star_point = star_point;
+		this.star_count = star_count;
 	}
 
 	public long getBook_num() {
@@ -76,14 +80,6 @@ public class NewBookDto {
 
 	public void setBook_name(String book_name) {
 		this.book_name = book_name;
-	}
-
-	public int getStar_point() {
-		return star_point;
-	}
-
-	public void setStar_point(int star_point) {
-		this.star_point = star_point;
 	}
 
 	public long getAuthor_num() {
@@ -159,11 +155,7 @@ public class NewBookDto {
 	}
 
 	public String getIntro() {
-		if(intro.indexOf("<br>")>=0) {
-			intro=intro.substring(intro.indexOf("<br>"));
-		}
-		
-		return intro.replaceAll("<br>", "");
+		return intro;
 	}
 
 	public void setIntro(String intro) {
@@ -202,14 +194,30 @@ public class NewBookDto {
 		this.rental_price = rental_price;
 	}
 
+	public float getStar_point() {
+		return star_point;
+	}
+
+	public void setStar_point(float star_point) {
+		this.star_point = star_point;
+	}
+
+	public int getStar_count() {
+		return star_count;
+	}
+
+	public void setStar_count(int star_count) {
+		this.star_count = star_count;
+	}
+
 	@Override
 	public String toString() {
 		return "NewBookDto [book_num=" + book_num + ", img_path=" + img_path + ", book_name=" + book_name
-				+ ", star_point=" + star_point + ", author_num=" + author_num + ", author_name=" + author_name
-				+ ", illur_num=" + illur_num + ", illur_name=" + illur_name + ", trans_num=" + trans_num
-				+ ", trans_name=" + trans_name + ", pub_num=" + pub_num + ", publisher_name=" + publisher_name
-				+ ", third_cate_name=" + third_cate_name + ", intro=" + intro + ", discount=" + discount
-				+ ", discount2=" + discount2 + ", price=" + price + ", rental_price=" + rental_price + "]";
+				+ ", author_num=" + author_num + ", author_name=" + author_name + ", illur_num=" + illur_num
+				+ ", illur_name=" + illur_name + ", trans_num=" + trans_num + ", trans_name=" + trans_name
+				+ ", pub_num=" + pub_num + ", publisher_name=" + publisher_name + ", third_cate_name=" + third_cate_name
+				+ ", intro=" + intro + ", discount=" + discount + ", discount2=" + discount2 + ", price=" + price
+				+ ", rental_price=" + rental_price + ", star_point=" + star_point + ", star_count=" + star_count + "]";
 	}
 	
 }

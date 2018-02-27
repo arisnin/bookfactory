@@ -6,7 +6,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bf.main.dto.NoticeDto;
 import com.bf.manager.dto.BoardContactDto;
+import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.serviceCenter.dto.ServiceCenterDtoFre;
 
 /**
@@ -27,12 +29,12 @@ public class ServiceCenterDaoImp implements ServiceCenterDao {
 	}
 
 	@Override
-	public List<ServiceCenterDtoFre> infoMain() {
+	public List<NoticeDto> infoMain() {
 		return sqlSession.selectList(namespace + "infoMain");
 	}
 
 	@Override
-	public ServiceCenterDtoFre infoRead(int num) {
+	public NoticeDto infoRead(int num) {
 		
 		return sqlSession.selectOne(namespace + "infoRead", num);
 	}
@@ -54,6 +56,58 @@ public class ServiceCenterDaoImp implements ServiceCenterDao {
 		
 		return check;
 	}
+
+	@Override
+	public int inquriyCount() {
+		
+		return sqlSession.selectOne(namespace + "inquriyCount");
+	}
+
+	@Override
+	public List<BoardContactDto> inquriylistlist() {
+		return sqlSession.selectList(namespace + "inquriylistlist");
+	}
+
+	@Override
+	public BoardContactDto inquriyAnswer(int num) {
+		return sqlSession.selectOne(namespace + "inquriyAnswer", num);
+	}
+
+	@Override
+	public List<NoticeDto> infoSide() {
+		return sqlSession.selectList(namespace + "infoSide");
+	}
+
+	@Override
+	public int questionCount() {
+		return sqlSession.selectOne(namespace + "questionCount");
+	}
+
+	@Override
+	public List<BoardFrequencyDto> questionMain() {
+		return sqlSession.selectList(namespace + "questionMain");
+	}
+
+	@Override
+	public BoardFrequencyDto questionRead(int num) {
+		return sqlSession.selectOne(namespace + "questionRead", num);
+	}
+
+	@Override
+	public List<BoardFrequencyDto> questionSide() {
+		return sqlSession.selectList(namespace + "questionSide");
+	}
+
+	@Override
+	public List<NoticeDto> mainNotice() {
+		return sqlSession.selectList(namespace + "mainNotice");
+	}
+
+	@Override
+	public List<BoardFrequencyDto> mainMany() {
+		return sqlSession.selectList(namespace + "mainMany");
+	}
+	
 	
 	
 }

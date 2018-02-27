@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="${root}/css/footer/footer.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/order/order.css" type="text/css" rel="stylesheet">
-<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+<%-- <script type="text/javascript" src="${root}/script/basic/jquery.js"></script> --%>
 <script type="text/javascript">
 
 	$(function() {

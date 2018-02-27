@@ -72,7 +72,7 @@
 		<div class="serviceCenter_inquriy_ex">
 			<div>질문 유형<span class="star">*</span></div>
 			<div>
-				<select name="question">
+				<select name="category">
 					<option>-</option>
 					<option value="102">이용 문의</option>
 					<option value="103">오류 신고</option>

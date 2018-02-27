@@ -76,7 +76,7 @@
 							<li><c:out value="${fn:substring(freDtoList.content,0,10)}" />...</li>
 							<li><fmt:formatDate value="${freDtoList.write_date}" pattern="yyyy-MM-dd" /></li>
 							<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/boardUpdate.do?pageNumber=${pageNumber}&num=${freDtoList.num}'">수정</button></li>
-							<li><button type="button" class="bf-button sh_list_delete">삭제</button></li>
+							<li><button type="button" class="bf-button sh_list_delete" onclick="replyDelete('${root}','${freDtoList.num }','${pageNumber}')">삭제</button></li>
 						</ul>
 					</c:forEach>
 
@@ -111,8 +111,6 @@
 							<c:if test="${endPage < pageCount}">
 								<li class="next"><a href="${root}/manager/boardList.do?pageNumber=${(startPage + pageBlock)}"><span></span></a></li>
 							</c:if>
-
-
 							<li class="last"><a href="#0"><span></span></a></li>
 						</c:if>
 					</ul>

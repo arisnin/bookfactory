@@ -71,20 +71,15 @@
 	background-color: #A59AF6;
 	border-radius: 3px;
 }
-
-.sh_member_detail_title li:nth-child(6) {
-	margin-left: 0.9rem;
-}
-
 .sh_member_detail_content li {
 	float: left;
-	width: 10rem;
+	width: 12rem;
 	padding: 1rem 0rem;
 	text-align: center;
 	height: 2rem;
 }
 .sh_member_detail_content li:nth-child(1) {
-		width: 6.5rem;
+	width: 5rem;
 }
 
 .sh_member_detail_content ul {
@@ -100,16 +95,13 @@
 	font-weight: bold;
 	color: white;
 }
-.sh_member_detail_list li:nth-child(6) {
-	width: 4rem;
-	margin-left: 1.8rem;
-	margin-right: 1rem;
+.sh_member_detail_content li:nth-child(4),.sh_member_detail_content li:nth-child(5),.sh_member_detail_content li:nth-child(6){
+		width: 8rem;
 }
 .sh_member_detail_ex ul{
 	height: 3rem;
 	
 }
-
 .sh_member_detail_ex ul:nth-child(odd){
 	background: #776bce16;
 }
@@ -139,4 +131,7 @@
 }
 .ui-tabs .ui-tabs-nav li {
     width: 4.8rem;
+}
+.jconfirm div.jconfirm-box {
+	width: 20rem;
 }

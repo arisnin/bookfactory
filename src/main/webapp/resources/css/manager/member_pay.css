@@ -23,7 +23,6 @@
 	margin: auto;
 	border: 0px solid black;
 	width: 57.5rem;
-	height: 27rem;
 	text-align: center;
 }
 
@@ -139,9 +138,6 @@
 	font-weight: bold;
 }
 
-.sh_member_pay_title li:nth-child(6) {
-	margin-left: 0.9rem;
-}
 
 .sh_member_pay_content li {
 	float: left;
@@ -151,8 +147,7 @@
 	height: 2rem;
 }
 
-.sh_member_pay_content li:nth-child(1), .sh_member_pay_content li:nth-child(2),
-	.sh_member_pay_list li:nth-child(6) {
+.sh_member_pay_content li:nth-child(1) {
 	width: 2rem;
 	margin-left: 1rem;
 }
@@ -160,8 +155,8 @@
 	margin-top: 0.7rem;
 }
 
-.sh_member_pay_content li:nth-child(3), .sh_member_pay_content li:nth-child(4) {
-	width: 9.5rem;
+.sh_member_pay_content li:nth-child(5), .sh_member_pay_content li:nth-child(6) {
+	width: 9rem;
 }
 
 .sh_member_pay_content ul {
@@ -182,11 +177,6 @@
 	margin-top: 1rem;
 }
 
-.sh_member_pay_list li:nth-child(6) {
-	width: 4rem;
-	margin-left: 1.8rem;
-	margin-right: 1rem;
-}
 #sh_board_shadow{
 	box-shadow: 0.1rem 0.1rem 0.4rem 0rem;
 

@@ -4,67 +4,88 @@ import java.util.Date;
 
 public class ManagerChargeDto {
 	private int num;
-	private int order_num;
-	private int charge_num;
-	private String charge_name;
-	private String charge_point;
+	private String id;
+	private long order_num;
+	private int charge_cash;
+	private String charge_type;
+	private int point;
 	private Date charge_date;
 	
 	public ManagerChargeDto() {}
-	public ManagerChargeDto(int num, int order_num, int charge_num, String charge_name, String charge_point,
+
+	public ManagerChargeDto(int num, String id, long order_num, int charge_cash, String charge_type, int point,
 			Date charge_date) {
 		super();
 		this.num = num;
+		this.id = id;
 		this.order_num = order_num;
-		this.charge_num = charge_num;
-		this.charge_name = charge_name;
-		this.charge_point = charge_point;
+		this.charge_cash = charge_cash;
+		this.charge_type = charge_type;
+		this.point = point;
 		this.charge_date = charge_date;
 	}
+
 	public int getNum() {
 		return num;
 	}
+
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public int getOrder_num() {
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public long getOrder_num() {
 		return order_num;
 	}
-	public void setOrder_num(int order_num) {
+
+	public void setOrder_num(long order_num) {
 		this.order_num = order_num;
 	}
-	public int getCharge_num() {
-		return charge_num;
+
+	public int getCharge_cash() {
+		return charge_cash;
 	}
-	public void setCharge_num(int charge_num) {
-		this.charge_num = charge_num;
+
+	public void setCharge_cash(int charge_cash) {
+		this.charge_cash = charge_cash;
 	}
-	public String getCharge_name() {
-		return charge_name;
+
+	public String getCharge_type() {
+		return charge_type;
 	}
-	public void setCharge_name(String charge_name) {
-		this.charge_name = charge_name;
+
+	public void setCharge_type(String charge_type) {
+		this.charge_type = charge_type;
 	}
-	public String getCharge_point() {
-		return charge_point;
+
+	public int getPoint() {
+		return point;
 	}
-	public void setCharge_point(String charge_point) {
-		this.charge_point = charge_point;
+
+	public void setPoint(int point) {
+		this.point = point;
 	}
+
 	public Date getCharge_date() {
 		return charge_date;
 	}
+
 	public void setCharge_date(Date charge_date) {
 		this.charge_date = charge_date;
 	}
+
 	@Override
 	public String toString() {
-		return "ManagerChargeDto [num=" + num + ", order_num=" + order_num + ", charge_num=" + charge_num
-				+ ", charge_name=" + charge_name + ", charge_point=" + charge_point + ", charge_date=" + charge_date
+		return "ManagerChargeDto [num=" + num + ", id=" + id + ", order_num=" + order_num + ", charge_cash="
+				+ charge_cash + ", charge_type=" + charge_type + ", point=" + point + ", charge_date=" + charge_date
 				+ "]";
 	}
-	
-	
-	
-	
+
 }

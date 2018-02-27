@@ -89,9 +89,6 @@
 	
 
 	<script type="text/javascript">
-		
-	
-	
 		$(function() {
 			 $('.sh_button_out').click(function(event){
 				 var txt;
@@ -103,29 +100,7 @@
 					 javascript:location ="${root}/manager/memberRegister.do?id=${memberDto.id}";
 				 }
 			 });
-			
-			/* $('.sh_button_out').click(function(event) {
-				$.confirm({
-					title : '강제탈퇴',
-					content : '정말로 이 회원을 탈퇴 시키겠습니까?',
-					buttons : {
-						confirm : function() {
-							$.alert({
-								title : '탈퇴',
-								content : '강제탈퇴 시켰습니다.',
-								buttons : {
-									ok : function() {
-										location.href = "${root}/manager/memberMember.do";
-									}
-								}
-							});
-						},
-						cancel : function() {
-							$.alert('탈퇴시키지 않았습니다..');
-						}
-					}
-				});
-			}); */
+
 
 				$("#select-sh").change(function() {
 					var value = $(this).val();

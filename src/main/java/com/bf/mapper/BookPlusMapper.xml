@@ -275,10 +275,23 @@
 	</select>
 	
 	<select id="getTagBookList" parameterType="java.util.HashMap" resultMap="HomeDto">
-			SELECT *
-			FROM (SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", p.pub_num, p.NAME "pub_name", b.book_num, b.price, b.TYPE, b.author_num, b.rental_price, ROWNUM r
-					FROM bookm b, author A, publisher p
-					WHERE b.author_num=A.num
+			SELECT * 
+				FROM (
+				  SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", p.pub_num, p.NAME "pub_name", b.book_num, b.price, b.TYPE, b.author_num, b.rental_price, nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count", b.intro ,ROWNUM r
+				  FROM bookm b, author A, publisher p, (
+				    SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+				    FROM (
+				      SELECT rw.* FROM review rw, (
+				        SELECT DISTINCT ID, book_num
+				        FROM payment
+				      ) pm
+				      WHERE rw.book_num = pm.book_num
+				      AND rw.ID = pm.ID
+				    )
+				    GROUP BY book_num
+				  ) rs  
+				  WHERE b.author_num=A.num
+				  and b.book_num = rs.book_num(+)
 			      AND b.pub_num=p.pub_num
 			      and b.book_num in(SELECT DISTINCT b.book_num
 			                        FROM bookm b, keyword_list l
@@ -305,6 +318,13 @@
 					</when>
 				</choose>
 			</foreach>
+	</select>
+	
+	<select id="getKeyword" parameterType="long" resultType="String">
+		SELECT k.NAME
+		FROM keyword k, keyword_list l
+		WHERE k.num=l.keyword_num
+		and l.book_num=#{book_num}
 	</select>
 	
 	<select id="getDetailCate" parameterType="long" resultType="com.bf.book.dto.DetailCateDto">

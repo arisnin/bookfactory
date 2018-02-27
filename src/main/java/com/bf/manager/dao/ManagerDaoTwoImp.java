@@ -16,7 +16,10 @@ import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.ManagerNoticeDto;
+import com.bf.manager.dto.ManagerPayDto;
+import com.bf.manager.dto.ManagerPointDto;
 import com.bf.manager.dto.ManagerCashDto;
+import com.bf.manager.dto.ManagerChargeDto;
 import com.bf.manager.dto.MemberDto;
 import com.bf.manager.dto.ReviewManagerDto;
 
@@ -131,6 +134,11 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		// TODO Auto-generated method stub
 		return sqlSession.update("com.bf.manager.ManagerboardMapper.boardUpdate",boardFrequencyDto);
 	}
+	@Override
+	public int listDelete(int num) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("com.bf.manager.ManagerboardMapper.boardDelete",num);
+	}
 	
 	// ------------member------------------
 	@Override
@@ -174,7 +182,37 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		
 		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.cashList", map);
 	}
-	// -----------------리뷰
+	
+	@Override
+	public List<ManagerPayDto> payDetail(int startRow,int endRow,String id) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("id",id);
+		
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.payDetail",map);
+	}
+	@Override
+	public List<ManagerChargeDto> chargeDetail(int startRow, int endRow, String id) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("id",id);
+		
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.chargeDetail",map);
+	}
+	@Override
+	public List<ManagerPointDto> pointDetail(int startRow, int endRow, String id) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("id",id);
+		
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.pointDetail",map);
+	}
+	
+	
+	// -----------------리뷰---------------------------
 	@Override
 	public int reviewCount() {
 		// TODO Auto-generated method stub
@@ -197,6 +235,14 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		map.put("num", num);
 		return sqlSession.selectList("com.bf.manager.ManagerReviewMapper.accuseList", map);
 	}
-
+	@Override
+	public int pointInsert(int point,String pointType,String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("point", point);
+		map.put("pointType", pointType);
+		map.put("id", id);
+		return sqlSession.insert("com.bf.manager.ManagerReviewMapper.pointInsert",map);
+		
+	}
 
 }

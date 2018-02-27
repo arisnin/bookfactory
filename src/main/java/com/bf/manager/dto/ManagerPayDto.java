@@ -5,7 +5,7 @@ import java.util.Date;
 public class ManagerPayDto {
 	private int num;
 	private String id;
-	private int order_num;
+	private long order_num;
 	private int book_num;
 	private String book_name;
 	private int direct_cash;
@@ -15,7 +15,9 @@ public class ManagerPayDto {
 	
 	public ManagerPayDto() {}
 
-	public ManagerPayDto(int num, String id, int order_num, int book_num, String book_name, int direct_cash,
+	
+
+	public ManagerPayDto(int num, String id, long order_num, int book_num, String book_name, int direct_cash,
 			int cash_use, int point_use, Date payment_date) {
 		super();
 		this.num = num;
@@ -28,6 +30,8 @@ public class ManagerPayDto {
 		this.point_use = point_use;
 		this.payment_date = payment_date;
 	}
+
+
 
 	public int getNum() {
 		return num;
@@ -45,13 +49,18 @@ public class ManagerPayDto {
 		this.id = id;
 	}
 
-	public int getOrder_num() {
+
+	public long getOrder_num() {
 		return order_num;
 	}
 
-	public void setOrder_num(int order_num) {
+
+
+	public void setOrder_num(long order_num) {
 		this.order_num = order_num;
 	}
+
+
 
 	public int getBook_num() {
 		return book_num;

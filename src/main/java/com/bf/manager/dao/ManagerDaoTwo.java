@@ -10,7 +10,10 @@ import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
 
 import com.bf.manager.dto.ManagerNoticeDto;
+import com.bf.manager.dto.ManagerPayDto;
+import com.bf.manager.dto.ManagerPointDto;
 import com.bf.manager.dto.ManagerCashDto;
+import com.bf.manager.dto.ManagerChargeDto;
 import com.bf.manager.dto.MemberDto;
 import com.bf.manager.dto.ReviewManagerDto;
 
@@ -38,7 +41,7 @@ public interface ManagerDaoTwo {
     public BoardFrequencyDto catelist(int num,int cateNum); 
     public int fileboardUpdateOk(BoardFrequencyDto boardFrequencyDto);
     public int boardUpdateOk(BoardFrequencyDto boardFrequencyDto);
-    
+    public int listDelete(int num);
     //member
     public int memberCount();
     public List<MemberDto> memberList(int starRow,int endRow);
@@ -46,12 +49,13 @@ public interface ManagerDaoTwo {
     public int registerOk(MemberDto memberDto);
     public int registerDelete(String id);
     public List<ManagerCashDto> memberCashList(int startRow,int endRow);
-    
-    
-    
+    public List<ManagerPayDto> payDetail(int startRow,int endRow,String id);
+    public List<ManagerChargeDto> chargeDetail(int startRow,int endRow,String id);
+    public List<ManagerPointDto> pointDetail(int startRow,int endRow,String id);
+    public int pointInsert(int point,String pointType,String id	);
    //review
     public int reviewCount();
     public List<ReviewManagerDto> reviewList(int startRow,int endRow);
     public List<AccuseDto> accuseList(int num,int startRow,int endRow);
-
+   
 }

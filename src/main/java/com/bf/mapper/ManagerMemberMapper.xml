@@ -25,25 +25,90 @@
 		where id
 		=#{id}
 	</update>
+	
 	<delete id="delete" parameterType="String">
-		delete from member where id
-		=#{id}
+		delete from member where id =#{id}
 	</delete>
+	
 	<select id="cashList" parameterType="java.util.Map"
 		resultType="com.bf.manager.dto.ManagerCashDto">
 		SELECT * FROM(
 		SELECT ROWNUM cash_num , t.* FROM(
-		SELECT c.NAME member_name ,A.*, b.*, d.* FROM
-		(SELECT ID cash_id , SUM(REMAIN) "cash_total" FROM POINT WHERE STATE = 'on'
+		SELECT
+		c.NAME member_name ,A.*, b.*, d.* FROM
+		(SELECT ID cash_id , SUM(REMAIN)
+		"cash_total" FROM POINT WHERE STATE = 'on'
 		GROUP BY ID) A,
-		(SELECT sum(CHARGE_CASH) "point_total" FROM cash_charge GROUP BY ID ) b,
+		(SELECT
+		sum(CHARGE_CASH) "point_total" FROM cash_charge GROUP BY ID ) b,
 		MEMBER c,
-		(SELECT MAX(cash_charge.CHARGE_DATE) "last_date" FROM CASH_CHARGE GROUP BY ID) d
+		(SELECT MAX(cash_charge.CHARGE_DATE) "last_date" FROM
+		CASH_CHARGE GROUP BY ID) d
 		WHERE c.ID = A.cash_id)t)
-		where cash_num between #{startRow} and #{endRow}
+		where cash_num
+		between #{startRow} and #{endRow}
 	</select>
 
 	<!-- 캐시포인트 -->
+	<select id="payDetail" parameterType="java.util.Map"
+		resultType="com.bf.manager.dto.ManagerPayDto">
+		SELECT D.* FROM(
+		select rownum num, c.* from(
+		SELECT
+		A.ORDER_NUM "order_num", B.NAME "book_name",
+		(a.price-a.point_use-a.cash_use)"direct_cash",
+		A.CASH_USE "cash_use",
+		A.POINT_USE "point_use",
+		A.PAYMENT_DATE "payment_date"
+		FROM PAYMENT A,
+		BOOKM B
+		WHERE A.BOOK_NUM = B.BOOK_NUM AND id = #{id}
+		ORDER BY
+		A.PAYMENT_DATE)C) D
+		where num BETWEEN #{startRow} and #{endRow}
+	</select>
+	<select id="chargeDetail" parameterType="java.util.Map"
+		resultType="com.bf.manager.dto.ManagerChargeDto">
+		SELECT D.* FROM(
+		SELECT ROWNUM num, c.* FROM(
+		SELECT DISTINCT
+		cash_charge.ID ID,
+		cash_charge.ORDER_NUM order_num ,
+		cash_charge.CHARGE_CASH charge_cash,
+		cash_type.CHARGE_TYPE charge_type,
+		p.point point,
+		cash_charge.CHARGE_DATE charge_date
+		FROM CASH_CHARGE
+		cash_charge,CASH_CHARGE_TYPE cash_type,CASH_CHARGE_MENU
+		cash_menu,
+		point p
+		WHERE cash_type.NUM = cash_charge.CHARGE_TYPE_NUM AND
+		p.num =
+		cash_charge.POINT_NUM AND
+		cash_charge.ID =#{id})C)D
+		where num BETWEEN
+		#{startRow} and #{endRow}
 
-
+	</select>
+	<select id="pointDetail" parameterType="java.util.Map"
+		resultType="com.bf.manager.dto.ManagerPointDto">
+		SELECT D.* FROM(
+		SELECT ROWNUM num, c.* FROM(
+		SELECT p.ID id,
+		p.POINT_TYPE point_type,
+		p.point point,
+		p.CHARGE_DATE charge_date,
+		p.DESTORY_DATE dstrory_date,
+		ch.ORDER_NUM order_num
+		FROM point p ,CASH_CHARGE ch
+		WHERE p.ID =#{id} AND ch.POINT_NUM = p.NUM)C)D
+		where num BETWEEN 	#{startRow} and #{endRow}
+	</select>
+	
+	<insert id="pointInsert" parameterType="java.util.Map" >
+	INSERT INTO BF.POINT
+	(NUM,ID,POINT,POINT_TYPE,CHARGE_DATE,DESTORY_DATE,STATE) 
+	values (POINT_NUM_SEQ.nextval,#{id},#{point},#{pointType},sysdate,sysdate+30,'on');
+	
+	</insert>
 </mapper>

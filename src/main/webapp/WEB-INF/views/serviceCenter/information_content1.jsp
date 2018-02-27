@@ -56,39 +56,36 @@
 			<div class="service_information_cn_cn_left">				
 					<div class="service_information_cn_cn_left_title">이 섹션의 문서</div>
 					
-					<c:forEach var="infoDto" items="${infoListSide}" >
-					<ul>
-						<c:if test="${infoDto.num == serviceCenterDtoFre.num}">
-							<li class=active>
-						</c:if>
-						<c:if test="${infoDto.num != serviceCenterDtoFre.num}">
-							<li>
-						</c:if>
-												
-						<a href="javascript:readFun('${root}','${infoDto.num}')">${infoDto.title}</a></li>						
-					</ul>
+					
+					<c:forEach var="infoDto" items="${infoSide}" >
+						<ul>
+							<c:if test="${infoDto.num == noticeDto.num}">
+								<li class=active>
+							</c:if>
+							<c:if test="${infoDto.num != noticeDto.num}">
+								<li>
+							</c:if>												
+							<a href="javascript:infoRead('${root}','${infoDto.num}')">${infoDto.title}</a></li>						
+						</ul>
 					</c:forEach>
 					
+					
 					<c:if test="${count>10 }">
-					<div class="service_information_cn_cn_left_more">
-						<a href="${root }/serviceCenter/information.do">더보기</a>
-					</div>
+						<div class="service_information_cn_cn_left_more">
+							<a href="${root }/serviceCenter/information.do">더보기</a>
+						</div>
 					</c:if>
 			</div>
 			
 						
 			<div class="service_information_cn_cn_right">
 				<div class="service_information_cn_title">
-					${serviceCenterDtoFre.title }</div>
+					${noticeDto.title }</div>
 		
-				<div>${serviceCenterDtoFre.content }</div>
+				<div>${noticeDto.content }</div>
 				
-				<c:if test="${serviceCenterDtoFre.file_size>0}">
-												
-					<div><a href="${root }/serviceCenter/information_download.do?num=${serviceCenterDtoFre.num}">파일명 : ${serviceCenterDtoFre.file_name}</a></div>
-									
-					<div>파일경로 : ${serviceCenterDtoFre.file_path}</div>
-				</c:if>
+				
+				
 			</div>
 
 		</div>

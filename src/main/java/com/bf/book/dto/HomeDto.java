@@ -17,34 +17,40 @@ public class HomeDto {
 	private String bookName;
 	private String authorName;
 	private long author_num;
-	private String thirdCate; // 리뷰작성된거끌어와야함 잠시 null처리
-	private int star_point;
+	private String thirdCate; 
 	private long book_num;
 	private long price;
+	private String intro;
 	private String type;
 	private long rental_price;
 	private String rental_period;
 	private String pub_name;
 	private long pub_num;
 	
+	//별점
+	private float star_point;
+	private int star_count;
+	
 	public HomeDto() {}
 
 	public HomeDto(String img_path, String bookName, String authorName, long author_num, String thirdCate,
-			int star_point, long book_num, long price, String type, long rental_price, String rental_period,
-			String pub_name, long pub_num) {
+			long book_num, long price, String intro, String type, long rental_price, String rental_period,
+			String pub_name, long pub_num, float star_point, int star_count) {
 		this.img_path = img_path;
 		this.bookName = bookName;
 		this.authorName = authorName;
 		this.author_num = author_num;
 		this.thirdCate = thirdCate;
-		this.star_point = star_point;
 		this.book_num = book_num;
 		this.price = price;
+		this.intro = intro;
 		this.type = type;
 		this.rental_price = rental_price;
 		this.rental_period = rental_period;
 		this.pub_name = pub_name;
 		this.pub_num = pub_num;
+		this.star_point = star_point;
+		this.star_count = star_count;
 	}
 
 	public String getImg_path() {
@@ -87,14 +93,6 @@ public class HomeDto {
 		this.thirdCate = thirdCate;
 	}
 
-	public int getStar_point() {
-		return star_point;
-	}
-
-	public void setStar_point(int star_point) {
-		this.star_point = star_point;
-	}
-
 	public long getBook_num() {
 		return book_num;
 	}
@@ -109,6 +107,14 @@ public class HomeDto {
 
 	public void setPrice(long price) {
 		this.price = price;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
 	}
 
 	public String getType() {
@@ -151,12 +157,29 @@ public class HomeDto {
 		this.pub_num = pub_num;
 	}
 
+	public float getStar_point() {
+		return star_point;
+	}
+
+	public void setStar_point(float star_point) {
+		this.star_point = star_point;
+	}
+
+	public int getStar_count() {
+		return star_count;
+	}
+
+	public void setStar_count(int star_count) {
+		this.star_count = star_count;
+	}
+
 	@Override
 	public String toString() {
 		return "HomeDto [img_path=" + img_path + ", bookName=" + bookName + ", authorName=" + authorName
-				+ ", author_num=" + author_num + ", thirdCate=" + thirdCate + ", star_point=" + star_point
-				+ ", book_num=" + book_num + ", price=" + price + ", type=" + type + ", rental_price=" + rental_price
-				+ ", rental_period=" + rental_period + ", pub_name=" + pub_name + ", pub_num=" + pub_num + "]";
+				+ ", author_num=" + author_num + ", thirdCate=" + thirdCate + ", book_num=" + book_num + ", price="
+				+ price + ", intro=" + intro + ", type=" + type + ", rental_price=" + rental_price + ", rental_period="
+				+ rental_period + ", pub_name=" + pub_name + ", pub_num=" + pub_num + ", star_point=" + star_point
+				+ ", star_count=" + star_count + "]";
 	}
 	
 }

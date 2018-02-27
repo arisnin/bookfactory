@@ -77,7 +77,7 @@
 	<input type="hidden" value="${boardContactDto.file_size}" name="file_size">
 	<input type="hidden" value="${boardContactDto.file_path}" name="file_path">
 	<input type="hidden" value="${pageNumber}" name="pageNumber">
-			</form>
+	</form>
  
 		</div>
 	</div>
@@ -95,19 +95,21 @@
 			var d = new Date();
 			var m = d.getMonth()+1; 
 			var now = d.getFullYear()+ "-"+ m +"-" +d.getDate();
+			 
 			
-			if("${boardContactDto.reply_check =='ok'}"){
-				 $(".sh_reply").text("\n"+$("#reply_content").val());
+			if("${boardContactDto.reply_check =='ok'}"=="true"){
+				 $(".sh_reply").text("\r\n"+$("#reply_content").val());
 				
-			}else{
+			}else if("${boardContactDto.reply_check =='ok'}"=="false"){
+				alert(text);
 				 $(".sh_reply").text(text+"\n"+"-----Original Message-----"+"\n"+
-						"From: ${boardContactDto.id}"+"\n"+
-						"To: ${id}"+"\n"+
-						"Day:"+now+"\n"+
-						"Subject:"+"\n");
+						"From: ${boardContactDto.id}"+"\r\n"+
+						"To: ${id}"+"\r\n"+
+						"Day:"+now+"\r\n"+
+						"Subject:"+"\r\n");
 			}
 			
-		})
+		}) 
 
 	});
 	

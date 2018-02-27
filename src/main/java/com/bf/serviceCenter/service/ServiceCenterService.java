@@ -21,6 +21,14 @@ public interface ServiceCenterService {
 
 	void inquriyList(ModelAndView mav);
 
+	void inquriyAnswer(ModelAndView mav);
+
+	void serviceCenterQuestion(ModelAndView mav);
+
+	void serviceCenterManyQuestionContent(ModelAndView mav);
+
+	void serviceCenterMain(ModelAndView mav);
+
 	
 
 }

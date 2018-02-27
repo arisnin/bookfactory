@@ -36,7 +36,7 @@ public interface MyPageDao {
 
 	OrderDto HistoryCashClick(String id, long order_num);
 
-	//List<MyPagePurchasedPageDto> PurchasedPageList(String id, String search);
+	List<MyPagePurchasedPageDto> PurchasedPageList(String id, String searchValue);
 
 
 }
