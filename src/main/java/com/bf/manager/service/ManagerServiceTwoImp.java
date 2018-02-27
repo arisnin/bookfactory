@@ -4,6 +4,8 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -216,7 +219,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		String pageNumber = request.getParameter("pageNumber");
-
+		
 		String word = request.getParameter("search-word");
 		String sDate = request.getParameter("startDate");
 		String eDate = request.getParameter("endDate");
@@ -244,13 +247,16 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		int count = managerDao.BoardContactcount();
 
 		LogAspect.logger.info(LogAspect.logMsg + count + "-------------" + currentPage);
-
+		
 		List<BoardContactDto> contactDtoList = null;
 		if (count > 0) {
 			contactDtoList = managerDao.boardContact(startRow, endRow);
-			LogAspect.logger.info(LogAspect.logMsg + contactDtoList);
-
+			for (BoardContactDto e : contactDtoList) {
+				e.setContent(e.getContent().replace("<br/>","\r\n"));
+				LogAspect.logger.info(LogAspect.logMsg + e);
+			}
 		}
+		
 		mav.addObject("contactDtoList", contactDtoList);
 		mav.addObject("pageNumber", currentPage);
 		mav.addObject("count", count);
@@ -276,9 +282,12 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		 */
 
 		User user = (User) request.getSession().getAttribute("userInfo");
+		
 		String id = user.getUsername();
+		
 		LogAspect.logger.info(LogAspect.logMsg + id + boardContactDto);
 		LogAspect.logger.info(LogAspect.logMsg + pageNumber);
+
 		mav.addObject("id", id);
 		mav.addObject("boardContactDto", boardContactDto);
 		mav.addObject("pageNumber", pageNumber);
@@ -297,11 +306,13 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		String q2_name = request.getParameter("q2_name");
 		Date reply_date = new Date();
 
+		LogAspect.info("@"+boardContactDto);
 		boardContactDto.setReply_content(reply_content);
 		boardContactDto.setReply_date(reply_date);
 		boardContactDto.setQ2_name(q2_name);
 		boardContactDto.setReply_check("ok");
-		LogAspect.info(boardContactDto);
+		boardContactDto.setReply_content(boardContactDto.getReply_content().replace("\r\n", "<br/>"));
+		LogAspect.severe(boardContactDto.getContent());
 
 		int check = managerDao.boardReplyOk(boardContactDto);
 		LogAspect.info(check);
@@ -355,7 +366,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		}
 		noticeDto.setWrite_date(write_date);
 		noticeDto.setId(id);
-		noticeDto.setContent(content);
+		noticeDto.setContent(content.replace("\r\n", "<br/>"));
 		noticeDto.setNum(num);
 		noticeDto.setTitle(title);
 
@@ -369,6 +380,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		mav.setViewName("board/noticeInsertOk.mg");
 	}
 
+
 	@Override
 	public void boardUpdateOk(ModelAndView mav) {
 		
@@ -376,7 +388,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		MultipartHttpServletRequest request = (MultipartHttpServletRequest) map.get("request");
 		BoardFrequencyDto boardFrequencyDto = (BoardFrequencyDto) map.get("boardFrequencyDto");
 		String pageNumber = request.getParameter("pageNumber");
-
+		
 		
 		LogAspect.logger.info(LogAspect.logMsg + pageNumber);
 		boardFrequencyDto.setContent(request.getParameter("content"));
@@ -405,9 +417,11 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 				try {
 					upFile.transferTo(file);
 
-				} catch (Exception e) {
+				
+				}catch (Exception e) {
 					e.printStackTrace();
 				}
+				
 				boardFrequencyDto.setFile_path(file.getAbsolutePath());
 				boardFrequencyDto.setFile_name(fileName);
 				boardFrequencyDto.setFile_size(fileSize);
@@ -425,13 +439,34 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 					}
 				}
 				LogAspect.logger.info(LogAspect.logMsg + check);
-
+				mav.addObject("pageNumber", pageNumber);
 				mav.addObject("check", check);
 				mav.setViewName("board/updateOk.mg");
 			}
 		}
 	}
-
+	@Override
+	public void boardDelete(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+	/*	String num = request.getParameter("num");
+		String pageNumber = request.getParameter("pageNumber");
+		
+		int inum=Integer.parseInt(num);
+		LogAspect.info(inum);*/
+		int num = Integer.parseInt(request.getParameter("num"));
+		int pageNumber =Integer.parseInt(request.getParameter("pageNumber"));
+		
+		LogAspect.info(num+"sdflksdfklsdfjlksdfjlsdkf"+pageNumber);
+		
+		int check = managerDao.listDelete(num);
+		
+		mav.addObject("num", num);
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("check", check);
+		mav.setViewName("board/delete.mg");
+		
+	}
 	@Override
 	public void boardDownLoad(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -639,7 +674,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		ManagerCashDto managerCashDto =(ManagerCashDto) map.get("managerCashDto");
 		
 		String pageNumber = request.getParameter("pageNumber");
-
+		LogAspect.info("이런젠장"+managerCashDto.getCash_id());
 
 		if (pageNumber == null)
 			pageNumber = "1";
@@ -749,6 +784,32 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		mav.addObject("boardSize", boardSize);
 		mav.setViewName("review/report.mg");
 
+	}
+
+	@Override
+	public void memberPointInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		int  point =Integer.parseInt(request.getParameter("point"));
+		String id =request.getParameter("id");
+		String pointType= "관리자권한 적립금부여";
+		LogAspect.info(point+"zzzz"+id);
+		
+		
+	
+		// TODO: DAO 적립 구현
+		int check = managerDao.pointInsert(point,pointType,id);	
+		LogAspect.info(check);
+		
+		// TODO: 결과 리턴
+		response.setContentType("application/x-json;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		JSONObject json = new JSONObject();
+		json.put("check", check);
+		
+		out.print(json);
+		out.flush();
+		out.close();		
 	}
 
 }

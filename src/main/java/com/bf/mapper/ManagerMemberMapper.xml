@@ -25,10 +25,11 @@
 		where id
 		=#{id}
 	</update>
+	
 	<delete id="delete" parameterType="String">
-		delete from member where id
-		=#{id}
+		delete from member where id =#{id}
 	</delete>
+	
 	<select id="cashList" parameterType="java.util.Map"
 		resultType="com.bf.manager.dto.ManagerCashDto">
 		SELECT * FROM(
@@ -103,4 +104,11 @@
 		WHERE p.ID =#{id} AND ch.POINT_NUM = p.NUM)C)D
 		where num BETWEEN 	#{startRow} and #{endRow}
 	</select>
+	
+	<insert id="pointInsert" parameterType="java.util.Map" >
+	INSERT INTO BF.POINT
+	(NUM,ID,POINT,POINT_TYPE,CHARGE_DATE,DESTORY_DATE,STATE) 
+	values (POINT_NUM_SEQ.nextval,#{id},#{point},#{pointType},sysdate,sysdate+30,'on');
+	
+	</insert>
 </mapper>

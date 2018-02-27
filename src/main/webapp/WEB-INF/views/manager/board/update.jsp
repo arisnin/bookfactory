@@ -18,7 +18,7 @@
 	<div id="sh_board_update">
 		<div class="sh_board_update_header">
 			<div class="sh_main_text">게시판관리(자주하는 질문 등록)</div>
-			<form action="${root}/manager/boardupdateOk.do" method="post" enctype="multipart/form-data">
+			<form action="${root}/manager/boardUpdateOk.do" method="post" enctype="multipart/form-data">
 				<div id="sh_board_shadow">
 					<div class="sh_board_update_main">
 

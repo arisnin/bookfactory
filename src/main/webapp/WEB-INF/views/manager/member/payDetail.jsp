@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="${root }/css/manager/member_detail.css">
 <link rel="stylesheet" href="${root}/css/basic/jquery-ui.css">
 <link rel="stylesheet" href="${root}/css/basic/jquery-ui.theme.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
 <title>결제 관리 상세페이지</title>
 </head>
 <body>
@@ -28,8 +29,8 @@
 						</ul>
 					</div>
 					<div class="sh_member_detail_inf2">
-						<span>적립금부여</span> <input type="text">
-						<button type="button" style="height: 2.2rem;" class="bf-button bf-white-btn sh_point">적립</button>
+						<span>적립금부여</span><input type="text">
+						<button type="button" style="height: 2.2rem;" class="bf-button bf-white-btn sh_point" id ="point-add">적립</button>
 					</div>
 				</div>
 
@@ -153,9 +154,41 @@
 		</div>
 </div>
 		<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
-		<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+		<script type="text/javascript" src="${root}/script/basic/jquery.js"></script> 
 		<script type="text/javascript" src="${root}/script/basic/jquery-ui.js"></script>
+		<script type="text/javascript" src="${root}/script/basic/jquery-confirm.js"></script>
 		<script type="text/javascript" src="${root}/script/manager/total.js"></script>
 		<script type="text/javascript" src="${root}/script/manager/member.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#point-add").click(function(event){
+			var input =$(".sh_member_detail_inf2").find("input").val()
+			var aa= "${managerCashDto.cash_id}";
+			alert(aa);
+				$.confirm({
+					title : '적립금',
+					content : '적립금을 부여하시겠습니까?!',
+					buttons : {
+						confirm : function() {
+							$.alert('적립금 부여 완료');
+					 		var target = $(event.target);
+					 		
+							memberPointInsert(input,aa);
+						},
+						cancel : function() {
+							$.alert('적립금을 부여하지않았습니다.');
+						}
+
+					},
+					type : '#A59AF6'
+				});
+		})
+	})
+	function memberPointInsert(point,id) {
+		$.post('${root}/manager/memberPointInsert.do',{point:point,id:id}, function(data,status){
+			alert(data);	
+		})
+	}
+</script>
 </body>
 </html>

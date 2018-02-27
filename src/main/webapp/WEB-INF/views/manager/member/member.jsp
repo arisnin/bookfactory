@@ -93,8 +93,7 @@
 				</div>
 			</div>
 
-
-					<div class="sh_board_list_footer">
+				<div class="sh_board_list_footer">
 				<nav class="bf-pagination">
 					<ul class="bf-animated-btn">
 

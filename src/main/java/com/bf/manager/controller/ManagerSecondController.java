@@ -1,5 +1,7 @@
 package com.bf.manager.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -52,6 +54,8 @@ public class ManagerSecondController {
 	public ModelAndView boardDelete(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("board/delete.mg");
 		LogAspect.info("boardDelete()");
+		mav.addObject("request", request);
+		managerService.boardDelete(mav);
 		return mav;
 	}
 
@@ -112,9 +116,9 @@ public class ManagerSecondController {
 		managerService.boardUpdate(mav);
 		return mav;
 	}
-	@RequestMapping(value = "/boardupdateOk.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/boardUpdateOk.do", method =  RequestMethod.POST)
 	public ModelAndView boardUpdateOk(HttpServletRequest request, HttpServletResponse response,BoardFrequencyDto boardFrequencyDto) {
-		ModelAndView mav = new ModelAndView("board/update.mg");
+		ModelAndView mav = new ModelAndView("board/updateOk.mg");
 		LogAspect.info("boardUpdateOk()");
 		mav.addObject("request",request);
 		mav.addObject("boardFrequencyDto",boardFrequencyDto);
@@ -182,7 +186,7 @@ public class ManagerSecondController {
 		managerService.memberRegisterOk(mav);
 		return mav;
 	}
-	@RequestMapping(value = "/memberDelete.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/memberDelete.do", method = RequestMethod.POST)
 	public ModelAndView memberDelete(HttpServletRequest request, HttpServletResponse response,
 			MemberDto memberDto) {
 		ModelAndView mav = new ModelAndView("member/delete.mg");
@@ -191,6 +195,13 @@ public class ManagerSecondController {
 		mav.addObject("memberDto",memberDto);
 		managerService.memberDelete(mav);
 		return mav;
+	}
+
+	@RequestMapping(value = "memberPointInsert.do", method = RequestMethod.POST)
+	public void memberPointInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		LogAspect.info("memberPointInsert()");
+
+		managerService.memberPointInsert(request, response);
 	}
 
 	@RequestMapping(value = "/reviewReview.do", method = RequestMethod.GET)
