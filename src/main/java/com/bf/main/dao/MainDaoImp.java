@@ -31,11 +31,23 @@ public class MainDaoImp implements MainDao {
 	}
 
 	@Override
-	public List<CategoryPageDto> selectCategoryAll(int secondCateNum, int thirdCateNum) {
+	public List<CategoryPageDto> selectCategoryAll(int secondCateNum, int thirdCateNum, int serviceNum, int startRow, int endRow) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("secondCateNum", secondCateNum);
 		map.put("thirdCateNum", thirdCateNum);
+		map.put("serviceNum", serviceNum);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
 		return sqlSession.selectList(namespace + "select-category-all", map);
+	}
+
+	@Override
+	public int selectCategoryAllCount(int secondCateNum, int thirdCateNum, int serviceNum) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("secondCateNum", secondCateNum);
+		map.put("thirdCateNum", thirdCateNum);
+		map.put("serviceNum", serviceNum);
+		return sqlSession.selectOne(namespace + "select-category-all-count", map);
 	}
 
 	@Override

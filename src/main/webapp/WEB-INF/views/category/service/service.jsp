@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,19 +105,52 @@
 				</c:forEach>
 				</ul>
 				<!-- End : mf-book-list -->
-				<nav class="bf-pagination">
-					<ul class="bf-animated-btn">
-						<li class="first"><a href="#0"><span></span></a></li>
-						<li class="prev"><a href="#0"><span></span></a></li>
-						<li><a href="#0">1</a></li>
-						<li><a href="#0">2</a></li>
-						<li><a class="active" href="#0">3</a></li>
-						<li><a href="#0">4</a></li>
-						<li><a href="#0">5</a></li>
-						<li class="next"><a href="#0"><span></span></a></li>
-						<li class="last"><a href="#0"><span></span></a></li>
-					</ul>
-				</nav>
+				
+				<!-- Pagination value -->
+				<c:set var="pageBlock" value="5" />
+				<fmt:parseNumber var="pageCount" value="${count/boardSize + (count%boardSize==0 ? 0:1)}" integerOnly="true" />
+				<fmt:parseNumber var="rs" value="${(pnum-1)/pageBlock}" integerOnly="true" />
+				<c:set var="startPage" value="${1+pageBlock*rs}" />
+				<c:set var="endPage" value="${startPage+pageBlock-1}" />
+				<c:if test="${endPage > pageCount}">${endPage=pageCount;""}</c:if>
+				
+				<form id="category-pagination-form" action="#" method="get">
+					<nav class="bf-pagination">${count}:${pageBlock}:${pageCount}:${startPage}:${endPage}
+						<ul class="bf-animated-btn">
+							<li class="first"><a href="javascript:categoryPageHref('1')"><span></span></a></li>
+							<!-- 이전 페이지 블록 이동 -->
+							<c:if test="${startPage > pageBlock}">								
+								<li class="prev"><a href="javascript:categoryPageHref('${startPage-1}')"><span></span></a></li>
+							</c:if>
+							<!-- 현재 페이지 블록 목록 -->
+							<c:forEach var="i" begin="${startPage}" end="${endPage}">
+								<c:choose>
+									<c:when test="${pnum == i}">
+										<li><a class="active" href="javascript:categoryPageHref('${i}')">${i}</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a class="" href="javascript:categoryPageHref('${i}')">${i}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<!-- 다음 페이지 블록 이동 -->
+							<c:if test="${endPage < pageCount}">
+								<li class="next"><a href="javascript:categoryPageHref('${endPage+1}')"><span></span></a></li>
+							</c:if>							
+							<li class="last"><a href="javascript:categoryPageHref('${pageCount}')"><span></span></a></li>
+						</ul>
+					</nav>
+					<input type="hidden" name="pnum" value="${pnum}" />
+					<input type="hidden" name="snum" value="${param.snum}" />
+					<input type="hidden" name="cnum" value="${param.cnum}" />
+					<script type="text/javascript">
+						function categoryPageHref(pnum) {
+							var cateForm = document.getElementById("category-pagination-form");
+							cateForm.pnum.value = pnum;
+							cateForm.submit();
+						}
+					</script>
+				</form>
 			</section>
 			<!-- End : result-search-book-box -->
 		</section>
