@@ -6,16 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="root" value="${pageContext.request.contextPath}" />
-<link href="${root}/css/basic/reset.css" type="text/css"
-	rel="stylesheet">
-<link href="${root}/css/basic/commons.css" type="text/css"
-	rel="stylesheet" />
-<link href="${root}/css/serviceCenter/manyque.css"
-	type="text/css" rel="stylesheet">
-<link href="${root}/css/serviceCenter/FAQ.css"
-	type="text/css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link href="${root}/css/basic/reset.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet" />
+<link href="${root}/css/serviceCenter/manyque.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/serviceCenter/FAQ.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
+
 
 <title>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</title>
 </head>
@@ -52,15 +49,13 @@
 		<div class="serviceCenter_manyque_content">
 			<div class="serviceCenter_manyque_right">
 				<div class="serviceCenter_manyque_title">
-					리디북스 자주 묻는 질문
+					북팩토리 자주 묻는 질문
 				</div>
 
 				<div class="serviceCenter_manyque_list">
-					<div><a href="${root }/serviceCenter/manyque_content.do">아이디(ID), 비밀번호를 잊어버렸어요. 어떻게 확인하나요?</a></div>
-					<div>다운받은 책이 파일이 손상되었다며 열리지 않아요!(파일손상, 인코딩 오류)</div>
-					<div>DRM문제로 책을 읽을 수 없습니다(104)</div>
-					<div>책은 어떻게 읽나요? - PC뷰어 이용 방법</div>
-					<div>구매목록을 삭제할 수 있나요?</div>					
+					<c:forEach var="questionDto" items="${questionList }"	>
+						<div><a href="javascript:questionRead('${root}','${questionDto.num}')">${questionDto.title}</a></div>
+					</c:forEach>				
 				</div>
 			</div>
 

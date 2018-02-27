@@ -45,6 +45,7 @@
 
 .service_header_second > .bf-service-type-menu > .search-box{
 	width :30rem;
+	line-height: 0rem;
 }
 
 .header_left li{
@@ -159,6 +160,12 @@
     font-family: '주아체';
 	vertical-align: middle;
 	font-size: 2rem;
+}
+
+
+.service_notice_list > div:nth-child(1),
+.service_faq_list > div:nth-child(1){
+	border-top: 1px solid #E1DFFA;
 }
 
 

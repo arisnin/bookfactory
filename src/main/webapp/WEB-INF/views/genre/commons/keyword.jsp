@@ -58,7 +58,7 @@
 			<div>
 				<div class="keyword_bottom_head">
 					<div>
-						<span>158</span>
+						<span class="tagListCount">158</span>
 						<span>건의 작품이 있습니다.</span>
 					</div>
 					<div class="keyword_bottom_view_choice">
@@ -72,116 +72,7 @@
 			</div>
 				
 			<div class="keyword_bottom_book_list wrap-container">
-				<ul class="mf-book-list list-landscape">
- 					<c:forEach begin="0" end="5">
-						<li class="mf-book-item">
-							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image" onclick="location.href='${root}/detail.do'">
-									<img class="" src="//misc.ridibooks.com/cover/111000138/large" alt="image" />
-								</div>
-							</div>
-							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text" onclick="location.href='${root}/detail.do'">운현궁의 봄</h3>
-								<p class="book-metadata-author">
-									<a class="" href="${root}/author.do">김동인</a>
-								</p>
-								<p class="book-metadata-translator hidden-block">
-									<a class="" href="${root}/author.do"></a>
-								</p>
-								<p class="book-metadata-publisher">
-									<a class="" href="${root}/author.do">Public Domain Books</a>
-								</p>
-								<div class="content-star-rate">
-									<span class="star-icon-field material-icons"></span>
-									<span class="non-star-icon-field material-icons"></span>
-									<span class="count-field"> 9999명</span>
-								</div>
-								<pre class="book-metadata-description">* 이 책은 Public Domain Books 입니다. Public Domain Books란 저작자 사후 일정 기간이 경과하여 저작권이 만료된 책을 의미합니다. 회원님께서는 인터넷 상의 기타 사이트를 통해서 이 책을 찾아보실 수도 있습니다.
-	
-	1933년 4월부터 1934년 2월까지 <조선일보>에 연재된 장편소설로 <대수양(大首陽)>과 더불어 김동인의 대표적인 역사소설로 꼽힌다.
-							
-								</pre>
-								<p class="book-metadata-price hidden-block">
-									<span class="price-rent"></span>
-								</p>
-								<p class="book-metadata-price">
-									<span class="price-purchase">무료</span>
-								</p>
-								<div class="keyword_bottom_book_hava_key keyword_choice">
-									<ul>
-										<li>
-											<button type="button" class="bf-button keyword-btn">갖고있는키워드뿌려주긔</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">11111</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">2222222</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">3333</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">4444444</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">555555</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">23123</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">2132</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">11111</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">2222222</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">3333</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">4444444</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">555555</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">23123</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">2132</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">11111</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">2222222</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">3333</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">4444444</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">555555</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">23123</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">2132</button>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<!--  -------------------------------------------------------------------------- -->
-					</c:forEach>
-				</ul>
+				<ul class="mf-book-list list-landscape" id="keywordTagList"></ul>
 			</div>
 			
 		</div>
@@ -228,11 +119,11 @@
 		</nav>
 	</div>
 	
-	<script type="text/javascript">
-	document.querySelectorAll(".content-star-rate").forEach(function(e,i){
-		createStarIcon(e, 3.7);
-		
-	})
-	</script>
+	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
+   <script type="text/javascript">
+      Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
+         e.click();
+      });
+   </script>
 </body>
 </html>

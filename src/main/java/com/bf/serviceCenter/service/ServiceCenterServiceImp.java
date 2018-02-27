@@ -18,9 +18,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.main.dto.NoticeDto;
 import com.bf.manager.dto.BoardCate1Dto;
 import com.bf.manager.dto.BoardCate2Dto;
 import com.bf.manager.dto.BoardContactDto;
+import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.serviceCenter.dao.ServiceCenterDao;
 import com.bf.serviceCenter.dto.ServiceCenterDtoFre;
 
@@ -52,7 +54,7 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		int count = serviceCenterDao.infoCount();
 		LogAspect.info("고객센터 안내사항 리스트 : " + count);
 		
-		List<ServiceCenterDtoFre> infoList = null;
+		List<NoticeDto> infoList = null;
 		
 		if(count > 0) {
 			infoList = serviceCenterDao.infoMain();
@@ -75,28 +77,27 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
 		int num = Integer.parseInt(request.getParameter("num"));
-		
-		int listSize = 10;
-		
-		int count = serviceCenterDao.infoCount();
-		
+				
+		int count = serviceCenterDao.infoCount();		
 		LogAspect.info("고객센터 읽기 : " + num);
 				
-		ServiceCenterDtoFre serviceCenterDtoFre = serviceCenterDao.infoRead(num);
-		LogAspect.info("ServiceCenterDto 확인 : " + serviceCenterDtoFre.toString() );
+		NoticeDto noticeDto = serviceCenterDao.infoRead(num);
+		LogAspect.info("noticeDto 확인 : " + noticeDto.toString() );
 		
-		List<ServiceCenterDtoFre> infoListSide = serviceCenterDao.infoMain();		
+		List<NoticeDto> infoListSide = serviceCenterDao.infoMain();		
 		LogAspect.info("사이드 리스트 사이즈 확인확인 : " + infoListSide.size());
 		
-		if(serviceCenterDtoFre.getFile_name() !=null) {
-			int index = serviceCenterDtoFre.getFile_name().indexOf("_") + 1;
-			serviceCenterDtoFre.setFile_name(serviceCenterDtoFre.getFile_name().substring(index));
-		}
+		List<NoticeDto> infoSide = serviceCenterDao.infoSide();
+		
+//		if(noticeDto.getFile_name() !=null) {
+//			int index = noticeDto.getFile_name().indexOf("_") + 1;
+//			noticeDto.setFile_name(noticeDto.getFile_name().substring(index));
+//		}
 		
 				
-		mav.addObject("serviceCenterDtoFre", serviceCenterDtoFre);
+		mav.addObject("noticeDto", noticeDto);
 		mav.addObject("infoListSide", infoListSide);
-		mav.addObject("listSize", listSize);
+		mav.addObject("infoSide", infoSide);
 		mav.addObject("count", count);
 		
 		mav.setViewName("serviceCenter/information_content1.solo");
@@ -198,12 +199,13 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 				
 				boardContactDto.setFile_path(file.getAbsolutePath());
 				boardContactDto.setFile_name(fileName);
-				boardContactDto.setFile_size(fileSize);				
+				boardContactDto.setFile_size(fileSize);	
 			}
 		}
 		
 		boardContactDto.setWrite_date(new Date());
 		boardContactDto.setId("admin");
+		boardContactDto.setContent(boardContactDto.getContent().replace("\r\n", "<br/>"));
 		
 		LogAspect.info("디티오 확인 : " + boardContactDto.toString() );
 		
@@ -223,9 +225,117 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		Map<String, Object> map = mav.getModel();
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		BoardContactDto boardContactDto = (BoardContactDto) map.get("boardContactDto");
+		
+		int count = serviceCenterDao.inquriyCount();
+		
+		
+		LogAspect.info("1:1문의내역 갯수확인 : " + count);
+		
+		List<BoardContactDto> inquriyList = null;
+		
+		if(count > 0) {
+			inquriyList = serviceCenterDao.inquriylistlist();
+			LogAspect.info("1:1문의 내역 디티오 : : " + inquriyList.toString());
+		}
+		
+		mav.addObject("inquriyList", inquriyList);
+		mav.addObject("count", count);
+		
+		mav.setViewName("serviceCenter/inquriy_list2.solo");
+	}
+
+
+	@Override
+	public void inquriyAnswer(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
 		int num = Integer.parseInt(request.getParameter("num"));
+		
+		LogAspect.info("1:1 답변 읽어오기 확인중 : " + num); 
+		
+		BoardContactDto boardContactDto = serviceCenterDao.inquriyAnswer(num);
+		LogAspect.info("1:1 Dto 확인하깅 : " + boardContactDto.toString());
+		
+		mav.addObject("boardContactDto", boardContactDto);
+		
+		mav.setViewName("serviceCenter/inquriy_answer.solo");
+		
+	}
+
+
+	@Override
+	public void serviceCenterQuestion(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		int count = serviceCenterDao.questionCount();
+		LogAspect.info("자주묻는 질문 갯수 : " + count);
+		
+		List<BoardFrequencyDto> questionList = null;
+		
+		if(count > 0) {
+			questionList = serviceCenterDao.questionMain();
+			LogAspect.info("자주묻는 질문 사이증 : " + questionList.size());
+			LogAspect.info("투스트링" + questionList.toString());
+		}
+		
+		mav.addObject("count", count);
+		mav.addObject("questionList", questionList);		
+		
+		mav.setViewName("serviceCenter/manyque.solo");
+	}
+
+
+	@Override
+	public void serviceCenterManyQuestionContent(ModelAndView mav) {
+		
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		int num = Integer.parseInt(request.getParameter("num"));
+		LogAspect.info("자주묻는 질문 넘버 확인 : " + num);
+		
+		int count = serviceCenterDao.questionCount();
+		
+		BoardFrequencyDto boardFrequencyDto = serviceCenterDao.questionRead(num);
+		LogAspect.info("boardFrequencyDto 확인 : " + boardFrequencyDto.toString() );
+		
+		List<BoardFrequencyDto> questionList = serviceCenterDao.questionMain();		
+		LogAspect.info("사이드 리스트 사이즈 확인확인 : " + questionList.size());
+	
+		List<BoardFrequencyDto> questionSide = serviceCenterDao.questionSide();
+		
+		mav.addObject("boardFrequencyDto", boardFrequencyDto);
+		mav.addObject("questionList", questionList);
+		mav.addObject("questionSide", questionSide);
+		mav.addObject("count", count);
+		
+		mav.setViewName("serviceCenter/manyque_content.solo");
+	}
+
+
+	@Override
+	public void serviceCenterMain(ModelAndView mav) {
+
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+				
+		List<NoticeDto> mainNotice = serviceCenterDao.mainNotice();
+		LogAspect.info("메인 / 공지사항 확인 : " + mainNotice.toString()); 
+		
+		List<BoardFrequencyDto> mainMany = serviceCenterDao.mainMany();
+		LogAspect.info("메인 / 자주 묻는 질문 확인 : " + mainMany.toString());
+		
+		mav.addObject("mainNotice", mainNotice);
+		mav.addObject("mainMany", mainMany);
+		
+		mav.setViewName("serviceCenter/main.solo");
+		
 	}
 
 

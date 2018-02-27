@@ -49,5 +49,6 @@ public interface BookDao {
 	AuthorDto getAuthorInfo(long author_num);
 	List<HomeDto> getAuthorBook(long author_num);
 	List<DetailCateDto> getDetailCate(long book_num);
+	List<String> getKeyword(long book_num);
 
 }

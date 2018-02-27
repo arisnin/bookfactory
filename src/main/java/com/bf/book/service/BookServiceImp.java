@@ -517,7 +517,7 @@ public class BookServiceImp implements BookService {
 		
 		List<HomeDto> tagList=null;
 		
-		int boardSize=10;
+		int boardSize=20;
 		int startRow=(pageNumber-1)*boardSize+1;
 		int endRow=pageNumber*boardSize;
 		
@@ -549,12 +549,17 @@ public class BookServiceImp implements BookService {
 			HashMap<String, Object> json=new HashMap<String, Object>();
 			json.put("tagListCount", tagListCount);
 			
-			HashMap<String, Object> jsMap=new HashMap<String, Object>();
+			HashMap<String, Object> jsMap=new HashMap<String,Object>();
+			ArrayList<Object> jsArr=new ArrayList<Object>();
+			JSONArray abc=new JSONArray();
 			
 			for(int i=0;i<tagList.size();i++) {
 				HomeDto dto=tagList.get(i);
 				
+				ArrayList<Object> arrT=new ArrayList<Object>();
 				HashMap<String, Object> dtoMap=new HashMap<String, Object>();
+				List<String> getTag=bookDao.getKeyword(dto.getBook_num());
+				
 				dtoMap.put("img_path", dto.getImg_path());
 				dtoMap.put("book_name", dto.getBookName());
 				dtoMap.put("book_num", dto.getBook_num());
@@ -564,9 +569,20 @@ public class BookServiceImp implements BookService {
 				dtoMap.put("pub_name", dto.getPub_name());
 				dtoMap.put("price", dto.getPrice());
 				dtoMap.put("rental_price", dto.getRental_price());
-				jsMap.put("HomeDto"+i+"", dtoMap);
+				dtoMap.put("intro", dto.getIntro());
+				dtoMap.put("star_point",dto.getStar_point());
+				dtoMap.put("star_count",dto.getStar_count());
+				dtoMap.put("keyword",getTag);
+				
+				arrT.add(dtoMap);
+				jsArr.add(arrT);
+				
+				//가지고있는 키워드 가져오기
 			}
-			json.put("tagList", jsMap);
+			json.put("tagList", jsArr);
+			json.put("pageNumber", pageNumber);
+			json.put("boardSize", boardSize);
+			json.put("tagListCount", tagListCount);
 			
 			String text=JSONValue.toJSONString(json);
 //			LogAspect.info(LogAspect.logMsg + text);

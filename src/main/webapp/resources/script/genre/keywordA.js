@@ -26,6 +26,9 @@ $(function(){
 		$(group).each(function(i, ex) {
             var fieldset=document.createElement("fieldset");
             $(fieldset).addClass("keyword_filed");
+            if(cateNum==3){
+            	$(fieldset).addClass("fantasyKeyword");
+            }
             $("#keyword_top_list").append(fieldset);
             
             var fieldDiv=document.createElement("div");
@@ -99,13 +102,14 @@ $(function(){
 			$.ajax({
 				type:"get",
 				url: root+"/keywordSearch.do",
-				data:sendData,
-				success: list,
-				error:function(jqXHR, textStatus, errorThrown ) {	// 이곳의 ajax에서 에러가 나면 얼럿창으로 에러 메시지 출력
-			    	alert(jqXHR);
-			    	alert(textStatus);
-			    	alert(errorThrown);
-			    }
+				dataType:"json",
+				data:sendData+"&pageNumber=1",
+				success: list
+//				error:function(jqXHR, textStatus, errorThrown ) {	// 이곳의 ajax에서 에러가 나면 얼럿창으로 에러 메시지 출력
+//			    	alert(jqXHR);
+//			    	alert(textStatus);
+//			    	alert(errorThrown);
+//			    }
 			});
 		}
 	});
@@ -114,9 +118,122 @@ $(function(){
 });
 
 function list(json){
-	var obj = JSON.parse(json);
-	alert(obj.tagList[0]);
+	$(".tagListCount").text(json.tagListCount);
+//	alert(json.tagList[0][0].book_num);
+	
+	makeList(json);
 }
+
+function makeList(json){
+	//innerHTML 버전
+	var listLength=json.tagList.length;
+//	alert(listLength);
+	
+	var abc=document.getElementById("keywordTagList");
+	//함수 :  goDetail='location.href="'${root}/detail.do?book_num='+json.tagList[i][0].book_num+"'
+	$(json.tagList).each(function(i,e){
+		abc.innerHTML+=
+			"<li class='mf-book-item'>" +
+				"<div class='mf-book-thumbnail'>" +
+					"<div class='mf-book-thumbnail-image' onclick='goDetail("+json.tagList[i][0].book_num+")'>" +
+						"<img class='' src='"+json.tagList[i][0].img_path+"' alt='image' />" +
+					"</div>" +
+				"</div>" +
+				"<div class='mf-book-metadata'>" +
+					"<h3 class='book-metadata-text' onclick='goDetail("+json.tagList[i][0].book_num+")'>"+json.tagList[i][0].book_name +"</h3>" +
+					"<p class='book-metadata-author'>" +
+						"<a class='' href='${root}/author.do?authorNum="+json.tagList[i][0].authorNum+"'>"+json.tagList[i][0].authorName+"</a>" +
+					"</p>" +
+					"<p class='book-metadata-translator hidden-block'>" +
+						"<a class='' href='${root}/author.do'></a>" +
+					"</p>" +
+					"<p class='book-metadata-publisher'>" +
+						"<a class='' href='${root}/author.do?pun_num="+json.tagList[i][0].pub_num+"'>"+json.tagList[i][0].pub_name+"</a>" +
+					"</p>" +
+					"<span class='trigger-block hidden-block' onclick='createStarIcon(this.nextElementSibling,"+json.tagList[i][0].star_point+")'></span>" +
+					"<div class='content-star-rate'>" +
+						"<span class='star-icon-field material-icons'></span>" +
+						"<span class='non-star-icon-field material-icons'></span>" +
+						"<span class='count-field'>"+json.tagList[i][0].star_count+"</span>" +
+					"</div>" +
+					"<pre class='book-metadata-description'>" +json.tagList[i][0].intro+ "</pre>" +
+					"<p class='book-metadata-price hidden-block'>" +
+						"<span class='price-rent'></span>" +
+					"</p>" +
+					"<p class='book-metadata-price'>" +
+						"<span class='price-purchase'>무료</span>" +
+					"</p>" +
+					"<div class='keyword_bottom_book_hava_key keyword_choice'>" +
+						"<ul id='getKeyTag"+i+"'>";
+		
+		var aaa=document.getElementById("getKeyTag"+i);
+		for(j=0;j<json.tagList[i][0].keyword.length;j++){
+			aaa.innerHTML+="<li><button type='button' class='bf-button keyword-btn'>"+json.tagList[i][0].keyword[j]+"</button></li>";
+		}
+		
+		abc.innerHTML+="</ul>" +
+					"</div>" +	
+				"</div>" +
+				"</li>";
+	});
+	
+	
+//	//책 정보 뿌려주기
+////	alert(json.tagList.length);
+//	$(json.tagList).each(function(i,e){
+//		var liList=document.createElement("li");
+//		$(liList).addClass("mf-book-item");
+//		$(".mf-book-list").append(liList);
+//		
+//		var divFir=document.createElement("div");
+//		$(divFir).addClass("mf-book-thumbnail");
+//		liList.append(divFir);
+//		
+//		var divFirDiv=document.createElement("div");
+//		$(divFirDiv).addClass("mf-book-thumbnail-image");
+//		$(divFirDiv).attr("onclick","goDetail("+json.tagList[i][0].book_num+")");
+//		divFir.append(divFirDiv);
+//		
+//		var divFirDivImg=document.createElement("img");
+//		$(divFirDivImg).attr({
+//			src:json.tagList[i][0].img_path,
+//			alt:"image"
+//		});
+//		
+//		var divSecond=document.createElement("div");
+//		$(divSecond).addClass("mf-book-metadata");
+//		liList.append(divSecond);
+//		
+//		var secondH3=document.createElement("h3");
+//		$(secondH3).addClass("book-metadata-text");
+//		$(secondH3).attr("onclick","goDetail("+json.tagList[i][0].book_num+")");
+//		$(secondH3).text(json.tagList[i][0].book_name);
+//		divSecond.append(secondH3);
+//		
+//		//작가이름
+//		var secondP1=document.createElement("p");
+//		$(secondP1).addClass("book-metadata-author");
+//		divSecond.append(secondP1);
+//		
+//		var secondP1a=document.createElement("a");
+//		$(secondP1a).attr("onclick","goAuthor("+json.tagList[i][0].authorNum+")");
+//		$(secondP1a).text(json.tagList[i][0].authorName);
+//		secondP1.append(secondP1a);
+//		
+//		//출판사이름
+//		var secondP2=document.createElement("p");
+//		$(secondP2).addClass("book-metadata-publisher");
+//		divSecond.append(secondP2);
+//		
+//		var secondP2a=document.createElement("a");
+//		$(secondP2a).attr("onclick","goAuthor("+json.tagList[i][0].pub_num+")");
+//		$(secondP2a).text(json.tagList[i][0].pub_name);
+//		secondP2.append(secondP2a);
+//		
+//		//별점
+//		//
+	}
+//}
 
 function display(listCount){
 	if(listCount==0){

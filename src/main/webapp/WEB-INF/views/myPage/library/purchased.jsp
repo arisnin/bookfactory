@@ -15,7 +15,11 @@
 		<section class="wrap-container mf-purchased-box">
 			<!-- 타이틀 -->
 			<div class="bf-title-row title-type4">
-				<h3>구매목록<span class="book-count">${myPagePurchasedPageDtoList.size()}</span></h3>
+				<h3>구매목록<span class="book-count">${purchased_count}</span>
+					<c:if test="${searchValue != null}">
+					><span class="search_value">'${searchValue}'</span>검색결과<span class="book-count">${myPagePurchasedPageDtoList.size()}</span>
+					</c:if>
+				</h3>
 			</div>
 			
 			<!-- 구매 서비스 타입  -->
@@ -27,11 +31,12 @@
 					<li><a href="javascript:alert('이용권 미구현')">이용권</a></li>
 				</ul>
 				
-				<!-- 쿼리문을 바꿔야함. 책 제목, 저자를 검색해야하며,  -->
+				<!-- 쿼리문을 바꿔야함. 책 제목, 저자를 검색해야하며, enter치면 조건에 맞는 데이터만 뜸 -->
 				<div class="search-box">
-					<form method="get" autocomplete="on">
+					<form name="purchased_search" method="get" autocomplete="on" action="${root}/library/purchased.do">
 						<span class="material-icons">search</span>
-						<input class="search-word" type="text" name="search-word" placeholder="책 제목 또는 저자명" />
+						<input id="search-word" class="search-word" type="text" name="searchWord" placeholder="책 제목 또는 저자명" onkeyup="purchasedFun()"/>
+						<input type="hidden" value="${purchased_count}" name="purchased_count"/>
 					</form>
 				</div>
 			</div>
@@ -97,7 +102,16 @@
 			$("form[name=purchased-form-list]").submit();
 		}
 		
-		function autocomplete(inp, arr){
+		var input = $(":input[name=searchWord]").val();
+		
+		function purchasedFun(event) {
+		    event.preventDefault();
+		    if (event.keyCode === 13) {
+		        $("form[name=purchased_search]").submit();
+		    }
+		}
+		
+		/* function autocomplete(inp, arr){
 			var currentFocus;
 			
 			inp.addEventListener("input", function(e){
@@ -129,7 +143,7 @@
 					}
 				}
 			});
-		}
+		} */
 			/* inp.addEventListener("keydown", function(e){
 				var x = document.getElementById(this.id + "autocomplete-list");
 				

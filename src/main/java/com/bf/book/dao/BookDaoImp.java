@@ -213,4 +213,10 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.selectList("getDetailCate",book_num);
 	}
 
+	@Override
+	public List<String> getKeyword(long book_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getKeyword", book_num);
+	}
+
 }

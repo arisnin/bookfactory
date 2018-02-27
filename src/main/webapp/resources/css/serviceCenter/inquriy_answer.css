@@ -90,7 +90,8 @@
 	color:#888;
 }
 
-.serviceCenter_inquriy_answer_right .answer{
+.serviceCenter_inquriy_answer_right .answer,
+.serviceCenter_inquriy_answer_right .answer_complete{
 	display: inline-block;
 	position: relative;
 	border: none;
@@ -112,6 +113,10 @@
 	border: 1px solid #5D568C;
 	background: #776BCE;
 	color: white;
+}
+
+.serviceCenter_inquriy_answer_right .answer{
+	background: #777;
 }
 
 .serviceCenter_inquriy_answer p{
