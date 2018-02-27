@@ -1,21 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="root" value="${pageContext.request.contextPath}" />
-<link href="${root}/css/basic/reset.css" type="text/css"
-	rel="stylesheet">
-<link href="${root}/css/basic/commons.css" type="text/css"
-	rel="stylesheet" />
-<link href="${root}/css/serviceCenter/inquriy_list.css"
-	type="text/css" rel="stylesheet">
-<link href="${root}/css/serviceCenter/FAQ.css"
-	type="text/css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link href="${root}/css/basic/reset.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet" />
+<link href="${root}/css/serviceCenter/inquriy_list.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/serviceCenter/FAQ.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
 
 <title>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</title>
 </head>
@@ -46,17 +43,7 @@
 				</div>
 			</div>
 
-			<div class="serviceCenter_inquriy_list_search_cd">
-				<div class="serviceCenter_inquriy_list_search_cd_text">상태</div>
-				<div>
-					<select>
-						<option>모든 상태</option>
-						<option>접수완료</option>
-						<option>처리중</option>
-						<option>답변완료</option>
-					</select>
-				</div>
-			</div>
+			
 		</div>
 
 		<div class="serviceCenter_inquriy_list_list">
@@ -66,11 +53,31 @@
 				<div>상태</div>
 			</div>
 			
-			<div class="serviceCenter_inquriy_list_answer">
-				<div><a href="${root }/serviceCenter/inquriy_answer.do">내용내용</a></div>
-				<div>2018년 1월 1일</div>
-				<div class="answer">답변완료</div>
-			</div>
+			<c:if test="${count==0 }">
+				<div>
+					<div>검색된 요청이 없습니다.</div>
+				</div>
+			</c:if>
+			
+			<c:if test="${count>0 }">
+				<c:forEach var="BoardContactDto" items="${inquriyList }">
+					<div class="serviceCenter_inquriy_list_answer">
+						<div><a href="javascript:inquriyRead('${root}','${BoardContactDto.num}')">${BoardContactDto.title}</a></div>
+						<div><fmt:formatDate value="${BoardContactDto.write_date}" pattern="yyyy-MM-dd" /></div>
+						<c:if test="${BoardContactDto.reply_check==null }">
+					<div class="answer">접수완료</div>
+					</c:if>					
+					<c:if test="${BoardContactDto.reply_check!=null }">
+					<div class="answer_complete">답변완료</div>
+					</c:if>
+						
+					</div>
+				</c:forEach>
+			</c:if>
+			
+			<c:if test="answer_view==complete_view">
+			zz
+			</c:if>
 		</div>
 
 	</div>

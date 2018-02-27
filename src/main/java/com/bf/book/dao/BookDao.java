@@ -9,6 +9,7 @@ import com.bf.book.dto.ReviewPageDto;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
+import com.bf.book.dto.DetailCateDto;
 import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
@@ -36,9 +37,6 @@ public interface BookDao {
 	List<HomeDto> getPaperHomeBookInfoList(HashMap<String, Integer> map);
 	int getPaperNewBookCount(HashMap<String, String> cateMap);
 	List<NewBookDto> getPaperNewBookList(HashMap<String, String> cateMap);
-	int getOverlapThirdCate(long book_num);
-	List<String> getOverlapCateName(long book_num);
-	int getThirdCateNum(String third_cate_name);
 	DetailDto getBookAllInfo(long book_num);
 	int getSecondCateNum(long book_num);
 	String getSecondCateName(long book_num);
@@ -50,5 +48,7 @@ public interface BookDao {
 	int deleteReview(String id, int num);
 	AuthorDto getAuthorInfo(long author_num);
 	List<HomeDto> getAuthorBook(long author_num);
+	List<DetailCateDto> getDetailCate(long book_num);
+	List<String> getKeyword(long book_num);
 
 }

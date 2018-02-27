@@ -13,143 +13,7 @@
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 <%-- <script type="text/javascript" src="${root}/script/genre/keyword_check.js"></script> --%>
-<script type="text/javascript">
-$(function(){
-	//단행본, 연재 숨기는 이벤트
-	$(".hw_sub_wrap").hide();
-	
-	var cateNum=$("input[name=firstCate]").val();
-	var jsonFile="";
-	
-	if(cateNum==2){
-		jsonFile="keyword_romance.json";
-	}else if(cateNum==3){
-		jsonFile="keyword_fantasy.json";
-	}else if(cateNum==4){
-		jsonFile="keyword_comic.json";
-	}else if(cateNum==5){
-		jsonFile="keyword_bl.json";
-	}
-	
-	$.getJSON(jsonFile, function(data){ 
-		$(".keyword_top_head > .title").text(data["title"]);
-		
-		var group=data.sets[0].groups;
-		
-		$(group).each(function(i, ex) {
-            var fieldset=document.createElement("fieldset");
-            $(fieldset).addClass("keyword_filed");
-            $("#keyword_top_list").append(fieldset);
-            
-            var fieldDiv=document.createElement("div");
-            $(fieldDiv).addClass("keyword_top_list_show wrap-container");
-            fieldset.append(fieldDiv);
-            
-            var titleDiv=document.createElement("div");
-            $(titleDiv).text(group[i].title);
-            fieldDiv.append(titleDiv);
-            
-            var listDiv=document.createElement("div");
-            $(listDiv).addClass("keyword_top_list_button wrap-container");
-            fieldDiv.append(listDiv);
-            
-            var listUl=document.createElement("ul");
-            listDiv.append(listUl);
-            
-            var tags=group[i].tags;
-            $(tags).each(function(j, ext){
-	            var listLi=document.createElement("li");
-	            listUl.append(listLi);
-	            
-	            var label=document.createElement("label");
-	            $(label).addClass("bf-custom-checkbox checkbox-btn");
-	            listLi.append(label);
-	            
-	            var labelCheck=document.createElement("input");
-	            $(labelCheck).attr("type","checkbox");
-	            $(labelCheck).attr("title",tags[j].name);
-	            label.append(labelCheck);
-	            
-	            var labelSpan=document.createElement("span");
-	            $(labelSpan).addClass("bf-button bf-transparent-btn");
-	            $(labelSpan).text(tags[j].name);
-	            label.append(labelSpan);
-            });
-        });
-	});
-	
-	var listCount=0;
-	var sendData="tags=";
-	
-	//키워드 선택시 밑에 나오는 태그
-	$("#keyword_top_list").on("click",".keyword_top_list_button label > input",function(){
-		event.preventDefault();
-		
-		if (this.checked == true) {
-// 			alert('true');
-			$(this).parent().parent().css({
-				backgroundColor : "#A59AF6"
-			});
-			
-			$(".keyword_not_choice").attr("style","display:none");
-			$(".keyword_choice").attr("style","display:inline-block");
-			
-			var key=document.createElement("li");
-			
-			var button = '<button type="button" class="bf-button keyword-btn">'+$(this).next().text()+'<span class="button_x">X</span></button>';
-			key.innerHTML = button;
-
-			$(".keyword_choice ul.tag-list").append(key);
-			
-			sendData+=$(this).next().text()+",";
-// 			alert(sendData);
-			
-			listCount=listCount+1;
-			display(listCount);
-			
-			var root=$("input[name=rootJS]").val();
-
-			$.ajax({
-				type:"get",
-				url: root+"/keywordSearch.do",
-				data:sendData,
-				success: list,
-				error:function(jqXHR, textStatus, errorThrown ) {	// 이곳의 ajax에서 에러가 나면 얼럿창으로 에러 메시지 출력
-			    	alert(jqXHR);
-			    	alert(textStatus);
-			    	alert(errorThrown);
-			    }
-			});
-		}
-	});
-	
-	display(listCount);
-});
-
-function list(text){
-	alert(text);
-
-}
-
-function display(listCount){
-	if(listCount==0){
-		$(".keyword_no_search").attr("style","display:none");
-		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").css({
-			display:"none"
-		});
-	}else if(listCount==5){
-		$(".keyword_not_choice").attr("style","display:table");
-		$(".keyword_choice").attr("style","display:none");
-		$(".keyword_no_search").attr("style","display:none");
-		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").attr("style","display:none");
-	}else{
-		$(".keyword_not_choice").attr("style","display:none");
-		$(".keyword_no_search").attr("style","display:none");
-		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").attr("style","display:inline-block")
-	}
-}
-
-</script>
+<script type="text/javascript" src="${root}/script/genre/keywordA.js"></script>
 </head>
 <body>
 	<input type="hidden" name="rootJS" value="${root}"/>
@@ -194,7 +58,7 @@ function display(listCount){
 			<div>
 				<div class="keyword_bottom_head">
 					<div>
-						<span>158</span>
+						<span class="tagListCount">158</span>
 						<span>건의 작품이 있습니다.</span>
 					</div>
 					<div class="keyword_bottom_view_choice">
@@ -208,116 +72,7 @@ function display(listCount){
 			</div>
 				
 			<div class="keyword_bottom_book_list wrap-container">
-				<ul class="mf-book-list list-landscape">
- 					<c:forEach begin="0" end="5">
-						<li class="mf-book-item">
-							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image" onclick="location.href='${root}/detail.do'">
-									<img class="" src="//misc.ridibooks.com/cover/111000138/large" alt="image" />
-								</div>
-							</div>
-							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text" onclick="location.href='${root}/detail.do'">운현궁의 봄</h3>
-								<p class="book-metadata-author">
-									<a class="" href="${root}/author.do">김동인</a>
-								</p>
-								<p class="book-metadata-translator hidden-block">
-									<a class="" href="${root}/author.do"></a>
-								</p>
-								<p class="book-metadata-publisher">
-									<a class="" href="${root}/author.do">Public Domain Books</a>
-								</p>
-								<div class="content-star-rate">
-									<span class="star-icon-field material-icons"></span>
-									<span class="non-star-icon-field material-icons"></span>
-									<span class="count-field"> 9999명</span>
-								</div>
-								<pre class="book-metadata-description">* 이 책은 Public Domain Books 입니다. Public Domain Books란 저작자 사후 일정 기간이 경과하여 저작권이 만료된 책을 의미합니다. 회원님께서는 인터넷 상의 기타 사이트를 통해서 이 책을 찾아보실 수도 있습니다.
-	
-	1933년 4월부터 1934년 2월까지 <조선일보>에 연재된 장편소설로 <대수양(大首陽)>과 더불어 김동인의 대표적인 역사소설로 꼽힌다.
-							
-								</pre>
-								<p class="book-metadata-price hidden-block">
-									<span class="price-rent"></span>
-								</p>
-								<p class="book-metadata-price">
-									<span class="price-purchase">무료</span>
-								</p>
-								<div class="keyword_bottom_book_hava_key keyword_choice">
-									<ul>
-										<li>
-											<button type="button" class="bf-button keyword-btn">갖고있는키워드뿌려주긔</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">11111</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">2222222</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">3333</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">4444444</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">555555</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">23123</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">2132</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">11111</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">2222222</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">3333</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">4444444</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">555555</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">23123</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">2132</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">11111</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">2222222</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">3333</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">4444444</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">555555</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">23123</button>
-										</li>
-										<li>
-											<button type="button" class="bf-button keyword-btn">2132</button>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<!--  -------------------------------------------------------------------------- -->
-					</c:forEach>
-				</ul>
+				<ul class="mf-book-list list-landscape" id="keywordTagList"></ul>
 			</div>
 			
 		</div>
@@ -364,11 +119,11 @@ function display(listCount){
 		</nav>
 	</div>
 	
-	<script type="text/javascript">
-	document.querySelectorAll(".content-star-rate").forEach(function(e,i){
-		createStarIcon(e, 3.7);
-		
-	})
-	</script>
+	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
+   <script type="text/javascript">
+      Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
+         e.click();
+      });
+   </script>
 </body>
 </html>

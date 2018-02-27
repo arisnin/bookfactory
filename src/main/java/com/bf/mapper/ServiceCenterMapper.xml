@@ -6,17 +6,47 @@
 	
 	<!-- 김동환 / 고객센터 -->
 	<select id="infoCount" resultType="int">
+			select count(*) from notice
+	</select>
+	
+	<select id="infoMain" parameterType="int" resultType="com.bf.main.dto.NoticeDto">
+		select * from notice order by num desc
+	</select>
+	
+	<select id="infoRead" parameterType="int" resultType="com.bf.main.dto.NoticeDto">
+		select * from notice where num=#{num}
+	</select>
+	
+	<select id="infoSide" parameterType="int" resultType="com.bf.main.dto.NoticeDto">
+		<![CDATA[
+			select * from(
+				select rownum rnum, a.* from(
+					select * from notice order by num desc) a)
+			where rnum >=1 and rnum <=10
+		]]>	
+	</select>
+	
+	<select id="questionCount" resultType="int">
 			select count(*) from board_frequency
 	</select>
 	
-	<select id="infoMain" parameterType="int" resultType="com.bf.serviceCenter.dto.ServiceCenterDtoFre">
+	<select id="questionMain" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
 		select * from board_frequency order by num desc
 	</select>
-	
-	<select id="infoRead" parameterType="int" resultType="com.bf.serviceCenter.dto.ServiceCenterDtoFre">
+			
+	<select id="questionRead" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
 		select * from board_frequency where num=#{num}
 	</select>
-	
+		
+	<select id="questionSide" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
+		<![CDATA[
+			select * from(
+				select rownum rnum, a.* from(
+					select * from board_frequency order by num desc) a)
+			where rnum >=1 and rnum <=10
+		]]>	
+	</select>
+		
 	<insert id="board_ContactInsert" parameterType="com.bf.manager.dto.BoardContactDto">
 		insert into board_contact(num, title, content, id, write_date, category)
 		values(board_contact_num_seq.nextval, #{title}, #{content}, #{id}, #{write_date}, #{category})
@@ -27,5 +57,34 @@
 		values(board_contact_num_seq.nextval, #{title}, #{content}, #{id}, #{write_date}, #{category}, #{file_name}, #{file_size}, #{file_path})
 	</insert>
 	
+	<select id="inquriyCount" resultType="int">
+		select count(*) from board_contact
+	</select>
+	
+	<select id="inquriylistlist" parameterType="int" resultType="com.bf.manager.dto.BoardContactDto">
+		select * from board_contact order by num desc
+	</select>
+	
+	<select id="inquriyAnswer" parameterType="int" resultType="com.bf.manager.dto.BoardContactDto">
+		select * from board_contact where num=#{num}
+	</select>
+	
+	<select id="mainNotice" parameterType="int" resultType="com.bf.main.dto.NoticeDto">
+		<![CDATA[
+			select * from(
+				select rownum rnum, a.* from(
+					select * from notice order by num desc) a)
+			where rnum >=1 and rnum <=3
+		]]>	
+	</select>
+	
+	<select id="mainMany" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
+		<![CDATA[
+			select * from(
+				select rownum rnum, a.* from(
+					select * from board_frequency order by num desc) a)
+			where rnum >=1 and rnum <=3
+		]]>	
+	</select>
 	
 </mapper>

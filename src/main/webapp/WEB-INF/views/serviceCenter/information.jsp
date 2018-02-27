@@ -59,7 +59,7 @@
 
 				<div class="service_information_list">
 				<c:forEach var="infoDto" items="${infoList }"	>
-					<div><a href="javascript:readFun('${root}','${infoDto.num}')">${infoDto.title}</a></div>
+					<div><a href="javascript:infoRead('${root}','${infoDto.num}')">${infoDto.title}</a></div>
 				</c:forEach>					
 				</div>
 			</div>

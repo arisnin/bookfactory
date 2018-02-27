@@ -509,6 +509,14 @@
 	border: 0px solid red;
 }
 
+.aut{
+	display: block;
+}
+
+.illo, .trans{
+	display: none;
+}
+
 .profile_ex>div.author {
 	font-size: 1.2rem;
 	font-weight: 700;
@@ -551,6 +559,11 @@
 .profile_ex>ol.content li > span:FIRST-CHILD {
 	color: dimgray;
 }
+
+.profile_ex>ol.content li > span:last-child{
+	position: absolute;
+}
+
 .profile_ex li>span:nth-child(1) {
 	font-weight: 600;
 	margin-right: 0.625rem;
@@ -570,6 +583,8 @@
 }
 
 .profile_ex .profile_date > span.update:after {
+	position: relative;
+    top: 1px;
 	content: '업데이트';
 	display: inline-block;
 	margin-left: 0.5rem;

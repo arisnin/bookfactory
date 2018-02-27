@@ -84,9 +84,7 @@
 	margin: 0px 0.5rem;	
 }
 
-.serviceCenter_manyque_cn_cn_left li:nth-child(1){
-	background-color: #F3F0FA;
-}
+
 
 .serviceCenter_manyque_cn_cn a{
 	color: #444;	
@@ -105,4 +103,13 @@
  	font-weight: bold;
  	margin-top: 0.2rem;
  	line-height: 2.7rem;
+}
+
+.serviceCenter_manyque_cn > .serviceCenter_manyque_cn_cn >
+.serviceCenter_manyque_cn_cn_left .active{
+	background-color: #776bce60;
+}
+
+.service_information_cn_cn_left_more{
+	margin-top: 1.5rem;
 }

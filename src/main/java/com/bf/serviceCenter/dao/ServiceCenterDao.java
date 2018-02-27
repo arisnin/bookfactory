@@ -2,7 +2,9 @@ package com.bf.serviceCenter.dao;
 
 import java.util.List;
 
+import com.bf.main.dto.NoticeDto;
 import com.bf.manager.dto.BoardContactDto;
+import com.bf.manager.dto.BoardFrequencyDto;
 import com.bf.serviceCenter.dto.ServiceCenterDtoFre;
 
 /**
@@ -14,13 +16,33 @@ public interface ServiceCenterDao {
 
 	int infoCount();
 
-	List<ServiceCenterDtoFre> infoMain();
+	List<NoticeDto> infoMain();
 
-	ServiceCenterDtoFre infoRead(int num);
+	NoticeDto infoRead(int num);
 
 	ServiceCenterDtoFre infoFile(int num);
 
 	int inquriyWrite(BoardContactDto boardContactDto);
+
+	int inquriyCount();
+
+	List<BoardContactDto> inquriylistlist();
+
+	BoardContactDto inquriyAnswer(int num);
+
+	List<NoticeDto> infoSide();
+
+	int questionCount();
+
+	List<BoardFrequencyDto> questionMain();
+
+	BoardFrequencyDto questionRead(int num);
+
+	List<BoardFrequencyDto> questionSide();
+
+	List<NoticeDto> mainNotice();
+
+	List<BoardFrequencyDto> mainMany();
 
 
 }

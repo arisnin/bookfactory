@@ -40,29 +40,29 @@
 					<!-- child(1) -->
 					<div class="category">
 						<!-- 주의! 카테고리는 중복이 가능하다. 예, '소설 > 해외소설 , 소설 > SF소설'  -->
-						<c:if test="${detailDto.third_cate_num_a !=0}">
+						<c:if test="${detailDto.second_num_1 !=0}">
 							<div class="category-item">
-								<span class="main" onclick="location.href='${root}/category.do?${detailDto.second_cate_num}'">${detailDto.second_cate_name}</span>
-								<span class="sub" onclick="location.href='${root}/category.do?${detailDto.third_cate_num_a}'">${detailDto.third_cate_name_a}</span>
+								<span class="main" onclick="location.href='${root}/category.do?${detailDto.second_num_1}'">${detailDto.second_name_1}</span>
+								<span class="sub" onclick="location.href='${root}/category.do?${detailDto.third_num_1}'">${detailDto.third_name_1}</span>
 							</div>
 						</c:if>
-						<c:if test="${detailDto.third_cate_num_b !=0}">
+						<c:if test="${detailDto.second_num_2 !=0}">
 							<div class="category-item">
-								<span class="main" onclick="location.href='${root}/category.do?${detailDto.second_cate_num}'">${detailDto.second_cate_name}</span>
-								<span class="sub" onclick="location.href='${root}/category.do?${detailDto.third_cate_num_b}'">${detailDto.third_cate_name_b}</span>
+								<span class="main" onclick="location.href='${root}/category.do?${detailDto.second_num_2}'">${detailDto.second_name_2}</span>
+								<span class="sub" onclick="location.href='${root}/category.do?${detailDto.third_num_2}'">${detailDto.third_name_2}</span>
 							</div>
 						</c:if>
-						<c:if test="${detailDto.third_cate_num_c !=0}">
+						<c:if test="${detailDto.second_num_3 !=0}">
 							<div class="category-item">
-								<span class="main" onclick="location.href='${root}/category.do?${detailDto.second_cate_num}'">${detailDto.second_cate_name}</span>
-								<span class="sub" onclick="location.href='${root}/category.do?${detailDto.third_cate_num_c}'">${detailDto.third_cate_name_c}</span>
+								<span class="main" onclick="location.href='${root}/category.do?${detailDto.second_num_3}'">${detailDto.second_name_3}</span>
+								<span class="sub" onclick="location.href='${root}/category.do?${detailDto.third_num_3}'">${detailDto.third_name_3}</span>
 							</div>
 						</c:if>
 					</div>
 					<!-- child(2) -->
 					<div class="main-title">${detailDto.book_name}</div>
 					<!-- child(3) -->
-					<c:if test="${detailDto.book_sub_title!=null}">
+					<c:if test="${detailDto.book_sub_title!='없음'}">
 						<div class="sub-title">${detailDto.book_sub_title}</div>
 					</c:if>
 					
@@ -74,22 +74,22 @@
 						<!-- 글/그림 동일이물일 경우는 하나를 'hidden-block'처리하고 또 하나에 'author'와 'illustrator'를 동시에 추가한다 -->
 						<!-- 필요없는 경우는 class 속성에 'hidden-block' 을 추가 -->
 						<c:choose>
-							<c:when test="${authorDto.num==illoDto.num}">
-								<span class="author illustrator"><a href="${root}/author.do?${authorDto.num}">${authorDto.name}</a></span> 
+							<c:when test="${(detailDto.author_num==detailDto.illu_num) && detailDto.author_num!=0 && detailDto.illu_num!=0}">
+								<span class="author illustrator"><a href="${root}/author.do?${detailDto.author_num}">${auDto.name}</a></span> 
 							</c:when>
 							
 							<c:otherwise>
-								<c:if test="${authorDto.num!=0}">
-									<span class="author "><a href="${root}/author.do?${authorDto.num}">${authorDto.name}</a></span> 
+								<c:if test="${detailDto.author_num!=0}">
+									<span class="author "><a href="${root}/author.do?${detailDto.author_num}">${auDto.name}</a></span> 
 								</c:if>
-								<c:if test="${illoDto.num!=0}">
-									<span class="illustrator "><a href="${root}/author.do?${illoDto.num}">${illoDto.name}</a></span>
+								<c:if test="${detailDto.illu_num!=0}">
+									<span class="illustrator "><a href="${root}/author.do?${detailDto.illu_num}">${ilDto.name}</a></span>
 								</c:if>
 							</c:otherwise>
 						</c:choose>
 						
-						<c:if test="${transDto.num!=0}">
-							<span class="translator "><a href="${root}/author.do?${transDto.num}">${transDto.name}</a></span>
+						<c:if test="${detailDto.trans_num!=0}">
+							<span class="translator "><a href="${root}/author.do?${detailDto.trans_num}">${trDto.name}</a></span>
 						</c:if>
 					</div>
 	
@@ -158,8 +158,7 @@
 										<div>
 											<span>종이책정가</span> <span class="paper">${detailDto.book_price}원</span>
 										</div>
-										<c:set var="sailPrice" value="${detailDto.book_price*(1-(detailDto.discount*0.01))}"/>
-										<fmt:parseNumber var="sail" value="${sailPrice}" integerOnly="true"/>
+										<fmt:parseNumber var="sail" value="${detailDto.book_price*(1-(detailDto.discount*0.01))}" integerOnly="true"/>
 										<fmt:parseNumber var="discount" value="${detailDto.discount}" integerOnly="true"/>
 										<c:if test="${detailDto.discount!=0}">
 											<div>
@@ -168,16 +167,18 @@
 											</div>
 										</c:if>
 										<c:if test="${detailDto.discount==0}">
-											<span>전자책정가</span> <span class="ebook">${detailDto.book_price}원</span>
+											<div>
+												<span>전자책정가</span> <span class="ebook">${detailDto.book_price}원</span>
+											</div>
 										</c:if>
 										
 										<!-- 할인1,2가 다 존재 할 때 -->
 										<c:if test="${detailDto.discount2!=0 && detailDto.discount!=0}">
 											<div>
 												<fmt:parseNumber var="sail2" value="${sail*(1-(detailDto.discount2*0.01))}" integerOnly="true"/>
-												<fmt:parseNumber var="discount2" value="${detailDto.discount}" integerOnly="true"/>
+												<fmt:parseNumber var="discount2" value="${detailDto.discount2}" integerOnly="true"/>
 											
-												<span>판매가</span> <span class="sell">${sail2}
+												<span>판매가</span> <span class="sell">${sail2}원
 												<span class="sail">${discount2}</span></span>
 											</div>
 										</c:if>
@@ -203,7 +204,7 @@
 										</div>
 										
 										<div>
-											<span>전자책정가</span> <span class="ebook">무료
+											<span>전자책정가</span> <span class="ebook">무료</span>
 										</div>
 										
 										<div>
@@ -259,7 +260,7 @@
 				</div>
 			</div>
 			<div id="bookIntroAll">
-				<c:if test="${detailDto.intro!=null}">
+				<c:if test="${detailDto.intro!='없음'}">
 					<div class="bookIntro">
 						<div>
 							<h3>책소개</h3>
@@ -268,13 +269,11 @@
 							<div class="readAll collapse">
 								${detailDto.intro}
 							</div>
-							<button type="button">
-								펼쳐보기<i class="material-icons">arrow_drop_down</i><i class="material-icons">arrow_drop_up</i>
-							</button>
+							<button type="button">펼쳐보기<i class="material-icons">arrow_drop_down</i><i class="material-icons">arrow_drop_up</i></button>
 						</div>
 					</div>
 				</c:if>
-				<c:if test="${detailDto.pub_intro!=null}">
+				<c:if test="${detailDto.pub_intro!='없음'}">
 					<div class="bookIntro">
 						<div>
 							<h3>출판사 서평</h3>
@@ -290,124 +289,278 @@
 						</div>
 					</div>
 				</c:if>
-<%-- 				<c:if test="${authorDto!=null ||  illoDto!=null || transDto!=null}"> --%>
-<!-- 					<div id="profile"> -->
-<!-- 						<div> -->
-<!-- 							<h3>저자 프로필</h3> -->
-<!-- 						</div> -->
-<!-- 						<div class="profile_click_event"> -->
-<!-- 							<div> -->
-<!-- 								<ul> -->
-<%-- 									<c:if test="${authorDto.num!=0}"> --%>
-<%-- 										<c:choose> --%>
-<%-- 											<c:when test="${authorDto.num==illoDto.num}"> --%>
-<%-- 												<li><span>글/그림</span><a>${authorDto.name} <span class="activeBar"></span></a></li> --%>
-<%-- 											</c:when> --%>
-											
-<%-- 											<c:otherwise> --%>
-<%-- 												<c:if test="${authorDto.num!=0}"> --%>
-<%-- 													<li><span>저자</span><a>${authorDto.name} <span class="activeBar"></span></a></li> --%>
-<%-- 												</c:if> --%>
-<%-- 												<c:if test="${illoDto.num!=0}"> --%>
-<%-- 													<li><span>그림</span><a>${illoDto.name} <span></span></a></li> --%>
-<%-- 												</c:if>: --%>
-<%-- 											</c:otherwise> --%>
-<%-- 										</c:choose> --%>
-<%-- 										<c:if test="${transDto.num!=0}"> --%>
-<%-- 											<li><span>번역</span><a>${transDto.name} <span></span></a></li> --%>
-<%-- 										</c:if> --%>
-<%-- 									</c:if> --%>
-<!-- 								</ul> -->
-<!-- 							</div> -->
+				<c:if test="${detailDto.author_num!=0 ||  detailDto.illu_num!=0 || detailDto.trans_num!=0}">
+					<div id="profile">
+						<div>
+							<h3>저자 프로필</h3>
+						</div>
+						<div class="profile_click_event">
+							<div>
+								<ul>
+									<c:choose>
+										<c:when test="${(detailDto.author_num==detailDto.illu_num) && detailDto.author_num!=0 && detailDto.illu_num!=0}">
+											<li><span>글/그림</span><a>${auDto.name} <span class="activeBar"></span></a></li>
+										</c:when>
+										
+										<c:otherwise>
+											<c:if test="${detailDto.author_num!=0}">
+												<li><span>저자</span><a>${auDto.name} <span class="activeBar"></span></a></li>
+											</c:if>
+											<c:if test="${detailDto.illu_num!=0}">
+												<li><span>그림</span><a>${ilDto.name} <span></span></a></li>
+											</c:if>
+										</c:otherwise>
+									</c:choose>
+									<c:if test="${detailDto.trans_num!=0}">
+										<li><span>번역</span><a>${trDto.name} <span></span></a></li>
+									</c:if>
+								</ul>
+							</div>
 <!-- 							여기부분은 위의 태그의 이름클릭할때마다 값이 변해야함. 틀만잡음 -->
-<%-- 							<input type="hidden" name="activeAuthor" value="${authorDto}"/> --%>
-<!-- 							<div class="profile_ex"> -->
-<%-- 								<c:if test="${authorDto.name!=null }"> --%>
-<%-- 									<div class="author">${authorDto.name}</div> --%>
-<%-- 								</c:if> --%>
-<!-- 								<button class="add-notice"> -->
-<!-- 									<span class="icon-plus"></span>작가 신간알림·소식 -->
-<!-- 								</button> -->
-<!-- 								<ol class="content"> -->
-<%-- 									<c:if test="${authorDto.country_num!=0}"> --%>
-<!-- 										<li><span>국적</span><span>{authorDto.country_name}</span></li> -->
-<%-- 									</c:if> --%>
-<%-- 									<c:if test="${authorDto.birthday!=null}"> --%>
-<%-- 										<li><span>출생</span><span>${authorDto.birthday}</span></li> --%>
-<%-- 									</c:if> --%>
-<%-- 									<c:if test="${authorDto.education!=null}"> --%>
-<%-- 										<li><span>학력</span><span>${authorDto.education}</span></li> --%>
-<%-- 									</c:if> --%>
-<%-- 									<c:if test="${authorDto.debut!=null}"> --%>
-<%-- 										<li><span>데뷔</span><span>${authorDto.debut}</span></li> --%>
-<%-- 									</c:if> --%>
-<%-- 									<c:if test="${authorDto.career!=null}"> --%>
-<%-- 										<li><span>경력</span><span>${authorDto.career}</span></li> --%>
-<%-- 									</c:if> --%>
-<%-- 									<c:if test="${authorDto.awards!=null}"> --%>
-<%-- 										<li><span>수상내역</span><span>${authorDto.awards}</span></li> --%>
-<%-- 									</c:if> --%>
-<%-- 									<c:if test="${authorDto.link!=null}"> --%>
-<%-- 										<li><span>홈페이지</span><span>${authorDto.link}</span></li> --%>
-<%-- 									</c:if> --%>
-<!-- 								</ol> -->
-<!-- 								<div class="profile_date"> -->
-<%-- 									<span class="update">${authorDto.update_date}</span> <input --%>
-<!-- 										class="bf-button bf-white-btn" type="button" value="정보수정요청" /> -->
-<!-- 								</div> -->
-<%-- 								<c:if test="${authorBook!=null}"> --%>
-<!-- 									<div class="profile_masterpiece"> -->
-<!-- 										<div> -->
-<!-- 											<span>대표저서</span> -->
-<!-- 											<ol> -->
-<!-- 			<!-- 									<li>평점순</li> --> -->
-<!-- 												<li>최신순</li> -->
-<!-- 			<!-- 									<li class="activeFont">인기순</li> --> -->
-<!-- 											</ol> -->
-<!-- 										</div> -->
-<!-- 										<div class="list"> -->
-<!-- 											<ul> -->
-<%-- 												<c:forEach var="auDto" items="${authorBook}"> --%>
-<!-- 													<li class="mf-book-item"> -->
-<!-- 														<div class="mf-book-thumbnail"> -->
-<!-- 															<div class="mf-book-thumbnail-image"> -->
-<%-- 																<img class="" src="${auDto.img_path}" alt="image" /> --%>
-<!-- 															</div> -->
-<!-- 														</div> -->
-<!-- 														<div class="mf-book-metadata"> -->
-<%-- 															<h3 class="book-metadata-text">${auDto.bookName}</h3> --%>
-<!-- 															<p class="book-metadata-author"> -->
-<%-- 																<a class="" href="javascript:alert('작가페이지')">${auDto.authorName}</a> --%>
-<!-- 															</p> -->
-<!-- 															<p class="book-metadata-translator"></p> -->
-<!-- 															<div class="content-star-rate"> -->
-<!-- 																<span class="star-icon-field material-icons"></span><span -->
-<!-- 																	class="non-star-icon-field material-icons"></span> <span -->
-<!-- 																	class="count-field"> 9999명</span> -->
-<!-- 															</div> -->
-<!-- 														</div> -->
-<!-- 													</li> -->
-<%-- 												</c:forEach> --%>
-<!-- 											</ul> -->
-<!-- 										</div> -->
-<!-- 										대표저서가 5권 이하일 때는 버튼을 'hidden-block' 처리 해야함 -->
-<%-- 										<c:if test="${fn:length(authorBook)>5}"> --%>
-<%-- 											<a class="bf-button bf-white-btn bf-animated-btn" href="${root}/author.do">출간작 전체보기</a> --%>
-<%-- 										</c:if> --%>
-<!-- 									</div> -->
-<%-- 								</c:if> --%>
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<%-- 				</c:if> --%>
-				<c:if test="${authorDto.describe!=null}">
+							<div class="profile_ex aut">
+								<c:if test="${detailDto.author_num!=0 }">
+									<div class="author">${auDto.name}</div>
+								
+									<button class="add-notice">
+										<span class="icon-plus"></span>작가 신간알림·소식
+									</button>
+									<ol class="content">
+										<c:if test="${auDto.country_name!='NOT'}">
+											<li><span>국적</span><span>${auDto.country_name}</span></li>
+										</c:if>
+										<c:if test="${auDto.birthday!='없음'}">
+											<li><span>출생</span><span>${auDto.birthday}</span></li>
+										</c:if>
+										<c:if test="${auDto.education!='없음'}">
+											<li><span>학력</span><span>${auDto.education}</span></li>
+										</c:if>
+										<c:if test="${auDto.debut!='없음'}">
+											<li><span>데뷔</span><span>${auDto.debut}</span></li>
+										</c:if>
+										<c:if test="${auDto.career!='없음'}">
+											<li><span>경력</span><span>${auDto.career}</span></li>
+										</c:if>
+										<c:if test="${auDto.awards!='없음'}">
+											<li><span>수상내역</span><span>${auDto.awards}</span></li>
+										</c:if>
+										<c:if test="${auDto.link!='없음'}">
+											<li><span>홈페이지</span><span>${auDto.link}</span></li>
+										</c:if>
+									</ol>
+									<div class="profile_date">
+										<span class="update"><fmt:formatDate value="${auDto.update_date}" pattern="yyyy년 MM월 dd일"/></span> 
+										<input class="bf-button bf-white-btn" type="button" value="정보수정요청" />
+									</div>
+									<c:if test="${authorBook!=null}">
+										<div class="profile_masterpiece">
+											<div>
+												<span>대표저서</span>
+												<ol>
+				<!-- 									<li>평점순</li> -->
+													<li>최신순</li>
+				<!-- 									<li class="activeFont">인기순</li> -->
+												</ol>
+											</div>
+											<div class="list">
+												<ul>
+													<c:forEach var="author" items="${authorBook}">
+														<li class="mf-book-item">
+															<div class="mf-book-thumbnail">
+																<div class="mf-book-thumbnail-image" onclick="location.href='${root}/detail.do?book_num=${author.book_num}'">
+																	<img class="" src="${author.img_path}" alt="image" />
+																</div>
+															</div>
+															<div class="mf-book-metadata">
+																<h3 class="book-metadata-text" onclick="location.href='${root}/detail.do?book_num=${author.book_num}'">${author.bookName}</h3>
+																<p class="book-metadata-author">
+																	<a class="" href="javascript:alert('작가페이지')">${author.authorName}</a>
+																</p>
+																<p class="book-metadata-translator"></p>
+																<div class="content-star-rate">
+																	<span class="star-icon-field material-icons"></span><span
+																		class="non-star-icon-field material-icons"></span> <span
+																		class="count-field"> 9999명</span>
+																</div>
+															</div>
+														</li>
+													</c:forEach>
+												</ul>
+											</div>
+<!-- 											대표저서가 5권 이하일 때는 버튼을 'hidden-block' 처리 해야함 -->
+											<c:if test="${fn:length(authorBook)>5}">
+												<a class="bf-button bf-white-btn bf-animated-btn" href="${root}/author.do">출간작 전체보기</a>
+											</c:if>
+										</div>
+									</c:if>
+								</c:if>
+							</div>
+							
+							<div class="profile_ex illo">
+								<c:if test="${detailDto.illu_num!=0 }">
+									<div class="author">${ilDto.name}</div>
+								
+									<button class="add-notice">
+										<span class="icon-plus"></span>작가 신간알림·소식
+									</button>
+									<ol class="content">
+										<c:if test="${ilDto.country_name!='NOT'}">
+											<li><span>국적</span><span>${ilDto.country_name}</span></li>
+										</c:if>
+										<c:if test="${ilDto.birthday!='없음'}">
+											<li><span>출생</span><span>${ilDto.birthday}</span></li>
+										</c:if>
+										<c:if test="${ilDto.education!='없음'}">
+											<li><span>학력</span><span>${ilDto.education}</span></li>
+										</c:if>
+										<c:if test="${ilDto.debut!='없음'}">
+											<li><span>데뷔</span><span>${ilDto.debut}</span></li>
+										</c:if>
+										<c:if test="${ilDto.career!='없음'}">
+											<li><span>경력</span><span>${ilDto.career}</span></li>
+										</c:if>
+										<c:if test="${ilDto.awards!='없음'}">
+											<li><span>수상내역</span><span>${ilDto.awards}</span></li>
+										</c:if>
+										<c:if test="${ilDto.link!='없음'}">
+											<li><span>홈페이지</span><span>${ilDto.link}</span></li>
+										</c:if>
+									</ol>
+									<div class="profile_date">
+										<span class="update"><fmt:formatDate value="${ilDto.update_date}" pattern="yyyy년 MM월 dd일"/></span> 
+										<input class="bf-button bf-white-btn" type="button" value="정보수정요청" />
+									</div>
+									<c:if test="${illorBook!=null}">
+										<div class="profile_masterpiece">
+											<div>
+												<span>대표저서</span>
+												<ol>
+				<!-- 									<li>평점순</li> -->
+													<li>최신순</li>
+				<!-- 									<li class="activeFont">인기순</li> -->
+												</ol>
+											</div>
+											<div class="list">
+												<ul>
+													<c:forEach var="author" items="${illorBook}">
+														<li class="mf-book-item">
+															<div class="mf-book-thumbnail">
+																<div class="mf-book-thumbnail-image" onclick="location.href='${root}/detail.do?book_num=${author.book_num}'">
+																	<img class="" src="${author.img_path}" alt="image" />
+																</div>
+															</div>
+															<div class="mf-book-metadata">
+																<h3 class="book-metadata-text" onclick="location.href='${root}/detail.do?book_num=${author.book_num}'">${author.bookName}</h3>
+																<p class="book-metadata-author">
+																	<a class="" href="javascript:alert('작가페이지')">${author.authorName}</a>
+																</p>
+																<p class="book-metadata-translator"></p>
+																<div class="content-star-rate">
+																	<span class="star-icon-field material-icons"></span><span
+																		class="non-star-icon-field material-icons"></span> <span
+																		class="count-field"> 9999명</span>
+																</div>
+															</div>
+														</li>
+													</c:forEach>
+												</ul>
+											</div>
+<!-- 											대표저서가 5권 이하일 때는 버튼을 'hidden-block' 처리 해야함 -->
+											<c:if test="${fn:length(illorBook)>5}">
+												<a class="bf-button bf-white-btn bf-animated-btn" href="${root}/author.do">출간작 전체보기</a>
+											</c:if>
+										</div>
+									</c:if>
+								</c:if>
+							</div>
+							
+							<div class="profile_ex trans">
+								<c:if test="${detailDto.trans_num!=0 }">
+									<div class="author">${trDto.name}</div>
+								
+									<button class="add-notice">
+										<span class="icon-plus"></span>작가 신간알림·소식
+									</button>
+									<ol class="content">
+										<c:if test="${trDto.country_name!='NOT'}">
+											<li><span>국적</span><span>${trDto.country_name}</span></li>
+										</c:if>
+										<c:if test="${trDto.birthday!='없음'}">
+											<li><span>출생</span><span>${trDto.birthday}</span></li>
+										</c:if>
+										<c:if test="${trDto.education!='없음'}">
+											<li><span>학력</span><span>${trDto.education}</span></li>
+										</c:if>
+										<c:if test="${trDto.debut!='없음'}">
+											<li><span>데뷔</span><span>${trDto.debut}</span></li>
+										</c:if>
+										<c:if test="${trDto.career!='없음'}">
+											<li><span>경력</span><span>${trDto.career}</span></li>
+										</c:if>
+										<c:if test="${trDto.awards!='없음'}">
+											<li><span>수상내역</span><span>${trDto.awards}</span></li>
+										</c:if>
+										<c:if test="${trDto.link!='없음'}">
+											<li><span>홈페이지</span><span>${trDto.link}</span></li>
+										</c:if>
+									</ol>
+									<div class="profile_date">
+										<span class="update"><fmt:formatDate value="${trDto.update_date}" pattern="yyyy년 MM월 dd일"/></span> 
+										<input class="bf-button bf-white-btn" type="button" value="정보수정요청" />
+									</div>
+									<c:if test="${transBook!=null}">
+										<div class="profile_masterpiece">
+											<div>
+												<span>대표저서</span>
+												<ol>
+				<!-- 									<li>평점순</li> -->
+													<li>최신순</li>
+				<!-- 									<li class="activeFont">인기순</li> -->
+												</ol>
+											</div>
+											<div class="list">
+												<ul>
+													<c:forEach var="author" items="${transBook}">
+														<li class="mf-book-item">
+															<div class="mf-book-thumbnail">
+																<div class="mf-book-thumbnail-image" onclick="location.href='${root}/detail.do?book_num=${author.book_num}'">
+																	<img class="" src="${author.img_path}" alt="image" />
+																</div>
+															</div>
+															<div class="mf-book-metadata">
+																<h3 class="book-metadata-text" onclick="location.href='${root}/detail.do?book_num=${author.book_num}'">${author.bookName}</h3>
+																<p class="book-metadata-author">
+																	<a class="" href="javascript:alert('작가페이지')">${author.authorName}</a>
+																</p>
+																<p class="book-metadata-translator"></p>
+																<div class="content-star-rate">
+																	<span class="star-icon-field material-icons"></span><span
+																		class="non-star-icon-field material-icons"></span> <span
+																		class="count-field"> 9999명</span>
+																</div>
+															</div>
+														</li>
+													</c:forEach>
+												</ul>
+											</div>
+<!-- 											대표저서가 5권 이하일 때는 버튼을 'hidden-block' 처리 해야함 -->
+											<c:if test="${fn:length(transBook)>5}">
+												<a class="bf-button bf-white-btn bf-animated-btn" href="${root}/author.do">출간작 전체보기</a>
+											</c:if>
+										</div>
+									</c:if>
+								</c:if>
+							</div>
+						</div>
+					</div>
+				</c:if>
+				<c:if test="${detailDto.author_num!=0}">
 					<div class="bookIntro">
 						<div>
 							<h3>저자 소개</h3>
 						</div>
 						<div class="bookIntro_con">
 							<div class="readAll collapse">
-								${authorDto.describe}
+								${auDto.describe}
 							</div>
 							<button type="button">
 								펼쳐보기<i class="material-icons">arrow_drop_down</i><i

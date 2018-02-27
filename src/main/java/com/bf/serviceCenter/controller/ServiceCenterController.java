@@ -45,9 +45,17 @@ public class ServiceCenterController {
 	 * comment : 고객센터 연결
 	 */
 	@RequestMapping(value = "/serviceCenter/main.do" , method = RequestMethod.GET)
-	public String serviceCenterMain(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterMain(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("서비스 센터");
-		return "serviceCenter/main.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterMain(mav);
+		
+		//return "serviceCenter/main.solo";
+		return mav;
 	}
 		
 	
@@ -99,13 +107,12 @@ public class ServiceCenterController {
 	}
 	
 	@RequestMapping(value = "/serviceCenter/inquriy_list2.do" , method = RequestMethod.GET)
-	public ModelAndView serviceCenterInquriyList(HttpServletRequest request, HttpServletResponse response, BoardContactDto boardContactDto) {
+	public ModelAndView serviceCenterInquriyList(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("문의내역");
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("request", request);
-		mav.addObject("boardContactDto", boardContactDto);
 		
 		serviceCenterService.inquriyList(mav);
 		
@@ -115,9 +122,17 @@ public class ServiceCenterController {
 	}
 		
 	@RequestMapping(value = "/serviceCenter/inquriy_answer.do" , method = RequestMethod.GET)
-	public String serviceCenterInquriyAnswer(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterInquriyAnswer(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("문의내역 답변");
-		return "serviceCenter/inquriy_answer.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.inquriyAnswer(mav);
+		
+		//return "serviceCenter/inquriy_answer.solo";
+		return mav;
 	}
 	
 	@RequestMapping(value = "/serviceCenter/information.do" , method = RequestMethod.GET)
@@ -166,15 +181,31 @@ public class ServiceCenterController {
 	
 	
 	@RequestMapping(value = "/serviceCenter/manyque.do" , method = RequestMethod.GET)
-	public String serviceCenterManyQuestion(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterManyQuestion(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("자주 묻는 질문");
-		return "serviceCenter/manyque.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterQuestion(mav);
+		
+		//return "serviceCenter/manyque.solo";
+		return mav;
 	}
 	
 	@RequestMapping(value = "/serviceCenter/manyque_content.do" , method = RequestMethod.GET)
-	public String serviceCenterManyQuestionContent(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterManyQuestionContent(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("자주 묻는 질문_내용");
-		return "serviceCenter/manyque_content.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterManyQuestionContent(mav);
+		
+		//return "serviceCenter/manyque_content.solo";
+		return mav;
 	}
 	
 	@RequestMapping(value = "/serviceCenter/id_login.do" , method = RequestMethod.GET)

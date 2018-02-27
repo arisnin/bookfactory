@@ -146,7 +146,7 @@
 						</div>
 					</div>
 					<!-- ID 정보는 비즈니스 로직에서 유효세션으로부터 직접 가져다 써야합니다. -->
-					<input type="hidden" name="book_num" value="${'1004'}"/>
+					<input type="hidden" name="book_num" value="${param.book_num}"/>
 					<c:if test="${reviewSelf.num != null}">
 						<input type="hidden" name="num" value="${reviewSelf.num}"/>
 					</c:if>
@@ -262,7 +262,7 @@
 			</c:if>
 			</ul><!-- End : review-list-box -->
 			<div class="review-more-button">
-				<button type="button" class="bf-button bf-white-btn" onclick="appendReviewList(this)"><span class="more-count">${reviewListSize == 0 ? '' : reviewListSize - 10}</span> 개 더보기</button>
+				<button type="button" class="bf-button bf-white-btn" onclick="appendReviewList(this)"><span class="more-count">${reviewListSize == 0 ? '' : (reviewListSize > 10 ? reviewListSize - 10 : 0)}</span> 개 더보기</button>
 			</div>
 			<button type="button" class="bf-button bf-notice-btn bf-transparent-btn bf-animated-btn" value="false" onclick="collapseViewToggle(this)">
 				구매자 표시 기준은 무엇인가요?

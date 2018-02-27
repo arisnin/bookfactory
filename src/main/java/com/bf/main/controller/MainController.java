@@ -62,9 +62,9 @@ public class MainController {
 	 * 메인 > 전체분야 > 카테고리 페이지
 	 */
 	@RequestMapping(value = "/category.do")
-	public String category(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("category()");
-		return "category/category.main";
+	public ModelAndView category(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("category():" + request.getHeader("referer"));
+		return mainService.category(new ModelAndView("category/category.main").addObject("request", request));
 	}
 
 	/**

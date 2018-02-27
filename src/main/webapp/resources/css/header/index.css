@@ -148,6 +148,22 @@
 	padding: 0;
 }
 
+/* 전체보기 메뉴에서 얘네들 깨져서*/
+#hw_all_menu > div > div.hw_menu_box.hw_menu_general > div:nth-child(10) > ul{
+	position: absolute;
+    top: -54px;
+}
+
+#hw_all_menu > div > div.hw_menu_box.hw_menu_general > div:nth-child(14) > ul{
+    position: absolute;
+    top: -27px;
+}
+
+#hw_all_menu > div > div.hw_menu_box.hw_menu_general > div:nth-child(16) > ul{
+    position: absolute;
+    top: -280px;	
+}
+
 .hw_mid_item {
 	background: 0 0;
 	vertical-align: top;
