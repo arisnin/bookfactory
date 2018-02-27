@@ -20,10 +20,10 @@
 	<select id="getPreferenceTotalCount2" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.StatPreferenceDto">
 		SELECT * FROM(
 		SELECT ROWNUM RNUM, F.* FROM(
-		SELECT A.BOOK_NUM BOOK_NUM,A.NAME BOOK_NAME, C.NAME AUTHOR_NAME, A.PREFERENCE preference, D.NAME PUB_NAME, NVL(sp,0) SCORE
+		SELECT DISTINCT A.BOOK_NUM BOOK_NUM,A.NAME BOOK_NAME, C.NAME AUTHOR_NAME, A.PREFERENCE preference, D.NAME PUB_NAME, NVL(sp,0) SCORE
 		FROM BOOKM A, BOOK_CATEGORY B, AUTHOR C, PUBLISHER D, (SELECT AVG(STAR_POINT) SP, BOOK_NUM FROM REVIEW GROUP BY BOOK_NUM) E 
 		WHERE A.BOOK_NUM = B.BOOK_NUM AND CATE1_NUM = #{cate_num} 
-		and A.AUTHOR_NUM = C.NUM and A.PUB_NUM = D.PUB_NUM and A.BOOK_NUM = e.book_num
+		and A.AUTHOR_NUM = C.NUM and A.PUB_NUM = D.PUB_NUM and A.BOOK_NUM = e.book_num(+)
 		ORDER BY A.PREFERENCE DESC
 		) f) where rnum =#{rnum}
 	</select>

@@ -30,6 +30,7 @@ import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.member.model.User;
+import com.bf.book.dto.DetailCateDto;
 import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
@@ -99,10 +100,12 @@ public class BookServiceImp implements BookService {
 			if (user != null) {
 				ReviewPageDto reviewSelf = bookDao.selectReviewSelf(book_num, user.getUsername());
 				
-				if (reviewSelf != null) reviewRequestUrl = request.getContextPath() + "/review/update.do";
+				if (reviewSelf != null) {
+					reviewRequestUrl = request.getContextPath() + "/review/update.do";
+					mav.addObject("reviewSelfContent",reviewSelf.getContent().replace("<br />", "\r\n"));
+				}
 				
-				mav.addObject("reviewSelf",reviewSelf);
-				mav.addObject("reviewSelfContent",reviewSelf.getContent().replace("<br />", "\r\n"));
+				mav.addObject("reviewSelf",reviewSelf);				
 				LogAspect.info("reviewSelf:" + reviewSelf);
 			}
 			
@@ -423,29 +426,26 @@ public class BookServiceImp implements BookService {
 		long book_num=Long.parseLong(request.getParameter("book_num"));
 		DetailDto dto=bookDao.getBookAllInfo(book_num);
 		
-		//두번째 카테고리뽑아오기
-		dto.setSecond_cate_num(bookDao.getSecondCateNum(book_num));
-		dto.setSecond_cate_name(bookDao.getSecondCateName(book_num));
+		//카테고리작업
+		List<DetailCateDto> cateDto=bookDao.getDetailCate(book_num);
 		
-		//세번째 카테고리뽑아오기. 중복카테고리 있는지, 없는지 구별해야함.
-		int overlapCate=bookDao.getOverlapThirdCate(book_num);
-		System.out.println(overlapCate);
-		
-		List<String> thirdCateName=bookDao.getOverlapCateName(book_num);
-		
-		if(overlapCate>1) {
-			dto.setThird_cate_name_a(thirdCateName.get(0));
-			dto.setThird_cate_num_a(bookDao.getThirdCateNum(dto.getThird_cate_name_a()));
-			dto.setThird_cate_name_b(thirdCateName.get(1));
-			dto.setThird_cate_num_b(bookDao.getThirdCateNum(dto.getThird_cate_name_b()));
-			
-			if(overlapCate==3) {
-				dto.setThird_cate_name_c(thirdCateName.get(2));
-				dto.setThird_cate_num_c(bookDao.getThirdCateNum(dto.getThird_cate_name_c()));
+		for(int i=0;i<cateDto.size();i++) {
+			if(i==0) {
+				dto.setSecond_name_1(cateDto.get(i).getSecond_name());
+				dto.setSecond_num_1(cateDto.get(i).getSecond_num());
+				dto.setThird_name_1(cateDto.get(i).getThird_name());
+				dto.setThird_num_1(cateDto.get(i).getThird_num());
+			}else if(i==1) {
+				dto.setSecond_name_2(cateDto.get(i).getSecond_name());
+				dto.setSecond_num_2(cateDto.get(i).getSecond_num());
+				dto.setThird_name_2(cateDto.get(i).getThird_name());
+				dto.setThird_num_2(cateDto.get(i).getThird_num());
+			}else if(i==2) {
+				dto.setSecond_name_3(cateDto.get(i).getSecond_name());
+				dto.setSecond_num_3(cateDto.get(i).getSecond_num());
+				dto.setThird_name_3(cateDto.get(i).getThird_name());
+				dto.setThird_num_3(cateDto.get(i).getThird_num());
 			}
-		}else {
-			dto.setThird_cate_name_a(thirdCateName.get(0));
-			dto.setThird_cate_num_a(bookDao.getThirdCateNum(dto.getThird_cate_name_a()));
 		}
 		
 		//출판사 이름뽑아오기
@@ -463,32 +463,30 @@ public class BookServiceImp implements BookService {
 		if(dto.getAuthor_num()!=0) {
 			auDto=bookDao.getAuthorInfo(dto.getAuthor_num());
 			authorBook=bookDao.getAuthorBook(dto.getAuthor_num());
-			System.out.println("작가 : "+auDto.toString());
+			if(authorBook.size()==0)	authorBook=null;
 		}
 		
 		//이거는 ajax로 나중에 다른곳으로 빼야할듯.
 		if(dto.getIllu_num()!=0) {
 			ilDto=bookDao.getAuthorInfo(dto.getIllu_num());
 			illorBook=bookDao.getAuthorBook(dto.getIllu_num());
-			System.out.println("일러 : "+ilDto.toString());
+			if(illorBook.size()==0)	illorBook=null;
 		}
 		
 		if(dto.getTrans_num()!=0) {
 			trDto=bookDao.getAuthorInfo(dto.getTrans_num());
 			transBook=bookDao.getAuthorBook(dto.getTrans_num());
-			System.out.println("번역 : "+trDto.toString());
+			if(transBook.size()==0)	transBook=null;
 		}
 		
 		//별점정보 뽑기
 		
 		//이벤트기간뽑기
 		
-		System.out.println(dto.toString());
-		
 		mav.addObject("detailDto", dto);
-		mav.addObject("authorDto", auDto);
-		mav.addObject("illoDto", ilDto);
-		mav.addObject("transDto", trDto);
+		mav.addObject("auDto", auDto);
+		mav.addObject("ilDto", ilDto);
+		mav.addObject("trDto", trDto);
 		mav.addObject("authorBook", authorBook);
 		mav.addObject("illorBook", illorBook);
 		mav.addObject("transBook", transBook);

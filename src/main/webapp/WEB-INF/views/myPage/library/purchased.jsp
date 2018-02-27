@@ -15,7 +15,7 @@
 		<section class="wrap-container mf-purchased-box">
 			<!-- 타이틀 -->
 			<div class="bf-title-row title-type4">
-				<h3>구매목록<span class="book-count">5</span></h3>
+				<h3>구매목록<span class="book-count">${myPagePurchasedPageDtoList.size()}</span></h3>
 			</div>
 			
 			<!-- 구매 서비스 타입  -->
@@ -24,10 +24,12 @@
 					<li><a class="active" href="javascript:alert('전체')">전체</a></li>
 					<li><a href="javascript:alert('구매')">구매</a></li>
 					<li><a href="javascript:alert('대여')">대여</a></li>
-					<li><a href="javascript:alert('이용권')">이용권</a></li>
+					<li><a href="javascript:alert('이용권 미구현')">이용권</a></li>
 				</ul>
+				
+				<!-- 쿼리문을 바꿔야함. 책 제목, 저자를 검색해야하며,  -->
 				<div class="search-box">
-					<form method="get">
+					<form method="get" autocomplete="on">
 						<span class="material-icons">search</span>
 						<input class="search-word" type="text" name="search-word" placeholder="책 제목 또는 저자명" />
 					</form>
@@ -60,12 +62,12 @@
 								</label>
 							</div>
 							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image">
+								<div class="mf-book-thumbnail-image" onclick ="javascript:alert('책 상세 페이지')">
 									<img class="" src="${myPurchasedPageDto.img_path}"/>
 								</div>
 							</div>
 							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text">${myPurchasedPageDto.book_name}</h3>
+								<h3 class="book-metadata-text" onclick ="javascript:alert('책 상세 페이지')">${myPurchasedPageDto.book_name}</h3>
 								<p class="book-metadata-author">
 									<a class="" href="javascript:alert('작가페이지')">${myPurchasedPageDto.author_name}</a>
 								</p>
@@ -94,6 +96,97 @@
 		function everLastingDelete(){
 			$("form[name=purchased-form-list]").submit();
 		}
+		
+		function autocomplete(inp, arr){
+			var currentFocus;
+			
+			inp.addEventListener("input", function(e){
+				var a, b, i, val = this.value;
+				
+				closeAllLists();
+				if(!val){ return false; }
+				currentFocus = -1;
+				
+				a = document.createElement("DIV");
+				a.setAttribute("id", this.id + "autocomplete-list");
+				a.setAttribute("class", "autocomplete-items");
+				
+				this.parentNode.appendChild(a);
+				
+				for(i = 0 ; i < arr.length; i++){
+					if(arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()){
+						b = document.createElement("DIV");
+						b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+						b.innerHTML += arr[i].substr(val.length);
+						
+						b.innerHTML += "<input type = 'hidden' value - '" + arr[i] + "'>";
+						b.addEventListener("click", function(e){
+							inp.value = this.getElementsByTagName("input")[0].value;
+							
+							closeAllLists();
+						});
+						a.appendClid(b);
+					}
+				}
+			});
+		}
+			/* inp.addEventListener("keydown", function(e){
+				var x = document.getElementById(this.id + "autocomplete-list");
+				
+				if(x) x = x.getElementsByTagName("div");
+				
+				if(e.keyCode == 40){
+					addActive(x);
+				}else if(e.keyCode == 38){
+					currentFocus--;
+					addActive(x);
+				}else if(e.keyCode == 13){
+					empreventDefault();
+					
+					if(currentFocus > -1){
+						if(x) x[currentFocus].click();
+					}
+				}
+			});
+			
+			function addActive(x){
+				if(!x) return false;
+				
+				removeActive(x);
+				
+				if(currentFocus >= x.length) currentFocus = 0;
+				
+				if(currentFocus < 0) currentFocus = (x.length - 1);
+				
+				x[currentFocus].classList.add("autocomplete-active");
+			}
+			
+			function removeActive(x){
+				for(var i = 0; i < x.length; i++){
+					x[i].classList.remove("autocomplete-active");
+				}
+			}
+			
+			function closeAllLists(elmnt){
+				var x = document.getElementsByClassName("autocomplete-items");
+				
+				for(var i = 0; i < x.length; i++){
+					if(elmnt != x[i] && elmnt != inp){
+						x[i].parentNode.removeChild(x[i]);
+					}
+				}
+			}
+			
+			document.addEventListener("click", function(e){
+				closeAllLists(e.target);	
+			});
+		}
+		
+		var book_name = ["조선 자본주의 공화국"];
+		var author = ["김태경"];
+		
+		autocomplete(document.getElementById("search-word"), book_name);
+		autocomplete(document.getElementById("search-word", author)); */
 	</script>
 </body>
 </html>

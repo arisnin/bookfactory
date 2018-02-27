@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bf.main.dto.CategoryPageDto;
 import com.bf.main.dto.NoticeDto;
 import com.bf.main.dto.RegisterDto;
 import com.bf.member.model.MemberDto;
@@ -27,6 +28,14 @@ public class MainDaoImp implements MainDao {
 	@Override
 	public int register(MemberDto memberDto) {
 		return sqlSession.insert(namespace + "register", memberDto);
+	}
+
+	@Override
+	public List<CategoryPageDto> selectCategoryAll(int secondCateNum, int thirdCateNum) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("secondCateNum", secondCateNum);
+		map.put("thirdCateNum", thirdCateNum);
+		return sqlSession.selectList(namespace + "select-category-all", map);
 	}
 
 	@Override
