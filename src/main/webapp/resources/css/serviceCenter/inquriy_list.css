@@ -26,6 +26,7 @@
 .service_header_second{	
 	margin-right: 2rem;
 	vertical-align: bottom;
+	line-height: 0.5rem;
 }
 
 .serviceCenter_inquriy_list_search >
@@ -92,11 +93,12 @@
 	color:#777;	
 }
 
-.serviceCenter_inquriy_list_answer .answer{
+.serviceCenter_inquriy_list_answer .answer,
+.serviceCenter_inquriy_list_answer .answer_complete{
 	
 	height:2rem;
 	line-height : 2rem;
-	
+		
 	display: inline-block;
 	position: relative;
 	border: none;
@@ -118,4 +120,8 @@
 	border: 1px solid #5D568C;
 	background: #776BCE;
 	color: white;
+}
+
+.serviceCenter_inquriy_list_answer .answer{
+	background: #777;
 }

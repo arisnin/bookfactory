@@ -16,6 +16,7 @@
 	type="text/css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
 
 <title>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</title>
 </head>
@@ -54,32 +55,35 @@
 			<div class="serviceCenter_manyque_cn_cn_left">
 				
 					<div class="serviceCenter_manyque_cn_cn_left_title">이 섹션의 문서</div>
-					<ul>
-						<li><a href="${root }/serviceCenter/manyque_content.do">아이디(ID), 비밀번호를 잊어버렸어요. 어떻게 확인하나요?</a></li>
-						<li>다운받은 책이 파일이 손상되었다며 열리지 않아요!</li>
-						<li>DRM문제로 책을 읽을 수 없습니다(104)</li>
-						<li>책은 어떻게 읽나요? - PC뷰어 이용 방법</li>
-						<li>구매목록을 삭제할 수 있나요?</li>						
-					</ul>
-										
+					
+					<c:forEach var="questionDto" items="${questionSide}" >
+						<ul>
+							<c:if test="${questionDto.num == boardFrequencyDto.num}">
+								<li class=active>
+							</c:if>
+							<c:if test="${questionDto.num != boardFrequencyDto.num}">
+								<li>
+							</c:if>												
+							<a href="javascript:questionRead('${root}','${questionDto.num}')">${questionDto.title}</a></li>						
+						</ul>
+					</c:forEach>
+					
+					<c:if test="${count>10 }">
+						<div class="service_information_cn_cn_left_more">
+							<a href="${root }/serviceCenter/manyque.do">더보기</a>
+						</div>
+					</c:if>
 				
 			</div>
 			
 						
 			<div class="serviceCenter_manyque_cn_cn_right">
 				<div class="serviceCenter_manyque_cn_title">
-						<h2>아이디(ID), 비밀번호를 잊어버렸어요. 어떻게 확인하나요?</h2>
-				</div>		
-						<div>
-						<p>홈페이지에서 로그인버튼을 눌러 [아이디 찾기, 비밀번호 찾기]메뉴를 이용하면 확인이 가능합니다.</p>
+					<h2>${boardFrequencyDto.title }</h2>
+				</div>				
 						
-						<p>아이디, 비밀번호 찾기 시 정상적으로 진행이 되지 않는다면 회원가입을 하지 않으셨거나 등록된 정보가 다른 경우일 수 있습니다.</p>
-						
-						<p>가입정보가 확인되지 않으나 이전에 이용 기록이 있는 경우, 고객센터로 문의하여 주시기 바랍니다.</p>
-						
-						
-						</div>
-					</div>
+				<div>${boardFrequencyDto.content }</div>
+			</div>
 			
 			
 

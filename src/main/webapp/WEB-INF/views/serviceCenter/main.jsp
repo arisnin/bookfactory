@@ -11,7 +11,8 @@
 	rel="stylesheet" />
 <link href="${root}/css/serviceCenter/main.css" type="text/css"
 	rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">	
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>	
 
 	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -50,10 +51,9 @@
 				<br/>
 				
 				<div class="service_notice_list">
-					<div class="service_notice_list_1"><a href="${root }/serviceCenter/information_content1.do">
-					[안내]설 연휴 고객센터 단축 근무 및 휴무, 페이퍼 택배 배송 일정</a></div>
-					<div class="service_notice_list_2"><a href="#">[고객센터 운영 시간] 평일 10:00 ~ 19:00 (점심시간 12:50 ~ 14:00)</a></div>
-					<div class="service_notice_list_3"><a href="#">[안내] 리디북스 서비스 사용 가능 뷰어 최소 버전 변경</a></div>					
+					<c:forEach var="mainNoticeDto" items="${mainNotice }">
+						<div><a href="javascript:infoRead('${root}','${mainNoticeDto.num}')">${mainNoticeDto.title}</a></div>					
+					</c:forEach>					
 				</div>
 			</div>
 			<br/><br/><br/>
@@ -61,14 +61,14 @@
 			
 			<div class="service_faq">
 				<div class="bf-title-row title-type1">
-				<h2><a href="${root }/serviceCenter/manyque.do">리디북스 자주 묻는 질문</a></h2>
+				<h2><a href="${root }/serviceCenter/manyque.do">북팩토리 자주 묻는 질문</a></h2>
 				</div>
 				<br/>
 				
 				<div class="service_faq_list">
-					<div class="service_faq_list_1"><a href="${root }/serviceCenter/manyque_content.do">아이디(ID), 비밀번호를 잊어버렸어요. 어떻게 확인하나요?</a></div>
-					<div class="service_faq_list_2"><a href="#">다운받은 책이 파일이 손상되었다며 열리지 않아요!(파일손상, 인코딩 오류)</a></div>
-					<div class="service_faq_list_3"><a href="#">DRM문제로 책을 읽을 수 없습니다(104)</a></div>
+					<c:forEach var="mainManyDto" items="${mainMany }">
+						<div><a href="javascript:questionRead('${root}','${mainManyDto.num}')">${mainManyDto.title}</a></div>					
+					</c:forEach>					
 				</div>
 			</div>
 			<br/>

@@ -97,14 +97,14 @@
 			var now = d.getFullYear()+ "-"+ m +"-" +d.getDate();
 			
 			if("${boardContactDto.reply_check =='ok'}"){
-				 $(".sh_reply").text("\n"+$("#reply_content").val());
+				 $(".sh_reply").text("\r\n"+$("#reply_content").val());
 				
 			}else{
 				 $(".sh_reply").text(text+"\n"+"-----Original Message-----"+"\n"+
-						"From: ${boardContactDto.id}"+"\n"+
-						"To: ${id}"+"\n"+
-						"Day:"+now+"\n"+
-						"Subject:"+"\n");
+						"From: ${boardContactDto.id}"+"\r\n"+
+						"To: ${id}"+"\r\n"+
+						"Day:"+now+"\r\n"+
+						"Subject:"+"\r\n");
 			}
 			
 		})

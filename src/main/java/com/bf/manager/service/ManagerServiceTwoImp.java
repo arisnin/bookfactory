@@ -29,7 +29,10 @@ import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
 
 import com.bf.manager.dto.ManagerCashDto;
+import com.bf.manager.dto.ManagerChargeDto;
 import com.bf.manager.dto.ManagerNoticeDto;
+import com.bf.manager.dto.ManagerPayDto;
+import com.bf.manager.dto.ManagerPointDto;
 import com.bf.manager.dto.MemberDto;
 import com.bf.manager.dto.ReviewManagerDto;
 import com.bf.member.model.User;
@@ -636,11 +639,43 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		ManagerCashDto managerCashDto =(ManagerCashDto) map.get("managerCashDto");
 		
 		String pageNumber = request.getParameter("pageNumber");
-		LogAspect.info(managerCashDto);
-	
-		
 
-		mav.setViewName("member/pay.mg");
+
+		if (pageNumber == null)
+			pageNumber = "1";
+		int boardSize = 5;
+
+		int currentPage = Integer.parseInt(pageNumber);
+		
+		int startRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize + 1;
+		
+		List<ManagerPayDto> managerPayDtoList = null;
+		List<ManagerChargeDto> managerChargeDtoList = null;
+		List<ManagerPointDto> managerPointDtoList = null;
+		
+		LogAspect.info(managerCashDto);
+		String id = managerCashDto.getCash_id(); 
+		
+		LogAspect.info(id);
+		
+		managerPayDtoList = managerDao.payDetail(startRow,endRow,id);
+		managerChargeDtoList = managerDao.chargeDetail(startRow,endRow,id);
+		managerPointDtoList =managerDao.pointDetail(startRow, endRow, id);
+		
+		
+		LogAspect.info(managerPayDtoList);
+		LogAspect.info(managerChargeDtoList);
+		LogAspect.info(managerPointDtoList);
+		mav.addObject("managerCashDto", managerCashDto);
+		mav.addObject("managerPayDtoList", managerPayDtoList);
+		mav.addObject("managerChargeDtoList", managerChargeDtoList);
+		mav.addObject("managerPointDtoList", managerPointDtoList);
+		mav.addObject("pageNumber", currentPage);
+		mav.addObject("boardSize", boardSize);
+		
+		
+		mav.setViewName("member/payDetail.mg");
 		
 		
 
