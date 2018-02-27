@@ -45,30 +45,32 @@
 				</ul>
 				<!-- 보기방식 메뉴 -->
 				<div class="view-type-list">
-					<button class="" type="button" value="landscape" onclick="changeViewType(this)">
+					<button class="${param.vType == 'landscape' ? 'active' : ''}" type="button" value="landscape" onclick="changeViewType(this)">
 						<span class="material-icons">format_list_bulleted</span>
 					</button>
-					<button class="active" type="button" value="portrait" onclick="changeViewType(this)">
+					<button class="${param.vType == 'portrait' ? 'active' : (param.vType == null ? 'active' : '')}" type="button" value="portrait" onclick="changeViewType(this)">
 						<span class="material-icons">apps</span>
 					</button>
 				</div>
 			</div>
 			<!-- 도서 검색 결과 리스트 -->
 			<section class="result-search-book-box">
-				<ul class="mf-book-list" id="search-view-type">
+				<ul class="mf-book-list ${param.vType == 'landscape' ? 'list-landscape' : ''}" id="search-view-type">
 				<c:forEach var="categoryPageDto" items="${categoryPageList}">
 					<li class="mf-book-item">
 						<div class="mf-book-thumbnail">
-							<div class="mf-book-thumbnail-image" onclick="alert('${categoryPageDto.book_num}')">
+							<div class="mf-book-thumbnail-image" onclick="bookDetailLink('${root}','${categoryPageDto.book_num}')">
 								<img class="" src="${categoryPageDto.img_path}" alt="image" />
 							</div>
 						</div>
 						<div class="mf-book-metadata">
-							<h3 class="book-metadata-text" onclick="alert('${categoryPageDto.book_num}')">${categoryPageDto.book_name}</h3>
+							<h3 class="book-metadata-text" onclick="bookDetailLink('${root}','${categoryPageDto.book_num}')">${categoryPageDto.book_name}</h3>
 							<!-- 저자 -->
-							<p class="book-metadata-author">
-								<a class="" title="저자" href="javascript:alert('${categoryPageDto.author_num}')">${categoryPageDto.author_name}</a>
-							</p>
+							<c:if test="${categoryPageDto.author_num != 0}">
+								<p class="book-metadata-author">
+									<a class="" title="저자" href="javascript:alert('${categoryPageDto.author_num}')">${categoryPageDto.author_name}</a>
+								</p>
+							</c:if>
 							<!-- 역자 -->
 							<c:if test="${categoryPageDto.trans_num != 0}">
 								<p class="book-metadata-translator">
@@ -93,13 +95,19 @@
 								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
 								<span class="count-field">&nbsp;${categoryPageDto.star_count}명</span>
 							</div>
-							<pre class="book-metadata-description hidden-block">${categoryPageDto.intro}</pre>
-							<p class="book-metadata-price hidden-block">
-								<span class="price-rent">${categoryPageDto.rental_price}</span>
-							</p>
-							<p class="book-metadata-price">
-								<span class="price-purchase">${categoryPageDto.price}</span>
-							</p>
+							<pre class="book-metadata-description">${categoryPageDto.intro}</pre>
+							<c:if test="${categoryPageDto.rental_period != 'no'}">
+								<p class="book-metadata-price">
+									<fmt:formatNumber var="rental_price" value="${categoryPageDto.rental_price}" pattern=",###"/>
+									<span class="price-rent">${categoryPageDto.rental_price == 0 ? '무료' : rental_price += ' 원'}</span>
+								</p>
+							</c:if>
+							<c:if test="${categoryPageDto.price >= 0}">
+								<p class="book-metadata-price">
+									<fmt:formatNumber var="price" value="${categoryPageDto.price}" pattern=",###"/>
+									<span class="price-purchase">${categoryPageDto.price == 0 ? '무료' : price += ' 원'}</span>
+								</p>
+							</c:if>
 						</div>
 					</li>
 				</c:forEach>
@@ -140,6 +148,7 @@
 							<li class="last"><a href="javascript:categoryPageHref('${pageCount}')"><span></span></a></li>
 						</ul>
 					</nav>
+					<input type="hidden" name="vType" value="portrait" />
 					<input type="hidden" name="pnum" value="${pnum}" />
 					<input type="hidden" name="snum" value="${param.snum}" />
 					<input type="hidden" name="cnum" value="${param.cnum}" />
@@ -147,6 +156,7 @@
 						function categoryPageHref(pnum) {
 							var cateForm = document.getElementById("category-pagination-form");
 							cateForm.pnum.value = pnum;
+							cateForm.vType.value = document.querySelector("section.ca-category-box > div.bf-service-type-menu > div.view-type-list > button.active").value;
 							cateForm.submit();
 						}
 					</script>
@@ -161,6 +171,10 @@
 		Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
 			e.click();
 		});
+		
+		function bookDetailLink(root, book_num) {
+			location.href = root + '/detail.do?book_num=' + book_num;
+		}
 	</script>
 </body>
 </html>

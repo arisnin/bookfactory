@@ -73,7 +73,7 @@
 							<div class="content-star-rate">
 								<span class="star-icon-field material-icons"></span> <span class="non-star-icon-field material-icons"></span> <span class="count-field"> 9999명</span>
 							</div>
-							<pre class="book-metadata-description hidden-block">* 이 책은 Public Domain Books 입니다. Public Domain Books란 저작자 사후 일정 기간이 경과하여 저작권이 만료된 책을 의미합니다. 회원님께서는 인터넷 상의 기타 사이트를 통해서 이 책을 찾아보실 수도 있습니다.
+							<pre class="book-metadata-description">* 이 책은 Public Domain Books 입니다. Public Domain Books란 저작자 사후 일정 기간이 경과하여 저작권이 만료된 책을 의미합니다. 회원님께서는 인터넷 상의 기타 사이트를 통해서 이 책을 찾아보실 수도 있습니다.
 	
 	1933년 4월부터 1934년 2월까지 <조선일보>에 연재된 장편소설로 <대수양(大首陽)>과 더불어 김동인의 대표적인 역사소설로 꼽힌다.
 							</pre>
@@ -102,7 +102,7 @@
 							<div class="content-star-rate">
 								<span class="star-icon-field material-icons"></span> <span class="non-star-icon-field material-icons"></span> <span class="count-field"> 9999명</span>
 							</div>
-							<pre class="book-metadata-description hidden-block">추리 스릴러물을 읽어보고 싶은데 어떤 작품부터 읽어야할지 고민된다면?
+							<pre class="book-metadata-description ">추리 스릴러물을 읽어보고 싶은데 어떤 작품부터 읽어야할지 고민된다면?
 	초심자를 위한 추리스릴러 소설 길라잡이!
 	
 	추리 미스터리 스릴러, 라는 단어만 들으면 우리는 피가 난자한 살인사건이나 파이프를 물고 단서를 찾아 헤매는 탐정을 떠올린다. 맞다. 이 장르는 범죄가 일어나고 그 범죄를 '누가 어떻게 왜' 행했는지 파헤치는 장르다.</pre>
@@ -131,7 +131,7 @@
 							<div class="content-star-rate">
 								<span class="star-icon-field material-icons"></span> <span class="non-star-icon-field material-icons"></span> <span class="count-field"> 9999명</span>
 							</div>
-							<pre class="book-metadata-description hidden-block">‘아저씨는 우리 편? 아니면 적?’
+							<pre class="book-metadata-description ">‘아저씨는 우리 편? 아니면 적?’
 	세상을 보는 시선을 뒤바꿀 가슴 벅찬 미스터리
 	제18회 마쓰모토 세이초 상 최종 후보작
 	
@@ -161,7 +161,7 @@
 							<div class="content-star-rate">
 								<span class="star-icon-field material-icons"></span> <span class="non-star-icon-field material-icons"></span> <span class="count-field"> 9999명</span>
 							</div>
-							<pre class="book-metadata-description hidden-block">국내 최대 연재 사이트 유료 웹소설 부문 1위!
+							<pre class="book-metadata-description ">국내 최대 연재 사이트 유료 웹소설 부문 1위!
 	
 	「경험치북에 당신의 경험을 적으시겠습니까?」
 	
@@ -197,7 +197,7 @@
 							<div class="content-star-rate">
 								<span class="star-icon-field material-icons"></span> <span class="non-star-icon-field material-icons"></span> <span class="count-field"> 9999명</span>
 							</div>
-							<pre class="book-metadata-description hidden-block">부모님을 잃고 7년간 친척집에서 구박데기로 자란 고아 소녀 이스닐다.
+							<pre class="book-metadata-description ">부모님을 잃고 7년간 친척집에서 구박데기로 자란 고아 소녀 이스닐다.
 	어느 날 아버지의 재산을 가로챘던 남자가 나타나 그녀에게 거액의 상속금을 넘긴다.
 	하루아침에 억만장자가 되었으니 이제 꽃길만 걸으면 되는 줄 알았는데…?
 	

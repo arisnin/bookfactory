@@ -46,22 +46,21 @@ public class MainServiceImp implements MainService {
 		
 		// cnum 으로부터 third_category 번호 추출하기
 		int groupBySecondCate[] = {0,17,5,4,6,2,2,5,4,4,8,5,3,3,3,1,10,8,3,8,4,13,4,2,3};
-		int iCnum = cnum == null ? 100 : Integer.parseInt(cnum);
-		int secondCateNum = iCnum / 100;
-		int thirdCateNum = iCnum - secondCateNum*100;
+		int intCnum = cnum == null ? 100 : Integer.parseInt(cnum);
+		int secondCateNum = intCnum / 100;
+		int thirdCateNum = intCnum - secondCateNum*100;
+		int serviceNum = snum == null ? 100 : Integer.parseInt(snum);
 		
-		// 소분류(third category) 번호 계산(0이면 전체검색)
+		// 소분류(third category) 번호 계산(0이면 해당 중분류 카테고리 전체검색)
 		if (thirdCateNum > 0) {
 			for (int i=1; i<secondCateNum; i++) {
 				thirdCateNum += groupBySecondCate[i];
 			}
 		}
 		
-		int serviceNum = snum == null ? 100 : Integer.parseInt(snum);
-		
 		LogAspect.info("cnum/snum:" + cnum + "/" + snum + " -> " + secondCateNum + "," + thirdCateNum + "/" + serviceNum);
 
-		// Pagination 처리
+		// Pagination 설정
 		String pnum = request.getParameter("pnum");
 		int pageNumber = pnum == null ? 1 : Integer.parseInt(pnum);
 		
@@ -73,25 +72,28 @@ public class MainServiceImp implements MainService {
 		
 		LogAspect.info("pnum/count/start/end:" + pageNumber + "/" + count + "/" + startRow + "/" + endRow);
 		
-		List<CategoryPageDto> categoryPageList = null;		
+		List<CategoryPageDto> categoryPageList = null;
+		List<CategoryPageDto> categoryPageBestList = null;
+		List<CategoryPageDto> categoryPageFreeList = null;
 		
-		// 서비스 타입 구분
+		// 서비스 타입 구분(신간=101, 베스트셀러=102, 무료=103, 전체=104)
 		if (snum == null || "100".equals(snum)) {
-			// 홈
-			
+			// 홈(신간, 무료 항목에서 각 10개씩. 베스트셀러는 5개)
+			categoryPageList = mainDao.selectCategoryAll(secondCateNum, thirdCateNum, 101, 1, 10);
+			categoryPageBestList = mainDao.selectCategoryAll(secondCateNum, thirdCateNum, 102, 1, 5);
+			categoryPageFreeList = mainDao.selectCategoryAll(secondCateNum, thirdCateNum, 103, 1, 10);
+			LogAspect.info("categoryPageList:" + categoryPageList.size() + "/" + categoryPageBestList.size() + "/" + categoryPageFreeList.size());
 		} else {
 			// 신간, 베스트셀러, 무료, 전체
 			categoryPageList = mainDao.selectCategoryAll(secondCateNum, thirdCateNum, serviceNum, startRow, endRow);
-			LogAspect.info(categoryPageList.size());
+			LogAspect.info("categoryPageList:" + categoryPageList.size());
 		}
 		
-		mav.addObject("pnum",pageNumber).addObject("count",count).addObject("boardSize", boardSize);
-		
-		LogAspect.info(request.getRequestURI());
-		LogAspect.info(request.getRequestURL());
-		LogAspect.info(request.getHeader("referer"));
+		mav.addObject("pnum",pageNumber);
+		mav.addObject("count",count);
+		mav.addObject("boardSize", boardSize);
 	
-		return mav.addObject("categoryPageList", categoryPageList);
+		return mav.addObject("categoryPageList", categoryPageList).addObject("categoryPageBestList", categoryPageBestList).addObject("categoryPageFreeList", categoryPageFreeList);
 	}
 
 	@Override
