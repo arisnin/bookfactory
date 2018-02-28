@@ -14,6 +14,7 @@ import com.bf.book.dto.ReviewPageDto;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
+import com.bf.myPage.dto.MyPageRecentLookBookDto;
 import com.bf.book.dto.DetailCateDto;
 import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
@@ -217,6 +218,13 @@ public class BookDaoImp implements BookDao {
 	public List<String> getKeyword(long book_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getKeyword", book_num);
+	}
+
+	// 도서 상세페이지 클릭하면 데이터들이 최근 본 책 페이지로 들어감
+	@Override
+	public int recentLookBookInsert(
+			MyPageRecentLookBookDto myPageRecentLookBookDto) {
+		return sqlSession.insert(namespace + "recent_look_book_insert", myPageRecentLookBookDto);
 	}
 
 }

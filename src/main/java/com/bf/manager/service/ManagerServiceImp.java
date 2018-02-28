@@ -853,33 +853,38 @@ public class ManagerServiceImp implements ManagerService {
 					bookDto.setRental_period("no");
 					if(priceTable == null) {
 						priceTable = meta.selectFirst(".series_price_table");
-						int insertSeries = managerDao.insertSeries(name);
-						if(insertSeries > 0) {
-							bookDto.setSeries_num(managerDao.getSeriesNum());
-						}
-						Elements tr = priceTable.select("tr");
-						for(Element p : tr) {
-							Element price_subtitle = p.selectFirst(".price_subtitle");
-							if(price_subtitle != null && price_subtitle.text().equals("단권")) {
-								try {
-									Element bookPrice = p.selectFirst(".book_price");
-									if(bookPrice.text().trim().equals("무료")) {
-										bookDto.setRental_price(0);
-										continue;
+						if(priceTable == null) {
+							//무료책
+						}else {
+							
+							int insertSeries = managerDao.insertSeries(name);
+							if(insertSeries > 0) {
+								bookDto.setSeries_num(managerDao.getSeriesNum());
+							}
+							Elements tr = priceTable.select("tr");
+							for(Element p : tr) {
+								Element price_subtitle = p.selectFirst(".price_subtitle");
+								if(price_subtitle != null && price_subtitle.text().equals("단권")) {
+									try {
+										Element bookPrice = p.selectFirst(".book_price");
+										if(bookPrice.text().trim().equals("무료")) {
+											bookDto.setRental_price(0);
+											continue;
+										}
+										Number number = df.parse(bookPrice.selectFirst("span").text());
+										bookDto.setPrice(number.intValue());
+										bookDto.setType("series");
+										
+										Element discount = p.selectFirst(".discount_rate");
+										if(discount.selectFirst("span") != null) {
+											String disStr = discount.selectFirst("span").text();
+											int start = disStr.indexOf("(");
+											int end = disStr.indexOf("%");
+											bookDto.setDiscount(Double.parseDouble(disStr.substring(start+1, end)));
+										}
+									} catch (ParseException e) {
+										e.printStackTrace();
 									}
-									Number number = df.parse(bookPrice.selectFirst("span").text());
-									bookDto.setPrice(number.intValue());
-									bookDto.setType("series");
-									
-									Element discount = p.selectFirst(".discount_rate");
-									if(discount.selectFirst("span") != null) {
-										String disStr = discount.selectFirst("span").text();
-										int start = disStr.indexOf("(");
-										int end = disStr.indexOf("%");
-										bookDto.setDiscount(Double.parseDouble(disStr.substring(start+1, end)));
-									}
-								} catch (ParseException e) {
-									e.printStackTrace();
 								}
 							}
 						}
@@ -1350,11 +1355,40 @@ public class ManagerServiceImp implements ManagerService {
 
 	@Override
 	public void ilbanPrefer(ModelAndView mav) {
+		processPrefer(mav, 1);
+		mav.addObject("pageName", "일반");
+	}
+	
+	@Override
+	public void romancePrefer(ModelAndView mav) {
+		processPrefer(mav, 2);
+		mav.addObject("pageName", "로맨스");
+	}
+
+	@Override
+	public void fantasyPrefer(ModelAndView mav) {
+		processPrefer(mav, 3);
+		mav.addObject("pageName", "판타지");
+	}
+
+	@Override
+	public void manhwaPrefer(ModelAndView mav) {
+		processPrefer(mav, 4);
+		mav.addObject("pageName", "만화");
+	}
+
+	@Override
+	public void blPrefer(ModelAndView mav) {
+		processPrefer(mav, 5);
+		mav.addObject("pageName", "BL");
+	}
+	
+	private void processPrefer(ModelAndView mav, int cateNum) {
 		HashMap<String, Integer> countMap = new HashMap<String, Integer>();
 		List<StatPreferenceDto> rankList = new ArrayList<StatPreferenceDto>();
 		int max = 0;
 		for(int i=0;i<5;i++) {
-			StatPreferenceDto statPreferenceDto = managerDao.getPreferenceTotalCount(1,i+1);
+			StatPreferenceDto statPreferenceDto = managerDao.getPreferenceTotalCount(cateNum,i+1);
 			LogAspect.info(LogAspect.logMsg +statPreferenceDto);
 			
 			rankList.add(statPreferenceDto);
@@ -1408,29 +1442,7 @@ public class ManagerServiceImp implements ManagerService {
 		mav.addObject("fiveName", rankList.get(4).getBook_name());
 	}
 
-	@Override
-	public void romancePrefer(ModelAndView mav) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void fantasyPrefer(ModelAndView mav) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void manhwaPrefer(ModelAndView mav) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void blPrefer(ModelAndView mav) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 	
 }

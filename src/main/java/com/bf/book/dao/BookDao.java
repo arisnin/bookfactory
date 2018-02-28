@@ -9,6 +9,7 @@ import com.bf.book.dto.ReviewPageDto;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
+import com.bf.myPage.dto.MyPageRecentLookBookDto;
 import com.bf.book.dto.DetailCateDto;
 import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
@@ -50,5 +51,6 @@ public interface BookDao {
 	List<HomeDto> getAuthorBook(long author_num);
 	List<DetailCateDto> getDetailCate(long book_num);
 	List<String> getKeyword(long book_num);
+	int recentLookBookInsert(MyPageRecentLookBookDto myPageRecentLookBookDto);
 
 }

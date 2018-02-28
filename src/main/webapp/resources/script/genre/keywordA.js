@@ -1,23 +1,38 @@
 /**
  * 키워드 화면 이벤트 ajax 추가 - 최정은
  */
+var listCount=0;
+
 $(function(){
+	//로딩버튼
+	var loading = $('<div id="loading" class="loading"></div><img id="loading_img" alt="loading" src="http://cfile30.uf.tistory.com/image/27246646563AAE531717C3" style="max-width:100%;height:auto" width="50" height="50"/>').appendTo($(".keyword wrap-container")).hide();
+
+	$(window).ajaxStart(function(){
+		loading.show();
+	}).ajaxStop(function(){
+		loading.hide();
+	});
+	
+	var root=$("input[name=rootJS]").val();
+	var firstCate=$("input[name=firstCate]").val();
+//	alert(root+", "+firstCate);
+	
 	//단행본, 연재 숨기는 이벤트
 	$(".hw_sub_wrap").hide();
 	
-	var cateNum=$("input[name=firstCate]").val();
+	var firstCate=$("input[name=firstCate]").val();
 	var jsonFile="";
 	
-	if(cateNum==2){
+	if(firstCate==2){
 		jsonFile="keyword_romance.json";
-	}else if(cateNum==3){
+	}else if(firstCate==3){
 		jsonFile="keyword_fantasy.json";
-	}else if(cateNum==4){
+	}else if(firstCate==4){
 		jsonFile="keyword_comic.json";
-	}else if(cateNum==5){
+	}else if(firstCate==5){
 		jsonFile="keyword_bl.json";
 	}
-	
+	//키워드 리스트 가져오는 
 	$.getJSON(jsonFile, function(data){ 
 		$(".keyword_top_head > .title").text(data["title"]);
 		
@@ -26,7 +41,7 @@ $(function(){
 		$(group).each(function(i, ex) {
             var fieldset=document.createElement("fieldset");
             $(fieldset).addClass("keyword_filed");
-            if(cateNum==3){
+            if(firstCate==3){
             	$(fieldset).addClass("fantasyKeyword");
             }
             $("#keyword_top_list").append(fieldset);
@@ -68,15 +83,15 @@ $(function(){
         });
 	});
 	
-	var listCount=0;
-	var sendData="tags=";
+	var sendData="";
 	
 	//키워드 선택시 밑에 나오는 태그
-	$("#keyword_top_list").on("click",".keyword_top_list_button label > input",function(){
-		event.preventDefault();
+	$("#keyword_top_list").on("click",".checkbox-btn > input",function(){
+//		event.preventDefault();
 		
 		if (this.checked == true) {
-// 			alert('true');
+			sendData=$("input[name=tags]").val();
+			
 			$(this).parent().parent().css({
 				backgroundColor : "#A59AF6"
 			});
@@ -97,40 +112,170 @@ $(function(){
 			listCount=listCount+1;
 			display(listCount);
 			
-			var root=$("input[name=rootJS]").val();
-
-			$.ajax({
-				type:"get",
-				url: root+"/keywordSearch.do",
-				dataType:"json",
-				data:sendData+"&pageNumber=1",
-				success: list
-//				error:function(jqXHR, textStatus, errorThrown ) {	// 이곳의 ajax에서 에러가 나면 얼럿창으로 에러 메시지 출력
-//			    	alert(jqXHR);
-//			    	alert(textStatus);
-//			    	alert(errorThrown);
-//			    }
+			$("input[name=tags]").val(sendData);
+			
+			listAjax(root, sendData, 1);
+		}else{
+			$(this).parent().parent().css({
+				backgroundColor : "#f8f7ff"
 			});
+			
+			var text=$(this).next().text()+"X";
+			var check=$(".bf-custom-checkbox > input:checked").length+1;
+			
+			for(var i=0;i<check;i++){
+				//alert($(".keyword_choice li").eq(i).children().text());
+				if(text==$(".keyword_choice li").eq(i).children().text()){
+					$(".keyword_choice li").eq(i).remove();
+					
+					var res=$(this).next().text()+",";
+//					alert(res);
+					
+					$("input[name=tags]").val($("input[name=tags]").val().replace(res,""));
+				}
+			}
+			
+//			for(var i=0;i<$("#keyword_top_list li").length;i++){
+//				if($("#keyword_top_list li").eq(i).children("input").checked==true){
+//					alert("hi");
+//				}
+//			}
+//			listAjax(root, reSend, 1);
 		}
 	});
+	
+	//전체해제 버튼
+	$(".keyword_top_head > button").click(function(){
+		$(".keyword_top_list_button li").css({
+			backgroundColor : "#f8f7ff"
+		}).find("input[type=checkbox]").prop('checked',false);
+		$(".keyword_choice .tag-list > li").remove();
+		$("input[name=tags]").val("");
+		listAjax(root, "", 1);
+	});
+	
+	//만들어진 태그에서 삭제시도
+//	var checkboxCount=$(".keyword_top_list_button input[type=checkbox]").length;
+//	var reSend="tags=";
+//	
+//	for(var i=0;i<checkboxCount;i++){
+//		var text=$(".keyword_top_list_button li").eq(i).find(".bf-button").text()+"X";
+//		if(text==$(this).text()){
+////			alert(text.slice(0,-1));
+//			$(".keyword_top_list_button li").eq(i).css({
+//				backgroundColor : "#f8f7ff"
+//			});
+//			$(this).remove();
+//			
+//		}else{
+//			for(var j=0;j<$(".keyword_choice ul.tag-list button").length;j++){
+//				reSend+=$(".keyword_choice ul.tag-list button").eq(j).text().slice(0,-1)+",";
+//			}
+//		}
+//	}
+//	alert(reSend);
+//	$("input[name=tags]").val(reSend);
+//	
+//	//선택한 태그 삭제
+//	$(".tag-list").on("click","li", function(){
+//		event.preventDefault();
+//		var checkboxCount=$(".keyword_top_list_button input[type=checkbox]").length;
+//		var reSend="tags=";
+//		
+//		for(var i=0;i<checkboxCount;i++){
+//			var text=$(".keyword_top_list_button li").eq(i).find(".bf-button").text()+"X";
+//			if(text==$(this).text()){
+////				alert(text.slice(0,-1));
+//				$(".keyword_top_list_button li").eq(i).css({
+//					backgroundColor : "#f8f7ff"
+//				});
+//				$(this).remove();
+//				
+////				var reSend=sendData.substr(text.slice(0,-1)+",");
+////				alert(reSend);
+////				$("input[name=tags]").val(reSend);
+//			}else{
+//				for(var j=0;j<$(".keyword_choice ul.tag-list button").length;j++){
+//					reSend+=$(".keyword_choice ul.tag-list button").eq(j).text().slice(0,-1)+",";
+//				}
+//			}
+//		}
+////		alert(reSend);
+//		$("input[name=tags]").val(reSend);
+//		
+//		listAjax(root, reSend, 1);
+//		display(listCount);
+//	});
 	
 	display(listCount);
 });
 
 function list(json){
 	$(".tagListCount").text(json.tagListCount);
-//	alert(json.tagList[0][0].book_num);
+	listCount=json.tagListCount;
 	
+//	alert(json.tagList[0][0].book_num);
 	makeList(json);
+	makePage(json);
+	
+	display(listCount);
+
+}
+
+function makePage(json){
+	var root=$("input[name=rootJS]").val();
+	var firstCate=$("input[name=firstCate]").val();
+	
+	//기존있던 페이지지움
+	$("#bf-animated-btn").has("li").empty();
+	
+	//페이징
+	var pageNumber=json.pageNumber;
+	var boardSize=json.boardSize;
+//	alert(pageNumber +","+ boardSize);
+
+	var pageUl=document.getElementById("bf-animated-btn");
+	if(listCount>0){
+		var pageCount=parseInt(listCount/boardSize+(listCount%boardSize==0? 0:1));
+		var pageBlock=10;
+		
+		var startPage=(parseInt((pageNumber-1)/pageBlock))*pageBlock+1;
+		var endPage=startPage+pageBlock-1;
+//		alert(startPage+", "+endPage);
+		if(endPage>pageCount)	endPage=pageCount;
+		
+		pageUl.innerHTML+="<li class='first'><a onclick='listAjax(\""+root+"\","+0+","+1+")'><span></span></a></li>";
+		
+		if(startPage>pageBlock)												
+			pageUl.innerHTML+="<li class='prev'><a class='prev'onclick='listAjax(\""+root+"\","+0+","+(startPage-pageBlock)+")'><span></span></a></li>";
+		
+		for(var a=startPage;a<=endPage;a++){						
+			if(pageNumber==a){
+				pageUl.innerHTML+="<li><a class='active' onclick='listAjax(\""+root+"\","+0+","+a+")'>"+a+"</a></li>";
+			}else{
+				pageUl.innerHTML+="<li><a onclick='listAjax(\""+root+"\","+0+","+a+")'>"+a+"</a></li>";
+			}
+		}
+		
+		if(endPage<pageCount)						
+			pageUl.innerHTML+="<li class='next'><a onclick='listAjax(\""+root+"\","+0+","+(startPage+pageBlock)+")'><span></span></a></li>";
+		
+		pageUl.innerHTML+="<li class='last'><a onclick='listAjax(\""+root+"\","+0+","+pageCount+")'><span></span></a></li>";
+		
+	}
 }
 
 function makeList(json){
+	var root=$("input[name=rootJS]").val();
+	var firstCate=$("input[name=firstCate]").val();
 	//innerHTML 버전
 	var listLength=json.tagList.length;
 //	alert(listLength);
-	
+
 	var abc=document.getElementById("keywordTagList");
-	//함수 :  goDetail='location.href="'${root}/detail.do?book_num='+json.tagList[i][0].book_num+"'
+	
+	if($(keywordTagList).has(".mf-book-item"))	$(keywordTagList).has(".mf-book-item").empty();
+	
 	$(json.tagList).each(function(i,e){
 		abc.innerHTML+=
 			"<li class='mf-book-item'>" +
@@ -142,25 +287,28 @@ function makeList(json){
 				"<div class='mf-book-metadata'>" +
 					"<h3 class='book-metadata-text' onclick='goDetail("+json.tagList[i][0].book_num+")'>"+json.tagList[i][0].book_name +"</h3>" +
 					"<p class='book-metadata-author'>" +
-						"<a class='' href='${root}/author.do?authorNum="+json.tagList[i][0].authorNum+"'>"+json.tagList[i][0].authorName+"</a>" +
+						"<a class='' href='"+root+"/author.do?authorNum="+json.tagList[i][0].authorNum+"'>"+json.tagList[i][0].authorName+"</a>" +
 					"</p>" +
 					"<p class='book-metadata-translator hidden-block'>" +
-						"<a class='' href='${root}/author.do'></a>" +
+						"<a class='' href='"+root+"/author.do'></a>" +
 					"</p>" +
 					"<p class='book-metadata-publisher'>" +
-						"<a class='' href='${root}/author.do?pun_num="+json.tagList[i][0].pub_num+"'>"+json.tagList[i][0].pub_name+"</a>" +
+						"<a class='' href='"+root+"/author.do?pun_num="+json.tagList[i][0].pub_num+"'>"+json.tagList[i][0].pub_name+"</a>" +
 					"</p>" +
 					"<span class='trigger-block hidden-block' onclick='createStarIcon(this.nextElementSibling,"+json.tagList[i][0].star_point+")'></span>" +
 					"<div class='content-star-rate'>" +
 						"<span class='star-icon-field material-icons'></span>" +
 						"<span class='non-star-icon-field material-icons'></span>" +
-						"<span class='count-field'>"+json.tagList[i][0].star_count+"</span>" +
+						"<span class='count-field'>"+json.tagList[i][0].star_count+"명</span>" +
 					"</div>" +
-					"<pre class='book-metadata-description'>" +json.tagList[i][0].intro+ "</pre>" +
-					"<p class='book-metadata-price hidden-block'>" +
-						"<span class='price-rent'></span>" +
+					"<pre class='book-metadata-description'>" +json.tagList[i][0].intro+ "</pre>"+
+					"<p class='book-metadata-price'>" +
+						"<span class='price-rent'>"+json.tagList[i][0].rental_price+"</span>" +
 					"</p>" +
 					"<p class='book-metadata-price'>" +
+						"<span class='price-purchase'>"+json.tagList[i][0].price+"</span>" +
+					"</p>" +
+					"<p class='book-metadata-price hidden-block free'>" +
 						"<span class='price-purchase'>무료</span>" +
 					"</p>" +
 					"<div class='keyword_bottom_book_hava_key keyword_choice'>" +
@@ -175,65 +323,24 @@ function makeList(json){
 					"</div>" +	
 				"</div>" +
 				"</li>";
+		
+		if(!(json.tagList[i][0].rental_price>0)){
+			$(".price-rent").hide();
+		}
+		
+		if(!(json.tagList[i][0].price>0))	$(".price-purchase").hide();
+		if(json.tagList[i][0].price==0 && json.tagList[i][0].rental_price==0)	
+			$(".free").css("display","block");
+		
+//		$(".trigger-block").eq(i).attr("onclick","createStarIcon("+$(".trigger-block").eq(i).nextElementSibling+","+json.tagList[i][0].star_point+")");
+		
 	});
 	
+	Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
+		e.click();
+	});
 	
-//	//책 정보 뿌려주기
-////	alert(json.tagList.length);
-//	$(json.tagList).each(function(i,e){
-//		var liList=document.createElement("li");
-//		$(liList).addClass("mf-book-item");
-//		$(".mf-book-list").append(liList);
-//		
-//		var divFir=document.createElement("div");
-//		$(divFir).addClass("mf-book-thumbnail");
-//		liList.append(divFir);
-//		
-//		var divFirDiv=document.createElement("div");
-//		$(divFirDiv).addClass("mf-book-thumbnail-image");
-//		$(divFirDiv).attr("onclick","goDetail("+json.tagList[i][0].book_num+")");
-//		divFir.append(divFirDiv);
-//		
-//		var divFirDivImg=document.createElement("img");
-//		$(divFirDivImg).attr({
-//			src:json.tagList[i][0].img_path,
-//			alt:"image"
-//		});
-//		
-//		var divSecond=document.createElement("div");
-//		$(divSecond).addClass("mf-book-metadata");
-//		liList.append(divSecond);
-//		
-//		var secondH3=document.createElement("h3");
-//		$(secondH3).addClass("book-metadata-text");
-//		$(secondH3).attr("onclick","goDetail("+json.tagList[i][0].book_num+")");
-//		$(secondH3).text(json.tagList[i][0].book_name);
-//		divSecond.append(secondH3);
-//		
-//		//작가이름
-//		var secondP1=document.createElement("p");
-//		$(secondP1).addClass("book-metadata-author");
-//		divSecond.append(secondP1);
-//		
-//		var secondP1a=document.createElement("a");
-//		$(secondP1a).attr("onclick","goAuthor("+json.tagList[i][0].authorNum+")");
-//		$(secondP1a).text(json.tagList[i][0].authorName);
-//		secondP1.append(secondP1a);
-//		
-//		//출판사이름
-//		var secondP2=document.createElement("p");
-//		$(secondP2).addClass("book-metadata-publisher");
-//		divSecond.append(secondP2);
-//		
-//		var secondP2a=document.createElement("a");
-//		$(secondP2a).attr("onclick","goAuthor("+json.tagList[i][0].pub_num+")");
-//		$(secondP2a).text(json.tagList[i][0].pub_name);
-//		secondP2.append(secondP2a);
-//		
-//		//별점
-//		//
-	}
-//}
+}
 
 function display(listCount){
 	if(listCount==0){
@@ -241,14 +348,38 @@ function display(listCount){
 		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").css({
 			display:"none"
 		});
-	}else if(listCount==5){
-		$(".keyword_not_choice").attr("style","display:table");
-		$(".keyword_choice").attr("style","display:none");
-		$(".keyword_no_search").attr("style","display:none");
+	}else if(listCount==10000){
+		$(".keyword_no_search").attr("style","display:table");
+		$(".keyword_choice").attr("style","display:inline-block");
+		$(".keyword_not_choice").attr("style","display:none");
 		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").attr("style","display:none");
 	}else{
 		$(".keyword_not_choice").attr("style","display:none");
 		$(".keyword_no_search").attr("style","display:none");
-		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").attr("style","display:inline-block")
+		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").attr("style","display:inline-block");
 	}
+}
+
+function listAjax(root, sendData, pageNumber){
+	//리스트받아오기
+	sendData="tags="+$("input[name=tags]").val()+"&pageNumber="+pageNumber;
+	
+	$.ajax({
+		type:"post",
+		url: root+"/keywordSearch.do",
+		dataType:"json",
+		data:sendData,
+		success: list,
+//		error:function(jqXHR, textStatus, errorThrown ) {	// 이곳의 ajax에서 에러가 나면 얼럿창으로 에러 메시지 출력
+//	    	alert(jqXHR);
+//	    	alert(textStatus);
+//	    	alert(errorThrown);
+//	    }
+	});
+}
+//함수 :  goDetail='location.href="'${root}/detail.do?book_num='+json.tagList[i][0].book_num+"'
+function goDetail(book_num){
+	var root=$("input[name=rootJS]").val();
+	
+	location.href=root+"/detail.do?book_num="+book_num;
 }
