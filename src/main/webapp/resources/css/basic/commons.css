@@ -918,7 +918,8 @@ div.collapsable-notice {
 	overflow: hidden;
 }
 
-.book-metadata-publisher {
+.book-metadata-publisher,
+.mf-book-list .book-metadata-description {
 	display: none;
 }
 
@@ -1008,6 +1009,7 @@ div.collapsable-notice {
 }
 
 .mf-book-list.list-landscape > li > .mf-book-metadata > .book-metadata-description {
+	display: block;
 	font-size: 0.8rem;
 	font-weight: normal;
 	color: dimgray;

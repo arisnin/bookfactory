@@ -40,8 +40,8 @@ public class ServiceCenterDaoImp implements ServiceCenterDao {
 	}
 
 	@Override
-	public ServiceCenterDtoFre infoFile(int num) {
-		return sqlSession.selectOne(namespace + "infoRead", num);
+	public BoardContactDto infoFile(int num) {
+		return sqlSession.selectOne(namespace + "infoFile", num);
 	}
 
 	@Override

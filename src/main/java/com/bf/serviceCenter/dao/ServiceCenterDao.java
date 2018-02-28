@@ -20,7 +20,7 @@ public interface ServiceCenterDao {
 
 	NoticeDto infoRead(int num);
 
-	ServiceCenterDtoFre infoFile(int num);
+	BoardContactDto infoFile(int num);
 
 	int inquriyWrite(BoardContactDto boardContactDto);
 

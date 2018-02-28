@@ -66,7 +66,9 @@
 	</select>
 	
 	<select id="inquriyAnswer" parameterType="int" resultType="com.bf.manager.dto.BoardContactDto">
-		select * from board_contact where num=#{num}
+		select bc.*, q2.name q2_name from board_contact bc, qna_cate2 q2
+		where bc.category = q2.num
+		and bc.num=#{num} 
 	</select>
 	
 	<select id="mainNotice" parameterType="int" resultType="com.bf.main.dto.NoticeDto">
@@ -85,6 +87,10 @@
 					select * from board_frequency order by num desc) a)
 			where rnum >=1 and rnum <=3
 		]]>	
+	</select>
+	
+	<select id="infoFile" parameterType="int" resultType="com.bf.manager.dto.BoardContactDto">
+		select * from board_contact where num=#{num}
 	</select>
 	
 </mapper>

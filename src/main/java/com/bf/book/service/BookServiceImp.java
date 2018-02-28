@@ -558,10 +558,16 @@ public class BookServiceImp implements BookService {
 			
 			tagListCount=bookDao.getTagListCount(list);
 			
-			if(tagListCount>0) {
+			if(tagListCount>0 && tagListCount<10000) {
 				//밑에 뿌려줄 책정보 가져와야함 덤으로 페이지 번호도.
 				tagList=bookDao.getTagBookList(listMap);
 			}
+			
+			if(tagListCount==0) {
+				tagListCount=10000;
+			}
+			
+			System.out.println("tagListCount: "+tagListCount);
 			
 			HashMap<String, Object> json=new HashMap<String, Object>();
 			json.put("tagListCount", tagListCount);
@@ -570,31 +576,33 @@ public class BookServiceImp implements BookService {
 			ArrayList<Object> jsArr=new ArrayList<Object>();
 			JSONArray abc=new JSONArray();
 			
-			for(int i=0;i<tagList.size();i++) {
-				HomeDto dto=tagList.get(i);
-				
-				ArrayList<Object> arrT=new ArrayList<Object>();
-				HashMap<String, Object> dtoMap=new HashMap<String, Object>();
-				List<String> getTag=bookDao.getKeyword(dto.getBook_num());
-				
-				dtoMap.put("img_path", dto.getImg_path());
-				dtoMap.put("book_name", dto.getBookName());
-				dtoMap.put("book_num", dto.getBook_num());
-				dtoMap.put("authorName", dto.getAuthorName());
-				dtoMap.put("authorNum", dto.getAuthor_num());
-				dtoMap.put("pub_num", dto.getPub_num());
-				dtoMap.put("pub_name", dto.getPub_name());
-				dtoMap.put("price", dto.getPrice());
-				dtoMap.put("rental_price", dto.getRental_price());
-				dtoMap.put("intro", dto.getIntro());
-				dtoMap.put("star_point",dto.getStar_point());
-				dtoMap.put("star_count",dto.getStar_count());
-				dtoMap.put("keyword",getTag);
-				
-				arrT.add(dtoMap);
-				jsArr.add(arrT);
-				
-				//가지고있는 키워드 가져오기
+			if(tagList!=null) {
+				for(int i=0;i<tagList.size();i++) {
+					HomeDto dto=tagList.get(i);
+					
+					ArrayList<Object> arrT=new ArrayList<Object>();
+					HashMap<String, Object> dtoMap=new HashMap<String, Object>();
+					List<String> getTag=bookDao.getKeyword(dto.getBook_num());
+					
+					dtoMap.put("img_path", dto.getImg_path());
+					dtoMap.put("book_name", dto.getBookName());
+					dtoMap.put("book_num", dto.getBook_num());
+					dtoMap.put("authorName", dto.getAuthorName());
+					dtoMap.put("authorNum", dto.getAuthor_num());
+					dtoMap.put("pub_num", dto.getPub_num());
+					dtoMap.put("pub_name", dto.getPub_name());
+					dtoMap.put("price", dto.getPrice());
+					dtoMap.put("rental_price", dto.getRental_price());
+					dtoMap.put("intro", dto.getIntro());
+					dtoMap.put("star_point",dto.getStar_point());
+					dtoMap.put("star_count",dto.getStar_count());
+					dtoMap.put("keyword",getTag);
+					
+					arrT.add(dtoMap);
+					jsArr.add(arrT);
+					
+					//가지고있는 키워드 가져오기
+				}
 			}
 			json.put("tagList", jsArr);
 			json.put("pageNumber", pageNumber);

@@ -23,5 +23,7 @@ public interface MainDao {
 
 	public NoticeDto noticeRead(int num);
 
-	public List<CategoryPageDto> selectCategoryAll(int secondCateNum, int thirdCateNum);
+	public List<CategoryPageDto> selectCategoryAll(int secondCateNum, int thirdCateNum, int serviceNum, int startRow, int endRow);
+
+	public int selectCategoryAllCount(int secondCateNum, int thirdCateNum, int serviceNum);
 }

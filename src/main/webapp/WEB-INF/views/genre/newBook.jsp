@@ -13,7 +13,6 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/basic/commons.css" />
 <link rel="stylesheet" type="text/css" href="${root}/css/genre/newBook.css" />
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
-<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 <script type="text/javascript" src="${root}/script/genre/newBook.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -28,7 +27,6 @@ $(function(){
 		작가 상세보기 요청방식 :  onclick="location.href='${root}/author.do'"
 		출판사 클릭시 검색페이지로 : onclick="location.href='${root}/main.search.do'"
 	 -->
-	<input type="hidden" value="${firstCate}" name="firstCate"/>
 	<!-- 18.01.24 최정은 = 신간을 눌렀을때 나오는 화면입니다. -->
 	<div id="newBook">
 		<div class="bf-title-row title-type1">
@@ -61,10 +59,10 @@ $(function(){
 				<li>
 					<!-- 보기방식 메뉴 -->
 					<div class="view-type-list">
-						<button class="" type="button" value="landscape" onclick="changeViewType(this)">
+						<button class="${param.vType == 'landscape' ? 'active' : ''}" type="button" value="landscape" onclick="changeViewType(this)">
 							<span class="material-icons">format_list_bulleted</span>
 						</button>
-						<button class="active" type="button" value="portrait" onclick="changeViewType(this)">
+						<button class="${param.vType == 'portrait' ? 'active' : (param.vType == null ? 'active' : '')}" type="button" value="portrait" onclick="changeViewType(this)">
 							<span class="material-icons">apps</span>
 						</button>
 					</div>
@@ -73,7 +71,7 @@ $(function(){
 		</div>
 		<!-- 도서 검색 결과 리스트 -->
 		<section class="result-search-book-box">
-			<ul class="mf-book-list" id="search-view-type">
+			<ul class="mf-book-list ${param.vType == 'landscape' ? 'list-landscape' : ''}" id="search-view-type">
 				<c:forEach var="NewBookDto" items="${newList}">
 					<!-- ---------------------------------------------- -->
 					<li class="mf-book-item">
@@ -101,11 +99,12 @@ $(function(){
 									<a class="" href="${root}/author.do?pub_num=${NewBookDto.pub_num}">${NewBookDto.publisher_name }</a>
 								</p>
 							</c:if>
-							
+							<!-- 별점아이콘 생성을 위한 트리거 블록 -->
+							<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${NewBookDto.star_point == null ? 0 : NewBookDto.star_point})"></span>
 							<div class="content-star-rate">
 								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span> <span class="count-field"> 9999명</span>
 							</div>
-							<pre class="book-metadata-description hidden-block">
+							<pre class="book-metadata-description">
 								${NewBookDto.intro }
 							</pre>
 							
@@ -133,51 +132,70 @@ $(function(){
 				</c:forEach>
 			</ul>
 			<!-- End : mf-book-list 페이지이이~ -->
-			<nav class="bf-pagination">
-				<ul class="bf-animated-btn">
-					<c:if test="${newCount>0 }">			
-						<fmt:parseNumber var="pageCount" value="${newCount/boardSize+(newCount%boardSize==0? 0:1)}" integerOnly="true"/>
-						<c:set var="pageBlock" value="${10}"/>
-					
-						<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/>
-						<c:set var="startPage" value="${rs*pageBlock+1}"/>
+			<form id="newbook-pagination-form" action="#" method="get">
+				<nav class="bf-pagination">
+					<ul class="bf-animated-btn">
+						<c:if test="${newCount>0 }">			
+							<fmt:parseNumber var="pageCount" value="${newCount/boardSize+(newCount%boardSize==0? 0:1)}" integerOnly="true"/>
+							<c:set var="pageBlock" value="${10}"/>
 						
-						<c:set var="endPage" value="${startPage+pageBlock-1 }"/>
-						
-						<c:if test="${endPage>pageCount }">
-							<c:set var="endPage" value="${pageCount}"/>
+							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/>
+							<c:set var="startPage" value="${rs*pageBlock+1}"/>
+							
+							<c:set var="endPage" value="${startPage+pageBlock-1 }"/>
+							
+							<c:if test="${endPage>pageCount }">
+								<c:set var="endPage" value="${pageCount}"/>
+							</c:if>
+							
+							<li class="first"><a href="javascript:newBookPageHref('1')"><span></span></a></li>
+							
+							<c:if test="${startPage>pageBlock }">
+								<li class="prev"><a class="prev" href="javascript:newBookPageHref('${startPage-pageBlock}')"><span></span></a></li>
+							</c:if>
+							
+							<c:forEach var="i" begin="${startPage}" end="${endPage}">
+								<c:choose>
+									<c:when test="${pageNumber==i}">
+										<li><a class="active" href="javascript:newBookPageHref('${i}')">${i}</a></li>
+									</c:when>
+									
+									<c:otherwise>
+										<li><a href="javascript:newBookPageHref('${i}')">${i}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							
+							<c:if test="${endPage<pageCount }">
+								<li class="next"><a href="javascript:newBookPageHref('${startPage+pageBlock}')"><span></span></a></li>
+							</c:if>
+							
+							<li class="last"><a href="javascript:newBookPageHref('${pageCount}')"><span></span></a></li>
 						</c:if>
-						
-						<li class="first"><a href="${root}/new-book.do?pageNumber=1&firstCate=${firstCate}"><span></span></a></li>
-						
-						<c:if test="${startPage>pageBlock }">
-							<li class="prev"><a class="prev" href="${root}/new-book.do?pageNumber=${startPage-pageBlock}&firstCate=${firstCate}"><span></span></a></li>
-						</c:if>
-						
-						<c:forEach var="i" begin="${startPage}" end="${endPage}">
-							<c:choose>
-								<c:when test="${pageNumber==i}">
-									<li><a class="active" href="${root}/new-book.do?pageNumber=${i}&firstCate=${firstCate}">${i}</a></li>
-								</c:when>
-								
-								<c:otherwise>
-									<li><a href="${root}/new-book.do?pageNumber=${i}&firstCate=${firstCate}">${i}</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						
-						<c:if test="${endPage<pageCount }">
-							<li class="next"><a href="${root}/new-book.do?pageNumber=${startPage+pageBlock}&firstCate=${firstCate}"><span></span></a></li>
-						</c:if>
-						
-						<li class="last"><a href="${root}/new-book.do?pageNumber=${pageCount}&firstCate=${firstCate}"><span></span></a></li>
-					</c:if>
-				</ul>
-			</nav>
+					</ul>
+				</nav>
+				<input type="hidden" name="vType" value="portrait" />
+				<input type="hidden" name="pageNumber" value="${pageNumber}" />
+				<input type="hidden" name="firstCate" value="${firstCate}" />
+			</form>
 		</section>
 		<!-- End : result-search-book-box -->
 
 	</div>
+	<!-- 자바 스크립트 -->
+	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
+	<script type="text/javascript">
+		/* Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
+			e.click();
+		}); */
+		
+		function newBookPageHref(pnum) {
+			var cateForm = document.getElementById("newbook-pagination-form");
+			cateForm.pageNumber.value = pnum;
+			cateForm.vType.value = document.querySelector("#newBook > div.bf-service-type-menu div.view-type-list > button.active").value;
+			cateForm.submit();
+		}
+	</script>
 	<script type="text/javascript">
 	document.querySelectorAll(".content-star-rate").forEach(function(e,i){
 		createStarIcon(e, 3.7);

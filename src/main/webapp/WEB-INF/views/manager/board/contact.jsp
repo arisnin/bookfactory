@@ -115,18 +115,39 @@
 				</div>
 			</div>
 			
-			<div class="sh_board_contact_footer">
+		<div class="sh_board_list_footer">
 				<nav class="bf-pagination">
 					<ul class="bf-animated-btn">
-						<li class="first"><a href="#0"><span></span></a></li>
-						<li class="prev"><a href="#0"><span></span></a></li>
-						<li><a href="#0">1</a></li>
-						<li><a href="#0">2</a></li>
-						<li><a class="active" href="#0">3</a></li>
-						<li><a href="#0">4</a></li>
-						<li><a href="#0">5</a></li>
-						<li class="next"><a href="#0"><span></span></a></li>
-						<li class="last"><a href="#0"><span></span></a></li>
+
+						<c:if test="${count > 0}">
+							<li class="first"><a href="#0"><span></span></a></li>
+
+							<fmt:parseNumber var="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true" />
+							<c:set var="pageBlock" value="${5}" />
+							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true" />
+
+							<c:set var="startPage" value="${rs*pageBlock + 1}" />
+							<c:set var="endPage" value="${startPage + pageBlock - 1}" />
+
+							<c:if test="${endPage > pageCount}">
+								<c:set var="endPage" value="${pageCount}" />
+							</c:if>
+
+							<c:if test="${startPage > pageBlock}">
+								<li class="prev"><a href="${root}/manager/boardContact.do?pageNumber=${startPage-pageBlock}"><span></span></a></li>
+							</c:if>
+
+							<c:forEach var="i" begin="${startPage}" end="${endPage}">
+								<a href="${root}/manager/boardContact.do?pageNumber=${i}">${i}</a>
+							</c:forEach>
+
+							<c:if test="${endPage < pageCount}">
+								<li class="next"><a href="${root}/manager/boardContact.do?pageNumber=${(startPage + pageBlock)}"><span></span></a></li>
+							</c:if>
+
+
+							<li class="last"><a href="#0"><span></span></a></li>
+						</c:if>
 					</ul>
 				</nav>
 			</div>

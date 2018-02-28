@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@
 				<div class="bf-service-type-menu">
 					<ul class="service-type-list s_t_cate">
 						<li><a href="${root}/manager/statPreference.do">전체</a></li>
-						<li><a class="active" href="${root}/manager/ilbanPrefer.do">일반</a></li>
+						<li><a href="${root}/manager/ilbanPrefer.do">일반</a></li>
 						<li><a href="${root}/manager/romancePrefer.do">로맨스</a></li>
 						<li><a href="${root}/manager/fantasyPrefer.do">판타지</a></li>
 						<li><a href="${root}/manager/manhwaPrefer.do">만화</a></li>
@@ -30,7 +31,7 @@
 					</ul>
 				</div>
 				<div id="prefer-graph">
-					<h3>카테고리 일반 선호도</h3>
+					<h3>카테고리 ${pageName } 선호도</h3>
 					<table id="q-graph">
 						<thead>
 							<tr>
@@ -39,23 +40,23 @@
 						</thead>
 						<tbody>
 							<tr class="qtr" id="q1">
-								<th scope="row">${oneName }</th>
+								<th scope="row">${fn:substring(oneName,0,19) }<c:if test="${fn:length(oneName) > 19 }">..</c:if> </th>
 								<td class="sent bar"><p>${countMap.one}개</p><input type="hidden" value="${heightMap.one}"></td>
 							</tr>
 							<tr class="qtr" id="q2">
-								<th scope="row">${twoName }</th>
+								<th scope="row">${fn:substring(twoName,0,19) }<c:if test="${fn:length(twoName) > 19}">..</c:if></th>
 								<td class="sent bar"><p>${countMap.two}개</p><input type="hidden" value="${heightMap.two}"></td>
 							</tr>
 							<tr class="qtr" id="q3">
-								<th scope="row">${threeName }</th>
+								<th scope="row">${fn:substring(threeName,0,19) }<c:if test="${fn:length(threeName) > 19}">..</c:if></th>
 								<td class="sent bar"><p>${countMap.three}개</p><input type="hidden" value="${heightMap.three}"></td>
 							</tr>
 							<tr class="qtr" id="q4">
-								<th scope="row">${fourName }</th>
+								<th scope="row">${fn:substring(fourName,0,19) }<c:if test="${fn:length(fourName) > 19}">..</c:if></th>
 								<td class="sent bar"><p>${countMap.four}개</p><input type="hidden" value="${heightMap.four}"></td>
 							</tr>
 							<tr class="qtr" id="q5">
-								<th scope="row">${fiveName }</th>
+								<th scope="row">${fn:substring(fiveName,0,19) }<c:if test="${fn:length(fiveName) > 19}">..</c:if></th>
 								<td class="sent bar"><p>${countMap.five}개</p><input type="hidden" value="${heightMap.five}"></td>
 							</tr>
 						</tbody>
@@ -100,5 +101,20 @@
 	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 	<script type="text/javascript" src="${root}/script/manager/statistics.js"></script>
 	<script src="${root}/script/basic/bootstrap.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".s_t_cate").find("li").each(function() {
+				var url = location.href;
+				var index = url.indexOf("b");
+				var realUrl = url.substr(index-1);
+				var a = $(this).find("a");
+				if(a.attr("href") == realUrl){
+					a.addClass("active");
+				}else{
+					a.removeClass("active");
+				}
+			});
+		});
+	</script>
 </body>
 </html>

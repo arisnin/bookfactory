@@ -18,8 +18,9 @@
 <body>
 	<div id="sh_member_pay">
 		<div class="sh_main_text">회원 결제 관리 페이지</div>
-		<div id="sh_board_shadow">
-			<form action="${root}/manager/memberPayDetail.do" method="post" >
+		
+		<form action="${root}/manager/memberPayDetail.do" method="post" >
+			<div id="sh_board_shadow">
 			<div class="sh_member_pay_header">
 			
 				<div class="sh_member_pay_main">
@@ -80,12 +81,12 @@
 							<li>${cashDto.cash_id }</li>
 							<li>${cashDto.member_name}</li>
 							<li>${cashDto.cash_total }원</li>
-							<li>${cashDto.point_total }point</li>
+							<li>${cashDto.point_total }<br/>point</li>
 							<li><fmt:formatDate value="${cashDto.last_date }" pattern="yyyy-MM-dd"/></li>
 							<li>쿠폰미구현</li>
 							<li><button type="submit" class="bf-button" >상세보기</button></li>						
 						</ul>
-							<input type="hidden" name="cash_num" value="${cashDto.cash_num }">
+							<input type="hidden" name="cash_num" value="${cashDto.cash_num}">
 							<input type="hidden" name="cash_id" value="${cashDto.cash_id }">
 							<input type="hidden" name="member_name" value="${cashDto.member_name }">
 							<input type="hidden" name="cash_total" value="${cashDto.cash_total }">
@@ -95,24 +96,45 @@
 					</c:forEach>
 				</div>
 			</div>
-
-			<div class="sh_member_pay_footer">
+		
+				<div class="sh_board_list_footer">
 				<nav class="bf-pagination">
 					<ul class="bf-animated-btn">
-						<li class="first"><a href="#0"><span></span></a></li>
-						<li class="prev"><a href="#0"><span></span></a></li>
-						<li><a href="#0">1</a></li>
-						<li><a href="#0">2</a></li>
-						<li><a class="active" href="#0">3</a></li>
-						<li><a href="#0">4</a></li>
-						<li><a href="#0">5</a></li>
-						<li class="next"><a href="#0"><span></span></a></li>
-						<li class="last"><a href="#0"><span></span></a></li>
+
+						<c:if test="${count > 0}">
+							<li class="first"><a href="#0"><span></span></a></li>
+
+							<fmt:parseNumber var="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true" />
+							<c:set var="pageBlock" value="${5}" />
+							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true" />
+
+							<c:set var="startPage" value="${rs*pageBlock + 1}" />
+							<c:set var="endPage" value="${startPage + pageBlock - 1}" />
+
+							<c:if test="${endPage > pageCount}">
+								<c:set var="endPage" value="${pageCount}" />
+							</c:if>
+
+							<c:if test="${startPage > pageBlock}">
+								<li class="prev"><a href="${root}/manager/memberPay.do?pageNumber=${startPage-pageBlock}"><span></span></a></li>
+							</c:if>
+
+							<c:forEach var="i" begin="${startPage}" end="${endPage}">
+								<a href="${root}/manager/memberPay.do?pageNumber=${i}">${i}</a>
+							</c:forEach>
+
+							<c:if test="${endPage < pageCount}">
+								<li class="next"><a href="${root}/manager/memberPay.do?pageNumber=${(startPage + pageBlock)}"><span></span></a></li>
+							</c:if>
+
+
+							<li class="last"><a href="#0"><span></span></a></li>
+						</c:if>
 					</ul>
 				</nav>
 			</div>
-			</form>
 		</div>
+		</form>
 	</div>
 
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>

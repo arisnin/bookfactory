@@ -262,7 +262,7 @@
 	</select>
 	
 	<select id="getTagListCount" parameterType="java.util.ArrayList" resultType="int">
-			SELECT nvl(count(b.book_num),0)
+			SELECT nvl(count(DISTINCT b.book_num),0)
 			FROM bookm b, keyword_list l
 			WHERE b.book_num=l.book_num
 			<foreach collection="list" item="tag" separator="" open="" close="">
@@ -304,7 +304,7 @@
 			                                                          WHERE NAME=#{query}))
 									</foreach>
 						             )
-					ORDER BY b.NAME DESC) rn
+					ORDER BY b.write_date DESC) rn
 			<foreach collection="page" item="pagea" index="i" separator="" open="" close="">				
 				<choose>
 					<when test="i==0">

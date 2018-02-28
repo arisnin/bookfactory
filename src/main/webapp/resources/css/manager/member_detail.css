@@ -132,3 +132,6 @@
 .ui-tabs .ui-tabs-nav li {
     width: 4.8rem;
 }
+.jconfirm div.jconfirm-box {
+	width: 20rem;
+}

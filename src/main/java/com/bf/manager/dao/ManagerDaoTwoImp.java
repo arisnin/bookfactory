@@ -134,6 +134,11 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		// TODO Auto-generated method stub
 		return sqlSession.update("com.bf.manager.ManagerboardMapper.boardUpdate",boardFrequencyDto);
 	}
+	@Override
+	public int listDelete(int num) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("com.bf.manager.ManagerboardMapper.boardDelete",num);
+	}
 	
 	// ------------member------------------
 	@Override
@@ -230,6 +235,14 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		map.put("num", num);
 		return sqlSession.selectList("com.bf.manager.ManagerReviewMapper.accuseList", map);
 	}
-
+	@Override
+	public int pointInsert(int point,String pointType,String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("point", point);
+		map.put("pointType", pointType);
+		map.put("id", id);
+		return sqlSession.insert("com.bf.manager.ManagerReviewMapper.pointInsert",map);
+		
+	}
 
 }

@@ -41,7 +41,7 @@ public interface ManagerDaoTwo {
     public BoardFrequencyDto catelist(int num,int cateNum); 
     public int fileboardUpdateOk(BoardFrequencyDto boardFrequencyDto);
     public int boardUpdateOk(BoardFrequencyDto boardFrequencyDto);
-    
+    public int listDelete(int num);
     //member
     public int memberCount();
     public List<MemberDto> memberList(int starRow,int endRow);
@@ -52,9 +52,10 @@ public interface ManagerDaoTwo {
     public List<ManagerPayDto> payDetail(int startRow,int endRow,String id);
     public List<ManagerChargeDto> chargeDetail(int startRow,int endRow,String id);
     public List<ManagerPointDto> pointDetail(int startRow,int endRow,String id);
+    public int pointInsert(int point,String pointType,String id	);
    //review
     public int reviewCount();
     public List<ReviewManagerDto> reviewList(int startRow,int endRow);
     public List<AccuseDto> accuseList(int num,int startRow,int endRow);
-
+   
 }

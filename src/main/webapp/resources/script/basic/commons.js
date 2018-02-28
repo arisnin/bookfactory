@@ -172,8 +172,8 @@ function changeViewType(event) {
 	
 	buttons[0].classList.toggle("active");
 	buttons[1].classList.toggle("active");
-	document.querySelectorAll(".book-metadata-description").forEach(function(e, i) {
-		e.classList.toggle("hidden-block");
-	});
+//	document.querySelectorAll(".book-metadata-description").forEach(function(e, i) {
+//		e.classList.toggle("hidden-block");
+//	});
 	target.classList.toggle("list-landscape");
 }

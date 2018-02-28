@@ -1,5 +1,10 @@
 package com.bf.manager.service;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -22,6 +27,8 @@ public interface ManagerServiceTwo {
 	public void boardUpdate(ModelAndView mav);
 	
 	public void boardUpdateOk(ModelAndView mav);
+	
+	public void boardDelete(ModelAndView mav);
 
 
 	public void managerNoticeInsert(ModelAndView mav);
@@ -47,4 +54,6 @@ public interface ManagerServiceTwo {
 
 	public void boardReply(ModelAndView mav);
 	public void boardReplyOk(ModelAndView mav);
+
+	public void memberPointInsert(HttpServletRequest request, HttpServletResponse response) throws IOException;
 }
