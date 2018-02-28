@@ -532,7 +532,6 @@ public class BookServiceImp implements BookService {
 		if(tags!=null) {
 			String tag[]=tags.split(",");
 			String query="";
-			
 			for(int i=0;i<tag.length;i++) {
 				query=tag[i];
 				list.add(query);

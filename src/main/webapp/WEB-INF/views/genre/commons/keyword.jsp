@@ -19,6 +19,7 @@
 	<input type="hidden" name="rootJS" value="${root}"/>
 	<input type="hidden" name="firstCate" value="${firstCate}"/>
 	<input type="hidden" name="tags"/>
+	
 	<div class="keyword wrap-container">
 		<div class="keyword_top">
 			<div class="keyword_top_head">

@@ -134,7 +134,7 @@ public class BookController {
 	/**
 	 * 일반 제외 홈화면들 > 키워드 검색 ajax
 	 */
-	@RequestMapping(value = "/keywordSearch.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/keywordSearch.do", method = RequestMethod.POST)
 	public ModelAndView keywordSearch(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
