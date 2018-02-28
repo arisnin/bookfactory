@@ -18,11 +18,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.book.dto.ReviewDto;
 import com.bf.main.dto.NoticeDto;
 import com.bf.manager.dto.BoardCate1Dto;
 import com.bf.manager.dto.BoardCate2Dto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.member.model.User;
 import com.bf.serviceCenter.dao.ServiceCenterDao;
 import com.bf.serviceCenter.dto.ServiceCenterDtoFre;
 
@@ -116,23 +118,28 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		int num = Integer.parseInt(request.getParameter("num"));
 		LogAspect.info("다운로드 넘버 확인 : " + num);
 		
-		ServiceCenterDtoFre serviceCenterDtoFre = serviceCenterDao.infoFile(num);
-		LogAspect.info("다운로드 넘버 스트링링 : " + serviceCenterDtoFre.toString());
+		BoardContactDto boardContactDto = serviceCenterDao.infoFile(num);
+		LogAspect.info("다운로드 넘버 스트링링 : " + boardContactDto.toString());
 		
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
+				
 		
 		try {
-			int index = serviceCenterDtoFre.getFile_name().indexOf("_") + 1;
-			String bfFileName = serviceCenterDtoFre.getFile_name().substring(index);
+			int index = boardContactDto.getFile_name().indexOf("_") + 1;
+			String bfFileName = boardContactDto.getFile_name().substring(index);
 			String fileName = new String(bfFileName.getBytes("UTF-8"), "ISO-8859-1");
 			
 			response.setContentType("application/octet-stream");
-			response.setContentLengthLong(serviceCenterDtoFre.getFile_size());
+			response.setContentLengthLong(boardContactDto.getFile_size());
 			response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";");
 			
-			bis = new BufferedInputStream(new FileInputStream(serviceCenterDtoFre.getFile_path()));
+			
+			
+			bis = new BufferedInputStream(new FileInputStream(boardContactDto.getFile_path()));
 			bos = new BufferedOutputStream(response.getOutputStream());
+			
+			
 			
 			while(true) {
 				int data = bis.read();
@@ -144,12 +151,14 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		}catch (Exception e) {
 		}finally {
 			try {
-				if(bis!= null) bis.close();
-				if(bos!= null) bos.close();
+				if(bis!=null) bis.close();
+				if(bos!=null) bos.close();
 			}catch(Exception e) {
 				e.printStackTrace();
 			}	
-		}		
+		}
+		
+		mav.setViewName("serviceCenter/inquriy_list2.solo");
 	}
 
 
@@ -203,8 +212,12 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 			}
 		}
 		
-		boardContactDto.setWrite_date(new Date());
-		boardContactDto.setId("admin");
+		User user = (User) request.getSession().getAttribute("userInfo");		
+	    boardContactDto.setId(user.getUsername());
+	    
+	    
+	    
+		boardContactDto.setWrite_date(new Date());		
 		boardContactDto.setContent(boardContactDto.getContent().replace("\r\n", "<br/>"));
 		
 		LogAspect.info("디티오 확인 : " + boardContactDto.toString() );
@@ -227,7 +240,6 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
 		int count = serviceCenterDao.inquriyCount();
-		
 		
 		LogAspect.info("1:1문의내역 갯수확인 : " + count);
 		

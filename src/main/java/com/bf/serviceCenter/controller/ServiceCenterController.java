@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.member.model.User;
 import com.bf.serviceCenter.service.ServiceCenterService;
@@ -80,11 +81,12 @@ public class ServiceCenterController {
 	}
 	
 	@RequestMapping(value = "/serviceCenter/inquriyOk.do" , method = RequestMethod.POST)
-	public ModelAndView serviceCenterInquriyOk(HttpServletRequest request, HttpServletResponse response, BoardContactDto boardContactDto) {
+	public ModelAndView serviceCenterInquriyOk(HttpServletRequest request, HttpServletResponse response, BoardContactDto boardContactDto, ReviewDto reviewDto) {
 		LogAspect.info("북팩토리 문의 작성완료");
 		
 		ModelAndView mav = new ModelAndView();
 		
+		mav.addObject("reviewDto", reviewDto);
 		mav.addObject("request", request);
 		mav.addObject("boardContactDto", boardContactDto);
 		
@@ -111,7 +113,7 @@ public class ServiceCenterController {
 		LogAspect.info("문의내역");
 		
 		ModelAndView mav = new ModelAndView();
-		
+				
 		mav.addObject("request", request);
 		
 		serviceCenterService.inquriyList(mav);
@@ -175,7 +177,7 @@ public class ServiceCenterController {
 		
 		serviceCenterService.serviceCenterInformationDownLoad(mav);
 		
-		return null;
+		return mav;
 	}
 	
 	

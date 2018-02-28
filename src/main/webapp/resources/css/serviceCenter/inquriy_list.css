@@ -93,6 +93,10 @@
 	color:#777;	
 }
 
+.serviceCenter_inquriy_list_list a:hover{
+	color:#776bce;	
+}
+
 .serviceCenter_inquriy_list_answer .answer,
 .serviceCenter_inquriy_list_answer .answer_complete{
 	
@@ -124,4 +128,8 @@
 
 .serviceCenter_inquriy_list_answer .answer{
 	background: #777;
+}
+
+.serviceCenter_inquriy_list_title{
+	font-weight: bold;
 }
