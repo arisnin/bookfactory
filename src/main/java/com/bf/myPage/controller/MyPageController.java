@@ -28,9 +28,14 @@ public class MyPageController {
 	 * 메인 > 로그인 > 마이팩토리(마이 페이지)
 	 */
 	@RequestMapping(value="/myPage/home.do")
-	public String myPage(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView myPage(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("myPage()");
-		return "myPage/home.my";
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.home(mav);
+		
+		return mav;
 	}
 	
 	// 마이페이지 > 책 목록 페이지 ////////////////////////////////////

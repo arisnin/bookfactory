@@ -188,3 +188,10 @@
 }
 
 /* Recent Style */
+
+
+/*태우수정*/
+/* 
+.ridi-book-item:FIRST-CHILD{
+	FLOAT:LEFT;
+} */

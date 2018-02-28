@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,10 @@
 <link href="${root}/css/basic/reset.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/home.css" type="text/css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="${root}/css/myPage/myRidi.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/myPage/library/purchasedAll.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/myPage/library/recentLookBook.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 	<div class="wrap-container">
@@ -21,42 +26,42 @@
 					<h3 class="account-info-id">eclipse</h3>
 					<p class="account-info-email">eclipse@naver.com</p>
 				</div>
-				<a class="account-logout-btn" href="javascript:alert('로그아웃');">로그아웃</a>
+				<a class="account-logout-btn" href="${root}/member/logout.do">로그아웃</a>
 			</div>
 			<!-- 보유 자산 정보 -->
 			<div class="home-asset-info-box">
 				<ul class="asset-info-list">
 					<!-- 마이캐시 -->
 					<li class="asset-info-list-item">
-						<div class="asset-info" onclick="alert('캐시히스토리')">
+						<div class="asset-info">
 							<h4 class="asset-info-title">
 								<span class="info-icon material-icons">&#xe90c;</span>
 								<span class="info-title-text">마이캐시</span>
 							</h4>
 							<p class="asset-info-amount">
-								<span class="info-amount" id="amount-cash">0</span>
+								<span class="info-amount" id="amount-cash"><fmt:formatNumber value ="${total1}" pattern="#,###"/></span>
 								원
 							</p>
 						</div>
 						<div class="asset-more-info">
-							<a class="bf-button bf-transparent-btn bf-animated-btn" href="javascript:alert('캐시충전')">마이캐시 충전</a>
+							<a class="bf-button bf-transparent-btn bf-animated-btn" href="${root}/payment/myCash.do">마이캐시 충전</a>
 						</div>
 					</li>
 					<!-- 마이포인트 -->
 					<li class="asset-info-list-item">
-						<div class="asset-info" onclick="alert('포인트내역')">
+						<div class="asset-info">
 							<h4 class="asset-info-title">
 								<span class="info-icon material-icons">&#xe54f;</span>
 								<span class="info-title-text">마이포인트</span>
 							</h4>
 							<p class="asset-info-amount">
-								<span class="info-amount" id="amount-point">0</span>
+								<span class="info-amount" id="amount-point"><fmt:formatNumber value ="${total2}" pattern="#,###"/></span>
 								원
 							</p>
 						</div>
 						<div class="asset-more-info mf-point">
 							<a class="bf-button bf-transparent-btn" style="pointer-events: none;" href="javascript:alert('소멸 예정')">소멸 예정</a>
-							<span class="period-point-sum">0</span>
+							<span class="period-point-sum"><fmt:formatNumber value ="${extinction}" pattern="#,###"/></span>
 						</div>
 					</li>
 					<!-- 쿠폰 -->
@@ -98,62 +103,24 @@
 		<!-- 구매목록 -->
 		<article class="mf-home-article">
 			<div class="bf-title-row title-type3">
-				<h3>구매목록<span class="book-count">5</span></h3>
+				<h3>구매목록<span class="book-count">${myPagePurchasedPageDtoList.size()}</span></h3>
 				<div class="more-button-box">
-					<button type="button" class="bf-button bf-black-btn bf-animated-btn">전체보기</button>
+					<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='${root}/library/purchased.do'">전체보기</button>
 				</div>
 			</div>
 			<ul class="mf-book-list">
-				<li class="mf-book-item">
-					<div class="mf-book-thumbnail">
-						<div class="mf-book-thumbnail-image">
-							<img class="" src="//misc.ridibooks.com/cover/111000138/large" alt="image" />
+				<c:forEach var="myPurchasedPageDto" items="${myPagePurchasedPageDtoList}">
+					<li class="mf-book-item">
+						<div class="mf-book-thumbnail">
+							<div class="mf-book-thumbnail-image" onclick ="location.href='${root}/detail.do?book_num=${myPurchasedPageDto.book_num}'">
+								<img class="" src="${myPurchasedPageDto.img_path}"/>
+							</div>
 						</div>
-					</div>
-					<div class="mf-book-metadata">
-						<p class="book-metadata-text">운현궁의 봄</p>
-					</div>
-				</li>
-				<li class="mf-book-item">
-					<div class="mf-book-thumbnail">
-						<div class="mf-book-thumbnail-image">
-							<img class="" src="//misc.ridibooks.com/cover/111014017/large" />
+						<div class="mf-book-metadata">
+							<h3 class="book-metadata-text" onclick ="location.href='${root}/detail.do?book_num=${myPurchasedPageDto.book_num}'">${myPurchasedPageDto.book_name}</h3>
 						</div>
-					</div>
-					<div class="mf-book-metadata">
-						<p class="book-metadata-text">추리 스릴러 길라잡이</p>
-					</div>
-				</li>
-				<li class="mf-book-item">
-					<div class="mf-book-thumbnail">
-						<div class="mf-book-thumbnail-image">
-							<img class="" src="//misc.ridibooks.com/cover/682000659/large" />
-						</div>
-					</div>
-					<div class="mf-book-metadata">
-						<p class="book-metadata-text">[체험판] 데프 보이스</p>
-					</div>
-				</li>
-				<li class="mf-book-item">
-					<div class="mf-book-thumbnail">
-						<div class="mf-book-thumbnail-image">
-							<img class="" src="//misc.ridibooks.com/cover/945012245/large" />
-						</div>
-					</div>
-					<div class="mf-book-metadata">
-						<p class="book-metadata-text">책을 읽으면 경험이 쌓여! 1화</p>
-					</div>
-				</li>
-				<li class="mf-book-item">
-					<div class="mf-book-thumbnail">
-						<div class="mf-book-thumbnail-image">
-							<img class="" src="//misc.ridibooks.com/cover/3026000001/large" />
-						</div>
-					</div>
-					<div class="mf-book-metadata">
-						<p class="book-metadata-text">이스닐다 1화</p>
-					</div>
-				</li>
+					</li>
+				</c:forEach>
 			</ul>
 		</article>
 
@@ -162,62 +129,25 @@
 			<div class="bf-title-row title-type3">
 				<h3>최근 본 책</h3>
 				<div class="more-button-box">
-					<button type="button" class="bf-button bf-black-btn bf-animated-btn">전체보기</button>
+					<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='${root}/library/recentLookBook.do'">전체보기</button>
 				</div>
 			</div>
 			<ul class="mf-book-list">
-				<li class="mf-book-item">
-					<div class="mf-book-thumbnail">
-						<div class="mf-book-thumbnail-image">
-							<img class="" src="//misc.ridibooks.com/cover/111000138/large" alt="image" />
+				<c:forEach var="myRecentPageDto" items="${myPageRecentPageDtoList}">
+					<li class="ridi-book-item">
+						<div class="ridi-book-thumbnail">
+							<div class="ridi-book-thumbnail-image" onclick="location.href='${root}/detail.do?book_num=${myRecentPageDto.book_num}'">
+								<img class="" src="${myRecentPageDto.img_path}"/>
+							</div>
 						</div>
-					</div>
-					<div class="mf-book-metadata">
-						<h3 class="book-metadata-text">운현궁의 봄</h3>
-						<p class="book-metadata-author">
-							<a class="" href="javascript:alert('작가페이지')">김동인</a>
-						</p>
-					</div>
-				</li>
-				<li class="mf-book-item">
-					<div class="mf-book-thumbnail">
-						<div class="mf-book-thumbnail-image">
-							<img class="" src="//misc.ridibooks.com/cover/111014017/large" />
+						<div class="ridi-book-metadata">
+							<h3 class="book-metadata-text" onclick ="location.href='${root}/detail.do?book_num=${myRecentPageDto.book_num}'">${myRecentPageDto.book_name}</h3>
+							<p class="book-metadata-author">
+								<a class="book_metadata-author-link" href="javascript:alert('작가페이지 미구현(작가번호를 받아와야함 그러므로 sql문 및 dto 수정)')">${myRecentPageDto.author_name}</a>
+							</p>
 						</div>
-					</div>
-					<div class="mf-book-metadata">
-						<h3 class="book-metadata-text">추리 스릴러 길라잡이</h3>
-						<p class="book-metadata-author">
-							<a class="" href="javascript:alert('작가페이지')">리디북스 콘텐츠팀</a>
-						</p>
-					</div>
-				</li>
-				<li class="mf-book-item">
-					<div class="mf-book-thumbnail">
-						<div class="mf-book-thumbnail-image">
-							<img class="" src="//misc.ridibooks.com/cover/682000659/large" />
-						</div>
-					</div>
-					<div class="mf-book-metadata">
-						<h3 class="book-metadata-text">[체험판] 데프 보이스</h3>
-						<p class="book-metadata-author">
-							<a class="" href="javascript:alert('작가페이지')">마루야마 마사키</a>
-						</p>
-					</div>
-				</li>
-				<li class="mf-book-item">
-					<div class="mf-book-thumbnail">
-						<div class="mf-book-thumbnail-image">
-							<img class="" src="//misc.ridibooks.com/cover/945012245/large" />
-						</div>
-					</div>
-					<div class="mf-book-metadata">
-						<h3 class="book-metadata-text">책을 읽으면 경험이 쌓여! 1화</h3>
-						<p class="book-metadata-author">
-							<a class="" href="javascript:alert('작가페이지')">형상준</a>
-						</p>
-					</div>
-				</li>
+					</li>
+				</c:forEach>
 			</ul>
 		</article>
 	</div>
