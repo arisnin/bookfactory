@@ -103,10 +103,14 @@
 }
 
 .result-search-author-box > .search-more-button .bf-button:after {
-	content: ' \25BC';
+	content: ' \25B2';
 	display: inline-block;
 	font-size: 0.4rem;
-	transform: translate(0.2rem, -0.1rem);
+	transform: translate(0.2rem, -0.1rem);	
+}
+
+.result-search-author-box > .search-more-button .bf-button.collapse:after {
+	content: ' \25BC';
 }
 
 /* 검색 리스트 */

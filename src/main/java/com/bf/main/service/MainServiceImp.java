@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Locale.Category;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import com.bf.aop.LogAspect;
 import com.bf.main.dao.MainDao;
 import com.bf.main.dto.CategoryPageDto;
 import com.bf.main.dto.NoticeDto;
+import com.bf.main.dto.SearchAuthorDto;
 import com.bf.member.model.MemberDto;
 
 /**
@@ -32,6 +34,52 @@ import com.bf.member.model.MemberDto;
 public class MainServiceImp implements MainService {
 	@Autowired
 	private MainDao mainDao;
+
+	@Override
+	public ModelAndView mainSearch(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest)mav.getModelMap().get("request");
+		
+		String keyword = request.getParameter("keyword");
+		String cnum = request.getParameter("cnum");
+		String onum = request.getParameter("onum");
+		
+		int thirdCateNum = cnum == null ? 0 : Integer.parseInt(cnum);
+		int orderTypeNum = onum == null ? 100 : Integer.parseInt(onum);
+		LogAspect.info("cnum/snum/keyword:" + thirdCateNum + "/" + orderTypeNum  + "/" + keyword);
+		
+		// Pagination 설정
+		String pnum = request.getParameter("pnum");
+		int pageNumber = pnum == null ? 1 : Integer.parseInt(pnum);
+
+		int boardSize = 20;
+		int endRow = pageNumber * boardSize;
+		int startRow = endRow - boardSize + 1;
+		int count = 0;
+
+		List<SearchAuthorDto> searchAuthorList = null;
+		List<CategoryPageDto> searchBookList = null;
+		
+		if (keyword != null) {
+			// 페이징 계산용 검색 결과 카운팅
+			count = mainDao.selectSearchBookCount(keyword, thirdCateNum);
+			LogAspect.info("pnum/count/start/end:" + pageNumber + "/" + count + "/" + startRow + "/" + endRow);
+			
+			// 저자 검색
+			searchAuthorList = mainDao.selectSearchAuthor(keyword);
+			LogAspect.info(searchAuthorList.size());
+			
+			// 책(출판사) 검색
+			// thirdCateNum(소분류 카테고리): 0이면 전체검색, serviceNum(정렬기준): 최신순(100), 별점순(101), 리뷰평가순(102), 낮은가격순(103) 
+			searchBookList = mainDao.selectSearchBook(keyword, thirdCateNum, orderTypeNum, startRow, endRow);
+			LogAspect.info(searchBookList.size());
+		}
+		
+		mav.addObject("pnum",pageNumber);
+		mav.addObject("count",count);
+		mav.addObject("boardSize", boardSize);
+		
+		return mav.addObject("searchAuthorList", searchAuthorList).addObject("searchBookList", searchBookList);
+	}
 
 	@Override
 	public ModelAndView category(ModelAndView mav) {

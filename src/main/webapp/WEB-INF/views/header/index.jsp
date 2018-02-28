@@ -28,8 +28,8 @@
 						<span class="hw_search_icon">
 							<img src="${root}/img/index/searchIcon_purple.png" />
 						</span>
-						<form action="${root}/main/search.do" method="post">
-							<input class="hw_search_input" type="text" name="indexSearch" placeholder="제목,저자,출판사 검색" />
+						<form action="${root}/main/search.do" method="get">
+							<input class="hw_search_input" type="text" name="keyword" placeholder="제목,저자,출판사 검색" />
 						</form>
 						<span class="hw_del_icon">
 							<img src="${root}/img/index/searchdel.JPG" />

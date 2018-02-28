@@ -21,4 +21,6 @@ public interface MainService {
 
 	public ModelAndView category(ModelAndView mav);
 
+	public ModelAndView mainSearch(ModelAndView mav);
+
 }
