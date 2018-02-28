@@ -30,6 +30,8 @@ import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.member.model.User;
+import com.bf.myPage.dao.MyPageDao;
+import com.bf.myPage.dto.MyPageRecentLookBookDto;
 import com.bf.book.dto.DetailCateDto;
 import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
@@ -490,6 +492,21 @@ public class BookServiceImp implements BookService {
 		mav.addObject("authorBook", authorBook);
 		mav.addObject("illorBook", illorBook);
 		mav.addObject("transBook", transBook);
+
+		// 최근 본 책 으로 넘어가게 insert문 작성
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername(); 
+		
+		MyPageRecentLookBookDto myPageRecentLookBookDto = new MyPageRecentLookBookDto();
+		myPageRecentLookBookDto.setId(id);
+		myPageRecentLookBookDto.setBook_num(Integer.parseInt(request.getParameter("book_num")));
+		LogAspect.info(myPageRecentLookBookDto.toString());
+		
+		if(id != null){
+			int check = bookDao.recentLookBookInsert(myPageRecentLookBookDto);
+			LogAspect.info(check);
+			mav.addObject("check", check);
+		}
 	}
 
 	@Override	//키워드검색

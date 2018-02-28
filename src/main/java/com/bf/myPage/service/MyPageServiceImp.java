@@ -207,7 +207,7 @@ public class MyPageServiceImp implements MyPageService {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
 		User user = (User) request.getSession().getAttribute("userInfo");
-		String id = user.getUsername();
+		String id = user.getUsername(); 
 		
 		List<MyPageRecentPageDto> myPageRecentPageDtoList = myPageDao.MyRecentPageList(id);
 		LogAspect.info(myPageRecentPageDtoList.size());
@@ -314,6 +314,44 @@ public class MyPageServiceImp implements MyPageService {
 		
 		mav.addObject("orderDto", orderDto);
 		mav.setViewName("myPage/payment/myCashHistoryCashClick.my");
+	}
+
+	@Override
+	public void home(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		
+		List<MyPageCashPageDto> myPageCashPageDtoList = myPageDao.myCashPageList(id);
+		
+		int total1 = 0;
+		for(int i = 0; i < myPageCashPageDtoList.size(); i++){
+			total1 += myPageCashPageDtoList.get(i).getCharge_cash();
+		}
+		
+		List<MyPagePointDto> myPagePointDtoList = myPageDao.myPointList(id);
+		LogAspect.info(myPagePointDtoList.size());
+		
+		int total2 = 0;
+		for(int i = 0; i < myPagePointDtoList.size(); i++){
+			 total2 += myPagePointDtoList.get(i).getRemain();
+		}
+		
+		int extinction = myPageDao.myPointExtinctionSelect(id);
+
+		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoList = myPageDao.PurchasedPageList(id);		
+		List<MyPageRecentPageDto> myPageRecentPageDtoList = myPageDao.MyRecentPageList(id);
+		
+		mav.addObject("myPageRecentPageDtoList", myPageRecentPageDtoList);
+		mav.addObject("myPagePurchasedPageDtoList", myPagePurchasedPageDtoList);
+		mav.addObject("myPageCashPageDtoList", myPageCashPageDtoList);
+		mav.addObject("total1", total1);
+		mav.addObject("myPagePointDtoList", myPagePointDtoList);
+		mav.addObject("total2", total2);
+		mav.addObject("extinction", extinction);
+		mav.setViewName("myPage/home.my");
 	}
 
 	

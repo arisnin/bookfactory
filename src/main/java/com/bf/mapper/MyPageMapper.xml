@@ -55,6 +55,7 @@
 		FROM RECENT_LOOKBOOK rb, bookm bm, author A, 
 		(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num FROM review GROUP BY book_num) rs
 		WHERE bm.book_num = rb.book_num AND rb.book_num = rs.book_num(+) AND bm.author_num = A.num and rb.ID = #{id}
+		order by rb.LOOK_DATE
 	</select>
 	
 	<select id="all_purchased_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPagePurchasedPageDto">

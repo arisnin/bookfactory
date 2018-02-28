@@ -28,6 +28,8 @@ public interface MyPageService {
 	void recentLookBookDelete(ModelAndView mav);
 
 	void myCashHistoryCashClick(ModelAndView mav);
+
+	void home(ModelAndView mav);
 	
 
 }
