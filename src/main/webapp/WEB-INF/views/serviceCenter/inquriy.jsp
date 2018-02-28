@@ -74,9 +74,11 @@
 			<div>
 				<select name="category">
 					<option>-</option>
-					<option value="102">이용 문의</option>
-					<option value="103">오류 신고</option>
-					<option value="104">이벤트 문의</option>
+					<option value="100">아이디/로그인</option>
+					<option value="101">결제/환불</option>
+					<option value="102">이용문의</option>
+					<option value="103">오류/활용</option>
+					<option value="104">시스템업데이트</option>
 					<option value="105">서비스제안</option>					
 					<option value="106">기타</option>
 				</select>
