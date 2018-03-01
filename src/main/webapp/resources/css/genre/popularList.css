@@ -63,6 +63,7 @@
 	float: right;
 	font-size: 0.875rem;
 	margin-right: 0.625rem;
+	cursor: pointer;
 }
 
 .most-popular-box .popular-ul {

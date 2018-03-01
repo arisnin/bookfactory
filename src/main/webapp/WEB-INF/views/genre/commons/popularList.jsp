@@ -29,7 +29,7 @@
 					<time class="popular-time" datetime="" style="font-weight: bold">
 						<jsp:useBean id="now" class="java.util.Date" />
 						<fmt:formatDate value="${now}" pattern="a hh:mm"/>
-					</time> <span class="popular-text">사람들이 지금 많이 읽는 책</span>
+					</time> <span class="popular-text">사람들이 오늘 많이 읽는 책</span>
 				</span> <span class="popular-toggle"> <span>펼쳐보기</span> <span
 					class="material-icons">arrow_drop_down</span>
 				</span> <span class="popular-toggle" style="display: none;"> <span>접어보기</span>
@@ -39,17 +39,21 @@
 			<!-- 책리스트 -->
 			<div class="popular-list" id="popular-list">
 				<ul id="popular-ul" class="popular-ul" style="top: 0px">
-					<c:forEach items="${homeList}" var="homeDto">
+					<c:forEach items="${pop}" var="popular">
 						<li class="popular-li"
-							onclick="location.href='/bookFactory/detail.do?book_num=${homeDto.book_num}'"><h3
-								class="popular-list-title">${homeDto.bookName}</h3>
+							onclick="location.href='/bookFactory/detail.do?book_num=${popular.book_num}'"><h3
+								class="popular-list-title">${popular.bookName}</h3>
 							<p class="popular-list-description">
-								<span style="float: left;">${homeDto.authorName}</span><span
-									style="float: right;">${homeDto.thirdCate}</span>
+								<span style="float: left;">
+									<c:if test="${popular.author_num!=0}">
+										${popular.authorName}
+									</c:if>
+								</span><span
+									style="float: right;">${popular.thirdCate}</span>
 							</p>
 							<div class="popular-thumbnail">
 								<img alt="img"
-									src="${homeDto.img_path}">
+									src="${popular.img_path}">
 							</div>
 							<button class="popular-thumbnail-btn" type="button"></button>
 						</li>

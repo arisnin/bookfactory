@@ -22,6 +22,23 @@
 		INSERT INTO review VALUES(review_num_seq.nextval, #{id}, #{book_num}, #{content}, sysdate, #{star_point}, #{spoiler}, #{preference}, #{display})
 	</insert>
 	
+	<select id="getPopularList" parameterType="int" resultMap="HomeDto">
+		SELECT prn.book_num, b.img_path, b.NAME "bookName", b.author_num, au.NAME "authorName"
+		FROM (SELECT DISTINCT a.book_num, ROWNUM r
+		      FROM (SELECT p.book_num, count(p.book_num)
+		            FROM payment p, book_category c, first_cate f
+		            WHERE p.book_num=c.book_num
+		            AND c.cate1_num=f.num
+		            and f.num=#{firstCate}
+		            and payment_date > trunc(SYSDATE-5)
+		            GROUP BY p.book_num
+		            ORDER BY 2 DESC)A
+		      )prn, bookm b, author au
+		WHERE prn.book_num=b.book_num
+		AND b.author_num=Au.num
+		ORDER BY prn.r asc
+	</select>
+	
 	<select id="getHomeBookInfoList" parameterType="int" resultMap="HomeDto">
 		<![CDATA[
 			SELECT *
@@ -113,8 +130,21 @@
 	
 	<select id="getRecomList" parameterType="int" resultMap="HomeDto">
 		<![CDATA[
-			SELECT  b.img_path, A.NAME "authorName", b.NAME "bookName", b.book_num
-			FROM bookm b, author A
+			SELECT  b.img_path, A.NAME "authorName", b.author_num "author_num",b.NAME "bookName", b.book_num, rev."star_point", rev."star_count"
+			FROM bookm b, author A, (SELECT bm.book_num, bm.NAME, bm.price, bm.TYPE, nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count"
+			                        FROM bookm bm, (SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+			                                        FROM (
+			                                          SELECT rw.* FROM review rw, (
+			                                            SELECT DISTINCT ID, book_num
+			                                            FROM payment
+			                                          ) pm
+			                                          WHERE rw.book_num = pm.book_num
+			                                          AND rw.ID = pm.ID
+			                                        )
+			                                        GROUP BY book_num
+			                                      ) rs
+			WHERE bm.book_num = rs.book_num(+)
+			and bm.book_num=#{randomBookNum}) rev
 			WHERE b.author_num = A.num
 			and b.book_num=#{randomBookNum}
 		]]>
@@ -134,8 +164,9 @@
 			      from  bookm b, book_category c, first_cate f
 			      WHERE b.book_num=c.book_num
 			      AND c.cate1_num=f.num
-			      AND f.num=#{firstCate}) b
-			where b.r<=20
+			      AND f.num=#{firstCate}
+			      order by DBMS_RANDOM.RANDOM ) b
+			where b.r<=50
 		]]>			                                
 	</select>
 	
@@ -237,6 +268,15 @@
 		WHERE b.book_num=c.book_num
 		AND c.cate2_num=sc.num
 		and b.book_num=#{book_num}
+	</select>
+	
+	<select id="getThirdNameOverlap" parameterType="long" resultType="String">
+		SELECT dis.NAME
+		FROM (SELECT sc.name, rownum r
+		      FROM third_cate sc, book_category c
+		      WHERE c.book_num=#{book_num}
+		      AND c.cate3_num=sc.num) dis
+		where dis.r=1
 	</select>
 	
 	<select id="getPubName" parameterType="long" resultType="String">

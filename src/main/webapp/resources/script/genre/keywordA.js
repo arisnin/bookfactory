@@ -39,11 +39,14 @@ $(function(){
 		var group=data.sets[0].groups;
 		
 		$(group).each(function(i, ex) {
+			//카테고리마다 필드셋 너비가 다름
             var fieldset=document.createElement("fieldset");
             $(fieldset).addClass("keyword_filed");
             if(firstCate==3){
             	$(fieldset).addClass("fantasyKeyword");
-            }
+            }else if(firstCate==4){
+            	$(fieldset).addClass("comicKeyword");
+        	}
             $("#keyword_top_list").append(fieldset);
             
             var fieldDiv=document.createElement("div");
@@ -135,12 +138,7 @@ $(function(){
 				}
 			}
 			
-//			for(var i=0;i<$("#keyword_top_list li").length;i++){
-//				if($("#keyword_top_list li").eq(i).children("input").checked==true){
-//					alert("hi");
-//				}
-//			}
-//			listAjax(root, reSend, 1);
+			listAjax(root, "", 1);
 		}
 	});
 	
@@ -154,27 +152,25 @@ $(function(){
 		listAjax(root, "", 1);
 	});
 	
-	//만들어진 태그에서 삭제시도
-//	var checkboxCount=$(".keyword_top_list_button input[type=checkbox]").length;
-//	var reSend="tags=";
-//	
-//	for(var i=0;i<checkboxCount;i++){
-//		var text=$(".keyword_top_list_button li").eq(i).find(".bf-button").text()+"X";
-//		if(text==$(this).text()){
-////			alert(text.slice(0,-1));
-//			$(".keyword_top_list_button li").eq(i).css({
-//				backgroundColor : "#f8f7ff"
-//			});
-//			$(this).remove();
-//			
-//		}else{
-//			for(var j=0;j<$(".keyword_choice ul.tag-list button").length;j++){
-//				reSend+=$(".keyword_choice ul.tag-list button").eq(j).text().slice(0,-1)+",";
-//			}
-//		}
-//	}
-//	alert(reSend);
-//	$("input[name=tags]").val(reSend);
+	//선택된 태그에서 삭제 
+	$(".keyword_choice ul").on("click","li", function(){
+		var checkboxCount=$(".keyword_top_list_button input[type=checkbox]").length;
+		for(var i=0;i<checkboxCount;i++){
+			var text=$(".keyword_top_list_button li").eq(i).find(".bf-button").text()+"X";
+			if(text==$(this).text()){
+				$(".keyword_top_list_button li").eq(i).css({
+					backgroundColor : "#f8f7ff"
+				});
+				$(this).remove();
+				
+				var res=$(this).text().slice(0,-1)+",";
+//				alert(res);
+				
+				$("input[name=tags]").val($("input[name=tags]").val().replace(res,""));
+			}
+		}
+		listAjax(root, "", 1);
+	});
 //	
 //	//선택한 태그 삭제
 //	$(".tag-list").on("click","li", function(){

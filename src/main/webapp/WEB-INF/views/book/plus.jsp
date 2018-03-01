@@ -282,10 +282,7 @@
 							<div class="readAll collapse">
 								${detailDto.pub_intro}
 							</div>
-							<button type="button">
-								펼쳐보기<i class="material-icons">arrow_drop_down</i><i
-									class="material-icons">arrow_drop_up</i>
-							</button>
+							<button type="button">펼쳐보기<i class="material-icons">arrow_drop_down</i><i class="material-icons">arrow_drop_up</i></button>
 						</div>
 					</div>
 				</c:if>
@@ -363,7 +360,7 @@
 											</div>
 											<div class="list">
 												<ul>
-													<c:forEach var="author" items="${authorBook}">
+													<c:forEach var="author" items="${authorBook}" end="4">
 														<li class="mf-book-item">
 															<div class="mf-book-thumbnail">
 																<div class="mf-book-thumbnail-image" onclick="location.href='${root}/detail.do?book_num=${author.book_num}'">
@@ -387,7 +384,7 @@
 												</ul>
 											</div>
 <!-- 											대표저서가 5권 이하일 때는 버튼을 'hidden-block' 처리 해야함 -->
-											<c:if test="${fn:length(authorBook)>5}">
+											<c:if test="${fn:length(authorBook) >5}">
 												<a class="bf-button bf-white-btn bf-animated-btn" href="${root}/author.do">출간작 전체보기</a>
 											</c:if>
 										</div>
@@ -562,10 +559,7 @@
 							<div class="readAll collapse">
 								${auDto.describe}
 							</div>
-							<button type="button">
-								펼쳐보기<i class="material-icons">arrow_drop_down</i><i
-									class="material-icons">arrow_drop_up</i>
-							</button>
+							<button type="button">펼쳐보기<i class="material-icons">arrow_drop_down</i><i class="material-icons">arrow_drop_up</i></button>
 						</div>
 					</div>
 				</c:if>

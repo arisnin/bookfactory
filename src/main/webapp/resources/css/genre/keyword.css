@@ -68,6 +68,10 @@
 	width: 25%;
 }
 
+#keyword_top_list > .comicKeyword{
+	width: 20%;
+}
+
 .keyword_filed{
 	display: inline-block;
 	position: relative;

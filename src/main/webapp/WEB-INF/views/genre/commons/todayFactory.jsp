@@ -41,13 +41,17 @@ $(function(){
 							<div class="book-thumbnail-wrap">
 								<div class="recommended-book-metadata">
 									<p>
-										${recom.authorName }<br>${recom.bookName}
+										<c:if test="${recom.author_num!=0}">
+											${recom.authorName}
+										</c:if>
+										<br>${recom.bookName}
 									</p>
 								</div>
+								<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${recom.star_point})"></span>
 								<div class="content-star-rate">
-									<span class="star-icon-field material-icons">star_border</span><span
-										class="non-star-icon-field material-icons"></span><span
-										class="count-field"> 9999명</span>
+									<span class="star-icon-field material-icons">star_border</span>
+									<span class="non-star-icon-field material-icons"></span>
+									<span class="count-field"> ${recom.star_count}명</span>
 								</div>
 								<div class="recommended-book-thumbnail">
 									<img alt="img" src="${recom.img_path}"/>
@@ -59,5 +63,11 @@ $(function(){
 			</div>
 		</article>
 	</section>
+	
+	<script type="text/javascript">
+      Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
+         e.click();
+      });
+   </script>
 </body>
 </html>

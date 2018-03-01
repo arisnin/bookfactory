@@ -70,11 +70,11 @@ public class MainController {
 	/**
 	 * 메인 > 검색창 폼 > 검색 결과 페이지
 	 */
-	@RequestMapping(value = "/main/search.do")
-	public ModelAndView mainSearch(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("mainSearch()");
-		return mainService.mainSearch(new ModelAndView("main/search.main").addObject("request", request));
-	}
+//	@RequestMapping(value = "/main/search.do")
+//	public ModelAndView mainSearch(HttpServletRequest request, HttpServletResponse response) {
+//		LogAspect.info("mainSearch()");
+//		return mainService.mainSearch(new ModelAndView("main/search.main").addObject("request", request));
+//	}
 
 	/**
 	 * 로그아웃 요청
