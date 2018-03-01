@@ -180,29 +180,36 @@
 					ORDER BY bm.name
 					</otherwise>
 				</choose>
-				<!-- ORDER BY "write_date_idx" DESC, '최신순'
-				ORDER BY rs."star_point" DESC, bm.name, '별점순'
-				ORDER BY rs."star_count" DESC, bm.NAME, '리뷰평가순'
-				ORDER BY bm.price, '낮은가격순' -->
 			) SUB
 		) RSUB
 		WHERE rsub."rn" BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<select id="select-search-count" parameterType="String" resultType="Integer">
-		SELECT COUNT(BM.BOOK_NUM) FROM BOOKM BM, (
-			SELECT PUB_NUM, NAME FROM PUBLISHER
-		) PUB, (
-			SELECT BOOK_NUM, MIN(CATE3_NUM) "cate3_num"
-			FROM BOOK_CATEGORY
-			<if test="thirdCateNum > 0">
-				WHERE cate3_num = #{thirdCateNum}
-			</if>
-			GROUP BY BOOK_NUM
-		) BC
-		WHERE BM.BOOK_NUM = BC.BOOK_NUM
-		AND BM.PUB_NUM = PUB.PUB_NUM
+		SELECT COUNT(BM.BOOK_NUM) FROM bookm bm, (
+			SELECT pub_num, NAME FROM publisher
+		) pub, (
+			SELECT book_num
+			FROM book_category
+			GROUP BY book_num
+		) bc
+		WHERE bm.book_num = bc.book_num
+		AND bm.pub_num = pub.pub_num
 		AND (bm.name LIKE '%'||#{keyword}||'%' OR pub.name LIKE '%'||#{keyword}||'%')
+	</select>
+	
+	<select id="select-search-by-category-count" parameterType="String" resultType="com.bf.main.dto.SearchBookCountDto">
+		SELECT bc.cate3_num "num", MIN(tc.NAME) "name", count(bc.cate3_num) "count" FROM bookm bm, (
+			SELECT pub_num, NAME FROM publisher
+		) pub, (
+			SELECT book_num, cate3_num
+			FROM book_category
+		) bc, third_cate tc
+		WHERE bm.book_num = bc.book_num
+		AND bm.pub_num = pub.pub_num
+		AND bc.cate3_num = tc.num
+		AND (bm.name LIKE '%'||#{keyword}||'%' OR pub.name LIKE '%'||#{keyword}||'%')
+		GROUP BY bc.cate3_num
 	</select>
 	
 	<!-- 김동환 / 공지사항 -->

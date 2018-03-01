@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.Locale.Category;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import com.bf.main.dao.MainDao;
 import com.bf.main.dto.CategoryPageDto;
 import com.bf.main.dto.NoticeDto;
 import com.bf.main.dto.SearchAuthorDto;
+import com.bf.main.dto.SearchBookCountDto;
 import com.bf.member.model.MemberDto;
 
 /**
@@ -35,6 +37,16 @@ public class MainServiceImp implements MainService {
 	@Autowired
 	private MainDao mainDao;
 
+	/*
+	 * 메인 검색 페이지 검색 기능 구현
+	 * 1. 입력 키워드를 포함한 저자 리스트 출력
+	 * 2. 입력 키워드를 포함한 도서 리스트 출력
+	 * 도서 리스트는 전체 출력과 카테고리별 출력을 제공한다. 여기서 주의할 점은 검색 결과를 카운팅할 때, 전체 출력과 카테고리별 출력의 결과에 차이가 있다는 점이다.
+	 * 전체 출력은 중복 카테고리를 가지고 있는 도서를 하나로 카운팅해서 검색하는 반면, 카테고리별 출력은 중복 카테고리를 가지는 도서를 각 카테고리에서 중복해서 카운팅하기 때문이다.
+	 * 
+	 * @Date 2018. 2. 28
+	 * @see com.bf.main.service.MainService#mainSearch(org.springframework.web.servlet.ModelAndView)
+	 */
 	@Override
 	public ModelAndView mainSearch(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest)mav.getModelMap().get("request");
@@ -55,30 +67,45 @@ public class MainServiceImp implements MainService {
 		int endRow = pageNumber * boardSize;
 		int startRow = endRow - boardSize + 1;
 		int count = 0;
-
+		int totalCount = 0;
+		
+		List<SearchBookCountDto> searchBookCountList = null;
 		List<SearchAuthorDto> searchAuthorList = null;
 		List<CategoryPageDto> searchBookList = null;
 		
 		if (keyword != null) {
-			// 페이징 계산용 검색 결과 카운팅
-			count = mainDao.selectSearchBookCount(keyword, thirdCateNum);
+			// 검색 결과 카운팅(카테고리별 카운팅, 전체 카운팅)
+			searchBookCountList = mainDao.selectSearchBookByCategoryCount(keyword); 
+			totalCount = mainDao.selectSearchBookCount(keyword);
+			LogAspect.info(totalCount + " / " + searchBookCountList);
+			
+			// 선택된 카테고리의 카운팅 결과를 추출
+			for(SearchBookCountDto e : searchBookCountList) {
+				if (e.getNum() == thirdCateNum) {
+					count = e.getCount();
+					break;
+				}
+			}
 			LogAspect.info("pnum/count/start/end:" + pageNumber + "/" + count + "/" + startRow + "/" + endRow);
 			
 			// 저자 검색
 			searchAuthorList = mainDao.selectSearchAuthor(keyword);
 			LogAspect.info(searchAuthorList.size());
 			
-			// 책(출판사) 검색
-			// thirdCateNum(소분류 카테고리): 0이면 전체검색, serviceNum(정렬기준): 최신순(100), 별점순(101), 리뷰평가순(102), 낮은가격순(103) 
+			// 책(+출판사) 검색
+			// thirdCateNum(소분류 카테고리): 0이면 전체검색, orderTypeNum(정렬기준): 최신순(100), 별점순(101), 리뷰평가순(102), 낮은가격순(103) 
 			searchBookList = mainDao.selectSearchBook(keyword, thirdCateNum, orderTypeNum, startRow, endRow);
 			LogAspect.info(searchBookList.size());
 		}
 		
-		mav.addObject("pnum",pageNumber);
-		mav.addObject("count",count);
+		mav.addObject("pnum", pageNumber);
+		mav.addObject("count", thirdCateNum == 0 ? totalCount : count);
+		mav.addObject("totalCount", totalCount);
 		mav.addObject("boardSize", boardSize);
 		
-		return mav.addObject("searchAuthorList", searchAuthorList).addObject("searchBookList", searchBookList);
+		return mav.addObject("searchAuthorList", searchAuthorList)
+				.addObject("searchBookList", searchBookList)
+				.addObject("searchBookCountList",searchBookCountList);
 	}
 
 	@Override
