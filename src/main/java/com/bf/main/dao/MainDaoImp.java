@@ -53,6 +53,11 @@ public class MainDaoImp implements MainDao {
 	}
 
 	@Override
+	public List<Map<String,Object>> suggestKeyword(String keyword) {
+		return sqlSession.selectList(namespace + "select-suggest-keyword", keyword);
+	}
+
+	@Override
 	public int register(MemberDto memberDto) {
 		return sqlSession.insert(namespace + "register", memberDto);
 	}
@@ -78,8 +83,8 @@ public class MainDaoImp implements MainDao {
 	}
 
 	@Override
-	public List<String> registerValidation(String type, String keyword) {
-		return sqlSession.selectList(namespace + type + "-check", keyword);
+	public int registerValidation(String type, String keyword) {
+		return sqlSession.selectOne(namespace + type + "-check", keyword);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.bf.main.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bf.main.dto.CategoryPageDto;
 import com.bf.main.dto.NoticeDto;
@@ -19,7 +20,7 @@ public interface MainDao {
 
 	public int noticeMainCount();
 
-	public List<String> registerValidation(String type, String keyword);
+	public int registerValidation(String type, String keyword);
 
 	public List<NoticeDto> noticeMain(int startRow, int endRow);
 
@@ -36,4 +37,6 @@ public interface MainDao {
 	public int selectSearchBookCount(String keyword);
 
 	List<SearchBookCountDto> selectSearchBookByCategoryCount(String keyword);
+	
+	public List<Map<String, Object>> suggestKeyword(String keyword);
 }

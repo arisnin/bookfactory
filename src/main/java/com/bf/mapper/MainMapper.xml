@@ -7,16 +7,16 @@
 		INSERT INTO MEMBER (num,ID,PASSWORD,email,gender,register_date,birthday,marketing_check,ip,last_join,phone,NAME) VALUES(member_num_seq.nextval,#{id},#{password},#{email},#{gender},SYSDATE,#{birthday},#{marketing_check},#{ip},SYSDATE,#{phone},#{name})
 	</insert>
 	
-	<select id="id-check" parameterType="String" resultType="String">
-		SELECT ID FROM MEMBER WHERE ID = #{keyword} 
+	<select id="id-check" parameterType="String" resultType="Integer">
+		SELECT COUNT(ID) FROM MEMBER WHERE ID = #{keyword} 
 	</select>
 	
-	<select id="email-check" parameterType="String" resultType="String">
-		SELECT email FROM MEMBER WHERE email = #{keyword}
+	<select id="email-check" parameterType="String" resultType="Integer">
+		SELECT COUNT(email) FROM MEMBER WHERE email = #{keyword}
 	</select>
 	
-	<select id="phone-check" parameterType="String" resultType="String">
-		SELECT phone FROM MEMBER WHERE phone = #{keyword}
+	<select id="phone-check" parameterType="String" resultType="Integer">
+		SELECT COUNT(phone) FROM MEMBER WHERE phone = #{keyword}
 	</select>
 	
 	<select id="select-category-all" parameterType="java.util.Map" resultType="com.bf.main.dto.CategoryPageDto">
@@ -118,6 +118,7 @@
 			FROM bookm bm, (
 				SELECT num, NAME FROM author
 				WHERE NAME LIKE '%' || #{keyword} || '%'
+				<![CDATA[AND num <> 0]]>
 			) au
 			WHERE au.num IN (bm.author_num, bm.translator_num, bm.illustrator_num)
 		) ba
@@ -210,6 +211,22 @@
 		AND bc.cate3_num = tc.num
 		AND (bm.name LIKE '%'||#{keyword}||'%' OR pub.name LIKE '%'||#{keyword}||'%')
 		GROUP BY bc.cate3_num
+	</select>
+	
+	<select id="select-suggest-keyword" parameterType="String" resultType="HashMap">
+		SELECT * FROM (
+			SELECT ba."author_num", MIN(ba."author_name") "author_name", count(ba.book_num) "count", MIN(ba."book_name") "book_name" FROM (
+				SELECT bm.book_num, bm.NAME "book_name", au.num "author_num", au.NAME "author_name"
+				FROM bookm bm, (
+					SELECT num, NAME FROM author
+					WHERE NAME LIKE '%' || #{keyword} || '%'
+					<![CDATA[AND num <> 0]]>
+				) au
+				WHERE au.num IN (bm.author_num, bm.translator_num, bm.illustrator_num)
+			) ba
+			GROUP BY ba."author_num"
+		)
+		<![CDATA[WHERE ROWNUM < 10]]>
 	</select>
 	
 	<!-- 김동환 / 공지사항 -->

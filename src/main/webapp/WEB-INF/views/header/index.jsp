@@ -29,11 +29,24 @@
 							<img src="${root}/img/index/searchIcon_purple.png" />
 						</span>
 						<form action="${root}/main/search.do" method="get">
-							<input class="hw_search_input" type="text" name="keyword" placeholder="제목,저자,출판사 검색" />
+							<input class="hw_search_input" type="text" name="keyword" placeholder="제목,저자,출판사 검색" onkeyup="suggestKeyword(this)"/>
 						</form>
 						<span class="hw_del_icon">
 							<img src="${root}/img/index/searchdel.JPG" />
 						</span>
+						<div class="main-search-suggest-box" id="main-search-suggest">
+							<ul class="suggest-author-list">
+								<li class="">
+									<button type="button" class="bf-button bf-transparent-btn" onclick="alert('WoW')">
+										<span class="material-icons">person</span>
+										<span class="author">박성호</span>
+										<span class="book">&nbsp;사과는 맛있어, 맛있으면 바나나?</span>
+										<span class="more-count ">외&nbsp;11권</span>
+									</button>
+								</li>
+							</ul>
+							<ul class="suggest-book-list"></ul>
+						</div>
 					</div>
 				</div>
 				
@@ -167,6 +180,51 @@
 	<jsp:include page="register.jsp" />
 	<script type="text/javascript">
 		window.addEventListener("load", headerIndexInit('${root}'));
+		
+		var rootContext = '${root}';
+		var suggestBox = document.getElementById("main-search-suggest");
+		
+		function suggestKeyword(event) {			
+			if (false) {
+				//secondMessageBox.innerHTML = "";
+			} else {
+				$.post(rootContext + "/main/search/validation.do", {keyword : event.value}, function(data,status) {
+					if (data[0] != null) {
+						deleteAllChilds(target.firstElementChild);
+						deleteAllChilds(target.lastElementChild);
+						appendSuggestAuthorList(data);
+					} else {
+						//alert('검색어 제안에 실패했습니다.');
+					}
+				});
+			}
+		}
+		
+		function appendSuggestAuthorList(data) {
+			var target = suggestBox.firstElementChild;
+			var dFrag = document.createDocumentFragment();
+			
+			data.forEach(function(e,i) {
+				var li = document.createElement("li");
+				let innerHTML = '<button type="button" class="bf-button bf-transparent-btn" onclick="alert("'+ e.author_num +'")"><span class="material-icons">person</span>';
+				innerHTML += '<span class="author">' + e.author_name + '</span>';
+				if (e.count > 0) {
+					innerHTML += '<span class="book">&nbsp;' + e.book_name + '</span>';
+					innerHTML += '<span class="more-count '+ (e.count == 1 ? 'hidden-block' : '') +'">외&nbsp;'+ (e.count - 1) +'권</span>';
+				}
+				innerHTML += '</button>';
+				li.innerHTML = innerHTML;
+				dFrag.appendChild(li);
+			});
+			
+			target.appendChild(dFrag);
+		}
+		
+		function deleteAllChilds(target) {
+			while (target.firstChild) {
+				target.removeChild(target.firstChild);
+			}
+		}
 	</script>
 </body>
 </html>

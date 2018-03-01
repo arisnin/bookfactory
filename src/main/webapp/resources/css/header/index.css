@@ -515,3 +515,42 @@ color:#1f8ce6;
 	display: inline-block;
 	vertical-align: middle;
 }
+
+/* 2018-03-01 검색폼 suggest CSS 작성(박성호) */
+.main-search-suggest-box {
+	z-index: 1;
+	background-color: white;
+	border: 1px solid #F3F0FA;
+	border-radius: 0.25rem;
+	box-shadow: 3px 3px 10px 3px rgba(0,0,0,.3);
+	position: absolute;
+	top: 2.125rem;
+	left: 0;
+	display: inline-block;
+	width: 25rem;
+	
+}
+
+.main-search-suggest-box > ul > li > button.bf-button {
+	border: none;
+	width: 100%;
+	font-weight: normal;
+	color: darkgray;
+	text-align: left;
+	padding: 0.5rem 1rem;
+}
+
+.main-search-suggest-box > ul > li span.author {
+    font-weight: bold;
+    color: dimgray;
+    -webkit-transition: color .5s;
+    transition: color .5s;
+}
+
+.main-search-suggest-box > ul > li span.book:before {
+    content: '\003C';
+}
+
+.main-search-suggest-box > ul > li span.book:after {
+    content: '\003E';
+}
