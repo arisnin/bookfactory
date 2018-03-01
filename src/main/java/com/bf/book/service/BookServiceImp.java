@@ -279,7 +279,15 @@ public class BookServiceImp implements BookService {
 			preBookNum=randomBookNum.get(i);
 		}
 		
-		//사람들이 지금 많이 읽는 책 => 나중에 어떤식으로들어갈지 모름
+		//사람들이 지금 많이 읽는 책 =>구매기준으로뽑아옴.
+		List<HomeDto> pop=bookDao.getPopularList(firstCate);
+			//두번째카테고리 이름받아옴. 중복된애들때문에 따로처리
+		for(int i=0;i<pop.size();i++) {
+			long book_num=pop.get(i).getBook_num();
+			String thirdName=bookDao.getThirdNameOverlap(book_num);
+			System.out.println(thirdName);
+			pop.get(i).setThirdCate(thirdName);
+		}
 		
 		//베스트셀러 - > 구매기능완성되면 잘팔린순으로 뽑아와야함
 		
@@ -287,6 +295,7 @@ public class BookServiceImp implements BookService {
 		//LogAspect.info(LogAspect.logMsg + homeList.toString());
 		
 		mav.addObject("recomList", recomList);
+		mav.addObject("pop",pop);
 		mav.addObject("homeList", homeList);
 		mav.addObject("firstCate",firstCate);
 
@@ -466,6 +475,7 @@ public class BookServiceImp implements BookService {
 			auDto=bookDao.getAuthorInfo(dto.getAuthor_num());
 			authorBook=bookDao.getAuthorBook(dto.getAuthor_num());
 			if(authorBook.size()==0)	authorBook=null;
+			
 		}
 		
 		//이거는 ajax로 나중에 다른곳으로 빼야할듯.
@@ -495,7 +505,7 @@ public class BookServiceImp implements BookService {
 
 		// 최근 본 책 으로 넘어가게 insert문 작성
 		User user = (User) request.getSession().getAttribute("userInfo");
-		String id = user.getUsername(); 
+		String id = user.getUsername(); 	//여기 로긴안하면 에러납니당 널값에러
 		
 		MyPageRecentLookBookDto myPageRecentLookBookDto = new MyPageRecentLookBookDto();
 		myPageRecentLookBookDto.setId(id);

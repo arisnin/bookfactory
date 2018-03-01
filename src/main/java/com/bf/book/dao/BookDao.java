@@ -52,5 +52,7 @@ public interface BookDao {
 	List<DetailCateDto> getDetailCate(long book_num);
 	List<String> getKeyword(long book_num);
 	int recentLookBookInsert(MyPageRecentLookBookDto myPageRecentLookBookDto);
+	List<HomeDto> getPopularList(int firstCate);
+	String getThirdNameOverlap(long book_num);
 
 }
