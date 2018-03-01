@@ -126,6 +126,7 @@
 
 .main-search-list > h3.title {
 	border-bottom: 1px solid #E1DFFA;
+	font-weight: bold;
 	padding: 1rem;
 }
 
@@ -135,11 +136,11 @@
 	padding: 0.8rem 1rem;
 }
 
-.main-search-list li > button:hover {
+.main-search-list li:hover {
 	background-color: #F3F0FA;
 }
 
-.main-search-list li > button.active {
-	background-color: #F3F0FA;
+.main-search-list li.active {
+	background-color: #E1DFFA;
 	pointer-events: none;
 }

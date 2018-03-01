@@ -16,12 +16,13 @@
 	<c:set var="cnum" value="${param.cnum == null ? 0 : param.cnum}"/>
 	<c:set var="onum" value="${param.onum == null ? 100 : param.onum}"/>
 	<c:set var="keyword" value="${param.keyword}" />
+	<c:set var="authorListSize" value="${searchAuthorList == null ? 0 : searchAuthorList.size()}"/>
 	<div class="main-search-box">
 		<!-- 검색 결과 내용 -->
 		<div class="main-search-contents">
 			<!-- 저자 검색 결과 -->
 			<div class="bf-title-row title-type1">
-				<h2><span class="search-word">${param.keyword}</span>&nbsp;저자 검색 결과<span class="author-count">${searchAuthorList == null ? '' : searchAuthorList.size()}</span></h2>
+				<h2><span class="search-word">${param.keyword}</span>&nbsp;저자 검색 결과<span class="author-count">${searchAuthorList == null ? '' : authorListSize}</span></h2>
 			</div>
 			<section class="result-search-author-box">
 				<ul>
@@ -38,11 +39,11 @@
 					</li>
 				</c:forEach>
 				</ul>
-				<div class="search-more-button ${searchAuthorList == null ? 'hidden-block' : ''}">
+				<div class="search-more-button ${authorListSize > 3 ? '' : 'hidden-block'}">
 					<label class="bf-custom-checkbox checkbox-btn">
 						<input type="checkbox" title="저자검색" onclick="collapseSearchBoxToggle(this)" />
 						<span class="bf-button bf-transparent-btn collapse">
-							<span class="more-count">${searchAuthorList.size() - 3}</span>
+							<span class="more-count">${authorListSize - 3}</span>
 							<span class="extra-word">개 더보기</span>
 							<span class="extra-word hidden-block">접기</span>
 						</span>
@@ -57,9 +58,9 @@
 				<!-- 정렬기준 메뉴 -->
 				<ul class="order-type-list">
 					<li><a class="${onum == 100 ? 'active':''}" href="?onum=100&cnum=${cnum}&keyword=${keyword}">최신순</a></li>
-					<li><a class="${onum == 101 ? 'active':''}"href="?onum=101&cnum=${cnum}&keyword=${keyword}">별점순</a></li>
-					<li><a class="${onum == 102 ? 'active':''}"href="?onum=102&cnum=${cnum}&keyword=${keyword}">리뷰평가순</a></li>
-					<li><a class="${onum == 103 ? 'active':''}"href="?onum=103&cnum=${cnum}&keyword=${keyword}">낮은가격순</a></li>
+					<li><a class="${onum == 101 ? 'active':''}" href="?onum=101&cnum=${cnum}&keyword=${keyword}">별점순</a></li>
+					<li><a class="${onum == 102 ? 'active':''}" href="?onum=102&cnum=${cnum}&keyword=${keyword}">리뷰평가순</a></li>
+					<li><a class="${onum == 103 ? 'active':''}" href="?onum=103&cnum=${cnum}&keyword=${keyword}">낮은가격순</a></li>
 				</ul>
 				<!-- 보기방식 메뉴 -->
 				<div class="view-type-list">
@@ -195,15 +196,14 @@
 		<div class="main-search-list">
 			<h3 class="title">분야</h3>
 			<ul>
-				<li><button type="button" class="bf-button bf-transparent-btn active">전체(21)</button></li>
-				<li><button type="button" class="bf-button bf-transparent-btn">역사/시대물 (13)</button></li>
-				<li><button type="button" class="bf-button bf-transparent-btn">19+ (7)</button></li>
-				<li><button type="button" class="bf-button bf-transparent-btn">판타지물 (6)</button></li>
-				<li><button type="button" class="bf-button bf-transparent-btn">현대물 (3)</button></li>
-				<li><button type="button" class="bf-button bf-transparent-btn">성인 (1)</button></li>
-				<li><button type="button" class="bf-button bf-transparent-btn">액션 (1)</button></li>
-				<li><button type="button" class="bf-button bf-transparent-btn">제2외국어 (1)</button></li>
-				<li><button type="button" class="bf-button bf-transparent-btn">퓨전판타지 (1)</button></li>
+				<li class="${cnum == null || cnum == 0 ? 'active' : ''}">
+					<button type="button" class="bf-button bf-transparent-btn" onclick="searchBookCategory('${root}','0')">전체(${totalCount})</button>
+				</li>
+			<c:forEach var="searchBookCountDto" items="${searchBookCountList}">
+				<li class="${cnum == searchBookCountDto.num ? 'active' : ''}">
+					<button type="button" class="bf-button bf-transparent-btn" onclick="searchBookCategory('${root}','${searchBookCountDto.num}')">${searchBookCountDto.name}(${searchBookCountDto.count})</button>
+				</li>
+			</c:forEach>
 			</ul>
 		</div>
 	</div>
@@ -215,7 +215,13 @@
 		});
 		
 		function bookDetailLink(root, book_num) {
+			
 			location.href = root + '/detail.do?book_num=' + book_num;
+		}
+		
+		function searchBookCategory(root, thirdCateNum) {
+			var cateForm = document.getElementById("search-pagination-form");
+			location.href = '?onum=' + cateForm.onum.value + '&cnum=' + thirdCateNum + '&keyword=' + cateForm.keyword.value;
 		}
 		
 		function collapseSearchBoxToggle(event) {

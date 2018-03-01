@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.bf.main.dto.CategoryPageDto;
 import com.bf.main.dto.NoticeDto;
 import com.bf.main.dto.SearchAuthorDto;
+import com.bf.main.dto.SearchBookCountDto;
 import com.bf.member.model.MemberDto;
 
 /**
@@ -31,10 +32,10 @@ public class MainDaoImp implements MainDao {
 	}
 
 	@Override
-	public List<CategoryPageDto> selectSearchBook(String keyword, int secondCateNum, int orderTypeNum, int startRow, int endRow) {
+	public List<CategoryPageDto> selectSearchBook(String keyword, int thirdCateNum, int orderTypeNum, int startRow, int endRow) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("keyword", keyword);
-		map.put("secondCateNum", secondCateNum);
+		map.put("thirdCateNum", thirdCateNum);
 		map.put("orderTypeNum", orderTypeNum);
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
@@ -42,11 +43,13 @@ public class MainDaoImp implements MainDao {
 	}
 
 	@Override
-	public int selectSearchBookCount(String keyword, int thirdCateNum) {
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("keyword", keyword);
-		map.put("thirdCateNum", thirdCateNum);
-		return sqlSession.selectOne(namespace + "select-search-count", map);
+	public int selectSearchBookCount(String keyword) {
+		return sqlSession.selectOne(namespace + "select-search-count", keyword);
+	}
+
+	@Override
+	public List<SearchBookCountDto> selectSearchBookByCategoryCount(String keyword) {
+		return sqlSession.selectList(namespace + "select-search-by-category-count", keyword);
 	}
 
 	@Override
