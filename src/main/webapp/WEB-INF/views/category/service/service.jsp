@@ -20,7 +20,7 @@
 				<h3 id="category-main-title">메인타이틀</h3>
 				<h4 class="hidden-block">서브타이틀</h4>
 			</div>
-			
+
 			<!-- 구매 서비스 타입  -->
 			<div class="bf-service-type-menu">
 				<ul class="service-type-list">
@@ -31,9 +31,9 @@
 					<li><a href="?snum=104&cnum=${param.cnum}">전체</a></li>
 				</ul>
 			</div>
-			
+
 			<hr class="line">
-			
+
 			<!-- 도서 리스트 정렬 메뉴 -->
 			<div class="bf-service-type-menu">
 				<!-- 정렬기준 메뉴 -->
@@ -75,13 +75,13 @@
 							<c:if test="${categoryPageDto.trans_num != 0}">
 								<p class="book-metadata-translator">
 									<a class="" title="역자" href="javascript:alert('${categoryPageDto.trans_num}')">${categoryPageDto.trans_name}</a>
-								</p>							
+								</p>
 							</c:if>
 							<!-- 일러스트레이터 -->
 							<c:if test="${categoryPageDto.illur_num != 0}">
 								<p class="book-metadata-illustrator">
 									<a class="" title="역자" href="javascript:alert('${categoryPageDto.illur_num}')">${categoryPageDto.illur_name}</a>
-								</p>							
+								</p>
 							</c:if>
 							<!-- 출판사 -->
 							<c:if test="${categoryPageDto.pub_num != 0}">
@@ -111,6 +111,12 @@
 						</div>
 					</li>
 				</c:forEach>
+				<c:if test="${categoryPageList.size() == 0 or categoryPageList == null}">
+					<li class="mf-book-item mf-book-empty">
+						<div><span class="material-icons">library_books</span></div>
+						<p>죄송합니다. 검색된 책이 없습니다.</p>						
+					</li>
+				</c:if>
 				</ul>
 				<!-- End : mf-book-list -->
 				
@@ -121,13 +127,14 @@
 				<c:set var="startPage" value="${1+pageBlock*rs}" />
 				<c:set var="endPage" value="${startPage+pageBlock-1}" />
 				<c:if test="${endPage > pageCount}">${endPage=pageCount;""}</c:if>
-				
+
 				<form id="category-pagination-form" action="#" method="get">
+				<c:if test="${count > 0}">
 					<nav class="bf-pagination">${count}:${pageBlock}:${pageCount}:${startPage}:${endPage}
 						<ul class="bf-animated-btn">
 							<li class="first"><a href="javascript:categoryPageHref('1')"><span></span></a></li>
 							<!-- 이전 페이지 블록 이동 -->
-							<c:if test="${startPage > pageBlock}">								
+							<c:if test="${startPage > pageBlock}">
 								<li class="prev"><a href="javascript:categoryPageHref('${startPage-1}')"><span></span></a></li>
 							</c:if>
 							<!-- 현재 페이지 블록 목록 -->
@@ -144,7 +151,7 @@
 							<!-- 다음 페이지 블록 이동 -->
 							<c:if test="${endPage < pageCount}">
 								<li class="next"><a href="javascript:categoryPageHref('${endPage+1}')"><span></span></a></li>
-							</c:if>							
+							</c:if>
 							<li class="last"><a href="javascript:categoryPageHref('${pageCount}')"><span></span></a></li>
 						</ul>
 					</nav>
@@ -160,6 +167,7 @@
 							cateForm.submit();
 						}
 					</script>
+				</c:if>
 				</form>
 			</section>
 			<!-- End : result-search-book-box -->
@@ -171,7 +179,7 @@
 		Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
 			e.click();
 		});
-		
+
 		function bookDetailLink(root, book_num) {
 			location.href = root + '/detail.do?book_num=' + book_num;
 		}

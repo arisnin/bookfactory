@@ -18,12 +18,16 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.book.dto.ReviewDto;
 import com.bf.main.dto.NoticeDto;
 import com.bf.manager.dto.BoardCate1Dto;
 import com.bf.manager.dto.BoardCate2Dto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.member.model.MemberDto;
+import com.bf.member.model.User;
 import com.bf.serviceCenter.dao.ServiceCenterDao;
+import com.bf.serviceCenter.dto.BookContactDto;
 import com.bf.serviceCenter.dto.ServiceCenterDtoFre;
 
 /**
@@ -116,23 +120,28 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		int num = Integer.parseInt(request.getParameter("num"));
 		LogAspect.info("다운로드 넘버 확인 : " + num);
 		
-		ServiceCenterDtoFre serviceCenterDtoFre = serviceCenterDao.infoFile(num);
-		LogAspect.info("다운로드 넘버 스트링링 : " + serviceCenterDtoFre.toString());
+		BoardContactDto boardContactDto = serviceCenterDao.infoFile(num);
+		LogAspect.info("다운로드 넘버 스트링링 : " + boardContactDto.toString());
 		
 		BufferedInputStream bis = null;
 		BufferedOutputStream bos = null;
+				
 		
 		try {
-			int index = serviceCenterDtoFre.getFile_name().indexOf("_") + 1;
-			String bfFileName = serviceCenterDtoFre.getFile_name().substring(index);
+			int index = boardContactDto.getFile_name().indexOf("_") + 1;
+			String bfFileName = boardContactDto.getFile_name().substring(index);
 			String fileName = new String(bfFileName.getBytes("UTF-8"), "ISO-8859-1");
 			
 			response.setContentType("application/octet-stream");
-			response.setContentLengthLong(serviceCenterDtoFre.getFile_size());
+			response.setContentLengthLong(boardContactDto.getFile_size());
 			response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";");
 			
-			bis = new BufferedInputStream(new FileInputStream(serviceCenterDtoFre.getFile_path()));
+			
+			
+			bis = new BufferedInputStream(new FileInputStream(boardContactDto.getFile_path()));
 			bos = new BufferedOutputStream(response.getOutputStream());
+			
+			
 			
 			while(true) {
 				int data = bis.read();
@@ -144,12 +153,14 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		}catch (Exception e) {
 		}finally {
 			try {
-				if(bis!= null) bis.close();
-				if(bos!= null) bos.close();
+				if(bis!=null) bis.close();
+				if(bos!=null) bos.close();
 			}catch(Exception e) {
 				e.printStackTrace();
 			}	
-		}		
+		}
+		
+		mav.setViewName("serviceCenter/inquriy_list2.solo");
 	}
 
 
@@ -203,8 +214,10 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 			}
 		}
 		
-		boardContactDto.setWrite_date(new Date());
-		boardContactDto.setId("admin");
+		User user = (User) request.getSession().getAttribute("userInfo");				
+	    boardContactDto.setId(user.getUsername());
+	    
+		boardContactDto.setWrite_date(new Date());		
 		boardContactDto.setContent(boardContactDto.getContent().replace("\r\n", "<br/>"));
 		
 		LogAspect.info("디티오 확인 : " + boardContactDto.toString() );
@@ -228,15 +241,31 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		int count = serviceCenterDao.inquriyCount();
 		
-		
 		LogAspect.info("1:1문의내역 갯수확인 : " + count);
 		
 		List<BoardContactDto> inquriyList = null;
 		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		if (user == null) {
+			String referer = request.getHeader("referer");
+			if (referer == null) {
+				referer = "serviceCenter/main.solo";
+			}
+			mav.setViewName(referer);
+			return;
+		}
+		String id = user.getUsername();
+		
+		LogAspect.info("유저 확인 : " + id);
+				
 		if(count > 0) {
-			inquriyList = serviceCenterDao.inquriylistlist();
+			inquriyList = serviceCenterDao.inquriylistlist(id);
 			LogAspect.info("1:1문의 내역 디티오 : : " + inquriyList.toString());
 		}
+		
+		
+		
+		mav.addObject("id", id);
 		
 		mav.addObject("inquriyList", inquriyList);
 		mav.addObject("count", count);
@@ -339,6 +368,241 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 	}
 
 
+	@Override
+	public void serviceCenterIdLogin(ModelAndView mav) {
+
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		List<BoardFrequencyDto> idLoginList = serviceCenterDao.idLoginMain();
+		LogAspect.info("메인 화면 아래 아이디/로그인 : " + idLoginList.toString());
+		
+		mav.addObject("idLoginList", idLoginList);		
+		
+		mav.setViewName("serviceCenter/id_login.solo");
+		
+	}
+
+
+	@Override
+	public void serviceCenterIdLoginContent(ModelAndView mav) {
+		
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		int num = Integer.parseInt(request.getParameter("num"));		
+		LogAspect.info("아이디/로그인 넘버 확인 : " + num);
+		
+		int category = 1;
+		int count = serviceCenterDao.categoryCount(category);
+		
+		
+		BoardFrequencyDto idLoginRead = serviceCenterDao.questionRead(num);
+		List<BoardFrequencyDto> idLoginSide = serviceCenterDao.idLoginSide();
+		
+		
+		mav.addObject("idLoginRead", idLoginRead);
+		mav.addObject("idLoginSide", idLoginSide);
+		mav.addObject("count", count);
+		
+		mav.setViewName("serviceCenter/id_login_content.solo");
+		
+	}
+
+
+	@Override
+	public void serviceCenterPayRefund(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		List<BoardFrequencyDto> payRefundList = serviceCenterDao.payRefundMain();
+		LogAspect.info("메인 화면 아래 결제/환불 : " + payRefundList.toString());
+		
+		mav.addObject("payRefundList", payRefundList);		
+		
+		mav.setViewName("serviceCenter/pay_refund.solo");
+		
+	}
+
+
+	@Override
+	public void serviceCenterPayRefundContent(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		int num = Integer.parseInt(request.getParameter("num"));		
+		LogAspect.info("아이디/로그인 넘버 확인 : " + num);
+		
+		BoardFrequencyDto payRefundRead = serviceCenterDao.questionRead(num);
+		List<BoardFrequencyDto> payRefundSide = serviceCenterDao.payRefundSide();
+		int category = 2;
+		int count = serviceCenterDao.categoryCount(category);
+		
+		mav.addObject("payRefundRead", payRefundRead);
+		mav.addObject("payRefundSide", payRefundSide);
+		mav.addObject("count", count);
+		
+		mav.setViewName("serviceCenter/pay_refund_content.solo");
+		
+	}
+
+
+	@Override
+	public void serviceCenterHowUse(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		List<BoardFrequencyDto> howUseList = serviceCenterDao.howUseMain();
+		LogAspect.info("이용문의 : " + howUseList.toString());
+		
+		mav.addObject("howUseList", howUseList);		
+		
+		mav.setViewName("serviceCenter/how_use.solo");
+		
+	}
+
+
+	@Override
+	public void serviceCenterHowUseContent(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		int num = Integer.parseInt(request.getParameter("num"));		
+		LogAspect.info("이용문의 넘버 확인잉잉 : " + num);
+		
+		BoardFrequencyDto howUseRead = serviceCenterDao.questionRead(num);
+		List<BoardFrequencyDto> howUseSide = serviceCenterDao.howUseSide();
+		int category = 3;
+		int count = serviceCenterDao.categoryCount(category);
+		
+		mav.addObject("howUseRead", howUseRead);
+		mav.addObject("howUseSide", howUseSide);
+		mav.addObject("count", count);
+		
+		mav.setViewName("serviceCenter/how_use_content.solo");
+		
+	}
+
+
+	@Override
+	public void serviceCenterErrorUse(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		List<BoardFrequencyDto> errorUseList = serviceCenterDao.errorUseMain();
+		LogAspect.info("오류 활용 : " + errorUseList.toString());
+		
+		mav.addObject("errorUseList", errorUseList);		
+		
+		mav.setViewName("serviceCenter/error_use.solo");
+		
+	}
+
+
+	@Override
+	public void serviceCenterErrorUseContent(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		int num = Integer.parseInt(request.getParameter("num"));		
+		LogAspect.info("오류활용 넘버 확인 : " + num);
+		
+		BoardFrequencyDto errorUseRead = serviceCenterDao.questionRead(num);
+		List<BoardFrequencyDto> errorUseSide = serviceCenterDao.errorUseSide();
+		int category = 4;
+		int count = serviceCenterDao.categoryCount(category);
+		
+		mav.addObject("errorUseRead", errorUseRead);
+		mav.addObject("errorUseSide", errorUseSide);
+		mav.addObject("count", count);
+		
+		mav.setViewName("serviceCenter/error_use_content.solo");
+		
+	}
+
+
+	@Override
+	public void serviceCenterSystemUpdate(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		List<BoardFrequencyDto> systemUpdateList = serviceCenterDao.systemUpdateMain();
+		LogAspect.info("시스템 업데이트  : " + systemUpdateList.toString());
+		
+		mav.addObject("systemUpdateList", systemUpdateList);		
+		
+		mav.setViewName("serviceCenter/system_update.solo");
+		
+	}
+
+
+	@Override
+	public void serviceCenterSystemUpdateContent(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		int num = Integer.parseInt(request.getParameter("num"));		
+		LogAspect.info("시스템 업뎃 넘버 화긴확인 : " + num);
+		
+		BoardFrequencyDto systemUpdateRead = serviceCenterDao.questionRead(num);
+		List<BoardFrequencyDto> systemUpdateSide = serviceCenterDao.systemUpdateSide();
+		int category = 5;
+		int count = serviceCenterDao.categoryCount(category);
+		
+		mav.addObject("systemUpdateRead", systemUpdateRead);
+		mav.addObject("systemUpdateSide", systemUpdateSide);
+		mav.addObject("count", count);
+		
+		mav.setViewName("serviceCenter/system_update_content.solo");
+		
+	}
+
+
+	@Override
+	public void bookSuggestionWrite(ModelAndView mav) {
+		Map<String, Object> map = mav.getModel();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");		
+		
+		mav.setViewName("serviceCenter/book_suggestion.solo");
+		
+	}
+
+
+	@Override
+	public void bookSuggestionWriteOk(ModelAndView mav) {
+		Map<String, Object> map = mav.getModel();
+		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+
+		BookContactDto bookContactDto = (BookContactDto) map.get("bookContactDto");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");				
+		bookContactDto.setId(user.getUsername());
+	    
+		bookContactDto.setWrite_date(new Date());
+		
+		LogAspect.info("디티오 확인 : " + bookContactDto.toString() );
+		
+		int check = serviceCenterDao.bookSuggestionWrite(bookContactDto);
+		LogAspect.info("write값 확인 : " + check);
+		
+		mav.addObject("check", check);
+		mav.setViewName("serviceCenter/inquriyOk.solo");
+		
+	}
+
+	
 	
 	
 }

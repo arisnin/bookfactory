@@ -30,6 +30,8 @@ import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookThirdCateDto;
 import com.bf.member.model.User;
+import com.bf.myPage.dao.MyPageDao;
+import com.bf.myPage.dto.MyPageRecentLookBookDto;
 import com.bf.book.dto.DetailCateDto;
 import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
@@ -277,15 +279,27 @@ public class BookServiceImp implements BookService {
 			preBookNum=randomBookNum.get(i);
 		}
 		
-		//사람들이 지금 많이 읽는 책 => 나중에 어떤식으로들어갈지 모름
+		//사람들이 지금 많이 읽는 책 =>구매기준으로뽑아옴.
+		List<HomeDto> pop=bookDao.getPopularList(firstCate);
+			//두번째카테고리 이름받아옴. 중복된애들때문에 따로처리
+		for(int i=0;i<pop.size();i++) {
+			long book_num=pop.get(i).getBook_num();
+			String thirdName=bookDao.getThirdNameOverlap(book_num);
+//			System.out.println(thirdName);
+			pop.get(i).setThirdCate(thirdName);
+		}
 		
 		//베스트셀러 - > 구매기능완성되면 잘팔린순으로 뽑아와야함
-		
-		List<HomeDto> homeList=bookDao.getHomeBookInfoList(firstCate);
-		//LogAspect.info(LogAspect.logMsg + homeList.toString());
+		HashMap<String, Object> pMap=new HashMap<String, Object>();
+		pMap.put("firstCate", firstCate);
+		pMap.put("startRow", 1);
+		pMap.put("endRow", 10);
+		List<HomeDto> bestDto=bookDao.getBestSellerWeek(pMap);
+//		System.out.println(bestDto.toString());
 		
 		mav.addObject("recomList", recomList);
-		mav.addObject("homeList", homeList);
+		mav.addObject("pop",pop);
+		mav.addObject("bestDto", bestDto);
 		mav.addObject("firstCate",firstCate);
 
 		if(firstCate==1) {
@@ -299,7 +313,7 @@ public class BookServiceImp implements BookService {
 	public void homeNewbook(ModelAndView mav) {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
-		String firstCate=request.getParameter("firstCate");
+		String firstCate=request.getParameter("firstCateNum");
 		String bookType=request.getParameter("bookType");
 		String seconCate=request.getParameter("seconCate");
 		
@@ -344,6 +358,14 @@ public class BookServiceImp implements BookService {
 			}
 		}
 		
+		for(int i=0;i<newList.size();i++) {
+			int after=newList.get(i).getIntro().indexOf(">");
+			String intro=newList.get(i).getIntro().substring(after+1);
+			newList.get(i).setIntro(intro);
+		}
+		
+//		System.out.println(newCount +"," +firstCate);
+		
 		mav.addObject("firstCate", firstCate);
 		mav.addObject("firstCateName", firstCateName);
 		mav.addObject("newList", newList);
@@ -380,6 +402,8 @@ public class BookServiceImp implements BookService {
 		map.put("firstCate", firstCate);
 		map.put("seconCate", seconCate);
 		
+		System.out.println("seconCate : "+seconCate);
+		
 		//오늘의 추천은 랜덤으로 뽑아옴
 		int preBookNum=0;
 		List<Integer> randomBookNum=bookDao.getPaperRandomBookNum(map);
@@ -396,17 +420,30 @@ public class BookServiceImp implements BookService {
 			preBookNum=randomBookNum.get(i);
 		}
 		
-		//키워드는 아직 어찌할지 모름
-		
 		//사람들이 지금 많이 읽는 책 => 나중에 어떤식으로들어갈지 모름
+		List<HomeDto> pop=bookDao.getPopularList(map);
+		//두번째카테고리 이름받아옴. 중복된애들때문에 따로처리
+		for(int i=0;i<pop.size();i++) {
+			long book_num=pop.get(i).getBook_num();
+			String thirdName=bookDao.getThirdNameOverlap(book_num);
+		//		System.out.println(thirdName);
+			pop.get(i).setThirdCate(thirdName);
+		}
 		
 		//베스트셀러 - > 구매기능완성되면 잘팔린순으로 뽑아와야함
+		HashMap<String, Object> pMap=new HashMap<String, Object>();
+		pMap.put("firstCate", firstCate);
+		pMap.put("seconCate", seconCate);
+		pMap.put("startRow", 1);
+		pMap.put("endRow", 10);
+		List<HomeDto> bestDto=bookDao.getBestSellerWeekPaper(pMap);
 		
-		List<HomeDto> homeList=bookDao.getPaperHomeBookInfoList(map);
+//		List<HomeDto> homeList=bookDao.getPaperHomeBookInfoList(map);
 //		LogAspect.info(LogAspect.logMsg + homeList.toString());
 		
 		mav.addObject("recomList", recomList);
-		mav.addObject("homeList", homeList);
+		mav.addObject("pop",pop);
+		mav.addObject("bestDto", bestDto);
 		mav.addObject("firstCate",firstCate);
 		mav.addObject("seconCate", seconCate);
 		
@@ -464,9 +501,9 @@ public class BookServiceImp implements BookService {
 			auDto=bookDao.getAuthorInfo(dto.getAuthor_num());
 			authorBook=bookDao.getAuthorBook(dto.getAuthor_num());
 			if(authorBook.size()==0)	authorBook=null;
+			
 		}
 		
-		//이거는 ajax로 나중에 다른곳으로 빼야할듯.
 		if(dto.getIllu_num()!=0) {
 			ilDto=bookDao.getAuthorInfo(dto.getIllu_num());
 			illorBook=bookDao.getAuthorBook(dto.getIllu_num());
@@ -479,9 +516,7 @@ public class BookServiceImp implements BookService {
 			if(transBook.size()==0)	transBook=null;
 		}
 		
-		//별점정보 뽑기
-		
-		//이벤트기간뽑기
+		//이벤트기간뽑기 - ?
 		
 		mav.addObject("detailDto", dto);
 		mav.addObject("auDto", auDto);
@@ -490,6 +525,21 @@ public class BookServiceImp implements BookService {
 		mav.addObject("authorBook", authorBook);
 		mav.addObject("illorBook", illorBook);
 		mav.addObject("transBook", transBook);
+
+		// 최근 본 책 으로 넘어가게 insert문 작성
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername(); 	//여기 로긴안하면 에러납니당 널값에러
+		
+		MyPageRecentLookBookDto myPageRecentLookBookDto = new MyPageRecentLookBookDto();
+		myPageRecentLookBookDto.setId(id);
+		myPageRecentLookBookDto.setBook_num(Integer.parseInt(request.getParameter("book_num")));
+		LogAspect.info(myPageRecentLookBookDto.toString());
+		
+		if(id != null){
+			int check = bookDao.recentLookBookInsert(myPageRecentLookBookDto);
+			LogAspect.info(check);
+			mav.addObject("check", check);
+		}
 	}
 
 	@Override	//키워드검색
@@ -532,7 +582,6 @@ public class BookServiceImp implements BookService {
 		if(tags!=null) {
 			String tag[]=tags.split(",");
 			String query="";
-			
 			for(int i=0;i<tag.length;i++) {
 				query=tag[i];
 				list.add(query);
@@ -541,10 +590,16 @@ public class BookServiceImp implements BookService {
 			
 			tagListCount=bookDao.getTagListCount(list);
 			
-			if(tagListCount>0) {
+			if(tagListCount>0 && tagListCount<10000) {
 				//밑에 뿌려줄 책정보 가져와야함 덤으로 페이지 번호도.
 				tagList=bookDao.getTagBookList(listMap);
 			}
+			
+			if(tagListCount==0) {
+				tagListCount=10000;
+			}
+			
+			System.out.println("tagListCount: "+tagListCount);
 			
 			HashMap<String, Object> json=new HashMap<String, Object>();
 			json.put("tagListCount", tagListCount);
@@ -553,31 +608,33 @@ public class BookServiceImp implements BookService {
 			ArrayList<Object> jsArr=new ArrayList<Object>();
 			JSONArray abc=new JSONArray();
 			
-			for(int i=0;i<tagList.size();i++) {
-				HomeDto dto=tagList.get(i);
-				
-				ArrayList<Object> arrT=new ArrayList<Object>();
-				HashMap<String, Object> dtoMap=new HashMap<String, Object>();
-				List<String> getTag=bookDao.getKeyword(dto.getBook_num());
-				
-				dtoMap.put("img_path", dto.getImg_path());
-				dtoMap.put("book_name", dto.getBookName());
-				dtoMap.put("book_num", dto.getBook_num());
-				dtoMap.put("authorName", dto.getAuthorName());
-				dtoMap.put("authorNum", dto.getAuthor_num());
-				dtoMap.put("pub_num", dto.getPub_num());
-				dtoMap.put("pub_name", dto.getPub_name());
-				dtoMap.put("price", dto.getPrice());
-				dtoMap.put("rental_price", dto.getRental_price());
-				dtoMap.put("intro", dto.getIntro());
-				dtoMap.put("star_point",dto.getStar_point());
-				dtoMap.put("star_count",dto.getStar_count());
-				dtoMap.put("keyword",getTag);
-				
-				arrT.add(dtoMap);
-				jsArr.add(arrT);
-				
-				//가지고있는 키워드 가져오기
+			if(tagList!=null) {
+				for(int i=0;i<tagList.size();i++) {
+					HomeDto dto=tagList.get(i);
+					
+					ArrayList<Object> arrT=new ArrayList<Object>();
+					HashMap<String, Object> dtoMap=new HashMap<String, Object>();
+					List<String> getTag=bookDao.getKeyword(dto.getBook_num());
+					
+					dtoMap.put("img_path", dto.getImg_path());
+					dtoMap.put("book_name", dto.getBookName());
+					dtoMap.put("book_num", dto.getBook_num());
+					dtoMap.put("authorName", dto.getAuthorName());
+					dtoMap.put("authorNum", dto.getAuthor_num());
+					dtoMap.put("pub_num", dto.getPub_num());
+					dtoMap.put("pub_name", dto.getPub_name());
+					dtoMap.put("price", dto.getPrice());
+					dtoMap.put("rental_price", dto.getRental_price());
+					dtoMap.put("intro", dto.getIntro());
+					dtoMap.put("star_point",dto.getStar_point());
+					dtoMap.put("star_count",dto.getStar_count());
+					dtoMap.put("keyword",getTag);
+					
+					arrT.add(dtoMap);
+					jsArr.add(arrT);
+					
+					//가지고있는 키워드 가져오기
+				}
 			}
 			json.put("tagList", jsArr);
 			json.put("pageNumber", pageNumber);
@@ -600,6 +657,61 @@ public class BookServiceImp implements BookService {
 			}
 			
 		}
+	}
+
+	@Override
+	public void homeBestSeller(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		int firstCate=Integer.parseInt(request.getParameter("firstCateNum"));
+		String firstCateName=bookDao.getFirstCateName(String.valueOf(firstCate));
+		
+		String pn=request.getParameter("pageNumber");
+		if(pn==null)	pn="1";
+		int pageNumber=Integer.parseInt(pn);
+		
+		int boardSize=20;
+		int startRow=(pageNumber-1)*boardSize+1;
+		int endRow=pageNumber*boardSize;
+		
+		HashMap<String, Object> pMap=new HashMap<String, Object>();
+		pMap.put("firstCate", firstCate);
+		pMap.put("startRow", startRow);
+		pMap.put("endRow", endRow);
+		
+		List<HomeDto> bestDto=null;
+		//주간, 월간, 스테디 구분
+		String bestSeller=request.getParameter("bestSeller");
+		
+		int bestDtoCount=0;
+		
+		if(bestSeller.equalsIgnoreCase("weekBest")) {
+			bestDto=bookDao.getBestSellerWeek(pMap);
+			bestDtoCount=bookDao.getBestSellerWeekCount(pMap);
+		}else if(bestSeller.equalsIgnoreCase("monthBest")) {
+			bestDto=bookDao.getBestSellerMonth(pMap);
+			bestDtoCount=bookDao.getBestSellerMonthCount(pMap);
+		}else if(bestSeller.equalsIgnoreCase("steady")) {
+			bestDto=bookDao.getBestSellerSteady(pMap);
+			bestDtoCount=bookDao.getBestSellerSteadyCount(pMap);
+		}
+		
+		for(int i=0;i<bestDto.size();i++) {
+			int after=bestDto.get(i).getIntro().indexOf(">");
+			String intro=bestDto.get(i).getIntro().substring(after+1);
+			bestDto.get(i).setIntro(intro);
+		}
+		
+//		LogAspect.info(bestDto.toString());
+//		System.out.println(bestDto.size());
+		
+		mav.addObject("bestSeller", bestSeller);
+		mav.addObject("firstCate", firstCate);
+		mav.addObject("firstCateName", firstCateName);
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("bestDto", bestDto);
+		mav.addObject("bestDtoCount", bestDtoCount);
 	}
 
 }

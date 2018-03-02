@@ -38,5 +38,9 @@ public interface MyPageDao {
 
 	List<MyPagePurchasedPageDto> PurchasedPageList(String id, String searchValue);
 
+	List<MyPagePurchasedPageDto> PurchasedPageFiveList(String id);
+
+	List<MyPageRecentPageDto> MyRecentPageFiveList(String id);
+
 
 }

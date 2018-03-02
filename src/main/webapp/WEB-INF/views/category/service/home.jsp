@@ -46,12 +46,12 @@
 				<c:forEach var="categoryPageDto" items="${categoryPageList}">
 					<li class="mf-book-item">
 						<div class="mf-book-thumbnail">
-							<div class="mf-book-thumbnail-image" onclick="alert('${categoryPageDto.book_num}')">
+							<div class="mf-book-thumbnail-image" onclick="bookDetailLink('${root}','${categoryPageDto.book_num}')">
 								<img class="" src="${categoryPageDto.img_path}" alt="image" />
 							</div>
 						</div>
 						<div class="mf-book-metadata">
-							<h3 class="book-metadata-text" onclick="alert('${categoryPageDto.book_num}')">${categoryPageDto.book_name}</h3>
+							<h3 class="book-metadata-text" onclick="bookDetailLink('${root}','${categoryPageDto.book_num}')">${categoryPageDto.book_name}</h3>
 							<!-- 저자 -->
 							<c:if test="${categoryPageDto.author_num != 0}">
 								<p class="book-metadata-author">
@@ -62,13 +62,13 @@
 							<c:if test="${categoryPageDto.trans_num != 0}">
 								<p class="book-metadata-translator">
 									<a class="" title="역자" href="javascript:alert('${categoryPageDto.trans_num}')">${categoryPageDto.trans_name}</a>
-								</p>							
+								</p>
 							</c:if>
 							<!-- 일러스트레이터 -->
 							<c:if test="${categoryPageDto.illur_num != 0}">
 								<p class="book-metadata-illustrator">
 									<a class="" title="역자" href="javascript:alert('${categoryPageDto.illur_num}')">${categoryPageDto.illur_name}</a>
-								</p>							
+								</p>
 							</c:if>
 							<!-- 출판사 -->
 							<c:if test="${categoryPageDto.pub_num != 0}">
@@ -82,7 +82,7 @@
 								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
 								<span class="count-field">&nbsp;${categoryPageDto.star_count}명</span>
 							</div>
-							<pre class="book-metadata-description hidden-block">${categoryPageDto.intro}</pre>
+							<pre class="book-metadata-description">${categoryPageDto.intro}</pre>
 							<c:if test="${categoryPageDto.rental_period != 'no'}">
 								<p class="book-metadata-price">
 									<fmt:formatNumber var="rental_price" value="${categoryPageDto.rental_price}" pattern=",###"/>
@@ -98,6 +98,12 @@
 						</div>
 					</li>
 				</c:forEach>
+				<c:if test="${categoryPageList.size() == 0 or categoryPageList == null}">
+					<li class="mf-book-item mf-book-empty">
+						<div><span class="material-icons">library_books</span></div>
+						<p>죄송합니다. 검색된 책이 없습니다.</p>						
+					</li>
+				</c:if>
 				</ul>
 			</section><!-- End : result-search-book-box -->
 			<!-- -------------------------------------- -->
@@ -115,12 +121,12 @@
 				<c:forEach var="categoryPageDto" items="${categoryPageBestList}">
 					<li class="mf-book-item">
 						<div class="mf-book-thumbnail">
-							<div class="mf-book-thumbnail-image" onclick="alert('${categoryPageDto.book_num}')">
+							<div class="mf-book-thumbnail-image" onclick="bookDetailLink('${root}','${categoryPageDto.book_num}')">
 								<img class="" src="${categoryPageDto.img_path}" alt="image" />
 							</div>
 						</div>
 						<div class="mf-book-metadata">
-							<h3 class="book-metadata-text" onclick="alert('${categoryPageDto.book_num}')">${categoryPageDto.book_name}</h3>
+							<h3 class="book-metadata-text" onclick="bookDetailLink('${root}','${categoryPageDto.book_num}')">${categoryPageDto.book_name}</h3>
 							<!-- 저자 -->
 							<c:if test="${categoryPageDto.author_num != 0}">
 								<p class="book-metadata-author">
@@ -131,13 +137,13 @@
 							<c:if test="${categoryPageDto.trans_num != 0}">
 								<p class="book-metadata-translator">
 									<a class="" title="역자" href="javascript:alert('${categoryPageDto.trans_num}')">${categoryPageDto.trans_name}</a>
-								</p>							
+								</p>
 							</c:if>
 							<!-- 일러스트레이터 -->
 							<c:if test="${categoryPageDto.illur_num != 0}">
 								<p class="book-metadata-illustrator">
 									<a class="" title="역자" href="javascript:alert('${categoryPageDto.illur_num}')">${categoryPageDto.illur_name}</a>
-								</p>							
+								</p>
 							</c:if>
 							<!-- 출판사 -->
 							<c:if test="${categoryPageDto.pub_num != 0}">
@@ -151,7 +157,7 @@
 								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
 								<span class="count-field">&nbsp;${categoryPageDto.star_count}명</span>
 							</div>
-							<pre class="book-metadata-description hidden-block">${categoryPageDto.intro}</pre>
+							<pre class="book-metadata-description">${categoryPageDto.intro}</pre>
 							<c:if test="${categoryPageDto.rental_period != 'no'}">
 								<p class="book-metadata-price">
 									<fmt:formatNumber var="rental_price" value="${categoryPageDto.rental_price}" pattern=",###"/>
@@ -167,6 +173,12 @@
 						</div>
 					</li>
 				</c:forEach>
+				<c:if test="${categoryPageBestList.size() == 0 or categoryPageBestList == null}">
+					<li class="mf-book-item mf-book-empty">
+						<div><span class="material-icons">library_books</span></div>
+						<p>죄송합니다. 검색된 책이 없습니다.</p>						
+					</li>
+				</c:if>
 				</ul>
 			</section><!-- End : result-search-book-box -->
 			<!-- -------------------------------------- -->
@@ -184,12 +196,12 @@
 				<c:forEach var="categoryPageDto" items="${categoryPageFreeList}">
 					<li class="mf-book-item">
 						<div class="mf-book-thumbnail">
-							<div class="mf-book-thumbnail-image" onclick="alert('${categoryPageDto.book_num}')">
+							<div class="mf-book-thumbnail-image" onclick="bookDetailLink('${root}','${categoryPageDto.book_num}')">
 								<img class="" src="${categoryPageDto.img_path}" alt="image" />
 							</div>
 						</div>
 						<div class="mf-book-metadata">
-							<h3 class="book-metadata-text" onclick="alert('${categoryPageDto.book_num}')">${categoryPageDto.book_name}</h3>
+							<h3 class="book-metadata-text" onclick="bookDetailLink('${root}','${categoryPageDto.book_num}')">${categoryPageDto.book_name}</h3>
 							<!-- 저자 -->
 							<c:if test="${categoryPageDto.author_num != 0}">
 								<p class="book-metadata-author">
@@ -200,13 +212,13 @@
 							<c:if test="${categoryPageDto.trans_num != 0}">
 								<p class="book-metadata-translator">
 									<a class="" title="역자" href="javascript:alert('${categoryPageDto.trans_num}')">${categoryPageDto.trans_name}</a>
-								</p>							
+								</p>
 							</c:if>
 							<!-- 일러스트레이터 -->
 							<c:if test="${categoryPageDto.illur_num != 0}">
 								<p class="book-metadata-illustrator">
 									<a class="" title="역자" href="javascript:alert('${categoryPageDto.illur_num}')">${categoryPageDto.illur_name}</a>
-								</p>							
+								</p>
 							</c:if>
 							<!-- 출판사 -->
 							<c:if test="${categoryPageDto.pub_num != 0}">
@@ -220,7 +232,7 @@
 								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
 								<span class="count-field">&nbsp;${categoryPageDto.star_count}명</span>
 							</div>
-							<pre class="book-metadata-description hidden-block">${categoryPageDto.intro}</pre>
+							<pre class="book-metadata-description">${categoryPageDto.intro}</pre>
 							<c:if test="${categoryPageDto.rental_period != 'no'}">
 								<p class="book-metadata-price">
 									<fmt:formatNumber var="rental_price" value="${categoryPageDto.rental_price}" pattern=",###"/>
@@ -236,6 +248,12 @@
 						</div>
 					</li>
 				</c:forEach>
+				<c:if test="${categoryPageFreeList.size() == 0 or categoryPageFreeList == null}">
+					<li class="mf-book-item mf-book-empty">
+						<div><span class="material-icons">library_books</span></div>
+						<p>죄송합니다. 검색된 책이 없습니다.</p>						
+					</li>
+				</c:if>
 				</ul>
 			</section><!-- End : result-search-book-box -->
 		</section>

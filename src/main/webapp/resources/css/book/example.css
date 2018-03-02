@@ -76,9 +76,9 @@
 }
 
 .example_left_content > div:first-child{
-	width: 95%;
+	width: 100%;
     height: 750px;
-    margin: 5px auto;
+    position: relative;
 }
 
 .example_left_content > div:first-child > button:first-child{
@@ -89,6 +89,7 @@
     font-size: 1.7rem;
     font-weight: bold;
     margin-right: 10px;	
+    cursor: pointer;
 }
 
 .example_left_content > div:first-child > div{
@@ -96,7 +97,7 @@
 	width: 700px;
 	text-align: center;
 	position: relative;
-	left: 70px;
+	left: 35px;
 }
 
 .example_left_content > div:first-child > div > img{
@@ -125,8 +126,9 @@
     font-weight: bold;
     position: relative;
     top: 350px;
-    left: 100px;
+    left: 40px;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .example_left_bottom{
@@ -187,4 +189,11 @@
 .example_active{
 	background-color: #d1d0d8;
 }
+
+.example_right_content button, .example_right_content li{
+	cursor: pointer;
+}
+
+
+
 

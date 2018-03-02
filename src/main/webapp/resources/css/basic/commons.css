@@ -967,6 +967,24 @@ div.collapsable-notice {
 	color: #776BCE;
 }
 
+.mf-book-list .mf-book-item.mf-book-empty {
+	width: 100%;
+	text-align: center;
+	padding: 3%;
+}
+
+.mf-book-list .mf-book-item.mf-book-empty > * {
+	width: 100%;
+	font-size: 1.25rem;
+	font-weight: bold;
+	color: darkgray;
+	padding: 1%;
+}
+
+.mf-book-list .mf-book-item.mf-book-empty span.material-icons {
+	font-size: 5rem;
+}
+
 /* landscape style */
 .mf-book-list.list-landscape > .mf-book-item {
 	border-top: 1px solid #E1DFFA;

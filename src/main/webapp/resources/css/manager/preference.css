@@ -133,8 +133,9 @@ box-sizing: content-box !important;
 #prefer-graph #q-graph #q3 {left: 170px;}
 #prefer-graph #q-graph #q4 {left: 255px;}
 #prefer-graph #q-graph #q5 {left: 340px; border-right: none;}
-#prefer-graph #q-graph tbody th {bottom: -2.75em; vertical-align: top;
-font-weight: normal; color: #333;}
+#prefer-graph #q-graph tbody th {bottom: -3em; vertical-align: top;
+font-weight: normal; color: #333;
+line-height: 1rem;}
 #prefer-graph #q-graph .bar {
   width: 60px; 
   border: 1px solid; 

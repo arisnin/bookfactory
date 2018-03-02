@@ -26,4 +26,5 @@ public interface BookService {
 	void keywordSearch(ModelAndView mav);
 	void reviewReply(HttpServletRequest request, HttpServletResponse response, ReplyDto replyDto) throws IOException;
 	void reviewDelete(HttpServletRequest request, HttpServletResponse response) throws IOException;
+	void homeBestSeller(ModelAndView mav);
 }

@@ -14,6 +14,7 @@ import com.bf.book.dto.ReviewPageDto;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
+import com.bf.myPage.dto.MyPageRecentLookBookDto;
 import com.bf.book.dto.DetailCateDto;
 import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.HomeDto;
@@ -28,15 +29,6 @@ import com.bf.book.dto.ReplyDto;
  * @author choi jung eun
  * @date 2018. 2. 22.
  * @description 화면에 책정보 보여주기, 상세보기 등 구현 
- * 
- *   SELECT bm.img_path "img_path", bm.NAME "book_name", A.NAME "author_name", rs."star_point", rs."star_count" FROM bookm bm, (
-  SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num FROM review
-  GROUP BY book_num
-) rs, author a
-WHERE bm.book_num = rs.book_num
-AND bm.author_num = a.num;
-
-책 정보 + 별점평균 + 별점평가수 같이 나오는 쿼리
  */
 
 @Component
@@ -213,10 +205,77 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.selectList("getDetailCate",book_num);
 	}
 
-	@Override
+	@Override	//키워드에서 가지고 있는 키워드들 받아옴
 	public List<String> getKeyword(long book_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getKeyword", book_num);
+	}
+
+	// 도서 상세페이지 클릭하면 데이터들이 최근 본 책 페이지로 들어감
+	@Override
+	public int recentLookBookInsert(
+			MyPageRecentLookBookDto myPageRecentLookBookDto) {
+		return sqlSession.insert(namespace + "recent_look_book_insert", myPageRecentLookBookDto);
+	}
+
+	@Override	//최근많이읽는책
+	public List<HomeDto> getPopularList(int firstCate) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getPopularList", firstCate);
+	}
+
+	@Override	//두번째 카테고리이름 가져오되 중복되어있을경우 위에 하나만 가져오는것
+	public String getThirdNameOverlap(long book_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getThirdNameOverlap", book_num);
+	}
+
+	@Override
+	public List<HomeDto> getBestSellerWeek(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getBestSellerWeek", pMap);
+	}
+
+	@Override
+	public List<HomeDto> getBestSellerMonth(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getBestSellerMonth", pMap);
+	}
+
+	@Override
+	public List<HomeDto> getBestSellerSteady(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getBestSellerSteady", pMap);
+	}
+
+	@Override
+	public int getBestSellerWeekCount(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getBestSellerWeekCount", pMap);
+	}
+
+	@Override
+	public int getBestSellerMonthCount(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getBestSellerMonthCount", pMap);
+	}
+
+	@Override
+	public int getBestSellerSteadyCount(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getBestSellerSteadyCount", pMap);
+	}
+
+	@Override
+	public List<HomeDto> getPopularList(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getPopularListPaper",map);
+	}
+
+	@Override
+	public List<HomeDto> getBestSellerWeekPaper(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getBestSellerWeekPaper",pMap);
 	}
 
 }

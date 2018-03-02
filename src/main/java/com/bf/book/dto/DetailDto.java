@@ -61,7 +61,8 @@ public class DetailDto {
 	//이벤트 정보는 어떻게 들어갈지모름
 	
 	//별점정보
-	private int star_point;
+	private float star_point;
+	private int star_count;
 	
 	//저자프로필정보는 따로 dto 뺀다.
 	public DetailDto() {}
@@ -73,7 +74,7 @@ public class DetailDto {
 			String illu_name, long trans_num, String trans_name, double discount, double discount2, long book_price,
 			long rental_price, String rental_period, long preference, long series_num, String support, String img_path,
 			String file_path, String file_name, long file_size, String type, String intro, String pub_intro,
-			int star_point) {
+			float star_point, int star_count) {
 		this.second_num_1 = second_num_1;
 		this.second_num_2 = second_num_2;
 		this.second_num_3 = second_num_3;
@@ -114,6 +115,7 @@ public class DetailDto {
 		this.intro = intro;
 		this.pub_intro = pub_intro;
 		this.star_point = star_point;
+		this.star_count = star_count;
 	}
 
 	public int getSecond_num_1() {
@@ -428,12 +430,20 @@ public class DetailDto {
 		this.pub_intro = pub_intro;
 	}
 
-	public int getStar_point() {
+	public float getStar_point() {
 		return star_point;
 	}
 
-	public void setStar_point(int star_point) {
+	public void setStar_point(float star_point) {
 		this.star_point = star_point;
+	}
+
+	public int getStar_count() {
+		return star_count;
+	}
+
+	public void setStar_count(int star_count) {
+		this.star_count = star_count;
 	}
 
 	@Override
@@ -450,7 +460,26 @@ public class DetailDto {
 				+ ", rental_price=" + rental_price + ", rental_period=" + rental_period + ", preference=" + preference
 				+ ", series_num=" + series_num + ", support=" + support + ", img_path=" + img_path + ", file_path="
 				+ file_path + ", file_name=" + file_name + ", file_size=" + file_size + ", type=" + type + ", intro="
-				+ intro + ", pub_intro=" + pub_intro + ", star_point=" + star_point + "]";
+				+ intro + ", pub_intro=" + pub_intro + ", star_point=" + star_point + ", star_count=" + star_count
+				+ ", getSecond_num_1()=" + getSecond_num_1() + ", getSecond_num_2()=" + getSecond_num_2()
+				+ ", getSecond_num_3()=" + getSecond_num_3() + ", getSecond_name_1()=" + getSecond_name_1()
+				+ ", getSecond_name_2()=" + getSecond_name_2() + ", getSecond_name_3()=" + getSecond_name_3()
+				+ ", getThird_num_1()=" + getThird_num_1() + ", getThird_num_2()=" + getThird_num_2()
+				+ ", getThird_num_3()=" + getThird_num_3() + ", getThird_name_1()=" + getThird_name_1()
+				+ ", getThird_name_2()=" + getThird_name_2() + ", getThird_name_3()=" + getThird_name_3()
+				+ ", getBook_num()=" + getBook_num() + ", getBook_name()=" + getBook_name() + ", getBook_sub_title()="
+				+ getBook_sub_title() + ", getWrite_date()=" + getWrite_date() + ", getPub_num()=" + getPub_num()
+				+ ", getPub_name()=" + getPub_name() + ", getAuthor_num()=" + getAuthor_num() + ", getAuthor_name()="
+				+ getAuthor_name() + ", getIllu_num()=" + getIllu_num() + ", getIllu_name()=" + getIllu_name()
+				+ ", getTrans_num()=" + getTrans_num() + ", getTrans_name()=" + getTrans_name() + ", getDiscount()="
+				+ getDiscount() + ", getDiscount2()=" + getDiscount2() + ", getBook_price()=" + getBook_price()
+				+ ", getRental_price()=" + getRental_price() + ", getRental_period()=" + getRental_period()
+				+ ", getPreference()=" + getPreference() + ", getSeries_num()=" + getSeries_num() + ", getSupport()="
+				+ getSupport() + ", getImg_path()=" + getImg_path() + ", getFile_path()=" + getFile_path()
+				+ ", getFile_name()=" + getFile_name() + ", getFile_size()=" + getFile_size() + ", getType()="
+				+ getType() + ", getIntro()=" + getIntro() + ", getPub_intro()=" + getPub_intro() + ", getStar_point()="
+				+ getStar_point() + ", getStar_count()=" + getStar_count() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 	
 }

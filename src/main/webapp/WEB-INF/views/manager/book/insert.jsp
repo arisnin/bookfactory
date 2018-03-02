@@ -195,6 +195,19 @@
 	<script src="${root}/alert/alertifymin.js"></script>
 	<script src="${root}/script/manager/book/insert.js"></script>
 	<script>
+		$(".b_in_content").click(function(e) {
+			if($(e.target).parent().parent().prop("class") != 'b_in_author_list'){
+				var name = $(e.target).attr("name");
+				if(name == 'author' || name == 'illustrator' || name == 'translator'){
+					
+				}else{
+					$(".b_in_author_list").each(function() {
+						$(this).css("display","none");
+					});					
+				}
+			};
+		});
+		
 		$("#b_in_pub_open").click(function(){
 			var url = "${root}/manager/bookOpenPub.do";
 			open(url,"출판사 검색창","width=685,height=750,scroll=yes");

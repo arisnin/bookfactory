@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.bf.main.dto.CategoryPageDto;
 import com.bf.main.dto.NoticeDto;
-import com.bf.main.dto.RegisterDto;
+import com.bf.main.dto.SearchAuthorDto;
+import com.bf.main.dto.SearchBookCountDto;
 import com.bf.member.model.MemberDto;
 
 /**
@@ -24,6 +25,42 @@ public class MainDaoImp implements MainDao {
 	private SqlSessionTemplate sqlSession;
 	
 	private final String namespace = "com.bf.mapper.MainMapper.";
+
+	@Override
+	public List<SearchAuthorDto> selectSearchAuthor(String keyword) {
+		return sqlSession.selectList(namespace + "select-search-author", keyword);
+	}
+
+	@Override
+	public List<CategoryPageDto> selectSearchBook(String keyword, int thirdCateNum, int orderTypeNum, int startRow, int endRow) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("keyword", keyword);
+		map.put("thirdCateNum", thirdCateNum);
+		map.put("orderTypeNum", orderTypeNum);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSession.selectList(namespace + "select-search-book", map);
+	}
+
+	@Override
+	public int selectSearchBookCount(String keyword) {
+		return sqlSession.selectOne(namespace + "select-search-count", keyword);
+	}
+
+	@Override
+	public List<SearchBookCountDto> selectSearchBookByCategoryCount(String keyword) {
+		return sqlSession.selectList(namespace + "select-search-by-category-count", keyword);
+	}
+
+	@Override
+	public List<Map<String,Object>> suggestKeyword(String keyword) {
+		return sqlSession.selectList(namespace + "select-suggest-keyword", keyword);
+	}
+
+	@Override
+	public List<Map<String, Object>> suggestKeyword(String keyword, String string) {
+		return sqlSession.selectList(namespace + "select-suggest-book-keyword", keyword);
+	}
 
 	@Override
 	public int register(MemberDto memberDto) {
@@ -51,8 +88,8 @@ public class MainDaoImp implements MainDao {
 	}
 
 	@Override
-	public List<String> registerValidation(String type, String keyword) {
-		return sqlSession.selectList(namespace + type + "-check", keyword);
+	public int registerValidation(String type, String keyword) {
+		return sqlSession.selectOne(namespace + type + "-check", keyword);
 	}
 
 	@Override

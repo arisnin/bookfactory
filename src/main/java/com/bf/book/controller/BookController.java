@@ -79,12 +79,16 @@ public class BookController {
 	}
 
 	/**
-	 * 메인 > 카테고리들 > 베스트셀러
+	 * 메인 > 카테고리들 > 주간베스트셀러
 	 */
 	@RequestMapping(value = "/best-sell.do", method = RequestMethod.GET)
-	public String homeBestSeller(HttpServletRequest request, HttpServletResponse response) {
-
-		return "genre/bestSell.main";
+	public ModelAndView homeBestSeller(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("genre/bestSell.main");
+		mav.addObject("request", request);
+		
+		bookService.homeBestSeller(mav);
+		
+		return mav;
 	}
 
 	/**
@@ -134,7 +138,7 @@ public class BookController {
 	/**
 	 * 일반 제외 홈화면들 > 키워드 검색 ajax
 	 */
-	@RequestMapping(value = "/keywordSearch.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/keywordSearch.do", method = RequestMethod.POST)
 	public ModelAndView keywordSearch(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
