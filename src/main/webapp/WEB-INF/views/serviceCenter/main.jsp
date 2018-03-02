@@ -78,8 +78,8 @@
 				<a class="bf-button" href="${root }/serviceCenter/pay_refund.do">결제 / 환불</a>
 				<a class="bf-button" href="${root }/serviceCenter/how_use.do">이용문의</a>
 				<a class="bf-button" href="${root }/serviceCenter/error_use.do">오류 / 활용 도움말</a>
-				<a class="bf-button" href="#">시스템 업데이트 안내</a>
-			</div>	
+				<a class="bf-button" href="${root }/serviceCenter/system_update.do">시스템 업데이트 안내</a>
+			</div>
 		</div>
 	</div>
 

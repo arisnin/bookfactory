@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.bf.main.dto.NoticeDto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.serviceCenter.dto.BookContactDto;
 import com.bf.serviceCenter.dto.ServiceCenterDtoFre;
 
 /**
@@ -107,6 +108,72 @@ public class ServiceCenterDaoImp implements ServiceCenterDao {
 	public List<BoardFrequencyDto> mainMany() {
 		return sqlSession.selectList(namespace + "mainMany");
 	}
+
+	@Override
+	public List<BoardFrequencyDto> idLoginMain() {
+		return sqlSession.selectList(namespace + "idLoginMain");
+	}
+
+	@Override
+	public List<BoardFrequencyDto> idLoginSide() {
+		return sqlSession.selectList(namespace + "idLoginSide");
+	}
+
+	@Override
+	public List<BoardFrequencyDto> payRefundMain() {
+		return sqlSession.selectList(namespace + "payRefundMain");
+	}
+
+	@Override
+	public List<BoardFrequencyDto> payRefundSide() {
+		return sqlSession.selectList(namespace + "payRefundSide");
+	}
+
+	@Override
+	public List<BoardFrequencyDto> howUseMain() {
+		return sqlSession.selectList(namespace + "howUseMain");
+	}
+
+	@Override
+	public List<BoardFrequencyDto> howUseSide() {
+		return sqlSession.selectList(namespace + "howUseSide");
+	}
+
+	@Override
+	public List<BoardFrequencyDto> errorUseMain() {
+		return sqlSession.selectList(namespace + "errorUseMain");
+	}
+
+	@Override
+	public List<BoardFrequencyDto> errorUseSide() {
+		return sqlSession.selectList(namespace + "errorUseSide");
+	}
+
+	@Override
+	public List<BoardFrequencyDto> systemUpdateMain() {
+		return sqlSession.selectList(namespace + "systemUpdateMain");
+	}
+
+	@Override
+	public List<BoardFrequencyDto> systemUpdateSide() {
+		return sqlSession.selectList(namespace + "systemUpdateSide");
+	}
+
+	@Override
+	public int categoryCount(int category) {
+		return sqlSession.selectOne(namespace + "categoryCount", category);
+	}
+
+	@Override
+	public int bookSuggestionWrite(BookContactDto bookContactDto) {
+		int check = 0;
+		
+		check = sqlSession.insert(namespace + "bookContactInsert", bookContactDto);
+		
+		return check;
+	}
+
+	
 	
 	
 	

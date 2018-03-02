@@ -73,7 +73,7 @@
 			<div>질문 유형<span class="star">*</span></div>
 			<div>
 				<select name="category">
-					<option>-</option>
+					<option value="-">-</option>
 					<option value="100">아이디/로그인</option>
 					<option value="101">결제/환불</option>
 					<option value="102">이용문의</option>
@@ -86,7 +86,7 @@
 		</div>
 		
 		<div class="serviceCenter_inquriy_call">
-			<div>연락 수단<span class="star">*</span></div>
+			<div>연락 수단<span class="star"></span></div>
 			<div class="serviceCenter_inquriy_call_list">
 				<select name="call">
 					<option>-</option>

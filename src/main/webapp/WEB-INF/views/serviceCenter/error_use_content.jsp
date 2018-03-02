@@ -16,6 +16,7 @@
 	type="text/css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
 
 <title>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</title>
 </head>
@@ -53,32 +54,33 @@
 			<div class="service_information_cn_cn_left">
 				
 					<div class="service_information_cn_cn_left_title">이 섹션의 문서</div>
-					<ul>
-						<li><a href="${root }/serviceCenter/error_use_content.do">도서정가제란 무엇인가요?</a></li>
-						<li>연재도서는 단행본으로 교체가 가능한가요?</li>
-						<li>안돼.</li>
-						<li>가나다라마바사아자차타카파하</li>		
-					</ul>				
+						<c:forEach var="errorUseDto" items="${errorUseSide}" >
+							<ul>
+								<c:if test="${errorUseDto.num == errorUseRead.num}">
+									<li class=active>
+								</c:if>
+								<c:if test="${errorUseDto.num != errorUseRead.num}">
+									<li>
+								</c:if>												
+									<a href="javascript:errorUseRead('${root}','${errorUseDto.num}')">${errorUseDto.title}</a></li>						
+							</ul>
+					</c:forEach>
+					
+					<c:if test="${count>10 }">
+						<div class="service_information_cn_cn_left_more">
+							<a href="${root }/serviceCenter/id_login.do">더보기</a>
+						</div>
+					</c:if>				
 			</div>
 			
 						
 			<div class="service_information_cn_cn_right">
 				<div class="service_information_cn_title">
-					도서정가제란 무엇인가요?					
+					${errorUseRead.title}					
 				</div>
 		
 						<div>
-						<p>
-						도서정가제란 온라인을 포함한 서점이 출판사 정가대로 서적을 판매하도록 의무화한 제도로 2014년 11월 21일부터 시행되었습니다.
-						도서 정가의 할인 폭은 신간, 구간 모두 10%로 제한되어 있으며 경품, 마일리지, 적립금과 같은 부분은 추가로 5%까지 할인이 가능합니다.
-						단, 출판사가 도서 출간 후 18개월이 지난 도서의 정가를 재조정 할 수 있습니다.<br/><br/>
-						
-						도서정가제에 따라 정가에서 이미 할인이 적용된 도서에는 추가로 10% 할인 쿠폰 적용이 불가합니다.
-						<br/><br/>
-						
-						10%할인 쿠폰은 정가로 판매되는 도서에만 적용이 가능하며, 이 외에 다양한 이벤트로 고객님께서 합리적으로 도서를 구매하실 수 있도록 노력하겠습니다.						
-						
-						</p>						
+							${errorUseRead.content}					
 						</div>
 					</div>
 			

@@ -29,6 +29,30 @@ public interface ServiceCenterService {
 
 	void serviceCenterMain(ModelAndView mav);
 
+	void serviceCenterIdLogin(ModelAndView mav);
+
+	void serviceCenterIdLoginContent(ModelAndView mav);
+
+	void serviceCenterPayRefund(ModelAndView mav);
+
+	void serviceCenterPayRefundContent(ModelAndView mav);
+
+	void serviceCenterHowUse(ModelAndView mav);
+
+	void serviceCenterHowUseContent(ModelAndView mav);
+
+	void serviceCenterErrorUse(ModelAndView mav);
+
+	void serviceCenterErrorUseContent(ModelAndView mav);
+
+	void serviceCenterSystemUpdate(ModelAndView mav);
+
+	void serviceCenterSystemUpdateContent(ModelAndView mav);
+
+	void bookSuggestionWrite(ModelAndView mav);
+
+	void bookSuggestionWriteOk(ModelAndView mav);
+
 	
 
 }

@@ -121,11 +121,6 @@
 				</div>
 
 				<div class="line">
-					<div>연락수단</div>
-					<div>zz</div>
-				</div>
-
-				<div class="line">
 					<div>연락처</div>
 					<div>-</div>
 				</div>				
