@@ -58,6 +58,11 @@ public class MainDaoImp implements MainDao {
 	}
 
 	@Override
+	public List<Map<String, Object>> suggestKeyword(String keyword, String string) {
+		return sqlSession.selectList(namespace + "select-suggest-book-keyword", keyword);
+	}
+
+	@Override
 	public int register(MemberDto memberDto) {
 		return sqlSession.insert(namespace + "register", memberDto);
 	}

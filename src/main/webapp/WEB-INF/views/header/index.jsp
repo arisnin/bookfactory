@@ -29,22 +29,15 @@
 							<img src="${root}/img/index/searchIcon_purple.png" />
 						</span>
 						<form action="${root}/main/search.do" method="get">
-							<input class="hw_search_input" type="text" name="keyword" placeholder="제목,저자,출판사 검색" onkeyup="suggestKeyword(this)"/>
+							<input class="hw_search_input" type="text" name="keyword" placeholder="제목,저자,출판사 검색" onkeyup="suggestKeyword(this)" onblur="removeSuggestBox(this)" />
 						</form>
 						<span class="hw_del_icon">
 							<img src="${root}/img/index/searchdel.JPG" />
 						</span>
-						<div class="main-search-suggest-box" id="main-search-suggest">
-							<ul class="suggest-author-list">
-								<li class="">
-									<button type="button" class="bf-button bf-transparent-btn" onclick="alert('WoW')">
-										<span class="material-icons">person</span>
-										<span class="author">박성호</span>
-										<span class="book">&nbsp;사과는 맛있어, 맛있으면 바나나?</span>
-										<span class="more-count ">외&nbsp;11권</span>
-									</button>
-								</li>
-							</ul>
+						<div class="main-search-suggest-box hidden-block" id="main-search-suggest">
+							<label class="author-title">저자/역자 검색</label>
+							<ul class="suggest-author-list"></ul>
+							<label class="book-title">도서 검색</label>
 							<ul class="suggest-book-list"></ul>
 						</div>
 					</div>
@@ -183,30 +176,43 @@
 		
 		var rootContext = '${root}';
 		var suggestBox = document.getElementById("main-search-suggest");
+		var suggestAuthorList = suggestBox.querySelectorAll("ul")[0];
+		var suggestBookList = suggestBox.querySelectorAll("ul")[1];
 		
 		function suggestKeyword(event) {			
 			if (false) {
 				//secondMessageBox.innerHTML = "";
 			} else {
 				$.post(rootContext + "/main/search/validation.do", {keyword : event.value}, function(data,status) {
-					if (data[0] != null) {
-						deleteAllChilds(target.firstElementChild);
-						deleteAllChilds(target.lastElementChild);
-						appendSuggestAuthorList(data);
+					// 기존 제안 내용 초기화
+					deleteAllChilds(suggestAuthorList);
+					deleteAllChilds(suggestBookList);
+					// 검색어 제안 박스 활성화
+					suggestBox.classList.remove("hidden-block");
+					// 제안 내용 화면 출력
+					if (data.author == null || data.author.length == 0) {
+						appendSuggestEmpty('author');
 					} else {
-						//alert('검색어 제안에 실패했습니다.');
+						appendSuggestAuthorList(data.author);
+					}
+					
+					if (data.book == null || data.book.length == 0) {
+						appendSuggestEmpty('book');
+					} else {
+						appendSuggestBookList(data.book);						
 					}
 				});
 			}
 		}
 		
 		function appendSuggestAuthorList(data) {
-			var target = suggestBox.firstElementChild;
+			var target = suggestAuthorList;
 			var dFrag = document.createDocumentFragment();
 			
 			data.forEach(function(e,i) {
 				var li = document.createElement("li");
-				let innerHTML = '<button type="button" class="bf-button bf-transparent-btn" onclick="alert("'+ e.author_num +'")"><span class="material-icons">person</span>';
+				
+				let innerHTML = '<button type="button" class="bf-button bf-transparent-btn" onclick="alert(\''+ e.author_num +'\')"><span class="material-icons">person</span>';
 				innerHTML += '<span class="author">' + e.author_name + '</span>';
 				if (e.count > 0) {
 					innerHTML += '<span class="book">&nbsp;' + e.book_name + '</span>';
@@ -214,16 +220,55 @@
 				}
 				innerHTML += '</button>';
 				li.innerHTML = innerHTML;
+				
 				dFrag.appendChild(li);
 			});
 			
 			target.appendChild(dFrag);
 		}
 		
+		function appendSuggestBookList(data) {
+			var target = suggestBookList;
+			var dFrag = document.createDocumentFragment();
+			
+			data.forEach(function(e,i) {
+				var li = document.createElement("li");
+				
+				let innerHTML = '<div class="book-thumbnail"><a href="'+rootContext+'/detail.do?book_num='+e.book_num+'"><img src="'+e.img_path+'"></a></div><div class="book-content">';
+				innerHTML += '<a href="'+rootContext+'/detail.do?book_num='+e.book_num+'"><span class="title font_13" title="도서명">'+e.book_name+'</span></a><div class="book-info">';
+				innerHTML += '<span class="author" title="작가" onclick="alert(\''+ e.author_num +'\')">'+e.author_name+'</span>';
+				innerHTML += '<span class="publisher" title="출판사" onclick="alert(\''+ e.pub_num +'\')">'+e.pub_name+'</span></div></div>';
+				li.innerHTML = innerHTML;
+				
+				dFrag.appendChild(li);
+			});
+			
+			target.appendChild(dFrag);
+		}
+		
+		function appendSuggestEmpty(type) {
+			if (type == 'author') {
+				let innerHTML = '<li><button type="button" class="bf-button bf-transparent-btn disabled"><span class="material-icons">info</span><span class="author">검색된 저자가 없습니다.</span></button></li>';
+				suggestAuthorList.innerHTML = innerHTML;
+			} else if (type == 'book') {
+				let innerHTML = '<li><button type="button" class="bf-button bf-transparent-btn disabled"><span class="material-icons">info</span><span class="author">검색된 도서가 없습니다.</span></button></li>';
+				suggestBookList.innerHTML = innerHTML;
+			}
+		}
+		
 		function deleteAllChilds(target) {
 			while (target.firstChild) {
 				target.removeChild(target.firstChild);
 			}
+		}
+		
+		function removeSuggestBox(event) {
+			alert(event);
+			// 기존 제안 내용 초기화
+			//deleteAllChilds(suggestAuthorList);
+			//deleteAllChilds(suggestBookList);
+			// 검색어 제안 박스 비활성화
+			//suggestBox.classList.add("hidden-block");
 		}
 	</script>
 </body>

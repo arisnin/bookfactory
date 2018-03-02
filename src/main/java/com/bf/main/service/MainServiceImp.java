@@ -127,12 +127,21 @@ public class MainServiceImp implements MainService {
 
 		// keyword 검색 결과(저자 및 도서)
 		List<Map<String,Object>> suggestAuthorList = mainDao.suggestKeyword(keyword);
+		List<Map<String,Object>> suggestBookList = mainDao.suggestKeyword(keyword, "book");
 		
-		LogAspect.info(suggestAuthorList);
+		LogAspect.info("suggestAuthor:" + suggestAuthorList.size());
+		LogAspect.info("suggestBook:" + suggestBookList.size());
+		
+		JSONObject json = new JSONObject();
+		json.put("author", suggestAuthorList);
+		json.put("book", suggestBookList);
+		
+		System.out.println(json.toJSONString());
 		
 		response.setContentType("application/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		out.print(JSONValue.toJSONString(suggestAuthorList));
+		//out.print(JSONValue.toJSONString(suggestAuthorList));
+		out.print(json.toJSONString());
 		out.flush();
 		out.close();
 	}

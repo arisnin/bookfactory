@@ -188,7 +188,7 @@
 	
 	<select id="select-search-count" parameterType="String" resultType="Integer">
 		SELECT COUNT(BM.BOOK_NUM) FROM bookm bm, (
-			SELECT pub_num, NAME FROM publisher
+			SELECT pub_num, name FROM publisher
 		) pub, (
 			SELECT book_num
 			FROM book_category
@@ -226,7 +226,26 @@
 			) ba
 			GROUP BY ba."author_num"
 		)
-		<![CDATA[WHERE ROWNUM < 10]]>
+		<![CDATA[WHERE ROWNUM < 7]]>
+	</select>
+	
+	<select id="select-suggest-book-keyword" parameterType="String" resultType="HashMap">
+		SELECT SUB.* FROM (
+			SELECT BM.book_num "book_num", BM.img_path "img_path", BM.NAME "book_name",
+				AU.num "author_num", AU.name "author_name",
+				PUB.pub_num "pub_num", PUB.NAME "pub_name"
+			FROM BOOKM BM, (
+				SELECT BOOK_NUM
+				FROM BOOK_CATEGORY
+				GROUP BY BOOK_NUM
+			) BC, AUTHOR AU, PUBLISHER PUB
+			WHERE BM.BOOK_NUM = BC.BOOK_NUM
+			AND BM.AUTHOR_NUM = AU.NUM
+			AND BM.PUB_NUM = PUB.PUB_NUM
+			AND (bm.name LIKE '%'||#{keyword}||'%' OR pub.name LIKE '%'||#{keyword}||'%')
+			ORDER BY WRITE_DATE DESC
+		) SUB
+		<![CDATA[WHERE ROWNUM < 7]]>
 	</select>
 	
 	<!-- 김동환 / 공지사항 -->

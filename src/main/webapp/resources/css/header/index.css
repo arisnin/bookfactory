@@ -527,17 +527,34 @@ color:#1f8ce6;
 	top: 2.125rem;
 	left: 0;
 	display: inline-block;
-	width: 25rem;
-	
+	width: 34rem;
+	padding: 0.5rem 1rem;
 }
 
-.main-search-suggest-box > ul > li > button.bf-button {
-	border: none;
+.main-search-suggest-box > label {
+	display: inline-block;
 	width: 100%;
+    font-size: 0.8rem;
+    color: #333;
+    line-height: 1rem;
+    vertical-align: bottom;
+}
+
+.main-search-suggest-box > ul {
+	padding: 0.5rem;
+}
+
+.main-search-suggest-box > ul > li > button.bf-button,
+.main-search-suggest-box > ul.suggest-book-list > li {
+	border: none;
+	display: inline-block;
+	width: 100%;
+	font-size: 0.8rem;
 	font-weight: normal;
 	color: darkgray;
 	text-align: left;
-	padding: 0.5rem 1rem;
+	vertical-align: middle;
+	padding:0;
 }
 
 .main-search-suggest-box > ul > li span.author {
@@ -553,4 +570,69 @@ color:#1f8ce6;
 
 .main-search-suggest-box > ul > li span.book:after {
     content: '\003E';
+}
+
+.main-search-suggest-box > ul > li > .book-thumbnail {
+	float: left;
+	width: 24%;
+}
+
+.main-search-suggest-box > ul > li > .book-content {
+	float: right;
+	width: 70%;
+	margin-left: 6%;
+}
+
+.main-search-suggest-box > ul > li > .book-thumbnail *,
+.main-search-suggest-box > ul > li > .book-content > * {
+	display: inline-block;
+	width: 100%;
+	line-height: 1.25rem;
+	vertical-align: top;
+}
+
+.main-search-suggest-box > ul > li > .book-content .title {
+	display: inline-block;
+	max-height: 2.5rem;
+	vertical-align: top;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.main-search-suggest-box > ul > li > .book-content .publisher:before {
+	content: '\007C';
+	font-size: 0.8rem;
+	font-weight: normal;
+	color: #D4CEFC;
+	padding-right: 0.25rem;
+}
+
+.main-search-suggest-box > label.book-title {
+	border-top: 1px solid #E1DFFA;
+	vertical-align: middle;
+	padding-top: 1rem;
+}
+
+.main-search-suggest-box > ul.suggest-book-list > li {
+	float: left;
+	width: 48%;
+	line-height: 1.5rem;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.main-search-suggest-box > ul.suggest-book-list > li:nth-child(odd) {
+	clear: both;
+	float: left;
+}
+
+.main-search-suggest-box > ul.suggest-book-list > li:nth-child(even) {
+	float: right;
+}
+
+.main-search-suggest-box > ul > li > .bf-button:hover,
+.main-search-suggest-box > ul > li > .bf-button:hover span,
+.main-search-suggest-box > ul > li > .book-content span:hover {
+	color: #776BCE;
+	cursor: pointer;
 }

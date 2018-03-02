@@ -39,4 +39,6 @@ public interface MainDao {
 	List<SearchBookCountDto> selectSearchBookByCategoryCount(String keyword);
 	
 	public List<Map<String, Object>> suggestKeyword(String keyword);
+
+	public List<Map<String, Object>> suggestKeyword(String keyword, String string);
 }
