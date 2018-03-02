@@ -184,6 +184,8 @@
 .head_right>div.content-star-rate {
 	width: auto;
 	margin-top: 0.25rem;
+    position: relative;
+    left: -5px;
 }
 
 .head_right>div.content-star-rate .star-icon-field, .head_right>div.content-star-rate .non-star-icon-field
@@ -554,14 +556,18 @@
 .profile_ex>ol.content li {
 	font-size: 0.9rem;
 	line-height: 1.25rem;
+	width: 100%;
+	display: inline-block;
 }
 
 .profile_ex>ol.content li > span:FIRST-CHILD {
 	color: dimgray;
+	float: left;
 }
 
 .profile_ex>ol.content li > span:last-child{
-	position: absolute;
+/* 	position: absolute; */
+	float: left;
 }
 
 .profile_ex li>span:nth-child(1) {
@@ -663,6 +669,8 @@
 
 .profile_masterpiece>div.list .content-star-rate {
 	width: 100%;	
+	position: relative;
+    left: -12px;
 }
 
 .profile_masterpiece>div.list .content-star-rate > span.material-icons  {

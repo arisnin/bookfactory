@@ -16,6 +16,7 @@
 	type="text/css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
 
 <title>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</title>
 </head>
@@ -53,29 +54,33 @@
 			<div class="service_information_cn_cn_left">
 				
 					<div class="service_information_cn_cn_left_title">이 섹션의 문서</div>
-					<ul>
-						<li><a href="${root }/serviceCenter/how_use_content.do">종이책으로 배송이 되나요?</a></li>
-						<li>정호열이 정호열이 정호열</li>
-						<li>호열이 호열이 호열이 호열이</li>
-						<li>호여뤼 호여뤼 호여뤼 호여뤼 호호여뤼</li>		
-					</ul>
+					<c:forEach var="howUseDto" items="${howUseSide}" >
+						<ul>
+							<c:if test="${howUseDto.num == howUseRead.num}">
+								<li class=active>
+							</c:if>
+							<c:if test="${howUseDto.num != howUseRead.num}">
+								<li>
+							</c:if>												
+							<a href="javascript:howUseRead('${root}','${howUseDto.num}')">${howUseDto.title}</a></li>						
+						</ul>
+					</c:forEach>
+					
+					<c:if test="${count>10 }">
+						<div class="service_information_cn_cn_left_more">
+							<a href="${root }/serviceCenter/how_use.do">더보기</a>
+						</div>
+					</c:if>
 			</div>
 			
 						
 			<div class="service_information_cn_cn_right">
 				<div class="service_information_cn_title">
-					종이책으로 배송이 되나요?					
+					${howUseRead.title}					
 				</div>
 		
 						<div>
-						<p>
-						현재 리디북스에서 판매되고 있는 전자책은 종이책과 달리  무형의 콘텐츠이기 때문에 별도로 종이책 배송은 되지 않습니다.
-						<br/><br/>
-						
-						전자책으로 구매하여 리디북스 애플리케이션 및 PC뷰어를 통해서 도서 이용이 가능하며, 고객님의 아이디로 구매한 도서는 탈퇴 전까지
-						다운로드 횟수에 제한 없이 지속적으로 이용이 가능합니다.					
-						
-						</p>						
+							${howUseRead.content }					
 						</div>
 					</div>
 			

@@ -16,6 +16,7 @@
 	type="text/css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
 
 <title>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</title>
 </head>
@@ -55,10 +56,9 @@
 				</div>
 
 				<div class="service_information_list">
-					<div><a href="${root }/serviceCenter/error_use_content.do">도서정가제란 무엇인가요?</a></div>
-					<div>연재도서는 단행본으로 교체가 가능한가요?</div>
-					<div>안돼.</div>
-					<div>가낟다라마바사아자차타카파하</div>					
+					<c:forEach var="errorUseDto" items="${errorUseList }"	>
+						<div><a href="javascript:errorUseRead('${root}','${errorUseDto.num}')">${errorUseDto.title}</a></div>
+					</c:forEach>					
 				</div>
 			</div>
 

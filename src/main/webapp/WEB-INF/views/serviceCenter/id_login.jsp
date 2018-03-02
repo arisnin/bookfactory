@@ -16,6 +16,8 @@
 	type="text/css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
+	
 
 <title>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</title>
 </head>
@@ -56,12 +58,9 @@
 				</div>
 
 				<div class="service_information_list">
-					<div><a href="${root }/serviceCenter/id_login_content.do">회원가입은 어떻게 하나요? 회원가입을 꼭 해야하나요?</a></div>
-					<div>아이디(ID), 비밀번호를 잊어버렸어요.</div>
-					<div>회원정보 변경은 어떻게 하나요?</div>
-					<div>아이디(ID)나 이름 정보 변경이 가능한가요?</div>
-					<div>성인인증 제한 나이는 어떻게 되나요?</div>
-					<div>회원탈퇴는 어떻게 하나요?</div>					
+					<c:forEach var="idLoginDto" items="${idLoginList }"	>
+						<div><a href="javascript:idLoginRead('${root}','${idLoginDto.num}')">${idLoginDto.title}</a></div>
+					</c:forEach>
 				</div>
 			</div>
 

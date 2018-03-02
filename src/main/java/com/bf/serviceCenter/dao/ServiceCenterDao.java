@@ -5,6 +5,8 @@ import java.util.List;
 import com.bf.main.dto.NoticeDto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.member.model.User;
+import com.bf.serviceCenter.dto.BookContactDto;
 import com.bf.serviceCenter.dto.ServiceCenterDtoFre;
 
 /**
@@ -26,7 +28,7 @@ public interface ServiceCenterDao {
 
 	int inquriyCount();
 
-	List<BoardContactDto> inquriylistlist();
+	List<BoardContactDto> inquriylistlist(String id);
 
 	BoardContactDto inquriyAnswer(int num);
 
@@ -43,6 +45,30 @@ public interface ServiceCenterDao {
 	List<NoticeDto> mainNotice();
 
 	List<BoardFrequencyDto> mainMany();
+
+	List<BoardFrequencyDto> idLoginMain();
+
+	List<BoardFrequencyDto> idLoginSide();
+
+	List<BoardFrequencyDto> payRefundMain();
+
+	List<BoardFrequencyDto> payRefundSide();
+
+	List<BoardFrequencyDto> howUseMain();
+
+	List<BoardFrequencyDto> howUseSide();
+
+	List<BoardFrequencyDto> errorUseMain();
+
+	List<BoardFrequencyDto> errorUseSide();
+
+	List<BoardFrequencyDto> systemUpdateMain();
+
+	List<BoardFrequencyDto> systemUpdateSide();
+
+	int categoryCount(int category);
+
+	int bookSuggestionWrite(BookContactDto bookContactDto);
 
 
 }

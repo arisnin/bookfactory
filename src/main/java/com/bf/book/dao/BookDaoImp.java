@@ -230,4 +230,52 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.selectOne("getThirdNameOverlap", book_num);
 	}
 
+	@Override
+	public List<HomeDto> getBestSellerWeek(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getBestSellerWeek", pMap);
+	}
+
+	@Override
+	public List<HomeDto> getBestSellerMonth(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getBestSellerMonth", pMap);
+	}
+
+	@Override
+	public List<HomeDto> getBestSellerSteady(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getBestSellerSteady", pMap);
+	}
+
+	@Override
+	public int getBestSellerWeekCount(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getBestSellerWeekCount", pMap);
+	}
+
+	@Override
+	public int getBestSellerMonthCount(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getBestSellerMonthCount", pMap);
+	}
+
+	@Override
+	public int getBestSellerSteadyCount(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getBestSellerSteadyCount", pMap);
+	}
+
+	@Override
+	public List<HomeDto> getPopularList(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getPopularListPaper",map);
+	}
+
+	@Override
+	public List<HomeDto> getBestSellerWeekPaper(HashMap<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getBestSellerWeekPaper",pMap);
+	}
+
 }

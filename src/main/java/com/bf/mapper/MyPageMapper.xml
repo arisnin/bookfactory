@@ -51,7 +51,7 @@
 	</select>
 	
 	<select id="recent_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPageRecentPageDto">
-		SELECT bm.book_num "book_num", bm.img_path "img_path", bm.NAME "book_name", A.NAME "author_name", rs."star_point", rs."star_count"
+		SELECT distinct bm.book_num "book_num", bm.img_path "img_path", bm.NAME "book_name", A.NAME "author_name", rs."star_point", rs."star_count", rb.LOOK_DATE
 		FROM RECENT_LOOKBOOK rb, bookm bm, author A, 
 		(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num FROM review GROUP BY book_num) rs
 		WHERE bm.book_num = rb.book_num AND rb.book_num = rs.book_num(+) AND bm.author_num = A.num and rb.ID = #{id}
@@ -59,7 +59,10 @@
 	</select>
 	
 	<select id="all_purchased_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPagePurchasedPageDto">
-		select distinct bm.book_num "book_num", bm.img_path "img_path", bm.NAME "book_name", A.NAME "author_name" from bookm bm, author a, payment pm where bm.book_num = pm.book_num and bm.author_num = a.num and pm.id = #{id} and pm.state = 'yes'
+		select distinct bm.book_num as "book_num", bm.img_path as "img_path", bm.NAME as "book_name", A.NAME as "author_name", pm.PAYMENT_DATE as "payment_date"
+		from bookm bm inner join author a on (bm.author_num = a.num ) inner join payment pm on (bm.book_num = pm.book_num)
+		where pm.id = #{id} and pm.state = 'yes'
+		ORDER by pm.PAYMENT_DATE
 	</select>
 	
 	<update id="purchased_delete" parameterType="java.util.Map">
@@ -82,5 +85,23 @@
 	
 	 <select id="search_purchased_page_select_list" parameterType="java.util.Map" resultType="com.bf.myPage.dto.MyPagePurchasedPageDto">
 		select distinct bm.book_num "book_num", bm.img_path "img_path", bm.NAME "book_name", A.NAME "author_name" from bookm bm, author a, payment pm where bm.book_num = pm.book_num and bm.author_num = a.num and pm.id = #{id} and pm.state = 'yes' and (bm.name like '%'||#{searchValue}||'%' or a.name like '%'||#{searchValue}||'%')
+	</select>
+	
+	<select id="five_purchased_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPagePurchasedPageDto">
+		<![CDATA[
+			select distinct bm.book_num as "book_num", bm.img_path as "img_path", bm.NAME as "book_name", A.NAME as "author_name", pm.PAYMENT_DATE as "payment_date"
+			from bookm bm inner join author a on (bm.author_num = a.num ) inner join payment pm on (bm.book_num = pm.book_num)
+			where pm.id = #{id} and pm.state = 'yes' and ROWNUM <= 5
+			ORDER BY pm.PAYMENT_DATE
+		]]>
+	</select>
+	
+	<select id="five_recent_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPageRecentPageDto">
+		<![CDATA[
+			SELECT bm.book_num "book_num", bm.img_path "img_path", bm.NAME "book_name", A.NAME "author_name", rs."star_point", rs."star_count", rb.LOOK_DATE
+			FROM (select * from recent_lookbook where id = #{id} ORDER BY LOOK_DATE) rb, bookm bm, author A, 
+			(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num FROM review GROUP BY book_num) rs
+			WHERE bm.book_num = rb.book_num AND rb.book_num = rs.book_num(+) AND bm.author_num = A.num and rb.ID = #{id} and ROWNUM <= 5
+		]]>
 	</select>
 </mapper>

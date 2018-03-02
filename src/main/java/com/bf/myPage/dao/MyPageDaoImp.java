@@ -12,7 +12,6 @@ import com.bf.myPage.dto.MyPageCashChargeDto;
 import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 import com.bf.myPage.dto.MyPagePurchasedPageDto;
-import com.bf.myPage.dto.MyPageRecentLookBookDto;
 import com.bf.myPage.dto.MyPageRecentPageDto;
 import com.bf.order.dto.OrderDto;
 
@@ -96,6 +95,16 @@ public class MyPageDaoImp implements MyPageDao {
 		return sqlSession.selectList(nameSpace + "search_purchased_page_select_list", map);
 	}
 
+	@Override
+	public List<MyPagePurchasedPageDto> PurchasedPageFiveList(String id) {
+		return sqlSession.selectList(nameSpace + "five_purchased_page_select_list", id);
+	}
 
+	@Override
+	public List<MyPageRecentPageDto> MyRecentPageFiveList(String id) {
+		return sqlSession.selectList(nameSpace + "five_recent_page_select_list", id);
+	}
+
+	
 	
 }
