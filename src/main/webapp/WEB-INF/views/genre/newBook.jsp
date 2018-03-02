@@ -44,18 +44,18 @@ $(function(){
 						<span class="checkbox-label">대여</span>
 					</label>
 				</li>
-				<li><label class="bf-custom-checkbox">
-						<input type="checkbox" title="" />
-						<span class="all-mark"></span>
-						<span class="checkbox-label">성인</span>
-					</label>
-				</li>
-				<li><label class="bf-custom-checkbox">
-						<input type="checkbox" title="" />
-						<span class="all-mark"></span>
-						<span class="checkbox-label">성인제외</span>
-					</label>
-				</li>
+<!-- 				<li><label class="bf-custom-checkbox"> -->
+<!-- 						<input type="checkbox" title="" /> -->
+<!-- 						<span class="all-mark"></span> -->
+<!-- 						<span class="checkbox-label">성인</span> -->
+<!-- 					</label> -->
+<!-- 				</li> -->
+<!-- 				<li><label class="bf-custom-checkbox"> -->
+<!-- 						<input type="checkbox" title="" /> -->
+<!-- 						<span class="all-mark"></span> -->
+<!-- 						<span class="checkbox-label">성인제외</span> -->
+<!-- 					</label> -->
+<!-- 				</li> -->
 				<li>
 					<!-- 보기방식 메뉴 -->
 					<div class="view-type-list">
@@ -82,17 +82,19 @@ $(function(){
 						</div>
 						<div class="mf-book-metadata">
 							<h3 class="book-metadata-text" onclick="location.href='${root}/detail.do?book_num=${NewBookDto.book_num}'">${NewBookDto.book_name}</h3>
-							<p class="book-metadata-author">
-								<c:if test="${NewBookDto.author_num!=0}">
-									<a class="" href="${root}/author.do?author_num=${NewBookDto.author_num}">${NewBookDto.author_name }</a>
-								</c:if>
-								<c:if test="${NewBookDto.illur_num!=0}">
-									<a class="" href="${root}/author.do?author_num=${NewBookDto.illur_num}">, ${NewBookDto.illur_name }</a>
-								</c:if>
-								<c:if test="${NewBookDto.trans_num!=0}">
-									<a class="" href="${root}/author.do?author_num=${NewBookDto.trans_num}">, ${NewBookDto.trans_name }</a>
-								</c:if>
-							</p>
+							<c:if test="${NewBookDto.author_num!=0}">
+								<p class="book-metadata-author">
+									<c:if test="${NewBookDto.author_num!=0}">
+										<a class="" href="${root}/author.do?author_num=${NewBookDto.author_num}">${NewBookDto.author_name }</a>
+									</c:if>
+									<c:if test="${NewBookDto.illur_num!=0}">
+										<a class="" href="${root}/author.do?author_num=${NewBookDto.illur_num}">, ${NewBookDto.illur_name }</a>
+									</c:if>
+									<c:if test="${NewBookDto.trans_num!=0}">
+										<a class="" href="${root}/author.do?author_num=${NewBookDto.trans_num}">, ${NewBookDto.trans_name }</a>
+									</c:if>
+								</p>
+							</c:if>
 							
 							<c:if test="${NewBookDto.pub_num!=0}">
 								<p class="book-metadata-publisher">
@@ -102,7 +104,7 @@ $(function(){
 							<!-- 별점아이콘 생성을 위한 트리거 블록 -->
 							<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${NewBookDto.star_point == null ? 0 : NewBookDto.star_point})"></span>
 							<div class="content-star-rate">
-								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span> <span class="count-field"> 9999명</span>
+								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span> <span class="count-field"> ${NewBookDto.star_count}명</span>
 							</div>
 							<pre class="book-metadata-description">
 								${NewBookDto.intro }
@@ -176,7 +178,7 @@ $(function(){
 				</nav>
 				<input type="hidden" name="vType" value="portrait" />
 				<input type="hidden" name="pageNumber" value="${pageNumber}" />
-				<input type="hidden" name="firstCate" value="${firstCate}" />
+				<input type="hidden" name="firstCateNum" value="${firstCate}" />
 			</form>
 		</section>
 		<!-- End : result-search-book-box -->
@@ -197,10 +199,9 @@ $(function(){
 		}
 	</script>
 	<script type="text/javascript">
-	document.querySelectorAll(".content-star-rate").forEach(function(e,i){
-		createStarIcon(e, 3.7);
-		
-	})
-	</script>
+      Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
+         e.click();
+      });
+   </script>
 </body>
 </html>
