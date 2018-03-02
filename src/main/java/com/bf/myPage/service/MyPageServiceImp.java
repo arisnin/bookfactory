@@ -341,11 +341,13 @@ public class MyPageServiceImp implements MyPageService {
 		
 		int extinction = myPageDao.myPointExtinctionSelect(id);
 
-		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoList = myPageDao.PurchasedPageList(id);		
-		List<MyPageRecentPageDto> myPageRecentPageDtoList = myPageDao.MyRecentPageList(id);
+		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoList = myPageDao.PurchasedPageList(id);
+		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoFiveList = myPageDao.PurchasedPageFiveList(id);		
+		List<MyPageRecentPageDto> myPageRecentPageDtoFiveList = myPageDao.MyRecentPageFiveList(id);
 		
-		mav.addObject("myPageRecentPageDtoList", myPageRecentPageDtoList);
+		mav.addObject("myPageRecentPageDtoFiveList", myPageRecentPageDtoFiveList);
 		mav.addObject("myPagePurchasedPageDtoList", myPagePurchasedPageDtoList);
+		mav.addObject("myPagePurchasedPageDtoFiveList", myPagePurchasedPageDtoFiveList);
 		mav.addObject("myPageCashPageDtoList", myPageCashPageDtoList);
 		mav.addObject("total1", total1);
 		mav.addObject("myPagePointDtoList", myPagePointDtoList);

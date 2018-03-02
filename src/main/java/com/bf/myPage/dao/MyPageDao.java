@@ -6,7 +6,6 @@ import com.bf.myPage.dto.MyPageCashChargeDto;
 import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 import com.bf.myPage.dto.MyPagePurchasedPageDto;
-import com.bf.myPage.dto.MyPageRecentLookBookDto;
 import com.bf.myPage.dto.MyPageRecentPageDto;
 import com.bf.order.dto.OrderDto;
 
@@ -38,5 +37,10 @@ public interface MyPageDao {
 	OrderDto HistoryCashClick(String id, long order_num);
 
 	List<MyPagePurchasedPageDto> PurchasedPageList(String id, String searchValue);
+
+	List<MyPagePurchasedPageDto> PurchasedPageFiveList(String id);
+
+	List<MyPageRecentPageDto> MyRecentPageFiveList(String id);
+
 
 }
