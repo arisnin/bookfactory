@@ -50,7 +50,7 @@
 						<div class="float_right">
 							<span class="price">${cartList.price}</span>
 							<div>
-								<span class="dc-price">${cartList.rental_price}원</span>
+								<span class="dc-price">${cartList.price}원</span>
 								<span class="count_percent">50</span>
 							</div>
 						</div>
@@ -107,7 +107,7 @@
 					$(".cart_content_book").each(function(){
 						abc = $(".float_right > .price").text();												
 					});				
-					alert(abc);
+// 					alert(abc);
 // 					alert($(".cart_right_menu_content:nth-child(2)").find("span").last().text(abc+"원"));
 				});
 			</script>

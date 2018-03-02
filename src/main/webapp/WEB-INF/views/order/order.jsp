@@ -29,7 +29,7 @@
 			<div class="order_header_content2">결제 목록</div>
 		</div>
 
-		<form>
+		<form method="get">
 			<div class="order_content ">
 				<c:forEach items="${aList}" var="list">
 					<div class="order_content_book_check cart_content_book">
@@ -49,7 +49,7 @@
 									<c:if test="${list.rental_price!=0 || list.price!=0 }">
 										<span class="count_percent">10</span>
 									</c:if>
-									<input type="hidden" value="${list.price }" name="price">
+<%-- 									<input type="hidden" value="${list.price }" name="price"> --%>
 								</div>
 							</div>
 							<c:if test="${list.rental_period !='no'}">
@@ -221,7 +221,7 @@
 					<div style="text-align: center;">
 						<button
 							class="order_right_menu_paybutton bf-button bf-animated-btn"
-							onclick="javascript:location.href='${root}/orderOk.do'">결제하기</button>
+							onsubmit="javascript:location.href='${root}/orderOk.do?bookList=${bookList}'">결제하기</button>
 					</div>
 					<div class="menu_notice_tip">
 						<ul>

@@ -171,15 +171,16 @@ public class OrderServiceImp implements OrderService {
 //				System.out.println(homeDto.toString());
 				list.add(homeDto);
 			}
+			mav.addObject("bookList", request.getParameter("bookList"));
 		} else {
-			homeDto = orderDao.getBookSelect(Integer.parseInt(book_num));
+//			homeDto = orderDao.getBookSelect(Integer.parseInt(book_num));
 			list.add(homeDto);
 		}
 		
-		for (int i = 0; i < list.size(); i++) {
-			homeDto = list.get(i);
-			totalPrice += homeDto.getPrice();
-		}
+//		for (int i = 0; i < list.size(); i++) {
+//			homeDto = list.get(i);
+//			totalPrice += homeDto.getPrice();
+//		}
 		System.out.println(list.toString());
 		mav.addObject("aList", list);
 		mav.addObject("totalPrice", totalPrice);

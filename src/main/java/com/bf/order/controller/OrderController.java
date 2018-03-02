@@ -61,10 +61,19 @@ public class OrderController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/order.do", method = RequestMethod.POST)
+	public ModelAndView orderPOST(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("order()");
+		ModelAndView mav = new ModelAndView("order/order.main");
+		mav.addObject("request", request);
+		orderService.getBookSelect(mav);
+		return mav;
+	}
+
 	/**
 	 * 헤더 > 카트 > 구매 완료, 구매목록 추가
 	 */
-	@RequestMapping(value = "/orderOk.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/orderOk.do", method=RequestMethod.POST)
 	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response, OrderDto orderDto) {
 		LogAspect.info("payment()");
 		ModelAndView mav = new ModelAndView("order/orderOk.main");
@@ -74,6 +83,21 @@ public class OrderController {
 		orderService.payment(mav);
 		return mav;
 	}
+
+	/**
+	 * 헤더 > 카트 > 구매 완료, 구매목록 추가(한권)
+	 */
+	@RequestMapping(value = "/orderOk.do", method=RequestMethod.GET)
+	public ModelAndView oneBook(HttpServletRequest request, HttpServletResponse response, OrderDto orderDto) {
+		LogAspect.info("payment()");
+		ModelAndView mav = new ModelAndView("order/orderOk.main");
+		mav.addObject("request", request);
+//		LogAspect.info(orderDto.toString());
+		mav.addObject("orderDto", orderDto);
+		orderService.payment(mav);
+		return mav;
+	}
+	
 
 	/**
 	 * 선물 메인
