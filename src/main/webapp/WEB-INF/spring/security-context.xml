@@ -18,6 +18,9 @@
 		<intercept-url pattern="/resources/**" access="permitAll" />
 		<intercept-url pattern="/manager/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/myPage/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<intercept-url pattern="/serviceCenter/FAQ.do" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+      	<intercept-url pattern="/serviceCenter/inquriy**.do" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+      	<intercept-url pattern="/serviceCenter/book_suggestion.do" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
 		<intercept-url pattern="/**" access="permitAll" />
 		<form-login
 			login-page="/member/login.do" 

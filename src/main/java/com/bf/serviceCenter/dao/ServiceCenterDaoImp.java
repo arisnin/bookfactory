@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.bf.main.dto.NoticeDto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
+import com.bf.member.model.User;
 import com.bf.serviceCenter.dto.BookContactDto;
 import com.bf.serviceCenter.dto.ServiceCenterDtoFre;
 
@@ -65,8 +66,8 @@ public class ServiceCenterDaoImp implements ServiceCenterDao {
 	}
 
 	@Override
-	public List<BoardContactDto> inquriylistlist() {
-		return sqlSession.selectList(namespace + "inquriylistlist");
+	public List<BoardContactDto> inquriylistlist(String id) {
+		return sqlSession.selectList(namespace + "inquriylistlist", id);
 	}
 
 	@Override

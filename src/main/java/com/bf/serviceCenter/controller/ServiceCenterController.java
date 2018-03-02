@@ -63,8 +63,14 @@ public class ServiceCenterController {
 	
 	@RequestMapping(value = "/serviceCenter/FAQ.do" , method = RequestMethod.GET)
 	public String serviceCenterFaq(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("문의하기");				
+		LogAspect.info("문의하기");
+		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		
+		LogAspect.info(user);
+		
 		return "serviceCenter/FAQ.solo";
+		
 	}
 	
 	@RequestMapping(value = "/serviceCenter/inquriy.do" , method = RequestMethod.GET)

@@ -61,8 +61,8 @@
 		select count(*) from board_contact
 	</select>
 	
-	<select id="inquriylistlist" parameterType="int" resultType="com.bf.manager.dto.BoardContactDto">
-		select * from board_contact order by num desc
+	<select id="inquriylistlist" parameterType="String" resultType="com.bf.manager.dto.BoardContactDto">
+		select * from board_contact where id=#{id} order by num desc
 	</select>
 	
 	<select id="inquriyAnswer" parameterType="int" resultType="com.bf.manager.dto.BoardContactDto">

@@ -245,10 +245,27 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		List<BoardContactDto> inquriyList = null;
 		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		if (user == null) {
+			String referer = request.getHeader("referer");
+			if (referer == null) {
+				referer = "serviceCenter/main.solo";
+			}
+			mav.setViewName(referer);
+			return;
+		}
+		String id = user.getUsername();
+		
+		LogAspect.info("유저 확인 : " + id);
+				
 		if(count > 0) {
-			inquriyList = serviceCenterDao.inquriylistlist();
+			inquriyList = serviceCenterDao.inquriylistlist(id);
 			LogAspect.info("1:1문의 내역 디티오 : : " + inquriyList.toString());
 		}
+		
+		
+		
+		mav.addObject("id", id);
 		
 		mav.addObject("inquriyList", inquriyList);
 		mav.addObject("count", count);
