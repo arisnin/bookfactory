@@ -33,7 +33,7 @@
 					href="${root }/serviceCenter/main.do">리디북스 고객센터</a>
 				</span>
 				<span>></span>
-				<a href="${root }/serviceCenter/manyque.do">리디북스 자주 묻는 질문</a>
+				<a href="${root }/serviceCenter/system_update.do">시스템 업데이트</a>
 			</div>
 
 
@@ -56,21 +56,21 @@
 				
 					<div class="serviceCenter_manyque_cn_cn_left_title">이 섹션의 문서</div>
 					
-					<c:forEach var="questionDto" items="${questionSide}" >
+					<c:forEach var="systemUpdateDto" items="${systemUpdateSide}" >
 						<ul>
-							<c:if test="${questionDto.num == boardFrequencyDto.num}">
+							<c:if test="${systemUpdateDto.num == systemUpdateRead.num}">
 								<li class=active>
 							</c:if>
-							<c:if test="${questionDto.num != boardFrequencyDto.num}">
+							<c:if test="${systemUpdateDto.num != systemUpdateRead.num}">
 								<li>
 							</c:if>												
-							<a href="javascript:questionRead('${root}','${questionDto.num}')">${questionDto.title}</a></li>						
+							<a href="javascript:systemUpdateRead('${root}','${systemUpdateDto.num}')">${systemUpdateDto.title}</a></li>						
 						</ul>
 					</c:forEach>
 					
 					<c:if test="${count>10 }">
 						<div class="service_information_cn_cn_left_more">
-							<a href="${root }/serviceCenter/manyque.do">더보기</a>
+							<a href="${root }/serviceCenter/system_update.do">더보기</a>
 						</div>
 					</c:if>
 				
@@ -79,10 +79,10 @@
 						
 			<div class="serviceCenter_manyque_cn_cn_right">
 				<div class="serviceCenter_manyque_cn_title">
-					<h2>${boardFrequencyDto.title }</h2>
+					<h2>${systemUpdateRead.title }</h2>
 				</div>				
 						
-				<div>${boardFrequencyDto.content }</div>
+				<div>${systemUpdateRead.content }</div>
 			</div>
 			
 			

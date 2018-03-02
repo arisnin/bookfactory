@@ -16,6 +16,7 @@
 	type="text/css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
 
 <title>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</title>
 </head>
@@ -51,45 +52,34 @@
 		<div class="service_information_cn_cn">		
 			<div class="service_information_cn_cn_left">				
 					<div class="service_information_cn_cn_left_title">이 섹션의 문서</div>
-					<ul>
-						<li><a href="${root }/serviceCenter/pay_refund_content.do">리디캐시와 리디포인트의 유효기간이 따로 있나요?</a></li>
-						<li>리디캐시와 리디포인트는 무엇이 다른가요?</li>
-						<li>리디캐시를 환불 받고 싶습니다.</li>
-						<li>리디캐시란 무엇인가요?</li>		
-					</ul>					
+					
+					<c:forEach var="payRefundDto" items="${payRefundSide}" >
+						<ul>
+							<c:if test="${payRefundDto.num == payRefundRead.num}">
+								<li class=active>
+							</c:if>
+							<c:if test="${payRefundDto.num != payRefundRead.num}">
+								<li>
+							</c:if>												
+							<a href="javascript:payRefundRead('${root}','${payRefundDto.num}')">${payRefundDto.title}</a></li>						
+						</ul>
+					</c:forEach>
+					
+					<c:if test="${count>10 }">
+						<div class="service_information_cn_cn_left_more">
+							<a href="${root }/serviceCenter/pay_refund.do">더보기</a>
+						</div>
+					</c:if>											
 			</div>
 			
 						
 			<div class="service_information_cn_cn_right">
 				<div class="service_information_cn_title">
-					리디캐시와 리디포인트의 유효기간이 따로 있나요?					
+					${payRefundRead.title }					
 				</div>
 		
 						<div>
-						<p>
-						<span>리디캐시</span>는 마지막 사용일을 기준으로 60개월 (5년)동안 유효하며 60개월 후에는 자동으로 소멸됩니다.<br/><br/>
-						(예를 들어 결제 후 59개월 되는 날, 보유하신 리디캐시의 일부를 사용하시면 사용일을 기준으로 다시 60개월이 갱신됩니다.)
-						<br/><br/>
-						
-						<span>리디포인트</span>는 유효기간이 있는 <span>[기간 한정 포인트]</span>와 유효기간이 없는 <span>[일반 리디포인트]</span>가 있습니다.
-						<br/><br/>						
-						
-						기간 한정 포인트는 이벤트 당첨 등의 이유로 지급되며 지정된 기간 내에서만 사용이 가능합니다.
-						<br/>
-						기간이 지나면 자동 소멸되며 <strong>[마이리디 > 리디포인트]</strong>에서 금액과 소멸예정일을 확인 하실 수 있습니다.
-						<br/><br/>
-						
-						<a href="#">* 리디포인트 확인하러 바로가기 >></a>
-						<br/><br/>
-						
-						결제시 기간 한정 포인트를 사용하시면 가장 유효기간이 짧게 남은 (소멸일이 가장 가깝게 임박한) 포인트가 먼저 사용되며
-						기간 한정 포인트로 도서를 구매 하시고 소멸 예정일 이후에 결제 취소(환불) 하시는 경우에 해당 포인트는 복원되지 않습니다.
-						<br/><br/>
-						
-						유효기간이 없는 일반 리디포인트는 리디캐시와 동일하게 60개월 후에 소멸됩니다.
-						
-						
-						</p>						
+							${payRefundRead.content }						
 						</div>
 					</div>
 			

@@ -276,8 +276,15 @@ public class MyPageController {
 	 * 마이페이지 > 정보변경 비밀번호 확인
 	 */
 	@RequestMapping(value="/personal/myInfoCheck.do")
-	public String myInfoCheck(HttpServletRequest request, HttpServletResponse response) {
+	public String myInfoCheck(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
 		LogAspect.info("myInfoCheck()");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("memberDto", memberDto);
+		
+		mypageService.myInfoCheck(mav);
+		
 		return "myPage/personal/myInfoCheck.my";
 	}
 	
@@ -287,6 +294,7 @@ public class MyPageController {
 	@RequestMapping(value="/personal/myInfo.do", method=RequestMethod.POST)
 	public String myInfo(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("myInfo()");
+		
 		return "myPage/personal/myInfo.my";
 	}
 	

@@ -30,6 +30,9 @@ public interface MyPageService {
 	void myCashHistoryCashClick(ModelAndView mav);
 
 	void home(ModelAndView mav);
+
+	void myInfoCheck(ModelAndView mav);
+
 	
 
 }

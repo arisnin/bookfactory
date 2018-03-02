@@ -109,7 +109,7 @@
 				</div>
 			</div>
 			<ul class="mf-book-list">
-				<c:forEach var="myPurchasedPageDto" items="${myPagePurchasedPageDtoList}">
+				<c:forEach var="myPurchasedPageDto" items="${myPagePurchasedPageDtoFiveList}">
 					<li class="mf-book-item">
 						<div class="mf-book-thumbnail">
 							<div class="mf-book-thumbnail-image" onclick ="location.href='${root}/detail.do?book_num=${myPurchasedPageDto.book_num}'">
@@ -133,7 +133,7 @@
 				</div>
 			</div>
 			<ul class="mf-book-list">
-				<c:forEach var="myRecentPageDto" items="${myPageRecentPageDtoList}">
+				<c:forEach var="myRecentPageDto" items="${myPageRecentPageDtoFiveList}">
 					<li class="ridi-book-item">
 						<div class="ridi-book-thumbnail">
 							<div class="ridi-book-thumbnail-image" onclick="location.href='${root}/detail.do?book_num=${myRecentPageDto.book_num}'">
