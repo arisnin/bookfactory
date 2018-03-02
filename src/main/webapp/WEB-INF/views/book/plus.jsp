@@ -30,9 +30,8 @@
 		<div class="plus_All">
 			<div id="content_head">
 				<div class="head_left">
-					<img src="${detailDto.img_path}"> <a
-						href="${root}/book/example.do"> <span class="icon-book-open"></span>
-						<span>미리보기</span>
+					<img src="${detailDto.img_path}"> <a href="${root}/book/example.do"> <span class="icon-book-open"></span>
+					<span>미리보기</span>
 					</a>
 				</div>
 	
@@ -94,10 +93,11 @@
 					</div>
 	
 					<!-- child(5) -->
+					<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${detailDto.star_point})"></span>
 					<div class="content-star-rate">
-						<span class="star-icon-field material-icons"></span><span
-							class="non-star-icon-field material-icons"></span> <span
-							class="count-field">100명</span>
+						<span class="star-icon-field material-icons"></span>
+						<span class="non-star-icon-field material-icons"></span> 
+						<span class="count-field">${detailDto.star_count}명</span>
 					</div>
 	
 					<!-- child(6) -->
@@ -373,10 +373,11 @@
 																	<a class="" href="javascript:alert('작가페이지')">${author.authorName}</a>
 																</p>
 																<p class="book-metadata-translator"></p>
+																<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${author.star_point})"></span>
 																<div class="content-star-rate">
 																	<span class="star-icon-field material-icons"></span><span
 																		class="non-star-icon-field material-icons"></span> <span
-																		class="count-field"> 9999명</span>
+																		class="count-field"> ${author.star_count}명</span>
 																</div>
 															</div>
 														</li>
@@ -550,7 +551,7 @@
 						</div>
 					</div>
 				</c:if>
-				<c:if test="${detailDto.author_num!=0}">
+				<c:if test="${auDto.describe!='없음'}">
 					<div class="bookIntro">
 						<div>
 							<h3>저자 소개</h3>
@@ -586,7 +587,9 @@
 	</c:if>
 
  	<script type="text/javascript">
-		createStarIcon(document.querySelector(".content-star-rate"), 3.7);
-	</script>
+      Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
+         e.click();
+      });
+   </script>
 </body>
 </html>

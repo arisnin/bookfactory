@@ -39,21 +39,234 @@
 		ORDER BY prn.r asc
 	</select>
 	
-	<select id="getHomeBookInfoList" parameterType="int" resultMap="HomeDto">
-		<![CDATA[
-			SELECT *
-			from (SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", dis.NAME "thirdCate", b.book_num, b.price, b.TYPE, b.author_num, b.rental_price, rownum r
-						FROM bookm b, author A, (SELECT DISTINCT b.book_num, t.NAME
-					                              FROM bookm b, book_category c, first_cate f, second_cate s, third_cate t
-					                              WHERE b.book_num=c.book_num
-					                              AND c.cate1_num=f.num
-					                              AND c.cate2_num=s.num
-					                              AND c.cate1_num=#{firstCate}) dis
-									
-						WHERE b.author_num=A.num
-						AND dis.book_num=b.book_num) rn
-			where rn.r <20
-		]]>
+	<select id="getPopularListPaper" parameterType="java.util.HashMap" resultMap="HomeDto">
+		SELECT prn.book_num, b.img_path, b.NAME "bookName", b.author_num, au.NAME "authorName"
+		FROM (SELECT DISTINCT a.book_num, ROWNUM r
+		      FROM (SELECT p.book_num, count(p.book_num)
+		            FROM payment p, book_category c, first_cate f, second_cate sc
+		            WHERE p.book_num=c.book_num
+		            and c.cate2_num=sc.num
+		            AND c.cate1_num=f.num
+		            AND f.num=#{firstCate}
+		            and sc.num=#{seconCate}
+		            and payment_date > trunc(SYSDATE-1)
+		            GROUP BY p.book_num
+		            ORDER BY 2 DESC)A
+		      )prn, bookm b, author au
+		WHERE prn.book_num=b.book_num
+		AND b.author_num=Au.num
+		ORDER BY prn.r ASC
+	</select>
+	
+	<select id="getBestSellerWeek" parameterType="java.util.HashMap" resultMap="HomeDto">
+		SELECT *
+		from (SELECT prn.book_num, b.img_path, b.NAME "bookName", b.author_num, au.NAME "authorName", b.intro, b.price, b.rental_period, b.rental_price, p.pub_num "pub_num", p.NAME "pub_name", nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count", rownum rp
+		FROM (SELECT DISTINCT a.book_num, ROWNUM r
+		      FROM (SELECT p.book_num, count(p.book_num)
+		            FROM payment p, book_category c, first_cate f
+		            WHERE p.book_num=c.book_num
+		            AND c.cate1_num=f.num
+		            AND f.num=#{firstCate}
+		            and payment_date > trunc(SYSDATE-7)
+		            GROUP BY p.book_num
+		            ORDER BY 2 DESC)A
+		      )prn, bookm b, author au, publisher p,(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+		                                              FROM (
+		                                                SELECT rw.* FROM review rw, (
+		                                                  SELECT DISTINCT ID, book_num
+		                                                  FROM payment
+		                                                ) pm
+		                                                WHERE rw.book_num = pm.book_num
+		                                                AND rw.ID = pm.ID
+		                                              )
+		                                              GROUP BY book_num
+		                                            ) rs
+		      WHERE prn.book_num=b.book_num
+		      and prn.book_num= rs.book_num(+)
+		      and b.pub_num=p.pub_num
+		      AND b.author_num=au.num
+		      ORDER BY prn.r ASC) p
+		where p.rp BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="getBestSellerWeekPaper" parameterType="java.util.HashMap" resultMap="HomeDto">
+		SELECT *
+		from (SELECT prn.book_num, b.img_path, b.NAME "bookName", b.author_num, au.NAME "authorName", b.intro, b.price, b.rental_period, b.rental_price, p.pub_num "pub_num", p.NAME "pub_name", nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count", rownum rp
+		FROM (SELECT DISTINCT a.book_num, ROWNUM r
+		      FROM (SELECT p.book_num, count(p.book_num)
+		            FROM payment p, book_category c, first_cate f,second_cate sc
+		            WHERE p.book_num=c.book_num
+		            AND c.cate1_num=f.num
+		            and c.cate2_num=sc.num
+		            AND f.num=#{firstCate}
+		            and sc.num=#{seconCate}
+		            and payment_date > trunc(SYSDATE-7)
+		            GROUP BY p.book_num
+		            ORDER BY 2 DESC)A
+		      )prn, bookm b, author au, publisher p,(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+		                                              FROM (
+		                                                SELECT rw.* FROM review rw, (
+		                                                  SELECT DISTINCT ID, book_num
+		                                                  FROM payment
+		                                                ) pm
+		                                                WHERE rw.book_num = pm.book_num
+		                                                AND rw.ID = pm.ID
+		                                              )
+		                                              GROUP BY book_num
+		                                            ) rs
+		      WHERE prn.book_num=b.book_num
+		      and prn.book_num= rs.book_num(+)
+		      and b.pub_num=p.pub_num
+		      AND b.author_num=au.num
+		      ORDER BY prn.r ASC) p
+		where p.rp BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="getBestSellerWeekCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT nvl(count(*),0)
+		FROM (SELECT DISTINCT a.book_num, ROWNUM r
+		      FROM (SELECT p.book_num, count(p.book_num)
+		            FROM payment p, book_category c, first_cate f
+		            WHERE p.book_num=c.book_num
+		            AND c.cate1_num=f.num
+		            AND f.num=#{firstCate}
+		            and payment_date > trunc(SYSDATE-7)
+		            GROUP BY p.book_num
+		            ORDER BY 2 DESC)A
+		      )prn, bookm b, author au, publisher p,(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+		                                              FROM (
+		                                                SELECT rw.* FROM review rw, (
+		                                                  SELECT DISTINCT ID, book_num
+		                                                  FROM payment
+		                                                ) pm
+		                                                WHERE rw.book_num = pm.book_num
+		                                                AND rw.ID = pm.ID
+		                                              )
+		                                              GROUP BY book_num
+		                                            ) rs
+		      WHERE prn.book_num=b.book_num
+		      and prn.book_num= rs.book_num(+)
+		      and b.pub_num=p.pub_num
+		      AND b.author_num=au.num
+		      ORDER BY prn.r ASC
+	</select>
+	
+	<select id="getBestSellerMonth" parameterType="java.util.HashMap" resultMap="HomeDto">
+		SELECT *
+		from (SELECT prn.book_num, b.img_path, b.NAME "bookName", b.author_num, au.NAME "authorName", b.intro, b.price, b.rental_period, b.rental_price, p.pub_num "pub_num", p.NAME "pub_name", nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count", rownum rp
+		FROM (SELECT DISTINCT a.book_num, ROWNUM r
+		      FROM (SELECT p.book_num, count(p.book_num)
+		            FROM payment p, book_category c, first_cate f
+		            WHERE p.book_num=c.book_num
+		            AND c.cate1_num=f.num
+		            AND f.num=#{firstCate}
+		            and payment_date > trunc(SYSDATE-30)
+		            GROUP BY p.book_num
+		            ORDER BY 2 DESC)A
+		      )prn, bookm b, author au, publisher p,(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+		                                              FROM (
+		                                                SELECT rw.* FROM review rw, (
+		                                                  SELECT DISTINCT ID, book_num
+		                                                  FROM payment
+		                                                ) pm
+		                                                WHERE rw.book_num = pm.book_num
+		                                                AND rw.ID = pm.ID
+		                                              )
+		                                              GROUP BY book_num
+		                                            ) rs
+		      WHERE prn.book_num=b.book_num
+		      and prn.book_num= rs.book_num(+)
+		      and b.pub_num=p.pub_num
+		      AND b.author_num=au.num
+		      ORDER BY prn.r ASC) p
+		where p.rp BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="getBestSellerMonthCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT nvl(count(*),0)
+		FROM (SELECT DISTINCT a.book_num, ROWNUM r
+		      FROM (SELECT p.book_num, count(p.book_num)
+		            FROM payment p, book_category c, first_cate f
+		            WHERE p.book_num=c.book_num
+		            AND c.cate1_num=f.num
+		            AND f.num=#{firstCate}
+		            and payment_date > trunc(SYSDATE-30)
+		            GROUP BY p.book_num
+		            ORDER BY 2 DESC)A
+		      )prn, bookm b, author au, publisher p,(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+		                                              FROM (
+		                                                SELECT rw.* FROM review rw, (
+		                                                  SELECT DISTINCT ID, book_num
+		                                                  FROM payment
+		                                                ) pm
+		                                                WHERE rw.book_num = pm.book_num
+		                                                AND rw.ID = pm.ID
+		                                              )
+		                                              GROUP BY book_num
+		                                            ) rs
+		      WHERE prn.book_num=b.book_num
+		      and prn.book_num= rs.book_num(+)
+		      and b.pub_num=p.pub_num
+		      AND b.author_num=au.num
+		      ORDER BY prn.r ASC
+	</select>
+	
+	<select id="getBestSellerSteady" parameterType="java.util.HashMap" resultMap="HomeDto">
+		SELECT *
+		from (SELECT prn.book_num, b.img_path, b.NAME "bookName", b.author_num, au.NAME "authorName", b.intro, b.price, b.rental_period, b.rental_price, p.pub_num "pub_num", p.NAME "pub_name", nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count", rownum rp
+		FROM (SELECT DISTINCT a.book_num, ROWNUM r
+		      FROM (SELECT p.book_num, count(p.book_num)
+		            FROM payment p, book_category c, first_cate f
+		            WHERE p.book_num=c.book_num
+		            AND c.cate1_num=f.num
+		            AND f.num=#{firstCate}
+		            GROUP BY p.book_num
+		            ORDER BY 2 DESC)A
+		      )prn, bookm b, author au, publisher p,(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+		                                              FROM (
+		                                                SELECT rw.* FROM review rw, (
+		                                                  SELECT DISTINCT ID, book_num
+		                                                  FROM payment
+		                                                ) pm
+		                                                WHERE rw.book_num = pm.book_num
+		                                                AND rw.ID = pm.ID
+		                                              )
+		                                              GROUP BY book_num
+		                                            ) rs
+		      WHERE prn.book_num=b.book_num
+		      and prn.book_num= rs.book_num(+)
+		      and b.pub_num=p.pub_num
+		      AND b.author_num=au.num
+		      ORDER BY prn.r ASC) p
+		where p.rp BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="getBestSellerSteadyCount" parameterType="java.util.HashMap" resultType="int">
+		SELECT nvl(count(*),0)
+		FROM (SELECT DISTINCT a.book_num, ROWNUM r
+		      FROM (SELECT p.book_num, count(p.book_num)
+		            FROM payment p, book_category c, first_cate f
+		            WHERE p.book_num=c.book_num
+		            AND c.cate1_num=f.num
+		            AND f.num=#{firstCate}
+		            GROUP BY p.book_num
+		            ORDER BY 2 DESC)A
+		      )prn, bookm b, author au, publisher p,(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+		                                              FROM (
+		                                                SELECT rw.* FROM review rw, (
+		                                                  SELECT DISTINCT ID, book_num
+		                                                  FROM payment
+		                                                ) pm
+		                                                WHERE rw.book_num = pm.book_num
+		                                                AND rw.ID = pm.ID
+		                                              )
+		                                              GROUP BY book_num
+		                                            ) rs
+		      WHERE prn.book_num=b.book_num
+		      and prn.book_num= rs.book_num(+)
+		      and b.pub_num=p.pub_num
+		      AND b.author_num=au.num
+		      ORDER BY prn.r ASC
 	</select>
 	
 	<select id="getFirstCate" parameterType="String" resultType="int">
@@ -68,15 +281,25 @@
 		<![CDATA[
 			SELECT *
 			FROM (SELECT ROWNUM rnum, A.* 
-			      FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", b.intro, b.discount, b.discount2, b.price, b.rental_price
+			      FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", b.intro, b.discount, b.discount2, b.price, b.rental_price, nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count" 
 						FROM bookm b, author au, author il, author tr, publisher pu, (SELECT DISTINCT b.book_num
-                                                                          FROM bookm b, book_category c, first_cate f, second_cate s
+                                                                          FROM bookm b, book_category c, first_cate f
                                                                           WHERE b.book_num=c.book_num
                                                                           AND c.cate1_num=f.num
-                                                                          AND c.cate2_num=s.num
-                                                                          and c.cate1_num=#{firstCate}) dis
+                                                                          AND f.num=#{firstCate}) dis, (SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+                                                                                              FROM (
+                                                                                                SELECT rw.* FROM review rw, (
+                                                                                                  SELECT DISTINCT ID, book_num
+                                                                                                  FROM payment
+                                                                                                ) pm
+                                                                                                WHERE rw.book_num = pm.book_num
+                                                                                                AND rw.ID = pm.ID
+                                                                                              )
+                                                                                              GROUP BY book_num
+                                                                                            ) rs
 						WHERE b.author_num=au.num
-            			and dis.book_num=b.book_num
+			            and b.book_num=rs.book_num(+)
+			            and dis.book_num=b.book_num
 						AND b.illustrator_num=il.num
 						AND b.translator_num=tr.num
 						AND b.pub_num=pu.pub_num
@@ -88,11 +311,19 @@
 	
 	<select id="getNewBookCount" parameterType="String" resultType="int">
 		<![CDATA[
-			SELECT count(*)
-			FROM bookm b, book_category c, first_cate f
-			WHERE b.book_num=c.book_num
-			AND c.cate1_num=f.num
-			AND f.num=#{firstCate}
+			SELECT nvl(count(*),0)
+			      FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", b.intro, b.discount, b.discount2, b.price, b.rental_price
+						FROM bookm b, author au, author il, author tr, publisher pu, (SELECT DISTINCT b.book_num
+                                                                          FROM bookm b, book_category c, first_cate f
+                                                                          WHERE b.book_num=c.book_num
+                                                                          AND c.cate1_num=f.num
+                                                                          and f.num=#{firstCate}) dis
+						WHERE b.author_num=au.num
+            			and dis.book_num=b.book_num
+						AND b.illustrator_num=il.num
+						AND b.translator_num=tr.num
+						AND b.pub_num=pu.pub_num
+						ORDER BY b.write_date DESC)A
 		]]>
 	</select>
 	
@@ -190,36 +421,29 @@
 			      AND c.cate1_num=f.num
 			      and c.cate2_num=sc.num
 			      AND f.num=#{firstCate}
-			      and sc.num=#{seconCate}) b
-			where b.r>=40
-		]]>
-	</select>
-	
-	<select id="getPaperHomeBookInfoList" parameterType="java.util.HashMap" resultMap="HomeDto">
-		<![CDATA[
-			select *
-			from (SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", t.NAME "thirdCate", b.book_num, b.price, b.TYPE, b.author_num, rownum r
-			      FROM bookm b, author A, book_category c, third_cate t, first_cate f, second_cate sc
-			      WHERE b.author_num=A.num
-			      AND b.book_num=c.book_num
-			      AND c.cate1_num=f.num
-			      AND c.cate3_num=t.num
-			      and c.cate2_num=sc.num
-			      AND f.num=#{firstCate}
-			      and sc.num=#{seconCate}) dis
-			where dis.r<=20
+			      AND sc.num=#{seconCate}
+            order by DBMS_RANDOM.RANDOM) b
+			where b.r<=20
 		]]>
 	</select>
 	
 	<select id="getPaperNewBookCount" parameterType="java.util.HashMap" resultType="int">
 		<![CDATA[
-			SELECT count(*)
-			FROM bookm b, book_category c, first_cate f, second_cate sc
-			WHERE b.book_num=c.book_num
-			AND c.cate1_num=f.num
-			AND f.num=#{firstCate}
-			AND c.cate2_num=sc.num
-			and sc.num=#{seconCate}
+			SELECT nvl(count(*),0)
+			FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", b.intro, b.discount, b.discount2, b.price, b.rental_price
+			      FROM bookm b, author au, author il, author tr, publisher pu, (SELECT DISTINCT b.book_num
+			                                                                    FROM bookm b, book_category c, first_cate f, second_cate s
+			                                                                    WHERE b.book_num=c.book_num
+			                                                                    AND c.cate1_num=f.num
+			                                                                    AND c.cate2_num=s.num
+			                                                                    AND f.num=#{firstCate}
+			                                                                    and s.num=#{seconCate}) dis
+			      WHERE b.author_num=au.num
+	              and dis.book_num=b.book_num
+			      AND b.illustrator_num=il.num
+			      AND b.translator_num=tr.num
+			      AND b.pub_num=pu.pub_num
+			      ORDER BY b.write_date DESC)A
 		]]>
 	</select>
 	
@@ -227,20 +451,31 @@
 		<![CDATA[
 			SELECT *
 			FROM (SELECT ROWNUM rnum, A.* 
-			      FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", b.intro, b.discount, b.discount2, b.price, b.rental_price
-			      FROM bookm b, author au, author il, author tr, publisher pu, (SELECT DISTINCT b.book_num
-			                                                                    FROM bookm b, book_category c, first_cate f, second_cate s
-			                                                                    WHERE b.book_num=c.book_num
-			                                                                    AND c.cate1_num=f.num
-			                                                                    AND c.cate2_num=s.num
-			                                                                    AND c.cate1_num=#{firstCate}
-			                                                                    and c.cate2_num=#{seconCate}) dis
-			      WHERE b.author_num=au.num
+			      FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", b.intro, b.discount, b.discount2, b.price, b.rental_price, nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count" 
+						FROM bookm b, author au, author il, author tr, publisher pu, (SELECT DISTINCT b.book_num
+                                                                          FROM bookm b, book_category c, first_cate f, second_cate s
+                                                                          WHERE b.book_num=c.book_num
+                                                                          AND c.cate1_num=f.num
+                                                                          AND c.cate2_num=s.num
+                                                                          AND f.num=#{firstCate}
+                                                                          and s.num=#{seconCate}) dis, (SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+                                                                                              FROM (
+                                                                                                SELECT rw.* FROM review rw, (
+                                                                                                  SELECT DISTINCT ID, book_num
+                                                                                                  FROM payment
+                                                                                                ) pm
+                                                                                                WHERE rw.book_num = pm.book_num
+                                                                                                AND rw.ID = pm.ID
+                                                                                              )
+                                                                                              GROUP BY book_num
+                                                                                            ) rs
+						WHERE b.author_num=au.num
+			            and b.book_num=rs.book_num(+)
 			            and dis.book_num=b.book_num
-			      AND b.illustrator_num=il.num
-			      AND b.translator_num=tr.num
-			      AND b.pub_num=pu.pub_num
-			      ORDER BY b.write_date DESC)A
+						AND b.illustrator_num=il.num
+						AND b.translator_num=tr.num
+						AND b.pub_num=pu.pub_num
+						ORDER BY b.write_date DESC)A
 			      )r
 			where r.rnum >= #{startRow} and r.rnum <= #{endRow}
 		]]>
@@ -248,9 +483,17 @@
 	
 	<select id="getBookAllInfo" parameterType="long" resultMap="DetailDto">
 		<![CDATA[
-			SELECT book_num, name "book_name", write_date, pub_num, author_num, illustrator_num "illu_num", translator_num "trans_num", price "book_price", support, img_path, file_path, file_size, preference, series_num, sub_title "book_sub_title", discount, discount2, TYPE "type", intro, pub_intro, rental_period, rental_price
-			FROM bookm
-			where book_num=#{book_num}
+			SELECT b.book_num, b.NAME "book_name", b.write_date, b.pub_num, b.author_num, b.illustrator_num "illu_num", b.translator_num "trans_num", b.price "book_price", b.support, b.img_path, b.file_path, b.file_size, b.preference, b.series_num, b.sub_title "book_sub_title", b.discount, b.discount2, b.TYPE "type", b.intro, b.pub_intro, b.rental_period, b.rental_price, nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count"
+			FROM bookm b, (SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+			                FROM (SELECT rw.* FROM review rw, (
+			                        SELECT DISTINCT ID, book_num
+			                        FROM payment
+			                      ) pm
+			                      WHERE rw.book_num = pm.book_num
+			                      AND rw.ID = pm.ID)
+			                GROUP BY book_num) rs
+			WHERE b.book_num=#{book_num}
+			and b.book_num= rs.book_num(+)
 		]]>
 	</select>
 	
@@ -294,10 +537,18 @@
 	</select>
 	
 	<select id="getAuthorBook" parameterType="long" resultMap="HomeDto">
-		SELECT b.img_path, b.name "bookName", A.NAME "authorName", b.book_num, A.num "author_num"
-		FROM bookm b, author A
+		SELECT b.img_path, b.NAME "bookName", A.NAME "authorName", b.book_num, A.num "author_num", nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count"
+		FROM bookm b, author A, (SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+		                          FROM (SELECT rw.* FROM review rw, (
+		                                  SELECT DISTINCT ID, book_num
+		                                  FROM payment
+		                                ) pm
+		                                WHERE rw.book_num = pm.book_num
+		                                AND rw.ID = pm.ID)
+		                          GROUP BY book_num) rs
 		WHERE b.author_num=A.num
 		AND A.num=#{author_num}
+		AND b.book_num= rs.book_num(+)
 		ORDER BY b.write_date desc
 	</select>
 	
