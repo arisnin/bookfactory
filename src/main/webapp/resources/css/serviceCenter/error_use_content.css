@@ -96,9 +96,10 @@
 	margin: 0px 0.5rem;	
 }
 
-.service_information_cn_cn_left li:nth-child(1){
-	background-color: #F3F0FA;
+.service_information_cn_cn > .service_information_cn_cn_left > ul > .active{
+	background-color: #776bce60;
 }
+
 
 .service_information_cn_cn_right .bf-button.bf-transparent-btn.bf-animated-btn{
 	color: #776bce;

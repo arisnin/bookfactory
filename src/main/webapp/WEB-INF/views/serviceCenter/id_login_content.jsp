@@ -16,6 +16,7 @@
 	type="text/css" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
 
 <title>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</title>
 </head>
@@ -54,42 +55,36 @@
 			<div class="service_information_cn_cn_left">
 				
 					<div class="service_information_cn_cn_left_title">이 섹션의 문서</div>
-					<ul>
-						<li><a href="${root }/serviceCenter/id_login_content.do">회원가입은 어떻게 하나요? 회원가입을 꼭 해야하나요?</a></li>
-						<li>아이디(ID), 비밀번호를 잊어버렸어요.</li>
-						<li>회원정보 변경은 어떻게 하나요?</li>
-						<li>아이디(ID)나 이름 정보 변경이 가능한가요?</li>
-						<li>성인인증 제한 나이는 어떻게 되나요?</li>
-						<li>회원탈퇴는 어떻게 하나요?<li>	
-					</ul>					
+					
+					<c:forEach var="idLoginDto" items="${idLoginSide}" >
+						<ul>
+							<c:if test="${idLoginDto.num == idLoginRead.num}">
+								<li class=active>
+							</c:if>
+							<c:if test="${idLoginDto.num != idLoginRead.num}">
+								<li>
+							</c:if>												
+							<a href="javascript:idLoginRead('${root}','${idLoginDto.num}')">${idLoginDto.title}</a></li>						
+						</ul>
+					</c:forEach>
+					
+					<c:if test="${count>10 }">
+						<div class="service_information_cn_cn_left_more">
+							<a href="${root }/serviceCenter/id_login.do">더보기</a>
+						</div>
+					</c:if>
 			</div>
 			
 						
 			<div class="service_information_cn_cn_right">
 				<div class="service_information_cn_title">
-					회원가입은 어떻게 하나요? 회원가입을 꼭 해야하나요?					
+					${idLoginRead.title}			
 				</div>
 		
-						<div>
-						<p>회원가입은 PC의 인터넷 또는 모바일 기기에서 <span>리디북스 홈페이지(리디리디)를 통하여 가능합니다.</span>
-						<br/><br/>
-						
-						(PC에서는 우측 상단의 [회원가입]버튼을 통하여, 모바일에서는 리디북스 서점 우측 상단의 [로그인]버튼을 누른 후 로그인 페이지 하단에 [회원가입]메뉴를 확인하실 수 있습니다.)
-						<br/><br/>
-						
-						리디북스 애플리케이션에서는 회원가입이 제한되어 있으며, 리디북스 홈페이지에서만 가입이 가능합니다.
-						<br/><br/>
-						
-						또한 결제(구매, 대여, 리디캐시 충전), 스크랩(독서노트)정보 저장 등을 위하여 반드시 회원가입 후 로그인하여 이용하여 주시기 바랍니다.
-						</p>
-						
-						
-						
-
-						
-						
-						</div>
-					</div>
+				<div>
+					${idLoginRead.content }
+				</div>
+			</div>
 			
 			
 
