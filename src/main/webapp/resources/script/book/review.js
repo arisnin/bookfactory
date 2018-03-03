@@ -255,7 +255,7 @@ function reviewListSort(event, type) {
  * @date 2018. 2. 24.
  */
 function initReviewList() {
-	targetReviewList.querySelectorAll("li.review-list-item").forEach(function(e) {
+	Array.prototype.forEach.call(targetReviewList.querySelectorAll("li.review-list-item"), function(e) {
 		e.classList.add("hidden-block");
 	});
 }
@@ -340,7 +340,9 @@ function reviewListBuyerToggle(event) {
 function activeOrderMenu(event) {
 	if (event == null) return;
 	var menus = document.querySelectorAll("section.bf-review-box > div.bf-service-type-menu > ul.order-type-list a");
-	menus.forEach((e)=>e.classList.remove("active"));
+	Array.prototype.forEach.call(menus, function(e) {
+		e.classList.remove("active");
+	});
 	event.classList.add("active");
 }
 
@@ -429,7 +431,7 @@ function setScoreGraph(s1,s2,s3,s4,s5) {
 	scoreBars[4].style.width = (100 * s1 / count) + "%"
 	
 	// 별점 평균값 계산
-	var average = count == 0 ? 0 : ((s1 + s2*2 + s3*3 + s4*4 + s5*5) / (count)).toFixed(1);
+	var average = count == 0 ? 0.0 : ((s1 + s2*2 + s3*3 + s4*4 + s5*5) / (count)).toFixed(1);
 	
 	// 별점 평가 정보 화면에 갱신
 	score.innerHTML = average == 0 ? '0.0' : average;

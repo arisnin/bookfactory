@@ -51,21 +51,5 @@
 			</form>
 		</div>
 	</div>
-	<script type="text/javascript">
-		function doLogin(url) {
-			var username = loginForm.username.value;
-			var password = loginForm.password.value;
-			$.post(url + "/member/loginOk.do", {username:username,password:password,requestURL:"ajax"}, function(data,status) {
-				if (data.response.error) {
-					var div = document.getElementById("login-message");
-					div.innerHTML = data.response.message;
-					div.style.display = "block";
-				} else {
-					location.reload();
-				}
-			});
-			return false;
-		}
-	</script>
 </body>
 </html>

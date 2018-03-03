@@ -33,7 +33,7 @@ var root_context = "";
  * 
  * @author 박성호(1차수정)
  * @date 2018. 2. 26.
- * @description 반복되는 로직을 반복문으로 한번에 처리하도록 수정
+ * @description 반복되는 로직 반복문 처리, 모든 메뉴를 DOM으로 자동 추가되도록 수정
  */
 function headerIndexInit(root) {
 	root_context = root;

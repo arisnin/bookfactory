@@ -29,11 +29,12 @@
 							<img src="${root}/img/index/searchIcon_purple.png" />
 						</span>
 						<form action="${root}/main/search.do" method="get">
-							<input class="hw_search_input" type="text" name="keyword" placeholder="제목,저자,출판사 검색" onkeyup="suggestKeyword(this)" onblur="removeSuggestBox(this)" />
+							<input class="hw_search_input" type="text" name="keyword" placeholder="제목,저자,출판사 검색" onkeyup="suggestKeyword(this)" />
 						</form>
 						<span class="hw_del_icon">
 							<img src="${root}/img/index/searchdel.JPG" />
 						</span>
+						<!-- 검색창 제안(suggest) 박스(2018-03-02 박성호) -->
 						<div class="main-search-suggest-box hidden-block" id="main-search-suggest">
 							<label class="author-title">저자/역자 검색</label>
 							<ul class="suggest-author-list"></ul>
@@ -42,7 +43,7 @@
 						</div>
 					</div>
 				</div>
-				
+				<!-- 회원가입  -->
 				<c:if test="${userInfo == null}">
 					<div class="hw_top_content_right login">
 						<span class="hw_font">
@@ -174,6 +175,9 @@
 	<script type="text/javascript">
 		window.addEventListener("load", headerIndexInit('${root}'));
 		
+		/**
+		 * 검색창 제안(suggest) 기능 구현을 위한 자바스크립트 코드
+		 */
 		var rootContext = '${root}';
 		var suggestBox = document.getElementById("main-search-suggest");
 		var suggestAuthorList = suggestBox.querySelectorAll("ul")[0];
@@ -199,7 +203,7 @@
 					if (data.book == null || data.book.length == 0) {
 						appendSuggestEmpty('book');
 					} else {
-						appendSuggestBookList(data.book);						
+						appendSuggestBookList(data.book);
 					}
 				});
 			}
@@ -262,14 +266,17 @@
 			}
 		}
 		
-		function removeSuggestBox(event) {
-			alert(event);
-			// 기존 제안 내용 초기화
-			//deleteAllChilds(suggestAuthorList);
-			//deleteAllChilds(suggestBookList);
-			// 검색어 제안 박스 비활성화
-			//suggestBox.classList.add("hidden-block");
-		}
+		window.addEventListener("click", function(e) {
+			var e = e || window.event;
+			if (!suggestBox.parentElement.contains(e.target)) {
+				// 기존 제안 내용 초기화
+				deleteAllChilds(suggestAuthorList);
+				deleteAllChilds(suggestBookList);
+				// 검색어 제안 박스 비활성화
+				suggestBox.classList.add("hidden-block");
+			}
+			e.stopImmediatePropagation();
+		}, false);
 	</script>
 </body>
 </html>

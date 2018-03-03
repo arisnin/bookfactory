@@ -526,20 +526,22 @@ public class BookServiceImp implements BookService {
 		mav.addObject("illorBook", illorBook);
 		mav.addObject("transBook", transBook);
 
-		// 최근 본 책 으로 넘어가게 insert문 작성
+		// 최근 본 책 으로 넘어가게 insert문 작성(정호열) - 2018. 3. 3 user NullPointException 안나도록 수정(박성호)
 		User user = (User) request.getSession().getAttribute("userInfo");
-		String id = user.getUsername(); 	//여기 로긴안하면 에러납니당 널값에러
-		
-		MyPageRecentLookBookDto myPageRecentLookBookDto = new MyPageRecentLookBookDto();
-		myPageRecentLookBookDto.setId(id);
-		myPageRecentLookBookDto.setBook_num(Integer.parseInt(request.getParameter("book_num")));
-		LogAspect.info(myPageRecentLookBookDto.toString());
-		
-		if(id != null){
-			int check = bookDao.recentLookBookInsert(myPageRecentLookBookDto);
-			LogAspect.info(check);
-			mav.addObject("check", check);
-		}
+		if (user != null) {
+			String id = user.getUsername(); 	//여기 로긴안하면 에러납니당 널값에러
+			
+			MyPageRecentLookBookDto myPageRecentLookBookDto = new MyPageRecentLookBookDto();
+			myPageRecentLookBookDto.setId(id);
+			myPageRecentLookBookDto.setBook_num(Integer.parseInt(request.getParameter("book_num")));
+			LogAspect.info(myPageRecentLookBookDto.toString());
+			
+			if(id != null){
+				int check = bookDao.recentLookBookInsert(myPageRecentLookBookDto);
+				LogAspect.info(check);
+				mav.addObject("check", check);
+			}
+		}		
 	}
 
 	@Override	//키워드검색

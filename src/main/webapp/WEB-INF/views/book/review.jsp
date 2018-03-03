@@ -278,7 +278,11 @@
 			</div>
 		</section><!-- End : bf-review-box -->
 	</div>
-
+	
+	<c:if test="${scoreGraph == null}">
+		<c:set var="scoreGraph" value="${a=[0,0,0,0,0,0]}" />
+	</c:if>
+	
 	<%-- 자바 스크립트 --%>
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
