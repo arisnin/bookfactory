@@ -67,7 +67,7 @@
 		            WHERE p.book_num=c.book_num
 		            AND c.cate1_num=f.num
 		            AND f.num=#{firstCate}
-		            and payment_date > trunc(SYSDATE-7)
+		            and payment_date > trunc(SYSDATE-#{day})
 		            GROUP BY p.book_num
 		            ORDER BY 2 DESC)A
 		      )prn, bookm b, author au, publisher p,(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
@@ -84,12 +84,15 @@
 		      WHERE prn.book_num=b.book_num
 		      and prn.book_num= rs.book_num(+)
 		      and b.pub_num=p.pub_num
+			  <if test="rental=='yes'">
+			  	  <![CDATA[and b.rental_period!='no']]>
+			  </if>
 		      AND b.author_num=au.num
 		      ORDER BY prn.r ASC) p
 		where p.rp BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
-	<select id="getBestSellerWeekPaper" parameterType="java.util.HashMap" resultMap="HomeDto">
+ 	<select id="getBestSellerWeekPaper" parameterType="java.util.HashMap" resultMap="HomeDto">
 		SELECT *
 		from (SELECT prn.book_num, b.img_path, b.NAME "bookName", b.author_num, au.NAME "authorName", b.intro, b.price, b.rental_period, b.rental_price, p.pub_num "pub_num", p.NAME "pub_name", nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count", rownum rp
 		FROM (SELECT DISTINCT a.book_num, ROWNUM r
@@ -100,7 +103,7 @@
 		            and c.cate2_num=sc.num
 		            AND f.num=#{firstCate}
 		            and sc.num=#{seconCate}
-		            and payment_date > trunc(SYSDATE-7)
+		            and payment_date > trunc(SYSDATE-#{day})
 		            GROUP BY p.book_num
 		            ORDER BY 2 DESC)A
 		      )prn, bookm b, author au, publisher p,(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
@@ -117,6 +120,9 @@
 		      WHERE prn.book_num=b.book_num
 		      and prn.book_num= rs.book_num(+)
 		      and b.pub_num=p.pub_num
+			  <if test="rental=='yes'">
+			  	  <![CDATA[and b.rental_period!='no']]>
+			  </if>
 		      AND b.author_num=au.num
 		      ORDER BY prn.r ASC) p
 		where p.rp BETWEEN #{startRow} AND #{endRow}
@@ -130,7 +136,7 @@
 		            WHERE p.book_num=c.book_num
 		            AND c.cate1_num=f.num
 		            AND f.num=#{firstCate}
-		            and payment_date > trunc(SYSDATE-7)
+		            and payment_date > trunc(SYSDATE-#{day})
 		            GROUP BY p.book_num
 		            ORDER BY 2 DESC)A
 		      )prn, bookm b, author au, publisher p,(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
@@ -147,66 +153,9 @@
 		      WHERE prn.book_num=b.book_num
 		      and prn.book_num= rs.book_num(+)
 		      and b.pub_num=p.pub_num
-		      AND b.author_num=au.num
-		      ORDER BY prn.r ASC
-	</select>
-	
-	<select id="getBestSellerMonth" parameterType="java.util.HashMap" resultMap="HomeDto">
-		SELECT *
-		from (SELECT prn.book_num, b.img_path, b.NAME "bookName", b.author_num, au.NAME "authorName", b.intro, b.price, b.rental_period, b.rental_price, p.pub_num "pub_num", p.NAME "pub_name", nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count", rownum rp
-		FROM (SELECT DISTINCT a.book_num, ROWNUM r
-		      FROM (SELECT p.book_num, count(p.book_num)
-		            FROM payment p, book_category c, first_cate f
-		            WHERE p.book_num=c.book_num
-		            AND c.cate1_num=f.num
-		            AND f.num=#{firstCate}
-		            and payment_date > trunc(SYSDATE-30)
-		            GROUP BY p.book_num
-		            ORDER BY 2 DESC)A
-		      )prn, bookm b, author au, publisher p,(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
-		                                              FROM (
-		                                                SELECT rw.* FROM review rw, (
-		                                                  SELECT DISTINCT ID, book_num
-		                                                  FROM payment
-		                                                ) pm
-		                                                WHERE rw.book_num = pm.book_num
-		                                                AND rw.ID = pm.ID
-		                                              )
-		                                              GROUP BY book_num
-		                                            ) rs
-		      WHERE prn.book_num=b.book_num
-		      and prn.book_num= rs.book_num(+)
-		      and b.pub_num=p.pub_num
-		      AND b.author_num=au.num
-		      ORDER BY prn.r ASC) p
-		where p.rp BETWEEN #{startRow} AND #{endRow}
-	</select>
-	
-	<select id="getBestSellerMonthCount" parameterType="java.util.HashMap" resultType="int">
-		SELECT nvl(count(*),0)
-		FROM (SELECT DISTINCT a.book_num, ROWNUM r
-		      FROM (SELECT p.book_num, count(p.book_num)
-		            FROM payment p, book_category c, first_cate f
-		            WHERE p.book_num=c.book_num
-		            AND c.cate1_num=f.num
-		            AND f.num=#{firstCate}
-		            and payment_date > trunc(SYSDATE-30)
-		            GROUP BY p.book_num
-		            ORDER BY 2 DESC)A
-		      )prn, bookm b, author au, publisher p,(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
-		                                              FROM (
-		                                                SELECT rw.* FROM review rw, (
-		                                                  SELECT DISTINCT ID, book_num
-		                                                  FROM payment
-		                                                ) pm
-		                                                WHERE rw.book_num = pm.book_num
-		                                                AND rw.ID = pm.ID
-		                                              )
-		                                              GROUP BY book_num
-		                                            ) rs
-		      WHERE prn.book_num=b.book_num
-		      and prn.book_num= rs.book_num(+)
-		      and b.pub_num=p.pub_num
+			  <if test="rental=='yes'">
+			  	  <![CDATA[and b.rental_period!='no']]>
+			  </if>
 		      AND b.author_num=au.num
 		      ORDER BY prn.r ASC
 	</select>
@@ -236,6 +185,9 @@
 		      WHERE prn.book_num=b.book_num
 		      and prn.book_num= rs.book_num(+)
 		      and b.pub_num=p.pub_num
+			  <if test="rental=='yes'">
+			  	  <![CDATA[and b.rental_period!='no']]>
+			  </if>
 		      AND b.author_num=au.num
 		      ORDER BY prn.r ASC) p
 		where p.rp BETWEEN #{startRow} AND #{endRow}
@@ -265,6 +217,9 @@
 		      WHERE prn.book_num=b.book_num
 		      and prn.book_num= rs.book_num(+)
 		      and b.pub_num=p.pub_num
+			  <if test="rental=='yes'">
+			  	  <![CDATA[and b.rental_period!='no']]>
+			  </if>
 		      AND b.author_num=au.num
 		      ORDER BY prn.r ASC
 	</select>
@@ -277,8 +232,14 @@
 		select name from first_cate where num=#{firstCate}
 	</select>
 	
+	<select id="getFirstCateUseBookNum" parameterType="String" resultType="int">
+		SELECT f.num
+		FROM first_cate f, book_category c
+		WHERE f.num=c.cate1_num
+		and c.book_num=#{book_num}
+	</select>
+	
 	<select id="getNewBookList" parameterType="java.util.HashMap" resultType="com.bf.book.dto.NewBookDto">
-		<![CDATA[
 			SELECT *
 			FROM (SELECT ROWNUM rnum, A.* 
 			      FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", b.intro, b.discount, b.discount2, b.price, b.rental_price, nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count" 
@@ -303,14 +264,17 @@
 						AND b.illustrator_num=il.num
 						AND b.translator_num=tr.num
 						AND b.pub_num=pu.pub_num
+						  <if test="rental=='yes'">
+						  	  <![CDATA[and b.rental_period!='no']]>
+						  </if>
 						ORDER BY b.write_date DESC)A
 			      )r
+	<![CDATA[
 			where r.rnum >= #{startRow} and r.rnum <= #{endRow}
-		]]>
+	]]>
 	</select>
 	
-	<select id="getNewBookCount" parameterType="String" resultType="int">
-		<![CDATA[
+	<select id="getNewBookCount" parameterType="java.util.HashMap" resultType="int">
 			SELECT nvl(count(*),0)
 			      FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", b.intro, b.discount, b.discount2, b.price, b.rental_price
 						FROM bookm b, author au, author il, author tr, publisher pu, (SELECT DISTINCT b.book_num
@@ -323,8 +287,10 @@
 						AND b.illustrator_num=il.num
 						AND b.translator_num=tr.num
 						AND b.pub_num=pu.pub_num
+						  <if test="rental=='yes'">
+						  	  <![CDATA[and b.rental_period!='no']]>
+						  </if>
 						ORDER BY b.write_date DESC)A
-		]]>
 	</select>
 	
 	<select id="select-review-self" parameterType="java.util.Map" resultType="com.bf.book.dto.ReviewPageDto">
@@ -428,7 +394,6 @@
 	</select>
 	
 	<select id="getPaperNewBookCount" parameterType="java.util.HashMap" resultType="int">
-		<![CDATA[
 			SELECT nvl(count(*),0)
 			FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", b.intro, b.discount, b.discount2, b.price, b.rental_price
 			      FROM bookm b, author au, author il, author tr, publisher pu, (SELECT DISTINCT b.book_num
@@ -443,12 +408,13 @@
 			      AND b.illustrator_num=il.num
 			      AND b.translator_num=tr.num
 			      AND b.pub_num=pu.pub_num
+				  <if test="rental=='yes'">
+				  	  <![CDATA[and b.rental_period!='no']]>
+				  </if>
 			      ORDER BY b.write_date DESC)A
-		]]>
 	</select>
 	
 	<select id="getPaperNewBookList" parameterType="java.util.HashMap" resultType="com.bf.book.dto.NewBookDto">
-		<![CDATA[
 			SELECT *
 			FROM (SELECT ROWNUM rnum, A.* 
 			      FROM (SELECT b.book_num "book_num", b.img_path, b.NAME "book_name", au.num "author_num", au.NAME "author_name", il.num "illur_num", il.NAME "illur_name", tr.num "trans_num", tr.NAME "trans_name", pu.pub_num "pub_num", pu.NAME "publisher_name", b.intro, b.discount, b.discount2, b.price, b.rental_price, nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count" 
@@ -475,8 +441,12 @@
 						AND b.illustrator_num=il.num
 						AND b.translator_num=tr.num
 						AND b.pub_num=pu.pub_num
+						  <if test="rental=='yes'">
+						  	  <![CDATA[and b.rental_period!='no']]>
+						  </if>
 						ORDER BY b.write_date DESC)A
 			      )r
+		<![CDATA[
 			where r.rnum >= #{startRow} and r.rnum <= #{endRow}
 		]]>
 	</select>
@@ -550,6 +520,12 @@
 		AND A.num=#{author_num}
 		AND b.book_num= rs.book_num(+)
 		ORDER BY b.write_date desc
+	</select>
+	
+	<select id="getExample" parameterType="int" resultType="com.bf.book.dto.ExampleDto">
+		select *
+		FROM example
+		where f_num=#{first}
 	</select>
 	
 	<select id="getTagListCount" parameterType="java.util.ArrayList" resultType="int">

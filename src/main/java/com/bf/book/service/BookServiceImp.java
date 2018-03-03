@@ -34,6 +34,7 @@ import com.bf.myPage.dao.MyPageDao;
 import com.bf.myPage.dto.MyPageRecentLookBookDto;
 import com.bf.book.dto.DetailCateDto;
 import com.bf.book.dto.DetailDto;
+import com.bf.book.dto.ExampleDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
 import com.bf.book.dto.ReplyDto;
@@ -53,7 +54,6 @@ public class BookServiceImp implements BookService {
 	@Autowired
 	private BookDao bookDao;
 	
-	//리뷰는 위에 해주세요 홈은 아래에다가 하겠습니다
 	@Override
 	public ModelAndView reviewWrite(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -293,7 +293,9 @@ public class BookServiceImp implements BookService {
 		HashMap<String, Object> pMap=new HashMap<String, Object>();
 		pMap.put("firstCate", firstCate);
 		pMap.put("startRow", 1);
-		pMap.put("endRow", 10);
+		pMap.put("endRow", 11);
+		pMap.put("day", 7);
+		pMap.put("rental", "no");
 		List<HomeDto> bestDto=bookDao.getBestSellerWeek(pMap);
 //		System.out.println(bestDto.toString());
 		
@@ -316,6 +318,7 @@ public class BookServiceImp implements BookService {
 		String firstCate=request.getParameter("firstCateNum");
 		String bookType=request.getParameter("bookType");
 		String seconCate=request.getParameter("seconCate");
+		String rental=request.getParameter("rental");
 		
 		String pn=request.getParameter("pageNumber");
 		if(pn==null)	pn="1";
@@ -330,26 +333,34 @@ public class BookServiceImp implements BookService {
 		int endRow=pageNumber*boardSize;
 		int newCount=0;
 		
+		//대여 구분
+		if(rental==null || rental.equalsIgnoreCase("no") || rental.equalsIgnoreCase("")) {
+			rental="no";
+		}else if(rental.equalsIgnoreCase("yes")) {
+			rental="yes";
+		}
+		
 		HashMap<String, String> cateMap=new HashMap<String, String>();
 		cateMap.put("firstCate", firstCate);
 		cateMap.put("seconCate", seconCate);
 		cateMap.put("startRow", String.valueOf(startRow));
 		cateMap.put("endRow", String.valueOf(endRow));
+		cateMap.put("rental", rental);
 
-		HashMap<String, Integer> map=new HashMap<String, Integer>();
+		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		map.put("firstCate", Integer.parseInt(firstCate));
+		map.put("rental", rental);
 		
 		//일반, 나머지카테(단행, 연재 구분)
-		//나중에 리뷰로 또 갈림 리뷰없으면 원래쿼리문 있으면 다른 질의문
-		if(bookType==null) {
-			newCount=bookDao.getNewBookCount(firstCate);
+		if(bookType==null || bookType=="" || bookType.equals("")) {
+			newCount=bookDao.getNewBookCount(map);
 			
 			if(newCount>0) {
 				newList=bookDao.getNewBookList(map);
-				
-			}	
+//				System.out.println(newList.toString());
+			}
 		}else if(bookType.equalsIgnoreCase("paper") || bookType.equalsIgnoreCase("serial")) {
 			newCount=bookDao.getPaperNewBookCount(cateMap);
 			
@@ -358,16 +369,22 @@ public class BookServiceImp implements BookService {
 			}
 		}
 		
-		for(int i=0;i<newList.size();i++) {
-			int after=newList.get(i).getIntro().indexOf(">");
-			String intro=newList.get(i).getIntro().substring(after+1);
-			newList.get(i).setIntro(intro);
+//		System.out.println(newList.size());
+		if(newList.size()>0) {
+			for(int i=0;i<newList.size();i++) {
+				int after=newList.get(i).getIntro().indexOf(">");
+				String intro=newList.get(i).getIntro().substring(after+1);
+				newList.get(i).setIntro(intro);
+			}
 		}
 		
 //		System.out.println(newCount +"," +firstCate);
+//		System.out.println(rental);
 		
 		mav.addObject("firstCate", firstCate);
 		mav.addObject("firstCateName", firstCateName);
+		mav.addObject("seconCate", seconCate);
+		mav.addObject("rental",rental);
 		mav.addObject("newList", newList);
 		mav.addObject("bookType", bookType);
 		mav.addObject("pageNumber", pageNumber);
@@ -435,7 +452,9 @@ public class BookServiceImp implements BookService {
 		pMap.put("firstCate", firstCate);
 		pMap.put("seconCate", seconCate);
 		pMap.put("startRow", 1);
-		pMap.put("endRow", 10);
+		pMap.put("endRow", 11);
+		pMap.put("day", 7);
+		pMap.put("rental", "no");
 		List<HomeDto> bestDto=bookDao.getBestSellerWeekPaper(pMap);
 		
 //		List<HomeDto> homeList=bookDao.getPaperHomeBookInfoList(map);
@@ -625,7 +644,11 @@ public class BookServiceImp implements BookService {
 					dtoMap.put("pub_name", dto.getPub_name());
 					dtoMap.put("price", dto.getPrice());
 					dtoMap.put("rental_price", dto.getRental_price());
-					dtoMap.put("intro", dto.getIntro());
+					
+					int after=dto.getIntro().indexOf(">");
+					String intro=dto.getIntro().substring(after+1);
+					dtoMap.put("intro", intro);
+					
 					dtoMap.put("star_point",dto.getStar_point());
 					dtoMap.put("star_count",dto.getStar_count());
 					dtoMap.put("keyword",getTag);
@@ -665,6 +688,29 @@ public class BookServiceImp implements BookService {
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
 		int firstCate=Integer.parseInt(request.getParameter("firstCateNum"));
 		String firstCateName=bookDao.getFirstCateName(String.valueOf(firstCate));
+		String type=request.getParameter("bookType");
+		String secon=request.getParameter("seconCate");
+		String rental=request.getParameter("rental");
+		
+		//대여 구분
+				if(rental==null || rental.equalsIgnoreCase("no") || rental.equalsIgnoreCase("")) {
+					rental="no";
+				}else if(rental.equalsIgnoreCase("yes")) {
+					rental="yes";
+				}
+		
+		int seconCate=0;
+		
+		if(secon!=null) {
+			seconCate=Integer.parseInt(secon);
+		}
+		if(firstCate==2 || firstCate==3 || firstCate==5) {
+			if(type==null || type=="paper" || secon==null) {
+				seconCate=bookDao.getBookSecondCate(firstCate);
+			}else if(type=="serial") {
+				//연재는 아직 데이터가없음
+			}
+		}
 		
 		String pn=request.getParameter("pageNumber");
 		if(pn==null)	pn="1";
@@ -678,6 +724,10 @@ public class BookServiceImp implements BookService {
 		pMap.put("firstCate", firstCate);
 		pMap.put("startRow", startRow);
 		pMap.put("endRow", endRow);
+		pMap.put("seconCate", seconCate);
+		pMap.put("rental", rental);
+		
+//		System.out.println("seconCate" +seconCate);
 		
 		List<HomeDto> bestDto=null;
 		//주간, 월간, 스테디 구분
@@ -686,11 +736,13 @@ public class BookServiceImp implements BookService {
 		int bestDtoCount=0;
 		
 		if(bestSeller.equalsIgnoreCase("weekBest")) {
+			pMap.put("day", 7);
 			bestDto=bookDao.getBestSellerWeek(pMap);
 			bestDtoCount=bookDao.getBestSellerWeekCount(pMap);
 		}else if(bestSeller.equalsIgnoreCase("monthBest")) {
-			bestDto=bookDao.getBestSellerMonth(pMap);
-			bestDtoCount=bookDao.getBestSellerMonthCount(pMap);
+			pMap.put("day", 30);
+			bestDto=bookDao.getBestSellerWeek(pMap);
+			bestDtoCount=bookDao.getBestSellerWeekCount(pMap);
 		}else if(bestSeller.equalsIgnoreCase("steady")) {
 			bestDto=bookDao.getBestSellerSteady(pMap);
 			bestDtoCount=bookDao.getBestSellerSteadyCount(pMap);
@@ -706,12 +758,32 @@ public class BookServiceImp implements BookService {
 //		System.out.println(bestDto.size());
 		
 		mav.addObject("bestSeller", bestSeller);
+		mav.addObject("rental",rental);
 		mav.addObject("firstCate", firstCate);
 		mav.addObject("firstCateName", firstCateName);
+		mav.addObject("seconCate",seconCate);
 		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("boardSize", boardSize);
 		mav.addObject("bestDto", bestDto);
 		mav.addObject("bestDtoCount", bestDtoCount);
+	}
+
+	@Override
+	public void bookExample(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		String book_num=request.getParameter("book_num");
+		
+		HomeDto ht=bookDao.getRecomList(Integer.parseInt(book_num));
+		int first=bookDao.getFirstCateUseBookNum(book_num);
+		
+		ExampleDto ex=bookDao.getExample(1);
+//		System.out.println(ht.toString() +" : "+ex.toString());
+		
+		mav.addObject("ht", ht);
+		mav.addObject("first", first);
+		mav.addObject("ex", ex);
+		
 	}
 
 }
