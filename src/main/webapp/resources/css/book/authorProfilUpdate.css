@@ -1,0 +1,21 @@
+@charset "UTF-8";
+/*작가정보 수정요청창 css - 최정은*/
+form{
+	text-align:center;
+	padding: 10px;
+    width: 300px;
+}
+
+body > div > form > div.author{
+    font-weight: bold;
+    color: #776bce;
+    font-size: 1.1rem;
+}
+
+body > div > form > div.profile_ex.aut > ol span:nth-child(1){
+	width: 55px;
+}
+
+input[type="text"]{
+    border: 0.1px solid #776bce;
+}

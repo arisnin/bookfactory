@@ -103,6 +103,17 @@ public class BookController {
 		
 		return mav;
 	}
+		
+	/**
+	 * 책(일반, 만화, 단행본) > 책 상세보기 > 작가수정요청 버튼
+	 */
+	@RequestMapping(value = "/authorProfilUpdate.do", method = RequestMethod.GET)
+	public ModelAndView authorProfilUpdate(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("book/authorProfilUpdate.solo");
+		mav.addObject("author_num",request.getParameter("author_num"));
+		
+		return mav;
+	}	
 
 	/**
 	 * 연재 > 책 상세보기 //임시로 로맨스화면의 베스트셀러들에게 걸음
@@ -117,9 +128,13 @@ public class BookController {
 	 * 책상세보기 > 미리보기버튼
 	 */
 	@RequestMapping(value = "/book/example.do", method = RequestMethod.GET)
-	public String bookExample(HttpServletRequest request, HttpServletResponse response) {
-
-		return "book/example.solo";
+	public ModelAndView bookExample(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("book/example.solo");
+		mav.addObject("request", request);
+		
+		bookService.bookExample(mav);
+		
+		return mav;
 	}
 
 	/**

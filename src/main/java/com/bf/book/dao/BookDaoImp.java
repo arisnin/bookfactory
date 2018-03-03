@@ -17,6 +17,7 @@ import com.bf.member.model.User;
 import com.bf.myPage.dto.MyPageRecentLookBookDto;
 import com.bf.book.dto.DetailCateDto;
 import com.bf.book.dto.DetailDto;
+import com.bf.book.dto.ExampleDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
 import com.bf.book.dto.ReplyDto;
@@ -63,15 +64,15 @@ public class BookDaoImp implements BookDao {
 	}
 
 	@Override	//일반, 만화의 신간 책 들고오기
-	public List<NewBookDto> getNewBookList(HashMap<String, Integer> map) {
+	public List<NewBookDto> getNewBookList(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getNewBookList",map);
 	}
 	
 	@Override	//일반, 만화의 신간 책 권 수
-	public int getNewBookCount(String firstCate) {
+	public int getNewBookCount(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getNewBookCount", firstCate);
+		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getNewBookCount", map);
 	}
 
 	@Override
@@ -276,6 +277,18 @@ public class BookDaoImp implements BookDao {
 	public List<HomeDto> getBestSellerWeekPaper(HashMap<String, Object> pMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getBestSellerWeekPaper",pMap);
+	}
+
+	@Override
+	public int getFirstCateUseBookNum(String book_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getFirstCateUseBookNum",book_num);
+	}
+
+	@Override
+	public ExampleDto getExample(int first) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getExample", first);
 	}
 
 }

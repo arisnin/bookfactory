@@ -30,7 +30,8 @@
 		<div class="plus_All">
 			<div id="content_head">
 				<div class="head_left">
-					<img src="${detailDto.img_path}"> <a href="${root}/book/example.do"> <span class="icon-book-open"></span>
+					<img src="${detailDto.img_path}"> <a href="${root}/book/example.do?book_num=${detailDto.book_num}"> 
+					<span class="icon-book-open"></span>
 					<span>미리보기</span>
 					</a>
 				</div>
@@ -322,7 +323,7 @@
 										<span class="icon-plus"></span>작가 신간알림·소식
 									</button>
 									<ol class="content">
-										<c:if test="${auDto.country_name!='NOT'}">
+										<c:if test="${auDto.country_name!='없음'}">
 											<li><span>국적</span><span>${auDto.country_name}</span></li>
 										</c:if>
 										<c:if test="${auDto.birthday!='없음'}">
@@ -346,7 +347,7 @@
 									</ol>
 									<div class="profile_date">
 										<span class="update"><fmt:formatDate value="${auDto.update_date}" pattern="yyyy년 MM월 dd일"/></span> 
-										<input class="bf-button bf-white-btn" type="button" value="정보수정요청" />
+										<input class="bf-button bf-white-btn" type="button" value="정보수정요청" onclick="profilUpdate('${root}','${detailDto.author_num}')" />
 									</div>
 									<c:if test="${authorBook!=null}">
 										<div class="profile_masterpiece">
@@ -425,7 +426,7 @@
 									</ol>
 									<div class="profile_date">
 										<span class="update"><fmt:formatDate value="${ilDto.update_date}" pattern="yyyy년 MM월 dd일"/></span> 
-										<input class="bf-button bf-white-btn" type="button" value="정보수정요청" />
+										<input class="bf-button bf-white-btn" type="button" value="정보수정요청" onclick="profilUpdate('${root}','${detailDto.illu_num}')"/>
 									</div>
 									<c:if test="${illorBook!=null}">
 										<div class="profile_masterpiece">
@@ -452,10 +453,11 @@
 																	<a class="" href="javascript:alert('작가페이지')">${author.authorName}</a>
 																</p>
 																<p class="book-metadata-translator"></p>
+																<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${author.star_point})"></span>
 																<div class="content-star-rate">
-																	<span class="star-icon-field material-icons"></span><span
-																		class="non-star-icon-field material-icons"></span> <span
-																		class="count-field"> 9999명</span>
+																	<span class="star-icon-field material-icons"></span>
+																	<span class="non-star-icon-field material-icons"></span> 
+																	<span class="count-field"> ${author.star_count }명</span>
 																</div>
 															</div>
 														</li>
@@ -503,7 +505,7 @@
 									</ol>
 									<div class="profile_date">
 										<span class="update"><fmt:formatDate value="${trDto.update_date}" pattern="yyyy년 MM월 dd일"/></span> 
-										<input class="bf-button bf-white-btn" type="button" value="정보수정요청" />
+										<input class="bf-button bf-white-btn" type="button" value="정보수정요청"  onclick="profilUpdate('${root}','${detailDto.trans_num}')"/>
 									</div>
 									<c:if test="${transBook!=null}">
 										<div class="profile_masterpiece">
@@ -530,10 +532,11 @@
 																	<a class="" href="javascript:alert('작가페이지')">${author.authorName}</a>
 																</p>
 																<p class="book-metadata-translator"></p>
+																<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${author.star_point})"></span>
 																<div class="content-star-rate">
-																	<span class="star-icon-field material-icons"></span><span
-																		class="non-star-icon-field material-icons"></span> <span
-																		class="count-field"> 9999명</span>
+																	<span class="star-icon-field material-icons"></span>
+																	<span class="non-star-icon-field material-icons"></span> 
+																	<span class="count-field"> ${author.star_count }명</span>
 																</div>
 															</div>
 														</li>
