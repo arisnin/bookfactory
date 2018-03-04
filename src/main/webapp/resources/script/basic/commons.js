@@ -179,3 +179,31 @@ function changeViewType(event) {
 //	});
 	target.classList.toggle("list-landscape");
 }
+
+/**
+ * 책 상세페이지 이동 함수
+ * 
+ * @param root 어플리케이션 루트 컨텍스트
+ * @param book_num 도서번호
+ * @returns 없음
+ *
+ * @author 박성호
+ * @date 2018. 2. 28.
+ */
+function bookDetailLink(root, book_num) {			
+	location.href = root + '/detail.do?book_num=' + book_num;
+}
+
+/**
+ * 작가 정보 페이지 이동 함수
+ * 
+ * @param root 어플리케이션 루트 컨텍스트
+ * @param authorNum 작가번호
+ * @returns 없음
+ *
+ * @author 박성호
+ * @date 2018. 3. 4.
+ */
+function authorDetailHref(root, authorNum) {
+	location.href = root + '/author.do?anum=' + authorNum;
+}

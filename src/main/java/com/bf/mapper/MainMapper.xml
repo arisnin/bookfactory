@@ -166,16 +166,16 @@
 				AND (bm.name LIKE '%'||#{keyword}||'%' OR pub.name LIKE '%'||#{keyword}||'%')
 				<choose>
 					<when test="orderTypeNum == 100">
-					ORDER BY "write_date_idx" DESC
+					ORDER BY "write_date_idx" DESC, book_num
 					</when>
 					<when test="orderTypeNum == 101">
-					ORDER BY rs."star_point" DESC
+					ORDER BY rs."star_point" DESC, book_num
 					</when>
 					<when test="orderTypeNum == 102">
-					ORDER BY rs."star_count" DESC
+					ORDER BY rs."star_count" DESC, book_num
 					</when>
 					<when test="orderTypeNum == 103">
-					ORDER BY bm.price
+					ORDER BY bm.price, book_num
 					</when>
 					<otherwise>
 					ORDER BY bm.name

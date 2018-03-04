@@ -986,6 +986,11 @@ div.collapsable-notice {
 }
 
 /* landscape style */
+.mf-book-list.list-landscape {
+	border-bottom: 1px solid #E1DFFA;
+	padding-bottom: 1rem;
+}
+
 .mf-book-list.list-landscape > .mf-book-item {
 	border-top: 1px solid #E1DFFA;
 	/* border-bottom: 1px solid #E1DFFA; */

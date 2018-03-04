@@ -464,7 +464,7 @@
 
 .profile_click_event {
 	margin-top: 0.25rem;
-	color: #666;
+	color: #333;
 	font-size: 1rem;
 	line-height: 1em;
 }
@@ -540,6 +540,7 @@
 	border-radius: 0.2rem;
 	width: 155px;
 	height: 31px;
+	line-height: 1.9rem;
 	margin: 0.9375rem 0px;
 	cursor: pointer;
 }
@@ -561,7 +562,7 @@
 }
 
 .profile_ex>ol.content li > span:FIRST-CHILD {
-	color: dimgray;
+	color: darkgray;
 	float: left;
 }
 
@@ -679,4 +680,10 @@
 
 .profile_masterpiece>.bf-white-btn {
 	float: right;
+}
+
+.profile_ex>ol.content>li a:link,
+.profile_ex>ol.content>li a:visited,
+.profile_ex>ol.content>li a:active {
+	color: #776BCE;
 }

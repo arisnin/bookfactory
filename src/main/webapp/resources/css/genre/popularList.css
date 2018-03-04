@@ -103,6 +103,8 @@
 	padding-top: 0.875rem;
 	padding-left: 6.25rem;
 	font-size: 0.875rem;
+	font-weight: bold;
+    color: #444;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;	
@@ -113,6 +115,8 @@
 	padding-top: 2.1875rem;
 	padding-left: 6.25rem;
 	font-size: 0.8125rem;
+	font-weight: normal;
+    color: #666;
 }
 
 .most-popular-box .popular-thumbnail {

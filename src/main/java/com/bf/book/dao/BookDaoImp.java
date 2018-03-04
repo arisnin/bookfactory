@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.bf.book.dto.ReviewDto;
 import com.bf.book.dto.ReviewPageDto;
+import com.bf.main.dto.CategoryPageDto;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
@@ -38,6 +39,21 @@ public class BookDaoImp implements BookDao {
 	private SqlSessionTemplate sqlSession;
 	
 	private final String namespace = "com.bf.mapper.BookPlusMapper.";
+
+	@Override
+	public List<CategoryPageDto> getAuthorBookList(int authorNum, int orderTypeNum, int startRow, int endRow) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("authorNum", authorNum);
+		map.put("orderTypeNum", orderTypeNum);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSession.selectList(namespace + "select-author-book", map);
+	}
+
+	@Override
+	public int getAuthorBookCount(int authorNum) {
+		return sqlSession.selectOne(namespace + "select-author-book-count", authorNum);
+	}
 
 	@Override
 	public int insertReview(ReviewDto reviewDto) {

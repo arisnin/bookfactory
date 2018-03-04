@@ -160,10 +160,7 @@ public class MyPageServiceImp implements MyPageService {
 		List<MyPageCashPageDto> myPageCashPageDtoList = myPageDao.myCashPageList(id);
 		LogAspect.info(myPageCashPageDtoList.size());
 		
-		int total = 0;
-		for(int i = 0; i < myPageCashPageDtoList.size(); i++){
-			 total += myPageCashPageDtoList.get(i).getCharge_cash();
-		}
+		int total = myPageDao.selectCashAvailable(id);
 		
 		mav.addObject("myPageCashPageDtoList", myPageCashPageDtoList);
 		mav.addObject("total", total);
@@ -183,15 +180,8 @@ public class MyPageServiceImp implements MyPageService {
 		User user = (User) request.getSession().getAttribute("userInfo");
 		String id = user.getUsername();
 		
-		List<MyPageCashPageDto> myPageCashPageDtoList = myPageDao.myCashPageList(id);
-		LogAspect.info(myPageCashPageDtoList.size());
+		int total = myPageDao.selectCashAvailable(id);
 		
-		int total = 0;
-		for(int i = 0; i < myPageCashPageDtoList.size(); i++){
-			total += myPageCashPageDtoList.get(i).getCharge_cash();
-		}
-		
-		mav.addObject("myPageCashPageDtoList", myPageCashPageDtoList);
 		mav.addObject("total", total);
 		mav.setViewName("myPage/payment/myCash.my");
 	}
@@ -324,34 +314,19 @@ public class MyPageServiceImp implements MyPageService {
 		User user = (User) request.getSession().getAttribute("userInfo");
 		String id = user.getUsername();
 		
-		List<MyPageCashPageDto> myPageCashPageDtoList = myPageDao.myCashPageList(id);
-		
-		int total1 = 0;
-		for(int i = 0; i < myPageCashPageDtoList.size(); i++){
-			total1 += myPageCashPageDtoList.get(i).getCharge_cash();
-		}
-		
-		List<MyPagePointDto> myPagePointDtoList = myPageDao.myPointList(id);
-		LogAspect.info(myPagePointDtoList.size());
-		
-		int total2 = 0;
-		for(int i = 0; i < myPagePointDtoList.size(); i++){
-			 total2 += myPagePointDtoList.get(i).getRemain();
-		}
-		
+		int total1 = myPageDao.selectCashAvailable(id);		
+		int total2 = myPageDao.selectPointAvailable(id);
 		int extinction = myPageDao.myPointExtinctionSelect(id);
+		int total3 = myPageDao.selectPurchasedCount(id);
 
-		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoList = myPageDao.PurchasedPageList(id);
 		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoFiveList = myPageDao.PurchasedPageFiveList(id);		
 		List<MyPageRecentPageDto> myPageRecentPageDtoFiveList = myPageDao.MyRecentPageFiveList(id);
 		
 		mav.addObject("myPageRecentPageDtoFiveList", myPageRecentPageDtoFiveList);
-		mav.addObject("myPagePurchasedPageDtoList", myPagePurchasedPageDtoList);
 		mav.addObject("myPagePurchasedPageDtoFiveList", myPagePurchasedPageDtoFiveList);
-		mav.addObject("myPageCashPageDtoList", myPageCashPageDtoList);
 		mav.addObject("total1", total1);
-		mav.addObject("myPagePointDtoList", myPagePointDtoList);
 		mav.addObject("total2", total2);
+		mav.addObject("total3", total3);
 		mav.addObject("extinction", extinction);
 		mav.setViewName("myPage/home.my");
 	}

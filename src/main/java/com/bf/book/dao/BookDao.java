@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.bf.book.dto.ReviewDto;
 import com.bf.book.dto.ReviewPageDto;
+import com.bf.main.dto.CategoryPageDto;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
@@ -65,5 +66,7 @@ public interface BookDao {
 	List<HomeDto> getBestSellerWeekPaper(HashMap<String, Object> pMap);
 	int getFirstCateUseBookNum(String book_num);
 	ExampleDto getExample(int first);
+	List<CategoryPageDto> getAuthorBookList(int authorNum, int orderTypeNum, int startRow, int endRow);
+	int getAuthorBookCount(int authorNum);
 
 }

@@ -7,14 +7,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javax.management.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.aspectj.weaver.tools.cache.AsynchronousFileCacheBacking.RemoveCommand;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -24,20 +20,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.book.dao.BookDao;
-import com.bf.book.dto.ReviewDto;
-import com.bf.book.dto.ReviewPageDto;
-import com.bf.manager.dto.AuthorDto;
-import com.bf.manager.dto.BookDto;
-import com.bf.manager.dto.BookThirdCateDto;
-import com.bf.member.model.User;
-import com.bf.myPage.dao.MyPageDao;
-import com.bf.myPage.dto.MyPageRecentLookBookDto;
 import com.bf.book.dto.DetailCateDto;
 import com.bf.book.dto.DetailDto;
 import com.bf.book.dto.ExampleDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
 import com.bf.book.dto.ReplyDto;
+import com.bf.book.dto.ReviewDto;
+import com.bf.book.dto.ReviewPageDto;
+import com.bf.main.dto.CategoryPageDto;
+import com.bf.manager.dto.AuthorDto;
+import com.bf.member.model.User;
+import com.bf.myPage.dto.MyPageRecentLookBookDto;
 
 /**
  * @author 박성호
@@ -53,6 +47,41 @@ import com.bf.book.dto.ReplyDto;
 public class BookServiceImp implements BookService {
 	@Autowired
 	private BookDao bookDao;
+
+	@Override
+	public ModelAndView author(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest)mav.getModelMap().get("request");
+		
+		String anum = request.getParameter("anum");
+		String onum = request.getParameter("onum");
+		int authorNum = 0;
+		
+		if (anum == null) return mav;
+		else authorNum = Integer.parseInt(anum);
+		int orderTypeNum = onum == null ? 100 : Integer.parseInt(onum);
+		
+		LogAspect.info("anum/onum:" + authorNum + "/" + orderTypeNum);
+		
+		// Pagination 설정
+		String pnum = request.getParameter("pnum");
+		int pageNumber = pnum == null ? 1 : Integer.parseInt(pnum);
+
+		int boardSize = 10;
+		int endRow = pageNumber * boardSize;
+		int startRow = endRow - boardSize + 1;
+		int count = bookDao.getAuthorBookCount(authorNum);
+		
+		AuthorDto authorDto = bookDao.getAuthorInfo(authorNum);
+		List<CategoryPageDto> authorBookList = bookDao.getAuthorBookList(authorNum, orderTypeNum, startRow, endRow);
+		
+		LogAspect.info("authorBookList:" + authorBookList.size());
+		
+		mav.addObject("pnum", pageNumber);
+		mav.addObject("count", count);
+		mav.addObject("boardSize", boardSize);
+		
+		return mav.addObject("authorDto", authorDto).addObject("authorBookList", authorBookList);
+	}
 	
 	@Override
 	public ModelAndView reviewWrite(ModelAndView mav) {

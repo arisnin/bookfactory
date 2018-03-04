@@ -33,7 +33,7 @@
 				<ul class="asset-info-list">
 					<!-- 마이캐시 -->
 					<li class="asset-info-list-item">
-						<div class="asset-info">
+						<div class="asset-info" onclick="location.href='${root}/payment/myCashHistoryCash.do'">
 							<h4 class="asset-info-title">
 								<span class="info-icon material-icons">&#xe90c;</span>
 								<span class="info-title-text">마이캐시</span>
@@ -49,7 +49,7 @@
 					</li>
 					<!-- 마이포인트 -->
 					<li class="asset-info-list-item">
-						<div class="asset-info">
+						<div class="asset-info" onclick="location.href='${root}/payment/myPoint.do'">
 							<h4 class="asset-info-title">
 								<span class="info-icon material-icons">&#xe54f;</span>
 								<span class="info-title-text">마이포인트</span>
@@ -66,7 +66,7 @@
 					</li>
 					<!-- 쿠폰 -->
 					<li class="asset-info-list-item">
-						<div class="asset-info" onclick="alert('쿠폰내역')">
+						<div class="asset-info" onclick="alert('쿠폰내역(미구현)')">
 							<h4 class="asset-info-title">
 								<span class="info-icon material-icons">&#xe8b0;</span>
 								<span class="info-title-text">쿠폰</span>
@@ -103,7 +103,7 @@
 		<!-- 구매목록 -->
 		<article class="mf-home-article">
 			<div class="bf-title-row title-type3">
-				<h3>구매목록<span class="book-count">${myPagePurchasedPageDtoList.size()}</span></h3>
+				<h3>구매목록<span class="book-count">${total3}</span></h3>
 				<div class="more-button-box">
 					<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='${root}/library/purchased.do'">전체보기</button>
 				</div>

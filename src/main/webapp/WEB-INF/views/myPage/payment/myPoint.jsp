@@ -55,7 +55,7 @@
 					<li class="division">${myPagePointDto.point_type}</li>
 					<li class="main_value"><span>${myPagePointDto.point}</span>원</li>
 					<li class="status"><fmt:formatDate value = "${myPagePointDto.destory_date}" pattern="yyyy.MM.dd hh:mm"/></li>
-					<li class="default">${myPagePointDto.state}</li>
+					<li class="default">${myPagePointDto.state == 'on' ? '사용가능' : '소멸'}</li>
 				</ul>
 				</c:forEach>
 			</div>		

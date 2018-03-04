@@ -42,5 +42,11 @@ public interface MyPageDao {
 
 	List<MyPageRecentPageDto> MyRecentPageFiveList(String id);
 
+	int selectPointAvailable(String id);
+
+	int selectCashAvailable(String id);
+
+	int selectPurchasedCount(String id);
+
 
 }

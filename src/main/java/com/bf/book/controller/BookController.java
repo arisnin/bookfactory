@@ -35,8 +35,8 @@ public class BookController {
 	 */
 	@RequestMapping(value = "/test/book.do", method = RequestMethod.GET)
 	public String testBook(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info(StringUtils.join(Arrays.asList(new String[]{"a1","a2","a3"}), ","));
-		return "present/present.main";
+		LogAspect.info("testBook():" + request.getHeader("referer"));
+		return "book/author.main";
 	}
 
 	/**
@@ -209,5 +209,14 @@ public class BookController {
 	public void reviewDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		LogAspect.info("reviewDelete():" + request.getHeader("referer"));
 		bookService.reviewDelete(request, response);
+	}
+	
+	/**
+	 * 작가 정보 페이지
+	 */
+	@RequestMapping(value = "/author.do", method = RequestMethod.GET)
+	public ModelAndView author(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("author():" + request.getHeader("referer"));		
+		return bookService.author(new ModelAndView("book/author.main").addObject("request", request));
 	}
 }

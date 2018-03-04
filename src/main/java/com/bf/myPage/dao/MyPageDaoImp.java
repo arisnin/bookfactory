@@ -105,6 +105,21 @@ public class MyPageDaoImp implements MyPageDao {
 		return sqlSession.selectList(nameSpace + "five_recent_page_select_list", id);
 	}
 
+	@Override
+	public int selectPointAvailable(String id) {
+		return sqlSession.selectOne(nameSpace + "point-select-available", id);
+	}
+
+	@Override
+	public int selectCashAvailable(String id) {
+		return sqlSession.selectOne(nameSpace + "cash-select-available", id);
+	}
+
+	@Override
+	public int selectPurchasedCount(String id) {
+		return sqlSession.selectOne(nameSpace + "select-purchased-count", id);
+	}
+
 	
 	
 }

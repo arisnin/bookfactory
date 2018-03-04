@@ -17,6 +17,70 @@
 		<result column="book_price" property="book_price"/>
 		<result column="type" property="type"/>
 	</resultMap>
+	
+	<select id="select-author-book" parameterType="java.util.Map" resultType="com.bf.main.dto.CategoryPageDto">
+		SELECT * FROM (
+			SELECT ROWNUM "rn", sub.* FROM (
+				SELECT	bm.book_num, bm.img_path, bm.NAME "book_name",
+						rs."star_point", rs."star_count",
+						au.num "author_num", au.NAME "author_name",
+						il.num "illur_num", il.NAME "illur_name",
+						tr.num "trans_num", tr.name "trans_name",
+						pub.pub_num, pub.NAME "pub_name",
+						tc.num "third_cate_num", tc.NAME "third_cate_name",
+						bm.intro, bm.discount, bm.discount2, bm.rental_period, bm.rental_price, bm.price,
+						nvl(to_date(substr(write_date, 0, 13), 'YYYY"년" MM"월" DD"일"'), SYSDATE - 90) "write_date_idx"
+				FROM bookm bm, (
+					SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+					FROM (
+						SELECT rw.* FROM review rw, (
+							SELECT DISTINCT ID, book_num
+							FROM payment
+						) pm
+						WHERE rw.book_num = pm.book_num
+						AND rw.ID = pm.ID
+					)
+					GROUP BY book_num
+				) rs, (
+					SELECT book_num, min(cate3_num) "cate3_num"
+      				FROM book_category
+      				GROUP BY book_num
+				) bc, author au, author il, author tr, publisher pub, third_cate tc
+				WHERE bm.book_num = rs.book_num(+)
+				AND bm.book_num = bc.book_num
+				AND bm.author_num = au.num
+				AND bm.illustrator_num = il.num
+				AND bm.translator_num = tr.num
+				AND bm.pub_num = pub.pub_num
+				AND bc."cate3_num" = tc.num
+				AND bm.author_num = #{authorNum}
+				<choose>
+					<when test="orderTypeNum == 100">
+					ORDER BY "write_date_idx" DESC, book_num
+					</when>
+					<when test="orderTypeNum == 101">
+					ORDER BY rs."star_point" DESC, book_num
+					</when>
+					<when test="orderTypeNum == 102">
+					ORDER BY rs."star_count" DESC, book_num
+					</when>
+					<otherwise>
+					ORDER BY bm.name
+					</otherwise>
+				</choose>
+			) sub
+		) rsub
+		WHERE rsub."rn" BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="select-author-book-count" parameterType="Integer" resultType="Integer">
+		SELECT count(bm.book_num) FROM bookm bm, (
+			SELECT book_num FROM book_category
+			GROUP BY book_num
+		) au
+		WHERE author_num = #{authorNum}
+		AND bm.book_num = au.book_num
+	</select>
 
 	<insert id="insert-review" parameterType="com.bf.book.dto.ReviewDto">
 		INSERT INTO review VALUES(review_num_seq.nextval, #{id}, #{book_num}, #{content}, sysdate, #{star_point}, #{spoiler}, #{preference}, #{display})
