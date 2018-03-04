@@ -25,14 +25,16 @@
 			<div class="sh_board_list_header">
 				<div class="sh_board_list_main">
 				
-					<form action="${root }/manager/boardList.do">
+				
 						<div class="sh_board_list_search">
-							<ul>
-								<li><input type="text" name="search-word" class="search-word" placeholder="제목  검색하기" /></li>
-								<li><button type="submit" class="bf-button sh_search">검색</button></li>
-							</ul>
+						<form method="get">
+						<ul>
+							<li><span class="material-icons">search</span></li>
+							<li><input class="search-word" type="text" name="searchWord" placeholder="책 제목 또는 저자명" value="${searchWord}"/></li>
+						</ul>
+						</form>
 						</div>
-					</form>
+				
 					<form action="${root }/manager/boardList.do">
 					<div class="sh_board_list_date">
 						<ul>
@@ -82,40 +84,49 @@
 
 				</div>
 			</div>
-			<div class="sh_board_list_footer">
+			<input type="hidden" name="href">
+			
+			<div class="a_se_foot">
 				<nav class="bf-pagination">
 					<ul class="bf-animated-btn">
-
-						<c:if test="${count > 0}">
-							<li class="first"><a href="#0"><span></span></a></li>
-
-							<fmt:parseNumber var="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true" />
-							<c:set var="pageBlock" value="${5}" />
-							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true" />
-
-							<c:set var="startPage" value="${rs*pageBlock + 1}" />
-							<c:set var="endPage" value="${startPage + pageBlock - 1}" />
-
-							<c:if test="${endPage > pageCount}">
-								<c:set var="endPage" value="${pageCount}" />
-							</c:if>
-
-							<c:if test="${startPage > pageBlock}">
-								<li class="prev"><a href="${root}/manager/boardList.do?pageNumber=${startPage-pageBlock}"><span></span></a></li>
-							</c:if>
-
-							<c:forEach var="i" begin="${startPage}" end="${endPage}">
-								<a href="${root}/manager/boardList.do?pageNumber=${i}">${i}</a>
-							</c:forEach>
-
-							<c:if test="${endPage < pageCount}">
-								<li class="next"><a href="${root}/manager/boardList.do?pageNumber=${(startPage + pageBlock)}"><span></span></a></li>
-							</c:if>
-							<li class="last"><a href="#0"><span></span></a></li>
+						<c:if test="${search-word==null}">
+							<c:set var="href" value="${root}/manager/boardList.do?pageNumber="/>
 						</c:if>
+						<c:if test="${search-word!=null}">
+							<c:set var="href" value="${root}/manager/boardList.do?searchWord=${searchWord}&pageNumber="/>
+						</c:if>
+						<c:if test="${startDate!=null && endDate!=null}">
+							<c:set var="href" value="${root}/manager/boardList.do?startDate=${startDate}&endDate=${endDate }&pageNumber="/>
+						</c:if>
+						
+						<li class="first"><a href="${href}1"><span></span></a></li>
+						<c:if test="${count > 0}">
+							<fmt:parseNumber var ="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true"/>
+							<c:set var ="pageBlock" value="${5}"/>
+							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/>
+							
+							<c:set var="startPage" value="${rs*pageBlock + 1}"/>
+							<c:set var="endPage" value="${startPage + pageBlock - 1}"/>
+							
+							<c:if test="${endPage > pageCount}">
+							<c:set var="endPage" value="${pageCount}"/>
+						</c:if>
+						
+						</c:if>
+						
+						<c:if test="${startPage > pageBlock}">
+							<li class="prev"><a href="${href}${startPage-1}"><span></span></a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startPage}" end="${endPage}">
+							<li><a href="${href}${i}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${endPage < pageCount}">
+							<li class="next"><a href="${href}${endPage+1}"><span></span></a></li>
+						</c:if>
+						<li class="last"><a href="${href}${pageCount}"><span></span></a></li>
 					</ul>
 				</nav>
-			</div>
+				</div>
 		</div>
 	</div>
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
@@ -124,5 +135,22 @@
 	<script type="text/javascript" src="${root}/script/basic/jquery-confirm.js"></script>
 	<script type="text/javascript" src="${root}/script/manager/total.js"></script>
 	<script type="text/javascript" src="${root}/script/manager/board.js"></script>
+		<script type="text/javascript">
+		function goUpdate(url){
+			location.href=url + $("input[name=href]").val();
+		}
+		//페이지 활성화
+		$(".bf-animated-btn").find("li").each(function(){
+			if($(this).text()=='${pageNumber}'){
+				$(this).find("a").addClass("active");
+			}
+		});
+		var before = location.href;
+		if(before.indexOf('?') == -1){
+			$("input[name=href]").val("");
+		}else{
+			$("input[name=href]").val("&"+ before.substring(before.indexOf('?')+1));
+		}
+	</script>
 </body>
 </html>

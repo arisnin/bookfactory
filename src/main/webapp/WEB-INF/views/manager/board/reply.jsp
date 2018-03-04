@@ -108,15 +108,8 @@
 						"Day:"+now+"\r\n"+
 						"Subject:"+"\r\n");
 			}
-			
-		}) 
-
+		}
 	});
-	
-	
 	</script>
-	
-	
-	
 </body>
 </html>

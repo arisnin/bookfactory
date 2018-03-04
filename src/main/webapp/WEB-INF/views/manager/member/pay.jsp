@@ -19,24 +19,21 @@
 	<div id="sh_member_pay">
 		<div class="sh_main_text">회원 결제 관리 페이지</div>
 		
-		<form action="${root}/manager/memberPayDetail.do" method="post" >
+		
 			<div id="sh_board_shadow">
 			<div class="sh_member_pay_header">
 			
 				<div class="sh_member_pay_main">
 
 					<div class="sh_member_pay_search">
+						<form method="get">
 						<ul>
-							<li><select style="height: 1.6rem; size: 2rem;">
-									<option>전체</option>
-									<option>성명</option>
-									<option>아이디</option>
-							</select></li>
-							<li><input type="text" name="search-word" class="search-word" placeholder="바로  검색하기" /></li>
-							<li><button type="button" class="bf-button">검색</button></li>
+							<li><span class="material-icons">search</span></li>
+							<li><input class="search-word" type="text" name="searchWord" placeholder="책 제목 또는 저자명" value="${searchWord}"/></li>
 						</ul>
-
+						</form>
 					</div>
+
 					<div class="sh_member_pay_date">
 						<ul>
 							<li><input type="text" id="sh_date_start" placeholder="시작 날짜" /></li>
@@ -72,74 +69,90 @@
 						<li>상세보기</li>
 					</ul>
 				</div>
-
+ 				<form action="${root}/manager/memberPayDetail.do" method="get" >
 				<div class="sh_member_pay_list">
 					<c:forEach var="cashDto" items="${cashDtoList }">
 						<ul>
 							<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
-							<li>${cashDto.cash_num }</li>
-							<li>${cashDto.cash_id }</li>
+							<li>${cashDto.num }</li>
+							<li>${cashDto.id }</li>
 							<li>${cashDto.member_name}</li>
 							<li>${cashDto.cash_total }원</li>
 							<li>${cashDto.point_total }<br/>point</li>
 							<li><fmt:formatDate value="${cashDto.last_date }" pattern="yyyy-MM-dd"/></li>
 							<li>쿠폰미구현</li>
-							<li><button type="submit" class="bf-button" >상세보기</button></li>						
-						</ul>
-							<input type="hidden" name="cash_num" value="${cashDto.cash_num}">
-							<input type="hidden" name="cash_id" value="${cashDto.cash_id }">
-							<input type="hidden" name="member_name" value="${cashDto.member_name }">
-							<input type="hidden" name="cash_total" value="${cashDto.cash_total }">
-							<input type="hidden" name="point_total" value="${cashDto.point_total }">
-							<input type="hidden" name="cash_num" value="${cashDto.cash_num }">
-							
+							<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/memberPayDetail.do?id=${cashDto.id}'">상세보기</button>	</li>
+							</ul>
+					
 					</c:forEach>
 				</div>
+					</form> 
 			</div>
-		
-				<div class="sh_board_list_footer">
+			
+				
+			<input type="hidden" name="href">
+			
+			<div class="a_se_foot">
 				<nav class="bf-pagination">
 					<ul class="bf-animated-btn">
-
-						<c:if test="${count > 0}">
-							<li class="first"><a href="#0"><span></span></a></li>
-
-							<fmt:parseNumber var="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true" />
-							<c:set var="pageBlock" value="${5}" />
-							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true" />
-
-							<c:set var="startPage" value="${rs*pageBlock + 1}" />
-							<c:set var="endPage" value="${startPage + pageBlock - 1}" />
-
-							<c:if test="${endPage > pageCount}">
-								<c:set var="endPage" value="${pageCount}" />
-							</c:if>
-
-							<c:if test="${startPage > pageBlock}">
-								<li class="prev"><a href="${root}/manager/memberPay.do?pageNumber=${startPage-pageBlock}"><span></span></a></li>
-							</c:if>
-
-							<c:forEach var="i" begin="${startPage}" end="${endPage}">
-								<a href="${root}/manager/memberPay.do?pageNumber=${i}">${i}</a>
-							</c:forEach>
-
-							<c:if test="${endPage < pageCount}">
-								<li class="next"><a href="${root}/manager/memberPay.do?pageNumber=${(startPage + pageBlock)}"><span></span></a></li>
-							</c:if>
-
-
-							<li class="last"><a href="#0"><span></span></a></li>
+						<c:if test="${search-word==null}">
+							<c:set var="href" value="${root}/manager/memberPay.do?pageNumber="/>
 						</c:if>
+						<c:if test="${search-word!=null}">
+							<c:set var="href" value="${root}/manager/memberPay.do?searchWord=${searchWord}&pageNumber="/>
+						</c:if>
+						
+						<li class="first"><a href="${href}1"><span></span></a></li>
+						<c:if test="${count > 0}">
+							<fmt:parseNumber var ="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true"/>
+							<c:set var ="pageBlock" value="${5}"/>
+							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/>
+							
+							<c:set var="startPage" value="${rs*pageBlock + 1}"/>
+							<c:set var="endPage" value="${startPage + pageBlock - 1}"/>
+							
+							<c:if test="${endPage > pageCount}">
+							<c:set var="endPage" value="${pageCount}"/>
+						</c:if>
+						</c:if>
+						
+						<c:if test="${startPage > pageBlock}">
+							<li class="prev"><a href="${href}${startPage-1}"><span></span></a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startPage}" end="${endPage}">
+							<li><a href="${href}${i}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${endPage < pageCount}">
+							<li class="next"><a href="${href}${endPage+1}"><span></span></a></li>
+						</c:if>
+						<li class="last"><a href="${href}${pageCount}"><span></span></a></li>
 					</ul>
 				</nav>
-			</div>
+				</div>
 		</div>
-		</form>
+	
 	</div>
 
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 	<script type="text/javascript" src="${root}/script/basic/jquery-ui.js"></script>
 	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 	<script type="text/javascript" src="${root}/script/manager/total.js"></script>
+	<script type="text/javascript">
+		function goUpdate(url){
+			location.href=url + $("input[name=href]").val();
+		}
+		//페이지 활성화
+		$(".bf-animated-btn").find("li").each(function(){
+			if($(this).text()=='${pageNumber}'){
+				$(this).find("a").addClass("active");
+			}
+		});
+		var before = location.href;
+		if(before.indexOf('?') == -1){
+			$("input[name=href]").val("");
+		}else{
+			$("input[name=href]").val("&"+ before.substring(before.indexOf('?')+1));
+		}
+	</script>
 </body>
 </html>
