@@ -6,19 +6,56 @@
 .bf-author-profile-update > form{
 	text-align:center;
 	padding: 10px;
-    width: 300px;
+	width: 20rem;
+	font-size: 1rem;
+	font-weight: normal;
+	color: #333;
+    margin: 0 auto;
 }
 
 .bf-author-profile-update > form > div.author{
     font-weight: bold;
     color: #776bce;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
+    padding-top: 1rem;
 }
 
+.bf-author-profile-update > form > div.profile_ex {
+	border: 1px solid #E1DFFA;
+	padding: 1rem;
+	margin-bottom: 0.9375rem;
+}
+
+.bf-author-profile-update > form > div.profile_ex.aut > ol.content {
+	margin: 0;
+}
+
+.bf-author-profile-update > form > div.profile_ex.aut li
+{
+	line-height: 2rem;
+}
 .bf-author-profile-update > form > div.profile_ex.aut > ol span:nth-child(1){
-	width: 55px;
+	float: left;
+	width: 25%;
+	color: #A59AF6;
+    text-align: left;
+    margin-right: 0;
+}
+
+.bf-author-profile-update > form > div.profile_ex.aut > ol span:nth-child(2){
+	float: right;
+	width: 72%;
+    text-align: left;
+}
+
+.bf-author-profile-update div.profile_ex.aut > ol span:nth-child(2) > input {
+	width: 100%;
+	padding: 0.4rem 0.5rem;
+    line-height: 1.25rem;
+    vertical-align: middle;
 }
 
 .bf-author-profile-update > form input[type="text"]{
-    border: 0.1px solid #776bce;
+    border: 0.1px solid #D4CEFC;
+    box-shadow: 1px 1px 1px 0px #D4CEFC;
 }
