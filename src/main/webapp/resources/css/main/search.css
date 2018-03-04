@@ -103,10 +103,14 @@
 }
 
 .result-search-author-box > .search-more-button .bf-button:after {
-	content: ' \25BC';
+	content: ' \25B2';
 	display: inline-block;
 	font-size: 0.4rem;
-	transform: translate(0.2rem, -0.1rem);
+	transform: translate(0.2rem, -0.1rem);	
+}
+
+.result-search-author-box > .search-more-button .bf-button.collapse:after {
+	content: ' \25BC';
 }
 
 /* 검색 리스트 */
@@ -122,6 +126,7 @@
 
 .main-search-list > h3.title {
 	border-bottom: 1px solid #E1DFFA;
+	font-weight: bold;
 	padding: 1rem;
 }
 
@@ -131,11 +136,11 @@
 	padding: 0.8rem 1rem;
 }
 
-.main-search-list li > button:hover {
+.main-search-list li:hover {
 	background-color: #F3F0FA;
 }
 
-.main-search-list li > button.active {
-	background-color: #F3F0FA;
+.main-search-list li.active {
+	background-color: #E1DFFA;
 	pointer-events: none;
 }

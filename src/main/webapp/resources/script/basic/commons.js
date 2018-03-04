@@ -51,13 +51,13 @@ function createStarIcon(target, score) {
 	nonStarField.innerHTML = "";
 
 	var full = parseInt(score);
-	var half = Number(Number.isInteger(parseFloat(score)));
+	var half = parseFloat(score) - parseInt(score);
 
 	for (let i = 0; i < full; i++) {
 		starField.innerHTML += "&#xe838;";
 	}
 
-	if (half == 0) {
+	if (half != 0) {
 		starField.innerHTML += "star_border";
 		full++;
 	}
@@ -65,6 +65,8 @@ function createStarIcon(target, score) {
 	for (let i = full; i < 5; i++) {
 		nonStarField.innerHTML += "&#xe838;";
 	}
+	// 이벤트 리스너에 등록된 다른 click 이벤트의 실행을 방지합니다.
+	if (event) event.stopImmediatePropagation();
 }
 
 /**

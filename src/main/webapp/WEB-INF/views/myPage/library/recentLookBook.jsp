@@ -31,16 +31,14 @@
 					<c:forEach var="myRecentPageDto" items="${myPageRecentPageDtoList}">
 					<li class="ridi-book-item">
 						<div class="ridi-book-thumbnail">
-							<div class="ridi-book-thumbnail-image" onclick="javascript:alert('해당 도서 페이지 미구현')">
+							<div class="ridi-book-thumbnail-image" onclick="location.href='${root}/detail.do?book_num=${myRecentPageDto.book_num}'">
 								<img class="" src="${myRecentPageDto.img_path}"/>
 							</div>
 						</div>
 						<div class="ridi-book-metadata">
-							<h3 class="book-metadata-text">
-								<a href="javascript:alert('책 페이지')">${myRecentPageDto.book_name}</a>
-							</h3>
+							<h3 class="book-metadata-text" onclick ="location.href='${root}/detail.do?book_num=${myRecentPageDto.book_num}'">${myRecentPageDto.book_name}</h3>
 							<p class="book-metadata-author">
-								<a class="book_metadata-author-link" href="javascript:alert('작가페이지')">${myRecentPageDtoauthor_name}</a>
+								<a class="book_metadata-author-link" href="javascript:alert('작가페이지')">${myRecentPageDto.author_name}</a>
 							</p>
 							<p class="book-metadata-publisher">
 								<a class="book-metadata-publisher-link" href="javascript:alert('출판사페이지')">문학사상</a>

@@ -68,6 +68,10 @@
 	width: 25%;
 }
 
+#keyword_top_list > .comicKeyword{
+	width: 20%;
+}
+
 .keyword_filed{
 	display: inline-block;
 	position: relative;
@@ -273,6 +277,10 @@
 	width: 69%;
 }
 
+.keyword_bottom_book_list .content-star-rate > .count-field{
+	margin-left: 7px;
+}
+
 .keyword_bottom_book_list .mf-book-list.list-landscape > li > .mf-book-thumbnail {
 	width: 12%;
 }
@@ -378,3 +386,37 @@
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
 }
+
+.keyword .bf-pagination > .bf-animated-btn li{
+	cursor: pointer;
+}
+
+/* 로딩*/
+#loading {
+	height: 100%;
+	left: 0px;
+	position: fixed;
+	_position:absolute; 
+	top: 0px;
+	width: 100%;
+	filter:alpha(opacity=50);
+	-moz-opacity:0.5;
+	opacity : 0.5;
+}
+
+.loading {
+	background-color: white;
+	z-index: 199;
+}
+
+#loading_img{
+	position:absolute; 
+	top:50%;
+	left:50%;
+	height:35px;
+	margin-top:-75px;	/*	이미지크기*/
+	margin-left:-75px;	/*	이미지크기*/
+	z-index: 200;
+}
+
+

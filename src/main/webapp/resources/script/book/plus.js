@@ -13,6 +13,7 @@ $(document).ready(function(){
 	//책소개에서 펼처보기, 접기기능 
 	$("#bookIntroAll .bookIntro_con > button").click(function(){
 		var str=$(this).text();
+//		alert(str);
 		if(str.substr(0,4)=='펼쳐보기'){
 			$(this).html($(this).html().replace('펼쳐보기','접기'));
 			$(this).prev().removeClass("collapse");
@@ -57,8 +58,13 @@ $(document).ready(function(){
 	$(".hw_sub_wrap").hide();
 	
 	//실험용
-	$(".profile_ex > .author").click(function(){
-		var test=$("input[name=activeAuthor]").val();
-		alert(test);
-	});
+//	$(".profile_ex > .author").click(function(){
+//		var test=$("input[name=activeAuthor]").val();
+//		alert(test);
+//	});
+	
 });
+
+function profilUpdate(root, author_num){
+	window.open(root+"/authorProfilUpdate.do?author_num="+author_num, 'update', 'top=100px, left=100px, height=300px, width=300px');
+}

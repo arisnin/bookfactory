@@ -18,6 +18,8 @@
 <body>
 	<input type="hidden" name="rootJS" value="${root}"/>
 	<input type="hidden" name="firstCate" value="${firstCate}"/>
+	<input type="hidden" name="tags"/>
+	
 	<div class="keyword wrap-container">
 		<div class="keyword_top">
 			<div class="keyword_top_head">
@@ -63,9 +65,9 @@
 					</div>
 					<div class="keyword_bottom_view_choice">
 						<ol>
-							<li><a href="#">평점순</a></li>
-							<li><a href="#">인기순</a></li>
-							<li><a class="activeFont" href="#">최신순</a></li>
+<!-- 							<li><a href="#">평점순</a></li> -->
+<!-- 							<li><a href="#">인기순</a></li> -->
+							<li><a class="activeFont">최신순</a></li>
 						</ol>
 					</div>
 				</div>
@@ -77,53 +79,52 @@
 			
 		</div>
 		<nav class="bf-pagination">
-			<ul class="bf-animated-btn">
-				<c:if test="${newCount>0 }">			
-					<fmt:parseNumber var="pageCount" value="${newCount/boardSize+(newCount%boardSize==0? 0:1)}" integerOnly="true"/>
-					<c:set var="pageBlock" value="${10}"/>
+			<ul class="bf-animated-btn" id="bf-animated-btn">
+<%-- 				<c:if test="${newCount>0 }">			 --%>
+<%-- 					<fmt:parseNumber var="pageCount" value="${newCount/boardSize+(newCount%boardSize==0? 0:1)}" integerOnly="true"/> --%>
+<%-- 					<c:set var="pageBlock" value="${10}"/> --%>
 				
-					<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/>
-					<c:set var="startPage" value="${rs*pageBlock+1}"/>
+<%-- 					<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/> --%>
+<%-- 					<c:set var="startPage" value="${rs*pageBlock+1}"/> --%>
 					
-					<c:set var="endPage" value="${startPage+pageBlock-1 }"/>
+<%-- 					<c:set var="endPage" value="${startPage+pageBlock-1 }"/> --%>
 					
-					<c:if test="${endPage>pageCount }">
-						<c:set var="endPage" value="${pageCount}"/>
-					</c:if>
+<%-- 					<c:if test="${endPage>pageCount }"> --%>
+<%-- 						<c:set var="endPage" value="${pageCount}"/> --%>
+<%-- 					</c:if> --%>
 					
-					<li class="first"><a href="${root}/new-book.do?pageNumber=1&firstCate=${firstCate}"><span></span></a></li>
+<%-- 					<li class="first"><a href="${root}/new-book.do?pageNumber=1&firstCate=${firstCate}"><span></span></a></li> --%>
 					
-					<c:if test="${startPage>pageBlock }">
-						<li class="prev"><a class="prev" href="${root}/new-book.do?pageNumber=${startPage-pageBlock}&firstCate=${firstCate}"><span></span></a></li>
-					</c:if>
+<%-- 					<c:if test="${startPage>pageBlock }"> --%>
+<%-- 						<li class="prev"><a class="prev" href="${root}/new-book.do?pageNumber=${startPage-pageBlock}&firstCate=${firstCate}"><span></span></a></li> --%>
+<%-- 					</c:if> --%>
 					
-					<c:forEach var="i" begin="${startPage}" end="${endPage}">
-						<c:choose>
-							<c:when test="${pageNumber==i}">
-								<li><a class="active" href="${root}/new-book.do?pageNumber=${i}&firstCate=${firstCate}">${i}</a></li>
-							</c:when>
+<%-- 					<c:forEach var="i" begin="${startPage}" end="${endPage}"> --%>
+<%-- 						<c:choose> --%>
+<%-- 							<c:when test="${pageNumber==i}"> --%>
+<%-- 								<li><a class="active" href="${root}/new-book.do?pageNumber=${i}&firstCate=${firstCate}">${i}</a></li> --%>
+<%-- 							</c:when> --%>
 							
-							<c:otherwise>
-								<li><a href="${root}/new-book.do?pageNumber=${i}&firstCate=${firstCate}">${i}</a></li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
+<%-- 							<c:otherwise> --%>
+<%-- 								<li><a href="${root}/new-book.do?pageNumber=${i}&firstCate=${firstCate}">${i}</a></li> --%>
+<%-- 							</c:otherwise> --%>
+<%-- 						</c:choose> --%>
+<%-- 					</c:forEach> --%>
 					
-					<c:if test="${endPage<pageCount }">
-						<li class="next"><a href="${root}/new-book.do?pageNumber=${startPage+pageBlock}&firstCate=${firstCate}"><span></span></a></li>
-					</c:if>
+<%-- 					<c:if test="${endPage<pageCount }"> --%>
+<%-- 						<li class="next"><a href="${root}/new-book.do?pageNumber=${startPage+pageBlock}&firstCate=${firstCate}"><span></span></a></li> --%>
+<%-- 					</c:if> --%>
 					
-					<li class="last"><a href="${root}/new-book.do?pageNumber=${pageCount}&firstCate=${firstCate}"><span></span></a></li>
-				</c:if>
+<%-- 					<li class="last"><a href="${root}/new-book.do?pageNumber=${pageCount}&firstCate=${firstCate}"><span></span></a></li> --%>
+<%-- 				</c:if> --%>
 			</ul>
 		</nav>
 	</div>
 	
-	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
-   <script type="text/javascript">
+   	<script type="text/javascript">
       Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
          e.click();
       });
-   </script>
+	</script>
 </body>
 </html>

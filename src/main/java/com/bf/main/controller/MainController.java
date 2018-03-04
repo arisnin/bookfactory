@@ -1,25 +1,12 @@
 package com.bf.main.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,12 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
-import com.bf.book.dto.ReplyDto;
-import com.bf.book.dto.ReviewDto;
 import com.bf.main.service.MainService;
 import com.bf.member.model.MemberDto;
 import com.bf.member.model.User;
-import com.bf.member.service.UserDetailServiceImp;
 
 /**
  * @Date 2018. 2. 4.
@@ -60,8 +44,11 @@ public class MainController {
 
 	/**
 	 * 메인 > 전체분야 > 카테고리 페이지
+	 * 
+	 * @author 박성호
+	 * @date 2018. 2. 26.
 	 */
-	@RequestMapping(value = "/category.do")
+	@RequestMapping(value = "/category.do", method = RequestMethod.GET)
 	public ModelAndView category(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("category():" + request.getHeader("referer"));
 		return mainService.category(new ModelAndView("category/category.main").addObject("request", request));
@@ -69,15 +56,32 @@ public class MainController {
 
 	/**
 	 * 메인 > 검색창 폼 > 검색 결과 페이지
+	 * 
+	 * @author 박성호
+	 * @date 2018. 2. 28.
 	 */
-	@RequestMapping(value = "/main/search.do")
-	public String mainSearch(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/main/search.do", method = RequestMethod.GET)
+	public ModelAndView mainSearch(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("mainSearch()");
-		return "main/search.main";
+		return mainService.mainSearch(new ModelAndView("main/search.main").addObject("request", request));
+	}
+	
+	/**
+	 * 메인 > 검색창 폼 > Suggest 요청
+	 * 
+	 * @author 박성호
+	 * @date 2018. 3. 1.
+	 */
+	@RequestMapping(value = "/main/search/validation.do", method = RequestMethod.POST)
+	public void suggestKeyword(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		mainService.suggestKeyword(request, response);
 	}
 
 	/**
 	 * 로그아웃 요청
+	 * 
+	 * @author 박성호
+	 * @date 2018. 2. 18.
 	 */
 	@RequestMapping(value = "/member/logout.do")
 	public void logout(HttpSession session) throws IOException {
@@ -95,6 +99,9 @@ public class MainController {
 	 * @param login 스프링 시큐리티에 의한 자동 로그인 요청임을 나타내는 파라미터
 	 * @return 로그인 실패시에는 null, 스프링 시큐리티에 의한 자동 로그인 요청일 경우는 viewname
 	 * @throws IOException
+	 * 
+	 * @author 박성호
+	 * @date 2018. 2. 18.
 	 */
 	@RequestMapping(value = "/member/login.do", method = RequestMethod.GET)
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response,
@@ -140,17 +147,22 @@ public class MainController {
 		return mainService.register(new ModelAndView("main/register.main").addObject("request", request).addObject("response", response).addObject("memberDto", memberDto));
 	}
 	
+	/**
+	 * 회원가입 유효성 검사
+	 * 
+	 * @author 박성호
+	 * @date 2018. 2. 20.
+	 */
 	@RequestMapping(value = "/member/register/validation.do", method = RequestMethod.POST)
-	public ModelAndView registerValidation(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		return mainService.registerValidation(new ModelAndView().addObject("request", request).addObject("response", response));
+	public void registerValidation(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		mainService.registerValidation(request, response);
 	}
 	
 	/**
 	 * @author : 김동환
 	 * @date : 2018. 2. 20.
 	 * comment : 공지사항
-	 */
-	
+	 */	
 	@RequestMapping(value = "/notice/main.do" , method = RequestMethod.GET)
 	public ModelAndView noticeMain(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("공지사항_메인");

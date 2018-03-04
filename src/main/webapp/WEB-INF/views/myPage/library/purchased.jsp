@@ -67,12 +67,12 @@
 								</label>
 							</div>
 							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image" onclick ="javascript:alert('책 상세 페이지')">
+								<div class="mf-book-thumbnail-image" onclick ="location.href='${root}/detail.do?book_num=${myPurchasedPageDto.book_num}'">
 									<img class="" src="${myPurchasedPageDto.img_path}"/>
 								</div>
 							</div>
 							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text" onclick ="javascript:alert('책 상세 페이지')">${myPurchasedPageDto.book_name}</h3>
+								<h3 class="book-metadata-text" onclick ="location.href='${root}/detail.do?book_num=${myPurchasedPageDto.book_num}'">${myPurchasedPageDto.book_name}</h3>
 								<p class="book-metadata-author">
 									<a class="" href="javascript:alert('작가페이지')">${myPurchasedPageDto.author_name}</a>
 								</p>

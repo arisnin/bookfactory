@@ -14,13 +14,6 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/genre/newBook.css" />
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/genre/newBook.js"></script>
-<script type="text/javascript">
-$(function(){
-	//해당태그 밑에 밑줄표시
-	$(".sub_cate_element > span").removeClass();
-	$(".hw_sub_cate li").eq(1).children("span").addClass("activeBar");
-});
-</script>
 </head>
 <body>
 	<!-- 책상세보기로 요청 방식 :  onclick="location.href='${root}/detail.do'"
@@ -28,6 +21,12 @@ $(function(){
 		출판사 클릭시 검색페이지로 : onclick="location.href='${root}/main.search.do'"
 	 -->
 	<!-- 18.01.24 최정은 = 신간을 눌렀을때 나오는 화면입니다. -->
+	<input type="hidden" name="firstCateNum" value="${firstCate }"/>
+	<input type="hidden" name="bookType" value="${bookType }"/>
+	<input type="hidden" name="seconCate" value="${seconCate }"/>
+	<input type="hidden" name="root" value="${root }"/>
+	<input type="hidden" name="rental" value="${rental }"/>
+	
 	<div id="newBook">
 		<div class="bf-title-row title-type1">
 			<h2>${firstCateName}신간</h2>
@@ -39,23 +38,23 @@ $(function(){
 			
 			<ul class="category-filter-list">
 				<li><label class="bf-custom-checkbox">
-						<input type="checkbox" title="" />
+						<input type="checkbox" title="" name="rentalCheck"/>
 						<span class="all-mark"></span>
 						<span class="checkbox-label">대여</span>
 					</label>
 				</li>
-				<li><label class="bf-custom-checkbox">
-						<input type="checkbox" title="" />
-						<span class="all-mark"></span>
-						<span class="checkbox-label">성인</span>
-					</label>
-				</li>
-				<li><label class="bf-custom-checkbox">
-						<input type="checkbox" title="" />
-						<span class="all-mark"></span>
-						<span class="checkbox-label">성인제외</span>
-					</label>
-				</li>
+<!-- 				<li><label class="bf-custom-checkbox"> -->
+<!-- 						<input type="checkbox" title="" /> -->
+<!-- 						<span class="all-mark"></span> -->
+<!-- 						<span class="checkbox-label">성인</span> -->
+<!-- 					</label> -->
+<!-- 				</li> -->
+<!-- 				<li><label class="bf-custom-checkbox"> -->
+<!-- 						<input type="checkbox" title="" /> -->
+<!-- 						<span class="all-mark"></span> -->
+<!-- 						<span class="checkbox-label">성인제외</span> -->
+<!-- 					</label> -->
+<!-- 				</li> -->
 				<li>
 					<!-- 보기방식 메뉴 -->
 					<div class="view-type-list">
@@ -82,17 +81,19 @@ $(function(){
 						</div>
 						<div class="mf-book-metadata">
 							<h3 class="book-metadata-text" onclick="location.href='${root}/detail.do?book_num=${NewBookDto.book_num}'">${NewBookDto.book_name}</h3>
-							<p class="book-metadata-author">
-								<c:if test="${NewBookDto.author_num!=0}">
-									<a class="" href="${root}/author.do?author_num=${NewBookDto.author_num}">${NewBookDto.author_name }</a>
-								</c:if>
-								<c:if test="${NewBookDto.illur_num!=0}">
-									<a class="" href="${root}/author.do?author_num=${NewBookDto.illur_num}">, ${NewBookDto.illur_name }</a>
-								</c:if>
-								<c:if test="${NewBookDto.trans_num!=0}">
-									<a class="" href="${root}/author.do?author_num=${NewBookDto.trans_num}">, ${NewBookDto.trans_name }</a>
-								</c:if>
-							</p>
+							<c:if test="${NewBookDto.author_num!=0}">
+								<p class="book-metadata-author">
+									<c:if test="${NewBookDto.author_num!=0}">
+										<a class="" href="${root}/author.do?author_num=${NewBookDto.author_num}">${NewBookDto.author_name }</a>
+									</c:if>
+									<c:if test="${NewBookDto.illur_num!=0}">
+										<a class="" href="${root}/author.do?author_num=${NewBookDto.illur_num}">, ${NewBookDto.illur_name }</a>
+									</c:if>
+									<c:if test="${NewBookDto.trans_num!=0}">
+										<a class="" href="${root}/author.do?author_num=${NewBookDto.trans_num}">, ${NewBookDto.trans_name }</a>
+									</c:if>
+								</p>
+							</c:if>
 							
 							<c:if test="${NewBookDto.pub_num!=0}">
 								<p class="book-metadata-publisher">
@@ -102,7 +103,7 @@ $(function(){
 							<!-- 별점아이콘 생성을 위한 트리거 블록 -->
 							<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${NewBookDto.star_point == null ? 0 : NewBookDto.star_point})"></span>
 							<div class="content-star-rate">
-								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span> <span class="count-field"> 9999명</span>
+								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span> <span class="count-field"> ${NewBookDto.star_count}명</span>
 							</div>
 							<pre class="book-metadata-description">
 								${NewBookDto.intro }
@@ -176,7 +177,7 @@ $(function(){
 				</nav>
 				<input type="hidden" name="vType" value="portrait" />
 				<input type="hidden" name="pageNumber" value="${pageNumber}" />
-				<input type="hidden" name="firstCate" value="${firstCate}" />
+				<input type="hidden" name="firstCateNum" value="${firstCate}" />
 			</form>
 		</section>
 		<!-- End : result-search-book-box -->
@@ -197,10 +198,9 @@ $(function(){
 		}
 	</script>
 	<script type="text/javascript">
-	document.querySelectorAll(".content-star-rate").forEach(function(e,i){
-		createStarIcon(e, 3.7);
-		
-	})
-	</script>
+      Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
+         e.click();
+      });
+   </script>
 </body>
 </html>

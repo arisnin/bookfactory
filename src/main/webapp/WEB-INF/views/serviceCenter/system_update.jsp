@@ -6,17 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="root" value="${pageContext.request.contextPath}" />
-<link href="${root}/css/basic/reset.css" type="text/css"
-	rel="stylesheet">
-<link href="${root}/css/basic/commons.css" type="text/css"
-	rel="stylesheet" />
-<link href="${root}/css/serviceCenter/how_use.css"
-	type="text/css" rel="stylesheet">
-<link href="${root}/css/serviceCenter/FAQ.css"
-	type="text/css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link href="${root}/css/basic/reset.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet" />
+<link href="${root}/css/serviceCenter/manyque.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/serviceCenter/FAQ.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
+
 
 <title>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</title>
 </head>
@@ -25,15 +21,15 @@
 
 	<jsp:include page="./main_header.jsp" />
 
-	<div class="service_information">
+	<div class="serviceCenter_manyque">
 
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
-				<span> <a
-					href="${root }/serviceCenter/main.do">리디북스 고객센터</a></span>
-					<span>></span>
-									
-					결제 / 환불
+				<span><a
+					href="${root }/serviceCenter/main.do">리디북스 고객센터</a>
+				</span>
+				<span>></span>
+				시스템 업데이트
 			</div>
 
 
@@ -50,16 +46,16 @@
 			</div>
 		</div>
 
-		<div class="service_information_content">
-			<div class="service_information_content_right">
-				<div class="service_information_title">
-					결제 / 환불
+		<div class="serviceCenter_manyque_content">
+			<div class="serviceCenter_manyque_right">
+				<div class="serviceCenter_manyque_title">
+					시스템 업데이트
 				</div>
 
-				<div class="service_information_list">
-					<c:forEach var="payRefundDto" items="${payRefundList }"	>
-						<div><a href="javascript:payRefundRead('${root}','${payRefundDto.num}')">${payRefundDto.title}</a></div>
-					</c:forEach>					
+				<div class="serviceCenter_manyque_list">
+					<c:forEach var="systemUpdateDto" items="${systemUpdateList }"	>
+						<div><a href="javascript:systemUpdateRead('${root}','${systemUpdateDto.num}')">${systemUpdateDto.title}</a></div>
+					</c:forEach>				
 				</div>
 			</div>
 

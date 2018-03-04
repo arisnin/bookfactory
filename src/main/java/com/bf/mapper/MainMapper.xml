@@ -7,16 +7,16 @@
 		INSERT INTO MEMBER (num,ID,PASSWORD,email,gender,register_date,birthday,marketing_check,ip,last_join,phone,NAME) VALUES(member_num_seq.nextval,#{id},#{password},#{email},#{gender},SYSDATE,#{birthday},#{marketing_check},#{ip},SYSDATE,#{phone},#{name})
 	</insert>
 	
-	<select id="id-check" parameterType="String" resultType="String">
-		SELECT ID FROM MEMBER WHERE ID = #{keyword} 
+	<select id="id-check" parameterType="String" resultType="Integer">
+		SELECT COUNT(ID) FROM MEMBER WHERE ID = #{keyword} 
 	</select>
 	
-	<select id="email-check" parameterType="String" resultType="String">
-		SELECT email FROM MEMBER WHERE email = #{keyword}
+	<select id="email-check" parameterType="String" resultType="Integer">
+		SELECT COUNT(email) FROM MEMBER WHERE email = #{keyword}
 	</select>
 	
-	<select id="phone-check" parameterType="String" resultType="String">
-		SELECT phone FROM MEMBER WHERE phone = #{keyword}
+	<select id="phone-check" parameterType="String" resultType="Integer">
+		SELECT COUNT(phone) FROM MEMBER WHERE phone = #{keyword}
 	</select>
 	
 	<select id="select-category-all" parameterType="java.util.Map" resultType="com.bf.main.dto.CategoryPageDto">
@@ -110,7 +110,143 @@
 		<if test="serviceNum == 101">
 			AND nvl(to_date(substr(write_date, 0, 13), 'YYYY"년" MM"월" DD"일"'), sysdate - 90) >= (SYSDATE - 90)
 		</if>
-	</select>	
+	</select>
+	
+	<select id="select-search-author" parameterType="String" resultType="com.bf.main.dto.SearchAuthorDto">
+		SELECT ba."author_num", MIN(ba."author_name") "author_name", count(ba.book_num) "count", MIN(ba."book_name") "book_name" FROM (
+			SELECT bm.book_num, bm.NAME "book_name", au.num "author_num", au.NAME "author_name"
+			FROM bookm bm, (
+				SELECT num, NAME FROM author
+				WHERE NAME LIKE '%' || #{keyword} || '%'
+				<![CDATA[AND num <> 0]]>
+			) au
+			WHERE au.num IN (bm.author_num, bm.translator_num, bm.illustrator_num)
+		) ba
+		GROUP BY ba."author_num"
+	</select>
+	
+	<select id="select-search-book" parameterType="java.util.Map" resultType="com.bf.main.dto.CategoryPageDto">
+		SELECT * FROM (
+			SELECT ROWNUM "rn", sub.* FROM (
+				SELECT	bm.book_num, bm.img_path, bm.NAME "book_name",
+						rs."star_point", rs."star_count",
+						au.num "author_num", au.NAME "author_name",
+						il.num "illur_num", il.NAME "illur_name",
+						tr.num "trans_num", tr.name "trans_name",
+						pub.pub_num, pub.NAME "pub_name",
+						TC.NUM "third_cate_num", TC.NAME "third_cate_name",
+						bm.intro, bm.discount, bm.discount2, bm.rental_period, bm.rental_price, bm.price,
+						nvl(to_date(substr(write_date, 0, 13), 'YYYY"년" MM"월" DD"일"'), sysdate - 90) "write_date_idx"
+				FROM bookm bm, (
+					SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+					FROM (
+						SELECT rw.* FROM review rw, (
+							SELECT DISTINCT ID, book_num
+							FROM payment
+						) pm
+						WHERE rw.book_num = pm.book_num
+						AND rw.ID = pm.ID
+					)
+					GROUP BY book_num
+				) rs, (
+					SELECT book_num, min(cate3_num) "cate3_num"
+					FROM book_category
+					<if test="thirdCateNum > 0">
+					WHERE cate3_num = #{thirdCateNum}
+					</if>
+					GROUP BY book_num
+				) bc, author au, author il, author tr, publisher pub, third_cate tc
+				WHERE bm.BOOK_NUM = rs.BOOK_NUM(+)
+				AND bm.BOOK_NUM = bc.BOOK_NUM
+				AND bm.AUTHOR_NUM = au.NUM
+				AND bm.ILLUSTRATOR_NUM = il.NUM
+				AND bm.TRANSLATOR_NUM = tr.NUM
+				AND bm.PUB_NUM = pub.PUB_NUM
+				AND bc."cate3_num" = tc.NUM
+				AND (bm.name LIKE '%'||#{keyword}||'%' OR pub.name LIKE '%'||#{keyword}||'%')
+				<choose>
+					<when test="orderTypeNum == 100">
+					ORDER BY "write_date_idx" DESC
+					</when>
+					<when test="orderTypeNum == 101">
+					ORDER BY rs."star_point" DESC
+					</when>
+					<when test="orderTypeNum == 102">
+					ORDER BY rs."star_count" DESC
+					</when>
+					<when test="orderTypeNum == 103">
+					ORDER BY bm.price
+					</when>
+					<otherwise>
+					ORDER BY bm.name
+					</otherwise>
+				</choose>
+			) SUB
+		) RSUB
+		WHERE rsub."rn" BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="select-search-count" parameterType="String" resultType="Integer">
+		SELECT COUNT(BM.BOOK_NUM) FROM bookm bm, (
+			SELECT pub_num, name FROM publisher
+		) pub, (
+			SELECT book_num
+			FROM book_category
+			GROUP BY book_num
+		) bc
+		WHERE bm.book_num = bc.book_num
+		AND bm.pub_num = pub.pub_num
+		AND (bm.name LIKE '%'||#{keyword}||'%' OR pub.name LIKE '%'||#{keyword}||'%')
+	</select>
+	
+	<select id="select-search-by-category-count" parameterType="String" resultType="com.bf.main.dto.SearchBookCountDto">
+		SELECT bc.cate3_num "num", MIN(tc.NAME) "name", count(bc.cate3_num) "count" FROM bookm bm, (
+			SELECT pub_num, NAME FROM publisher
+		) pub, (
+			SELECT book_num, cate3_num
+			FROM book_category
+		) bc, third_cate tc
+		WHERE bm.book_num = bc.book_num
+		AND bm.pub_num = pub.pub_num
+		AND bc.cate3_num = tc.num
+		AND (bm.name LIKE '%'||#{keyword}||'%' OR pub.name LIKE '%'||#{keyword}||'%')
+		GROUP BY bc.cate3_num
+	</select>
+	
+	<select id="select-suggest-keyword" parameterType="String" resultType="HashMap">
+		SELECT * FROM (
+			SELECT ba."author_num", MIN(ba."author_name") "author_name", count(ba.book_num) "count", MIN(ba."book_name") "book_name" FROM (
+				SELECT bm.book_num, bm.NAME "book_name", au.num "author_num", au.NAME "author_name"
+				FROM bookm bm, (
+					SELECT num, NAME FROM author
+					WHERE NAME LIKE '%' || #{keyword} || '%'
+					<![CDATA[AND num <> 0]]>
+				) au
+				WHERE au.num IN (bm.author_num, bm.translator_num, bm.illustrator_num)
+			) ba
+			GROUP BY ba."author_num"
+		)
+		<![CDATA[WHERE ROWNUM < 7]]>
+	</select>
+	
+	<select id="select-suggest-book-keyword" parameterType="String" resultType="HashMap">
+		SELECT SUB.* FROM (
+			SELECT BM.book_num "book_num", BM.img_path "img_path", BM.NAME "book_name",
+				AU.num "author_num", AU.name "author_name",
+				PUB.pub_num "pub_num", PUB.NAME "pub_name"
+			FROM BOOKM BM, (
+				SELECT BOOK_NUM
+				FROM BOOK_CATEGORY
+				GROUP BY BOOK_NUM
+			) BC, AUTHOR AU, PUBLISHER PUB
+			WHERE BM.BOOK_NUM = BC.BOOK_NUM
+			AND BM.AUTHOR_NUM = AU.NUM
+			AND BM.PUB_NUM = PUB.PUB_NUM
+			AND (bm.name LIKE '%'||#{keyword}||'%' OR pub.name LIKE '%'||#{keyword}||'%')
+			ORDER BY WRITE_DATE DESC
+		) SUB
+		<![CDATA[WHERE ROWNUM < 7]]>
+	</select>
 	
 	<!-- 김동환 / 공지사항 -->
 	<select id="noticeMainCount" resultType="int">

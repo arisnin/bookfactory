@@ -13,6 +13,7 @@ import com.bf.aop.LogAspect;
 import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.member.model.User;
+import com.bf.serviceCenter.dto.BookContactDto;
 import com.bf.serviceCenter.service.ServiceCenterService;
 
 /**
@@ -62,8 +63,14 @@ public class ServiceCenterController {
 	
 	@RequestMapping(value = "/serviceCenter/FAQ.do" , method = RequestMethod.GET)
 	public String serviceCenterFaq(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("문의하기");				
+		LogAspect.info("문의하기");
+		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		
+		LogAspect.info(user);
+		
 		return "serviceCenter/FAQ.solo";
+		
 	}
 	
 	@RequestMapping(value = "/serviceCenter/inquriy.do" , method = RequestMethod.GET)
@@ -81,12 +88,11 @@ public class ServiceCenterController {
 	}
 	
 	@RequestMapping(value = "/serviceCenter/inquriyOk.do" , method = RequestMethod.POST)
-	public ModelAndView serviceCenterInquriyOk(HttpServletRequest request, HttpServletResponse response, BoardContactDto boardContactDto, ReviewDto reviewDto) {
+	public ModelAndView serviceCenterInquriyOk(HttpServletRequest request, HttpServletResponse response, BoardContactDto boardContactDto) {
 		LogAspect.info("북팩토리 문의 작성완료");
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("reviewDto", reviewDto);
 		mav.addObject("request", request);
 		mav.addObject("boardContactDto", boardContactDto);
 		
@@ -103,10 +109,34 @@ public class ServiceCenterController {
 //	}
 	
 	@RequestMapping(value = "/serviceCenter/book_suggestion.do" , method = RequestMethod.GET)
-	public String serviceCenterBookSuggestion(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info("도서 제안");
-		return "serviceCenter/book_suggestion.solo";
+	public ModelAndView serviceCenterBookSuggestion(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("도서 제안 작성");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.bookSuggestionWrite(mav);
+		
+		//return "serviceCenter/book_suggestion.solo";
+		return mav;
 	}
+	
+	@RequestMapping(value = "/serviceCenter/book_suggestionOk.do" , method = RequestMethod.POST)
+	public ModelAndView serviceCenterBookSuggestionOk(HttpServletRequest request, HttpServletResponse response, BookContactDto bookContactDto) {
+		LogAspect.info("도서 제안 작성완료");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		mav.addObject("bookContactDto", bookContactDto);
+		
+		serviceCenterService.bookSuggestionWriteOk(mav);
+		
+		//return "serviceCenter/book_suggestion.solo";
+		return mav;
+	}
+	
 	
 	@RequestMapping(value = "/serviceCenter/inquriy_list2.do" , method = RequestMethod.GET)
 	public ModelAndView serviceCenterInquriyList(HttpServletRequest request, HttpServletResponse response) {
@@ -211,51 +241,145 @@ public class ServiceCenterController {
 	}
 	
 	@RequestMapping(value = "/serviceCenter/id_login.do" , method = RequestMethod.GET)
-	public String serviceCenterIdLogin(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterIdLogin(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("아이디 / 로그인");
-		return "serviceCenter/id_login.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterIdLogin(mav);
+		
+		//return "serviceCenter/id_login.solo";
+		return mav;
+		
 	}
 	
 	@RequestMapping(value = "/serviceCenter/id_login_content.do" , method = RequestMethod.GET)
-	public String serviceCenterIdLoginContent(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterIdLoginContent(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("아이디 / 로그인_내용");
-		return "serviceCenter/id_login_content.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterIdLoginContent(mav);
+		
+		//return "serviceCenter/id_login_content.solo";
+		return mav;
 	}
 	
 	@RequestMapping(value = "/serviceCenter/pay_refund.do" , method = RequestMethod.GET)
-	public String serviceCenterPayRefund(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterPayRefund(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("결제 / 환불");
-		return "serviceCenter/pay_refund.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterPayRefund(mav);
+		
+		//return "serviceCenter/pay_refund.solo";
+		
+		return mav;
 	}
 	
 	@RequestMapping(value = "/serviceCenter/pay_refund_content.do" , method = RequestMethod.GET)
-	public String serviceCenterPayRefundContent(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterPayRefundContent(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("결제 / 환불_내용");
-		return "serviceCenter/pay_refund_content.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterPayRefundContent(mav);
+		
+		//return "serviceCenter/pay_refund_content.solo";
+		return mav;
 	}
 	
 	@RequestMapping(value = "/serviceCenter/how_use.do" , method = RequestMethod.GET)
-	public String serviceCenterHowUse(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterHowUse(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("이용문의");
-		return "serviceCenter/how_use.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterHowUse(mav);
+		
+		//return "serviceCenter/how_use.solo";
+		return mav;
 	}
 	
 	@RequestMapping(value = "/serviceCenter/how_use_content.do" , method = RequestMethod.GET)
-	public String serviceCenterHowUseContent(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterHowUseContent(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("이용문의_내용");
-		return "serviceCenter/how_use_content.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterHowUseContent(mav);
+		
+		//return "serviceCenter/how_use_content.solo";
+		return mav;
 	}
 	
 	@RequestMapping(value = "/serviceCenter/error_use.do" , method = RequestMethod.GET)
-	public String serviceCenterErrorUse(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterErrorUse(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("오류 / 활용 도움말");
-		return "serviceCenter/error_use.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterErrorUse(mav);
+		
+		//return "serviceCenter/error_use.solo";
+		return mav;
 	}
 	
 	@RequestMapping(value = "/serviceCenter/error_use_content.do" , method = RequestMethod.GET)
-	public String serviceCenterErrorUseContent(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView serviceCenterErrorUseContent(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("오류 / 활용 도움말_내용");
-		return "serviceCenter/error_use_content.solo";
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterErrorUseContent(mav);
+		
+		//return "serviceCenter/error_use_content.solo";
+		return mav;
+	}
+	
+	@RequestMapping(value = "/serviceCenter/system_update.do" , method = RequestMethod.GET)
+	public ModelAndView serviceCenterSystemUpdate(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("오류 / 활용 도움말");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterSystemUpdate(mav);
+		
+		//return "serviceCenter/error_use.solo";
+		return mav;
+	}
+	
+	@RequestMapping(value = "/serviceCenter/system_update_content.do" , method = RequestMethod.GET)
+	public ModelAndView serviceCenterSystemUpdateContent(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("오류 / 활용 도움말_내용");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		serviceCenterService.serviceCenterSystemUpdateContent(mav);
+		
+		//return "serviceCenter/error_use_content.solo";
+		return mav;
 	}
 	
 

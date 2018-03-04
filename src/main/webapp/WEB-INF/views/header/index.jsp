@@ -28,15 +28,22 @@
 						<span class="hw_search_icon">
 							<img src="${root}/img/index/searchIcon_purple.png" />
 						</span>
-						<form action="${root}/main/search.do" method="post">
-							<input class="hw_search_input" type="text" name="indexSearch" placeholder="제목,저자,출판사 검색" />
+						<form action="${root}/main/search.do" method="get">
+							<input class="hw_search_input" type="text" name="keyword" placeholder="제목,저자,출판사 검색" onkeyup="suggestKeyword(this)" />
 						</form>
 						<span class="hw_del_icon">
 							<img src="${root}/img/index/searchdel.JPG" />
 						</span>
+						<!-- 검색창 제안(suggest) 박스(2018-03-02 박성호) -->
+						<div class="main-search-suggest-box hidden-block" id="main-search-suggest">
+							<label class="author-title">저자/역자 검색</label>
+							<ul class="suggest-author-list"></ul>
+							<label class="book-title">도서 검색</label>
+							<ul class="suggest-book-list"></ul>
+						</div>
 					</div>
 				</div>
-				
+				<!-- 회원가입  -->
 				<c:if test="${userInfo == null}">
 					<div class="hw_top_content_right login">
 						<span class="hw_font">
@@ -130,11 +137,11 @@
 				<div class="hw_sub_cate">
 					<span>단행본</span>
 					<ul>
-						<li class="sub_cate_element" onclick="location.href='${root}/${home}.do?firstCate=${firstCate}&bookType=paper&seconCate=${seconCate}'">홈 <span class="activeBar"></span></li>
-						<li class="sub_cate_element" onclick="location.href='${root}/new-book.do?firstCate=${firstCate}&bookType=paper&seconCate=${seconCate}'">신간<span></span></li>
-						<li class="sub_cate_element" onclick="location.href='${root}/best-sell.do?firstCate=${firstCate}&bookType=paper&bestSeller=weekBest&seconCate=${seconCate}'">베스트셀러<span></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/${home}.do?firstCateNum=${firstCate}&bookType=paper&seconCate=${seconCate}'">홈 <span class="activeBar"></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/new-book.do?firstCateNum=${firstCate}&bookType=paper&seconCate=${seconCate}'">신간<span></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/best-sell.do?firstCateNum=${firstCate}&bookType=paper&bestSeller=weekBest&seconCate=${seconCate}'">베스트셀러<span></span></li>
 						<%-- <li class="sub_cate_element" onclick="location.href='${root}/normal.main'">맞춤추천<span></span></li> --%>
-						<li class="sub_cate_element" onclick="location.href='${root}/event.do?firstCate=${firstCate}&bookType=paper'">이벤트<span></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/event.do?firstCateNum=${firstCate}&bookType=paper'">이벤트<span></span></li>
 					</ul>
 					<h3 class="sub_cate_line">|</h3>
 					<span>연재</span>
@@ -150,11 +157,11 @@
 			<c:if test="${firstCate==1 || firstCate==4}">
 				<div class="hw_sub_cate">
 					<ul>
-						<li class="sub_cate_element" onclick="location.href='${root}/${home}.do?firstCate=${firstCate}'">홈 <span class="activeBar"></span></li>
-						<li class="sub_cate_element" onclick="location.href='${root}/new-book.do?firstCate=${firstCate}'">신간<span></span></li>
-						<li class="sub_cate_element" onclick="location.href='${root}/best-sell.do?firstCate=${firstCate}&bestSeller=weekBest'">베스트셀러<span></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/${home}.do?firstCateNum=${firstCate}'">홈 <span class="activeBar"></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/new-book.do?firstCateNum=${firstCate}'">신간<span></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/best-sell.do?firstCateNum=${firstCate}&bestSeller=weekBest'">베스트셀러<span></span></li>
 						<%-- <li class="sub_cate_element" onclick="location.href='${root}/normal.main'">맞춤추천<span></span></li> --%>
-						<li class="sub_cate_element" onclick="location.href='${root}/event.do?firstCate=${firstCate}'">이벤트<span></span></li>
+						<li class="sub_cate_element" onclick="location.href='${root}/event.do?firstCateNum=${firstCate}'">이벤트<span></span></li>
 					</ul>
 				</div>
 			</c:if>
@@ -167,6 +174,109 @@
 	<jsp:include page="register.jsp" />
 	<script type="text/javascript">
 		window.addEventListener("load", headerIndexInit('${root}'));
+		
+		/**
+		 * 검색창 제안(suggest) 기능 구현을 위한 자바스크립트 코드
+		 */
+		var rootContext = '${root}';
+		var suggestBox = document.getElementById("main-search-suggest");
+		var suggestAuthorList = suggestBox.querySelectorAll("ul")[0];
+		var suggestBookList = suggestBox.querySelectorAll("ul")[1];
+		
+		function suggestKeyword(event) {			
+			if (false) {
+				//secondMessageBox.innerHTML = "";
+			} else {
+				$.post(rootContext + "/main/search/validation.do", {keyword : event.value}, function(data,status) {
+					// 기존 제안 내용 초기화
+					deleteAllChilds(suggestAuthorList);
+					deleteAllChilds(suggestBookList);
+					// 검색어 제안 박스 활성화
+					suggestBox.classList.remove("hidden-block");
+					// 제안 내용 화면 출력
+					if (data.author == null || data.author.length == 0) {
+						appendSuggestEmpty('author');
+					} else {
+						appendSuggestAuthorList(data.author);
+					}
+					
+					if (data.book == null || data.book.length == 0) {
+						appendSuggestEmpty('book');
+					} else {
+						appendSuggestBookList(data.book);
+					}
+				});
+			}
+		}
+		
+		function appendSuggestAuthorList(data) {
+			var target = suggestAuthorList;
+			var dFrag = document.createDocumentFragment();
+			
+			data.forEach(function(e,i) {
+				var li = document.createElement("li");
+				
+				let innerHTML = '<button type="button" class="bf-button bf-transparent-btn" onclick="alert(\''+ e.author_num +'\')"><span class="material-icons">person</span>';
+				innerHTML += '<span class="author">' + e.author_name + '</span>';
+				if (e.count > 0) {
+					innerHTML += '<span class="book">&nbsp;' + e.book_name + '</span>';
+					innerHTML += '<span class="more-count '+ (e.count == 1 ? 'hidden-block' : '') +'">외&nbsp;'+ (e.count - 1) +'권</span>';
+				}
+				innerHTML += '</button>';
+				li.innerHTML = innerHTML;
+				
+				dFrag.appendChild(li);
+			});
+			
+			target.appendChild(dFrag);
+		}
+		
+		function appendSuggestBookList(data) {
+			var target = suggestBookList;
+			var dFrag = document.createDocumentFragment();
+			
+			data.forEach(function(e,i) {
+				var li = document.createElement("li");
+				
+				let innerHTML = '<div class="book-thumbnail"><a href="'+rootContext+'/detail.do?book_num='+e.book_num+'"><img src="'+e.img_path+'"></a></div><div class="book-content">';
+				innerHTML += '<a href="'+rootContext+'/detail.do?book_num='+e.book_num+'"><span class="title font_13" title="도서명">'+e.book_name+'</span></a><div class="book-info">';
+				innerHTML += '<span class="author" title="작가" onclick="alert(\''+ e.author_num +'\')">'+e.author_name+'</span>';
+				innerHTML += '<span class="publisher" title="출판사" onclick="alert(\''+ e.pub_num +'\')">'+e.pub_name+'</span></div></div>';
+				li.innerHTML = innerHTML;
+				
+				dFrag.appendChild(li);
+			});
+			
+			target.appendChild(dFrag);
+		}
+		
+		function appendSuggestEmpty(type) {
+			if (type == 'author') {
+				let innerHTML = '<li><button type="button" class="bf-button bf-transparent-btn disabled"><span class="material-icons">info</span><span class="author">검색된 저자가 없습니다.</span></button></li>';
+				suggestAuthorList.innerHTML = innerHTML;
+			} else if (type == 'book') {
+				let innerHTML = '<li><button type="button" class="bf-button bf-transparent-btn disabled"><span class="material-icons">info</span><span class="author">검색된 도서가 없습니다.</span></button></li>';
+				suggestBookList.innerHTML = innerHTML;
+			}
+		}
+		
+		function deleteAllChilds(target) {
+			while (target.firstChild) {
+				target.removeChild(target.firstChild);
+			}
+		}
+		
+		window.addEventListener("click", function(e) {
+			var e = e || window.event;
+			if (!suggestBox.parentElement.contains(e.target)) {
+				// 기존 제안 내용 초기화
+				deleteAllChilds(suggestAuthorList);
+				deleteAllChilds(suggestBookList);
+				// 검색어 제안 박스 비활성화
+				suggestBox.classList.add("hidden-block");
+			}
+			e.stopImmediatePropagation();
+		}, false);
 	</script>
 </body>
 </html>
