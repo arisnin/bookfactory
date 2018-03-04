@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bf.main.dto.CategoryPageDto;
+import com.bf.main.dto.EventDto;
 import com.bf.main.dto.NoticeDto;
 import com.bf.main.dto.SearchAuthorDto;
 import com.bf.main.dto.SearchBookCountDto;
@@ -18,6 +19,13 @@ import com.bf.member.model.MemberDto;
  * @Date 2018. 2. 4.
  * @Author 박성호
  * @Description
+ */
+
+/**
+ * @author choi jung eun
+ * @date 2018. 3. 4.
+ * @description 이벤트 관련기능 추가 
+ * 
  */
 @Component
 public class MainDaoImp implements MainDao {
@@ -109,6 +117,36 @@ public class MainDaoImp implements MainDao {
 	@Override
 	public NoticeDto noticeRead(int num) {
 		return sqlSession.selectOne(namespace + "noticeRead", num);
+	}
+
+	@Override
+	public String getFirstCateName(String firstCate) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getFirstCateName", firstCate);
+	}
+
+	@Override
+	public int getEventCount(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getEventCount", map);
+	}
+
+	@Override
+	public List<EventDto> getEventList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getEventList", map);
+	}
+
+	@Override
+	public EventDto getEventInfo(String num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getEventInfo", num);
+	}
+
+	@Override
+	public int getRandomBookNum(int f_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.mapper.MainMapper.getRandomBookNum", f_num);
 	}
 	
 }

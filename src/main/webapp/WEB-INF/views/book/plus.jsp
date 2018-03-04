@@ -101,10 +101,13 @@
 					</div>
 	
 					<!-- child(6) -->
-					<div class="event">
-						<span class="icon-clock"></span> <span class="period">01월
-							24일 (수) 12시 ~ 02월 22일 (목)</span>
-					</div>
+					<c:if test="${event=='yes'}">
+						<div class="event">
+							<span class="icon-clock"></span> <span class="period">01월
+								24일 (수) 12시 ~ 02월 22일 (목)</span>
+						</div>
+					</c:if>
+					
 					<!--  -->
 					<ul class="book-info">
 						<li><span>도서정보</span>

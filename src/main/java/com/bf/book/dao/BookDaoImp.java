@@ -135,7 +135,7 @@ public class BookDaoImp implements BookDao {
 	@Override	//오늘의 추천에서 랜덤값 가져오는 아이 - 일반, 만화 해당
 	public List<Integer> getRandomBookNum(int firstCate) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("getRandomBookNum", firstCate);
+		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getRandomBookNum", firstCate);
 	}
 
 	@Override	//일반,만화 제외 홈 화면에서 연재인지 단행본인지 구별하는 아이

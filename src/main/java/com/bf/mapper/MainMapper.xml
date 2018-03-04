@@ -266,4 +266,36 @@
 		select * from notice where num=#{num}
 	</select>
 	
+	<select id="getEventCount" parameterType="java.util.HashMap" resultType="int">
+		select nvl(count(*),0)
+		FROM event
+		WHERE f_num=#{firstCate}
+		and TYPE=#{type}
+	</select>
+	
+	<select id="getEventList" parameterType="java.util.HashMap" resultType="com.bf.main.dto.EventDto">
+		SELECT *
+		FROM (SELECT e.*, ROWNUM r
+		      FROM event e
+		      WHERE f_num=#{firstCate}
+		      AND TYPE=#{type})ev
+		where ev.r BETWEEN #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getEventInfo" parameterType="String" resultType="com.bf.main.dto.EventDto">
+		SELECT *
+		FROM event
+		where num=#{num}
+	</select>
+	
+	<select id="getRandomBookNum" parameterType="int" resultType="int">
+		SELECT b.book_num                                
+		from (SELECT b.book_num, ROWNUM r
+		      from  bookm b, book_category c, first_cate f
+		      WHERE b.book_num=c.book_num
+		      AND c.cate1_num=f.num
+		      AND f.num=#{f_num}
+		      ORDER BY dbms_random.RANDOM ) b
+		where b.r=1
+	</select>
 </mapper>

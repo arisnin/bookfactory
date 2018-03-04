@@ -22,10 +22,20 @@
 	margin-right: 1rem;
 }
 
+div.event_main_img > a > img{
+	width: 280px;
+	height: 145px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
 .event_main_header {
 	font-weight: bold;
 	color: black;
 	font-size: 20px;
+	margin-top: 4px;
+    margin-bottom: 15px;
+/*     float: left; */
 }
 
 .event_main_header:hover {
@@ -33,15 +43,27 @@
 	color: blue;
 }
 
-.event_main_text {
-	position: relative;
-	left: 2rem;
-	bottom: 1rem;
-}
-.event_main_text_ul-li ul{
+.event_main_text_ul-li{
 	float: left;
 }
 .event_main_text_ul-li li{
-	float:left;
-	width:100%;
+	margin: 5px 0px;
 } 
+
+.event_main_text_ul-li li > span:first-child {
+    font-weight: bold;
+    width: 40px;
+    float: left;
+}
+
+.event_main_text{
+	float: left;
+	line-height: 1.2rem;
+}
+
+.eventDetail{
+	margin: 0px auto;
+	width: 56.25rem;
+	min-width: 56.25rem;
+	cursor: pointer;
+}

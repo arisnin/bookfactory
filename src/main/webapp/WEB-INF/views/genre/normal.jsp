@@ -29,14 +29,14 @@
 		<div class="list0_head">
 			<div class="bf-title-row title-type3">
 				<h3>전체보기</h3>
-				<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='${root}/best-sell.do?firstCate=${firstCate}&bestSeller=weekBest'">전체보기</button>
+				<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='${root}/best-sell.do?firstCateNum=${firstCate}&bestSeller=weekBest'">전체보기</button>
 			</div>
 			<div class="bf-service-type-menu">
 				<!-- li 요소에 diamond class를 추가하면 구분 아이콘 변경 -->
 				<ul class="order-type-list">
-					<li class="diamond"><a class="active" href="${root}/best-sell.do?firstCate=${firstCate}&bestSeller=weekBest">주간 베스트셀러</a></li>
-					<li class="diamond"><a href="${root}/best-sell.do?firstCate=${firstCate}&bestSeller=monthBest">월간 베스트셀러</a></li>
-					<li class="diamond"><a href="${root}/best-sell.do?firstCate=${firstCate}&bestSeller=steady">스테디셀러</a></li>
+					<li class="diamond"><a class="active" href="${root}/best-sell.do?firstCateNum=${firstCate}&bestSeller=weekBest">주간 베스트셀러</a></li>
+					<li class="diamond"><a href="${root}/best-sell.do?firstCateNum=${firstCate}&bestSeller=monthBest">월간 베스트셀러</a></li>
+					<li class="diamond"><a href="${root}/best-sell.do?firstCateNum=${firstCate}&bestSeller=steady">스테디셀러</a></li>
 				</ul>
 			</div>
 		</div>

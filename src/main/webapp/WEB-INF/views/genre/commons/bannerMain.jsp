@@ -21,8 +21,7 @@
 				<li class="main-banner-content"></li>
 				<li class="main-banner-content"></li>
 				<li class="main-banner-content"></li>
-				<li class="main-banner-content"></li>
-
+<!-- 				<li class="main-banner-content"></li> -->
 			</ul>
 
 			<div class="main-banner-list-box">
@@ -32,7 +31,7 @@
 					<li class="main-banner-list-item"></li>
 					<li class="main-banner-list-item"></li>
 					<li class="main-banner-list-item"></li>
-					<li class="main-banner-list-item"></li>
+<!-- 					<li class="main-banner-list-item"></li> -->
 				</ul>
 
 			</div>
