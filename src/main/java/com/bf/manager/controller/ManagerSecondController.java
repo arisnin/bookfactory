@@ -154,13 +154,11 @@ public class ManagerSecondController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/memberPayDetail.do", method = RequestMethod.POST)
-	public ModelAndView memberPayDetail(HttpServletRequest request, HttpServletResponse response,
-			ManagerCashDto managerCashDto) {
+	@RequestMapping(value = "/memberPayDetail.do", method = RequestMethod.GET)
+	public ModelAndView memberPayDetail(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("member/payDetail.mg");
 		LogAspect.info("memberPayDetail()");
-		
-		mav.addObject("managerCashDto",managerCashDto);
+	
 		mav.addObject("request",request);
 		managerService.memberPayDetail(mav);
 		return mav;

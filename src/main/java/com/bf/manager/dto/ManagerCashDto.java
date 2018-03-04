@@ -3,8 +3,8 @@ package com.bf.manager.dto;
 import java.util.Date;
 
 public class ManagerCashDto {
-	private int cash_num;
-	private String cash_id;
+	private int num;
+	private String id;
 	private int cash_total;
 	private int point_total;
 	private Date last_date; //충전날짜에서 마지막충전날짜만 뽑아내야함
@@ -13,21 +13,23 @@ public class ManagerCashDto {
 	
 	private String member_name;
 
+	
 
-	public int getCash_num() {
-		return cash_num;
+
+	public int getNum() {
+		return num;
 	}
 
-	public void setCash_num(int cash_num) {
-		this.cash_num = cash_num;
+	public void setNum(int num) {
+		this.num = num;
 	}
 
-	public String getCash_id() {
-		return cash_id;
+	public String getId() {
+		return id;
 	}
 
-	public void setCash_id(String cash_id) {
-		this.cash_id = cash_id;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public int getCash_total() {
@@ -80,9 +82,9 @@ public class ManagerCashDto {
 
 	@Override
 	public String toString() {
-		return "MangerCashDto [cash_num=" + cash_num + ", cash_id=" + cash_id + ", cash_total=" + cash_total
-				+ ", point_total=" + point_total + ", last_date=" + last_date + ", coopon_count=" + coopon_count
-				+ ", coopon=" + coopon + ", member_name=" + member_name + "]";
+		return "ManagerCashDto [num=" + num + ", id=" + id + ", cash_total=" + cash_total + ", point_total="
+				+ point_total + ", last_date=" + last_date + ", coopon_count=" + coopon_count + ", coopon=" + coopon
+				+ ", member_name=" + member_name + "]";
 	}
 	
 	

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,13 +22,13 @@
 			<div id="sh_board_shadow">
 				<div class="sh_review_report_main">
 					<ul>
-						<c:forEach var="accuseDto" items="${accuseDtoList}">
-						<li><span>해당리뷰 번호 :${accuseDto.review_num}</span></li>
+						<c:forEach var="accuseDto" items="${accuseDtoList}" begin="1" end="1">
+							<li><span>해당리뷰 번호 :${accuseDto.review_num}</span></li>
 						</c:forEach>
 						<li><span>총 신고수 : </span>${count }</li>
 						<li><a href="javascript:history.back()">리뷰로 돌아가기</a></li>
 					</ul>
-		
+
 				</div>
 
 				<div class="sh_review_report_content">
@@ -54,7 +54,7 @@
 									<li><a href="javascript:void(0)" class="sh_report_detail_button"><c:out value="${fn:substring(accuseDto.review_content,0,10)}" />...</a></li>
 									<li>${accuseDto.description}</li>
 									<li>${accuseDto.accuse_id}</li>
-									<li><fmt:formatDate value="${accuseDto.write_date}" pattern="yyyy-MM-dd"/>
+									<li><fmt:formatDate value="${accuseDto.write_date}" pattern="yyyy-MM-dd" />
 								</ul>
 								<div class="collapsable-notice" id="sh_report_hidden" style="display: none;">
 									<p>${accuseDto.review_content}</p>
@@ -68,45 +68,69 @@
 			</div>
 		</div>
 
-		<div class="sh_review_report_footer">
+		<input type="hidden" name="href">
+
+		<div class="a_se_foot">
 			<nav class="bf-pagination">
 				<ul class="bf-animated-btn">
-				<c:if test="${searchWord==null}">
-                     <c:set var="href" value="${root}/manager/reviewReport.do?pageNumber="/>
-                  </c:if>
-                  <li class="first"><a href="${href}1"><span></span></a></li>
-                  <c:if test="${count > 0}">
-                     <fmt:parseNumber var ="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true"/>
-                     <c:set var ="pageBlock" value="${5}"/>
-                     <fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/>
-                     
-                     <c:set var="startPage" value="${rs*pageBlock + 1}"/>
-                     <c:set var="endPage" value="${startPage + pageBlock - 1}"/>
-                     
-                     <c:if test="${endPage > pageCount}">
-                     <c:set var="endPage" value="${pageCount}"/>
-                  </c:if>
-                  </c:if>
-                  
-                  <c:if test="${startPage > pageBlock}">
-                     <li class="prev"><a href="${href}${startPage-1}"><span></span></a></li>
-                  </c:if>
-                  <c:forEach var="i" begin="${startPage}" end="${endPage}">
-                     <li><a href="${href}${i}">${i}</a></li>
-                  </c:forEach>
-                  <c:if test="${endPage < pageCount}">
-                     <li class="next"><a href="${href}${endPage+1}"><span></span></a></li>
-                  </c:if>
-                  <li class="last"><a href="${href}${pageCount}"><span></span></a></li>
+					<c:if test="${search-word==null}">
+						<c:set var="href" value="${root}/manager/reviewReview.do?pageNumber=" />
+					</c:if>
+					<c:if test="${search-word!=null}">
+						<c:set var="href" value="${root}/manager/reviewReview.do?searchWord=${searchWord}&pageNumber=" />
+					</c:if>
+
+					<li class="first"><a href="${href}1"><span></span></a></li>
+					<c:if test="${count > 0}">
+						<fmt:parseNumber var="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true" />
+						<c:set var="pageBlock" value="${5}" />
+						<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true" />
+
+						<c:set var="startPage" value="${rs*pageBlock + 1}" />
+						<c:set var="endPage" value="${startPage + pageBlock - 1}" />
+
+						<c:if test="${endPage > pageCount}">
+							<c:set var="endPage" value="${pageCount}" />
+						</c:if>
+					</c:if>
+
+					<c:if test="${startPage > pageBlock}">
+						<li class="prev"><a href="${href}${startPage-1}"><span></span></a></li>
+					</c:if>
+					<c:forEach var="i" begin="${startPage}" end="${endPage}">
+						<li><a href="${href}${i}">${i}</a></li>
+					</c:forEach>
+					<c:if test="${endPage < pageCount}">
+						<li class="next"><a href="${href}${endPage+1}"><span></span></a></li>
+					</c:if>
+					<li class="last"><a href="${href}${pageCount}"><span></span></a></li>
 				</ul>
 			</nav>
 		</div>
 	</div>
-	</div>
+
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 	<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 	<script type="text/javascript" src="${root}/script/basic/jquery-ui.js"></script>
 	<script type="text/javascript" src="${root}/script/manager/total.js"></script>
 	<script type="text/javascript" src="${root}/script/manager/review_report.js"></script>
+	<script type="text/javascript">
+		function goUpdate(url) {
+			location.href = url + $("input[name=href]").val();
+		}
+		//페이지 활성화
+		$(".bf-animated-btn").find("li").each(function() {
+			if ($(this).text() == '${pageNumber}') {
+				$(this).find("a").addClass("active");
+			}
+		});
+		var before = location.href;
+		if (before.indexOf('?') == -1) {
+			$("input[name=href]").val("");
+		} else {
+			$("input[name=href]").val(
+					"&" + before.substring(before.indexOf('?') + 1));
+		}
+	</script>
 </body>
 </html>

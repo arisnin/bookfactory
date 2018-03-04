@@ -1,3 +1,4 @@
+
 package com.bf.manager.service;
 
 import java.io.BufferedInputStream;
@@ -206,6 +207,8 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 				LogAspect.logger.info(LogAspect.logMsg + freDtoList);
 			}
 		}
+		mav.addObject("startDate", startDate);
+		mav.addObject("endDate", endDate);
 		mav.addObject("freDtoList", freDtoList);
 		mav.addObject("pageNumber", currentPage);
 		mav.addObject("count", count);
@@ -525,12 +528,12 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 
 		String pageNumber = request.getParameter("pageNumber");
-		String word = request.getParameter("search-word");
+		String searchWord = request.getParameter("searchWord");
 		String sDate = request.getParameter("startDate");
 		String eDate = request.getParameter("endDate");
 		Date startDate = null;
 		Date endDate = null;
-
+	
 		try {
 			if (sDate != null && eDate != null) {
 				startDate = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
@@ -551,15 +554,18 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		int starRow = (currentPage - 1) * boardSize + 1;
 		int endRow = currentPage * boardSize + 1;
 
-		int count = managerDao.memberCount();
+		int count =0;
 		LogAspect.logger.info(LogAspect.logMsg + count);
 
 		List<MemberDto> memberDtoList = null;
-		if (count > 0) {
+		if (searchWord==null) {
 			memberDtoList = managerDao.memberList(starRow, endRow);
 			LogAspect.logger.info(LogAspect.logMsg + memberDtoList);
-
+		}else {
+			memberDtoList = managerDao.memberSearchList(searchWord,starRow,endRow);
+			count = managerDao.memberCount(searchWord);
 		}
+
 		mav.addObject("memberDto", memberDtoList);
 		mav.addObject("pageNumber", currentPage);
 		mav.addObject("count", count);
@@ -589,7 +595,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		} else if (memberDto.getGender().equals("female")) {
 			img = "/img/manager/woman.jpg";
 		}
-
+		
 		mav.addObject("memberDto", memberDto);
 		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("img", img);
@@ -671,11 +677,11 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 	public void memberPayDetail(ModelAndView mav) {
 		Map<String, Object> map = mav.getModel();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		ManagerCashDto managerCashDto =(ManagerCashDto) map.get("managerCashDto");
-		
-		String pageNumber = request.getParameter("pageNumber");
-		LogAspect.info("이런젠장"+managerCashDto.getCash_id());
+		String id = request.getParameter("id");
 
+		String pageNumber = request.getParameter("pageNumber");
+		
+		
 		if (pageNumber == null)
 			pageNumber = "1";
 		int boardSize = 5;
@@ -685,23 +691,21 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		int startRow = (currentPage - 1) * boardSize + 1;
 		int endRow = currentPage * boardSize + 1;
 		
+		
 		List<ManagerPayDto> managerPayDtoList = null;
 		List<ManagerChargeDto> managerChargeDtoList = null;
 		List<ManagerPointDto> managerPointDtoList = null;
 		
-		LogAspect.info(managerCashDto);
-		String id = managerCashDto.getCash_id(); 
-		
-		LogAspect.info(id);
-		
 		managerPayDtoList = managerDao.payDetail(startRow,endRow,id);
 		managerChargeDtoList = managerDao.chargeDetail(startRow,endRow,id);
 		managerPointDtoList =managerDao.pointDetail(startRow, endRow, id);
-		
+		ManagerCashDto managerCashDto = managerDao.selectPay(id);
 		
 		LogAspect.info(managerPayDtoList);
 		LogAspect.info(managerChargeDtoList);
 		LogAspect.info(managerPointDtoList);
+		LogAspect.info(managerCashDto);
+		
 		mav.addObject("managerCashDto", managerCashDto);
 		mav.addObject("managerPayDtoList", managerPayDtoList);
 		mav.addObject("managerChargeDtoList", managerChargeDtoList);
@@ -794,8 +798,6 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		String pointType= "관리자권한 적립금부여";
 		LogAspect.info(point+"zzzz"+id);
 		
-		
-	
 		// TODO: DAO 적립 구현
 		int check = managerDao.pointInsert(point,pointType,id);	
 		LogAspect.info(check);

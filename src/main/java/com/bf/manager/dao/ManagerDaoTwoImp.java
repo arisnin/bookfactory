@@ -142,9 +142,9 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 	
 	// ------------member------------------
 	@Override
-	public int memberCount() {
+	public int memberCount(String searchWord) {
 
-		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.count");
+		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.count",searchWord);
 	}
 	
 
@@ -155,6 +155,15 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		map.put("endRow", endRow);
 		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.list", map);
 	}
+	@Override
+	public List<MemberDto> memberSearchList(String searchWord, int starRow, int endRow) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", starRow);
+		map.put("endRow", endRow);
+		map.put("searchWord", searchWord);
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.searchList", map);
+	}
+	
 
 	@Override
 	public MemberDto register(String id) {
@@ -192,6 +201,12 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		
 		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.payDetail",map);
 	}
+	@Override
+	public ManagerCashDto selectPay(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.selectPay",id);
+	}
+	
 	@Override
 	public List<ManagerChargeDto> chargeDetail(int startRow, int endRow, String id) {
 		Map<String,Object> map = new HashMap<String, Object>();
