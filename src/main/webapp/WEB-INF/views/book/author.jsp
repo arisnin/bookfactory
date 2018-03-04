@@ -212,6 +212,10 @@
 		Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
 			e.click();
 		});
+		
+		function profilUpdate(root, author_num){
+			window.open(root+"/authorProfilUpdate.do?author_num="+author_num, 'update', 'top=100px, left=100px, height=450px, width=370px');
+		}
 	</script>
 </body>
 </html>
