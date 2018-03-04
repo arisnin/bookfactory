@@ -14,6 +14,12 @@
 <link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/book/plus.css" rel="stylesheet" type="text/css">
 <link href="${root}/css/book/author.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+	//안막으면 이동시 에러남
+	$(function(){
+		$(".hw_sub_wrap").hide();
+	});
+</script>
 </head>
 <body>
 	<c:set var="anum" value="${param.anum == null ? 0 : param.anum}"/>

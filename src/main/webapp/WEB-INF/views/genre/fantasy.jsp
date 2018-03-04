@@ -61,7 +61,7 @@
 						<img src="${one.img_path}" onclick="location.href='${root}/detail.do?book_num=${one.book_num}'">
 					</div>
 					<div class="list_book" onclick="location.href='${root}/detail.do?book_num=${one.book_num}'">${one.bookName}</div>
-					<div class="list0_author" onclick="location.href='${root}/author.do?author_num=${one.author_num}'">${one.authorName}</div>
+					<div class="list0_author" onclick="authorDetailHref('${root}','${one.author_num}')">${one.authorName}</div>
 					<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${one.star_point})"></span>
 					<div class="content-star-rate">
 						<!-- 별이 들어가는 처음 두개의 span 사이에는 공백이 들어가면 안됨-->
@@ -79,7 +79,7 @@
 						<img src="${best.img_path}" onclick="location.href='${root}/detail.do?book_num=${best.book_num}'">
 					</div>
 					<div class="list0_book" onclick="location.href='${root}/detail.do?book_num=${best.book_num}'">${best.bookName}</div>
-					<div class="list0_author" onclick="location.href='${root}/author.do?author_num=${best.author_num}'">${best.authorName}</div>
+					<div class="list0_author" onclick="authorDetailHref('${root}','${best.author_num}')">${best.authorName}</div>
 					<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${best.star_point})"></span>
 					<div class="content-star-rate">
 						<!-- 별이 들어가는 처음 두개의 span 사이에는 공백이 들어가면 안됨-->

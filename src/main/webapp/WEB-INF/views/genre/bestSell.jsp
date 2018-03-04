@@ -72,7 +72,7 @@
 							<h3 class="book-metadata-text" onclick="location.href='${root}/detail.do?book_num=${best.book_num}'">${best.bookName}</h3>
 							<c:if test="${best.author_num!=0}">
 								<p class="book-metadata-author">
-									<a class="" href="${root}/author.do?author_num=${best.author_num}">${best.authorName}</a>
+									<a class="" onclick="authorDetailHref('${root}','${best.author_num}')">${best.authorName}</a>
 								</p>							
 							</c:if>
 							<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${best.star_point})"></span>

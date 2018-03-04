@@ -289,13 +289,17 @@
 	</select>
 	
 	<select id="getRandomBookNum" parameterType="int" resultType="int">
-		SELECT b.book_num                                
-		from (SELECT b.book_num, ROWNUM r
-		      from  bookm b, book_category c, first_cate f
-		      WHERE b.book_num=c.book_num
-		      AND c.cate1_num=f.num
-		      AND f.num=#{f_num}
-		      ORDER BY dbms_random.RANDOM ) b
-		where b.r=1
+		<![CDATA[
+		select *
+		from(SELECT b.*, rownum rn                               
+			from (SELECT b.book_num, ROWNUM r
+			      from  bookm b, book_category c, first_cate f
+			      WHERE b.book_num=c.book_num
+			      AND c.cate1_num=f.num
+			      AND f.num=#{f_num}
+			      ORDER BY dbms_random.RANDOM ) b
+			where b.r<=40) c
+		where c.rn=1
+		]]>
 	</select>
 </mapper>

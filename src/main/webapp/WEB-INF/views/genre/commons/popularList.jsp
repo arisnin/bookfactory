@@ -40,16 +40,15 @@
 			<div class="popular-list" id="popular-list">
 				<ul id="popular-ul" class="popular-ul" style="top: 0px">
 					<c:forEach items="${pop}" var="popular">
-						<li class="popular-li"
-							onclick="location.href='/bookFactory/detail.do?book_num=${popular.book_num}'"><h3
-								class="popular-list-title">${popular.bookName}</h3>
+						<li class="popular-li" onclick="location.href='/bookFactory/detail.do?book_num=${popular.book_num}'">
+							<h3 class="popular-list-title">${popular.bookName}</h3>
 							<p class="popular-list-description">
-								<span style="float: left;">
+								<span style="float: left;" onclick="authorDetailHref('${root}','${popular.author_num}')">
 									<c:if test="${popular.author_num!=0}">
 										${popular.authorName}
 									</c:if>
-								</span><span
-									style="float: right;">${popular.thirdCate}</span>
+								</span>
+								<span style="float: right;">${popular.thirdCate}</span>
 							</p>
 							<div class="popular-thumbnail">
 								<img alt="img"

@@ -74,21 +74,21 @@
 						<!-- 필요없는 경우는 class 속성에 'hidden-block' 을 추가 -->
 						<c:choose>
 							<c:when test="${(detailDto.author_num==detailDto.illu_num) && detailDto.author_num!=0 && detailDto.illu_num!=0}">
-								<span class="author illustrator"><a href="${root}/author.do?${detailDto.author_num}">${auDto.name}</a></span> 
+								<span class="author illustrator"><a onclick="authorDetailHref('${root}','${detailDto.author_num}')">${auDto.name}</a></span> 
 							</c:when>
 							
 							<c:otherwise>
 								<c:if test="${detailDto.author_num!=0}">
-									<span class="author "><a href="${root}/author.do?${detailDto.author_num}">${auDto.name}</a></span> 
+									<span class="author "><a onclick="authorDetailHref('${root}','${detailDto.author_num}')">${auDto.name}</a></span> 
 								</c:if>
 								<c:if test="${detailDto.illu_num!=0}">
-									<span class="illustrator "><a href="${root}/author.do?${detailDto.illu_num}">${ilDto.name}</a></span>
+									<span class="illustrator "><a onclick="authorDetailHref('${root}','${detailDto.illu_num}')">${ilDto.name}</a></span>
 								</c:if>
 							</c:otherwise>
 						</c:choose>
 						
 						<c:if test="${detailDto.trans_num!=0}">
-							<span class="translator "><a href="${root}/author.do?${detailDto.trans_num}">${trDto.name}</a></span>
+							<span class="translator "><a onclick="authorDetailHref('${root}','${detailDto.trans_num}')">${trDto.name}</a></span>
 						</c:if>
 					</div>
 	
