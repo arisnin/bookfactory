@@ -44,6 +44,14 @@ public interface MainDao {
 
 	public List<Map<String, Object>> suggestKeyword(String keyword, String string);
 
+	public int selectCashAvailable(String id);
+
+	public int selectPointAvailable(String id);
+
+	public int selectPurchasedCount(String id);
+
+	public List<Map<String, Integer>> selectCartWishCount(String id);
+
 	public String getFirstCateName(String firstCate);
 
 	public int getEventCount(HashMap<String, Object> map);
@@ -53,4 +61,5 @@ public interface MainDao {
 	public EventDto getEventInfo(String num);
 
 	public int getRandomBookNum(int f_num);
+
 }

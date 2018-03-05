@@ -101,6 +101,26 @@ public class MainDaoImp implements MainDao {
 	}
 
 	@Override
+	public int selectCashAvailable(String id) {
+		return sqlSession.selectOne("com.bf.mapper.MyPageMapper." + "cash-select-available", id);		
+	}
+
+	@Override
+	public int selectPointAvailable(String id) {
+		return sqlSession.selectOne("com.bf.mapper.MyPageMapper." + "point-select-available", id);		
+	}
+
+	@Override
+	public int selectPurchasedCount(String id) {
+		return sqlSession.selectOne("com.bf.mapper.MyPageMapper." + "select-purchased-count", id);		
+	}
+
+	@Override
+	public List<Map<String, Integer>> selectCartWishCount(String id) {
+		return sqlSession.selectList(namespace + "select-cart-wish-count", id);
+	}
+
+	@Override
 	public int noticeMainCount() {
 		return sqlSession.selectOne(namespace + "noticeMainCount");
 	}
