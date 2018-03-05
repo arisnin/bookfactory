@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
 import com.bf.book.dto.HomeDto;
+import com.bf.main.dto.CategoryPageDto;
 import com.bf.member.model.User;
 import com.bf.order.dao.OrderDao;
 import com.bf.order.dto.OrderDto;
@@ -26,6 +27,30 @@ import com.bf.order.dto.OrderDto;
 public class OrderServiceImp implements OrderService {
 	@Autowired
 	private OrderDao orderDao;
+	
+	/*
+	 * 카트 구매 도서 목록(대여는 제외) - 수정버전(박성호)
+	 * @see com.bf.order.service.OrderService#getCart2(org.springframework.web.servlet.ModelAndView)
+	 */
+	@Override
+	public ModelAndView getCart2(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		
+		if (user == null) return mav;
+		
+		List<CategoryPageDto> purchaseList = orderDao.getCartPurchase(user.getUsername(), 0);
+		List<CategoryPageDto> rentalList = orderDao.getCartPurchase(user.getUsername(), 1);
+		
+		LogAspect.info("purchaseList:"+purchaseList.size());
+		LogAspect.info("rentalList:"+rentalList.size());
+		
+		mav.addObject("purchaseList", purchaseList);
+		mav.addObject("rentalList", rentalList);
+		
+		return mav;
+	}
 
 	@Override
 	public void cartWishList(ModelAndView mav) {

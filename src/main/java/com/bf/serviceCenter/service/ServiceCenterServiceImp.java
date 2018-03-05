@@ -69,6 +69,8 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		mav.addObject("count", count);
 		mav.addObject("infoList", infoList);		
 		
+		
+		
 		mav.setViewName("serviceCenter/information.solo");
 	}
 	
@@ -214,7 +216,7 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 			}
 		}
 		
-		User user = (User) request.getSession().getAttribute("userInfo");				
+		User user = (User) request.getSession().getAttribute("userInfo");
 	    boardContactDto.setId(user.getUsername());
 	    
 		boardContactDto.setWrite_date(new Date());		
@@ -263,8 +265,6 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 			LogAspect.info("1:1문의 내역 디티오 : : " + inquriyList.toString());
 		}
 		
-		
-		
 		mav.addObject("id", id);
 		
 		mav.addObject("inquriyList", inquriyList);
@@ -289,8 +289,7 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		mav.addObject("boardContactDto", boardContactDto);
 		
-		mav.setViewName("serviceCenter/inquriy_answer.solo");
-		
+		mav.setViewName("serviceCenter/inquriy_answer.solo");		
 	}
 
 
@@ -359,6 +358,17 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		List<BoardFrequencyDto> mainMany = serviceCenterDao.mainMany();
 		LogAspect.info("메인 / 자주 묻는 질문 확인 : " + mainMany.toString());
+		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+		
+		LogAspect.info("유저 확인 : " + id);
+		
+		mav.addObject("id", id);
 		
 		mav.addObject("mainNotice", mainNotice);
 		mav.addObject("mainMany", mainMany);

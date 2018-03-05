@@ -301,7 +301,7 @@ public class ManagerController {
 	@RequestMapping(value = "/statTotal.do", method = RequestMethod.GET)
 	public ModelAndView statTotal() {
 		ModelAndView mav = new ModelAndView("statistics/total.mg");
-		LogAspect.info("statTotal()");
+		managerService.statTotal(mav);
 		return mav;
 	}
 

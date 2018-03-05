@@ -28,7 +28,7 @@
 						tr.num "trans_num", tr.name "trans_name",
 						pub.pub_num, pub.NAME "pub_name",
 						tc.num "third_cate_num", tc.NAME "third_cate_name",
-						bm.intro, bm.discount, bm.discount2, bm.rental_period, bm.rental_price, bm.price,
+						bm.intro, bm.discount, bm.discount2, bm.rental_period, bm.rental_price, bm.price, bm.type
 						nvl(to_date(substr(write_date, 0, 13), 'YYYY"년" MM"월" DD"일"'), SYSDATE - 90) "write_date_idx"
 				FROM bookm bm, (
 					SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num

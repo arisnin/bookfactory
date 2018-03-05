@@ -79,7 +79,7 @@
 							<li>${cashDto.member_name}</li>
 							<li>${cashDto.cash_total }원</li>
 							<li>${cashDto.point_total }<br/>point</li>
-							<li><fmt:formatDate value="${cashDto.last_date }" pattern="yyyy-MM-dd"/></li>
+							<li><fmt:formatDate value="${cashDto.last_date }" pattern="yyyy-MM-dd"/><c:if test="${cashDto.last_date == null}">-</c:if> </li>
 							<li>쿠폰미구현</li>
 							<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/memberPayDetail.do?id=${cashDto.id}'">상세보기</button>	</li>
 							</ul>

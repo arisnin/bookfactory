@@ -179,14 +179,11 @@
 	background-color: #776bce16;
 }
 
-.pay_active {
-	color: white;
+.cart-content-menu li.rent_accept.active,
+.cart-content-menu li.pay_accept.active {
+	color: white !important;
 	background-color: #776bce;
-}
-
-.rent_active {
-	color: white;
-	background-color: #776bce;
+	
 }
 
 .cart_button_div {

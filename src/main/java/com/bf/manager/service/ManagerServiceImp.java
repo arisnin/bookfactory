@@ -341,13 +341,19 @@ public class ManagerServiceImp implements ManagerService {
 		BookDto bookDto = (BookDto) mav.getModelMap().get("bookDto");
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 
+		int cate1_num = Integer.parseInt(request.getParameter("cate1_num"));
+		int cate2_num = Integer.parseInt(request.getParameter("cate1_num"));
+		int cate3_num = Integer.parseInt(request.getParameter("cate1_num"));
+		LogAspect.info(LogAspect.logMsg +cate1_num + cate2_num + cate3_num);
+		
+		
+		
 		int check = managerDao.insertBook(bookDto);
 		
 		int currentNum = managerDao.getMaxBookNum();
 		String keyword_list = request.getParameter("keyword");
 		if(keyword_list != null) {
 			String[] keyword = keyword_list.split(",");
-			LogAspect.info(LogAspect.logMsg +keyword);
 			for(String key : keyword) {
 				int checkKey = managerDao.keyNameCheck(key);
 				
@@ -416,7 +422,8 @@ public class ManagerServiceImp implements ManagerService {
 				keyword += "," + key.getName();
 			}
 		}
-		
+		List<BookFirstCateDto> firstCateList = managerDao.getFirstCate();
+		mav.addObject("firstCateList", firstCateList);
 		mav.addObject("bookDto", bookDto);
 		mav.addObject("author", author);
 		mav.addObject("illustrator", illustrator);
@@ -431,6 +438,10 @@ public class ManagerServiceImp implements ManagerService {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		
 		LogAspect.info(LogAspect.logMsg+ bookDto);
+		int cate1_num = Integer.parseInt(request.getParameter("cate1_num"));
+		int cate2_num = Integer.parseInt(request.getParameter("cate1_num"));
+		int cate3_num = Integer.parseInt(request.getParameter("cate1_num"));
+		managerDao.insertBookCategoryOne(bookDto.getBook_num(),cate1_num,cate2_num,cate3_num);
 		
 		int check = managerDao.updateBook(bookDto);
 		
@@ -1502,6 +1513,22 @@ public class ManagerServiceImp implements ManagerService {
 		mav.addObject("count", count);
 		mav.addObject("authorEditList", authorEditList);
 		mav.addObject("condition", condition);
+	}
+
+	@Override
+	public void statTotal(ModelAndView mav) {
+		int ilban = managerDao.getStatTotalCount(1);
+		int romance = managerDao.getStatTotalCount(2);
+		int fantasy = managerDao.getStatTotalCount(3);
+		int manhwa = managerDao.getStatTotalCount(4);
+		int bl = managerDao.getStatTotalCount(5);
+		
+		mav.addObject("ilban", ilban);
+		mav.addObject("romance", romance);
+		mav.addObject("fantasy", fantasy);
+		mav.addObject("manhwa", manhwa);
+		mav.addObject("bl", bl);
+		
 	}
 
 	

@@ -22,11 +22,19 @@ import com.bf.order.service.OrderService;
 public class OrderController {
 	@Autowired
 	private OrderService orderService;
-
 	/**
 	 * 헤더 > 카트(cart.jsp 데이터 수집후 뿌리기)
 	 */
 	@RequestMapping(value = "/cart.do", method = RequestMethod.GET)
+	public ModelAndView cart2(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("cart():" + request.getHeader("referer"));
+		return orderService.getCart2(new ModelAndView("cart/cart.main").addObject("request", request));
+	}
+
+	/**
+	 * 헤더 > 카트(cart.jsp 데이터 수집후 뿌리기)
+	 */
+	@RequestMapping(value = "/cart2.do", method = RequestMethod.GET)
 	public ModelAndView cart(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("cart()");
 		request.getSession().setAttribute("userInfoId", "manager");

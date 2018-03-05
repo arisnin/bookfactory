@@ -13,7 +13,7 @@
    <select id="list" parameterType="java.util.Map" resultType="com.bf.manager.dto.MemberDto">
         <![CDATA[
         select * from (select rownum rnum, a.* from(
-            select * from member) a)
+            select * from member order by REGISTER_DATE desc) a)
             where rnum >=#{startRow} and rnum <=#{endRow}
     ]]>
    </select>
@@ -24,8 +24,8 @@
             where
             member.id like '%'||#{searchWord}||'%'
             and MEMBER.REGISTER_DATE BETWEEN #{startDate} and #{endDate}
-            ) a)
-            where rnum >=#{startRow} and rnum <=#{endRow}
+            order by MEMBER.REGISTER_DATE desc ) a)
+            where rnum between #{startRow} and #{endRow}
     ]]>
    </select>
    
