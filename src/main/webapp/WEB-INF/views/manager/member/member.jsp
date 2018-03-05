@@ -28,8 +28,6 @@
 								<li><span class="material-icons">search</span></li>
 								<li><input class="search-word" type="text" name="searchWord" placeholder="아이디를 입력하세요" value="${searchWord}"/></li>
 							</ul>
-							
-	
 						</div>
 						<div class="sh_member_date">
 							<ul>
