@@ -307,4 +307,12 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.selectList("getPopularListPaper",map);
 	}
 
+	public int insertAuthorEdit(int author_num, String content) {
+		// 염현우
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("author_num", author_num);
+		map.put("content", content);
+		return sqlSession.insert("com.bf.mapper.AuthorMapper.insertAuthorEdit",map);
+	}
+
 }

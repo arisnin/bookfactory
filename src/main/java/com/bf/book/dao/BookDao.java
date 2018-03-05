@@ -68,5 +68,7 @@ public interface BookDao {
 	List<CategoryPageDto> getAuthorBookList(int authorNum, int orderTypeNum, int startRow, int endRow);
 	int getAuthorBookCount(int authorNum);
 	List<HomeDto> getPopularListPaper(HashMap<String, Object> map);
+	//염현우
+	int insertAuthorEdit(int author_num, String content);
 
 }

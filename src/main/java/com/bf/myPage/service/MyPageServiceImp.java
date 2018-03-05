@@ -306,6 +306,10 @@ public class MyPageServiceImp implements MyPageService {
 		mav.setViewName("myPage/payment/myCashHistoryCashClick.my");
 	}
 
+	/**
+	 * 정호열(최초작성)
+	 * 박성호(1차수정) - selectCashAvailable(), selectPointAvailable(), selectPurchasedCount() 구현
+	 */
 	@Override
 	public void home(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -314,7 +318,7 @@ public class MyPageServiceImp implements MyPageService {
 		User user = (User) request.getSession().getAttribute("userInfo");
 		String id = user.getUsername();
 		
-		int total1 = myPageDao.selectCashAvailable(id);		
+		int total1 = myPageDao.selectCashAvailable(id);
 		int total2 = myPageDao.selectPointAvailable(id);
 		int extinction = myPageDao.myPointExtinctionSelect(id);
 		int total3 = myPageDao.selectPurchasedCount(id);

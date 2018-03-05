@@ -59,3 +59,12 @@
     border: 0.1px solid #D4CEFC;
     box-shadow: 1px 1px 1px 0px #D4CEFC;
 }
+
+/* 염현우 추가 */
+body > div > div > form > div.profile_ex.aut > h2{
+	color: #A59AF6;
+    text-align: left;
+    font-weight: 600;
+    line-height: 1.2rem;
+    margin-bottom: 0.4rem;
+}
