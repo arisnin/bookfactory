@@ -100,14 +100,19 @@ public class OrderDaoImp implements OrderDao {
 			map.put("rnum", rnum);
 			pointDto = sqlSession.selectOne("com.bf.mapper.OrderMapper.pointSelect", map);
 			System.out.println(pointDto.toString());
+			
 			map.put("remain", Math.abs(remain));
 			System.out.println(map.get("remain"));
+			
 			int check = sqlSession.update("com.bf.mapper.OrderMapper.updatePoint", map);
 			System.out.println(check);
+			
 			pointDto = sqlSession.selectOne("com.bf.mapper.OrderMapper.pointSelect", map);
 			System.out.println(pointDto.toString());
+			
 			remain = pointDto.getRemain();
 			System.out.println(remain);
+			
 			if (remain > 0)
 				break;
 			else

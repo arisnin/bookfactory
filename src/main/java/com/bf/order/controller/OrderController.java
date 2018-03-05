@@ -14,9 +14,9 @@ import com.bf.order.dto.OrderDto;
 import com.bf.order.service.OrderService;
 
 /**
- * @author	박성호
- * @date	2018. 2. 14.
- * @description	카트/위시리스트/구매 관련 컨트롤러
+ * @author 박성호
+ * @date 2018. 2. 14.
+ * @description 카트/위시리스트/구매 관련 컨트롤러
  */
 @Controller
 public class OrderController {
@@ -43,7 +43,7 @@ public class OrderController {
 		orderService.getCart(mav);
 		return mav;
 	}
-	
+
 	/**
 	 * 헤더 > 위시리스트
 	 */
@@ -75,13 +75,33 @@ public class OrderController {
 	@RequestMapping(value = "/orderOk.do", method = RequestMethod.GET)
 	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response, OrderDto orderDto) {
 		LogAspect.info("payment()");
+		LogAspect.info(orderDto.toString());
 		ModelAndView mav = new ModelAndView("order/orderOk.main");
+		System.out.println(request.getParameter("book_num"));
+		if (request.getParameter("bookList") != null) {
+			mav.addObject("bookList", request.getParameter("bookList"));
+		}else {
+			mav.addObject("book_num", request.getParameter("book_num"));
+		}
 		mav.addObject("request", request);
-//		LogAspect.info(orderDto.toString());
 		mav.addObject("orderDto", orderDto);
 		orderService.payment(mav);
 		return mav;
 	}
+
+	/**
+	 * 헤더 > 카트 > 구매 완료, 구매목록 추가(한권)
+	 */
+//	@RequestMapping(value = "/orderOk.do", method = RequestMethod.GET)
+//	public ModelAndView oneBook(HttpServletRequest request, HttpServletResponse response, OrderDto orderDto) {
+//		LogAspect.info("payment()");
+//		ModelAndView mav = new ModelAndView("order/orderOk.main");
+//		mav.addObject("request", request);
+//		// LogAspect.info(orderDto.toString());
+//		mav.addObject("orderDto", orderDto);
+//		orderService.payment(mav);
+//		return mav;
+//	}
 
 	/**
 	 * 선물 메인
@@ -124,9 +144,9 @@ public class OrderController {
 		orderService.cartWishList(mav);
 		return null;
 	}
-	
+
 	/**
-	 * 장바구니 비우기 
+	 * 장바구니 비우기
 	 */
 	@RequestMapping(value = "cart/cartDelete.do", method = RequestMethod.GET)
 	public ModelAndView cartDelete(HttpServletRequest request, HttpServletResponse response) {
@@ -136,7 +156,7 @@ public class OrderController {
 		orderService.cartDelete(mav);
 		return mav;
 	}
-	
+
 	/**
 	 * 장바구니 추가
 	 */
@@ -149,7 +169,7 @@ public class OrderController {
 		orderService.cartInsert(mav);
 		return null;
 	}
-	
+
 	/**
 	 * 위시리스트 추가
 	 */
@@ -162,6 +182,5 @@ public class OrderController {
 		orderService.wishListInsert(mav);
 		return null;
 	}
-	
-	
+
 }

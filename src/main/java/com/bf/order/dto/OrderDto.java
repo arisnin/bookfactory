@@ -23,6 +23,15 @@ public class OrderDto {
 	private String rental_state;
 	private int point;
 	private String cash_type;
+	private String state;
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 	public int getPoint_use() {
 		return point_use;

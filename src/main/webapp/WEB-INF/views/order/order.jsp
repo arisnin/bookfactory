@@ -30,8 +30,8 @@
 			<div class="order_header_content2">결제 목록</div>
 		</div>
 
-		<form>
-			<div class="order_content ">
+		<form method="get" action="${root}/orderOk.do">
+			<div class="order_content">
 				<c:forEach items="${aList}" var="list">
 					<div class="order_content_book_check cart_content_book">
 						<div class="float_left">
@@ -50,12 +50,16 @@
 									<c:if test="${list.rental_price!=0 || list.price!=0 }">
 										<span class="count_percent">10</span>
 									</c:if>
-									<input type="hidden" value="${list.price }" name="price">
+									<%-- 									<input type="hidden" value="${list.price }" name="price"> --%>
 								</div>
 							</div>
+								<input type="hidden" name="book_num" value="${list.book_num }" />
+								<c:if test="${bookList!=null}">
+									<input type="hidden" name="bookList" value="${bookList}"/>
+								</c:if>
 							<c:if test="${list.rental_period !='no'}">
-							<span class="rental-period"> <i class="material-icons">access_alarm</i>대여기간<strong>${list.rental_period}</strong>
-							</span> <input type="hidden" name="book_num" value="${list.book_num }" />
+								<span class="rental-period"> <i class="material-icons">access_alarm</i>대여기간<strong>${list.rental_period}</strong>
+								</span>
 							</c:if>
 						</div>
 					</div>
@@ -106,10 +110,9 @@
 				<div class="order_right_menu_count">
 					<span> 총 결재 금액<strong>${totalPrice}</strong>원
 
+					</span> <span> 적립 리디포인트 :<strong><fmt:formatNumber
+								pattern="#원" value="${totalPrice*0.01 }" var="fmtPrice" />${fmtPrice}</strong>(1%)
 					</span>
-						<span> 적립 리디포인트 :<strong><fmt:formatNumber
-									pattern="#원" value="${totalPrice*0.01 }" var="fmtPrice" />${fmtPrice}</strong>(1%)
-						</span>
 				</div>
 
 				<div class="order_right_menu_list">
@@ -220,9 +223,26 @@
 						</label>
 					</div>
 					<div style="text-align: center;">
+<!-- 						<button -->
+<!-- 							class="order_right_menu_paybutton bf-button bf-animated-btn" -->
+<%-- 							onsubmit="orderOkfun('${root}')">결제하기</button> --%>
 						<button
 							class="order_right_menu_paybutton bf-button bf-animated-btn"
-							onclick="javascript:location.href='${root}/orderOk.do'">결제하기</button>
+							>결제하기</button>
+						<script type="text/javascript">
+								function orderOkfun(root,book_num){
+									if("${alist.size()}"=="1"){
+										location.href=root+"/orderOk.do?book_num="+book_num
+									}else{
+										var bookL = document.getElementsByClassName("cart_content_book_content");
+										
+										for(var i = 0; i<bookL.length;i++){
+											alert(bookL[i].find("input [type='checkbox']").text());
+										}											
+										location.href=root+"/orderOk.do?bookList="+bookList; // 어제 시퀀스도 새로만들고 외래키도 확인했는데 자꾸 부모키가없다해서....
+									}
+								}
+							</script>
 					</div>
 					<div class="menu_notice_tip">
 						<ul>

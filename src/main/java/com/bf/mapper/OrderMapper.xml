@@ -97,11 +97,25 @@
 		values(cart_num_seq.nextval, #{id}, #{bookNum},'wish')
 	</insert>
 	<insert id="paymentInsert" parameterType="com.bf.order.dto.OrderDto">
-		insert into payment
-		values(payment_num_seq.nextval, #{order_num}, #{book_num}, #{price},
-		sysdate,
-		#{present_check},#{cancel_check},#{free_pass},#{id},#{pay_type},#{point_use},#{cash_use},sysdate+3,#{rental_state})
-	</insert>
+	insert into payment(NUM,
+	ORDER_NUM,
+	BOOK_NUM,
+	PRICE,
+	PAYMENT_DATE,
+	PRESENT_CHECK,
+	CANCEL_CHECK,
+	FREE_PASS,
+	ID,
+	PAY_TYPE,
+	POINT_USE,
+	CASH_USE,
+	RENTAL_DATE,
+	RENTAL_STATE,
+	STATE)
+	values(payment_num_seq.nextval, #{order_num}, #{book_num}, #{price},
+	sysdate,
+	#{present_check},#{cancel_check},#{free_pass},#{id},#{pay_type},#{point_use},#{cash_use},sysdate+3,#{rental_state},#{state})
+</insert>
 	<update id="updatePoint" parameterType="java.util.HashMap">
 		UPDATE point SET
 		remain=(remain-(#{remain})) WHERE num = (
