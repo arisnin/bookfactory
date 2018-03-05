@@ -4,7 +4,17 @@
 
 #notice {
 	font-size: 1rem;
-	width: 56.25rem;			
+	width: 56.25rem;
+	margin : 0px auto;			
+}
+
+#notice div:nth-child(1){
+	margin-bottom: 1rem;
+}
+
+#team2_index_body > div:nth-child(2){
+	margin : 0px auto;
+	margin-top : 2rem;
 }
 
 #notice > .notice_list ul, 

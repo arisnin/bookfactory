@@ -31,12 +31,14 @@ public class CategoryPageDto {
 	private String rental_period; //
 	private int rental_price; // 가격(대여)
 	private int price; // 가격(구매)
+	private String type; // 책 타입(종이책|전자책)
 
 	// Constructor
 	public CategoryPageDto() {
 	}
 
-	public CategoryPageDto(long book_num, String img_path, String book_name, int star_point, int star_count, long author_num, String author_name, long illur_num, String illur_name, long trans_num, String trans_name, long pub_num, String pub_name, int third_cate_num, String third_cate_name, String intro, double discount, double discount2, String rental_period, int rental_price, int price) {
+	public CategoryPageDto(long book_num, String img_path, String book_name, int star_point, int star_count, long author_num, String author_name, long illur_num, String illur_name, long trans_num, String trans_name, long pub_num, String pub_name, int third_cate_num, String third_cate_name, String intro, double discount, double discount2, String rental_period, int rental_price, int price, String type) {
+		super();
 		this.book_num = book_num;
 		this.img_path = img_path;
 		this.book_name = book_name;
@@ -58,6 +60,7 @@ public class CategoryPageDto {
 		this.rental_period = rental_period;
 		this.rental_price = rental_price;
 		this.price = price;
+		this.type = type;
 	}
 
 	// Getter & Setter
@@ -229,8 +232,16 @@ public class CategoryPageDto {
 		this.price = price;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
-		return "CategoryPageDto [book_num=" + book_num + ", img_path=" + img_path + ", book_name=" + book_name + ", star_point=" + star_point + ", star_count=" + star_count + ", author_num=" + author_num + ", author_name=" + author_name + ", illur_num=" + illur_num + ", illur_name=" + illur_name + ", trans_num=" + trans_num + ", trans_name=" + trans_name + ", pub_num=" + pub_num + ", pub_name=" + pub_name + ", third_cate_num=" + third_cate_num + ", third_cate_name=" + third_cate_name + ", intro=" + intro + ", discount=" + discount + ", discount2=" + discount2 + ", rental_period=" + rental_period + ", rental_price=" + rental_price + ", price=" + price + "]";
+		return "CategoryPageDto [book_num=" + book_num + ", img_path=" + img_path + ", book_name=" + book_name + ", star_point=" + star_point + ", star_count=" + star_count + ", author_num=" + author_num + ", author_name=" + author_name + ", illur_num=" + illur_num + ", illur_name=" + illur_name + ", trans_num=" + trans_num + ", trans_name=" + trans_name + ", pub_num=" + pub_num + ", pub_name=" + pub_name + ", third_cate_num=" + third_cate_num + ", third_cate_name=" + third_cate_name + ", intro=" + intro + ", discount=" + discount + ", discount2=" + discount2 + ", rental_period=" + rental_period + ", rental_price=" + rental_price + ", price=" + price + ", type=" + type + "]";
 	}
 }

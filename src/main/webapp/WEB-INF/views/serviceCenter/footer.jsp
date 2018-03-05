@@ -20,11 +20,13 @@
 			<div class="left">
 				<div class="row">
 					<span class="contact-number">1644-0331</span>
+					
 					<ul class="order-type-list">
 						<li><a href="${root }/serviceCenter/main.do">고객센터</a></li>
 						<li><a href="${root }/serviceCenter/manyque.do">자주 묻는 질문</a></li>
-						<li><a href="${root }/serviceCenter/FAQ.do">1:1 문의하기</a></li>
-						<c:if test="${user.id !=null }">
+						<li><a href="${root }/serviceCenter/FAQ.do">1:1 문의하기</a></li>						
+												
+						<c:if test="${id!=null}">							
 							<li><a href="${root}/member/logout.do">로그아웃</a></li>
 						</c:if>
 					</ul>

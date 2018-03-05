@@ -34,7 +34,7 @@ public interface MainService {
 
 	public void eventDetail(ModelAndView mav);
 
-	public void noticeList(ModelAndView mav);
+	public void noticeList(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
 
 

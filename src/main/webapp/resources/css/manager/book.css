@@ -293,5 +293,9 @@ input[type=file]{
 }
 
 #bookInsertForm > section > div.b_in_content > div:nth-child(6) > label:nth-child(1){
-	position: absolute;
+	/* position: absolute; */
+}
+
+#myDropdown{
+	z-index: 1000;
 }

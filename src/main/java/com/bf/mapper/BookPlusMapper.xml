@@ -28,7 +28,7 @@
 						tr.num "trans_num", tr.name "trans_name",
 						pub.pub_num, pub.NAME "pub_name",
 						tc.num "third_cate_num", tc.NAME "third_cate_name",
-						bm.intro, bm.discount, bm.discount2, bm.rental_period, bm.rental_price, bm.price,
+						bm.intro, bm.discount, bm.discount2, bm.rental_period, bm.rental_price, bm.price, bm.type
 						nvl(to_date(substr(write_date, 0, 13), 'YYYY"년" MM"월" DD"일"'), SYSDATE - 90) "write_date_idx"
 				FROM bookm bm, (
 					SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
@@ -598,10 +598,13 @@
 		where f_num=#{first}
 	</select>
 	
-	<select id="getTagListCount" parameterType="java.util.ArrayList" resultType="int">
+	<select id="getTagListCount" parameterType="java.util.HashMap" resultType="int">
 			SELECT nvl(count(DISTINCT b.book_num),0)
-			FROM bookm b, keyword_list l
+			FROM bookm b, keyword_list l, book_category c, first_cate f
 			WHERE b.book_num=l.book_num
+			and b.book_num=c.book_num
+			and c.cate1_num=f.num
+			and f.num=#{firstCateNum}
 			<foreach collection="list" item="tag" separator="" open="" close="">
            		and l.book_num in(SELECT DISTINCT book_num
                 FROM keyword_list
@@ -615,7 +618,7 @@
 			SELECT * 
 				FROM (
 				  SELECT b.img_path, A.NAME "authorName", b.NAME "bookName", p.pub_num, p.NAME "pub_name", b.book_num, b.price, b.TYPE, b.author_num, b.rental_price, nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count", b.intro ,ROWNUM r
-				  FROM bookm b, author A, publisher p, (
+				  FROM bookm b, author A, publisher p, book_category c, first_cate f, (
 				    SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
 				    FROM (
 				      SELECT rw.* FROM review rw, (
@@ -630,6 +633,9 @@
 				  WHERE b.author_num=A.num
 				  and b.book_num = rs.book_num(+)
 			      AND b.pub_num=p.pub_num
+			      and b.book_num=c.book_num
+				  and c.cate1_num=f.num
+				  and f.num=#{firstCateNum}
 			      and b.book_num in(SELECT DISTINCT b.book_num
 			                        FROM bookm b, keyword_list l
 			                        WHERE b.book_num=l.book_num

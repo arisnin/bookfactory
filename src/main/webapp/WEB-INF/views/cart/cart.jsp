@@ -1,5 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,24 +12,25 @@
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
-<body>
+<body>	
+	<c:set var="purchaseListSize" value="${purchaseList == null ? 0 : purchaseList.size()}" />
+	<c:set var="rentalListSize" value="${rentalList == null ? 0 : rentalList.size()}" />
 	<div id="cart_main">
 		<div class="bf-title-row title-type1">
 			<h2>카트</h2>
 		</div>
-
 		<div class="cart_content">
 			<!-- -------------------------------------- -->
 			<div>
-				<ul>
-					<li class="pay_accept pay_active">구매가능<span class="count">6</span></li>
-					<li class="rent_accept">대여가능<span class="count">0</span></li>
+				<ul class="cart-content-menu">
+					<li class="pay_accept active" onclick="purchaseRentalListToggle()">구매가능<span class="count">${purchaseListSize}</span></li>
+					<li class="rent_accept " onclick="purchaseRentalListToggle()">대여가능<span class="count">${rentalListSize}</span></li>
 				</ul>
 			</div>
 			<!-- -------------------------------------- -->
 			<div class="cart_content_select">
 				<div class="cart_content_sel_child">
-					<label class="bf-custom-checkbox"> <input type="checkbox" title="구매목록 책 전체선택"> <span class="all-mark"></span> <span class="checkbox-label">전체선택</span>
+					<label class="bf-custom-checkbox"> <input type="checkbox" title="구매목록 책 전체선택" checked="checked" onchange="updateTotalMenu()"><span class="all-mark"></span> <span class="checkbox-label">전체선택</span>
 					</label>
 				</div>
 				<div class="cart_content_sel_button">
@@ -37,51 +39,107 @@
 				</div>
 			</div>
 			<!-- -------------------------------------- -->
-			<c:if test="${listSize != 0 }">
-			<c:forEach items="${listCart}" var="cartList">
-				<div class="cart_content_book">
-					<div class="book-thumbnail">
-						<label class="bf-custom-checkbox cart_content_book_span"> <input type="checkbox"> <span class="all-mark"></span>
-						</label> <img class="cart_content_book_img" src="${cartList.img_path}">
-					</div>
-					<div class="cart_content_book_content">
-						<span id="${cartList.book_num}">${cartList.bookName}</span>
-						<br>
-						<div class="book-info"><span class="font_13">${cartList.authorName}</span></div>
-						<div class="float_right">
-							<span class="price">${cartList.price}</span>
-							<div>
-								<span class="dc-price">${cartList.rental_price}원</span>
-								<span class="count_percent">50</span>
-							</div>
+			<form id="cart-submit-form" action="#" method="get">
+			<c:if test="${purchaseListSize != 0 }">			
+				<!-- 구매 목록 -->
+				<div id="purchase-list-box">
+				<c:forEach items="${purchaseList}" var="cartList" varStatus="status">				
+					<div class="cart_content_book">
+						<div class="book-thumbnail">
+							<label class="bf-custom-checkbox cart_content_book_span"> <input name="bookList" type="checkbox" checked="checked" value="${cartList.book_num}" onchange="updateTotalMenu()" /> <span class="all-mark"></span>
+							</label> <img class="cart_content_book_img" src="${cartList.img_path}">
 						</div>
-						<br>
-						<button class="bf-button bf-white-btn">위시리스트로 이동</button>
-						<button class="bf-button bf-white-btn">삭제</button>
+						<div class="cart_content_book_content">
+							<span id="${cartList.book_num}">${cartList.book_name}</span>
+							<br>
+							<div class="book-info">
+								<span class="font_13">${cartList.author_name}</span>
+							</div>
+							<div class="float_right">
+								<!-- 구매 도서 장바구니 출력 수정(2018-03-05 박성호) -->
+								<!-- 확인용 히든 -->
+								<fmt:formatNumber var="discount" value="${cartList.discount}" pattern="###" />
+								<fmt:formatNumber var="discount2" value="${cartList.discount2}" pattern="###" />
+								<!-- 전자책 정가 = price * discount -->
+								<c:set var="price" value="${cartList.price * (100 - discount) / 100}" />
+								<fmt:formatNumber var="price" value="${price + (100 - (price % 100)) % 100}" pattern="###" />
+								<span class="price" data-price="${price}">
+									<fmt:formatNumber value="${price}" type="number" />
+									원
+								</span>
+								<div class="dc-price-box">
+									<!-- 판매가 = 전자책 정가 * discount2 -->
+									<c:set var="price" value="${price * (100 - discount2) / 100}" />
+									<fmt:formatNumber var="price" value="${price + (100 - (price % 100)) % 100}" pattern="###" />
+									<span class="dc-price" data-dc-price="${price}">
+										<fmt:formatNumber value="${price}" type="number" />
+										원
+									</span>
+									<span class="count_percent ${discount2 == 0 ? 'no-discount' : ''}" data-discount="${discount2}">${discount2 == 0 ? '' : discount2}</span>
+								</div>
+							</div>
+							<br>
+							<button class="bf-button bf-white-btn">위시리스트로 이동</button>
+							<button class="bf-button bf-white-btn">삭제</button>
+						</div>
 					</div>
+				</c:forEach>
 				</div>
-			</c:forEach>
-				<script type="text/javascript">
-				function CartList(root){
-					var bookList ="";
-					var bookSize = document.getElementsByClassName("cart_content_book").length;
-					for (var i = 0; i < bookSize; i++) {
-					var bookNum = document.getElementsByClassName("cart_content_book_content")[i].children[0].getAttribute("id");
-						bookList += bookNum+","
-					}
-					location.href=root+"/order.do?bookList="+bookList
-				}
-				</script>
-						</c:if>
+				<!-- 대여 목록 -->
+				<div id="rental-list-box" class="hidden-block">
+				<c:forEach items="${rentalList}" var="cartList" varStatus="status">		
+					<div class="cart_content_book">
+						<div class="book-thumbnail">
+							<label class="bf-custom-checkbox cart_content_book_span"> <input name="bookList" type="checkbox" disabled="disabled" value="${cartList.book_num}" checked="checked" onchange="updateTotalMenu()" /> <span class="all-mark"></span>
+							</label> <img class="cart_content_book_img" src="${cartList.img_path}">
+						</div>
+						<div class="cart_content_book_content">
+							<span id="${cartList.book_num}">${cartList.book_name}</span>
+							<br>
+							<div class="book-info">
+								<span class="font_13">${cartList.author_name}</span>
+							</div>
+							<div class="float_right">
+								<!-- 구매 도서 장바구니 출력 수정(2018-03-05 박성호) -->
+								<!-- 확인용 히든 -->
+								<fmt:formatNumber var="discount" value="${cartList.discount}" pattern="###" />
+								<fmt:formatNumber var="discount2" value="${cartList.discount2}" pattern="###" />
+								<!-- 전자책 정가 = price * discount -->
+								<c:set var="price" value="${cartList.price * (100 - discount) / 100}" />
+								<fmt:formatNumber var="price" value="${price + (100 - (price % 100)) % 100}" pattern="###" />
+								<span class="price" data-price="${price}">
+									<fmt:formatNumber value="${price}" type="number" />
+									원
+								</span>
+								<div class="dc-price-box">
+									<!-- 판매가 = 전자책 정가 * discount2 -->
+									<c:set var="price" value="${price * (100 - discount2) / 100}" />
+									<fmt:formatNumber var="price" value="${price + (100 - (price % 100)) % 100}" pattern="###" />
+									<span class="dc-price" data-dc-price="${price}">
+										<fmt:formatNumber value="${price}" type="number" />
+										원
+									</span>
+									<span class="count_percent ${discount2 == 0 ? 'no-discount' : ''}" data-discount="${discount2}">${discount2 == 0 ? '' : discount2}</span>
+								</div>
+							</div>
+							<br>
+							<button class="bf-button bf-white-btn">위시리스트로 이동</button>
+							<button class="bf-button bf-white-btn">삭제</button>
+						</div>
+					</div>
+				</c:forEach>
+				</div>
+			</c:if>
+			</form>
 			<!-- -------------------------------------- -->
-						<c:if test="${listSize==0 }">
-							<div class="cart_content_book cart_content_book_no">대여 할수 있는 책이 없습니다.</div>
-						</c:if>
+			<c:if test="${purchaseListSize == 0}">
+				<div class="cart_content_book cart_content_book_no">대여 할수 있는 책이 없습니다.</div>
+			</c:if>
 
 			<div class="cart_content_select">
 				<div class="float_left">
 					<div class="cart_content_sel_child">
-						<label class="bf-custom-checkbox"> <input type="checkbox" title="구매목록 책 전체선택"> <span class="all-mark"></span> <span class="checkbox-label">전체선택</span>
+						<label class="bf-custom-checkbox"> <input type="checkbox" title="구매목록 책 전체선택" checked="checked" onchange="updateTotalMenu()"> <span class="all-mark"></span> <span class="checkbox-label">전체선택</span>
 						</label>
 					</div>
 				</div>
@@ -92,41 +150,82 @@
 			</div>
 		</div>
 
-		<div class="cart_right_menu">
+		<div class="cart_right_menu" id="cart-total-menu">
 			<div class="cart_right_menu_content">
 				<span class="icon-ok-circled"></span>
-				<label>총 <strong>${listSize}권</strong>을 선택하셨습니다.
+				<label class="total-menu-title">총 <strong>${purchaseListSize}권</strong>을 선택하셨습니다.
 				</label>
 			</div>
 			<div class="cart_right_menu_content">
 				<span>총 상품금액</span>
 				<span class="float_right">0원</span>
 			</div>
-			<script type="text/javascript">
-				$(function(){
-					var abc = "";
-					$(".cart_content_book").each(function(){
-						abc = $(".float_right > .price").text();												
-					});				
-					alert(abc);
-// 					alert($(".cart_right_menu_content:nth-child(2)").find("span").last().text(abc+"원"));
-				});
-			</script>
 			<div class="cart_right_menu_content">
 				<span>할인 가격</span>
-				<span class="float_right">${accountPrice}</span>
+				<span class="float_right">0원</span>
 			</div>
 
 			<div class="cart_right_menu_content cart_right_menu_count">
 				<span>합계</span>
-				<span class="float_right">${totalPrice-accountPrice}원</span>
+				<span class="float_right">0원</span>
 			</div>
 
 			<div class="cart_button_div">
-				<button class="order_right_menu_paybutton bf-button bf-animated-btn" onclick="CartList('${root}')">선택대여하기</button>
+				<button type="submit" class="order_right_menu_paybutton bf-button bf-animated-btn" onclick="CartList('${root}')">선택대여하기</button>
 			</div>
 		</div>
 	</div>
-<script type="text/javascript" src="${root}/script/cart/cart.js"></script>
+	<!-- JavaScript -->
+	<script type="text/javascript" src="${root}/script/cart/cart.js"></script>
+	<script type="text/javascript">
+		function CartList(root) {
+			var cartForm = document.getElementById("cart-submit-form");
+			var bookList = "";
+			
+			Array.prototype.forEach.call(cartForm.querySelectorAll("input[type=checkbox]"), function(e,i) {
+				if (e.checked && !e.disabled) {
+					bookList += e.value + ",";
+				}
+			});
+			
+			if (bookList == "") alert('구매할 도서를 한 개 이상 선택해 주세요');
+			location.href=root+"/order.do?bookList="+bookList;
+		}
+		
+		updateTotalMenu();
+		
+		function purchaseRentalListToggle() {
+			var pl = document.getElementById("purchase-list-box");
+			var rl = document.getElementById("rental-list-box");
+			
+			// 클래스가 추가되면 true, 삭제되면 false
+			var pFlag = pl.classList.toggle("hidden-block");
+			var rFlag = rl.classList.toggle("hidden-block");
+			
+			// 구매 목록
+			Array.prototype.forEach.call(pl.querySelectorAll("input[type=checkbox]"), function(e,i) {
+				if (pFlag) {
+					e.setAttribute("disabled", "disabled");
+				} else {
+					e.removeAttribute("disabled");					
+				}
+			});
+			
+			// 대여 목록
+			Array.prototype.forEach.call(rl.querySelectorAll("input[type=checkbox]"), function(e,i) {
+				if (rFlag) {
+					e.setAttribute("disabled", "disabled");
+				} else {
+					e.removeAttribute("disabled");
+				}
+			});
+			
+			var menu = document.querySelectorAll(".cart-content-menu li");
+			menu[0].classList.toggle("active");
+			menu[1].classList.toggle("active");c
+			
+			updateTotalMenu();
+		}
+	</script>
 </body>
 </html>

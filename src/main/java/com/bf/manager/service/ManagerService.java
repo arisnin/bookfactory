@@ -95,5 +95,7 @@ public interface ManagerService {
 
 	public void manager(ModelAndView mav);
 
+	public void statTotal(ModelAndView mav);
+
 	
 }

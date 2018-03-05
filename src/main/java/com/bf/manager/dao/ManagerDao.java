@@ -181,4 +181,8 @@ public interface ManagerDao {
 
 	public int getSaleCount();
 
+	public int getStatTotalCount(int i);
+
+	public void insertBookCategoryOne(int book_num, int cate1_num, int cate2_num, int cate3_num);
+
 }

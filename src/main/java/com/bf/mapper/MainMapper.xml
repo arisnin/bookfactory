@@ -309,11 +309,11 @@
 		]]>
 	</select>
 	
-	<select id="noticeMini" parameterType="int" resultType="com.bf.main.dto.NoticeDto">
+	<select id="noticeMini" parameterType="int" resultType="HashMap">
 		<![CDATA[
-			select * from(
+			select b.num "num", b.title "title" from(
 				select rownum rnum, a.* from(
-					select * from notice order by num desc) a)
+					select * from notice order by num desc) a) b
 			where rnum >=1 and rnum <=3
 		]]>	
 	</select>
