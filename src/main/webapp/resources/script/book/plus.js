@@ -54,8 +54,8 @@ $(document).ready(function(){
 //		$(this).addClass("activeFont");
 //	});
 	
-	//홈, 신간, 베스트셀러 숨기는 이벤트
-	$(".hw_sub_wrap").hide();
+//	//홈, 신간, 베스트셀러 숨기는 이벤트
+//	$(".hw_sub_wrap").hide();
 	
 	//실험용
 //	$(".profile_ex > .author").click(function(){

@@ -8,6 +8,7 @@
 <link href="${root}/css/basic/reset.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/navigation.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
 	<div id="bf-myridi-container" class="wrap-container">

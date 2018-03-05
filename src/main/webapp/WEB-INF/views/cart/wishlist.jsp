@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/cart/wishlist.css">
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/cart/cart.js"></script>
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$(".cart_content input[type='checkbox']").each(function() {

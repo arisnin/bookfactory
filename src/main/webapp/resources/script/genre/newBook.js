@@ -2,6 +2,8 @@
  * 신간, 베스트셀러에 적용되는 이벤트입니다.
  */
 $(function(){
+	$(".hw_sub_wrap").show();
+	
 	$("#newBook .view-type-list > button:eq(0)").click(function(){
 		//alert("불럼");
 		$("#newBook .view-type-list > button:eq(1)").removeClass();
