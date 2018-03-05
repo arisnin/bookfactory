@@ -33,7 +33,6 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 
 		return sqlSession.insert("com.bf.manager.ManagerboardMapper.InsertOk", boardFreDto);
 	}
-
 	@Override
 	public int BoardfileInsertOk(BoardFrequencyDto boardFreDto) {
 		// TODO Auto-generated method stub
@@ -126,6 +125,7 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 
 		return sqlSession.selectOne("com.bf.manager.ManagerboardMapper.catelist", map);
 	}
+	
 
 	@Override
 	public int fileboardUpdateOk(BoardFrequencyDto boardFrequencyDto) {
