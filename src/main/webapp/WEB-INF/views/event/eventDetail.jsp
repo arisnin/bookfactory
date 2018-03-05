@@ -12,8 +12,7 @@
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript">
 $(function(){
-	$(".sub_cate_element > span").removeClass();
-	$(".hw_sub_cate li").eq(3).children("span").addClass("activeBar");
+	$(".hw_sub_wrap").hide();
 });
 </script>
 </head>

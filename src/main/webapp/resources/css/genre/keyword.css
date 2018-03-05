@@ -385,9 +385,14 @@
     padding: 0.4rem 0.5rem 0.25rem;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
+    cursor: text;
 }
 
 .keyword .bf-pagination > .bf-animated-btn li{
+	cursor: pointer;
+}
+
+.book-metadata-author > a{
 	cursor: pointer;
 }
 

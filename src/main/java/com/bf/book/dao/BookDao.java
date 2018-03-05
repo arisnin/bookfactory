@@ -36,7 +36,7 @@ public interface BookDao {
 	HomeDto getRecomList(int randomBookNum);
 	List<Integer> getRandomBookNum(int firstCate);
 	int getBookSecondCate(int firstCate);
-	List<Integer> getPaperRandomBookNum(HashMap<String, Integer> map);
+	List<Integer> getPaperRandomBookNum(HashMap<String, Object> map);
 	List<HomeDto> getPaperHomeBookInfoList(HashMap<String, Integer> map);
 	int getPaperNewBookCount(HashMap<String, String> cateMap);
 	List<NewBookDto> getPaperNewBookList(HashMap<String, String> cateMap);
@@ -62,11 +62,11 @@ public interface BookDao {
 	int getBestSellerWeekCount(HashMap<String, Object> pMap);
 	int getBestSellerMonthCount(HashMap<String, Object> pMap);
 	int getBestSellerSteadyCount(HashMap<String, Object> pMap);
-	List<HomeDto> getPopularList(HashMap<String, Integer> map);
 	List<HomeDto> getBestSellerWeekPaper(HashMap<String, Object> pMap);
 	int getFirstCateUseBookNum(String book_num);
 	ExampleDto getExample(int first);
 	List<CategoryPageDto> getAuthorBookList(int authorNum, int orderTypeNum, int startRow, int endRow);
 	int getAuthorBookCount(int authorNum);
+	List<HomeDto> getPopularListPaper(HashMap<String, Object> map);
 
 }

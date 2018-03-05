@@ -25,7 +25,6 @@
 	<input type="hidden" name="bookType" value="${bookType }"/>
 	<input type="hidden" name="seconCate" value="${seconCate }"/>
 	<input type="hidden" name="root" value="${root }"/>
-	<input type="hidden" name="rental" value="${rental }"/>
 	
 	<div id="newBook">
 		<div class="bf-title-row title-type1">
@@ -173,16 +172,13 @@
 				<input type="hidden" name="pageNumber" value="${pageNumber}" />
 				<input type="hidden" name="firstCateNum" value="${firstCate}" />
 				<input type="hidden" name="bestSeller" value="${bestSeller}" />
+				<input type="hidden" name="rental" value="${rental }"/>
 			</form>
 		</section>
 		<!-- End : result-search-book-box -->
 	</div>
 	
 	<script type="text/javascript">
-		/* Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
-			e.click();
-		}); */
-		
 		function newBookPageHref(pnum) {
 			var cateForm = document.getElementById("newbook-pagination-form");
 			cateForm.pageNumber.value = pnum;
