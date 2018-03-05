@@ -308,4 +308,14 @@
 		where c.rn=1
 		]]>
 	</select>
+	
+	<select id="noticeMini" parameterType="int" resultType="com.bf.main.dto.NoticeDto">
+		<![CDATA[
+			select * from(
+				select rownum rnum, a.* from(
+					select * from notice order by num desc) a)
+			where rnum >=1 and rnum <=3
+		]]>	
+	</select>
+	
 </mapper>

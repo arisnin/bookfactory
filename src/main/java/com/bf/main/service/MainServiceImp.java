@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tools.ant.filters.FixCrLfFilter.AddAsisRemove;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -416,6 +417,7 @@ public class MainServiceImp implements MainService {
 		
 		mav.setViewName("notice/main.solo");
 		
+		
 	}
 	
 	@Override
@@ -500,7 +502,27 @@ public class MainServiceImp implements MainService {
 		mav.addObject("dto", dto);
 		mav.addObject("random", random);
 	}
+
+	/**
+	 * @author : 김동환
+	 * @date : 2018. 3. 5.
+	 * comment : 공지사항 리스트 바뀌는것
+	 */
 	
-	
+	@Override
+	public void noticeList(ModelAndView mav) {
+		
+		
+		List<NoticeDto> noticeMini = mainDao.noticeMini();
+		
+		mav.addObject("noticeMini", noticeMini);
+		
+		mav.setViewName("footer/footer.solo");	
+		
+	}
+
+
+
+
 	
 }

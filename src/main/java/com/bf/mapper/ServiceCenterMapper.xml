@@ -93,71 +93,21 @@
 		select * from board_contact where num=#{num}
 	</select>
 	
+	
+	
 	<select id="idLoginMain" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
-		select * from board_frequency where category=1 order by num desc
+		select * from board_frequency where category=#{category} order by num desc
 	</select>
 	
 	<select id="idLoginSide" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
 		<![CDATA[
 			select * from(
 				select rownum rnum, a.* from(
-					select * from board_frequency where category=1 order by num desc) a)
+					select * from board_frequency where category=#{category} order by num desc) a)
 			where rnum >=1 and rnum <=10
 		]]>	
-	</select>
-	
-	<select id="payRefundMain" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
-		select * from board_frequency where category=2 order by num desc
-	</select>
-	
-	<select id="payRefundSide" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
-		<![CDATA[
-			select * from(
-				select rownum rnum, a.* from(
-					select * from board_frequency where category=2 order by num desc) a)
-			where rnum >=1 and rnum <=10
-		]]>	
-	</select>
-	
-	<select id="howUseMain" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
-		select * from board_frequency where category=3 order by num desc
 	</select>
 		
-	<select id="howUseSide" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
-		<![CDATA[
-			select * from(
-				select rownum rnum, a.* from(
-					select * from board_frequency where category=3 order by num desc) a)
-			where rnum >=1 and rnum <=10
-		]]>	
-	</select>
-	
-	<select id="errorUseMain" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
-		select * from board_frequency where category=4 order by num desc
-	</select>
-	
-	<select id="errorUseSide" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
-		<![CDATA[
-			select * from(
-				select rownum rnum, a.* from(
-					select * from board_frequency where category=4 order by num desc) a)
-			where rnum >=1 and rnum <=10
-		]]>	
-	</select>
-	
-	<select id="systemUpdateMain" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
-		select * from board_frequency where category=5 order by num desc
-	</select>
-	
-	<select id="systemUpdateSide" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
-		<![CDATA[
-			select * from(
-				select rownum rnum, a.* from(
-					select * from board_frequency where category=5 order by num desc) a)
-			where rnum >=1 and rnum <=10
-		]]>	
-	</select>
-	
 	<select id="categoryCount" resultType="int">
 		select count(*) from board_frequency where category=#{category}
 	</select>

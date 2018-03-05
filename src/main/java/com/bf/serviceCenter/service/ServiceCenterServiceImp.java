@@ -375,7 +375,8 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
-		List<BoardFrequencyDto> idLoginList = serviceCenterDao.idLoginMain();
+		int category = 1;
+		List<BoardFrequencyDto> idLoginList = serviceCenterDao.idLoginMain(category);
 		LogAspect.info("메인 화면 아래 아이디/로그인 : " + idLoginList.toString());
 		
 		mav.addObject("idLoginList", idLoginList);		
@@ -400,7 +401,7 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		
 		BoardFrequencyDto idLoginRead = serviceCenterDao.questionRead(num);
-		List<BoardFrequencyDto> idLoginSide = serviceCenterDao.idLoginSide();
+		List<BoardFrequencyDto> idLoginSide = serviceCenterDao.idLoginSide(category);
 		
 		
 		mav.addObject("idLoginRead", idLoginRead);
@@ -418,10 +419,11 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
-		List<BoardFrequencyDto> payRefundList = serviceCenterDao.payRefundMain();
-		LogAspect.info("메인 화면 아래 결제/환불 : " + payRefundList.toString());
+		int category = 2;
+		List<BoardFrequencyDto> idLoginList = serviceCenterDao.idLoginMain(category);
+		LogAspect.info("메인 화면 아래 결제/환불 : " + idLoginList.toString());
 		
-		mav.addObject("payRefundList", payRefundList);		
+		mav.addObject("payRefundList", idLoginList);		
 		
 		mav.setViewName("serviceCenter/pay_refund.solo");
 		
@@ -437,13 +439,15 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		int num = Integer.parseInt(request.getParameter("num"));		
 		LogAspect.info("아이디/로그인 넘버 확인 : " + num);
 		
-		BoardFrequencyDto payRefundRead = serviceCenterDao.questionRead(num);
-		List<BoardFrequencyDto> payRefundSide = serviceCenterDao.payRefundSide();
 		int category = 2;
 		int count = serviceCenterDao.categoryCount(category);
 		
+		BoardFrequencyDto payRefundRead = serviceCenterDao.questionRead(num);
+		List<BoardFrequencyDto> idLoginSide = serviceCenterDao.idLoginSide(category);
+		
+		
 		mav.addObject("payRefundRead", payRefundRead);
-		mav.addObject("payRefundSide", payRefundSide);
+		mav.addObject("payRefundSide", idLoginSide);
 		mav.addObject("count", count);
 		
 		mav.setViewName("serviceCenter/pay_refund_content.solo");
@@ -457,10 +461,12 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
-		List<BoardFrequencyDto> howUseList = serviceCenterDao.howUseMain();
-		LogAspect.info("이용문의 : " + howUseList.toString());
+		int category = 3;		
+		List<BoardFrequencyDto> idLoginList = serviceCenterDao.idLoginMain(category);
 		
-		mav.addObject("howUseList", howUseList);		
+		LogAspect.info("이용문의 : " + idLoginList.toString());
+		
+		mav.addObject("howUseList", idLoginList);		
 		
 		mav.setViewName("serviceCenter/how_use.solo");
 		
@@ -473,16 +479,18 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
+		int category = 3;
+		
 		int num = Integer.parseInt(request.getParameter("num"));		
 		LogAspect.info("이용문의 넘버 확인잉잉 : " + num);
 		
 		BoardFrequencyDto howUseRead = serviceCenterDao.questionRead(num);
-		List<BoardFrequencyDto> howUseSide = serviceCenterDao.howUseSide();
-		int category = 3;
+		List<BoardFrequencyDto> idLoginSide = serviceCenterDao.idLoginSide(category);
+		
 		int count = serviceCenterDao.categoryCount(category);
 		
 		mav.addObject("howUseRead", howUseRead);
-		mav.addObject("howUseSide", howUseSide);
+		mav.addObject("howUseSide", idLoginSide);
 		mav.addObject("count", count);
 		
 		mav.setViewName("serviceCenter/how_use_content.solo");
@@ -495,11 +503,13 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		Map<String, Object> map = mav.getModelMap();
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		int category = 4;
 		
-		List<BoardFrequencyDto> errorUseList = serviceCenterDao.errorUseMain();
-		LogAspect.info("오류 활용 : " + errorUseList.toString());
+		List<BoardFrequencyDto> idLoginList = serviceCenterDao.idLoginMain(category);
 		
-		mav.addObject("errorUseList", errorUseList);		
+		LogAspect.info("오류 활용 : " + idLoginList.toString());
+		
+		mav.addObject("errorUseList", idLoginList);		
 		
 		mav.setViewName("serviceCenter/error_use.solo");
 		
@@ -512,16 +522,17 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
+		int category = 4;
 		int num = Integer.parseInt(request.getParameter("num"));		
 		LogAspect.info("오류활용 넘버 확인 : " + num);
 		
 		BoardFrequencyDto errorUseRead = serviceCenterDao.questionRead(num);
-		List<BoardFrequencyDto> errorUseSide = serviceCenterDao.errorUseSide();
-		int category = 4;
+		List<BoardFrequencyDto> idLoginSide = serviceCenterDao.idLoginSide(category);
+		
 		int count = serviceCenterDao.categoryCount(category);
 		
 		mav.addObject("errorUseRead", errorUseRead);
-		mav.addObject("errorUseSide", errorUseSide);
+		mav.addObject("errorUseSide", idLoginSide);
 		mav.addObject("count", count);
 		
 		mav.setViewName("serviceCenter/error_use_content.solo");
@@ -535,10 +546,12 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
-		List<BoardFrequencyDto> systemUpdateList = serviceCenterDao.systemUpdateMain();
-		LogAspect.info("시스템 업데이트  : " + systemUpdateList.toString());
+		int category = 5;
 		
-		mav.addObject("systemUpdateList", systemUpdateList);		
+		List<BoardFrequencyDto> idLoginList = serviceCenterDao.idLoginMain(category);
+		LogAspect.info("시스템 업데이트  : " + idLoginList.toString());
+		
+		mav.addObject("systemUpdateList", idLoginList);		
 		
 		mav.setViewName("serviceCenter/system_update.solo");
 		
@@ -551,16 +564,18 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
+		
+		int category = 5;
 		int num = Integer.parseInt(request.getParameter("num"));		
 		LogAspect.info("시스템 업뎃 넘버 화긴확인 : " + num);
 		
 		BoardFrequencyDto systemUpdateRead = serviceCenterDao.questionRead(num);
-		List<BoardFrequencyDto> systemUpdateSide = serviceCenterDao.systemUpdateSide();
-		int category = 5;
+		List<BoardFrequencyDto> idLoginSide = serviceCenterDao.idLoginSide(category);
+		
 		int count = serviceCenterDao.categoryCount(category);
 		
 		mav.addObject("systemUpdateRead", systemUpdateRead);
-		mav.addObject("systemUpdateSide", systemUpdateSide);
+		mav.addObject("systemUpdateSide", idLoginSide);
 		mav.addObject("count", count);
 		
 		mav.setViewName("serviceCenter/system_update_content.solo");
