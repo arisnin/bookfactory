@@ -565,7 +565,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		int currentPage = Integer.parseInt(pageNumber);
 
 		int starRow = (currentPage - 1) * boardSize + 1;
-		int endRow = currentPage * boardSize + 1;
+		int endRow = currentPage * boardSize;
 
 		int count = 0;
 
@@ -585,7 +585,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		mav.addObject("searchWord", searchWord);
 		mav.addObject("startDate", startDate);
 		mav.addObject("endDate", endDate);
-		mav.addObject("memberDto", memberDtoList);
+		mav.addObject("memberDtoList", memberDtoList);
 		mav.addObject("pageNumber", currentPage);
 		mav.addObject("count", count);
 		mav.addObject("boardSize", boardSize);
