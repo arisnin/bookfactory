@@ -438,11 +438,15 @@ public class ManagerServiceImp implements ManagerService {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		
 		LogAspect.info(LogAspect.logMsg+ bookDto);
-		int cate1_num = Integer.parseInt(request.getParameter("cate1_num"));
-		int cate2_num = Integer.parseInt(request.getParameter("cate1_num"));
-		int cate3_num = Integer.parseInt(request.getParameter("cate1_num"));
-		managerDao.insertBookCategoryOne(bookDto.getBook_num(),cate1_num,cate2_num,cate3_num);
-		
+		if(request.getParameter("cate1_num") != null) {
+			managerDao.deleteBookCategory(bookDto.getBook_num());
+			int cate1_num = Integer.parseInt(request.getParameter("cate1_num"));
+			int cate2_num = Integer.parseInt(request.getParameter("cate2_num"));
+			int cate3_num = Integer.parseInt(request.getParameter("cate3_num"));
+			
+			managerDao.insertBookCategoryOne(bookDto.getBook_num(),cate1_num,cate2_num,cate3_num);
+			
+		}
 		int check = managerDao.updateBook(bookDto);
 		
 		String keyword_list = request.getParameter("keyword");

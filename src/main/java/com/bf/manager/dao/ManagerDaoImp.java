@@ -531,4 +531,10 @@ public class ManagerDaoImp implements ManagerDao {
 		sqlSession.insert("com.bf.mapper.BookMapper.insertBookCategoryOne",map);
 	}
 	
+	@Override
+	public void deleteBookCategory(int book_num) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

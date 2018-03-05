@@ -185,4 +185,6 @@ public interface ManagerDao {
 
 	public void insertBookCategoryOne(int book_num, int cate1_num, int cate2_num, int cate3_num);
 
+	public void deleteBookCategory(int book_num);
+
 }
