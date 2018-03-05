@@ -82,6 +82,10 @@
 		select count(*) from author where name=#{name}
 	</select>
 	
+	<insert id="insertAuthorEdit" parameterType="java.util.HashMap">
+		insert into AUTHOREDIT values(AUTHOREDIT_NUM_SEQ.nextval,#{author_num},#{content},'no',sysdate)
+	</insert>
+	
 </mapper>
 
 

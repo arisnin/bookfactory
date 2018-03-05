@@ -68,5 +68,8 @@ public interface BookDao {
 	ExampleDto getExample(int first);
 	List<CategoryPageDto> getAuthorBookList(int authorNum, int orderTypeNum, int startRow, int endRow);
 	int getAuthorBookCount(int authorNum);
+	
+	//염현우
+	int insertAuthorEdit(int author_num, String content);
 
 }

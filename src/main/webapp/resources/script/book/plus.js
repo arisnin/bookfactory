@@ -66,5 +66,5 @@ $(document).ready(function(){
 });
 
 function profilUpdate(root, author_num){
-	window.open(root+"/authorProfilUpdate.do?author_num="+author_num, 'update', 'top=100px, left=100px, height=450px, width=370px');
+	window.open(root+"/authorProfilUpdate.do?author_num="+author_num, 'update', 'top=100px, left=100px, height=500px, width=370px');
 }

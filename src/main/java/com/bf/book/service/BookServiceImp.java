@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -818,6 +819,45 @@ public class BookServiceImp implements BookService {
 		mav.addObject("first", first);
 		mav.addObject("ex", ex);
 		
+	}
+
+	// 염현우 작가페이지 수정요청 삽입
+	@Override
+	public void authorProfilUpdateOk(ModelAndView mav) {
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		String content = "";
+		int author_num = Integer.parseInt(request.getParameter("author_num"));
+		String author_name = request.getParameter("author_name");
+		String author_contry = request.getParameter("author_contry");
+		String author_birth = request.getParameter("author_birth");
+		String author_edu = request.getParameter("author_edu");
+		String author_debut = request.getParameter("author_debut");
+		String author_career = request.getParameter("author_career");
+		String author_awards = request.getParameter("author_awards");
+		String author_link = request.getParameter("author_link");
+		
+		HashMap<String, String> map = new HashMap<String,String>();
+		map.put("작가이름", author_name);
+		map.put("국적", author_contry);
+		map.put("출생", author_birth);
+		map.put("학력", author_edu);
+		map.put("데뷔", author_debut);
+		map.put("경력", author_career);
+		map.put("수상", author_awards);
+		map.put("링크", author_link);
+		
+		Iterator<String> iter = map.keySet().iterator();
+		while(iter.hasNext()) {
+			String key = iter.next();
+			String value = map.get(key);
+			if(value != null && !value.equals("")) {
+				content += key + " : " + value + "<br>";
+			}
+		}
+		
+		int check = bookDao.insertAuthorEdit(author_num,content);
+		
+		mav.addObject("check", check);
 	}
 
 }
