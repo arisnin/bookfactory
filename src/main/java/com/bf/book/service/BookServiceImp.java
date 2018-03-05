@@ -338,6 +338,8 @@ public class BookServiceImp implements BookService {
 		}else if(firstCate==4) {
 			mav.setViewName("genre/comic.main");
 		}
+		
+		
 	}
 	
 	@Override

@@ -213,6 +213,19 @@ public class MainController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/notice/list.do" , method = RequestMethod.GET)
+	public ModelAndView noticeList(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("공지사항_리스트 바뀌는 작업");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("request", request);
+		
+		mainService.noticeList(mav);
+		
+		return mav;
+	}
 	
+
 	
 }

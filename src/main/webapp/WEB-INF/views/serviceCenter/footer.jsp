@@ -7,53 +7,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="root" value="${pageContext.request.contextPath}" scope="session" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="${root}/css/footer/footer.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/serviceCenter/footer.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/order/order.css" type="text/css" rel="stylesheet">
-<script type="text/javascript" src="${root }/script/notice/notice.js"></script>
 <%-- <script type="text/javascript" src="${root}/script/basic/jquery.js"></script> --%>
-<script type="text/javascript">
 
-	$(function() {
-		for (var i = 0; i < 100; i++) {
-			$(".footer_header_notice_change").delay(1000).animate({
-				top : "-=1rem"
-			}, 2000, function() {
-				$(".footer_header_notice_change").first().css("top", "2rem");
-			});
-			$(".footer_header_notice_change").delay(1000).animate({
-				top : "-=1rem"
-			}, 2000, function() {
-				$(".footer_header_notice_change").eq(1).css("top", "1rem");
-			});
-			$(".footer_header_notice_change").delay(1000).animate({
-				top : "-=1rem"
-			}, 2000, function() {
-				$(".footer_header_notice_change").eq(2).css("top", "0rem");
-			});
-		}
-	});
-</script>
 <title>Footer section</title>
 </head>
 <body>
 	<div class="footer_background">
-		<div class="footer_header">
-			<div class="footer_header_border">
-				<span class="footer_header_notice"><a href="${root }/notice/main.do">공지사항</a><i class="material-icons">play_arrow</i></span>
-				<div class="footer_haeder_notice_text">
-				
-					
-					
-					<ul>
-						<c:forEach var="noticeMiniDto" items="${noticeMini }">
-						<li class="footer_header_notice_change"><a href="javascript:readFun('${root}','${noticeMiniDto.num}')">${noticeMiniDto.title}</a></li>					
-						</c:forEach>						
-					</ul>
-					
-					
-				</div>
-			</div>
-		</div>
+		
 		<div class="footer-content">
 			<div class="left">
 				<div class="row">
@@ -62,6 +24,9 @@
 						<li><a href="${root }/serviceCenter/main.do">고객센터</a></li>
 						<li><a href="${root }/serviceCenter/manyque.do">자주 묻는 질문</a></li>
 						<li><a href="${root }/serviceCenter/FAQ.do">1:1 문의하기</a></li>
+						<c:if test="${user.id !=null }">
+							<li><a href="${root}/member/logout.do">로그아웃</a></li>
+						</c:if>
 					</ul>
 				</div>
 				<div class="row">
