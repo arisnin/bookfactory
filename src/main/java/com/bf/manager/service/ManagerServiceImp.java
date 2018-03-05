@@ -57,6 +57,25 @@ public class ManagerServiceImp implements ManagerService {
 
 	// Go 염현우
 	@Override
+	public void manager(ModelAndView mav) {
+		int bookCount = managerDao.getBookCount();
+		int authorCount = managerDao.getAuthorCount();
+		int pubCount = managerDao.getPublisherCount();
+		int memberCount = managerDao.getMemberCount();
+		int authorEditCount = managerDao.getAuthorEditCount();
+		int cateCount = managerDao.getCateThreeCount();
+		int saleCount = managerDao.getSaleCount();
+		
+		mav.addObject("saleCount", saleCount);
+		mav.addObject("cateCount", cateCount);
+		mav.addObject("authorEditCount", authorEditCount);
+		mav.addObject("memberCount", memberCount);
+		mav.addObject("bookCount", bookCount);
+		mav.addObject("authorCount", authorCount);
+		mav.addObject("pubCount", pubCount);
+	}
+	
+	@Override
 	public void bookCategoryOk(ModelAndView mav) {
 		//대분류 설정
 		int thae = managerDao.checkCateOne();

@@ -93,5 +93,7 @@ public interface ManagerService {
 
 	public void authorUpdateBoard(ModelAndView mav);
 
+	public void manager(ModelAndView mav);
+
 	
 }

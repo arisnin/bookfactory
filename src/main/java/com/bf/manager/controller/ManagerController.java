@@ -33,7 +33,7 @@ public class ManagerController {
 	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
 	public ModelAndView manager() {
 		ModelAndView mav = new ModelAndView("manager.mge");
-		LogAspect.info("manager()");
+		managerService.manager(mav);
 		return mav;
 	}
 	

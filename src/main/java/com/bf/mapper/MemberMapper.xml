@@ -6,4 +6,8 @@
 	<select id="select-member" parameterType="String" resultType="com.bf.member.model.MemberDto" >
 		select * from member where id = #{username}
 	</select>
+	
+	<select id="getMemberCount" resultType="int">
+		select count(*) from member
+	</select>
 </mapper>
