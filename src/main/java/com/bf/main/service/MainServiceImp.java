@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +20,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.book.dto.DetailDto;
 import com.bf.main.dao.MainDao;
 import com.bf.main.dto.CategoryPageDto;
+import com.bf.main.dto.EventDto;
 import com.bf.main.dto.NoticeDto;
 import com.bf.main.dto.SearchAuthorDto;
 import com.bf.main.dto.SearchBookCountDto;
@@ -433,6 +436,69 @@ public class MainServiceImp implements MainService {
 		mav.addObject("pageNumber", pageNumber);
 		
 		mav.setViewName("notice/content.solo");		
+	}
+
+	@Override
+	public void event(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		String firstCate=request.getParameter("firstCateNum");
+		String firstCateName=mainDao.getFirstCateName(firstCate);
+		
+		String type=request.getParameter("type");
+		
+		//페이지작업도 해줘야함.
+		String pn=request.getParameter("pageNumber");
+		if(pn==null)	pn="1";
+		
+		int pageNumber=Integer.parseInt(pn);
+		
+		int boardSize=10;
+		int startRow=(pageNumber-1)*boardSize+1;
+		int endRow=pageNumber*boardSize;
+		int count=0;
+		
+		HashMap<String, Object> map=new HashMap<String,Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("firstCate", Integer.parseInt(firstCate));
+		
+		//진행중인것과 진행중이지 않은 아이들 구분
+		if(type==null) {
+			type="now";
+		}
+		
+		map.put("type", type);
+		
+		count=mainDao.getEventCount(map);
+		
+		List<EventDto> el=null;
+		if(count>0) {
+			el=mainDao.getEventList(map);
+		}
+		
+		mav.addObject("firstCate", firstCate);
+		mav.addObject("firstCateName", firstCateName);
+		mav.addObject("type",type);
+		mav.addObject("el", el);
+		mav.addObject("count", count);
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("boardSize", boardSize);
+		
+	}
+
+	@Override
+	public void eventDetail(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		String num=request.getParameter("num");
+		
+		EventDto dto=mainDao.getEventInfo(num);
+		
+		int random=mainDao.getRandomBookNum(dto.getF_num());
+		
+		mav.addObject("dto", dto);
+		mav.addObject("random", random);
 	}
 	
 	

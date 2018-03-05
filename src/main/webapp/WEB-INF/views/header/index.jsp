@@ -182,9 +182,9 @@
 						<li class="hw_mid_item list_comic" onclick="location.href='${root}/comic.do?firstCateNum=4'">
 							<img class="hw_mid_icon" src="${root}/img/index/manhwa.png"> <span class="hw_mid_font">만화</span>
 						</li>
-						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do?firstCateNum=5'">
-							<img class="hw_mid_icon" src="${root}/img/index/bl.png"> <span class="hw_mid_font">BL</span>
-						</li>
+<%-- 						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do?firstCateNum=5'"> --%>
+<%-- 							<img class="hw_mid_icon" src="${root}/img/index/bl.png"> <span class="hw_mid_font">BL</span> --%>
+<!-- 						</li> -->
 					</ul>
 				</nav>
 				<ul class="hw_middle_right">
@@ -236,15 +236,15 @@
 						<%-- <li class="sub_cate_element" onclick="location.href='${root}/normal.main'">맞춤추천<span></span></li> --%>
 						<li class="sub_cate_element" onclick="location.href='${root}/event.do?firstCateNum=${firstCate}&bookType=paper'">이벤트<span></span></li>
 					</ul>
-					<h3 class="sub_cate_line">|</h3>
-					<span>연재</span>
-					<ul>
-						<li class="sub_cate_element">홈<span></span></li>
-						<li class="sub_cate_element">신작<span></span></li>
-						<li class="sub_cate_element">베스트셀러<span></span></li>
-						<!-- <li class="sub_cate_element">선호작품<span></span></li> -->
-						<li class="sub_cate_element">이벤트<span></span></li>
-					</ul>
+<!-- 					<h3 class="sub_cate_line">|</h3> -->
+<!-- 					<span>연재</span> -->
+<!-- 					<ul> -->
+<!-- 						<li class="sub_cate_element">홈<span></span></li> -->
+<!-- 						<li class="sub_cate_element">신작<span></span></li> -->
+<!-- 						<li class="sub_cate_element">베스트셀러<span></span></li> -->
+<!-- 						<li class="sub_cate_element">선호작품<span></span></li> -->
+<!-- 						<li class="sub_cate_element">이벤트<span></span></li> -->
+<!-- 					</ul> -->
 				</div>
 			</c:if>
 			<c:if test="${firstCate==1 || firstCate==4}">

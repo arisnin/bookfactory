@@ -25,12 +25,6 @@ import com.bf.member.model.User;
  */
 
 /**
- * @author 최정은
- * @date 2018. 2. 13.
- * @description 일반, 로맨스, 판타지, 만화, BL, 상세보기 페이지 / 회사소개 페이지
- */
-
-/**
  * @author 김도현
  * @date 2018. 2. 13.
  * @description 회원가입, 로그아웃
@@ -140,14 +134,31 @@ public class MainController {
 
 	/**
 	 * event > event
-	 * 
 	 * 이벤트 페이지 추가(02-12, 김도현)
 	 */
 	@RequestMapping(value = "/event.do", method = RequestMethod.GET)
-	public String event(HttpServletRequest request, HttpServletResponse response) {
-		return "event/event.main";
+	public ModelAndView event(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("event/event.main");
+		mav.addObject("request", request);
+		
+		mainService.event(mav);
+		
+		return mav;
 	}
-
+	
+	/**
+	 * event > event 상세보기 - 최정은
+	 */
+	@RequestMapping(value = "/eventDetail.do", method = RequestMethod.GET)
+	public ModelAndView eventDetail(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("event/eventDetail.main");
+		mav.addObject("request", request);
+		
+		mainService.eventDetail(mav);
+		
+		return mav;
+	}
+	
 	/**
 	 * 회원가입 요청
 	 * 

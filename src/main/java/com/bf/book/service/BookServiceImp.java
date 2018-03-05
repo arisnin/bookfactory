@@ -509,6 +509,8 @@ public class BookServiceImp implements BookService {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
 		long book_num=Long.parseLong(request.getParameter("book_num"));
+		String event=request.getParameter("event");
+		
 		DetailDto dto=bookDao.getBookAllInfo(book_num);
 		
 		//카테고리작업
@@ -567,6 +569,7 @@ public class BookServiceImp implements BookService {
 		//이벤트기간뽑기 - ?
 		
 		mav.addObject("detailDto", dto);
+		mav.addObject("event", event);
 		mav.addObject("auDto", auDto);
 		mav.addObject("ilDto", ilDto);
 		mav.addObject("trDto", trDto);

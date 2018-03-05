@@ -30,4 +30,8 @@ public interface MainService {
 
 	public void updateMymenu(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
+	public void event(ModelAndView mav);
+
+	public void eventDetail(ModelAndView mav);
+
 }

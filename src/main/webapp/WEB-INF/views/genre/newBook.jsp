@@ -84,13 +84,13 @@
 							<c:if test="${NewBookDto.author_num!=0}">
 								<p class="book-metadata-author">
 									<c:if test="${NewBookDto.author_num!=0}">
-										<a class="" href="${root}/author.do?author_num=${NewBookDto.author_num}">${NewBookDto.author_name }</a>
+										<a class="" onclick="authorDetailHref('${root}','${NewBookDto.author_num}')">${NewBookDto.author_name }</a>
 									</c:if>
 									<c:if test="${NewBookDto.illur_num!=0}">
-										<a class="" href="${root}/author.do?author_num=${NewBookDto.illur_num}">, ${NewBookDto.illur_name }</a>
+										<a class="" onclick="authorDetailHref('${root}','${NewBookDto.author_num}')">, ${NewBookDto.illur_name }</a>
 									</c:if>
 									<c:if test="${NewBookDto.trans_num!=0}">
-										<a class="" href="${root}/author.do?author_num=${NewBookDto.trans_num}">, ${NewBookDto.trans_name }</a>
+										<a class="" onclick="authorDetailHref('${root}','${NewBookDto.author_num}')">, ${NewBookDto.trans_name }</a>
 									</c:if>
 								</p>
 							</c:if>

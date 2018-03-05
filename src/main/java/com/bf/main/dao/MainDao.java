@@ -1,9 +1,11 @@
 package com.bf.main.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.bf.main.dto.CategoryPageDto;
+import com.bf.main.dto.EventDto;
 import com.bf.main.dto.NoticeDto;
 import com.bf.main.dto.SearchAuthorDto;
 import com.bf.main.dto.SearchBookCountDto;
@@ -49,4 +51,15 @@ public interface MainDao {
 	public int selectPurchasedCount(String id);
 
 	public List<Map<String, Integer>> selectCartWishCount(String id);
+
+	public String getFirstCateName(String firstCate);
+
+	public int getEventCount(HashMap<String, Object> map);
+
+	public List<EventDto> getEventList(HashMap<String, Object> map);
+
+	public EventDto getEventInfo(String num);
+
+	public int getRandomBookNum(int f_num);
+
 }
