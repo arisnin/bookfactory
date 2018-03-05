@@ -416,7 +416,8 @@ public class ManagerServiceImp implements ManagerService {
 				keyword += "," + key.getName();
 			}
 		}
-		
+		List<BookFirstCateDto> firstCateList = managerDao.getFirstCate();
+		mav.addObject("firstCateList", firstCateList);
 		mav.addObject("bookDto", bookDto);
 		mav.addObject("author", author);
 		mav.addObject("illustrator", illustrator);
