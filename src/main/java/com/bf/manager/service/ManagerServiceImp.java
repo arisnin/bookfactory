@@ -341,13 +341,19 @@ public class ManagerServiceImp implements ManagerService {
 		BookDto bookDto = (BookDto) mav.getModelMap().get("bookDto");
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 
+		int cate1_num = Integer.parseInt(request.getParameter("cate1_num"));
+		int cate2_num = Integer.parseInt(request.getParameter("cate1_num"));
+		int cate3_num = Integer.parseInt(request.getParameter("cate1_num"));
+		LogAspect.info(LogAspect.logMsg +cate1_num + cate2_num + cate3_num);
+		
+		
+		
 		int check = managerDao.insertBook(bookDto);
 		
 		int currentNum = managerDao.getMaxBookNum();
 		String keyword_list = request.getParameter("keyword");
 		if(keyword_list != null) {
 			String[] keyword = keyword_list.split(",");
-			LogAspect.info(LogAspect.logMsg +keyword);
 			for(String key : keyword) {
 				int checkKey = managerDao.keyNameCheck(key);
 				
@@ -432,6 +438,10 @@ public class ManagerServiceImp implements ManagerService {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		
 		LogAspect.info(LogAspect.logMsg+ bookDto);
+		int cate1_num = Integer.parseInt(request.getParameter("cate1_num"));
+		int cate2_num = Integer.parseInt(request.getParameter("cate1_num"));
+		int cate3_num = Integer.parseInt(request.getParameter("cate1_num"));
+		managerDao.insertBookCategoryOne(bookDto.getBook_num(),cate1_num,cate2_num,cate3_num);
 		
 		int check = managerDao.updateBook(bookDto);
 		
