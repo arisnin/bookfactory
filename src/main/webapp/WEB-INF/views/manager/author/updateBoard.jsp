@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +60,7 @@
 							<li>
 								<span>${authorEdit.num }</span>
 								<span>${authorEdit.name }</span>
-								<span>${authorEdit.content }</span>
+								<span>${fn:substring(authorEdit.content,0,15)}<c:if test="${fn:length(authorEdit.content)>15}">..</c:if></span>
 								<span><c:if test="${authorEdit.condition == 'no'}">미확인</c:if><c:if test="${authorEdit.condition == 'yes'}">반영</c:if> 
 									<c:if test="${authorEdit.condition == 'reject'}">거절</c:if>
 								</span>
