@@ -19,12 +19,17 @@
 		<div class="content_title">보안을 위해 비밀번호를 한번 더 입력해 주세요.</div>
 		<div class="content">
 			<div>
-				<form action="${root}/personal/myInfo.do" method="post">
-					<input class="search_box" type="password" maxlength="12" />
+				<form action="${root}/personal/myInfoOk.do" method="post">
+					<input type="hidden" name="id" value="${id}"/>
+					<input type="hidden" name="userPassword" value="${userPassword}"/>
+					<input class="search_box" name="password" type="password" maxlength="12"/>
 					<button type="submit" class="bf-button">확인</button>
 				</form>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var input = $(":input[name=password]").val();
+	</script>
 </body>
 </html>

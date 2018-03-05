@@ -9,6 +9,7 @@
 <link href="${root}/css/basic/reset.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/purchased.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 </head>
 <body>
 	<div class="wrap-container">
@@ -31,7 +32,6 @@
 					<li><a href="javascript:alert('이용권 미구현')">이용권</a></li>
 				</ul>
 				
-				<!-- 쿼리문을 바꿔야함. 책 제목, 저자를 검색해야하며, enter치면 조건에 맞는 데이터만 뜸 -->
 				<div class="search-box">
 					<form name="purchased_search" method="get" autocomplete="on" action="${root}/library/purchased.do">
 						<span class="material-icons">search</span>
@@ -67,14 +67,14 @@
 								</label>
 							</div>
 							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image" onclick ="location.href='${root}/detail.do?book_num=${myPurchasedPageDto.book_num}'">
+								<div class="mf-book-thumbnail-image" onclick ="javascript:bookDetailLink('${root}', '${myPurchasedPageDto.book_num}')">
 									<img class="" src="${myPurchasedPageDto.img_path}"/>
 								</div>
 							</div>
 							<div class="mf-book-metadata">
-								<h3 class="book-metadata-text" onclick ="location.href='${root}/detail.do?book_num=${myPurchasedPageDto.book_num}'">${myPurchasedPageDto.book_name}</h3>
+								<h3 class="book-metadata-text" onclick ="javascript:bookDetailLink('${root}', '${myPurchasedPageDto.book_num}')">${myPurchasedPageDto.book_name}</h3>
 								<p class="book-metadata-author">
-									<a class="" href="javascript:alert('작가페이지')">${myPurchasedPageDto.author_name}</a>
+									<a class="" href="javascript:authorDetailHref('${root}', '${myPurchasedPageDto.author_num}')">${myPurchasedPageDto.author_name}</a>
 								</p>
 							</div>
 						</li>

@@ -93,8 +93,8 @@ public class MyPageServiceImp implements MyPageService {
 	}
 
 	/**
-	 * @author : 김동환
-	 * @date : 2018. 2. 19.
+	 * @author : 김동환(최초작성)			정호열(1차수정)
+	 * @date : 2018. 2. 19.			2018. 03. 05.
 	 * comment : 회원정보 변경
 	 */
 	@Override
@@ -102,16 +102,18 @@ public class MyPageServiceImp implements MyPageService {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		MemberDto memberDto = (MemberDto) map.get("memberDto");
+				
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
 		
+		memberDto.setId(id);
 		LogAspect.info(memberDto.toString());
 		
-		String password = request.getParameter("password");
-		String email = request.getParameter("email");
+		int check = myPageDao.infoUpdate(memberDto);
 		
-		
-		LogAspect.info(password + ", " + email);
-		
-		
+		mav.addObject("check", check);
+		mav.addObject("memberDto", memberDto);
+		mav.setViewName("myPage/personal/myInfoUpdate.my");
 	}
 
 	/**
@@ -325,6 +327,7 @@ public class MyPageServiceImp implements MyPageService {
 
 		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoFiveList = myPageDao.PurchasedPageFiveList(id);		
 		List<MyPageRecentPageDto> myPageRecentPageDtoFiveList = myPageDao.MyRecentPageFiveList(id);
+		LogAspect.info(myPageRecentPageDtoFiveList.toString());
 		
 		mav.addObject("myPageRecentPageDtoFiveList", myPageRecentPageDtoFiveList);
 		mav.addObject("myPagePurchasedPageDtoFiveList", myPagePurchasedPageDtoFiveList);
@@ -339,11 +342,48 @@ public class MyPageServiceImp implements MyPageService {
 	public void myInfoCheck(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		MemberDto memberDto = (MemberDto) map.get("memberDto");
 		
-		String password = request.getParameter("password");
-		String email = request.getParameter("email");
-		LogAspect.info(memberDto.toString());
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		String userPassword = user.getPassword();
+		
+		LogAspect.info("myInfoCheck:" + id + "," + userPassword);
+		
+		mav.addObject("id", id);
+		mav.addObject("userPassword", userPassword);
+		mav.setViewName("myPage/personal/myInfoCheck.my");
 	}
+	
+	@Override
+	public void myInfoOk(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
+		LogAspect.info("myInfoOk" + id + "," + password);
+		
+		String InfoOk = myPageDao.InfoOk(id, password);
+		LogAspect.info("myInfoOk:" + InfoOk);
+		
+		mav.addObject("id", id);
+		mav.addObject("InfoOk", InfoOk);
+		mav.setViewName("myPage/personal/myInfoOk.my");
+	}
+
+	@Override
+	public void myInfo(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		String id = (String) request.getSession().getAttribute("id");
+		
+		MemberDto memberDto = myPageDao.selectInfo(id);
+		LogAspect.info(memberDto);
+		
+		mav.addObject("memberDto", memberDto);
+		mav.setViewName("myPage/personal/myInfo.my");
+	}
+
 
 }

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bf.member.model.MemberDto;
 import com.bf.myPage.dto.MyPageCashChargeDto;
 import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
@@ -118,6 +119,25 @@ public class MyPageDaoImp implements MyPageDao {
 	@Override
 	public int selectPurchasedCount(String id) {
 		return sqlSession.selectOne(nameSpace + "select-purchased-count", id);
+	}
+
+	@Override
+	public String InfoOk(String id, String password) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("password", password);
+		
+		return sqlSession.selectOne(nameSpace + "select_InfoOk", map);
+	}
+
+	@Override
+	public MemberDto selectInfo(String id) {
+		return sqlSession.selectOne(nameSpace + "select_info", id);
+	}
+
+	@Override
+	public int infoUpdate(MemberDto memberDto) {
+		return sqlSession.update(nameSpace + "update_info", memberDto);
 	}
 
 	
