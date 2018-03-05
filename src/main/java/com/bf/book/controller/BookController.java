@@ -19,6 +19,7 @@ import com.bf.aop.LogAspect;
 import com.bf.book.dto.ReplyDto;
 import com.bf.book.dto.ReviewDto;
 import com.bf.book.service.BookService;
+import com.bf.manager.service.ManagerService;
 
 /**
  * @author 박성호
@@ -113,7 +114,7 @@ public class BookController {
 		mav.addObject("author_num",request.getParameter("author_num"));
 		
 		return mav;
-	}	
+	}
 
 	/**
 	 * 연재 > 책 상세보기 //임시로 로맨스화면의 베스트셀러들에게 걸음
@@ -218,5 +219,13 @@ public class BookController {
 	public ModelAndView author(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("author():" + request.getHeader("referer"));		
 		return bookService.author(new ModelAndView("book/author.main").addObject("request", request));
+	}
+	
+	@RequestMapping(value = "/authorProfilUpdateOk.do", method = RequestMethod.POST)
+	public ModelAndView authorProfilUpdateOk(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("book/authorProfilUpdateOk.solo");
+		mav.addObject("request",request);
+		bookService.authorProfilUpdateOk(mav);
+		return mav;
 	}
 }

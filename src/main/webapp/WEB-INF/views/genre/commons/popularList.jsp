@@ -29,7 +29,7 @@
 					<time class="popular-time" datetime="" style="font-weight: bold">
 						<jsp:useBean id="now" class="java.util.Date" />
 						<fmt:formatDate value="${now}" pattern="a hh:mm"/>
-					</time> <span class="popular-text">사람들이 오늘 많이 읽는 책</span>
+					</time> <span class="popular-text">사람들이 최근 많이 구매한 책</span>
 				</span> <span class="popular-toggle"> <span>펼쳐보기</span> <span
 					class="material-icons">arrow_drop_down</span>
 				</span> <span class="popular-toggle" style="display: none;"> <span>접어보기</span>

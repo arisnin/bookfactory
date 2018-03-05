@@ -9,7 +9,8 @@
 <c:set var="root" value="${pageContext.request.contextPath }" />
 <link rel="stylesheet" type="text/css" href="${root}/css/cart/cart.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/order/order.css">
-<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>	
+<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>	
 	<c:set var="purchaseListSize" value="${purchaseList == null ? 0 : purchaseList.size()}" />

@@ -40,13 +40,7 @@
 			
 			<div>	<!-- 태그를 선택하면 이 화면 나와야함 -->
 				<div class="keyword_choice ">
-					<ul class="tag-list">
-					<!-- <li><button type="button" class="bf-button keyword-btn">
-								키워드1
-								<span class="button_x">X</span>
-							</button>
-						</li> -->
-					</ul>
+					<ul class="tag-list"></ul>
 				</div>
 
 				<!-- 해당되는 책이 없을때 나오는 화면 
@@ -80,43 +74,6 @@
 		</div>
 		<nav class="bf-pagination">
 			<ul class="bf-animated-btn" id="bf-animated-btn">
-<%-- 				<c:if test="${newCount>0 }">			 --%>
-<%-- 					<fmt:parseNumber var="pageCount" value="${newCount/boardSize+(newCount%boardSize==0? 0:1)}" integerOnly="true"/> --%>
-<%-- 					<c:set var="pageBlock" value="${10}"/> --%>
-				
-<%-- 					<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/> --%>
-<%-- 					<c:set var="startPage" value="${rs*pageBlock+1}"/> --%>
-					
-<%-- 					<c:set var="endPage" value="${startPage+pageBlock-1 }"/> --%>
-					
-<%-- 					<c:if test="${endPage>pageCount }"> --%>
-<%-- 						<c:set var="endPage" value="${pageCount}"/> --%>
-<%-- 					</c:if> --%>
-					
-<%-- 					<li class="first"><a href="${root}/new-book.do?pageNumber=1&firstCate=${firstCate}"><span></span></a></li> --%>
-					
-<%-- 					<c:if test="${startPage>pageBlock }"> --%>
-<%-- 						<li class="prev"><a class="prev" href="${root}/new-book.do?pageNumber=${startPage-pageBlock}&firstCate=${firstCate}"><span></span></a></li> --%>
-<%-- 					</c:if> --%>
-					
-<%-- 					<c:forEach var="i" begin="${startPage}" end="${endPage}"> --%>
-<%-- 						<c:choose> --%>
-<%-- 							<c:when test="${pageNumber==i}"> --%>
-<%-- 								<li><a class="active" href="${root}/new-book.do?pageNumber=${i}&firstCate=${firstCate}">${i}</a></li> --%>
-<%-- 							</c:when> --%>
-							
-<%-- 							<c:otherwise> --%>
-<%-- 								<li><a href="${root}/new-book.do?pageNumber=${i}&firstCate=${firstCate}">${i}</a></li> --%>
-<%-- 							</c:otherwise> --%>
-<%-- 						</c:choose> --%>
-<%-- 					</c:forEach> --%>
-					
-<%-- 					<c:if test="${endPage<pageCount }"> --%>
-<%-- 						<li class="next"><a href="${root}/new-book.do?pageNumber=${startPage+pageBlock}&firstCate=${firstCate}"><span></span></a></li> --%>
-<%-- 					</c:if> --%>
-					
-<%-- 					<li class="last"><a href="${root}/new-book.do?pageNumber=${pageCount}&firstCate=${firstCate}"><span></span></a></li> --%>
-<%-- 				</c:if> --%>
 			</ul>
 		</nav>
 	</div>

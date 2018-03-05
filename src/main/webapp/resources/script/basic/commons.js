@@ -207,3 +207,9 @@ function bookDetailLink(root, book_num) {
 function authorDetailHref(root, authorNum) {
 	location.href = root + '/author.do?anum=' + authorNum;
 }
+
+/*
+ * 메인카테고리들을 제외한 나머지서비스에서는 카테고리의 서비스타입을 없애야함.
+ */
+
+$(".hw_sub_wrap").hide();

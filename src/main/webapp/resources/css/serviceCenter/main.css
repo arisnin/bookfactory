@@ -69,6 +69,10 @@
 	border-top: 1px solid #E1DFFA;
 }
 
+.service_faq_list{
+	margin-bottom: 1.5rem;
+}
+
 .service_content > .service_faq > .service_faq_list div{
 	height: 3rem;
 	border-bottom: 1px solid #E1DFFA;

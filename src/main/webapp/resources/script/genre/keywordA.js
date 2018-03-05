@@ -171,37 +171,6 @@ $(function(){
 		}
 		listAjax(root, "", 1);
 	});
-//	
-//	//선택한 태그 삭제
-//	$(".tag-list").on("click","li", function(){
-//		event.preventDefault();
-//		var checkboxCount=$(".keyword_top_list_button input[type=checkbox]").length;
-//		var reSend="tags=";
-//		
-//		for(var i=0;i<checkboxCount;i++){
-//			var text=$(".keyword_top_list_button li").eq(i).find(".bf-button").text()+"X";
-//			if(text==$(this).text()){
-////				alert(text.slice(0,-1));
-//				$(".keyword_top_list_button li").eq(i).css({
-//					backgroundColor : "#f8f7ff"
-//				});
-//				$(this).remove();
-//				
-////				var reSend=sendData.substr(text.slice(0,-1)+",");
-////				alert(reSend);
-////				$("input[name=tags]").val(reSend);
-//			}else{
-//				for(var j=0;j<$(".keyword_choice ul.tag-list button").length;j++){
-//					reSend+=$(".keyword_choice ul.tag-list button").eq(j).text().slice(0,-1)+",";
-//				}
-//			}
-//		}
-////		alert(reSend);
-//		$("input[name=tags]").val(reSend);
-//		
-//		listAjax(root, reSend, 1);
-//		display(listCount);
-//	});
 	
 	display(listCount);
 });
@@ -281,11 +250,11 @@ function makeList(json){
 					"</div>" +
 				"</div>" +
 				"<div class='mf-book-metadata'>" +
-					"<h3 class='book-metadata-text' onclick='goDetail("+json.tagList[i][0].book_num+")'>"+json.tagList[i][0].book_name +"</h3>" +
+					"<h3 class='book-metadata-text' onclick='goDetail("+json.tagList[i][0].book_num+")'>"+json.tagList[i][0].book_name +"</h3>"+
 					"<p class='book-metadata-author'>" +
-						"<a class='' href='"+root+"/author.do?authorNum="+json.tagList[i][0].authorNum+"'>"+json.tagList[i][0].authorName+"</a>" +
-					"</p>" +
-					"<p class='book-metadata-translator hidden-block'>" +
+						"<a onclick=authorDetailHref('"+root+"',"+json.tagList[i][0].authorNum+")>"+json.tagList[i][0].authorName+"</a>" +
+					"</p>"+
+				"<p class='book-metadata-translator hidden-block'>" +
 						"<a class='' href='"+root+"/author.do'></a>" +
 					"</p>" +
 					"<p class='book-metadata-publisher'>" +
@@ -320,6 +289,10 @@ function makeList(json){
 				"</div>" +
 				"</li>";
 		
+		if(json.tagList[i][0].authorNum==0){
+			$(".book-metadata-author").hide();
+		}
+		
 		if(!(json.tagList[i][0].rental_price>0)){
 			$(".price-rent").hide();
 		}
@@ -345,15 +318,23 @@ function display(listCount){
 			display:"none"
 		});
 	}else if(listCount==10000){
-		$(".keyword_no_search").attr("style","display:table");
+//		alert($(".tag-list").text());
+		if($(".tag-list").text()==""){
+			$(".keyword_not_choice").attr("style","display:table");
+			$(".keyword_no_search").attr("style","display:none");
+		}else{
+			$(".keyword_not_choice").attr("style","display:none");
+			$(".keyword_no_search").attr("style","display:table");
+		}
+		
 		$(".keyword_choice").attr("style","display:inline-block");
-		$(".keyword_not_choice").attr("style","display:none");
 		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").attr("style","display:none");
 	}else{
 		$(".keyword_not_choice").attr("style","display:none");
 		$(".keyword_no_search").attr("style","display:none");
 		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").attr("style","display:inline-block");
 	}
+	
 }
 
 function listAjax(root, sendData, pageNumber){

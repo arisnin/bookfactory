@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,21 +23,21 @@
 					<ul class="category-filter-list">
 						<li>
 							<label class="bf-custom-checkbox">
-								<input type="checkbox" title="구매목록 책 전체선택">
+								<input type="checkbox" value="no">
 								<span class="all-mark"></span>
 								<span class="checkbox-label">미확인</span>
 							</label>
 						</li>
 						<li>
 							<label class="bf-custom-checkbox">
-								<input type="checkbox" title="구매목록 책 전체선택">
+								<input type="checkbox" value="yes">
 								<span class="all-mark"></span>
 								<span class="checkbox-label">반영</span>
 							</label>
 						</li>
 						<li>
 							<label class="bf-custom-checkbox">
-								<input type="checkbox" title="구매목록 책 전체선택">
+								<input type="checkbox" value="reject">
 								<span class="all-mark"></span>
 								<span class="checkbox-label">거절</span>
 							</label>
@@ -54,28 +55,52 @@
 				</div>
 				<div class="a_up_list">
 					<ul>
-						<c:forEach begin="1" end="10">
+						<c:forEach items="${authorEditList}" var="authorEdit">
 							<li>
-								<span>1</span>
-								<span>염현우</span>
-								<span>현우경력은신입이다</span>
-								<span>거절</span>
-								<button type="button" class="bf-button" onclick="location.href='${root}/manager/authorUpdateRead.do?num=3';">상세보기</button>
+								<span>${authorEdit.num }</span>
+								<span>${authorEdit.name }</span>
+								<span>${authorEdit.content }</span>
+								<span><c:if test="${authorEdit.condition == 'no'}">미확인</c:if><c:if test="${authorEdit.condition == 'yes'}">반영</c:if> 
+									<c:if test="${authorEdit.condition == 'reject'}">거절</c:if>
+								</span>
+								<button type="button" class="bf-button" onclick="location.href='${root}/manager/authorUpdateRead.do?num=${authorEdit.author_num}&editNum=${authorEdit.num }';">상세보기</button>
 							</li>
 						</c:forEach>
 					</ul>
 				</div>
 				<nav class="bf-pagination">
 					<ul class="bf-animated-btn">
-						<li class="first"><a href="#0"><span></span></a></li>
-						<li class="prev"><a href="#0"><span></span></a></li>
-						<li><a href="#0">1</a></li>
-						<li><a href="#0">2</a></li>
-						<li><a class="active" href="#0">3</a></li>
-						<li><a href="#0">4</a></li>
-						<li><a href="#0">5</a></li>
-						<li class="next"><a href="#0"><span></span></a></li>
-						<li class="last"><a href="#0"><span></span></a></li>
+						<c:if test="${condition==null}">
+							<c:set var="href" value="${root}/manager/authorUpdateBoard.do?pageNumber="/>
+						</c:if>
+						<c:if test="${condition!=null}">
+							<c:set var="href" value="${root}/manager/authorUpdateBoard.do?condition=${condition}&pageNumber="/>
+						</c:if>
+						
+						<li class="first"><a href="${href}1"><span></span></a></li>
+						<c:if test="${count > 0}">
+							<fmt:parseNumber var ="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true"/>
+							<c:set var ="pageBlock" value="${5}"/>
+							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/>
+							
+							<c:set var="startPage" value="${rs*pageBlock + 1}"/>
+							<c:set var="endPage" value="${startPage + pageBlock - 1}"/>
+							
+							<c:if test="${endPage > pageCount}">
+							<c:set var="endPage" value="${pageCount}"/>
+						</c:if>
+						</c:if>
+						
+						<c:if test="${startPage > pageBlock}">
+							<li class="prev"><a href="${href}${startPage-1}"><span></span></a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startPage}" end="${endPage}">
+							<li><a href="${href}${i}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${endPage < pageCount}">
+							<li class="next"><a href="${href}${endPage+1}"><span></span></a></li>
+						</c:if>
+						<li class="last"><a href="${href}${pageCount}"><span></span></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -86,11 +111,21 @@
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 	<script type="text/javascript">
-		/* $('.hwdropbtn').text($('#myDropdown > .select').text()); */
-		$('.hwdropdown').each(function (i,e) {
-			var value = $(e).find('.select').text();
-			$(e).find('.hwdropbtn').text(value);
-		})
+		$("input[type=checkbox]").click(function(){
+			location.href="${root}/manager/authorUpdateBoard.do?condition="+$(this).val();
+		});
+		
+		$("input[type=checkbox]").each(function(){
+			if($(this).val() == "${condition}"){
+				$(this).prop("checked",true);
+			}
+		});
+		
+		$(".bf-animated-btn").find("li").each(function(){
+			if($(this).text()=='${pageNumber}'){
+				$(this).find("a").addClass("active");
+			}
+		});
 	</script>
 </body>
 </html>

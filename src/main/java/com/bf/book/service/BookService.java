@@ -42,4 +42,7 @@ public interface BookService {
 	void bookDetail(ModelAndView mav);
 
 	ModelAndView author(ModelAndView mav);
+
+	void authorProfilUpdateOk(ModelAndView mav);
+
 }

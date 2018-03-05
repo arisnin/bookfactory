@@ -111,55 +111,15 @@ public class ServiceCenterDaoImp implements ServiceCenterDao {
 	}
 
 	@Override
-	public List<BoardFrequencyDto> idLoginMain() {
-		return sqlSession.selectList(namespace + "idLoginMain");
+	public List<BoardFrequencyDto> idLoginMain(int category) {
+		return sqlSession.selectList(namespace + "idLoginMain", category);
 	}
 
 	@Override
-	public List<BoardFrequencyDto> idLoginSide() {
-		return sqlSession.selectList(namespace + "idLoginSide");
+	public List<BoardFrequencyDto> idLoginSide(int category) {
+		return sqlSession.selectList(namespace + "idLoginSide", category);
 	}
-
-	@Override
-	public List<BoardFrequencyDto> payRefundMain() {
-		return sqlSession.selectList(namespace + "payRefundMain");
-	}
-
-	@Override
-	public List<BoardFrequencyDto> payRefundSide() {
-		return sqlSession.selectList(namespace + "payRefundSide");
-	}
-
-	@Override
-	public List<BoardFrequencyDto> howUseMain() {
-		return sqlSession.selectList(namespace + "howUseMain");
-	}
-
-	@Override
-	public List<BoardFrequencyDto> howUseSide() {
-		return sqlSession.selectList(namespace + "howUseSide");
-	}
-
-	@Override
-	public List<BoardFrequencyDto> errorUseMain() {
-		return sqlSession.selectList(namespace + "errorUseMain");
-	}
-
-	@Override
-	public List<BoardFrequencyDto> errorUseSide() {
-		return sqlSession.selectList(namespace + "errorUseSide");
-	}
-
-	@Override
-	public List<BoardFrequencyDto> systemUpdateMain() {
-		return sqlSession.selectList(namespace + "systemUpdateMain");
-	}
-
-	@Override
-	public List<BoardFrequencyDto> systemUpdateSide() {
-		return sqlSession.selectList(namespace + "systemUpdateSide");
-	}
-
+	
 	@Override
 	public int categoryCount(int category) {
 		return sqlSession.selectOne(namespace + "categoryCount", category);

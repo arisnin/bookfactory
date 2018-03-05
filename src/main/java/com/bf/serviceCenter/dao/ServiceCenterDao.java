@@ -46,26 +46,10 @@ public interface ServiceCenterDao {
 
 	List<BoardFrequencyDto> mainMany();
 
-	List<BoardFrequencyDto> idLoginMain();
+	List<BoardFrequencyDto> idLoginMain(int category);
 
-	List<BoardFrequencyDto> idLoginSide();
-
-	List<BoardFrequencyDto> payRefundMain();
-
-	List<BoardFrequencyDto> payRefundSide();
-
-	List<BoardFrequencyDto> howUseMain();
-
-	List<BoardFrequencyDto> howUseSide();
-
-	List<BoardFrequencyDto> errorUseMain();
-
-	List<BoardFrequencyDto> errorUseSide();
-
-	List<BoardFrequencyDto> systemUpdateMain();
-
-	List<BoardFrequencyDto> systemUpdateSide();
-
+	List<BoardFrequencyDto> idLoginSide(int category);
+	
 	int categoryCount(int category);
 
 	int bookSuggestionWrite(BookContactDto bookContactDto);

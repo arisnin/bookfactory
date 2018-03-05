@@ -21,7 +21,7 @@
 			<ul>
 				<li><a href="javascript:history.back()">뒤로가기</a></li>
 				<li><a href="${root}/">메인페이지</a></li>
-				<li><a href="#">로그아웃</a></li>
+				<li><a href="${root}/member/logout.do">로그아웃</a></li>
 			</ul>
 		</div>
 	</header>

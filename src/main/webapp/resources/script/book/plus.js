@@ -54,8 +54,8 @@ $(document).ready(function(){
 //		$(this).addClass("activeFont");
 //	});
 	
-	//홈, 신간, 베스트셀러 숨기는 이벤트
-	$(".hw_sub_wrap").hide();
+//	//홈, 신간, 베스트셀러 숨기는 이벤트
+//	$(".hw_sub_wrap").hide();
 	
 	//실험용
 //	$(".profile_ex > .author").click(function(){
@@ -66,5 +66,5 @@ $(document).ready(function(){
 });
 
 function profilUpdate(root, author_num){
-	window.open(root+"/authorProfilUpdate.do?author_num="+author_num, 'update', 'top=100px, left=100px, height=450px, width=370px');
+	window.open(root+"/authorProfilUpdate.do?author_num="+author_num, 'update', 'top=100px, left=100px, height=500px, width=370px');
 }

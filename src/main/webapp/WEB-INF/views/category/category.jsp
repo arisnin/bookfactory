@@ -7,6 +7,7 @@
 <title>전체보기</title>
 <c:set var="root" value="${pageContext.request.contextPath}" scope="session" />
 <link href="${root}/css/category/category.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
 	<div class="bf-category-all-box">
