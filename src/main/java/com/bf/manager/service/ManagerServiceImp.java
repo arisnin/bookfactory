@@ -1504,6 +1504,22 @@ public class ManagerServiceImp implements ManagerService {
 		mav.addObject("condition", condition);
 	}
 
+	@Override
+	public void statTotal(ModelAndView mav) {
+		int ilban = managerDao.getStatTotalCount(1);
+		int romance = managerDao.getStatTotalCount(2);
+		int fantasy = managerDao.getStatTotalCount(3);
+		int manhwa = managerDao.getStatTotalCount(4);
+		int bl = managerDao.getStatTotalCount(5);
+		
+		mav.addObject("ilban", ilban);
+		mav.addObject("romance", romance);
+		mav.addObject("fantasy", fantasy);
+		mav.addObject("manhwa", manhwa);
+		mav.addObject("bl", bl);
+		
+	}
+
 	
 	
 	

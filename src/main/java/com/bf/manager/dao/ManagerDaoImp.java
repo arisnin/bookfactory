@@ -515,5 +515,10 @@ public class ManagerDaoImp implements ManagerDao {
 	public int getSaleCount() {
 		return sqlSession.selectOne("com.bf.mapper.StatMapper.getSaleCount");
 	}
+
+	@Override
+	public int getStatTotalCount(int i) {
+		return sqlSession.selectOne("com.bf.mapper.StatMapper.getStatTotalCount",i);
+	}
 	
 }

@@ -32,4 +32,10 @@
 		select count(*) from payment
 	</select>
 	
+	<select id="getStatTotalCount" resultType="int">
+		SELECT count(distinct a.num) FROM PAYMENT A, BOOKM B, BOOK_CATEGORY C
+		WHERE A.BOOK_NUM = B.BOOK_NUM AND B.BOOK_NUM = C.BOOK_NUM
+		and c.CATE1_NUM = #{i}
+	</select>
+	
 </mapper>

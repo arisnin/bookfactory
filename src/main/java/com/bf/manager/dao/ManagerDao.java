@@ -181,4 +181,6 @@ public interface ManagerDao {
 
 	public int getSaleCount();
 
+	public int getStatTotalCount(int i);
+
 }
