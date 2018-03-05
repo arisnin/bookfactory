@@ -142,11 +142,18 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 	
 	// ------------member------------------
 	@Override
-	public int memberCount(String searchWord) {
-
-		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.count",searchWord);
+	public int memberCount(String searchWord, Date startDate,Date endDate ) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("searchWord", searchWord);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.count",map);
 	}
-	
+	@Override
+	public int memberCount1() {
+
+		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.count1");
+	}
 
 	@Override
 	public List<MemberDto> memberList(int startRow, int endRow) {
@@ -156,11 +163,13 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.list", map);
 	}
 	@Override
-	public List<MemberDto> memberSearchList(String searchWord, int starRow, int endRow) {
+	public List<MemberDto> memberSearchList(String searchWord, int starRow, int endRow,Date startDate,Date endDate) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", starRow);
 		map.put("endRow", endRow);
 		map.put("searchWord", searchWord);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
 		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.searchList", map);
 	}
 	
@@ -191,6 +200,18 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		
 		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.cashList", map);
 	}
+	@Override
+	public List<ManagerCashDto> memberCashSearchList(String searchWord, int startRow, int endRow, Date startDate,
+			Date endDate) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("searchWord", searchWord);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.cashsearchList", map);
+	}
+	
 	
 	@Override
 	public List<ManagerPayDto> payDetail(int startRow,int endRow,String id) {
@@ -258,6 +279,15 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		map.put("id", id);
 		return sqlSession.insert("com.bf.manager.ManagerReviewMapper.pointInsert",map);
 		
+	}
+	@Override
+	public List<ReviewManagerDto> reviewSearchDate(int startRow, int endRow, Date startDate, Date endDate) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		return sqlSession.selectList("com.bf.manager.ManagerboardMapper.reviewSearchDate", map);
 	}
 
 }
