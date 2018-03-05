@@ -18,8 +18,8 @@
       </div>
       <div class="header_menu">
         <ul>
-          <li><a href="#">메인페이지</a></li>
-          <li><a href="#">로그아웃</a></li>
+          <li><a href="${root}/">메인페이지</a></li>
+          <li><a href="${root}/member/logout.do">로그아웃</a></li>
         </ul>
       </div>
     </header>
@@ -31,29 +31,29 @@
         <div>
           <a href="${root}/manager/bookInsert.do">
               <img src="${root}/img/manager/books-stack-of-three.png"/>
-              <span>도서개수:<strong>3</strong><br/>카테고리개수<strong>3</strong></span>
+              <span>도서개수:<strong>${bookCount}권</strong><br/>카테고리개수<strong>${cateCount}개</strong></span>
               <span>도서</span>
           </a>
           <a href="${root}/manager/publisherSearch.do">
              <img src="${root}/img/manager/publisher.png"/>
-             <span>출판사수:<strong>3</strong><br/>잘나가는 출판사<strong>3</strong></span>
+             <span>출판사수:<strong>${pubCount}개</strong></span>
              <span>출판사</span>
          </a>
         </div>
         <div>
           <a href="${root}/manager/authorSearch.do">
              <img src="${root}/img/manager/author.png"/>
-             <span>작가수:<strong>3</strong><br/>정보수정요청:<strong>3</strong></span>
+             <span>작가수:<strong>${authorCount}명</strong><br/>정보수정요청:<strong>${authorEditCount}개</strong></span>
              <span>작가</span>
          </a>
           <a href="${root}/manager/memberMember.do">
              <img src="${root}/img/manager/member.png"/>
-             <span>회원수<strong>3</strong><br/>카테고리개수<strong>3</strong></span>
+             <span>회원수:<strong>${memberCount}명</strong></span>
               <span>회원</span>
          </a>
           <a href="${root}/manager/reviewReview.do">
              <img src="${root}/img/manager/review.png"/>
-             <span>최신리뷰:<strong>3</strong><br/>리뷰신고:<strong>3</strong></span>
+             <span>리뷰신고:<strong>3</strong></span>
              <span>리뷰</span>
          </a>
         </div>
@@ -65,7 +65,7 @@
          </a>
           <a href="${root}/manager/statPreference.do">
              <img src="${root}/img/manager/statistics.png"/>
-             <span>오늘의 매출<strong>3</strong><br/>책판매수<strong>3</strong></span>
+             <span>책판매수<strong>${saleCount}권</strong></span>
              <span>통계</span>
          </a>
         </div>

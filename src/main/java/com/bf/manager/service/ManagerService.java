@@ -91,5 +91,11 @@ public interface ManagerService {
 
 	public void blPrefer(ModelAndView mav);
 
+	public void authorUpdateBoard(ModelAndView mav);
+
+	public void manager(ModelAndView mav);
+
+	public void statTotal(ModelAndView mav);
+
 	
 }

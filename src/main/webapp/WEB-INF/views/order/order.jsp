@@ -21,6 +21,7 @@
 	href="${root}/css/myPage/payment/mycash.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/cart/cart.css">
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
 	<div id="order_header">

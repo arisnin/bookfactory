@@ -39,7 +39,7 @@
 					<ul>
 						<c:forEach var="bookDto" items="${bookList}">
 							<li>
-								<span><a href="${root}/manager/bookRead.do?bnum=${bookDto.book_num}">${bookDto.book_name}</a></span>
+								<span><a href="${root}/detail.do?book_num=${bookDto.book_num}">${bookDto.book_name}</a></span>
 								<span>
 									<a href="${root}/manager/authorRead.do?num=${bookDto.author_num}" title="${bookDto.author_name}">
 										${fn:substring(bookDto.author_name,0,9)}<c:if test="${fn:length(bookDto.author_name)>9}">..</c:if>

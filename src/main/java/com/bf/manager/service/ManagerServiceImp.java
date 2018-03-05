@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bf.aop.LogAspect;
 import com.bf.manager.dao.ManagerDao;
 import com.bf.manager.dto.AuthorDto;
+import com.bf.manager.dto.AuthorEditDto;
 import com.bf.manager.dto.AuthorSearchDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookFirstCateDto;
@@ -55,6 +56,25 @@ public class ManagerServiceImp implements ManagerService {
 	private ManagerDao managerDao;
 
 	// Go 염현우
+	@Override
+	public void manager(ModelAndView mav) {
+		int bookCount = managerDao.getBookCount();
+		int authorCount = managerDao.getAuthorCount();
+		int pubCount = managerDao.getPublisherCount();
+		int memberCount = managerDao.getMemberCount();
+		int authorEditCount = managerDao.getAuthorEditCount();
+		int cateCount = managerDao.getCateThreeCount();
+		int saleCount = managerDao.getSaleCount();
+		
+		mav.addObject("saleCount", saleCount);
+		mav.addObject("cateCount", cateCount);
+		mav.addObject("authorEditCount", authorEditCount);
+		mav.addObject("memberCount", memberCount);
+		mav.addObject("bookCount", bookCount);
+		mav.addObject("authorCount", authorCount);
+		mav.addObject("pubCount", pubCount);
+	}
+	
 	@Override
 	public void bookCategoryOk(ModelAndView mav) {
 		//대분류 설정
@@ -279,22 +299,35 @@ public class ManagerServiceImp implements ManagerService {
 	public void authorUpdateRead(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		List<CountryDto> countryList = managerDao.getCountry();
+		
 		int num = Integer.parseInt(request.getParameter("num"));
+		int editNum = Integer.parseInt(request.getParameter("editNum"));
+		
 		AuthorDto authorDto = managerDao.getAuthor(num);
 		authorDto.setDescribe(authorDto.getDescribe().replace("<br>", "\n"));
 		
+		AuthorEditDto authorEditDto = managerDao.getAuthorEditOne(editNum);
+		
+		
 		mav.addObject("authorDto", authorDto);
 		mav.addObject("countryList", countryList);
+		mav.addObject("authorEditDto", authorEditDto);
 	}
 	
 	@Override
 	public void authorUpdateReadOk(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		AuthorDto authorDto = (AuthorDto) mav.getModelMap().get("authorDto");
 		authorDto.setUpdate_date(new Date());
 		authorDto.setDescribe(authorDto.getDescribe().replace("\n", "<br>"));
 		
+		int editNum = Integer.parseInt(request.getParameter("editNum"));
+		
+		managerDao.updateAuthorEdit(editNum);
 		int check = managerDao.updateAuthor(authorDto);
+		
 		mav.addObject("check", check);
+		mav.addObject("pageNumber", 1);
 	}
 	
 	@Override
@@ -383,7 +416,8 @@ public class ManagerServiceImp implements ManagerService {
 				keyword += "," + key.getName();
 			}
 		}
-		
+		List<BookFirstCateDto> firstCateList = managerDao.getFirstCate();
+		mav.addObject("firstCateList", firstCateList);
 		mav.addObject("bookDto", bookDto);
 		mav.addObject("author", author);
 		mav.addObject("illustrator", illustrator);
@@ -1440,6 +1474,51 @@ public class ManagerServiceImp implements ManagerService {
 		mav.addObject("threeName", rankList.get(2).getBook_name());
 		mav.addObject("fourName", rankList.get(3).getBook_name());
 		mav.addObject("fiveName", rankList.get(4).getBook_name());
+	}
+
+	@Override
+	public void authorUpdateBoard(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		String condition = request.getParameter("condition");
+		String pageNumber = request.getParameter("pageNumber");
+		if(pageNumber == null) pageNumber = "1";
+		
+		int boardSize = 10;
+		int currentPage = Integer.parseInt(pageNumber);
+		int startRow = (currentPage - 1) * boardSize + 1;
+		int endRow = currentPage * boardSize;
+		
+		List<AuthorEditDto> authorEditList = null;
+		int count = 0;
+		if(condition == null) {
+			authorEditList = managerDao.getAuthorEditList(startRow,endRow);
+			count = managerDao.getAuthorEditCount();
+		}else {
+			authorEditList = managerDao.getAuthorEditList(condition,startRow,endRow);
+			count = managerDao.getAuthorEditCount(condition);
+		}
+		
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("boardSize", boardSize);
+		mav.addObject("count", count);
+		mav.addObject("authorEditList", authorEditList);
+		mav.addObject("condition", condition);
+	}
+
+	@Override
+	public void statTotal(ModelAndView mav) {
+		int ilban = managerDao.getStatTotalCount(1);
+		int romance = managerDao.getStatTotalCount(2);
+		int fantasy = managerDao.getStatTotalCount(3);
+		int manhwa = managerDao.getStatTotalCount(4);
+		int bl = managerDao.getStatTotalCount(5);
+		
+		mav.addObject("ilban", ilban);
+		mav.addObject("romance", romance);
+		mav.addObject("fantasy", fantasy);
+		mav.addObject("manhwa", manhwa);
+		mav.addObject("bl", bl);
+		
 	}
 
 	

@@ -176,7 +176,7 @@ html{font-size: 16px !important;}
 	border-bottom: 0.125rem solid Lavender;
 }
 .b_se_list li a{
-	font-size: 0.8rem;
+	font-size: 0.9rem;
 	font-weight: bold;
 }
 .b_se_list li{
@@ -293,5 +293,9 @@ input[type=file]{
 }
 
 #bookInsertForm > section > div.b_in_content > div:nth-child(6) > label:nth-child(1){
-	position: absolute;
+	/* position: absolute; */
+}
+
+#myDropdown{
+	z-index: 1000;
 }
