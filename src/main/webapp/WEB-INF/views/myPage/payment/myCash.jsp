@@ -14,6 +14,7 @@
 <link href="${root}/css/myPage/home.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/purchasedAll.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/payment/mycash.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
 	<!--  -->

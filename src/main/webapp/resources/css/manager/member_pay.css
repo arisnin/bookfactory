@@ -6,9 +6,6 @@
 	overflow: hidden;
 }
 
-.sh_search_button {
-	float: right;
-}
 
 .sh_main_text {
 	font-size: 2rem;
@@ -18,95 +15,42 @@
 	text-align: center;
 }
 
-/* 첫번째 선택부분 .sh_member_pay_search  */
 #sh_member_pay {
 	margin: auto;
 	border: 0px solid black;
 	width: 57.5rem;
 	text-align: center;
 }
+.sh_member_pay_date ul{
+	margin-left: 37rem; 
+}
 
-.sh_member_pay_search {
-	border-top: 0px solid #776BCE;
-	border-bottom: 1px solid #776BCE;
-	width: 28.125rem;
-	height: 7rem;
+.sh_member_pay_date li {
 	float: left;
+	margin: 1rem 0rem 0rem 1rem;
 }
-
-.sh_member_pay_search li, .sh_member_pay_date li {
-	float: left;
-	margin: 1rem 0rem 0rem 3rem;
-}
-
-
-
-.sh_member_pay_search ul select{
-	font-weight: bold;
-	text-align: center;
-
-}
-
-.sh_member_pay_search li:nth-child(2), .sh_member_pay_search li:nth-child(3) {
-	margin-left: 0.1rem;
-	border: 1px solid #A59AF6;
-	border-radius: 3px;
-	size: 25rem; height: 1.7rem;
-	line-height: 0.5rem;
-}
-.sh_member_pay_search li:nth-child(3) {
-	border: 0px solid #A59AF6;
-	margin-top: 0.9rem;
-}
-.sh_member_pay_search ul {
-	height: 3.5rem;
-	width: 23rem;
-	margin-bottom: 0.2rem;
-}
-.sh_member_pay_search ul select{
-	line-height:1.6rem;
-}
-.sh_member_pay_search ul input{
-	line-height:1.6rem;
-	padding-left: 0.5rem;
-}
-
 /* 첫번째 선택부분 .sh_member_pay_date  */
 .sh_member_pay_date {
 	border-top: 0px solid #776BCE;
-	border-bottom: 1px solid #776BCE;
-	width: 29.25rem;
+	width: 57.5rem;
 	height: 7rem;
 	float: left;
 }
 
 .sh_member_pay_date input {
 	border: 1px solid #A59AF6;
-	width: 8rem;
+	width: 13rem;
 	height: 2rem;
 	padding: 0.3rem;
 	border-radius: 0.5rem;
 	text-align: center;
 }
 
-.sh_member_pay_date li:nth-child(3) {
-	margin-left: 9rem;
-}
-
-.sh_member_pay_date li:nth-child(4), .sh_member_pay_date li:nth-child(5) {
-	margin-left: 0.2rem;
-}
-
-.sh_member_pay_date li:nth-child(6) {
-	margin: 0px;
-	float: right;
-}
-
-.sh_member_pay_date li:nth-child(6) button {
-	border-radius: 10px;
-	padding: 2.2rem 2rem;
+.sh_member_pay_date button {
+    border-radius: 10px;
+    padding: 1rem 1rem;
 	font-size: 1rem;
-	margin-top: -3rem;
+	margin-top: -0.5rem;
 }
 
 .sh_member_pay_select {

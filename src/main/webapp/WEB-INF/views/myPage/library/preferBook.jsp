@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/cart/cart.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/myPage/library/preferBook.css">
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$(".service-type-list a").click(function() {

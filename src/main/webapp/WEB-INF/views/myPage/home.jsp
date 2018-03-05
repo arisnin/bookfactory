@@ -14,6 +14,7 @@
 <link href="${root}/css/myPage/myRidi.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/purchasedAll.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/recentLookBook.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 </head>
 <body>
 	<div class="wrap-container">
@@ -101,55 +102,91 @@
 		</article>
 
 		<!-- 구매목록 -->
-		<article class="mf-home-article">
-			<div class="bf-title-row title-type3">
-				<h3>구매목록<span class="book-count">${total3}</span></h3>
-				<div class="more-button-box">
-					<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='${root}/library/purchased.do'">전체보기</button>
+		<c:if test="${myPagePurchasedPageDtoFiveList.size() > 0}">
+			<article class="mf-home-article">
+				<div class="bf-title-row title-type3">
+					<h3>구매목록<span class="book-count">${total3}</span></h3>
+					<div class="more-button-box">
+						<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='${root}/library/purchased.do'">전체보기</button>
+					</div>
 				</div>
-			</div>
-			<ul class="mf-book-list">
-				<c:forEach var="myPurchasedPageDto" items="${myPagePurchasedPageDtoFiveList}">
-					<li class="mf-book-item">
-						<div class="mf-book-thumbnail">
-							<div class="mf-book-thumbnail-image" onclick ="location.href='${root}/detail.do?book_num=${myPurchasedPageDto.book_num}'">
-								<img class="" src="${myPurchasedPageDto.img_path}"/>
+				<ul class="mf-book-list">
+					<c:forEach var="myPurchasedPageDto" items="${myPagePurchasedPageDtoFiveList}">
+						<li class="mf-book-item">
+							<div class="mf-book-thumbnail">
+								<div class="mf-book-thumbnail-image" onclick ="javascript:bookDetailLink('${root}', '${myPurchasedPageDto.book_num}')">
+									<img class="" src="${myPurchasedPageDto.img_path}"/>
+								</div>
 							</div>
-						</div>
-						<div class="mf-book-metadata">
-							<h3 class="book-metadata-text" onclick ="location.href='${root}/detail.do?book_num=${myPurchasedPageDto.book_num}'">${myPurchasedPageDto.book_name}</h3>
-						</div>
-					</li>
-				</c:forEach>
-			</ul>
-		</article>
+							<div class="mf-book-metadata">
+								<h3 class="book-metadata-text" onclick ="javascript:bookDetailLink('${root}', '${myPurchasedPageDto.book_num}')">${myPurchasedPageDto.book_name}</h3>
+							</div>
+						</li>
+					</c:forEach>
+				</ul>
+			</article>
+		</c:if>
+		
+		<c:if test="${myPagePurchasedPageDtoFiveList.size() == 0}">
+			<article class="mf-home-article">
+				<div class="bf-title-row title-type3">
+					<h3>구매목록<span class="book-count">${total3}</span></h3>
+					<div class="more-button-box">
+						<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='${root}/library/purchased.do'">전체보기</button>
+					</div>
+				</div>
+				<div class="home-ticket-box">
+					<p class="ticket-empty-description">
+						구매목록이 없습니다.<br/>
+					</p>
+				</div>
+			</article>
+		</c:if>
 
 		<!-- 최근목록 -->
-		<article class="mf-home-article">
-			<div class="bf-title-row title-type3">
-				<h3>최근 본 책</h3>
-				<div class="more-button-box">
-					<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='${root}/library/recentLookBook.do'">전체보기</button>
+		<c:if test="${myPageRecentPageDtoFiveList.size() > 0}">
+			<article class="mf-home-article">
+				<div class="bf-title-row title-type3">
+					<h3>최근 본 책</h3>
+					<div class="more-button-box">
+						<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='${root}/library/recentLookBook.do'">전체보기</button>
+					</div>
 				</div>
-			</div>
-			<ul class="mf-book-list">
-				<c:forEach var="myRecentPageDto" items="${myPageRecentPageDtoFiveList}">
-					<li class="ridi-book-item">
-						<div class="ridi-book-thumbnail">
-							<div class="ridi-book-thumbnail-image" onclick="location.href='${root}/detail.do?book_num=${myRecentPageDto.book_num}'">
-								<img class="" src="${myRecentPageDto.img_path}"/>
+				<ul class="mf-book-list">
+					<c:forEach var="myRecentPageDto" items="${myPageRecentPageDtoFiveList}">
+						<li class="ridi-book-item">
+							<div class="ridi-book-thumbnail">
+								<div class="ridi-book-thumbnail-image" onclick="javascript:bookDetailLink('${root}', '${myRecentPageDto.book_num}')">
+									<img class="" src="${myRecentPageDto.img_path}"/>
+								</div>
 							</div>
-						</div>
-						<div class="ridi-book-metadata">
-							<h3 class="book-metadata-text" onclick ="location.href='${root}/detail.do?book_num=${myRecentPageDto.book_num}'">${myRecentPageDto.book_name}</h3>
-							<p class="book-metadata-author">
-								<a class="book_metadata-author-link" href="javascript:alert('작가페이지 미구현(작가번호를 받아와야함 그러므로 sql문 및 dto 수정)')">${myRecentPageDto.author_name}</a>
-							</p>
-						</div>
-					</li>
-				</c:forEach>
-			</ul>
-		</article>
+							<div class="ridi-book-metadata">
+								<h3 class="book-metadata-text" onclick ="javascript:bookDetailLink('${root}', '${myRecentPageDto.book_num}')">${myRecentPageDto.book_name}</h3>
+								<p class="book-metadata-author">
+									<a class="book_metadata-author-link" href="javascript:authorDetailHref('${root}', '${myRecentPageDto.author_num}')">${myRecentPageDto.author_name}</a>
+								</p>
+							</div>
+						</li>
+					</c:forEach>				
+				</ul>
+			</article>
+		</c:if>
+		
+		<c:if test="${myPageRecentPageDtoFiveList.size() == 0}">
+			<article class="mf-home-article">
+				<div class="bf-title-row title-type3">
+					<h3>최근 본 책</h3>
+					<div class="more-button-box">
+						<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='${root}/library/recentLookBook.do'">전체보기</button>
+					</div>
+				</div>
+				<div class="home-ticket-box">
+					<p class="ticket-empty-description">
+						최근 본 책이 없습니다.<br/>
+					</p>
+				</div>
+			</article>
+		</c:if>
 	</div>
 </body>
 </html>

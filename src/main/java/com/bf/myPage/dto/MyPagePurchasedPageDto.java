@@ -5,15 +5,17 @@ public class MyPagePurchasedPageDto {
 	private String img_path;
 	private String book_name;
 	private String author_name;
+	private int author_num;
 	
 	public MyPagePurchasedPageDto(){}
 
 	public MyPagePurchasedPageDto(int book_num, String img_path,
-			String book_name, String author_name) {
+			String book_name, String author_name, int author_num) {
 		this.book_num = book_num;
 		this.img_path = img_path;
 		this.book_name = book_name;
 		this.author_name = author_name;
+		this.author_num = author_num;
 	}
 
 	public int getBook_num() {
@@ -48,10 +50,19 @@ public class MyPagePurchasedPageDto {
 		this.author_name = author_name;
 	}
 
+	public int getAuthor_num() {
+		return author_num;
+	}
+
+	public void setAuthor_num(int author_num) {
+		this.author_num = author_num;
+	}
+
 	@Override
 	public String toString() {
 		return "MyPagePurchasedPageDto [book_num=" + book_num + ", img_path="
 				+ img_path + ", book_name=" + book_name + ", author_name="
-				+ author_name + "]";
+				+ author_name + ", author_num=" + author_num + "]";
 	}
+
 }

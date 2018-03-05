@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="root" value = "${pageContext.request.contextPath}"/>
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 <title>recentLookBookDelete(전체삭제 완료)</title>
 </head>
 <body>

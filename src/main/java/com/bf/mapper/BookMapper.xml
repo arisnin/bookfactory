@@ -99,6 +99,7 @@
 		  (select count(*) cnt from book_category) seq
 		where b.BOOK_NUM = #{currentNum}
 	</insert>
+	
 	<insert id="insertBookCategory3" parameterType="java.util.HashMap">
 		insert into book_category(num,book_num,cate1_num,cate2_num,cate3_num)
 		select  seq.cnt ,b.BOOK_NUM , cate.fn, cate.sn, cate.tn
@@ -232,6 +233,11 @@
 			SELECT ROWNUM RNUM, BOOKM.* FROM BOOKM) A
 			where rnum = #{book_num})
 	</update>
+	
+	<insert id="insertBookCategoryOne" parameterType="java.util.HashMap">
+		INSERT INTO BOOK_CATEGORY(NUM,BOOK_NUM,CATE1_NUM,CATE2_NUM,CATE3_NUM)
+		values((SELECT COUNT(*)+1 CNT FROM BOOK_CATEGORY),#{book_num},#{cate1_num},#{cate2_num},#{cate3_num})
+	</insert>
 	
 </mapper>
 

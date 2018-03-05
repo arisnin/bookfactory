@@ -117,7 +117,7 @@ $(function(){
 			
 			$("input[name=tags]").val(sendData);
 			
-			listAjax(root, sendData, 1);
+			listAjax(root, sendData, 1, firstCate);
 		}else{
 			$(this).parent().parent().css({
 				backgroundColor : "#f8f7ff"
@@ -138,7 +138,7 @@ $(function(){
 				}
 			}
 			
-			listAjax(root, "", 1);
+			listAjax(root, "", 1, firstCate);
 		}
 	});
 	
@@ -149,7 +149,7 @@ $(function(){
 		}).find("input[type=checkbox]").prop('checked',false);
 		$(".keyword_choice .tag-list > li").remove();
 		$("input[name=tags]").val("");
-		listAjax(root, "", 1);
+		listAjax(root, "", 1,firstCate);
 	});
 	
 	//선택된 태그에서 삭제 
@@ -169,39 +169,8 @@ $(function(){
 				$("input[name=tags]").val($("input[name=tags]").val().replace(res,""));
 			}
 		}
-		listAjax(root, "", 1);
+		listAjax(root, "", 1,firstCate);
 	});
-//	
-//	//선택한 태그 삭제
-//	$(".tag-list").on("click","li", function(){
-//		event.preventDefault();
-//		var checkboxCount=$(".keyword_top_list_button input[type=checkbox]").length;
-//		var reSend="tags=";
-//		
-//		for(var i=0;i<checkboxCount;i++){
-//			var text=$(".keyword_top_list_button li").eq(i).find(".bf-button").text()+"X";
-//			if(text==$(this).text()){
-////				alert(text.slice(0,-1));
-//				$(".keyword_top_list_button li").eq(i).css({
-//					backgroundColor : "#f8f7ff"
-//				});
-//				$(this).remove();
-//				
-////				var reSend=sendData.substr(text.slice(0,-1)+",");
-////				alert(reSend);
-////				$("input[name=tags]").val(reSend);
-//			}else{
-//				for(var j=0;j<$(".keyword_choice ul.tag-list button").length;j++){
-//					reSend+=$(".keyword_choice ul.tag-list button").eq(j).text().slice(0,-1)+",";
-//				}
-//			}
-//		}
-////		alert(reSend);
-//		$("input[name=tags]").val(reSend);
-//		
-//		listAjax(root, reSend, 1);
-//		display(listCount);
-//	});
 	
 	display(listCount);
 });
@@ -240,23 +209,23 @@ function makePage(json){
 //		alert(startPage+", "+endPage);
 		if(endPage>pageCount)	endPage=pageCount;
 		
-		pageUl.innerHTML+="<li class='first'><a onclick='listAjax(\""+root+"\","+0+","+1+")'><span></span></a></li>";
+		pageUl.innerHTML+="<li class='first'><a onclick='listAjax(\""+root+"\","+0+","+1+","+firstCate+")'><span></span></a></li>";
 		
 		if(startPage>pageBlock)												
-			pageUl.innerHTML+="<li class='prev'><a class='prev'onclick='listAjax(\""+root+"\","+0+","+(startPage-pageBlock)+")'><span></span></a></li>";
+			pageUl.innerHTML+="<li class='prev'><a class='prev'onclick='listAjax(\""+root+"\","+0+","+(startPage-pageBlock)+","+firstCate+")'><span></span></a></li>";
 		
 		for(var a=startPage;a<=endPage;a++){						
 			if(pageNumber==a){
-				pageUl.innerHTML+="<li><a class='active' onclick='listAjax(\""+root+"\","+0+","+a+")'>"+a+"</a></li>";
+				pageUl.innerHTML+="<li><a class='active' onclick='listAjax(\""+root+"\","+0+","+a+","+firstCate+")'>"+a+"</a></li>";
 			}else{
-				pageUl.innerHTML+="<li><a onclick='listAjax(\""+root+"\","+0+","+a+")'>"+a+"</a></li>";
+				pageUl.innerHTML+="<li><a onclick='listAjax(\""+root+"\","+0+","+a+","+firstCate+")'>"+a+"</a></li>";
 			}
 		}
 		
 		if(endPage<pageCount)						
-			pageUl.innerHTML+="<li class='next'><a onclick='listAjax(\""+root+"\","+0+","+(startPage+pageBlock)+")'><span></span></a></li>";
+			pageUl.innerHTML+="<li class='next'><a onclick='listAjax(\""+root+"\","+0+","+(startPage+pageBlock)+","+firstCate+")'><span></span></a></li>";
 		
-		pageUl.innerHTML+="<li class='last'><a onclick='listAjax(\""+root+"\","+0+","+pageCount+")'><span></span></a></li>";
+		pageUl.innerHTML+="<li class='last'><a onclick='listAjax(\""+root+"\","+0+","+pageCount+","+firstCate+")'><span></span></a></li>";
 		
 	}
 }
@@ -281,11 +250,11 @@ function makeList(json){
 					"</div>" +
 				"</div>" +
 				"<div class='mf-book-metadata'>" +
-					"<h3 class='book-metadata-text' onclick='goDetail("+json.tagList[i][0].book_num+")'>"+json.tagList[i][0].book_name +"</h3>" +
+					"<h3 class='book-metadata-text' onclick='goDetail("+json.tagList[i][0].book_num+")'>"+json.tagList[i][0].book_name +"</h3>"+
 					"<p class='book-metadata-author'>" +
-						"<a class='' href='"+root+"/author.do?authorNum="+json.tagList[i][0].authorNum+"'>"+json.tagList[i][0].authorName+"</a>" +
-					"</p>" +
-					"<p class='book-metadata-translator hidden-block'>" +
+						"<a onclick=authorDetailHref('"+root+"',"+json.tagList[i][0].authorNum+")>"+json.tagList[i][0].authorName+"</a>" +
+					"</p>"+
+				"<p class='book-metadata-translator hidden-block'>" +
 						"<a class='' href='"+root+"/author.do'></a>" +
 					"</p>" +
 					"<p class='book-metadata-publisher'>" +
@@ -320,6 +289,10 @@ function makeList(json){
 				"</div>" +
 				"</li>";
 		
+		if(json.tagList[i][0].authorNum==0){
+			$(".book-metadata-author").hide();
+		}
+		
 		if(!(json.tagList[i][0].rental_price>0)){
 			$(".price-rent").hide();
 		}
@@ -345,21 +318,28 @@ function display(listCount){
 			display:"none"
 		});
 	}else if(listCount==10000){
-		$(".keyword_no_search").attr("style","display:table");
+//		alert($(".tag-list").text());
+		if($(".tag-list").text()==""){
+			$(".keyword_not_choice").attr("style","display:table");
+			$(".keyword_no_search").attr("style","display:none");
+		}else{
+			$(".keyword_not_choice").attr("style","display:none");
+			$(".keyword_no_search").attr("style","display:table");
+		}
+		
 		$(".keyword_choice").attr("style","display:inline-block");
-		$(".keyword_not_choice").attr("style","display:none");
 		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").attr("style","display:none");
 	}else{
 		$(".keyword_not_choice").attr("style","display:none");
 		$(".keyword_no_search").attr("style","display:none");
 		$(".keyword_bottom_head, .keyword_bottom_book_list, .bf-pagination").attr("style","display:inline-block");
 	}
+	
 }
 
-function listAjax(root, sendData, pageNumber){
+function listAjax(root, sendData, pageNumber, firstCate){
 	//리스트받아오기
-	sendData="tags="+$("input[name=tags]").val()+"&pageNumber="+pageNumber;
-	
+	sendData="tags="+$("input[name=tags]").val()+"&pageNumber="+pageNumber+"&firstCate="+firstCate;
 	$.ajax({
 		type:"post",
 		url: root+"/keywordSearch.do",

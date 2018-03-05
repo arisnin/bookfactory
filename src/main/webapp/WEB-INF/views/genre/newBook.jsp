@@ -21,11 +21,9 @@
 		출판사 클릭시 검색페이지로 : onclick="location.href='${root}/main.search.do'"
 	 -->
 	<!-- 18.01.24 최정은 = 신간을 눌렀을때 나오는 화면입니다. -->
-	<input type="hidden" name="firstCateNum" value="${firstCate }"/>
 	<input type="hidden" name="bookType" value="${bookType }"/>
 	<input type="hidden" name="seconCate" value="${seconCate }"/>
 	<input type="hidden" name="root" value="${root }"/>
-	<input type="hidden" name="rental" value="${rental }"/>
 	
 	<div id="newBook">
 		<div class="bf-title-row title-type1">
@@ -105,9 +103,11 @@
 							<div class="content-star-rate">
 								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span> <span class="count-field"> ${NewBookDto.star_count}명</span>
 							</div>
-							<pre class="book-metadata-description">
-								${NewBookDto.intro }
-							</pre>
+							<c:if test="${NewBookDto.intro!='없음'}">
+								<pre class="book-metadata-description">
+									${NewBookDto.intro }
+								</pre>
+							</c:if>
 							
 							<c:choose>
 								<c:when test="${NewBookDto.rental_price!=0 }">
@@ -178,6 +178,7 @@
 				<input type="hidden" name="vType" value="portrait" />
 				<input type="hidden" name="pageNumber" value="${pageNumber}" />
 				<input type="hidden" name="firstCateNum" value="${firstCate}" />
+				<input type="hidden" name="rental" value="${rental }"/>
 			</form>
 		</section>
 		<!-- End : result-search-book-box -->

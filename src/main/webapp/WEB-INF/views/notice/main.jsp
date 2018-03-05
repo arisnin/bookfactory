@@ -11,18 +11,14 @@
 <link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet" />
 <link href="${root}/css/notice/main.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="${root }/script/notice/notice.js"></script>
-
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 <title>공지사항</title>
 </head>
 <body>
 	<div id="notice">
 		<div class="bf-title-row title-type1">
-		<h2>공지사항</h2>
-		
-		확인중
-		${count }, ${boardSize }, ${currentPage }
+		<h2>공지사항</h2>		
 		</div>
-		<br />
 
 		<div class="notice_list">			
 			<ul class="notice_list_title">
@@ -82,12 +78,10 @@
 			
 			<c:if test="${endPage<pageCount}">
 				<li class="next"><a href = "${root}/notice/main.do?pageNumber=${startPage+pageBlock}"><span></span></a></li>
-			</c:if>
-			
+			</c:if>			
 				</ul>
 			</nav>
-			
-			<a class="logo" href="${root}/normal.do">임시 메인메인</a>			
+				
 		</div>
 		
 		

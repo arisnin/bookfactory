@@ -3,6 +3,7 @@
  */
 
 $(function(){
+	$(".hw_sub_wrap").show();
 	//해당태그 밑에 밑줄표시
 	$(".sub_cate_element > span").removeClass();
 	$(".hw_sub_cate li").eq(2).children("span").addClass("activeBar");

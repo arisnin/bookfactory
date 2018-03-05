@@ -12,6 +12,7 @@
 <link href="${root}/css/myPage/myRidi.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/purchasedAll.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/recentLookBook.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
 	<div class="myridi-contents-page myridi-nearbyRead-box">
@@ -31,14 +32,14 @@
 					<c:forEach var="myRecentPageDto" items="${myPageRecentPageDtoList}">
 					<li class="ridi-book-item">
 						<div class="ridi-book-thumbnail">
-							<div class="ridi-book-thumbnail-image" onclick="location.href='${root}/detail.do?book_num=${myRecentPageDto.book_num}'">
+							<div class="ridi-book-thumbnail-image" onclick="javascript:bookDetailLink('${root}', '${myRecentPageDto.book_num}')">
 								<img class="" src="${myRecentPageDto.img_path}"/>
 							</div>
 						</div>
 						<div class="ridi-book-metadata">
-							<h3 class="book-metadata-text" onclick ="location.href='${root}/detail.do?book_num=${myRecentPageDto.book_num}'">${myRecentPageDto.book_name}</h3>
+							<h3 class="book-metadata-text" onclick ="javascript:bookDetailLink('${root}', '${myRecentPageDto.book_num}')">${myRecentPageDto.book_name}</h3>
 							<p class="book-metadata-author">
-								<a class="book_metadata-author-link" href="javascript:alert('작가페이지')">${myRecentPageDto.author_name}</a>
+								<a class="book_metadata-author-link" href="javascript:authorDetailHref('${root}', '${myRecentPageDto.author_num}')">${myRecentPageDto.author_name}</a>
 							</p>
 							<p class="book-metadata-publisher">
 								<a class="book-metadata-publisher-link" href="javascript:alert('출판사페이지')">문학사상</a>

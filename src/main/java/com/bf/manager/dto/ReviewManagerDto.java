@@ -12,7 +12,9 @@ public class ReviewManagerDto {
 	private String r_id;
 	private int count;
 	private String r_display;
-	
+	private String pcheck;
+	private int pnum;
+	private int prvpoint;
 	
 	public ReviewManagerDto() {}
 
@@ -90,11 +92,36 @@ public class ReviewManagerDto {
 		this.count = count;
 	}
 
+	public String getPcheck() {
+		return pcheck;
+	}
+
+	public void setPcheck(String pcheck) {
+		this.pcheck = pcheck;
+	}
+
+	public int getPnum() {
+		return pnum;
+	}
+
+	public void setPnum(int pnum) {
+		this.pnum = pnum;
+	}
+
+	public int getPrvpoint() {
+		return prvpoint;
+	}
+
+	public void setPrvpoint(int prvpoint) {
+		this.prvpoint = prvpoint;
+	}
+
 	@Override
 	public String toString() {
 		return "ReviewManagerDto [r_num=" + r_num + ", r_content=" + r_content + ", r_stat=" + r_stat
 				+ ", r_write_date=" + r_write_date + ", b_num=" + b_num + ", b_name=" + b_name + ", r_id=" + r_id
-				+ ", count=" + count + ", r_display=" + r_display + "]";
+				+ ", count=" + count + ", r_display=" + r_display + ", pcheck=" + pcheck + ", pnum=" + pnum
+				+ ", prvpoint=" + prvpoint + "]";
 	}
 
 	

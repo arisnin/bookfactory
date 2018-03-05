@@ -12,6 +12,52 @@
 		cart_wish
 		where BOOK_NUM = #{bookNum} and id=#{id}
 	</delete>
+	
+	<select id="get-cart2" parameterType="String" resultType="com.bf.main.dto.CategoryPageDto">
+		SELECT	bm.book_num, bm.img_path, bm.NAME "book_name",
+				rs."star_point", rs."star_count",
+				au.num "author_num", au.NAME "author_name",
+				il.num "illur_num", il.NAME "illur_name",
+				tr.num "trans_num", tr.name "trans_name",
+				pub.pub_num, pub.NAME "pub_name",
+				tc.num "third_cate_num", tc.NAME "third_cate_name",
+				bm.intro, bm.discount, bm.discount2, bm.rental_period, bm.rental_price, bm.price, bm.type
+		FROM bookm bm, (
+			SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+			FROM (
+				SELECT rw.* FROM review rw, (
+					SELECT DISTINCT ID, book_num
+					FROM payment
+				) pm
+				WHERE rw.book_num = pm.book_num
+				AND rw.ID = pm.ID
+			)
+			GROUP BY book_num
+		) rs, (
+			SELECT book_num, min(cate3_num) "cate3_num"
+    				FROM book_category
+    				GROUP BY book_num
+		) bc, (
+          SELECT book_num FROM cart_wish
+          WHERE ID = #{id}
+          AND cart_wish = 'cart'
+        ) ct, author au, author il, author tr, publisher pub, third_cate tc
+				WHERE bm.book_num = rs.book_num(+)
+				AND bm.book_num = bc.book_num
+				AND bm.author_num = au.num
+				AND bm.illustrator_num = il.num
+				AND bm.translator_num = tr.num
+				AND bm.pub_num = pub.pub_num
+				AND bc."cate3_num" = tc.num
+        AND bm.book_num = ct.book_num
+		<if test="type == 0">
+			AND bm.rental_period = 'no'
+		</if>
+		<if test="type == 1">
+			<![CDATA[AND bm.rental_period <> 'no']]>
+		</if>
+        
+	</select>
 
 	<select id="getCart" parameterType="String" resultType="com.bf.book.dto.HomeDto">
 		<![CDATA[

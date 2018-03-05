@@ -15,14 +15,18 @@
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 <script type="text/javascript" src="${root}/script/book/plus.js"></script>
+<link rel="stylesheet" href="${root }/alert/alertify_core.css" />
+<link rel="stylesheet" href="${root }/alert/alertify_default.css" id="toggleCSS" />
+<script src="${root }/alert/alertifymin.js"></script>
 </head>
 <body>
 	<!-- 받을때 작가 번호 받아옴. -->
 	<div class="wrap-container bf-author-profile-update">
-		<form action="">
+		<form id="atpOk" action="${root}/authorProfilUpdateOk.do" method="post">
 			<div class="author">작가 정보 수정 요청</div>
 			<input type="hidden" value="${author_num}" name="author_num" />
 			<div class="profile_ex aut">
+				<h2>추가사항 또는 변경요청사항이<br>있는곳만 입력하세요</h2>
 				<ol class="content">
 					<li><span>작가이름</span><span><input type="text" name="author_name"/></span></li>
 					<li><span>국적</span><span><input type="text" name="author_contry"/></span></li>
@@ -39,4 +43,20 @@
 		</form>
 	</div>
 </body>
+	<script type="text/javascript">
+		$(".bf-button").click(function(){
+			var content = "";
+			$(".content input").each(function(){
+				content += $(this).val();
+			});
+			if(content == ""){
+				alertify.error("하나라도 입력하시오");
+				return false;
+			}
+			
+			$("#atpOk").submit();
+		});
+	</script>
 </html>
+
+

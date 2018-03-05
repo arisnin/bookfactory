@@ -22,37 +22,20 @@
 		
 			<div id="sh_board_shadow">
 			<div class="sh_member_pay_header">
-			
+			<form method="get">
 				<div class="sh_member_pay_main">
 
-					<div class="sh_member_pay_search">
-						<form method="get">
-						<ul>
-							<li><span class="material-icons">search</span></li>
-							<li><input class="search-word" type="text" name="searchWord" placeholder="책 제목 또는 저자명" value="${searchWord}"/></li>
-						</ul>
-						</form>
-					</div>
+					
 
 					<div class="sh_member_pay_date">
 						<ul>
-							<li><input type="text" id="sh_date_start" placeholder="시작 날짜" /></li>
-							<li>~<input type="text" id="sh_date_end" placeholder="종료 날짜" /></li>
-							<li><button type="button" class="bf-button bf-white-btn" id="sh_day1">하루</button></li>
-							<li><button type="button" class="bf-button bf-white-btn" id="sh_day7">일주일</button></li>
-							<li><button type="button" class="bf-button bf-white-btn" id="sh_day30">한달</button></li>
-							<li><button type="button" class="bf-button">검색</button></li>
+							<li><span class="material-icons">search</span></li>
+							<li><input class="search-word" type="text" name="searchWord" placeholder="아이디를 입력하세요" value="${searchWord}"/></li>
+							<li><button type="submit" class="bf-button">검색</button></li>
 						</ul>
 					</div>
 				</div>
-
-				<div class="sh_member_pay_select">
-					<select>
-						<option>등록일 순</option>
-						<option>오래된 순</option>
-					</select>
-				</div>
-
+				</form>
 			</div>
 			<div class="sh_member_pay_content">
 				<div class="sh_member_pay_title">
@@ -79,7 +62,7 @@
 							<li>${cashDto.member_name}</li>
 							<li>${cashDto.cash_total }원</li>
 							<li>${cashDto.point_total }<br/>point</li>
-							<li><fmt:formatDate value="${cashDto.last_date }" pattern="yyyy-MM-dd"/></li>
+							<li><fmt:formatDate value="${cashDto.last_date }" pattern="yyyy-MM-dd"/><c:if test="${cashDto.last_date == null}">-</c:if> </li>
 							<li>쿠폰미구현</li>
 							<li><button type="button" class="bf-button" onclick="javascript:location ='${root}/manager/memberPayDetail.do?id=${cashDto.id}'">상세보기</button>	</li>
 							</ul>
@@ -95,10 +78,10 @@
 			<div class="a_se_foot">
 				<nav class="bf-pagination">
 					<ul class="bf-animated-btn">
-						<c:if test="${search-word==null}">
+						<c:if test="${searchWord==null}">
 							<c:set var="href" value="${root}/manager/memberPay.do?pageNumber="/>
 						</c:if>
-						<c:if test="${search-word!=null}">
+						<c:if test="${searchWord!=null}">
 							<c:set var="href" value="${root}/manager/memberPay.do?searchWord=${searchWord}&pageNumber="/>
 						</c:if>
 						

@@ -23,7 +23,7 @@
 			<div class="example_left">
 				<div class="example_left_head">
 					<div class="example_left_head_title">
-						<button onclick="location.href='${root}/detail.do?book_num_${ht.book_num}'">&lsaquo;</button>
+						<button onclick="location.href='${root}/detail.do?book_num=${ht.book_num}'">&lsaquo;</button>
 						<span>${ht.bookName}</span>
 					</div>
 					<div class="example_left_head_button">

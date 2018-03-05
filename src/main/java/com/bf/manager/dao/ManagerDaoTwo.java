@@ -43,21 +43,32 @@ public interface ManagerDaoTwo {
     public int boardUpdateOk(BoardFrequencyDto boardFrequencyDto);
     public int listDelete(int num);
     //member
-    public int memberCount(String searchWord);
+    public int memberCount(String searchWordDate, Date startDate,Date endDate);
+    public int memberCount1();
     public List<MemberDto> memberList(int starRow,int endRow);
-    public List<MemberDto> memberSearchList(String searchWord,int starRow,int endRow);
+    public List<MemberDto> memberSearchList(String searchWord,int starRow,int endRow,Date startDate,Date endDate);
     public MemberDto register(String id);
     public int registerOk(MemberDto memberDto);
     public int registerDelete(String id);
     public List<ManagerCashDto> memberCashList(int startRow,int endRow);
+    public List<ManagerCashDto> memberCashSearchList(String searchWord,int startRow,int endRow);
     public List<ManagerPayDto> payDetail(int startRow,int endRow,String id);
     public List<ManagerChargeDto> chargeDetail(int startRow,int endRow,String id);
     public List<ManagerPointDto> pointDetail(int startRow,int endRow,String id);
     public int pointInsert(int point,String pointType,String id	);
     public ManagerCashDto selectPay(String id);
+    public int memberCashCount();
+    public int memberCashCount1(String searchWord);
+    public int payCount(String id);
+	public int chargeCount(String id);
+	public int pointCount(String id);
+	
+    
+    
    //review
     public int reviewCount();
     public List<ReviewManagerDto> reviewList(int startRow,int endRow);
     public List<AccuseDto> accuseList(int num,int startRow,int endRow);
-   
+    public List<ReviewManagerDto> reviewSearchDate(int startRow,int endRow,Date startDate,Date endDate);
+    
 }
