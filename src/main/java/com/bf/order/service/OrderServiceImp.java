@@ -2,6 +2,7 @@ package com.bf.order.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,6 +83,7 @@ public class OrderServiceImp implements OrderService {
 	public void cartDelete(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		LogAspect.info("cartDelete()");
+		// TODO: 선택삭제 기능시에 NumberFormatException 발생
 		int book_num = Integer.parseInt(request.getParameter("bookNum"));
 		User user = (User) request.getSession().getAttribute("userInfo");
 		String id = user.getUsername();
@@ -168,10 +170,12 @@ public class OrderServiceImp implements OrderService {
 	@Override
 	public void payment(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
-		OrderDto orderDto = (OrderDto) mav.getModelMap().get("orderDto");
-		String bookList = (String) mav.getModelMap().get("bookList");
+		String bookList[] = request.getParameterValues("bookList");
+		OrderDto orderDto = (OrderDto)mav.getModelMap().get("orderDto");
+		
 		User user = (User) request.getSession().getAttribute("userInfo");
 		String id = user.getUsername();
+		
 		orderDto.setId(id);
 		orderDto.setOrder_num(System.currentTimeMillis());
 		orderDto.setPresent_check("no");
@@ -179,49 +183,38 @@ public class OrderServiceImp implements OrderService {
 		orderDto.setRental_state("no");
 		orderDto.setFree_pass("no");
 		orderDto.setState("yes");
+		
 		int check = 0;
+		
+		// 결재 업데이트
 		if (bookList != null) {
-			String[] bookNum = bookList.split(",");
-			for (int i = 0; i < bookNum.length; i++) {
-				int book_num = Integer.parseInt(bookNum[i]);
-				orderDto.setBook_num(book_num);
-				System.out.println(orderDto.toString());
-				check = orderDao.paymentInsert(orderDto);
+			for (String s : bookList) {
+				orderDto.setBook_num(Integer.parseInt(s));
+				LogAspect.info(orderDto);
+				check += orderDao.paymentInsert(orderDto);
 			}
-		}else {
-			check = orderDao.paymentInsert(orderDto);
 		}
-		mav.addObject("check", check);
+		
+		// 주문목록 생성
+		List<CategoryPageDto> orderList = orderDao.getOrderList(Arrays.asList(bookList));
+		LogAspect.info(orderList.size());
+		
+		mav.addObject("check", check).addObject("updateCount", check);
+		mav.addObject("orderList", orderList);
 	}
 
 	@Override
 	public void getBookSelect(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
-		String book_num = request.getParameter("book_num");
-		List<HomeDto> list = new ArrayList<HomeDto>();
-		HomeDto homeDto = null;
-		long totalPrice = 0;
 
-		if (request.getParameter("bookList") != null) {
-			String[] bookList = request.getParameter("bookList").split(",");
-			for (int i = 0; i < bookList.length; i++) {
-				homeDto = orderDao.getBookSelect(Integer.parseInt(bookList[i]));
-				System.out.println(homeDto.toString());
-				list.add(homeDto);
-			}
-			mav.addObject("bookList", request.getParameter("bookList"));
-		} else {
-			homeDto = orderDao.getBookSelect(Integer.parseInt(book_num));
-			list.add(homeDto);
-		}
-
-		for (int i = 0; i < list.size(); i++) {
-			homeDto = list.get(i);
-			totalPrice += homeDto.getPrice();
-		}
-		System.out.println(list.toString());
-		mav.addObject("aList", list);
-		mav.addObject("totalPrice", totalPrice);
+		String bookList[] = request.getParameterValues("bookList");
+		List<String> arrBookList = Arrays.asList(bookList);
+		
+		List<CategoryPageDto> orderList = orderDao.getOrderList(arrBookList);		
+		LogAspect.info(orderList.size());
+		
+		mav.addObject("orderList", orderList);
+		mav.addObject("bookList", arrBookList);
 	}
 
 }

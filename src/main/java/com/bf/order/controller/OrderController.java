@@ -60,7 +60,7 @@ public class OrderController {
 	/**
 	 * 헤더 > 카트 > 구매
 	 */
-	@RequestMapping(value = "/order.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/order.do", method = RequestMethod.POST)
 	public ModelAndView order(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("order()");
 		ModelAndView mav = new ModelAndView("order/order.main");
@@ -75,17 +75,17 @@ public class OrderController {
 	@RequestMapping(value = "/orderOk.do", method = RequestMethod.GET)
 	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response, OrderDto orderDto) {
 		LogAspect.info("payment()");
-		LogAspect.info(orderDto.toString());
+		
 		ModelAndView mav = new ModelAndView("order/orderOk.main");
-		System.out.println(request.getParameter("book_num"));
-		if (request.getParameter("bookList") != null) {
-			mav.addObject("bookList", request.getParameter("bookList"));
-		}else {
-			mav.addObject("book_num", request.getParameter("book_num"));
+		
+		orderService.payment(mav.addObject("request", request).addObject("orderDto", orderDto));
+		
+		String bookList[] = request.getParameterValues("bookList");
+		if (bookList != null) {
+			for (String s : bookList) {
+				System.out.println(s);
+			}
 		}
-		mav.addObject("request", request);
-		mav.addObject("orderDto", orderDto);
-		orderService.payment(mav);
 		return mav;
 	}
 
