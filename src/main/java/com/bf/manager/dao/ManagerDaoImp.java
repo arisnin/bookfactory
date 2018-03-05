@@ -533,8 +533,7 @@ public class ManagerDaoImp implements ManagerDao {
 	
 	@Override
 	public void deleteBookCategory(int book_num) {
-		// TODO Auto-generated method stub
-		
+		sqlSession.delete("com.bf.mapper.BookMapper.deleteBookCategory", book_num);
 	}
 	
 }

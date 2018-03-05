@@ -84,7 +84,7 @@
 						<c:forEach items="${rankList}" var="rank">
 							<tr>
 								<td>${rank.rnum }</td>
-								<td><a href="#">${rank.book_name }</a></td>
+								<td><a href="${root}/detail.do?book_num=${rank.book_num}">${rank.book_name }</a></td>
 								<td>${rank.author_name }</td>
 								<td>${rank.score }</td>
 								<td>${rank.preference }</td>

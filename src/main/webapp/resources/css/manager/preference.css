@@ -276,4 +276,7 @@ a:focus {
 }
 .s_t_cate>li{margin-right: 1.8rem;}
 
+#s_pr_info > table > tbody > tr > td:nth-child(2) > a{
+	color:black;
+}
  

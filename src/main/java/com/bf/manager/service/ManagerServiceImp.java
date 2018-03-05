@@ -341,12 +341,11 @@ public class ManagerServiceImp implements ManagerService {
 		BookDto bookDto = (BookDto) mav.getModelMap().get("bookDto");
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 
+		//책카테고리삽입
 		int cate1_num = Integer.parseInt(request.getParameter("cate1_num"));
-		int cate2_num = Integer.parseInt(request.getParameter("cate1_num"));
-		int cate3_num = Integer.parseInt(request.getParameter("cate1_num"));
-		LogAspect.info(LogAspect.logMsg +cate1_num + cate2_num + cate3_num);
-		
-		
+		int cate2_num = Integer.parseInt(request.getParameter("cate2_num"));
+		int cate3_num = Integer.parseInt(request.getParameter("cate3_num"));
+		managerDao.insertBookCategoryOne(bookDto.getBook_num(),cate1_num,cate2_num,cate3_num);
 		
 		int check = managerDao.insertBook(bookDto);
 		
