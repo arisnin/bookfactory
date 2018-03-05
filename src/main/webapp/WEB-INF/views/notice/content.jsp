@@ -13,7 +13,7 @@
 	rel="stylesheet" />
 <link href="${root}/css/notice/content.css" type="text/css"
 	rel="stylesheet">
-
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 <title>공지사항 내용</title>
 </head>
 <body>

@@ -27,4 +27,6 @@ public interface OrderService {
 
 	public void getBookSelect(ModelAndView mav);
 
+	public ModelAndView getCart2(ModelAndView mav);
+
 }

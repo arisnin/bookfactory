@@ -145,7 +145,7 @@ public class BookDaoImp implements BookDao {
 	}
 
 	@Override	//오늘의 추천에서 랜덤값 가져오는 아이 - 로맨스, 판타지, 비엘 단행본 해당
-	public List<Integer> getPaperRandomBookNum(HashMap<String, Integer> map) {
+	public List<Integer> getPaperRandomBookNum(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getPaperRandomBookNum", map);
 	}
@@ -193,13 +193,13 @@ public class BookDaoImp implements BookDao {
 	}
 
 	@Override	//태그선택시 카운트수 가져오기
-	public int getTagListCount(ArrayList<String> list) {
+	public int getTagListCount(HashMap<String, Object> list) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getTagListCount", list);
 	}
 
 	@Override	//태그선택시 해당값에 맞는 책정보들고오기
-	public List<HomeDto> getTagBookList(HashMap<String, ArrayList<String>> listMap) {
+	public List<HomeDto> getTagBookList(HashMap<String, Object> listMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getTagBookList", listMap);
 	}
@@ -284,12 +284,6 @@ public class BookDaoImp implements BookDao {
 	}
 
 	@Override
-	public List<HomeDto> getPopularList(HashMap<String, Integer> map) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("getPopularListPaper",map);
-	}
-
-	@Override
 	public List<HomeDto> getBestSellerWeekPaper(HashMap<String, Object> pMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getBestSellerWeekPaper",pMap);
@@ -305,6 +299,20 @@ public class BookDaoImp implements BookDao {
 	public ExampleDto getExample(int first) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getExample", first);
+	}
+
+	@Override
+	public List<HomeDto> getPopularListPaper(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("getPopularListPaper",map);
+	}
+
+	public int insertAuthorEdit(int author_num, String content) {
+		// 염현우
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("author_num", author_num);
+		map.put("content", content);
+		return sqlSession.insert("com.bf.mapper.AuthorMapper.insertAuthorEdit",map);
 	}
 
 }

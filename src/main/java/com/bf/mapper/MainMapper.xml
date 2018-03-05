@@ -308,4 +308,14 @@
 		where c.rn=1
 		]]>
 	</select>
+	
+	<select id="noticeMini" parameterType="int" resultType="HashMap">
+		<![CDATA[
+			select b.num "num", b.title "title" from(
+				select rownum rnum, a.* from(
+					select * from notice order by num desc) a) b
+			where rnum >=1 and rnum <=3
+		]]>	
+	</select>
+	
 </mapper>

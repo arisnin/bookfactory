@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/genre/homeOther.css" />
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/basic/commons.js"></script>
+<script type="text/javascript" src="${root}/script/genre/normal.js"></script>
 </head>
 <body>
 	<!-- 책상세보기로 요청 방식 :  onclick="location.href='${root}/detail.do'"

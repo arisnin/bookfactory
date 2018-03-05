@@ -20,17 +20,15 @@
 				<div class="a_in_content a_ur_top">
 					<div>
 					  <label>요청아이디</label>
-					  <div class="a_ur_ct">abc123</div>
+					  <div class="a_ur_ct">user</div>
 					</div>
 					<div>
 					  <label>작가이름</label>
-					  <div class="a_ur_ct">홍길동</div>
+					  <div class="a_ur_ct">${authorEditDto.name }</div>
 					</div>
 					<div>
 					  <label class="a_ur_d3">내용</label>
-					  <div class="a_ur_ct">또한 추세 또는 사실을 파악하는 것이 훨씬 쉬울 것입니다. 예를 들어, 미국은 방글라데시 인구의 2 배, 중국은 러시아보다 10 배 더 많은 인구가 있습니다. 차트의 막대 길이를 보면 .
-	
-	다양한 종류의 차트를 만드는 데 사용할 수있는 인기있는 라이브러리는 Chart.js 입니다. 이 시리즈에서는이 라이브러리의 모든 중요한 측면에 대해 배우게됩니다. HTML5 Canvas에서 멋지고 반응이 빠른 차트를 만드는 데 사용할 수 있습니다. </div>
+					  <div class="a_ur_ct">${authorEditDto.content }</div>
 					</div>
 				</div>
 				<div class="a_in_content">
@@ -108,6 +106,7 @@
 				</div>
 			</section>
 			<input type="hidden" name="num" value="${authorDto.num}">
+			<input type="hidden" name="editNum" value="${authorEditDto.num}">
 		</form>
 	</div>
 	

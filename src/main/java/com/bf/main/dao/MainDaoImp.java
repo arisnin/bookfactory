@@ -168,5 +168,10 @@ public class MainDaoImp implements MainDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.mapper.MainMapper.getRandomBookNum", f_num);
 	}
+
+	@Override
+	public List<Map<String, Object>> noticeMini() {
+		return sqlSession.selectList(namespace + "noticeMini");
+	}
 	
 }

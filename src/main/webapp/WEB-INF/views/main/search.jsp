@@ -175,11 +175,6 @@
 							<li class="last"><a href="javascript:searchBookPageHref('${pageCount}')"><span></span></a></li>
 						</ul>
 					</nav>
-					<input type="hidden" name="vType" value="portrait" />
-					<input type="hidden" name="pnum" value="${pnum}" />
-					<input type="hidden" name="onum" value="${onum}" />
-					<input type="hidden" name="cnum" value="${cnum}" />
-					<input type="hidden" name="keyword" value="${keyword}" />
 					<script type="text/javascript">
 						function searchBookPageHref(pnum) {
 							var cateForm = document.getElementById("search-pagination-form");
@@ -189,6 +184,11 @@
 						}
 					</script>
 				</c:if>
+					<input type="hidden" name="vType" value="portrait" />
+					<input type="hidden" name="pnum" value="${pnum}" />
+					<input type="hidden" name="onum" value="${onum}" />
+					<input type="hidden" name="cnum" value="${cnum}" />
+					<input type="hidden" name="keyword" value="${keyword}" />
 				</form>
 			</section><!-- End : result-search-book-box -->
 		</div>

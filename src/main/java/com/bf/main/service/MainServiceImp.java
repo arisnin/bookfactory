@@ -13,6 +13,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tools.ant.filters.FixCrLfFilter.AddAsisRemove;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ import com.bf.main.dto.SearchAuthorDto;
 import com.bf.main.dto.SearchBookCountDto;
 import com.bf.member.model.MemberDto;
 import com.bf.member.model.User;
+import com.sun.jmx.remote.security.NotificationAccessController;
 
 /**
  * @Date 2018. 2. 4.
@@ -184,6 +187,16 @@ public class MainServiceImp implements MainService {
 				thirdCateNum += groupBySecondCate[i];
 			}
 		}
+		
+		// cnum 이 thirCateNum으로 입력되었을 경우, secondCateNum 역산
+		/*thirdCateNum = 127;
+		int tmp = 0;
+		for (int i=1; i <25; i++) {
+			tmp += groupBySecondCate[i];
+			if (tmp >= thirdCateNum) {
+				secondCateNum = i;
+			}
+		}*/
 		
 		LogAspect.info("cnum/snum:" + cnum + "/" + snum + " -> " + secondCateNum + "," + thirdCateNum + "/" + serviceNum);
 
@@ -414,7 +427,8 @@ public class MainServiceImp implements MainService {
 		mav.addObject("boardSize", boardSize);
 		mav.addObject("currentPage", currentPage);
 		
-		mav.setViewName("notice/main.solo");
+		mav.setViewName("notice/main.main");
+		
 		
 	}
 	
@@ -432,10 +446,10 @@ public class MainServiceImp implements MainService {
 		NoticeDto noticeDto = mainDao.noticeRead(num);
 		LogAspect.info("NoticeDto 확인 : " + noticeDto.toString());
 		
-		mav.addObject("noticeDto", noticeDto);
+				mav.addObject("noticeDto", noticeDto);
 		mav.addObject("pageNumber", pageNumber);
 		
-		mav.setViewName("notice/content.solo");		
+		mav.setViewName("notice/content.main");
 	}
 
 	@Override
@@ -500,7 +514,37 @@ public class MainServiceImp implements MainService {
 		mav.addObject("dto", dto);
 		mav.addObject("random", random);
 	}
+
+	/**
+	 * @author : 김동환
+	 * @throws IOException 
+	 * @date : 2018. 3. 5.
+	 * comment : 공지사항 리스트 바뀌는것
+	 */
 	
-	
+	@Override
+	public void noticeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		List<Map<String,Object>> noticeMini = mainDao.noticeMini();
+		
+		JSONArray json = new JSONArray();
+
+		for (Map e : noticeMini) {
+			json.add(e);
+		}
+		
+		LogAspect.info(json);
+		 
+		
+		response.setContentType("application/x-json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(json.toJSONString());
+		out.flush();
+		out.close();
+
+	}
+
+
+
+
 	
 }

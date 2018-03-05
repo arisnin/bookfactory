@@ -33,7 +33,7 @@ public class ManagerController {
 	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
 	public ModelAndView manager() {
 		ModelAndView mav = new ModelAndView("manager.mge");
-		LogAspect.info("manager()");
+		managerService.manager(mav);
 		return mav;
 	}
 	
@@ -89,10 +89,21 @@ public class ManagerController {
 	}
 
 	@RequestMapping(value = "/authorUpdateBoard.do", method = RequestMethod.GET)
-	public ModelAndView authorUpdateBoard() {
+	public ModelAndView authorUpdateBoard(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("author/updateBoard.mg");
-		LogAspect.info("authorUpdateBoard()");
+		mav.addObject("request", request);
+		managerService.authorUpdateBoard(mav);
+		
 		return mav;
+	}
+	
+	@RequestMapping(value = "/authorUpdateBoard2.do", method = RequestMethod.GET)
+	public ModelAndView authorUpdateBoard2(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("author/updateBoard.mg");
+		mav.addObject("request", request);
+		managerService.authorUpdateBoard(mav);
+		
+		return null;
 	}
 
 	@RequestMapping(value = "/authorUpdateRead.do", method = RequestMethod.GET)
@@ -108,6 +119,7 @@ public class ManagerController {
 			AuthorDto authorDto) {
 		ModelAndView mav = new ModelAndView("author/updateReadOk.mg");
 		mav.addObject("authorDto", authorDto);
+		mav.addObject("request", request);
 		managerService.authorUpdateReadOk(mav);
 		return mav;
 	}
@@ -289,7 +301,7 @@ public class ManagerController {
 	@RequestMapping(value = "/statTotal.do", method = RequestMethod.GET)
 	public ModelAndView statTotal() {
 		ModelAndView mav = new ModelAndView("statistics/total.mg");
-		LogAspect.info("statTotal()");
+		managerService.statTotal(mav);
 		return mav;
 	}
 

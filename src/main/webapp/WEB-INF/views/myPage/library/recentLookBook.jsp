@@ -12,6 +12,7 @@
 <link href="${root}/css/myPage/myRidi.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/purchasedAll.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/recentLookBook.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
 	<div class="myridi-contents-page myridi-nearbyRead-box">

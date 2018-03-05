@@ -41,20 +41,20 @@
 						<!-- 주의! 카테고리는 중복이 가능하다. 예, '소설 > 해외소설 , 소설 > SF소설'  -->
 						<c:if test="${detailDto.second_num_1 !=0}">
 							<div class="category-item">
-								<span class="main" onclick="location.href='${root}/category.do?${detailDto.second_num_1}'">${detailDto.second_name_1}</span>
-								<span class="sub" onclick="location.href='${root}/category.do?${detailDto.third_num_1}'">${detailDto.third_name_1}</span>
+								<span class="main" onclick="location.href='${root}/category.do?cnum=${detailDto.second_num_1}'">${detailDto.second_name_1}</span>
+								<span class="sub" onclick="location.href='${root}/category.do?cnum=${detailDto.third_num_1}'">${detailDto.third_name_1}</span>
 							</div>
 						</c:if>
 						<c:if test="${detailDto.second_num_2 !=0}">
 							<div class="category-item">
-								<span class="main" onclick="location.href='${root}/category.do?${detailDto.second_num_2}'">${detailDto.second_name_2}</span>
-								<span class="sub" onclick="location.href='${root}/category.do?${detailDto.third_num_2}'">${detailDto.third_name_2}</span>
+								<span class="main" onclick="location.href='${root}/category.do?cnum=${detailDto.second_num_2}'">${detailDto.second_name_2}</span>
+								<span class="sub" onclick="location.href='${root}/category.do?cnum=${detailDto.third_num_2}'">${detailDto.third_name_2}</span>
 							</div>
 						</c:if>
 						<c:if test="${detailDto.second_num_3 !=0}">
 							<div class="category-item">
-								<span class="main" onclick="location.href='${root}/category.do?${detailDto.second_num_3}'">${detailDto.second_name_3}</span>
-								<span class="sub" onclick="location.href='${root}/category.do?${detailDto.third_num_3}'">${detailDto.third_name_3}</span>
+								<span class="main" onclick="location.href='${root}/category.do?cnum=${detailDto.second_num_3}'">${detailDto.second_name_3}</span>
+								<span class="sub" onclick="location.href='${root}/category.do?cnum=${detailDto.third_num_3}'">${detailDto.third_name_3}</span>
 							</div>
 						</c:if>
 					</div>
@@ -103,8 +103,8 @@
 					<!-- child(6) -->
 					<c:if test="${event=='yes'}">
 						<div class="event">
-							<span class="icon-clock"></span> <span class="period">01월
-								24일 (수) 12시 ~ 02월 22일 (목)</span>
+							<span class="icon-clock"></span> 
+							<span class="period">2018.02.28 (수) ~ 2018.03.14 (수)</span>
 						</div>
 					</c:if>
 					
@@ -325,7 +325,7 @@
 										<span class="icon-plus"></span>작가 신간알림·소식
 									</button>
 									<ol class="content">
-										<c:if test="${auDto.country_name!='없음'}">
+										<c:if test="${auDto.country_name!='없음' || auDto.country_num!='NOT'}">
 											<li><span>국적</span><span>${auDto.country_name}</span></li>
 										</c:if>
 										<c:if test="${auDto.birthday!='없음'}">
@@ -389,7 +389,7 @@
 											</div>
 <!-- 											대표저서가 5권 이하일 때는 버튼을 'hidden-block' 처리 해야함 -->
 											<c:if test="${fn:length(authorBook) >5}">
-												<a class="bf-button bf-white-btn bf-animated-btn" href="${root}/author.do">출간작 전체보기</a>
+												<a class="bf-button bf-white-btn bf-animated-btn" onclick="authorDetailHref('${root}','${detailDto.author_num}')">출간작 전체보기</a>
 											</c:if>
 										</div>
 									</c:if>
@@ -404,7 +404,7 @@
 										<span class="icon-plus"></span>작가 신간알림·소식
 									</button>
 									<ol class="content">
-										<c:if test="${ilDto.country_name!='NOT'}">
+										<c:if test="${ilDto.country_name!='없음' || ilDto.country_num!='NOT'}">
 											<li><span>국적</span><span>${ilDto.country_name}</span></li>
 										</c:if>
 										<c:if test="${ilDto.birthday!='없음'}">
@@ -468,7 +468,7 @@
 											</div>
 <!-- 											대표저서가 5권 이하일 때는 버튼을 'hidden-block' 처리 해야함 -->
 											<c:if test="${fn:length(illorBook)>5}">
-												<a class="bf-button bf-white-btn bf-animated-btn" href="${root}/author.do">출간작 전체보기</a>
+												<a class="bf-button bf-white-btn bf-animated-btn" onclick="authorDetailHref('${root}','${detailDto.illu_num}')">출간작 전체보기</a>
 											</c:if>
 										</div>
 									</c:if>
@@ -483,7 +483,7 @@
 										<span class="icon-plus"></span>작가 신간알림·소식
 									</button>
 									<ol class="content">
-										<c:if test="${trDto.country_name!='NOT'}">
+										<c:if test="${trDto.country_name!='없음' || trDto.country_num!='NOT'}">
 											<li><span>국적</span><span>${trDto.country_name}</span></li>
 										</c:if>
 										<c:if test="${trDto.birthday!='없음'}">
@@ -547,7 +547,7 @@
 											</div>
 <!-- 											대표저서가 5권 이하일 때는 버튼을 'hidden-block' 처리 해야함 -->
 											<c:if test="${fn:length(transBook)>5}">
-												<a class="bf-button bf-white-btn bf-animated-btn" href="${root}/author.do">출간작 전체보기</a>
+												<a class="bf-button bf-white-btn bf-animated-btn" onclick="authorDetailHref('${root}','${detailDto.trans_num}')">출간작 전체보기</a>
 											</c:if>
 										</div>
 									</c:if>
@@ -556,7 +556,7 @@
 						</div>
 					</div>
 				</c:if>
-				<c:if test="${auDto.describe!='없음'}">
+				<c:if test="${auDto.describe!='없음' && detailDto.author_num!=0}">
 					<div class="bookIntro">
 						<div>
 							<h3>저자 소개</h3>

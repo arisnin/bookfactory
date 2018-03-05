@@ -24,24 +24,25 @@
 		<div id="sh_board_shadow">
 
 			<div class="sh_review_header">
-
+				<form method="get">
 				<div class="sh_review_main">
 
 					<div class="sh_review_search">
 						<ul>
 							<li>신고글</li>
-							<li><input name="report" type="radio" checked="checked">전체</li>
-							<li><input name="report" type="radio">신고건</li>
+							<li><input name="report" type="radio" checked="checked" value="all">전체</li>
+							<li><input name="report" type="radio" value="report">신고건</li>
 						</ul>
 
 						<ul>
 							<li>적립금</li>
-							<li><input name="point" type="radio" checked="checked">전체</li>
-							<li><input name="point" type="radio">예정</li>
-							<li><input name="point" type="radio">완료</li>
+							<li><input name="point" type="radio" checked="checked"value="all" >전체</li>
+							<li><input name="point" type="radio" value="begin">예정</li>
+							<li><input name="point" type="radio" value="end">완료</li>
 						</ul>
 
 					</div>
+					
 					<div class="sh_review_date">
 						<ul>
 							<li><input type="text" id="sh_date_start" placeholder="시작 날짜" /></li>
@@ -49,11 +50,11 @@
 							<li><button type="button" class="bf-button bf-white-btn" id="sh_day1">하루</button></li>
 							<li><button type="button" class="bf-button bf-white-btn" id="sh_day7">일주일</button></li>
 							<li><button type="button" class="bf-button bf-white-btn" id="sh_day30">한달</button></li>
-							<li><button type="button" class="bf-button">검색</button></li>
+							<li><button type="submit" class="bf-button">검색</button></li>
 						</ul>
 					</div>
 				</div>
-
+				</form>
 				<div class="sh_review_select">
 					<select>
 						<option>최신글 순</option>
@@ -94,9 +95,11 @@
 									<span class="star-icon-field material-icons"><c:forEach begin="1" end="${reviewDto.r_stat}">&#xe838;</c:forEach></span><span class="non-star-icon-field material-icons"><c:forEach begin="1" end="${5 - reviewDto.r_stat}">&#xe838;</c:forEach></span>
 								</div>
 							</li>
-							<li><button type="button" class="bf-button sh_button_point">적립금 100원</button></li>
+							
+							<li><button type="button" value="${reviewDto.pcheck}" class="bf-button sh_button_point">적립금 100원</button></li>
+							
 							<li><fmt:formatDate value="${reviewDto.r_write_date}" pattern="yyyy/MM/dd" /></li>
-
+					
 							<li><a href="#" onclick="reviewPolice('${root}',this)">${reviewDto.count}</a></li>
 
 							<li><button type="button" type="button" class="bf-button bf-white-btn sh_review_secret">비공개</button>
@@ -104,7 +107,13 @@
 								<button type="button" type="button" class="bf-button bf-white-btn sh_review_delete">삭제</button></li>
 						</ul>
 						<form name="sh_review_report_form" action="${root}/manager/reviewReport.do" method="post">
-							<input type="hidden" value="${reviewDto.r_num}" name="r_num"> <input type="hidden" value="${reviewDto.r_id}" name="r_id"> <input type="hidden" value="${reviewDto.count}" name="count"> <input type="hidden" value="${reviewDto.r_content}" name="r_content"> <input type="hidden" value="${pageNumber}" name="pageNumber">
+							<input type="hidden" value="${reviewDto.r_num}" name="r_num"> 
+							<input type="hidden" value="${reviewDto.r_id}" name="r_id"> 
+							<input type="hidden" value="${reviewDto.count}" name="count"> 
+							<input type="hidden" value="${reviewDto.r_content}" name="r_content"> 
+							<input type="hidden" value="${pageNumber}" name="pageNumber">
+							<input type="hidden" name="pnum" value="${reviewDto.pnum}">
+							<input type="hidden" name="prvpoint" value="${reviewDto.prvpoint}">
 						</form>
 						<script type="text/javascript">
 							function reviewPolice(root, obj) {
@@ -112,11 +121,23 @@
 								var ul = $(obj).parent().parent();
 								var form = ul.next("form");
 								form.submit();
-							}
+				 			}
+						 	$(function() {
+						 
+						 		var button =  $(".sh_button_point");
+						 		button.each(function(){
+						 			if($(this).val() == "-1"){
+						 				$(this).css("background-color", "gray");
+						 				$(this).css("pointer-events", "none");	
+						 			}
+						 		});
+						 	});
+							
 						</script>
 						<div class="collapsable-notice" id="sh_review_hidden" style="display: none;">
 							<p>${reviewDto.r_content}</p>
 						</div>
+					
 					</c:forEach>
 				</div>
 			</div>
@@ -184,6 +205,7 @@
 			$("input[name=href]").val(
 					"&" + before.substring(before.indexOf('?') + 1));
 		}
+		
 	</script>
 
 </body>

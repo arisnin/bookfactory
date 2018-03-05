@@ -10,12 +10,6 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/basic/commons.css" />
 <link rel="stylesheet" type="text/css" href="${root}/css/event/event.css">
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
-<script type="text/javascript">
-$(function(){
-	$(".sub_cate_element > span").removeClass();
-	$(".hw_sub_cate li").eq(3).children("span").addClass("activeBar");
-});
-</script>
 </head>
 <body>
 	<input name="firstCate" value="${dto.f_num}" type="hidden"/>

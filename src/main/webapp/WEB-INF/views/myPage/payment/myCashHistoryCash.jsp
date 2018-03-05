@@ -16,6 +16,7 @@
 <link href="${root}/css/myPage/payment/mypoint.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/payment/mycashhistorycash.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/rightarrow/css/fontello.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
 	

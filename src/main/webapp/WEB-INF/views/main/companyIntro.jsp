@@ -5,7 +5,7 @@
 <head>
 <meta name="viewport" content="initial-scale=1.0">
 <meta charset="utf-8">
-<title>회사소개</title>
+<title>북팩토리</title>
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <link rel="stylesheet" type="text/css" href="${root}/css/basic/reset.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/basic/commons.css">
@@ -20,7 +20,7 @@
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 37.499297, lng: 127.033212},
+          center: {lat: 37.2621562, lng: 127.1590843},
           zoom: 18,
           mapTypeId: 'roadmap'
         });
@@ -28,7 +28,7 @@
         //아이콘 이미지 수정해야함
         var iconBase= new google.maps.MarkerImage("${root}/img/icon2.png", null, null, null, new google.maps.Size(150,100));
         var marker = new google.maps.Marker({
-            position: {lat: 37.499297, lng: 127.033212},
+            position: {lat: 37.2621562, lng: 127.1590843},
             map: map,
             icon:iconBase
           });
@@ -44,14 +44,14 @@
 		<div>
 			<div class="company_right_click">
 				<button class="company_title">프로젝트 연대기</button>
-				<div><a href="${root}/homeNormal/homeNormal.do">메인홈페이지로</a></div>
+				<div><a href="${root}/normal.do">메인홈페이지로</a></div>
 				<div class="click_event_absolute">
 					<div class="event_stick"></div>
 					<div class="event_start">프로젝트 시작 18.01.17<span></span></div>
 					<div class="event_view">18.02.02 뷰 구현<span></span></div>
 					<div class="event_db">데이터베이스 설계 18.02.09<span></span></div>
-					<div class="event_func">18.02.21 기능 구현<span></span></div>
-					<div class="event_pre">발표 18.02.23<span></span></div>
+					<div class="event_func">18.03.05 기능 구현<span></span></div>
+					<div class="event_pre">발표 18.03.06<span></span></div>
 <!-- 					<div class="event_to">팀원</div> -->
 <!-- 					<div class="event_to_tri"></div> -->
 <!-- 					<div class="event_to_li"> -->
@@ -69,15 +69,15 @@
 			</div>
 			<div class="company_left">
 				<div class="company_title">주소와 연락처</div>
-				<div class="company_sub">서울특별시 강남구 테헤란로 132 (역삼동, 한독약품빌딩)</div>
-				<div class="company_sub_child">132, Teheran-ro, Gangnam-gu, Seoul, Republic of Korea</div>
-				<div class="company_sub">대표자 : 김아무개 (tel) 010-0000-0000</div>
+				<div class="company_sub">경기도 용인시 기흥구 동백중앙로 73</div>
+				<div class="company_sub_child">73, Dongbaekjungang-ro, Giheung-gu, Yongin-si</div>
+				<div class="company_sub">마스코트 : 정호열 (tel) 010-3573-1927</div>
 			</div>
 			<div class="company_right_basic">
 				<div class="company_title">오시는길</div>
-				<div class="company_sub">지하철 <span class="company_sub_child">역삼역 3번출구 100m 직진</span></div>
-				<div class="company_sub">버스  <span class="company_sub_child">466번 대모산입구역 직진 50m</span></div>
-				<div class="company_sub">자가용 오는길   <span class="company_sub_child">올림픽대로방향 -강남대로</span></div>
+				<div class="company_sub">지하철 <span class="company_sub_child">기흥역 → 초당역</span></div>
+				<div class="company_sub">버스  <span class="company_sub_child">360(역삼역) → 직행버스 5003A(신논현역.주류성빌딩)</span></div>
+				<div class="company_sub">자가용 오는길   <span class="company_sub_child">언주로 → 대왕판교로 → 신수로 → 석성로</span></div>
 			</div>
 		</div>
 	</div>

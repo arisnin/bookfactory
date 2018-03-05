@@ -12,6 +12,7 @@
 <link href="${root}/css/serviceCenter/main.css" type="text/css"
 	rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>	
 
 	
@@ -71,7 +72,7 @@
 					</c:forEach>					
 				</div>
 			</div>
-			<br/>
+			
 			
 			<div class="service_faq_cag">
 				<a class="bf-button" href="${root }/serviceCenter/id_login.do">아이디 / 로그인</a>
@@ -82,9 +83,11 @@
 			</div>
 		</div>
 	</div>
+	
+	<jsp:include page="./footer.jsp" />
 
 </body>
-<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+
 
 
 </html>

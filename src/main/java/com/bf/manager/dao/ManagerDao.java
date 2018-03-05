@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bf.manager.dto.AuthorDto;
+import com.bf.manager.dto.AuthorEditDto;
 import com.bf.manager.dto.AuthorSearchDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.manager.dto.BookFirstCateDto;
@@ -163,5 +164,25 @@ public interface ManagerDao {
 	public int getPreferenceTotalCount(int cate_num);
 
 	public StatPreferenceDto getPreferenceTotalCount(int cate_num, int rnum);
+
+	public List<AuthorEditDto> getAuthorEditList(int startRow, int endRow);
+
+	public int getAuthorEditCount();
+
+	public int getAuthorEditCount(String condition);
+
+	public List<AuthorEditDto> getAuthorEditList(String condition, int startRow, int endRow);
+
+	public AuthorEditDto getAuthorEditOne(int editNum);
+
+	public void updateAuthorEdit(int editNum);
+
+	public int getMemberCount();
+
+	public int getSaleCount();
+
+	public int getStatTotalCount(int i);
+
+	public void insertBookCategoryOne(int book_num, int cate1_num, int cate2_num, int cate3_num);
 
 }

@@ -82,6 +82,43 @@
 		select count(*) from author where name=#{name}
 	</select>
 	
+	<insert id="insertAuthorEdit" parameterType="java.util.HashMap">
+		insert into AUTHOREDIT values(AUTHOREDIT_NUM_SEQ.nextval,#{author_num},#{content},'no',sysdate)
+	</insert>
+	
+	<select id="getAuthorEditList" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.AuthorEditDto">
+		SELECT C.* FROM(
+		SELECT ROWNUM RNUM, A.*, B.NAME FROM AUTHOREDIT A, AUTHOR B 
+		WHERE A.AUTHOR_NUM = B.NUM) C
+		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+		order by rnum desc
+	</select>
+	
+	<select id="getAuthorEditList2" parameterType="java.util.HashMap" resultType="com.bf.manager.dto.AuthorEditDto">
+		SELECT C.* FROM(
+		SELECT ROWNUM RNUM, A.*, B.NAME 
+		FROM AUTHOREDIT A, AUTHOR B 
+		WHERE A.AUTHOR_NUM = B.NUM and A.CONDITION = #{condition}) C
+		WHERE C.RNUM BETWEEN #{startRow} AND #{endRow}
+		order by rnum desc
+	</select>
+	
+	<select id="getAuthorEditCount" resultType="int">
+		select count(*) from authoredit
+	</select>
+	
+	<select id="getAuthorEditCount2" parameterType="String" resultType="int">
+		select count(*) from authoredit where CONDITION = #{condition}
+	</select>
+	
+	<select id="getAuthorEditOne" parameterType="int" resultType="com.bf.manager.dto.AuthorEditDto">
+		select a.* , b.name from AUTHOREDIT A, AUTHOR B  where a.author_num = b.num and a.NUM = #{editNum}
+	</select>
+	
+	<update id="updateAuthorEdit" parameterType="int">
+		update authoredit set condition = 'yes' where num = #{editNum}
+	</update>
+	
 </mapper>
 
 

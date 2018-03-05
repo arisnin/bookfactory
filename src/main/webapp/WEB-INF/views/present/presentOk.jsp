@@ -14,6 +14,7 @@
 	href="${root}/css/present/presentOk.css">
 <link rel="stylesheet" type="text/css"
 	href="${root}/css/order/order.css">
+	<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 <body>
 	<div class="wrap-container" style="margin-top:-2rem;">
 		<div class="present_backgroundColor">

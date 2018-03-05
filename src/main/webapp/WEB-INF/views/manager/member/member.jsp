@@ -21,35 +21,27 @@
 		
 		<div id="sh_board_shadow">
 			<div class="sh_member_header">
-
-				<div class="sh_member_main">
-					<div class="sh_member_search">
-						<form method="get">
-						<ul>
-							<li><span class="material-icons">search</span></li>
-							<li><input class="search-word" type="text" name="searchWord" placeholder="책 제목 또는 저자명" value="${searchWord}"/></li>
-						</ul>
-						</form>
-
+				<form method="get" onsubmit="return dateSearch(this)">
+					<div class="sh_member_main">
+						<div class="sh_member_search">
+							<ul>
+								<li><span class="material-icons">search</span></li>
+								<li><input class="search-word" type="text" name="searchWord" placeholder="아이디를 입력하세요" value="${searchWord}"/></li>
+							</ul>
+						</div>
+						<div class="sh_member_date">
+							<ul>
+								<li><input type="text" id="sh_date_start"  name ="startDate"  placeholder="시작 날짜" /></li>
+								<li>~<input type="text" id="sh_date_end"  name ="endDate" placeholder="종료 날짜" /></li>
+								<li><button type="button" class="bf-button bf-white-btn" id="sh_day1">하루</button></li>
+								<li><button type="button" class="bf-button bf-white-btn" id="sh_day7">일주일</button></li>
+								<li><button type="button" class="bf-button bf-white-btn" id="sh_day30">한달</button></li>
+								<li><button type="submit" class="bf-button">검색</button></li>
+							</ul>
+						</div>
 					</div>
-					<div class="sh_member_date">
-						<ul>
-							<li><input type="text" id="sh_date_start" placeholder="시작 날짜" /></li>
-							<li>~<input type="text" id="sh_date_end" placeholder="종료 날짜" /></li>
-							<li><button type="button" class="bf-button bf-white-btn" id="sh_day1">하루</button></li>
-							<li><button type="button" class="bf-button bf-white-btn" id="sh_day7">일주일</button></li>
-							<li><button type="button" class="bf-button bf-white-btn" id="sh_day30">한달</button></li>
-							<li><button type="button" class="bf-button">검색</button></li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="sh_member_select">
-					<select>
-						<option>등록일 순</option>
-						<option>오래된 순</option>
-					</select>
-				</div>
+				</form>
+				
 
 			</div>
 			<div class="sh_member_content">
@@ -71,7 +63,7 @@
 				<div class="sh_member_list">
 					<!-- for문으로 체크박스랑 등등 정보 돌려야함 . 임시적으로 두개 해놈 -->
 					<!-- 첫번째 예제 -->
-					<c:forEach var="memberDto" items="${memberDto}">
+					<c:forEach var="memberDto" items="${memberDtoList}">
 						<ul>
 						<li><label class="bf-custom-checkbox"> <input type="checkbox" title="목록" class="sh_check" /> <span class="all-mark"></span><span class="checkbox-label"></span></label></li>
 						<li>${memberDto.num}</li>
@@ -96,10 +88,18 @@
 			<div class="a_se_foot">
 				<nav class="bf-pagination">
 					<ul class="bf-animated-btn">
-						<c:if test="${searchWord==null}">
+						<fmt:formatDate value="${startDate}" var="sDate" pattern="yyyy-MM-dd"/>
+						<fmt:formatDate value="${endDate}" var="eDate" pattern="yyyy-MM-dd"/>
+						<c:if test="${startDate!=null && searchWord==null}">
+							<c:set var="href" value="${root}/manager/memberMember.do?startDate=${sDate}&endDate=${eDate}&pageNumber="/>
+						</c:if>
+						<c:if test="${startDate==null && searchWord==null}">
 							<c:set var="href" value="${root}/manager/memberMember.do?pageNumber="/>
 						</c:if>
-						<c:if test="${searchWord=null}">
+						<c:if test="${startDate!=null && searchWord!=null}">
+							<c:set var="href" value="${root}/manager/memberMember.do?searchWord=${searchWord}&startDate=${sDate}&endDate=${eDate}&pageNumber="/>
+						</c:if>
+						<c:if test="${startDate==null && searchWord!=null}">
 							<c:set var="href" value="${root}/manager/memberMember.do?searchWord=${searchWord}&pageNumber="/>
 						</c:if>
 						
@@ -137,6 +137,7 @@
 	<script type="text/javascript" src="${root}/script/basic/jquery-ui.js"></script>
 	<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 	<script type="text/javascript" src="${root}/script/manager/total.js"></script>
+	<script type="text/javascript" src="${root}/script/manager/member.js"></script>
 	<script type="text/javascript">
 		function goUpdate(url){
 			location.href=url + $("input[name=href]").val();

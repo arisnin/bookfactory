@@ -93,6 +93,10 @@
 	margin-top: 15px;
 }
 
+.book-metadata-author > a{
+	cursor: pointer;
+}
+
 /* 긴화면 스타일 */
 .longBook{
     width: 100%;
