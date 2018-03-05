@@ -12,13 +12,13 @@
 	<c:if test="${check > 0}">
 		<script type="text/javascript">
 			alert("수정완료");
-			location.href = '${root}/manager/authorUpdateBoard.do?pageNumber=';
+			location.href = '${root}/manager/authorUpdateBoard.do?pageNumber=${pageNumber}';
 		</script>
 	</c:if>
 	<c:if test="${check == 0}">
 		<script type="text/javascript">
 			alert("실패");
-			location.href = '${root}/manager/authorUpdateBoard.do?pageNumber=';
+			location.href = '${root}/manager/authorUpdateBoard.do?pageNumber=${pageNumber}';
 		</script>
 	</c:if>
 </body>

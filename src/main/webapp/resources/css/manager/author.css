@@ -111,7 +111,8 @@
 }
 .a_ur_d3{
 	position: relative;
-    top: -4.5rem;
+	vertical-align: top;
+    margin-top: 0.5rem;
 }
 
 .a_ur_ct{

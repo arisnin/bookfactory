@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bf.manager.dto.AuthorDto;
+import com.bf.manager.dto.AuthorEditDto;
 import com.bf.manager.dto.AuthorSearchDto;
 import com.bf.manager.dto.BookCategoryDto;
 import com.bf.manager.dto.BookDto;
@@ -466,5 +467,42 @@ public class ManagerDaoImp implements ManagerDao {
 		map.put("cate_num", cate_num);
 		map.put("rnum", rnum);
 		return sqlSession.selectOne("com.bf.mapper.StatMapper.getPreferenceTotalCount2",map);
+	}
+
+	@Override
+	public List<AuthorEditDto> getAuthorEditList(int startRow, int endRow) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSession.selectList("com.bf.mapper.AuthorMapper.getAuthorEditList", map);
+	}
+	
+	@Override
+	public List<AuthorEditDto> getAuthorEditList(String condition, int startRow, int endRow) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("condition", condition);
+		return sqlSession.selectList("com.bf.mapper.AuthorMapper.getAuthorEditList2", map);
+	}
+	
+	@Override
+	public int getAuthorEditCount() {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getAuthorEditCount");
+	}
+	
+	@Override
+	public int getAuthorEditCount(String condition) {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getAuthorEditCount2",condition);
+	}
+	
+	@Override
+	public AuthorEditDto getAuthorEditOne(int editNum) {
+		return sqlSession.selectOne("com.bf.mapper.AuthorMapper.getAuthorEditOne", editNum);
+	}
+	
+	@Override
+	public void updateAuthorEdit(int editNum) {
+		sqlSession.update("com.bf.mapper.AuthorMapper.updateAuthorEdit", editNum);
 	}
 }
