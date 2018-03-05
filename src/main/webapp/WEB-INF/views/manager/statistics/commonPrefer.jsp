@@ -40,23 +40,23 @@
 						</thead>
 						<tbody>
 							<tr class="qtr" id="q1">
-								<th scope="row">${fn:substring(oneName,0,19) }<c:if test="${fn:length(oneName) > 19 }">..</c:if> </th>
+								<th scope="row">${fn:substring(oneName,0,17) }<c:if test="${fn:length(oneName) > 17 }">..</c:if> </th>
 								<td class="sent bar"><p>${countMap.one}개</p><input type="hidden" value="${heightMap.one}"></td>
 							</tr>
 							<tr class="qtr" id="q2">
-								<th scope="row">${fn:substring(twoName,0,19) }<c:if test="${fn:length(twoName) > 19}">..</c:if></th>
+								<th scope="row">${fn:substring(twoName,0,17) }<c:if test="${fn:length(twoName) > 17}">..</c:if></th>
 								<td class="sent bar"><p>${countMap.two}개</p><input type="hidden" value="${heightMap.two}"></td>
 							</tr>
 							<tr class="qtr" id="q3">
-								<th scope="row">${fn:substring(threeName,0,19) }<c:if test="${fn:length(threeName) > 19}">..</c:if></th>
+								<th scope="row">${fn:substring(threeName,0,17) }<c:if test="${fn:length(threeName) > 17}">..</c:if></th>
 								<td class="sent bar"><p>${countMap.three}개</p><input type="hidden" value="${heightMap.three}"></td>
 							</tr>
 							<tr class="qtr" id="q4">
-								<th scope="row">${fn:substring(fourName,0,19) }<c:if test="${fn:length(fourName) > 19}">..</c:if></th>
+								<th scope="row">${fn:substring(fourName,0,17) }<c:if test="${fn:length(fourName) > 17}">..</c:if></th>
 								<td class="sent bar"><p>${countMap.four}개</p><input type="hidden" value="${heightMap.four}"></td>
 							</tr>
 							<tr class="qtr" id="q5">
-								<th scope="row">${fn:substring(fiveName,0,19) }<c:if test="${fn:length(fiveName) > 19}">..</c:if></th>
+								<th scope="row">${fn:substring(fiveName,0,17) }<c:if test="${fn:length(fiveName) > 17}">..</c:if></th>
 								<td class="sent bar"><p>${countMap.five}개</p><input type="hidden" value="${heightMap.five}"></td>
 							</tr>
 						</tbody>

@@ -12,7 +12,9 @@
 .a_se_list li,.a_up_list li{
 	position: relative;
 	height: 2rem;
-	margin-bottom: 0.5rem
+	margin-bottom: 0.5rem;
+	font-weight: bold;
+    font-size: 0.9rem;
 }
 
  .a_se_list li > span:not(.a_se_btn){
@@ -181,3 +183,11 @@ section > div.a_in_content > div.a_read_info_wrap > div > div> span{
 	cursor: pointer;
 	
 }
+
+#a_in_wrapper > section > div.a_in_content > div.a_read_info_wrap > div.a_read_right > div:nth-child(2) > span > a{
+	color : black;
+}
+#a_in_wrapper > section > div.a_in_content > div.a_read_info_wrap > div.a_read_right > div:nth-child(2) > span > a:hover{
+	color:#776bce;
+}
+
