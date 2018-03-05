@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="${root}/css/myPage/personal/myReview.css">
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
 	<div class="myReview">

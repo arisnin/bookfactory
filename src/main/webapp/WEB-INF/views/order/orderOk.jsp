@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/order/orderOk.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/order/order.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
 	<div class="orderOK">

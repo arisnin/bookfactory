@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>충전 내역 클릭</title>
 <link rel="stylesheet" type="text/css" href="${root}/css/myPage/payment/orderhistoryCancel.css">
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
 	<div class="orderhistory">

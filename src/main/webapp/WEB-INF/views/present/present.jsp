@@ -16,6 +16,7 @@
 	href="${root}/css/order/order.css">
 <title>Insert title here</title>
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$(".present_receiver_id_input").attr("value", "리디북스 아이디를 입력해주세요.").css(

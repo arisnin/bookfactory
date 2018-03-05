@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="${root}/css/myPage/payment/orderhistoryCancel.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/fontello-af6ab2f4/css/fontello.css">
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
 	<div class="orderhistory">

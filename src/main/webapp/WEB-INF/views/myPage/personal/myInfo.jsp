@@ -9,6 +9,7 @@
 <link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet" />
 <link href="${root}/css/myPage/personal/myInfo.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 <title>마이페이지, 내정보변경</title>
 </head>
 <body>
