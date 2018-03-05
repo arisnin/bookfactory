@@ -144,6 +144,7 @@ public class OrderServiceImp implements OrderService {
 	public void payment(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		OrderDto orderDto = (OrderDto) mav.getModelMap().get("orderDto");
+		String bookList = (String) mav.getModelMap().get("bookList");
 		User user = (User) request.getSession().getAttribute("userInfo");
 		String id = user.getUsername();
 		orderDto.setId(id);
@@ -152,7 +153,19 @@ public class OrderServiceImp implements OrderService {
 		orderDto.setCancel_check("no");
 		orderDto.setRental_state("no");
 		orderDto.setFree_pass("no");
-		int check = orderDao.paymentInsert(orderDto);
+		orderDto.setState("yes");
+		int check = 0;
+		if (bookList != null) {
+			String[] bookNum = bookList.split(",");
+			for (int i = 0; i < bookNum.length; i++) {
+				int book_num = Integer.parseInt(bookNum[i]);
+				orderDto.setBook_num(book_num);
+				System.out.println(orderDto.toString());
+				check = orderDao.paymentInsert(orderDto);
+			}
+		}else {
+			check = orderDao.paymentInsert(orderDto);
+		}
 		mav.addObject("check", check);
 	}
 
@@ -161,26 +174,26 @@ public class OrderServiceImp implements OrderService {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		String book_num = request.getParameter("book_num");
 		List<HomeDto> list = new ArrayList<HomeDto>();
-		HomeDto homeDto=null;
+		HomeDto homeDto = null;
 		long totalPrice = 0;
-		
+
 		if (request.getParameter("bookList") != null) {
 			String[] bookList = request.getParameter("bookList").split(",");
 			for (int i = 0; i < bookList.length; i++) {
 				homeDto = orderDao.getBookSelect(Integer.parseInt(bookList[i]));
-//				System.out.println(homeDto.toString());
+				System.out.println(homeDto.toString());
 				list.add(homeDto);
 			}
 			mav.addObject("bookList", request.getParameter("bookList"));
 		} else {
-//			homeDto = orderDao.getBookSelect(Integer.parseInt(book_num));
+			homeDto = orderDao.getBookSelect(Integer.parseInt(book_num));
 			list.add(homeDto);
 		}
-		
-//		for (int i = 0; i < list.size(); i++) {
-//			homeDto = list.get(i);
-//			totalPrice += homeDto.getPrice();
-//		}
+
+		for (int i = 0; i < list.size(); i++) {
+			homeDto = list.get(i);
+			totalPrice += homeDto.getPrice();
+		}
 		System.out.println(list.toString());
 		mav.addObject("aList", list);
 		mav.addObject("totalPrice", totalPrice);
