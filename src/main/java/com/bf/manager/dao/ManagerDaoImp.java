@@ -505,4 +505,15 @@ public class ManagerDaoImp implements ManagerDao {
 	public void updateAuthorEdit(int editNum) {
 		sqlSession.update("com.bf.mapper.AuthorMapper.updateAuthorEdit", editNum);
 	}
+	
+	@Override
+	public int getMemberCount() {
+		return sqlSession.selectOne("com.bf.mapper.MemberMapper.getMemberCount");
+	}
+	
+	@Override
+	public int getSaleCount() {
+		return sqlSession.selectOne("com.bf.mapper.StatMapper.getSaleCount");
+	}
+	
 }

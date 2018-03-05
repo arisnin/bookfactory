@@ -3,104 +3,103 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bf.manager.ManagerboardMapper">
-	<insert id="InsertOk" parameterType="com.bf.manager.dto.BoardFrequencyDto">
-		insert into
-		BOARD_FREQUENCY(num,title,category,content,write_date)
-		values(frequency_num_seq.nextval,#{title},#{category},#{content},#{write_date})
-	</insert>
-		<insert id="fileInsertOk" parameterType="com.bf.manager.dto.BoardFrequencyDto">
-		insert into
-		BOARD_FREQUENCY(num,title,category,content,write_date,file_name,file_size,file_path)
-		values(frequency_num_seq.nextval,#{title},#{category},#{content},#{write_date},#{file_name},#{file_size},#{file_path})
-	</insert>
-	<select id="select" parameterType="java.util.List"
-		resultType="com.bf.manager.dto.BoardCate1Dto">
-		select * from qna_cate1
-	</select>
-	<select id="select2" parameterType="java.util.List"
-		resultType="com.bf.manager.dto.BoardCate1Dto">
-		select * from qna_cate2
-	</select>
-	<select id="count" resultType="Integer">
-		select count(*) from
-		BOARD_FREQUENCY
-	</select>
-	<select id="contactCount" resultType="Integer">
-		select count(*) from
-		board_contact
-	</select>
-	<select id="list" parameterType="java.util.Map"
-		resultType="com.bf.manager.dto.BoardFrequencyDto">
-		<![CDATA[
-		select * from (select rownum rnum, a.* from(
-			select * from BOARD_FREQUENCY order by write_date desc) a)
-			where rnum >=#{startRow} and rnum <=#{endRow}
-	]]>
-	</select>
-	<select id="boardContact" parameterType="java.util.Map"
-		resultType="com.bf.manager.dto.BoardContactDto">
-		<![CDATA[
-		SELECT A.* FROM (
-		SELECT ROWNUM rnum,bc.*,
-			q1.NAME q1_name,
-			mem.PHONE mem_phone,
-			q2.NAME q2_name
+   <insert id="InsertOk" parameterType="com.bf.manager.dto.BoardFrequencyDto">
+      insert into
+      BOARD_FREQUENCY(num,title,category,content,write_date)
+      values(frequency_num_seq.nextval,#{title},#{category},#{content},#{write_date})
+   </insert>
+      <insert id="fileInsertOk" parameterType="com.bf.manager.dto.BoardFrequencyDto">
+      insert into
+      BOARD_FREQUENCY(num,title,category,content,write_date,file_name,file_size,file_path)
+      values(frequency_num_seq.nextval,#{title},#{category},#{content},#{write_date},#{file_name},#{file_size},#{file_path})
+   </insert>
+   <select id="select" parameterType="java.util.List"
+      resultType="com.bf.manager.dto.BoardCate1Dto">
+      select * from qna_cate1
+   </select>
+   <select id="select2" parameterType="java.util.List"
+      resultType="com.bf.manager.dto.BoardCate1Dto">
+      select * from qna_cate2
+   </select>
+   <select id="count" resultType="Integer">
+      select count(*) from
+      BOARD_FREQUENCY
+   </select>
+   <select id="contactCount" resultType="Integer">
+      select count(*) from
+      board_contact
+   </select>
+   <select id="list" parameterType="java.util.Map"
+      resultType="com.bf.manager.dto.BoardFrequencyDto">
+      <![CDATA[
+      select * from (select rownum rnum, a.* from(
+         select * from BOARD_FREQUENCY order by write_date desc) a)
+         where rnum >=#{startRow} and rnum <=#{endRow}
+   ]]>
+   </select>
+   <select id="boardContact" parameterType="java.util.Map"
+      resultType="com.bf.manager.dto.BoardContactDto">
+      <![CDATA[
+      SELECT A.* FROM (
+      SELECT ROWNUM rnum,bc.*,
+         q1.NAME q1_name,
+         mem.PHONE mem_phone,
+         q2.NAME q2_name
 FROM BOARD_CONTACT bc, QNA_CATE1 q1 ,MEMBER mem ,QNA_CATE2 q2 
 WHERE bc.CATEGORY =q2.NUM 
 AND bc.ID = mem.ID
 AND q1.NUM = q2.CATE1_NUM) A
 where rnum >=#{startRow} and rnum <=#{endRow}
 
-	]]>
-	</select>
-	<select id="listSearch" parameterType="java.util.Map"
-		resultType="com.bf.manager.dto.BoardFrequencyDto">
-	<![CDATA[
-		select * from (select rownum rnum, a.* from(
-			select * from BOARD_FREQUENCY where title like '%'||#{word}||'%') a)
-			where rnum >=#{startRow} and rnum <=#{endRow}
-	]]>
-	</select>
+   ]]>
+   </select>
+   <select id="listSearch" parameterType="java.util.Map"
+      resultType="com.bf.manager.dto.BoardFrequencyDto">
+   <![CDATA[
+      select * from (select rownum rnum, a.* from(
+         select * from BOARD_FREQUENCY where title like '%'||#{word}||'%') a)
+         where rnum >=#{startRow} and rnum <=#{endRow}
+   ]]>
+   </select>
 
-	<select id="listSearchDate" parameterType="java.util.Map"
-		resultType="com.bf.manager.dto.BoardFrequencyDto">
-		<![CDATA[
-		select * from (select rownum rnum, a.* from(
-			select * from BOARD_FREQUENCY where write_date >= #{startDate} and write_date <= #{endDate}) a)
-			where rnum >=#{startRow} and rnum <=#{endRow}
-	]]>
-	</select>
-	<insert id="noticeInsert" parameterType="com.bf.manager.dto.ManagerNoticeDto">
-		insert into
-		notice(num,id,title,content,write_date)
-		values(NOTICE_NUM_SEQ.nextval,#{id},#{title},#{content},#{write_date})
-	</insert>
-	<update id="boardReplyUpdate" parameterType="com.bf.manager.dto.BoardContactDto">
-		update board_contact set reply_content =#{reply_content},
-				reply_check=#{reply_check},reply_date =#{reply_date} where num =#{num}
-	</update>
-	<select id="selectBoard" resultType="com.bf.manager.dto.BoardFrequencyDto">
-	select * from BOARD_FREQUENCY where num=#{num}
-	</select>
-	<select id="catelist" resultType="com.bf.manager.dto.BoardFrequencyDto">
-		SELECT fre.*,cate2.NAME qcate2_name ,cate1.NAME qcate1_name
-			FROM BOARD_FREQUENCY fre,QNA_CATE2 cate2,QNA_CATE1 cate1 
-			WHERE cate2.CATE1_NUM =cate1.NUM
-			AND cate2.num =#{cateNum}
-			and fre.num=#{num}
-	</select>
-	
-	<update id="fileBoardUpdate" parameterType="com.bf.manager.dto.BoardFrequencyDto">
-		update BOARD_FREQUENCY set title =#{title},category =#{category},content =#{content},file_name=#{file_name},file_path=#{file_path},file_size=#{file_size} 
-		where num =#{num}
-	</update>
-		<update id="boardUpdate" parameterType="com.bf.manager.dto.BoardFrequencyDto">
-		update BOARD_FREQUENCY set title =#{title},category =#{category},content =#{content} where num =#{num}
-	</update>
-	<delete id="boardDelete" parameterType="Integer">
-		delete from BOARD_FREQUENCY where num =#{num}
-	</delete>
-	
+   <select id="listSearchDate" parameterType="java.util.Map"
+      resultType="com.bf.manager.dto.BoardFrequencyDto">
+      <![CDATA[
+      select * from (select rownum rnum, a.* from(
+         select * from BOARD_FREQUENCY where write_date >= #{startDate} and write_date <= #{endDate}) a)
+         where rnum >=#{startRow} and rnum <=#{endRow}
+   ]]>
+   </select>
+   <insert id="noticeInsert" parameterType="com.bf.manager.dto.ManagerNoticeDto">
+      insert into
+      notice(num,id,title,content,write_date)
+      values(NOTICE_NUM_SEQ.nextval,#{id},#{title},#{content},#{write_date})
+   </insert>
+   <update id="boardReplyUpdate" parameterType="com.bf.manager.dto.BoardContactDto">
+      update board_contact set reply_content =#{reply_content},
+            reply_check=#{reply_check},reply_date =#{reply_date} where num =#{num}
+   </update>
+   <select id="selectBoard" resultType="com.bf.manager.dto.BoardFrequencyDto">
+   select * from BOARD_FREQUENCY where num=#{num}
+   </select>
+   <select id="catelist" resultType="com.bf.manager.dto.BoardFrequencyDto">
+      SELECT fre.*,cate2.NAME qcate2_name ,cate1.NAME qcate1_name
+         FROM BOARD_FREQUENCY fre,QNA_CATE2 cate2,QNA_CATE1 cate1 
+         WHERE cate2.CATE1_NUM =cate1.NUM
+         AND cate2.num =#{cateNum}
+         and fre.num=#{num}
+   </select>
+   
+   <update id="fileBoardUpdate" parameterType="com.bf.manager.dto.BoardFrequencyDto">
+      update BOARD_FREQUENCY set title =#{title},category =#{category},content =#{content},file_name=#{file_name},file_path=#{file_path},file_size=#{file_size} 
+      where num =#{num}
+   </update>
+      <update id="boardUpdate" parameterType="com.bf.manager.dto.BoardFrequencyDto">
+      update BOARD_FREQUENCY set title =#{title},category =#{category},content =#{content} where num =#{num}
+   </update>
+   <delete id="boardDelete" parameterType="Integer">
+      delete from BOARD_FREQUENCY where num =#{num}
+   </delete>
+   
 </mapper>
 
-	

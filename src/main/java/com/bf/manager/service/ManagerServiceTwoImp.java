@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -142,7 +144,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 		cateList = managerDao.catecorySearch();
 		cateList2 = managerDao.catecorySearch2();
-		
+
 		if (boardFreqDto.getFile_name() != null) {
 			int index = boardFreqDto.getFile_name().indexOf("_") + 1;
 			boardFreqDto.setFile_name(boardFreqDto.getFile_name().substring(index));
@@ -222,12 +224,12 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		String pageNumber = request.getParameter("pageNumber");
-		
-		String word = request.getParameter("search-word");
+
 		String sDate = request.getParameter("startDate");
 		String eDate = request.getParameter("endDate");
 		Date startDate = null;
 		Date endDate = null;
+
 		try {
 			if (sDate != null && eDate != null) {
 				startDate = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
@@ -238,6 +240,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 			e.printStackTrace();
 		}
+
 		if (pageNumber == null)
 			pageNumber = "1";
 		int boardSize = 5;
@@ -250,16 +253,17 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		int count = managerDao.BoardContactcount();
 
 		LogAspect.logger.info(LogAspect.logMsg + count + "-------------" + currentPage);
-		
+
 		List<BoardContactDto> contactDtoList = null;
 		if (count > 0) {
 			contactDtoList = managerDao.boardContact(startRow, endRow);
 			for (BoardContactDto e : contactDtoList) {
-				e.setContent(e.getContent().replace("<br/>","\r\n"));
+				e.setContent(e.getContent().replace("<br/>", "\r\n"));
 				LogAspect.logger.info(LogAspect.logMsg + e);
 			}
 		}
-		
+		mav.addObject("startDate", startDate);
+		mav.addObject("endDate", endDate);
 		mav.addObject("contactDtoList", contactDtoList);
 		mav.addObject("pageNumber", currentPage);
 		mav.addObject("count", count);
@@ -285,9 +289,9 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		 */
 
 		User user = (User) request.getSession().getAttribute("userInfo");
-		
+
 		String id = user.getUsername();
-		
+
 		LogAspect.logger.info(LogAspect.logMsg + id + boardContactDto);
 		LogAspect.logger.info(LogAspect.logMsg + pageNumber);
 
@@ -309,7 +313,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		String q2_name = request.getParameter("q2_name");
 		Date reply_date = new Date();
 
-		LogAspect.info("@"+boardContactDto);
+		LogAspect.info("@" + boardContactDto);
 		boardContactDto.setReply_content(reply_content);
 		boardContactDto.setReply_date(reply_date);
 		boardContactDto.setQ2_name(q2_name);
@@ -326,6 +330,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		mav.setViewName("board/replyOk.mg");
 
 	}
+
 	@Override
 	public void managerNoticeInsert(ModelAndView mav) {
 		Map<String, Object> map = mav.getModel();
@@ -383,29 +388,26 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		mav.setViewName("board/noticeInsertOk.mg");
 	}
 
-
 	@Override
 	public void boardUpdateOk(ModelAndView mav) {
-		
+
 		Map<String, Object> map = mav.getModel();
 		MultipartHttpServletRequest request = (MultipartHttpServletRequest) map.get("request");
 		BoardFrequencyDto boardFrequencyDto = (BoardFrequencyDto) map.get("boardFrequencyDto");
 		String pageNumber = request.getParameter("pageNumber");
-		
-		
+
 		LogAspect.logger.info(LogAspect.logMsg + pageNumber);
 		boardFrequencyDto.setContent(request.getParameter("content"));
 		boardFrequencyDto.setTitle(request.getParameter("title"));
-		
+
 		LogAspect.logger.info(LogAspect.logMsg + boardFrequencyDto);
-		
+
 		String filePath = boardFrequencyDto.getFile_path();
 		MultipartFile upFile = request.getFile("file");
-		LogAspect.info(upFile+filePath);
-		
+		LogAspect.info(upFile + filePath);
+
 		String fileName = Long.toString(System.currentTimeMillis()) + "_" + upFile.getOriginalFilename();
 		long fileSize = upFile.getSize();
-
 
 		int check = 0;
 
@@ -420,11 +422,10 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 				try {
 					upFile.transferTo(file);
 
-				
-				}catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
+
 				boardFrequencyDto.setFile_path(file.getAbsolutePath());
 				boardFrequencyDto.setFile_name(fileName);
 				boardFrequencyDto.setFile_size(fileSize);
@@ -448,28 +449,31 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 			}
 		}
 	}
+
 	@Override
 	public void boardDelete(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-	/*	String num = request.getParameter("num");
-		String pageNumber = request.getParameter("pageNumber");
-		
-		int inum=Integer.parseInt(num);
-		LogAspect.info(inum);*/
+		/*
+		 * String num = request.getParameter("num"); String pageNumber =
+		 * request.getParameter("pageNumber");
+		 * 
+		 * int inum=Integer.parseInt(num); LogAspect.info(inum);
+		 */
 		int num = Integer.parseInt(request.getParameter("num"));
-		int pageNumber =Integer.parseInt(request.getParameter("pageNumber"));
-		
-		LogAspect.info(num+"sdflksdfklsdfjlksdfjlsdkf"+pageNumber);
-		
+		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+
+		LogAspect.info(num + "sdflksdfklsdfjlksdfjlsdkf" + pageNumber);
+
 		int check = managerDao.listDelete(num);
-		
+
 		mav.addObject("num", num);
 		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("check", check);
 		mav.setViewName("board/delete.mg");
-		
+
 	}
+
 	@Override
 	public void boardDownLoad(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -531,15 +535,24 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		String searchWord = request.getParameter("searchWord");
 		String sDate = request.getParameter("startDate");
 		String eDate = request.getParameter("endDate");
-		Date startDate = null;
+		Date startDate = new Date();
 		Date endDate = null;
-	
+		Calendar cal = new GregorianCalendar();
+
+		LogAspect.info(sDate + "----" + eDate);
 		try {
-			if (sDate != null && eDate != null) {
+			if (sDate == null && eDate == null) {
+				endDate = new Date();
+				cal.setTime(new Date());
+				cal.add(Calendar.YEAR, -50);
+				long calLong = cal.getTimeInMillis();
+				startDate.setTime(calLong);
+				LogAspect.info(startDate);
+			} else {
 				startDate = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
 				endDate = new SimpleDateFormat("yyyy-MM-dd").parse(eDate);
-				LogAspect.logger.info(LogAspect.logMsg + startDate + "zzzzzzzzzzzzzzzz" + endDate);
 			}
+
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -554,18 +567,24 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		int starRow = (currentPage - 1) * boardSize + 1;
 		int endRow = currentPage * boardSize + 1;
 
-		int count =0;
-		LogAspect.logger.info(LogAspect.logMsg + count);
+		int count = 0;
 
+		LogAspect.info(searchWord);
+		LogAspect.info(startDate + "zzzzzzzzzzzzzzzz" + endDate);
 		List<MemberDto> memberDtoList = null;
-		if (searchWord==null) {
+
+		if (searchWord == null) {
 			memberDtoList = managerDao.memberList(starRow, endRow);
-			LogAspect.logger.info(LogAspect.logMsg + memberDtoList);
-		}else {
-			memberDtoList = managerDao.memberSearchList(searchWord,starRow,endRow);
-			count = managerDao.memberCount(searchWord);
+			count = managerDao.memberCount1();
+			LogAspect.info("멤버리스ㅌ" + memberDtoList);
+		} else {
+			memberDtoList = managerDao.memberSearchList(searchWord, starRow, endRow, startDate, endDate);
+			count = managerDao.memberCount(searchWord, startDate, endDate);
 		}
 
+		mav.addObject("searchWord", searchWord);
+		mav.addObject("startDate", startDate);
+		mav.addObject("endDate", endDate);
 		mav.addObject("memberDto", memberDtoList);
 		mav.addObject("pageNumber", currentPage);
 		mav.addObject("count", count);
@@ -595,7 +614,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		} else if (memberDto.getGender().equals("female")) {
 			img = "/img/manager/woman.jpg";
 		}
-		
+
 		mav.addObject("memberDto", memberDto);
 		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("img", img);
@@ -644,35 +663,68 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		mav.setViewName("member/delete.mg");
 
 	}
+
 	@Override
 	public void memberPay(ModelAndView mav) {
 		Map<String, Object> map = mav.getModel();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		
+
 		String pageNumber = request.getParameter("pageNumber");
+		String searchWord = request.getParameter("searchWord");
+		String sDate = request.getParameter("startDate");
+		String eDate = request.getParameter("endDate");
+		Date startDate = new Date();
+		Date endDate = null;
+		Calendar cal = new GregorianCalendar();
 
+		LogAspect.info(sDate + "----" + eDate);
+		try {
+			if (sDate == null && eDate == null) {
+				endDate = new Date();
+				cal.setTime(new Date());
+				cal.add(Calendar.YEAR, -50);
+				long calLong = cal.getTimeInMillis();
+				startDate.setTime(calLong);
+				LogAspect.info(startDate);
+			} else {
+				startDate = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+				endDate = new SimpleDateFormat("yyyy-MM-dd").parse(eDate);
+			}
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		if (pageNumber == null)
 			pageNumber = "1";
 		int boardSize = 5;
 
 		int currentPage = Integer.parseInt(pageNumber);
-		
+
 		int startRow = (currentPage - 1) * boardSize + 1;
 		int endRow = currentPage * boardSize + 1;
 
+		int count = 0;
+		LogAspect.info(searchWord);
+
 		List<ManagerCashDto> cashDtoList = null;
 		
-		cashDtoList=managerDao.memberCashList(startRow,endRow);
-		LogAspect.info(cashDtoList);
-		
+		if (searchWord == null) {
+			cashDtoList = managerDao.memberCashList(startRow, endRow);
+			count = managerDao.reviewCount();
+		}/* else {
+			cashDtoList = managerDao.memberCashSearchList(searchWord, startRow, endRow, startDate, endDate);
+			count = managerDao.reviewCount1(searchWord, startDate, endDate);
+		}*/
+
+		mav.addObject("count", count);
+		mav.addObject("searchWord", searchWord);
 		mav.addObject("cashDtoList", cashDtoList);
 		mav.addObject("pageNumber", currentPage);
 		mav.addObject("boardSize", boardSize);
 
 		mav.setViewName("member/pay.mg");
 	}
-	
+
 	@Override
 	public void memberPayDetail(ModelAndView mav) {
 		Map<String, Object> map = mav.getModel();
@@ -680,52 +732,80 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		String id = request.getParameter("id");
 
 		String pageNumber = request.getParameter("pageNumber");
-		
-		
+
 		if (pageNumber == null)
 			pageNumber = "1";
 		int boardSize = 5;
 
 		int currentPage = Integer.parseInt(pageNumber);
-		
+
 		int startRow = (currentPage - 1) * boardSize + 1;
 		int endRow = currentPage * boardSize + 1;
-		
-		
+
 		List<ManagerPayDto> managerPayDtoList = null;
 		List<ManagerChargeDto> managerChargeDtoList = null;
 		List<ManagerPointDto> managerPointDtoList = null;
-		
-		managerPayDtoList = managerDao.payDetail(startRow,endRow,id);
-		managerChargeDtoList = managerDao.chargeDetail(startRow,endRow,id);
-		managerPointDtoList =managerDao.pointDetail(startRow, endRow, id);
+
+		managerPayDtoList = managerDao.payDetail(startRow, endRow, id);
+		managerChargeDtoList = managerDao.chargeDetail(startRow, endRow, id);
+		managerPointDtoList = managerDao.pointDetail(startRow, endRow, id);
 		ManagerCashDto managerCashDto = managerDao.selectPay(id);
-		
+
 		LogAspect.info(managerPayDtoList);
 		LogAspect.info(managerChargeDtoList);
 		LogAspect.info(managerPointDtoList);
 		LogAspect.info(managerCashDto);
-		
+
 		mav.addObject("managerCashDto", managerCashDto);
 		mav.addObject("managerPayDtoList", managerPayDtoList);
 		mav.addObject("managerChargeDtoList", managerChargeDtoList);
 		mav.addObject("managerPointDtoList", managerPointDtoList);
 		mav.addObject("pageNumber", currentPage);
 		mav.addObject("boardSize", boardSize);
-		
-		
+
 		mav.setViewName("member/payDetail.mg");
-		
-		
 
 	}
-//--------------------------------------리뷰------------------------------------------
+
+	// --------------------------------------리뷰------------------------------------------
 	@Override
 	public void managerReview(ModelAndView mav) {
 
 		Map<String, Object> map = mav.getModel();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		String pageNumber = request.getParameter("pageNumber");
+		String sDate = request.getParameter("startDate");
+		String eDate = request.getParameter("endDate");
+		String report = request.getParameter("report");
+		String point = request.getParameter("point");
+		String searchWord = request.getParameter("searchWord");
+		
+		Date startDate = new Date();
+		Date endDate = null;
+		Calendar cal = new GregorianCalendar();
+
+		LogAspect.info(sDate + "----" + eDate);
+		try {
+			if (sDate == null && eDate == null) {
+				endDate = new Date();
+				cal.setTime(new Date());
+				cal.add(Calendar.YEAR, -50);
+				long calLong = cal.getTimeInMillis();
+				startDate.setTime(calLong);
+				LogAspect.info(startDate);
+			} else {
+				startDate = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+				endDate = new SimpleDateFormat("yyyy-MM-dd").parse(eDate);
+			}
+
+		if (report == null)
+			report = "all";
+		if (point == null)
+			point = "all";
+		LogAspect.info("상헌" + report + point);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		if (pageNumber == null)
 			pageNumber = "1";
@@ -742,17 +822,35 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		List<ReviewManagerDto> reviewDtoList = null;
 
 		if (count > 0) {
-			reviewDtoList = managerDao.reviewList(startRow, endRow);
-			LogAspect.logger.info(LogAspect.logMsg + reviewDtoList);
-		}
+			if (report.equals("all") && point.equals("all")) {
+				if (startDate != null && endDate != null) {
+					reviewDtoList = managerDao.reviewSearchDate(startRow, endRow, startDate, endDate);
+					LogAspect.logger.info(LogAspect.logMsg + reviewDtoList + startDate + endDate);
+				} else {
+					reviewDtoList = managerDao.reviewList(startRow, endRow);
+					LogAspect.info("너니" + reviewDtoList);
+				}
+			}
+			} /*
+				 * else if(point.equals("begin")) { if (startDate != null && endDate != null) {
+				 * reviewDtoList = managerDao.reviewListBeginDate(startRow, endRow, startDate,
+				 * endDate); LogAspect.logger.info(LogAspect.logMsg + reviewDtoList + startDate
+				 * + endDate); } else{ reviewDtoList = managerDao.reviewListBegin(startRow,
+				 * endRow); } }else if(point.equals("end")) { if (startDate != null && endDate
+				 * != null) { reviewDtoList = managerDao.reviewListEndDate(startRow, endRow,
+				 * startDate, endDate); LogAspect.logger.info(LogAspect.logMsg + reviewDtoList +
+				 * startDate + endDate); } else{ reviewDtoList =
+				 * managerDao.reviewListEnd(startRow, endRow); }
+				 * 
+				 * }
+				 */
 
 		mav.addObject("reviewDtoList", reviewDtoList);
 		mav.addObject("pageNumber", currentPage);
 		mav.addObject("count", count);
 		mav.addObject("boardSize", boardSize);
-
 		mav.setViewName("review/review.mg");
-
+		
 	}
 
 	@Override
@@ -793,25 +891,25 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 	@Override
 	public void memberPointInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
-		int  point =Integer.parseInt(request.getParameter("point"));
-		String id =request.getParameter("id");
-		String pointType= "관리자권한 적립금부여";
-		LogAspect.info(point+"zzzz"+id);
-		
+		int point = Integer.parseInt(request.getParameter("point"));
+		String id = request.getParameter("id");
+		String pointType = "관리자권한 적립금부여";
+		LogAspect.info(point + "zzzz" + id);
+
 		// TODO: DAO 적립 구현
-		int check = managerDao.pointInsert(point,pointType,id);	
+		int check = managerDao.pointInsert(point, pointType, id);
 		LogAspect.info(check);
-		
+
 		// TODO: 결과 리턴
 		response.setContentType("application/x-json;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		
+
 		JSONObject json = new JSONObject();
 		json.put("check", check);
-		
+
 		out.print(json);
 		out.flush();
-		out.close();		
+		out.close();
 	}
 
 }

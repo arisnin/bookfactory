@@ -3,172 +3,178 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bf.manager.ManagerMemberMapper">
-
-	<select id="count" resultType="Integer">
-		select count(*) from member where member.name =#{searchWord}
-	</select>
-	<select id="list" parameterType="java.util.Map" resultType="com.bf.manager.dto.MemberDto">
+  <select id="count1" resultType="Integer">
+      select count(*) from member
+   </select>
+   <select id="count" resultType="Integer">
+      select count(*) from member where member.id LIKE '%'||#{searchWord}||'%'
+            and REGISTER_DATE BETWEEN #{startDate} and #{endDate}
+   </select>
+   <select id="list" parameterType="java.util.Map" resultType="com.bf.manager.dto.MemberDto">
         <![CDATA[
         select * from (select rownum rnum, a.* from(
             select * from member) a)
             where rnum >=#{startRow} and rnum <=#{endRow}
     ]]>
-	</select>
-	<select id="searchList" parameterType="java.util.Map" resultType="com.bf.manager.dto.MemberDto">
+   </select>
+   <select id="searchList" parameterType="java.util.Map" resultType="com.bf.manager.dto.MemberDto">
         <![CDATA[
         select * from (select rownum rnum, a.* from(
             select * from member
             where
-            member.name like '%'||#{searchWord}||'%'
+            member.id like '%'||#{searchWord}||'%'
+            and MEMBER.REGISTER_DATE BETWEEN #{startDate} and #{endDate}
             ) a)
             where rnum >=#{startRow} and rnum <=#{endRow}
     ]]>
-	</select>
-	
-	
-	<select id="register" resultType="com.bf.manager.dto.MemberDto"
-		parameterType="String">
-		select * from member where id = #{id}
-	</select>
-	<update id="registerOk" parameterType="com.bf.manager.dto.MemberDto">
-		update member set name
-		=#{name},password =#{password}, email
-		=#{email},role=#{role}
-		where id
-		=#{id}
-	</update>
+   </select>
+   
+   
+   <select id="register" resultType="com.bf.manager.dto.MemberDto"
+      parameterType="String">
+      select * from member where id = #{id}
+   </select>
+   <update id="registerOk" parameterType="com.bf.manager.dto.MemberDto">
+      update member set name
+      =#{name},password =#{password}, email
+      =#{email},role=#{role}
+      where id
+      =#{id}
+   </update>
 
-	<delete id="delete" parameterType="String">
-		delete from member where id
-		=#{id}
-	</delete>
+   <delete id="delete" parameterType="String">
+      delete from member where id
+      =#{id}
+   </delete>
 
-	<select id="cashList" parameterType="java.util.Map"
-		resultType="com.bf.manager.dto.ManagerCashDto">
-		SELECT D.* FROM(
-		SELECT ROWNUM num , c.* FROM(
-		SELECT mb.id "id",mb.name "member_name" , NVL( rc."cash_total",0)
-		"cash_total",NVL(rp."point_total",0)"point_total", rc."charge_date"
-		"last_date" FROM MEMBER mb, (
-		SELECT ID FROM payment
-		GROUP BY ID
-		) pm2, (
-		SELECT mb.ID, mb.NAME, nvl(cc."charge_total" - pm."payment_total",
-		cc."charge_total") "cash_total", cc."charge_date" FROM MEMBER mb, (
-		SELECT ID, sum(CHARGE_CASH) "charge_total", max(charge_date)
-		"charge_date" FROM cash_charge
-		GROUP BY ID
-		) cc, (
-		SELECT ID, sum(cash_use) "payment_total" FROM payment
-		GROUP BY ID
-		) pm
-		WHERE mb.ID = cc.ID
-		AND cc.ID = pm.ID(+)
-		) rc, (
-		SELECT ID, SUM(REMAIN) "point_total"
-		FROM POINT
-		WHERE STATE = 'on' GROUP BY ID
-		) rp
-		WHERE mb.ID = pm2.ID
-		AND mb.ID = rc.ID(+)
-		AND mb.ID = rp.ID(+))C)D
-		WHERE num BETWEEN
-		#{startRow} and #{endRow}
+   <select id="cashList" parameterType="java.util.Map"
+      resultType="com.bf.manager.dto.ManagerCashDto">
+      SELECT D.* FROM(
+      SELECT ROWNUM num , c.* FROM(
+      SELECT mb.id "id",mb.name "member_name" , NVL( rc."cash_total",0)
+      "cash_total",NVL(rp."point_total",0)"point_total", rc."charge_date"
+      "last_date" FROM MEMBER mb, (
+      SELECT ID FROM payment
+      GROUP BY ID
+      ) pm2, (
+      SELECT mb.ID, mb.NAME, nvl(cc."charge_total" - pm."payment_total",
+      cc."charge_total") "cash_total", cc."charge_date" FROM MEMBER mb, (
+      SELECT ID, sum(CHARGE_CASH) "charge_total", max(charge_date)
+      "charge_date" FROM cash_charge
+      GROUP BY ID
+      ) cc, (
+      SELECT ID, sum(cash_use) "payment_total" FROM payment
+      GROUP BY ID
+      ) pm
+      WHERE mb.ID = cc.ID
+      AND cc.ID = pm.ID(+)
+      ) rc, (
+      SELECT ID, SUM(REMAIN) "point_total"
+      FROM POINT
+      WHERE STATE = 'on' GROUP BY ID
+      ) rp
+      WHERE mb.ID = pm2.ID
+      AND mb.ID = rc.ID(+)
+      AND mb.ID = rp.ID(+))C)D
+      WHERE num BETWEEN
+      #{startRow} and #{endRow}
 
-	</select>
+   </select>
+<!-- <select id="cashsearchList"parameterType="java.util.Map"  resultType="com.bf.manager.dto.ManagerCashDto">
 
-	<!-- 캐시포인트 -->
-	<select id="payDetail" parameterType="java.util.Map"
-		resultType="com.bf.manager.dto.ManagerPayDto">
-		SELECT D.* FROM(
-		select rownum num, c.* from(
-		SELECT
-		A.ORDER_NUM "order_num", B.NAME "book_name",
-		(a.price-a.point_use-a.cash_use)"direct_cash",
-		A.CASH_USE "cash_use",
-		A.POINT_USE "point_use",
-		A.PAYMENT_DATE "payment_date"
-		FROM PAYMENT A,
-		BOOKM B
-		WHERE A.BOOK_NUM = B.BOOK_NUM AND id = #{id}
-		ORDER BY
-		A.PAYMENT_DATE)C) D
-		where num BETWEEN #{startRow} and #{endRow}
-	</select>
-	<select id="chargeDetail" parameterType="java.util.Map"
-		resultType="com.bf.manager.dto.ManagerChargeDto">
-		SELECT D.* FROM(
-		SELECT ROWNUM num, c.* FROM(
-		SELECT DISTINCT
-		cash_charge.ID ID,
-		cash_charge.ORDER_NUM order_num ,
-		cash_charge.CHARGE_CASH charge_cash,
-		cash_type.CHARGE_TYPE charge_type,
-		p.point point,
-		cash_charge.CHARGE_DATE charge_date
-		FROM CASH_CHARGE
-		cash_charge,CASH_CHARGE_TYPE cash_type,CASH_CHARGE_MENU
-		cash_menu,
-		point p
-		WHERE cash_type.NUM = cash_charge.CHARGE_TYPE_NUM AND
-		p.num =
-		cash_charge.POINT_NUM AND
-		cash_charge.ID =#{id})C)D
-		where num BETWEEN
-		#{startRow} and #{endRow}
 
-	</select>
-	<select id="pointDetail" parameterType="java.util.Map"
-		resultType="com.bf.manager.dto.ManagerPointDto">
-		SELECT D.* FROM(
-		SELECT ROWNUM num, c.* FROM(
-		SELECT p.ID id,
-		p.POINT_TYPE point_type,
-		p.point point,
-		p.CHARGE_DATE charge_date,
-		p.DESTORY_DATE dstrory_date,
-		ch.ORDER_NUM order_num
-		FROM point p
-		,CASH_CHARGE ch
-		WHERE p.ID =#{id} AND ch.POINT_NUM = p.NUM)C)D
-		where num
-		BETWEEN #{startRow} and #{endRow}
-	</select>
+</select> -->
+   <!-- 캐시포인트 -->
+   <select id="payDetail" parameterType="java.util.Map"
+      resultType="com.bf.manager.dto.ManagerPayDto">
+      SELECT D.* FROM(
+      select rownum num, c.* from(
+      SELECT
+      A.ORDER_NUM "order_num", B.NAME "book_name",
+      (a.price-a.point_use-a.cash_use)"direct_cash",
+      A.CASH_USE "cash_use",
+      A.POINT_USE "point_use",
+      A.PAYMENT_DATE "payment_date"
+      FROM PAYMENT A,
+      BOOKM B
+      WHERE A.BOOK_NUM = B.BOOK_NUM AND id = #{id}
+      ORDER BY
+      A.PAYMENT_DATE)C) D
+      where num BETWEEN #{startRow} and #{endRow}
+   </select>
+   <select id="chargeDetail" parameterType="java.util.Map"
+      resultType="com.bf.manager.dto.ManagerChargeDto">
+      SELECT D.* FROM(
+      SELECT ROWNUM num, c.* FROM(
+      SELECT DISTINCT
+      cash_charge.ID ID,
+      cash_charge.ORDER_NUM order_num ,
+      cash_charge.CHARGE_CASH charge_cash,
+      cash_type.CHARGE_TYPE charge_type,
+      p.point point,
+      cash_charge.CHARGE_DATE charge_date
+      FROM CASH_CHARGE
+      cash_charge,CASH_CHARGE_TYPE cash_type,CASH_CHARGE_MENU
+      cash_menu,
+      point p
+      WHERE cash_type.NUM = cash_charge.CHARGE_TYPE_NUM AND
+      p.num =
+      cash_charge.POINT_NUM AND
+      cash_charge.ID =#{id})C)D
+      where num BETWEEN
+      #{startRow} and #{endRow}
 
-	<insert id="pointInsert" parameterType="java.util.Map">
-		INSERT INTO BF.POINT
-		(NUM,ID,POINT,POINT_TYPE,CHARGE_DATE,DESTORY_DATE,STATE)
-		values
-		(POINT_NUM_SEQ.nextval,#{id},#{point},#{pointType},sysdate,sysdate+30,'on')
+   </select>
+   <select id="pointDetail" parameterType="java.util.Map"
+      resultType="com.bf.manager.dto.ManagerPointDto">
+      SELECT D.* FROM(
+      SELECT ROWNUM num, c.* FROM(
+      SELECT p.ID id,
+      p.POINT_TYPE point_type,
+      p.point point,
+      p.CHARGE_DATE charge_date,
+      p.DESTORY_DATE dstrory_date,
+      ch.ORDER_NUM order_num
+      FROM point p
+      ,CASH_CHARGE ch
+      WHERE p.ID =#{id} AND ch.POINT_NUM = p.NUM)C)D
+      where num
+      BETWEEN #{startRow} and #{endRow}
+   </select>
 
-	</insert>
-	<select id="selectPay" parameterType="String" resultType="com.bf.manager.dto.ManagerCashDto">
-	SELECT mb.id "id",mb.name "member_name" , NVL( rc."cash_total",0)
-		"cash_total",NVL(rp."point_total",0)"point_total", rc."charge_date"
-		"last_date" FROM MEMBER mb, (
-		SELECT ID FROM payment
-		GROUP BY ID
-		) pm2, (
-		SELECT mb.ID, mb.NAME, nvl(cc."charge_total" - pm."payment_total",
-		cc."charge_total") "cash_total", cc."charge_date" FROM MEMBER mb, (
-		SELECT ID, sum(CHARGE_CASH) "charge_total", max(charge_date)
-		"charge_date" FROM cash_charge
-		GROUP BY ID
-		) cc, (
-		SELECT ID, sum(cash_use) "payment_total" FROM payment
-		GROUP BY ID
-		) pm
-		WHERE mb.ID = cc.ID
-		AND cc.ID = pm.ID(+)
-		) rc, (
-		SELECT ID, SUM(REMAIN) "point_total"
-		FROM POINT
-		WHERE STATE = 'on' GROUP BY ID
-		) rp
-		WHERE mb.ID = pm2.ID
-		AND mb.ID = rc.ID(+)
-		AND mb.ID = rp.ID(+)
-   	 and mb.ID =#{id}
-	
-	</select>
+   <insert id="pointInsert" parameterType="java.util.Map">
+      INSERT INTO BF.POINT
+      (NUM,ID,POINT,POINT_TYPE,CHARGE_DATE,DESTORY_DATE,STATE)
+      values
+      (POINT_NUM_SEQ.nextval,#{id},#{point},#{pointType},sysdate,sysdate+30,'on')
+
+   </insert>
+   <select id="selectPay" parameterType="String" resultType="com.bf.manager.dto.ManagerCashDto">
+   SELECT mb.id "id",mb.name "member_name" , NVL( rc."cash_total",0)
+      "cash_total",NVL(rp."point_total",0)"point_total", rc."charge_date"
+      "last_date" FROM MEMBER mb, (
+      SELECT ID FROM payment
+      GROUP BY ID
+      ) pm2, (
+      SELECT mb.ID, mb.NAME, nvl(cc."charge_total" - pm."payment_total",
+      cc."charge_total") "cash_total", cc."charge_date" FROM MEMBER mb, (
+      SELECT ID, sum(CHARGE_CASH) "charge_total", max(charge_date)
+      "charge_date" FROM cash_charge
+      GROUP BY ID
+      ) cc, (
+      SELECT ID, sum(cash_use) "payment_total" FROM payment
+      GROUP BY ID
+      ) pm
+      WHERE mb.ID = cc.ID
+      AND cc.ID = pm.ID(+)
+      ) rc, (
+      SELECT ID, SUM(REMAIN) "point_total"
+      FROM POINT
+      WHERE STATE = 'on' GROUP BY ID
+      ) rp
+      WHERE mb.ID = pm2.ID
+      AND mb.ID = rc.ID(+)
+      AND mb.ID = rp.ID(+)
+       and mb.ID =#{id}
+   </select>
 </mapper>

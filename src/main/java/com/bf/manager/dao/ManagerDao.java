@@ -177,4 +177,8 @@ public interface ManagerDao {
 
 	public void updateAuthorEdit(int editNum);
 
+	public int getMemberCount();
+
+	public int getSaleCount();
+
 }
