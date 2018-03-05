@@ -43,8 +43,9 @@ public interface ManagerDaoTwo {
     public int boardUpdateOk(BoardFrequencyDto boardFrequencyDto);
     public int listDelete(int num);
     //member
-    public int memberCount();
+    public int memberCount(String searchWord);
     public List<MemberDto> memberList(int starRow,int endRow);
+    public List<MemberDto> memberSearchList(String searchWord,int starRow,int endRow);
     public MemberDto register(String id);
     public int registerOk(MemberDto memberDto);
     public int registerDelete(String id);
@@ -53,6 +54,7 @@ public interface ManagerDaoTwo {
     public List<ManagerChargeDto> chargeDetail(int startRow,int endRow,String id);
     public List<ManagerPointDto> pointDetail(int startRow,int endRow,String id);
     public int pointInsert(int point,String pointType,String id	);
+    public ManagerCashDto selectPay(String id);
    //review
     public int reviewCount();
     public List<ReviewManagerDto> reviewList(int startRow,int endRow);

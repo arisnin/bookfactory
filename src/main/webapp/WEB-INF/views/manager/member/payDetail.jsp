@@ -22,7 +22,7 @@
 				<div class="sh_member_detail_main">
 					<div class="sh_member_detail_inf">
 						<ul>
-							<li><p>${managerCashDto.member_name }</p> <span>(${managerCashDto.cash_id })님</span></li>
+							<li><p>${managerCashDto.id }</p> <span>(${managerCashDto.member_name })님</span></li>
 							<li><p>북팩 충전금</p> <span>${managerCashDto.cash_total } 원</span></li>
 							<li><p>적립금</p> <span>${managerCashDto.point_total} point</span></li>
 							<li><p>쿠폰</p> <span>3 장</span></li>
@@ -134,21 +134,45 @@
 						
 					</div>
 				</div>
-
-				<div class="sh_member_detail_footer">
-					<nav class="bf-pagination">
-						<ul class="bf-animated-btn">
-							<li class="first"><a href="#0"><span></span></a></li>
-							<li class="prev"><a href="#0"><span></span></a></li>
-							<li><a href="#0">1</a></li>
-							<li><a href="#0">2</a></li>
-							<li><a class="active" href="#0">3</a></li>
-							<li><a href="#0">4</a></li>
-							<li><a href="#0">5</a></li>
-							<li class="next"><a href="#0"><span></span></a></li>
-							<li class="last"><a href="#0"><span></span></a></li>
-						</ul>
-					</nav>
+			
+			<input type="hidden" name="href">
+			
+			<div class="a_se_foot">
+				<nav class="bf-pagination">
+					<ul class="bf-animated-btn">
+						<c:if test="${search-word==null}">
+							<c:set var="href" value="${root}/manager/memberPayDetail.do?pageNumber="/>
+						</c:if>
+						<c:if test="${search-word!=null}">
+							<c:set var="href" value="${root}/manager/memberPayDetail.do?searchWord=${searchWord}&pageNumber="/>
+						</c:if>
+						
+						<li class="first"><a href="${href}1"><span></span></a></li>
+						<c:if test="${count > 0}">
+							<fmt:parseNumber var ="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true"/>
+							<c:set var ="pageBlock" value="${5}"/>
+							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/>
+							
+							<c:set var="startPage" value="${rs*pageBlock + 1}"/>
+							<c:set var="endPage" value="${startPage + pageBlock - 1}"/>
+							
+							<c:if test="${endPage > pageCount}">
+							<c:set var="endPage" value="${pageCount}"/>
+						</c:if>
+						</c:if>
+						
+						<c:if test="${startPage > pageBlock}">
+							<li class="prev"><a href="${href}${startPage-1}"><span></span></a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startPage}" end="${endPage}">
+							<li><a href="${href}${i}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${endPage < pageCount}">
+							<li class="next"><a href="${href}${endPage+1}"><span></span></a></li>
+						</c:if>
+						<li class="last"><a href="${href}${pageCount}"><span></span></a></li>
+					</ul>
+				</nav>
 				</div>
 			</div>
 		</div>
@@ -163,7 +187,8 @@
 	$(function() {
 		$("#point-add").click(function(event){
 			var input =$(".sh_member_detail_inf2").find("input").val()
-			var aa= "${managerCashDto.cash_id}";
+			var aa= "${managerCashDto.id}";
+			alert(input);
 			alert(aa);
 				$.confirm({
 					title : '적립금',
@@ -172,7 +197,6 @@
 						confirm : function() {
 							$.alert('적립금 부여 완료');
 					 		var target = $(event.target);
-					 		
 							memberPointInsert(input,aa);
 						},
 						cancel : function() {
@@ -189,6 +213,23 @@
 			alert(data);	
 		})
 	}
+	
+	function goUpdate(url){
+		location.href=url + $("input[name=href]").val();
+	}
+	//페이지 활성화
+	$(".bf-animated-btn").find("li").each(function(){
+		if($(this).text()=='${pageNumber}'){
+			$(this).find("a").addClass("active");
+		}
+	});
+	var before = location.href;
+	if(before.indexOf('?') == -1){
+		$("input[name=href]").val("");
+	}else{
+		$("input[name=href]").val("&"+ before.substring(before.indexOf('?')+1));
+	}
 </script>
+
 </body>
 </html>

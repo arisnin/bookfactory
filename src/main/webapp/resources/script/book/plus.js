@@ -58,8 +58,13 @@ $(document).ready(function(){
 	$(".hw_sub_wrap").hide();
 	
 	//실험용
-	$(".profile_ex > .author").click(function(){
-		var test=$("input[name=activeAuthor]").val();
-		alert(test);
-	});
+//	$(".profile_ex > .author").click(function(){
+//		var test=$("input[name=activeAuthor]").val();
+//		alert(test);
+//	});
+	
 });
+
+function profilUpdate(root, author_num){
+	window.open(root+"/authorProfilUpdate.do?author_num="+author_num, 'update', 'top=100px, left=100px, height=450px, width=370px');
+}

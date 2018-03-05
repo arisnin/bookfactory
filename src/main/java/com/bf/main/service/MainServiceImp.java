@@ -2,9 +2,11 @@ package com.bf.main.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,12 +20,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.book.dto.DetailDto;
 import com.bf.main.dao.MainDao;
 import com.bf.main.dto.CategoryPageDto;
+import com.bf.main.dto.EventDto;
 import com.bf.main.dto.NoticeDto;
 import com.bf.main.dto.SearchAuthorDto;
 import com.bf.main.dto.SearchBookCountDto;
 import com.bf.member.model.MemberDto;
+import com.bf.member.model.User;
 
 /**
  * @Date 2018. 2. 4.
@@ -322,6 +327,58 @@ public class MainServiceImp implements MainService {
 		}
 	}
 
+	/*
+	 * 헤더 > 마이팩토리 버튼 마우스오버 > 마이메뉴 팝업
+	 * @author 박성호
+	 * @date 2018. 3. 4.
+	 * @see com.bf.main.service.MainService#updateMymenu(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	public void updateMymenu(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		User user = (User) request.getSession().getAttribute("userInfo");
+		
+		int cashTotal = 0, pointTotal = 0, purchasedTotal = 0;
+		
+		JSONObject json = new JSONObject();
+		
+		if (user != null) {
+			String id = user.getUsername();
+			
+			// 마이캐시
+			cashTotal = mainDao.selectCashAvailable(id);
+			
+			// 마이포인트
+			pointTotal = mainDao.selectPointAvailable(id);
+			
+			// 쿠폰(미구현)
+			
+			// 구매목록
+			purchasedTotal = mainDao.selectPurchasedCount(id);
+			
+			// TODO: 카트, 위시리스트 - [{count=1, type=wish}, {count=2, type=cart}]
+			List<Map<String,Integer>> cartWishCount = mainDao.selectCartWishCount(id);
+			for (Map e : cartWishCount) {
+				if ("cart".equals(e.get("type"))) {
+					json.put("cartTotal", e.get("count"));
+				} else if ("wish".equals(e.get("type"))) {
+					json.put("wishTotal", e.get("count"));
+				}
+			}
+		}
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		
+		json.put("cashTotal", df.format(cashTotal));
+		json.put("pointTotal", df.format(pointTotal));
+		json.put("purchasedTotal", df.format(purchasedTotal));
+		
+		response.setContentType("application/x-json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(json.toJSONString());
+		out.flush();
+		out.close();
+	}
+
 	/**
 	 * @author : 김동환
 	 * @date : 2018. 2. 20.
@@ -379,6 +436,69 @@ public class MainServiceImp implements MainService {
 		mav.addObject("pageNumber", pageNumber);
 		
 		mav.setViewName("notice/content.solo");		
+	}
+
+	@Override
+	public void event(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		String firstCate=request.getParameter("firstCateNum");
+		String firstCateName=mainDao.getFirstCateName(firstCate);
+		
+		String type=request.getParameter("type");
+		
+		//페이지작업도 해줘야함.
+		String pn=request.getParameter("pageNumber");
+		if(pn==null)	pn="1";
+		
+		int pageNumber=Integer.parseInt(pn);
+		
+		int boardSize=10;
+		int startRow=(pageNumber-1)*boardSize+1;
+		int endRow=pageNumber*boardSize;
+		int count=0;
+		
+		HashMap<String, Object> map=new HashMap<String,Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("firstCate", Integer.parseInt(firstCate));
+		
+		//진행중인것과 진행중이지 않은 아이들 구분
+		if(type==null) {
+			type="now";
+		}
+		
+		map.put("type", type);
+		
+		count=mainDao.getEventCount(map);
+		
+		List<EventDto> el=null;
+		if(count>0) {
+			el=mainDao.getEventList(map);
+		}
+		
+		mav.addObject("firstCate", firstCate);
+		mav.addObject("firstCateName", firstCateName);
+		mav.addObject("type",type);
+		mav.addObject("el", el);
+		mav.addObject("count", count);
+		mav.addObject("pageNumber", pageNumber);
+		mav.addObject("boardSize", boardSize);
+		
+	}
+
+	@Override
+	public void eventDetail(ModelAndView mav) {
+		// TODO Auto-generated method stub
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		String num=request.getParameter("num");
+		
+		EventDto dto=mainDao.getEventInfo(num);
+		
+		int random=mainDao.getRandomBookNum(dto.getF_num());
+		
+		mav.addObject("dto", dto);
+		mav.addObject("random", random);
 	}
 	
 	

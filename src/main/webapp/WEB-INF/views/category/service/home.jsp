@@ -55,19 +55,19 @@
 							<!-- 저자 -->
 							<c:if test="${categoryPageDto.author_num != 0}">
 								<p class="book-metadata-author">
-									<a class="" title="저자" href="javascript:alert('${categoryPageDto.author_num}')">${categoryPageDto.author_name}</a>
+									<a class="" title="저자" href="javascript:authorDetailHref('${root}','${categoryPageDto.author_num}')">${categoryPageDto.author_name}</a>
 								</p>
 							</c:if>
 							<!-- 역자 -->
 							<c:if test="${categoryPageDto.trans_num != 0}">
 								<p class="book-metadata-translator">
-									<a class="" title="역자" href="javascript:alert('${categoryPageDto.trans_num}')">${categoryPageDto.trans_name}</a>
+									<a class="" title="역자" href="javascript:authorDetailHref('${root}','${categoryPageDto.trans_num}')">${categoryPageDto.trans_name}</a>
 								</p>
 							</c:if>
 							<!-- 일러스트레이터 -->
 							<c:if test="${categoryPageDto.illur_num != 0}">
 								<p class="book-metadata-illustrator">
-									<a class="" title="역자" href="javascript:alert('${categoryPageDto.illur_num}')">${categoryPageDto.illur_name}</a>
+									<a class="" title="역자" href="javascript:authorDetailHref('${root}','${categoryPageDto.illur_num}')">${categoryPageDto.illur_name}</a>
 								</p>
 							</c:if>
 							<!-- 출판사 -->
@@ -130,19 +130,19 @@
 							<!-- 저자 -->
 							<c:if test="${categoryPageDto.author_num != 0}">
 								<p class="book-metadata-author">
-									<a class="" title="저자" href="javascript:alert('${categoryPageDto.author_num}')">${categoryPageDto.author_name}</a>
+									<a class="" title="저자" href="javascript:authorDetailHref('${root}','${categoryPageDto.author_num}')">${categoryPageDto.author_name}</a>
 								</p>
 							</c:if>
 							<!-- 역자 -->
 							<c:if test="${categoryPageDto.trans_num != 0}">
 								<p class="book-metadata-translator">
-									<a class="" title="역자" href="javascript:alert('${categoryPageDto.trans_num}')">${categoryPageDto.trans_name}</a>
+									<a class="" title="역자" href="javascript:authorDetailHref('${root}','${categoryPageDto.trans_num}')">${categoryPageDto.trans_name}</a>
 								</p>
 							</c:if>
 							<!-- 일러스트레이터 -->
 							<c:if test="${categoryPageDto.illur_num != 0}">
 								<p class="book-metadata-illustrator">
-									<a class="" title="역자" href="javascript:alert('${categoryPageDto.illur_num}')">${categoryPageDto.illur_name}</a>
+									<a class="" title="역자" href="javascript:authorDetailHref('${root}','${categoryPageDto.illur_num}')">${categoryPageDto.illur_name}</a>
 								</p>
 							</c:if>
 							<!-- 출판사 -->
@@ -205,19 +205,19 @@
 							<!-- 저자 -->
 							<c:if test="${categoryPageDto.author_num != 0}">
 								<p class="book-metadata-author">
-									<a class="" title="저자" href="javascript:alert('${categoryPageDto.author_num}')">${categoryPageDto.author_name}</a>
+									<a class="" title="저자" href="javascript:authorDetailHref('${root}','${categoryPageDto.author_num}')">${categoryPageDto.author_name}</a>
 								</p>
 							</c:if>
 							<!-- 역자 -->
 							<c:if test="${categoryPageDto.trans_num != 0}">
 								<p class="book-metadata-translator">
-									<a class="" title="역자" href="javascript:alert('${categoryPageDto.trans_num}')">${categoryPageDto.trans_name}</a>
+									<a class="" title="역자" href="javascript:authorDetailHref('${root}','${categoryPageDto.trans_num}')">${categoryPageDto.trans_name}</a>
 								</p>
 							</c:if>
 							<!-- 일러스트레이터 -->
 							<c:if test="${categoryPageDto.illur_num != 0}">
 								<p class="book-metadata-illustrator">
-									<a class="" title="역자" href="javascript:alert('${categoryPageDto.illur_num}')">${categoryPageDto.illur_name}</a>
+									<a class="" title="역자" href="javascript:authorDetailHref('${root}','${categoryPageDto.illur_num}')">${categoryPageDto.illur_name}</a>
 								</p>
 							</c:if>
 							<!-- 출판사 -->

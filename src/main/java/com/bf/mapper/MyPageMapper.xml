@@ -36,14 +36,41 @@
 	
 	<select id="point_select" parameterType="String" resultType="int">
 		<![CDATA[
-			SELECT sum(remain) FROM point
-			WHERE destory_date - 11 < SYSDATE AND num in
-			(SELECT num FROM point WHERE destory_date >= SYSDATE)
+			SELECT nvl(sum(remain),0) FROM point
+			WHERE destory_date >= SYSDATE
+			AND destory_date < SYSDATE + 11
+			AND id = #{id}
 		]]>
 	</select>
 	
+	<select id="point-select-available" parameterType="String" resultType="Integer">
+		SELECT nvl(SUM(REMAIN),0) FROM POINT
+		WHERE DESTORY_DATE >= SYSDATE
+		AND ID = #{id}
+	</select>
+	
+	<select id="cash-select-available" parameterType="String" resultType="Integer">
+		SELECT nvl(cc."cash_use" - pm."cash_use", 0) FROM (
+			SELECT sum(charge_cash) "cash_use" FROM cash_charge
+			WHERE ID = #{id}
+		) cc, (
+			SELECT sum(cash_use) "cash_use" FROM payment
+			WHERE ID = #{id}
+		) pm
+	</select>
+	
 	<select id="point_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPagePointDto">
-		select * from point where id = #{id} order by charge_date desc
+		SELECT pt.num, id, point, point_type, charge_date, destory_date, nvl(ptd."state", 'on') "STATE", remain
+		FROM (
+			SELECT * FROM point
+			WHERE id = #{id}
+		) pt, (
+			SELECT num, 'off' "state" FROM point
+			<![CDATA[WHERE destory_date < SYSDATE]]>
+			AND id = #{id}
+		) ptd
+		WHERE pt.num = ptd.num(+)
+		ORDER BY charge_date DESC, num DESC
 	</select>
 	
 	<select id="cash_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPageCashPageDto">
@@ -59,10 +86,19 @@
 	</select>
 	
 	<select id="all_purchased_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPagePurchasedPageDto">
-		select distinct bm.book_num as "book_num", bm.img_path as "img_path", bm.NAME as "book_name", A.NAME as "author_name", pm.PAYMENT_DATE as "payment_date"
-		from bookm bm inner join author a on (bm.author_num = a.num ) inner join payment pm on (bm.book_num = pm.book_num)
-		where pm.id = #{id} and pm.state = 'yes'
-		ORDER by pm.PAYMENT_DATE
+		SELECT bm.book_num, bm.img_path, bm.NAME, au.NAME "author_name", pm."payment_date" FROM bookm bm, (
+			SELECT book_num, min(payment_date) "payment_date" FROM payment
+			WHERE ID = #{id}
+			AND state = 'yes'
+			GROUP BY book_num
+		) pm, author au
+		WHERE bm.book_num = pm.book_num
+		AND bm.author_num = au.num
+		ORDER BY pm."payment_date", bm.name
+	</select>
+	
+	<select id="select-purchased-count" parameterType="String" resultType="Integer">
+		SELECT count(DISTINCT book_num) FROM payment WHERE ID = #{id} AND state = 'yes'
 	</select>
 	
 	<update id="purchased_delete" parameterType="java.util.Map">

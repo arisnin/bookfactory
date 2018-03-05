@@ -11,12 +11,14 @@ import org.springframework.stereotype.Component;
 
 import com.bf.book.dto.ReviewDto;
 import com.bf.book.dto.ReviewPageDto;
+import com.bf.main.dto.CategoryPageDto;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
 import com.bf.myPage.dto.MyPageRecentLookBookDto;
 import com.bf.book.dto.DetailCateDto;
 import com.bf.book.dto.DetailDto;
+import com.bf.book.dto.ExampleDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
 import com.bf.book.dto.ReplyDto;
@@ -37,6 +39,21 @@ public class BookDaoImp implements BookDao {
 	private SqlSessionTemplate sqlSession;
 	
 	private final String namespace = "com.bf.mapper.BookPlusMapper.";
+
+	@Override
+	public List<CategoryPageDto> getAuthorBookList(int authorNum, int orderTypeNum, int startRow, int endRow) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("authorNum", authorNum);
+		map.put("orderTypeNum", orderTypeNum);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		return sqlSession.selectList(namespace + "select-author-book", map);
+	}
+
+	@Override
+	public int getAuthorBookCount(int authorNum) {
+		return sqlSession.selectOne(namespace + "select-author-book-count", authorNum);
+	}
 
 	@Override
 	public int insertReview(ReviewDto reviewDto) {
@@ -63,15 +80,15 @@ public class BookDaoImp implements BookDao {
 	}
 
 	@Override	//일반, 만화의 신간 책 들고오기
-	public List<NewBookDto> getNewBookList(HashMap<String, Integer> map) {
+	public List<NewBookDto> getNewBookList(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getNewBookList",map);
 	}
 	
 	@Override	//일반, 만화의 신간 책 권 수
-	public int getNewBookCount(String firstCate) {
+	public int getNewBookCount(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getNewBookCount", firstCate);
+		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getNewBookCount", map);
 	}
 
 	@Override
@@ -118,7 +135,7 @@ public class BookDaoImp implements BookDao {
 	@Override	//오늘의 추천에서 랜덤값 가져오는 아이 - 일반, 만화 해당
 	public List<Integer> getRandomBookNum(int firstCate) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("getRandomBookNum", firstCate);
+		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getRandomBookNum", firstCate);
 	}
 
 	@Override	//일반,만화 제외 홈 화면에서 연재인지 단행본인지 구별하는 아이
@@ -276,6 +293,18 @@ public class BookDaoImp implements BookDao {
 	public List<HomeDto> getBestSellerWeekPaper(HashMap<String, Object> pMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getBestSellerWeekPaper",pMap);
+	}
+
+	@Override
+	public int getFirstCateUseBookNum(String book_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getFirstCateUseBookNum",book_num);
+	}
+
+	@Override
+	public ExampleDto getExample(int first) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getExample", first);
 	}
 
 }

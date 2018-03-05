@@ -22,6 +22,11 @@
 	 -->
 
 	<!-- 18.01.24 최정은 = 베스트셀러를 눌렀을때 나오는 화면입니다. -->
+	<input type="hidden" name="bookType" value="${bookType }"/>
+	<input type="hidden" name="seconCate" value="${seconCate }"/>
+	<input type="hidden" name="root" value="${root }"/>
+	<input type="hidden" name="rental" value="${rental }"/>
+	
 	<div id="newBook">
 		<div class="bf-title-row title-type1">
 			<h2>${firstCateName} 베스트셀러</h2>
@@ -33,7 +38,7 @@
 				<li class="diamond"><a href="${root}/best-sell.do?firstCateNum=${firstCate}&bestSeller=steady">스테디셀러</a></li>
 			</ul>
 			<ul class="category-filter-list">
-				<li><label class="bf-custom-checkbox"> <input type="checkbox" title="" /> <span class="all-mark"></span> <span class="checkbox-label">대여</span>
+				<li><label class="bf-custom-checkbox"> <input type="checkbox" title="" name="rentalCheck"/> <span class="all-mark"></span> <span class="checkbox-label">대여</span>
 				</label></li>
 <!-- 				<li><label class="bf-custom-checkbox"> <input type="checkbox" title="" /> <span class="all-mark"></span> <span class="checkbox-label">성인</span> -->
 <!-- 				</label></li> -->
@@ -67,7 +72,7 @@
 							<h3 class="book-metadata-text" onclick="location.href='${root}/detail.do?book_num=${best.book_num}'">${best.bookName}</h3>
 							<c:if test="${best.author_num!=0}">
 								<p class="book-metadata-author">
-									<a class="" href="${root}/author.do?author_num=${best.author_num}">${best.authorName}</a>
+									<a class="" onclick="authorDetailHref('${root}','${best.author_num}')">${best.authorName}</a>
 								</p>							
 							</c:if>
 							<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${best.star_point})"></span>

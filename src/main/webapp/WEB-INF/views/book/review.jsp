@@ -88,7 +88,7 @@
 						</div>
 					</div>
 					<!-- 리뷰 내용 작성 -->
-					<div class="review-write-form">
+					<div class="review-write-form" onclick="asyncLoginCheck(this)">
 						<c:if test="${reviewSelf != null}">
 							<div>
 								<p class="review-content ">
@@ -278,7 +278,11 @@
 			</div>
 		</section><!-- End : bf-review-box -->
 	</div>
-
+	
+	<c:if test="${scoreGraph == null}">
+		<c:set var="scoreGraph" value="${a=[0,0,0,0,0,0]}" />
+	</c:if>
+	
 	<%-- 자바 스크립트 --%>
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
@@ -322,6 +326,12 @@
 			
 			// target-list(UL Element)에 댓글 list를 추가
 			targetList.appendChild(dFrag);
+		}
+		
+		function asyncLoginCheck(obj) {
+			var str = event.target + '\n' + obj.nodeName;
+			if (event.currentTarget == obj) alert('true\n' + str);
+			else alert('false\n' + str);
 		}
 	</script>
 </body>

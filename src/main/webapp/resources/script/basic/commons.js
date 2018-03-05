@@ -51,13 +51,13 @@ function createStarIcon(target, score) {
 	nonStarField.innerHTML = "";
 
 	var full = parseInt(score);
-	var half = Number(Number.isInteger(parseFloat(score)));
+	var half = parseFloat(score) - parseInt(score);
 
 	for (let i = 0; i < full; i++) {
 		starField.innerHTML += "&#xe838;";
 	}
 
-	if (half == 0) {
+	if (half != 0) {
 		starField.innerHTML += "star_border";
 		full++;
 	}
@@ -65,6 +65,8 @@ function createStarIcon(target, score) {
 	for (let i = full; i < 5; i++) {
 		nonStarField.innerHTML += "&#xe838;";
 	}
+	// 이벤트 리스너에 등록된 다른 click 이벤트의 실행을 방지합니다.
+	if (event) event.stopImmediatePropagation();
 }
 
 /**
@@ -176,4 +178,32 @@ function changeViewType(event) {
 //		e.classList.toggle("hidden-block");
 //	});
 	target.classList.toggle("list-landscape");
+}
+
+/**
+ * 책 상세페이지 이동 함수
+ * 
+ * @param root 어플리케이션 루트 컨텍스트
+ * @param book_num 도서번호
+ * @returns 없음
+ *
+ * @author 박성호
+ * @date 2018. 2. 28.
+ */
+function bookDetailLink(root, book_num) {			
+	location.href = root + '/detail.do?book_num=' + book_num;
+}
+
+/**
+ * 작가 정보 페이지 이동 함수
+ * 
+ * @param root 어플리케이션 루트 컨텍스트
+ * @param authorNum 작가번호
+ * @returns 없음
+ *
+ * @author 박성호
+ * @date 2018. 3. 4.
+ */
+function authorDetailHref(root, authorNum) {
+	location.href = root + '/author.do?anum=' + authorNum;
 }

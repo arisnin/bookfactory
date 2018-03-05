@@ -81,8 +81,8 @@ function mouseoverBook(active) {
 	for (var i = 0; i < childs.length; i++) {
 		childs[i].style.opacity = "0.5";
 	}
-	this.style.opacity = "1";
-	this.getElementsByClassName("book-spotlight")[0].style.opacity = "0.4";
+	active.style.opacity = "1";
+	active.getElementsByClassName("book-spotlight")[0].style.opacity = "0.4";
 }
 
 function mouseoutBook(active) {
@@ -90,7 +90,7 @@ function mouseoutBook(active) {
 	for (var i = 0; i < childs.length; i++) {
 		childs[i].style.opacity = "1";
 	}
-	this.getElementsByClassName("book-spotlight")[0].style.opacity = "0";
+	active.getElementsByClassName("book-spotlight")[0].style.opacity = "0";
 }
 
 $(function(){

@@ -28,4 +28,10 @@ public interface MainService {
 
 	public void suggestKeyword(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
+	public void updateMymenu(HttpServletRequest request, HttpServletResponse response) throws IOException;
+
+	public void event(ModelAndView mav);
+
+	public void eventDetail(ModelAndView mav);
+
 }

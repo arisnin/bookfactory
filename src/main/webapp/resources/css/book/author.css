@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+/**
+ * 책 리뷰 작성 페이지
+ *
+ * @author	박성호(최초작성)
+ * @date	2018. 3. 3.
+ * @description	작가 정보 페이지
+ */
+.bf-author-info-box {
+	position: relative;
+	width: 56.25rem;
+	font-size: 0.9rem;
+	font-weight: normal;
+	color: #444;
+	margin: 0 auto;
+}
+
+.bf-author-info-box .profile_ex {
+	margin-top: 0.4rem;
+}
+
+.bf-author-info-box>.author-info {
+	border: 0.5rem solid #E1DFFA;
+}
+
+.bf-author-info-box>.wrap-container {
+	display: inline-block;
+	position: relative;
+	padding: 1.25rem;
+}
+
+.author-book-info .mf-book-item>.mf-book-thumbnail, .author-book-info .mf-book-item>.mf-book-metadata {
+	width: 72%;
+}
+
+.bf-author-info-box>.author-info>.describe {
+	border-top: 1px solid #E1DFFA;
+	line-height: 1.5rem;
+	padding-top: 1rem;
+}
+
+.author-book-info .mf-book-list.list-landscape>li>.mf-book-thumbnail {
+	width: 13.8%;
+}
+
+.author-book-info .mf-book-list.list-landscape>li>.mf-book-metadata {
+	width: 84%;
+}

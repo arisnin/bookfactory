@@ -6,12 +6,14 @@ import java.util.List;
 
 import com.bf.book.dto.ReviewDto;
 import com.bf.book.dto.ReviewPageDto;
+import com.bf.main.dto.CategoryPageDto;
 import com.bf.manager.dto.AuthorDto;
 import com.bf.manager.dto.BookDto;
 import com.bf.member.model.User;
 import com.bf.myPage.dto.MyPageRecentLookBookDto;
 import com.bf.book.dto.DetailCateDto;
 import com.bf.book.dto.DetailDto;
+import com.bf.book.dto.ExampleDto;
 import com.bf.book.dto.HomeDto;
 import com.bf.book.dto.NewBookDto;
 import com.bf.book.dto.ReplyDto;
@@ -26,8 +28,8 @@ public interface BookDao {
 	List<HomeDto> getHomeBookInfoList(int firstCate);
 	int getFirstCate(String firstCateName);
 	String getFirstCateName(String firstCate);
-	List<NewBookDto> getNewBookList(HashMap<String, Integer> map);
-	int getNewBookCount(String firstCate);
+	List<NewBookDto> getNewBookList(HashMap<String, Object> map);
+	int getNewBookCount(HashMap<String, Object> map);
 	ReviewPageDto selectReviewSelf(int book_num, String username);
 	List<ReviewPageDto> selectReviewList(int book_num);
 	int updateReview(ReviewDto reviewDto);
@@ -62,5 +64,9 @@ public interface BookDao {
 	int getBestSellerSteadyCount(HashMap<String, Object> pMap);
 	List<HomeDto> getPopularList(HashMap<String, Integer> map);
 	List<HomeDto> getBestSellerWeekPaper(HashMap<String, Object> pMap);
+	int getFirstCateUseBookNum(String book_num);
+	ExampleDto getExample(int first);
+	List<CategoryPageDto> getAuthorBookList(int authorNum, int orderTypeNum, int startRow, int endRow);
+	int getAuthorBookCount(int authorNum);
 
 }

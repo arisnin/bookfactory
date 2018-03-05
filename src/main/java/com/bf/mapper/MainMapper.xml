@@ -166,16 +166,16 @@
 				AND (bm.name LIKE '%'||#{keyword}||'%' OR pub.name LIKE '%'||#{keyword}||'%')
 				<choose>
 					<when test="orderTypeNum == 100">
-					ORDER BY "write_date_idx" DESC
+					ORDER BY "write_date_idx" DESC, book_num
 					</when>
 					<when test="orderTypeNum == 101">
-					ORDER BY rs."star_point" DESC
+					ORDER BY rs."star_point" DESC, book_num
 					</when>
 					<when test="orderTypeNum == 102">
-					ORDER BY rs."star_count" DESC
+					ORDER BY rs."star_count" DESC, book_num
 					</when>
 					<when test="orderTypeNum == 103">
-					ORDER BY bm.price
+					ORDER BY bm.price, book_num
 					</when>
 					<otherwise>
 					ORDER BY bm.name
@@ -248,6 +248,12 @@
 		<![CDATA[WHERE ROWNUM < 7]]>
 	</select>
 	
+	<select id="select-cart-wish-count" parameterType="String" resultType="java.util.Map">
+		SELECT cart_wish "type", count(book_num) "count" FROM cart_wish
+		WHERE ID = #{id}
+		GROUP BY cart_wish
+	</select>
+	
 	<!-- 김동환 / 공지사항 -->
 	<select id="noticeMainCount" resultType="int">
 			select count(*) from notice
@@ -266,4 +272,40 @@
 		select * from notice where num=#{num}
 	</select>
 	
+	<select id="getEventCount" parameterType="java.util.HashMap" resultType="int">
+		select nvl(count(*),0)
+		FROM event
+		WHERE f_num=#{firstCate}
+		and TYPE=#{type}
+	</select>
+	
+	<select id="getEventList" parameterType="java.util.HashMap" resultType="com.bf.main.dto.EventDto">
+		SELECT *
+		FROM (SELECT e.*, ROWNUM r
+		      FROM event e
+		      WHERE f_num=#{firstCate}
+		      AND TYPE=#{type})ev
+		where ev.r BETWEEN #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getEventInfo" parameterType="String" resultType="com.bf.main.dto.EventDto">
+		SELECT *
+		FROM event
+		where num=#{num}
+	</select>
+	
+	<select id="getRandomBookNum" parameterType="int" resultType="int">
+		<![CDATA[
+		select *
+		from(SELECT b.*, rownum rn                               
+			from (SELECT b.book_num, ROWNUM r
+			      from  bookm b, book_category c, first_cate f
+			      WHERE b.book_num=c.book_num
+			      AND c.cate1_num=f.num
+			      AND f.num=#{f_num}
+			      ORDER BY dbms_random.RANDOM ) b
+			where b.r<=40) c
+		where c.rn=1
+		]]>
+	</select>
 </mapper>

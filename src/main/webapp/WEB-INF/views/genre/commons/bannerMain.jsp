@@ -10,6 +10,7 @@
 <script type="text/javascript" src="${root}/script/genre/bannerMain.js"></script>
 </head>
 <body>
+	<input type="hidden" name="firstCate" value="${firstCate}">
 	<article class="article-block home-main-banner" style="width: 100%;">
 		<h2 class="hidden-block">메인 홈 갤러리</h2>
 		<div class="main-banner-content-box">
@@ -21,8 +22,7 @@
 				<li class="main-banner-content"></li>
 				<li class="main-banner-content"></li>
 				<li class="main-banner-content"></li>
-				<li class="main-banner-content"></li>
-
+<!-- 				<li class="main-banner-content"></li> -->
 			</ul>
 
 			<div class="main-banner-list-box">
@@ -32,7 +32,7 @@
 					<li class="main-banner-list-item"></li>
 					<li class="main-banner-list-item"></li>
 					<li class="main-banner-list-item"></li>
-					<li class="main-banner-list-item"></li>
+<!-- 					<li class="main-banner-list-item"></li> -->
 				</ul>
 
 			</div>

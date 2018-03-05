@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@	taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,7 @@
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" type="text/css" href="${root}/css/basic/reset.css" />
 <link rel="stylesheet" type="text/css" href="${root}/css/basic/commons.css" />
+<link type="text/css" rel="stylesheet" href="${root}/css/myPage/home.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/header/index.css" />
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/header/index.js"></script>
@@ -29,11 +31,12 @@
 							<img src="${root}/img/index/searchIcon_purple.png" />
 						</span>
 						<form action="${root}/main/search.do" method="get">
-							<input class="hw_search_input" type="text" name="keyword" placeholder="제목,저자,출판사 검색" onkeyup="suggestKeyword(this)" onblur="removeSuggestBox(this)" />
+							<input class="hw_search_input" type="text" name="keyword" placeholder="제목,저자,출판사 검색" onkeyup="suggestKeyword(this)" />
 						</form>
 						<span class="hw_del_icon">
 							<img src="${root}/img/index/searchdel.JPG" />
 						</span>
+						<!-- 검색창 제안(suggest) 박스(2018-03-02 박성호) -->
 						<div class="main-search-suggest-box hidden-block" id="main-search-suggest">
 							<label class="author-title">저자/역자 검색</label>
 							<ul class="suggest-author-list"></ul>
@@ -42,28 +45,119 @@
 						</div>
 					</div>
 				</div>
-				
+				<!-- 회원가입  -->
 				<c:if test="${userInfo == null}">
 					<div class="hw_top_content_right login">
 						<span class="hw_font">
-							<a class="hw_top_content_right_login" href="javascript:goLogin()">로그인</a>
+							<a class="hw_top_content_right_register" href="javascript:goRegister()">회원가입</a>
 						</span>
 						<span class="hw_font">
-							<a class="hw_top_content_right_register" href="javascript:goRegister()">회원가입</a>
+							<a class="hw_top_content_right_login" href="javascript:goLogin()">로그인</a>
 						</span>
 					</div>
 				</c:if>
 				<c:if test="${userInfo != null}">
 					<div class="hw_top_content_right login_ok" style="display: inline-block;">
 						<span class="hw_font">
-							<a href="${root}/myPage/home.do" style="margin-right:5px;">마이팩토리(${userInfo.username}, ${userInfo.memberDto.email})</a>
-						</span>
+							<a href="${root}/wishlist.do">위시리스트</a>
+						</span>						
 						<span class="hw_font">
 							<a href="${root}/cart.do">카트</a>
 						</span>
-						<span class="hw_font">
-							<a href="${root}/wishlist.do">위시리스트</a>
+						<span class="hw_font my-factory-btn">
+							<a href="${root}/myPage/home.do">마이팩토리</a>
 						</span>
+						<div class="bf-dropdown-menu user-my-menu">
+							<div class="dropdown-row">
+								<div class="account-info" onclick="location.href='${root}/myPage/home.do'">
+									<h3 class="account-id">${userInfo.username}</h3>
+									<p class="account-email font_13">${userInfo.memberDto.email}</p>
+								</div>
+								<a class="bf-button bf-white-btn logout-btn" href="${root}/member/logout.do">로그아웃</a>
+							</div>
+							<div class="dropdown-row">
+								<ul class="asset-info-list">
+									<!-- 마이캐시 -->
+									<li class="asset-info-list-item">
+										<div class="asset-info" onclick="location.href='${root}/payment/myCashHistoryCash.do'">
+											<h4 class="asset-info-title">
+												<span class="info-icon material-icons">&#xe90c;</span>
+												<span class="info-title-text">마이캐시</span>
+											</h4>
+											<p class="asset-info-amount">
+												<span class="info-amount" id="amount-cash"><fmt:formatNumber value ="${cashTotal}" pattern="#,###"/></span>
+												원
+											</p>
+										</div>
+									</li>
+									<!-- 마이포인트 -->
+									<li class="asset-info-list-item">
+										<div class="asset-info" onclick="location.href='${root}/payment/myPoint.do'">
+											<h4 class="asset-info-title">
+												<span class="info-icon material-icons">&#xe54f;</span>
+												<span class="info-title-text">마이포인트</span>
+											</h4>
+											<p class="asset-info-amount">
+												<span class="info-amount" id="amount-point"><fmt:formatNumber value ="${pointTotal}" pattern="#,###"/></span>
+												원
+											</p>
+										</div>
+									</li>
+									<!-- 쿠폰 -->
+									<li class="asset-info-list-item">
+										<div class="asset-info" onclick="alert('쿠폰(미구현)')">
+											<h4 class="asset-info-title">
+												<span class="info-icon material-icons">&#xe8b0;</span>
+												<span class="info-title-text">쿠폰</span>
+											</h4>
+											<p class="asset-info-amount">
+												<span class="info-amount" id="amount-coupon">0</span>
+												개
+											</p>
+										</div>
+									</li>
+									<!-- 구매목록 -->
+									<li class="asset-info-list-item">
+										<div class="asset-info" onclick="location.href='${root}/library/purchased.do'">
+											<h4 class="asset-info-title">
+												<span class="info-icon material-icons">&#xe8b0;</span>
+												<span class="info-title-text">구매목록</span>
+											</h4>
+											<p class="asset-info-amount">
+												<span class="info-amount" id="amount-purchased"></span>
+												개
+											</p>
+										</div>
+									</li>
+									<!-- 위시리스트 -->
+									<li class="asset-info-list-item">
+										<div class="asset-info" onclick="location.href='${root}/wishlist.do'">
+											<h4 class="asset-info-title">
+												<span class="info-icon material-icons">&#xe8b0;</span>
+												<span class="info-title-text">위시리스트</span>
+											</h4>
+											<p class="asset-info-amount">
+												<span class="info-amount" id="amount-wish"></span>
+												개
+											</p>
+										</div>
+									</li>
+									<!-- 카트 -->
+									<li class="asset-info-list-item">
+										<div class="asset-info" onclick="location.href='${root}/cart.do'">
+											<h4 class="asset-info-title">
+												<span class="info-icon material-icons">&#xe8b0;</span>
+												<span class="info-title-text">카트</span>
+											</h4>
+											<p class="asset-info-amount">
+												<span class="info-amount" id="amount-cart"></span>
+												개
+											</p>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</c:if>
 			</div>
@@ -88,9 +182,9 @@
 						<li class="hw_mid_item list_comic" onclick="location.href='${root}/comic.do?firstCateNum=4'">
 							<img class="hw_mid_icon" src="${root}/img/index/manhwa.png"> <span class="hw_mid_font">만화</span>
 						</li>
-						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do?firstCateNum=5'">
-							<img class="hw_mid_icon" src="${root}/img/index/bl.png"> <span class="hw_mid_font">BL</span>
-						</li>
+<%-- 						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do?firstCateNum=5'"> --%>
+<%-- 							<img class="hw_mid_icon" src="${root}/img/index/bl.png"> <span class="hw_mid_font">BL</span> --%>
+<!-- 						</li> -->
 					</ul>
 				</nav>
 				<ul class="hw_middle_right">
@@ -142,15 +236,15 @@
 						<%-- <li class="sub_cate_element" onclick="location.href='${root}/normal.main'">맞춤추천<span></span></li> --%>
 						<li class="sub_cate_element" onclick="location.href='${root}/event.do?firstCateNum=${firstCate}&bookType=paper'">이벤트<span></span></li>
 					</ul>
-					<h3 class="sub_cate_line">|</h3>
-					<span>연재</span>
-					<ul>
-						<li class="sub_cate_element">홈<span></span></li>
-						<li class="sub_cate_element">신작<span></span></li>
-						<li class="sub_cate_element">베스트셀러<span></span></li>
-						<!-- <li class="sub_cate_element">선호작품<span></span></li> -->
-						<li class="sub_cate_element">이벤트<span></span></li>
-					</ul>
+<!-- 					<h3 class="sub_cate_line">|</h3> -->
+<!-- 					<span>연재</span> -->
+<!-- 					<ul> -->
+<!-- 						<li class="sub_cate_element">홈<span></span></li> -->
+<!-- 						<li class="sub_cate_element">신작<span></span></li> -->
+<!-- 						<li class="sub_cate_element">베스트셀러<span></span></li> -->
+<!-- 						<li class="sub_cate_element">선호작품<span></span></li> -->
+<!-- 						<li class="sub_cate_element">이벤트<span></span></li> -->
+<!-- 					</ul> -->
 				</div>
 			</c:if>
 			<c:if test="${firstCate==1 || firstCate==4}">
@@ -174,6 +268,9 @@
 	<script type="text/javascript">
 		window.addEventListener("load", headerIndexInit('${root}'));
 		
+		/**
+		 * 검색창 제안(suggest) 기능 구현을 위한 자바스크립트 코드
+		 */
 		var rootContext = '${root}';
 		var suggestBox = document.getElementById("main-search-suggest");
 		var suggestAuthorList = suggestBox.querySelectorAll("ul")[0];
@@ -199,7 +296,7 @@
 					if (data.book == null || data.book.length == 0) {
 						appendSuggestEmpty('book');
 					} else {
-						appendSuggestBookList(data.book);						
+						appendSuggestBookList(data.book);
 					}
 				});
 			}
@@ -262,14 +359,35 @@
 			}
 		}
 		
-		function removeSuggestBox(event) {
-			alert(event);
-			// 기존 제안 내용 초기화
-			//deleteAllChilds(suggestAuthorList);
-			//deleteAllChilds(suggestBookList);
-			// 검색어 제안 박스 비활성화
-			//suggestBox.classList.add("hidden-block");
-		}
+		window.addEventListener("click", function(e) {
+			var e = e || window.event;
+			if (!suggestBox.parentElement.contains(e.target)) {
+				// 기존 제안 내용 초기화
+				deleteAllChilds(suggestAuthorList);
+				deleteAllChilds(suggestBookList);
+				// 검색어 제안 박스 비활성화
+				suggestBox.classList.add("hidden-block");
+			}
+			e.stopImmediatePropagation();
+		}, false);
+		
+		
 	</script>
+	<c:if test="${userInfo != null}">
+		<script type="text/javascript">
+		function updateUserMyMenu() {
+			$.post("${root}/member/myMenu.do", {}, function(data,status) {
+				if (data) {
+					document.getElementById("amount-cash").innerHTML = data.cashTotal; 
+					document.getElementById("amount-point").innerHTML = data.pointTotal; 
+					document.getElementById("amount-purchased").innerHTML = data.purchasedTotal;
+					document.getElementById("amount-cart").innerHTML = data.cartTotal == null ? 0 : data.cartTotal;
+					document.getElementById("amount-wish").innerHTML = data.wishTotal == null ? 0 : data.wishTotal;
+				}
+			});
+		}
+		updateUserMyMenu();
+		</script>
+	</c:if>
 </body>
 </html>

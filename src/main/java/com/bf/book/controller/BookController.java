@@ -35,8 +35,8 @@ public class BookController {
 	 */
 	@RequestMapping(value = "/test/book.do", method = RequestMethod.GET)
 	public String testBook(HttpServletRequest request, HttpServletResponse response) {
-		LogAspect.info(StringUtils.join(Arrays.asList(new String[]{"a1","a2","a3"}), ","));
-		return "present/present.main";
+		LogAspect.info("testBook():" + request.getHeader("referer"));
+		return "book/author.main";
 	}
 
 	/**
@@ -103,6 +103,17 @@ public class BookController {
 		
 		return mav;
 	}
+		
+	/**
+	 * 책(일반, 만화, 단행본) > 책 상세보기 > 작가수정요청 버튼
+	 */
+	@RequestMapping(value = "/authorProfilUpdate.do", method = RequestMethod.GET)
+	public ModelAndView authorProfilUpdate(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("book/authorProfilUpdate.solo");
+		mav.addObject("author_num",request.getParameter("author_num"));
+		
+		return mav;
+	}	
 
 	/**
 	 * 연재 > 책 상세보기 //임시로 로맨스화면의 베스트셀러들에게 걸음
@@ -117,9 +128,13 @@ public class BookController {
 	 * 책상세보기 > 미리보기버튼
 	 */
 	@RequestMapping(value = "/book/example.do", method = RequestMethod.GET)
-	public String bookExample(HttpServletRequest request, HttpServletResponse response) {
-
-		return "book/example.solo";
+	public ModelAndView bookExample(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav=new ModelAndView("book/example.solo");
+		mav.addObject("request", request);
+		
+		bookService.bookExample(mav);
+		
+		return mav;
 	}
 
 	/**
@@ -194,5 +209,14 @@ public class BookController {
 	public void reviewDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		LogAspect.info("reviewDelete():" + request.getHeader("referer"));
 		bookService.reviewDelete(request, response);
+	}
+	
+	/**
+	 * 작가 정보 페이지
+	 */
+	@RequestMapping(value = "/author.do", method = RequestMethod.GET)
+	public ModelAndView author(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("author():" + request.getHeader("referer"));		
+		return bookService.author(new ModelAndView("book/author.main").addObject("request", request));
 	}
 }

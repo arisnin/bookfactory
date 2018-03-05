@@ -28,7 +28,7 @@
 				<ul>
 				<c:forEach var="searchAuthorDto" items="${searchAuthorList}" varStatus="status">
 					<li class="${status.count > 3 ? 'hidden-block' : ''}">
-						<button type="button" class="bf-button bf-transparent-btn" onclick="alert('${searchAuthorDto.author_num}')">
+						<button type="button" class="bf-button bf-transparent-btn" onclick="authorDetailHref('${root}','${searchAuthorDto.author_num}')">
 							<span class="material-icons">person</span>
 							<span class="author">${searchAuthorDto.author_name}</span>
 							<c:if test="${searchAuthorDto.count > 0}">
@@ -87,19 +87,19 @@
 							<!-- 저자 -->
 							<c:if test="${categoryPageDto.author_num != 0}">
 								<p class="book-metadata-author">
-									<a class="" title="저자" href="javascript:alert('${categoryPageDto.author_num}')">${categoryPageDto.author_name}</a>
+									<a class="" title="저자" href="javascript:authorDetailHref('${root}','${categoryPageDto.author_num}')">${categoryPageDto.author_name}</a>
 								</p>
 							</c:if>
 							<!-- 역자 -->
 							<c:if test="${categoryPageDto.trans_num != 0}">
 								<p class="book-metadata-translator">
-									<a class="" title="역자" href="javascript:alert('${categoryPageDto.trans_num}')">${categoryPageDto.trans_name}</a>
+									<a class="" title="역자" href="javascript:authorDetailHref('${root}','${categoryPageDto.trans_num}')">${categoryPageDto.trans_name}</a>
 								</p>
 							</c:if>
 							<!-- 일러스트레이터 -->
 							<c:if test="${categoryPageDto.illur_num != 0}">
 								<p class="book-metadata-illustrator">
-									<a class="" title="역자" href="javascript:alert('${categoryPageDto.illur_num}')">${categoryPageDto.illur_name}</a>
+									<a class="" title="역자" href="javascript:authorDetailHref('${root}','${categoryPageDto.illur_num}')">${categoryPageDto.illur_name}</a>
 								</p>
 							</c:if>
 							<!-- 출판사 -->
@@ -148,8 +148,9 @@
 				<c:if test="${endPage > pageCount}">${endPage=pageCount;""}</c:if>
 
 				<form id="search-pagination-form" action="#" method="get">
-				<c:if test="${count > 0}">
-					<nav class="bf-pagination">${count}:${pageBlock}:${pageCount}:${startPage}:${endPage}
+				<span class="pagination-info hidden-block">${count}:${pageBlock}:${pageCount}:${startPage}:${endPage}</span>
+				<c:if test="${pageCount > 1}">
+					<nav class="bf-pagination">
 						<ul class="bf-animated-btn">
 							<li class="first"><a href="javascript:searchBookPageHref('1')"><span></span></a></li>
 							<!-- 이전 페이지 블록 이동 -->
@@ -214,8 +215,7 @@
 			e.click();
 		});
 		
-		function bookDetailLink(root, book_num) {
-			
+		function bookDetailLink(root, book_num) {			
 			location.href = root + '/detail.do?book_num=' + book_num;
 		}
 		

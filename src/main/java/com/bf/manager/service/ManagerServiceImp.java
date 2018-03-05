@@ -354,7 +354,7 @@ public class ManagerServiceImp implements ManagerService {
 			bookList = managerDao.getBookSearchList(searchWord,startRow,endRow);
 			count = managerDao.getBookCount(searchWord);
 		}
-		
+		mav.addObject("searchWord", searchWord);
 		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("boardSize", boardSize);
 		mav.addObject("count", count);

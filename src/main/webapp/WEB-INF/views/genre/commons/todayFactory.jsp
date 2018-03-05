@@ -35,7 +35,7 @@ $(function(){
 				<!-- 책리스트 -->
 				<div class="today-recommended-list" id="today-recommended-list">
 					<c:forEach var="recom" items="${recomList}">
-						<div class="today-recommended-book" style="opacity: 1;">
+						<div class="today-recommended-book" style="opacity: 1;" onmouseover="mouseoverBook(this)" onmouseout="mouseoutBook(this)">
 							<input type="hidden" name="bookNum" value="${recom.book_num}">
 							<div class="book-spotlight" style="opacity: 0;"></div>
 							<div class="book-thumbnail-wrap">
@@ -49,8 +49,7 @@ $(function(){
 								</div>
 								<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${recom.star_point})"></span>
 								<div class="content-star-rate">
-									<span class="star-icon-field material-icons">star_border</span>
-									<span class="non-star-icon-field material-icons"></span>
+									<span class="star-icon-field material-icons">star_border</span><span class="non-star-icon-field material-icons"></span>
 									<span class="count-field"> ${recom.star_count}명</span>
 								</div>
 								<div class="recommended-book-thumbnail">
@@ -64,6 +63,7 @@ $(function(){
 		</article>
 	</section>
 	
+	<script type="text/javascript" src="${root}/script/genre/todayFactory.js"></script>
 	<script type="text/javascript">
       Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
          e.click();
