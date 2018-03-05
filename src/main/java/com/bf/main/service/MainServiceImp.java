@@ -186,6 +186,16 @@ public class MainServiceImp implements MainService {
 			}
 		}
 		
+		// cnum 이 thirCateNum으로 입력되었을 경우, secondCateNum 역산
+		/*thirdCateNum = 127;
+		int tmp = 0;
+		for (int i=1; i <25; i++) {
+			tmp += groupBySecondCate[i];
+			if (tmp >= thirdCateNum) {
+				secondCateNum = i;
+			}
+		}*/
+		
 		LogAspect.info("cnum/snum:" + cnum + "/" + snum + " -> " + secondCateNum + "," + thirdCateNum + "/" + serviceNum);
 
 		// Pagination 설정

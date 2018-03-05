@@ -3,6 +3,7 @@ package com.bf.order.dao;
 import java.util.List;
 
 import com.bf.book.dto.HomeDto;
+import com.bf.main.dto.CategoryPageDto;
 import com.bf.order.dto.OrderDto;
 
 /**
@@ -29,6 +30,8 @@ public interface OrderDao {
 	public int paymentInsert(OrderDto orderDto);
 
 	public HomeDto getBookSelect(int book_num);
+
+	public List<CategoryPageDto> getCartPurchase(String id, int type);
 	
 	
 }

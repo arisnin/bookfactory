@@ -1,8 +1,12 @@
+/*
+ * 김도현(최초작성)
+ */
+
 $(function() {
 	// 처음화면에 전체가 다 선택되어있음
-	$(".cart_content input[type='checkbox']").each(function() {
-		$(this).prop("checked", true);
-	});
+//	$(".cart_content input[type='checkbox']").each(function() {
+//		$(this).prop("checked", true);
+//	});
 
 	// 삭제클릭
 	$(".cart_content_book_content button:last-child").click(function() {
@@ -143,3 +147,35 @@ $(function() {
 					});
 
 });
+
+/**
+ * 장바구니에서 도서를 선택할 때마다, 오른쪽의 메뉴 정산표를 업데이트하는 함수
+ * 
+ * @returns 없음
+ *
+ * @author 박성호
+ * @date 2018. 3. 5.
+ */
+function updateTotalMenu() {
+	var target = document.querySelectorAll("#cart-total-menu span.float_right");			
+	var bookList = document.querySelectorAll(".cart_content_book_content > div.float_right > span.price");
+	var totalList = document.querySelectorAll(".cart_content_book_content > div.float_right > .dc-price-box > .dc-price");
+	var sourceList = document.querySelectorAll(".cart_content_book");
+	
+	var book = 0, total = 0, count = 0;
+	Array.prototype.forEach.call(sourceList, function(e,i) {
+		let input = e.querySelector(".cart_content_book_span > input[type=checkbox]");
+		if (input.checked && !input.disabled) {
+			// 선택된 도서
+			book += parseInt(bookList[i].getAttribute("data-price"));
+			total += parseInt(totalList[i].getAttribute("data-dc-price"));
+			count++;
+		}
+	});
+
+	target[0].innerHTML = book + '원';
+	target[1].innerHTML = (book - total) + '원';
+	target[2].innerHTML = total + '원';
+	document.querySelector("#cart-total-menu .total-menu-title > strong").innerHTML = count + '권';
+	
+}
