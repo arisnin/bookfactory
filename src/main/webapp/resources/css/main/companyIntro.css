@@ -63,9 +63,10 @@ a:ACTIVE, a:HOVER, a:LINK, a:VISITED{
 }
 
 .company_title{
-    color: #776bce;
+    color: #ddd;
     font-size: 1.5rem;
     margin: 20px 0px;
+    font-weight: bold;
 }
 
 .company_sub{
@@ -115,7 +116,7 @@ a:ACTIVE, a:HOVER, a:LINK, a:VISITED{
 }
 
 .click_event_absolute span{
-	border: 1px solid #776bce;
+	border: 1px solid #ddd;
 }
 
 .click_event_absolute > .event_stick{
@@ -124,7 +125,7 @@ a:ACTIVE, a:HOVER, a:LINK, a:VISITED{
     left: 15px;
     width: 985px;
     height: 0px;
-    border: 2px solid #776bce;
+    border: 2px solid #ddd;
     text-align: center;
 }
 

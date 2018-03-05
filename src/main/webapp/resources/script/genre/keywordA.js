@@ -117,7 +117,7 @@ $(function(){
 			
 			$("input[name=tags]").val(sendData);
 			
-			listAjax(root, sendData, 1);
+			listAjax(root, sendData, 1, firstCate);
 		}else{
 			$(this).parent().parent().css({
 				backgroundColor : "#f8f7ff"
@@ -138,7 +138,7 @@ $(function(){
 				}
 			}
 			
-			listAjax(root, "", 1);
+			listAjax(root, "", 1, firstCate);
 		}
 	});
 	
@@ -149,7 +149,7 @@ $(function(){
 		}).find("input[type=checkbox]").prop('checked',false);
 		$(".keyword_choice .tag-list > li").remove();
 		$("input[name=tags]").val("");
-		listAjax(root, "", 1);
+		listAjax(root, "", 1,firstCate);
 	});
 	
 	//선택된 태그에서 삭제 
@@ -169,7 +169,7 @@ $(function(){
 				$("input[name=tags]").val($("input[name=tags]").val().replace(res,""));
 			}
 		}
-		listAjax(root, "", 1);
+		listAjax(root, "", 1,firstCate);
 	});
 	
 	display(listCount);
@@ -209,23 +209,23 @@ function makePage(json){
 //		alert(startPage+", "+endPage);
 		if(endPage>pageCount)	endPage=pageCount;
 		
-		pageUl.innerHTML+="<li class='first'><a onclick='listAjax(\""+root+"\","+0+","+1+")'><span></span></a></li>";
+		pageUl.innerHTML+="<li class='first'><a onclick='listAjax(\""+root+"\","+0+","+1+","+firstCate+")'><span></span></a></li>";
 		
 		if(startPage>pageBlock)												
-			pageUl.innerHTML+="<li class='prev'><a class='prev'onclick='listAjax(\""+root+"\","+0+","+(startPage-pageBlock)+")'><span></span></a></li>";
+			pageUl.innerHTML+="<li class='prev'><a class='prev'onclick='listAjax(\""+root+"\","+0+","+(startPage-pageBlock)+","+firstCate+")'><span></span></a></li>";
 		
 		for(var a=startPage;a<=endPage;a++){						
 			if(pageNumber==a){
-				pageUl.innerHTML+="<li><a class='active' onclick='listAjax(\""+root+"\","+0+","+a+")'>"+a+"</a></li>";
+				pageUl.innerHTML+="<li><a class='active' onclick='listAjax(\""+root+"\","+0+","+a+","+firstCate+")'>"+a+"</a></li>";
 			}else{
-				pageUl.innerHTML+="<li><a onclick='listAjax(\""+root+"\","+0+","+a+")'>"+a+"</a></li>";
+				pageUl.innerHTML+="<li><a onclick='listAjax(\""+root+"\","+0+","+a+","+firstCate+")'>"+a+"</a></li>";
 			}
 		}
 		
 		if(endPage<pageCount)						
-			pageUl.innerHTML+="<li class='next'><a onclick='listAjax(\""+root+"\","+0+","+(startPage+pageBlock)+")'><span></span></a></li>";
+			pageUl.innerHTML+="<li class='next'><a onclick='listAjax(\""+root+"\","+0+","+(startPage+pageBlock)+","+firstCate+")'><span></span></a></li>";
 		
-		pageUl.innerHTML+="<li class='last'><a onclick='listAjax(\""+root+"\","+0+","+pageCount+")'><span></span></a></li>";
+		pageUl.innerHTML+="<li class='last'><a onclick='listAjax(\""+root+"\","+0+","+pageCount+","+firstCate+")'><span></span></a></li>";
 		
 	}
 }
@@ -337,10 +337,9 @@ function display(listCount){
 	
 }
 
-function listAjax(root, sendData, pageNumber){
+function listAjax(root, sendData, pageNumber, firstCate){
 	//리스트받아오기
-	sendData="tags="+$("input[name=tags]").val()+"&pageNumber="+pageNumber;
-	
+	sendData="tags="+$("input[name=tags]").val()+"&pageNumber="+pageNumber+"&firstCate="+firstCate;
 	$.ajax({
 		type:"post",
 		url: root+"/keywordSearch.do",

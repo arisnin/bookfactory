@@ -193,13 +193,13 @@ public class BookDaoImp implements BookDao {
 	}
 
 	@Override	//태그선택시 카운트수 가져오기
-	public int getTagListCount(ArrayList<String> list) {
+	public int getTagListCount(HashMap<String, Object> list) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getTagListCount", list);
 	}
 
 	@Override	//태그선택시 해당값에 맞는 책정보들고오기
-	public List<HomeDto> getTagBookList(HashMap<String, ArrayList<String>> listMap) {
+	public List<HomeDto> getTagBookList(HashMap<String, Object> listMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getTagBookList", listMap);
 	}

@@ -340,6 +340,8 @@ public class BookServiceImp implements BookService {
 			mav.setViewName("genre/normal.main");
 		}else if(firstCate==4) {
 			mav.setViewName("genre/comic.main");
+		}else if(firstCate==5) {
+			mav.setViewName("genre/bl.main");
 		}
 		
 		
@@ -454,7 +456,7 @@ public class BookServiceImp implements BookService {
 			seconCate=Integer.parseInt(secon);
 		}
 		
-		if(type==null || type=="paper" || secon==null) {
+		if(type==null || type=="paper" || secon==null ||firstCate!=5) {
 			seconCate=bookDao.getBookSecondCate(firstCate);
 		}else if(type=="serial") {
 			//연재는 아직 데이터가없음
@@ -641,7 +643,7 @@ public class BookServiceImp implements BookService {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
 		HttpServletResponse response=(HttpServletResponse) mav.getModel().get("response");
-		
+		String firstCateNum=request.getParameter("firstCate");
 		String tags=request.getParameter("tags");
 		
 		int tagListCount=0;
@@ -656,7 +658,7 @@ public class BookServiceImp implements BookService {
 		int startRow=(pageNumber-1)*boardSize+1;
 		int endRow=pageNumber*boardSize;
 		
-		HashMap<String, ArrayList<String>> listMap=new HashMap<String, ArrayList<String>>();
+		HashMap<String, Object> listMap=new HashMap<String, Object>();
 		
 		ArrayList<String> page=new ArrayList<String>();
 		page.add(String.valueOf(startRow));
@@ -672,8 +674,11 @@ public class BookServiceImp implements BookService {
 				list.add(query);
 			}
 			listMap.put("list", list);
+			listMap.put("firstCateNum", firstCateNum);
 			
-			tagListCount=bookDao.getTagListCount(list);
+			System.out.println(listMap.toString());
+			
+			tagListCount=bookDao.getTagListCount(listMap);
 			
 			if(tagListCount>0 && tagListCount<10000) {
 				//밑에 뿌려줄 책정보 가져와야함 덤으로 페이지 번호도.
@@ -759,18 +764,18 @@ public class BookServiceImp implements BookService {
 		String rental=request.getParameter("rental");
 		
 		//대여 구분
-				if(rental==null || rental.equalsIgnoreCase("no") || rental.equalsIgnoreCase("")) {
-					rental="no";
-				}else if(rental.equalsIgnoreCase("yes")) {
-					rental="yes";
-				}
+		if(rental==null || rental.equalsIgnoreCase("no") || rental.equalsIgnoreCase("")) {
+			rental="no";
+		}else if(rental.equalsIgnoreCase("yes")) {
+			rental="yes";
+		}
 		
 		int seconCate=0;
 		
 		if(secon!=null && secon!="") {
 			seconCate=Integer.parseInt(secon);
 		}
-		if(firstCate==2 || firstCate==3 || firstCate==5) {
+		if(firstCate==2 || firstCate==3) {
 			if(type==null || type=="paper" || secon==null || seconCate==0) {
 				seconCate=bookDao.getBookSecondCate(firstCate);
 			}else if(type=="serial") {
