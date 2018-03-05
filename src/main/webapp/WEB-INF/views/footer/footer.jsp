@@ -11,28 +11,6 @@
 <link href="${root}/css/order/order.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="${root }/script/notice/notice.js"></script>
 <%-- <script type="text/javascript" src="${root}/script/basic/jquery.js"></script> --%>
-<script type="text/javascript">
-
-	$(function() {
-		for (var i = 0; i < 100; i++) {
-			$(".footer_header_notice_change").delay(1000).animate({
-				top : "-=1rem"
-			}, 2000, function() {
-				$(".footer_header_notice_change").first().css("top", "2rem");
-			});
-			$(".footer_header_notice_change").delay(1000).animate({
-				top : "-=1rem"
-			}, 2000, function() {
-				$(".footer_header_notice_change").eq(1).css("top", "1rem");
-			});
-			$(".footer_header_notice_change").delay(1000).animate({
-				top : "-=1rem"
-			}, 2000, function() {
-				$(".footer_header_notice_change").eq(2).css("top", "0rem");
-			});
-		}
-	});
-</script>
 <title>Footer section</title>
 </head>
 <body>
@@ -41,16 +19,7 @@
 			<div class="footer_header_border">
 				<span class="footer_header_notice"><a href="${root }/notice/main.do">공지사항</a><i class="material-icons">play_arrow</i></span>
 				<div class="footer_haeder_notice_text">
-				
-					
-					
-					<ul>
-						<c:forEach var="noticeMiniDto" items="${noticeMini }">
-						<li class="footer_header_notice_change"><a href="javascript:readFun('${root}','${noticeMiniDto.num}')">${noticeMiniDto.title}</a></li>					
-						</c:forEach>						
-					</ul>
-					
-					
+					<ul id="footer-notice-list"></ul>
 				</div>
 			</div>
 		</div>
@@ -195,5 +164,42 @@
 		<!-- 			</div> -->
 		<!-- 		</div> -->
 	</div>
+	<script type="text/javascript">
+		function noticeList(){
+			$.post("${root}/notice/list.do", {}, function(data, status){
+				if(data){
+					var dFrag = document.createDocumentFragment();
+					data.forEach(function(e,i) {
+						var li = document.createElement("li");
+						li.className = "footer_header_notice_change";
+						var innerHTML = '<a href="${root}/notice/content.do?num='+e.num+'&pageNumber=1">'+e.title+'</a>';
+						li.innerHTML = innerHTML;
+						dFrag.appendChild(li);
+					});
+					document.getElementById("footer-notice-list").appendChild(dFrag);
+				}
+			});
+		}
+		noticeList();
+		$(function() {
+			for (var i = 0; i < 100; i++) {
+				$(".footer_header_notice_change").delay(1000).animate({
+					top : "-=1rem"
+				}, 2000, function() {
+					$(".footer_header_notice_change").first().css("top", "2rem");
+				});
+				$(".footer_header_notice_change").delay(1000).animate({
+					top : "-=1rem"
+				}, 2000, function() {
+					$(".footer_header_notice_change").eq(1).css("top", "1rem");
+				});
+				$(".footer_header_notice_change").delay(1000).animate({
+					top : "-=1rem"
+				}, 2000, function() {
+					$(".footer_header_notice_change").eq(2).css("top", "0rem");
+				});
+			}
+		});
+	</script>
 </body>
 </html>
