@@ -140,10 +140,10 @@
 			<div class="a_se_foot">
 				<nav class="bf-pagination">
 					<ul class="bf-animated-btn">
-						<c:if test="${search-word==null}">
-							<c:set var="href" value="${root}/manager/memberPayDetail.do?pageNumber="/>
+						<c:if test="${searchWord==null}">
+							<c:set var="href" value="${root}/manager/memberPayDetail.do?id=${managerCashDto.id }&pageNumber="/>
 						</c:if>
-						<c:if test="${search-word!=null}">
+						<c:if test="${searchWord!=null}">
 							<c:set var="href" value="${root}/manager/memberPayDetail.do?searchWord=${searchWord}&pageNumber="/>
 						</c:if>
 						
