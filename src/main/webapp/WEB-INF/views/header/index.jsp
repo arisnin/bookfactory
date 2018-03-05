@@ -369,8 +369,7 @@
 				suggestBox.classList.add("hidden-block");
 			}
 			e.stopImmediatePropagation();
-		}, false);
-		
+		}, false);		
 		
 	</script>
 	<c:if test="${userInfo != null}">

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bf.book.dto.HomeDto;
+import com.bf.main.dto.CategoryPageDto;
 import com.bf.order.dto.OrderDto;
 import com.bf.order.dto.PointDto;
 
@@ -20,6 +21,16 @@ import com.bf.order.dto.PointDto;
 public class OrderDaoImp implements OrderDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	private final String namespace = "com.bf.mapper.OrderMapper.";
+
+	@Override
+	public List<CategoryPageDto> getCartPurchase(String id, int type) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("type", type);
+		return sqlSession.selectList(namespace + "get-cart2", map);
+	}
 
 	@Override
 	public int cartWishList(int bookNum, String id) {
