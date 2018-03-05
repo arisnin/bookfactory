@@ -44,14 +44,14 @@
 		<div>
 			<div class="company_right_click">
 				<button class="company_title">프로젝트 연대기</button>
-				<div><a href="${root}/homeNormal/homeNormal.do">메인홈페이지로</a></div>
+				<div><a href="${root}/normal.do">메인홈페이지로</a></div>
 				<div class="click_event_absolute">
 					<div class="event_stick"></div>
 					<div class="event_start">프로젝트 시작 18.01.17<span></span></div>
 					<div class="event_view">18.02.02 뷰 구현<span></span></div>
 					<div class="event_db">데이터베이스 설계 18.02.09<span></span></div>
-					<div class="event_func">18.02.21 기능 구현<span></span></div>
-					<div class="event_pre">발표 18.02.23<span></span></div>
+					<div class="event_func">18.03.05 기능 구현<span></span></div>
+					<div class="event_pre">발표 18.03.06<span></span></div>
 <!-- 					<div class="event_to">팀원</div> -->
 <!-- 					<div class="event_to_tri"></div> -->
 <!-- 					<div class="event_to_li"> -->

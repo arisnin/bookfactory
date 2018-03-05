@@ -94,12 +94,15 @@
 		            WHERE p.book_num=c.book_num
 		            AND c.cate1_num=f.num
 		            and f.num=#{firstCate}
-		            and payment_date > trunc(SYSDATE-5)
+		            and payment_date > trunc(SYSDATE-3)
 		            GROUP BY p.book_num
 		            ORDER BY 2 DESC)A
 		      )prn, bookm b, author au
 		WHERE prn.book_num=b.book_num
 		AND b.author_num=Au.num
+		<![CDATA[
+			and prn.r<=20
+		]]>
 		ORDER BY prn.r asc
 	</select>
 	
@@ -113,12 +116,15 @@
 		            AND c.cate1_num=f.num
 		            AND f.num=#{firstCate}
 		            and sc.num=#{seconCate}
-		            and payment_date > trunc(SYSDATE-1)
+		            and payment_date > trunc(SYSDATE-3)
 		            GROUP BY p.book_num
 		            ORDER BY 2 DESC)A
 		      )prn, bookm b, author au
 		WHERE prn.book_num=b.book_num
 		AND b.author_num=Au.num
+		<![CDATA[
+			and prn.r<=20
+		]]>
 		ORDER BY prn.r ASC
 	</select>
 	

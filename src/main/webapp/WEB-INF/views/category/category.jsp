@@ -7,6 +7,11 @@
 <title>전체보기</title>
 <c:set var="root" value="${pageContext.request.contextPath}" scope="session" />
 <link href="${root}/css/category/category.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+	$(function(){
+		$(".hw_sub_wrap").hide();
+	});
+</script>
 </head>
 <body>
 	<div class="bf-category-all-box">

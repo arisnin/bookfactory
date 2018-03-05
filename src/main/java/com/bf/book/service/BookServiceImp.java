@@ -5,8 +5,11 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -351,6 +354,10 @@ public class BookServiceImp implements BookService {
 		String seconCate=request.getParameter("seconCate");
 		String rental=request.getParameter("rental");
 		
+		if(bookType!=null) {
+			seconCate=String.valueOf(bookDao.getBookSecondCate(Integer.parseInt(firstCate)));
+		}
+		
 		String pn=request.getParameter("pageNumber");
 		if(pn==null)	pn="1";
 		
@@ -403,9 +410,15 @@ public class BookServiceImp implements BookService {
 //		System.out.println(newList.size());
 		if(newList.size()>0) {
 			for(int i=0;i<newList.size();i++) {
-				int after=newList.get(i).getIntro().indexOf(">");
-				String intro=newList.get(i).getIntro().substring(after+1);
-				newList.get(i).setIntro(intro);
+				Pattern pattern  =  Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>");
+				Matcher match = pattern.matcher(newList.get(i).getIntro());
+				
+				if(match.find()) {
+					int after=newList.get(i).getIntro().indexOf(">");
+					String intro=newList.get(i).getIntro().substring(after+1);
+					newList.get(i).setIntro(intro);
+				}
+				
 			}
 		}
 		
@@ -437,20 +450,21 @@ public class BookServiceImp implements BookService {
 
 		int seconCate=0;
 		
-		if(secon!=null) {
+		if(secon!=null && secon!="") {
 			seconCate=Integer.parseInt(secon);
 		}
+		
 		if(type==null || type=="paper" || secon==null) {
 			seconCate=bookDao.getBookSecondCate(firstCate);
 		}else if(type=="serial") {
 			//연재는 아직 데이터가없음
 		}
 		
-		HashMap<String, Integer> map=new HashMap<String, Integer>();
+		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("firstCate", firstCate);
 		map.put("seconCate", seconCate);
 		
-		System.out.println("seconCate : "+seconCate);
+//		System.out.println("seconCate : "+seconCate);
 		
 		//오늘의 추천은 랜덤으로 뽑아옴
 		int preBookNum=0;
@@ -469,7 +483,7 @@ public class BookServiceImp implements BookService {
 		}
 		
 		//사람들이 지금 많이 읽는 책 => 나중에 어떤식으로들어갈지 모름
-		List<HomeDto> pop=bookDao.getPopularList(map);
+		List<HomeDto> pop=bookDao.getPopularListPaper(map);
 		//두번째카테고리 이름받아옴. 중복된애들때문에 따로처리
 		for(int i=0;i<pop.size();i++) {
 			long book_num=pop.get(i).getBook_num();
@@ -489,7 +503,7 @@ public class BookServiceImp implements BookService {
 		List<HomeDto> bestDto=bookDao.getBestSellerWeekPaper(pMap);
 		
 //		List<HomeDto> homeList=bookDao.getPaperHomeBookInfoList(map);
-//		LogAspect.info(LogAspect.logMsg + homeList.toString());
+//		LogAspect.info(LogAspect.logMsg + pop.toString());
 		
 		mav.addObject("recomList", recomList);
 		mav.addObject("pop",pop);
@@ -518,22 +532,38 @@ public class BookServiceImp implements BookService {
 		//카테고리작업
 		List<DetailCateDto> cateDto=bookDao.getDetailCate(book_num);
 		
+		//카테고리 검색을 위한 작업
+		int[] clist= {100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400};
+		int[] tlist= {0,17,22,26,32,34,36,41,45,49,57,62,65,68,72,72,82,90,93,101,105,118,122,124};
+		
 		for(int i=0;i<cateDto.size();i++) {
 			if(i==0) {
 				dto.setSecond_name_1(cateDto.get(i).getSecond_name());
-				dto.setSecond_num_1(cateDto.get(i).getSecond_num());
+				dto.setSecond_num_1(cateDto.get(i).getSecond_num()*100);
 				dto.setThird_name_1(cateDto.get(i).getThird_name());
-				dto.setThird_num_1(cateDto.get(i).getThird_num());
+				for(int j=0;j<clist.length;j++) {
+					if(dto.getSecond_num_1()==clist[j]) {
+						dto.setThird_num_1((cateDto.get(i).getThird_num()-tlist[j])+dto.getSecond_num_1());
+					}
+				}
 			}else if(i==1) {
 				dto.setSecond_name_2(cateDto.get(i).getSecond_name());
-				dto.setSecond_num_2(cateDto.get(i).getSecond_num());
+				dto.setSecond_num_2(cateDto.get(i).getSecond_num()*100);
 				dto.setThird_name_2(cateDto.get(i).getThird_name());
-				dto.setThird_num_2(cateDto.get(i).getThird_num());
+				for(int j=0;j<clist.length;j++) {
+					if(dto.getSecond_num_2()==clist[j]) {
+						dto.setThird_num_2((cateDto.get(i).getThird_num()-tlist[j])+dto.getSecond_num_2());
+					}
+				}
 			}else if(i==2) {
 				dto.setSecond_name_3(cateDto.get(i).getSecond_name());
-				dto.setSecond_num_3(cateDto.get(i).getSecond_num());
+				dto.setSecond_num_3(cateDto.get(i).getSecond_num()*100);
 				dto.setThird_name_3(cateDto.get(i).getThird_name());
-				dto.setThird_num_3(cateDto.get(i).getThird_num());
+				for(int j=0;j<clist.length;j++) {
+					if(dto.getSecond_num_3()==clist[j]) {
+						dto.setThird_num_3((cateDto.get(i).getThird_num()-tlist[j])+dto.getSecond_num_3());
+					}
+				}
 			}
 		}
 		
@@ -654,7 +684,7 @@ public class BookServiceImp implements BookService {
 				tagListCount=10000;
 			}
 			
-			System.out.println("tagListCount: "+tagListCount);
+//			System.out.println("tagListCount: "+tagListCount);
 			
 			HashMap<String, Object> json=new HashMap<String, Object>();
 			json.put("tagListCount", tagListCount);
@@ -737,11 +767,11 @@ public class BookServiceImp implements BookService {
 		
 		int seconCate=0;
 		
-		if(secon!=null) {
+		if(secon!=null && secon!="") {
 			seconCate=Integer.parseInt(secon);
 		}
 		if(firstCate==2 || firstCate==3 || firstCate==5) {
-			if(type==null || type=="paper" || secon==null) {
+			if(type==null || type=="paper" || secon==null || seconCate==0) {
 				seconCate=bookDao.getBookSecondCate(firstCate);
 			}else if(type=="serial") {
 				//연재는 아직 데이터가없음
@@ -768,6 +798,9 @@ public class BookServiceImp implements BookService {
 		List<HomeDto> bestDto=null;
 		//주간, 월간, 스테디 구분
 		String bestSeller=request.getParameter("bestSeller");
+		if(bestSeller==null || bestSeller=="") {
+			bestSeller="weekBest";
+		}
 		
 		int bestDtoCount=0;
 		
@@ -820,6 +853,45 @@ public class BookServiceImp implements BookService {
 		mav.addObject("first", first);
 		mav.addObject("ex", ex);
 		
+	}
+
+	// 염현우 작가페이지 수정요청 삽입
+	@Override
+	public void authorProfilUpdateOk(ModelAndView mav) {
+		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
+		String content = "";
+		int author_num = Integer.parseInt(request.getParameter("author_num"));
+		String author_name = request.getParameter("author_name");
+		String author_contry = request.getParameter("author_contry");
+		String author_birth = request.getParameter("author_birth");
+		String author_edu = request.getParameter("author_edu");
+		String author_debut = request.getParameter("author_debut");
+		String author_career = request.getParameter("author_career");
+		String author_awards = request.getParameter("author_awards");
+		String author_link = request.getParameter("author_link");
+		
+		HashMap<String, String> map = new HashMap<String,String>();
+		map.put("작가이름", author_name);
+		map.put("국적", author_contry);
+		map.put("출생", author_birth);
+		map.put("학력", author_edu);
+		map.put("데뷔", author_debut);
+		map.put("경력", author_career);
+		map.put("수상", author_awards);
+		map.put("링크", author_link);
+		
+		Iterator<String> iter = map.keySet().iterator();
+		while(iter.hasNext()) {
+			String key = iter.next();
+			String value = map.get(key);
+			if(value != null && !value.equals("")) {
+				content += key + " : " + value + "<br>";
+			}
+		}
+		
+		int check = bookDao.insertAuthorEdit(author_num,content);
+		
+		mav.addObject("check", check);
 	}
 
 }
