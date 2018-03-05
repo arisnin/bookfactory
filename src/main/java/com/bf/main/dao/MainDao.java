@@ -41,4 +41,12 @@ public interface MainDao {
 	public List<Map<String, Object>> suggestKeyword(String keyword);
 
 	public List<Map<String, Object>> suggestKeyword(String keyword, String string);
+
+	public int selectCashAvailable(String id);
+
+	public int selectPointAvailable(String id);
+
+	public int selectPurchasedCount(String id);
+
+	public List<Map<String, Integer>> selectCartWishCount(String id);
 }

@@ -2,6 +2,7 @@ package com.bf.main.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +25,7 @@ import com.bf.main.dto.NoticeDto;
 import com.bf.main.dto.SearchAuthorDto;
 import com.bf.main.dto.SearchBookCountDto;
 import com.bf.member.model.MemberDto;
+import com.bf.member.model.User;
 
 /**
  * @Date 2018. 2. 4.
@@ -320,6 +322,58 @@ public class MainServiceImp implements MainService {
 			out.flush();
 			out.close();
 		}
+	}
+
+	/*
+	 * 헤더 > 마이팩토리 버튼 마우스오버 > 마이메뉴 팝업
+	 * @author 박성호
+	 * @date 2018. 3. 4.
+	 * @see com.bf.main.service.MainService#updateMymenu(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	public void updateMymenu(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		User user = (User) request.getSession().getAttribute("userInfo");
+		
+		int cashTotal = 0, pointTotal = 0, purchasedTotal = 0;
+		
+		JSONObject json = new JSONObject();
+		
+		if (user != null) {
+			String id = user.getUsername();
+			
+			// 마이캐시
+			cashTotal = mainDao.selectCashAvailable(id);
+			
+			// 마이포인트
+			pointTotal = mainDao.selectPointAvailable(id);
+			
+			// 쿠폰(미구현)
+			
+			// 구매목록
+			purchasedTotal = mainDao.selectPurchasedCount(id);
+			
+			// TODO: 카트, 위시리스트 - [{count=1, type=wish}, {count=2, type=cart}]
+			List<Map<String,Integer>> cartWishCount = mainDao.selectCartWishCount(id);
+			for (Map e : cartWishCount) {
+				if ("cart".equals(e.get("type"))) {
+					json.put("cartTotal", e.get("count"));
+				} else if ("wish".equals(e.get("type"))) {
+					json.put("wishTotal", e.get("count"));
+				}
+			}
+		}
+		
+		DecimalFormat df = new DecimalFormat("#,###");
+		
+		json.put("cashTotal", df.format(cashTotal));
+		json.put("pointTotal", df.format(pointTotal));
+		json.put("purchasedTotal", df.format(purchasedTotal));
+		
+		response.setContentType("application/x-json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(json.toJSONString());
+		out.flush();
+		out.close();
 	}
 
 	/**

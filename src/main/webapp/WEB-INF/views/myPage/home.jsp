@@ -73,7 +73,7 @@
 							</h4>
 							<p class="asset-info-amount">
 								<span class="info-amount" id="amount-point">0</span>
-								원
+								개
 							</p>
 						</div>
 						<div class="asset-more-info">

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@	taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,7 @@
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" type="text/css" href="${root}/css/basic/reset.css" />
 <link rel="stylesheet" type="text/css" href="${root}/css/basic/commons.css" />
+<link type="text/css" rel="stylesheet" href="${root}/css/myPage/home.css">
 <link rel="stylesheet" type="text/css" href="${root}/css/header/index.css" />
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/header/index.js"></script>
@@ -47,24 +49,115 @@
 				<c:if test="${userInfo == null}">
 					<div class="hw_top_content_right login">
 						<span class="hw_font">
-							<a class="hw_top_content_right_login" href="javascript:goLogin()">로그인</a>
+							<a class="hw_top_content_right_register" href="javascript:goRegister()">회원가입</a>
 						</span>
 						<span class="hw_font">
-							<a class="hw_top_content_right_register" href="javascript:goRegister()">회원가입</a>
+							<a class="hw_top_content_right_login" href="javascript:goLogin()">로그인</a>
 						</span>
 					</div>
 				</c:if>
 				<c:if test="${userInfo != null}">
 					<div class="hw_top_content_right login_ok" style="display: inline-block;">
 						<span class="hw_font">
-							<a href="${root}/myPage/home.do" style="margin-right:5px;">마이팩토리(${userInfo.username}, ${userInfo.memberDto.email})</a>
-						</span>
+							<a href="${root}/wishlist.do">위시리스트</a>
+						</span>						
 						<span class="hw_font">
 							<a href="${root}/cart.do">카트</a>
 						</span>
-						<span class="hw_font">
-							<a href="${root}/wishlist.do">위시리스트</a>
+						<span class="hw_font my-factory-btn">
+							<a href="${root}/myPage/home.do">마이팩토리</a>
 						</span>
+						<div class="bf-dropdown-menu user-my-menu">
+							<div class="dropdown-row">
+								<div class="account-info" onclick="location.href='${root}/myPage/home.do'">
+									<h3 class="account-id">${userInfo.username}</h3>
+									<p class="account-email font_13">${userInfo.memberDto.email}</p>
+								</div>
+								<a class="bf-button bf-white-btn logout-btn" href="${root}/member/logout.do">로그아웃</a>
+							</div>
+							<div class="dropdown-row">
+								<ul class="asset-info-list">
+									<!-- 마이캐시 -->
+									<li class="asset-info-list-item">
+										<div class="asset-info" onclick="location.href='${root}/payment/myCashHistoryCash.do'">
+											<h4 class="asset-info-title">
+												<span class="info-icon material-icons">&#xe90c;</span>
+												<span class="info-title-text">마이캐시</span>
+											</h4>
+											<p class="asset-info-amount">
+												<span class="info-amount" id="amount-cash"><fmt:formatNumber value ="${cashTotal}" pattern="#,###"/></span>
+												원
+											</p>
+										</div>
+									</li>
+									<!-- 마이포인트 -->
+									<li class="asset-info-list-item">
+										<div class="asset-info" onclick="location.href='${root}/payment/myPoint.do'">
+											<h4 class="asset-info-title">
+												<span class="info-icon material-icons">&#xe54f;</span>
+												<span class="info-title-text">마이포인트</span>
+											</h4>
+											<p class="asset-info-amount">
+												<span class="info-amount" id="amount-point"><fmt:formatNumber value ="${pointTotal}" pattern="#,###"/></span>
+												원
+											</p>
+										</div>
+									</li>
+									<!-- 쿠폰 -->
+									<li class="asset-info-list-item">
+										<div class="asset-info" onclick="alert('쿠폰(미구현)')">
+											<h4 class="asset-info-title">
+												<span class="info-icon material-icons">&#xe8b0;</span>
+												<span class="info-title-text">쿠폰</span>
+											</h4>
+											<p class="asset-info-amount">
+												<span class="info-amount" id="amount-coupon">0</span>
+												개
+											</p>
+										</div>
+									</li>
+									<!-- 구매목록 -->
+									<li class="asset-info-list-item">
+										<div class="asset-info" onclick="location.href='${root}/library/purchased.do'">
+											<h4 class="asset-info-title">
+												<span class="info-icon material-icons">&#xe8b0;</span>
+												<span class="info-title-text">구매목록</span>
+											</h4>
+											<p class="asset-info-amount">
+												<span class="info-amount" id="amount-purchased"></span>
+												개
+											</p>
+										</div>
+									</li>
+									<!-- 위시리스트 -->
+									<li class="asset-info-list-item">
+										<div class="asset-info" onclick="location.href='${root}/wishlist.do'">
+											<h4 class="asset-info-title">
+												<span class="info-icon material-icons">&#xe8b0;</span>
+												<span class="info-title-text">위시리스트</span>
+											</h4>
+											<p class="asset-info-amount">
+												<span class="info-amount" id="amount-wish"></span>
+												개
+											</p>
+										</div>
+									</li>
+									<!-- 카트 -->
+									<li class="asset-info-list-item">
+										<div class="asset-info" onclick="location.href='${root}/cart.do'">
+											<h4 class="asset-info-title">
+												<span class="info-icon material-icons">&#xe8b0;</span>
+												<span class="info-title-text">카트</span>
+											</h4>
+											<p class="asset-info-amount">
+												<span class="info-amount" id="amount-cart"></span>
+												개
+											</p>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</c:if>
 			</div>
@@ -277,6 +370,24 @@
 			}
 			e.stopImmediatePropagation();
 		}, false);
+		
+		
 	</script>
+	<c:if test="${userInfo != null}">
+		<script type="text/javascript">
+		function updateUserMyMenu() {
+			$.post("${root}/member/myMenu.do", {}, function(data,status) {
+				if (data) {
+					document.getElementById("amount-cash").innerHTML = data.cashTotal; 
+					document.getElementById("amount-point").innerHTML = data.pointTotal; 
+					document.getElementById("amount-purchased").innerHTML = data.purchasedTotal;
+					document.getElementById("amount-cart").innerHTML = data.cartTotal == null ? 0 : data.cartTotal;
+					document.getElementById("amount-wish").innerHTML = data.wishTotal == null ? 0 : data.wishTotal;
+				}
+			});
+		}
+		updateUserMyMenu();
+		</script>
+	</c:if>
 </body>
 </html>

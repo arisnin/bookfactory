@@ -117,6 +117,17 @@ public class MainController {
 		
 		return mav;		
 	}
+	
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/member/myMenu.do", method = RequestMethod.POST)
+	public void updateMymenu(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		mainService.updateMymenu(request, response);
+	}
 
 	/**
 	 * footer > 회사소개

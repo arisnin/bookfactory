@@ -36,6 +36,12 @@
 	cursor: pointer;
 }
 
+.footer_header_notice a:link,
+.footer_header_notice a:visited,
+.footer_header_notice a:active {
+	color: #333;
+}
+
 .footer_header_notice > i.material-icons {
 	position: absolute;
     font-size: 0.8rem;

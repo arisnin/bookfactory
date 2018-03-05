@@ -248,6 +248,12 @@
 		<![CDATA[WHERE ROWNUM < 7]]>
 	</select>
 	
+	<select id="select-cart-wish-count" parameterType="String" resultType="java.util.Map">
+		SELECT cart_wish "type", count(book_num) "count" FROM cart_wish
+		WHERE ID = #{id}
+		GROUP BY cart_wish
+	</select>
+	
 	<!-- 김동환 / 공지사항 -->
 	<select id="noticeMainCount" resultType="int">
 			select count(*) from notice
