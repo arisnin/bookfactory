@@ -115,7 +115,26 @@
 			});
 			
 			$(e).find("button").eq(1).click(function() {
-				alertify.confirm();
+				var book_num = $(this).attr("id");
+				var check = confirm('정말로 삭제하시겠습니까?');
+				if(check == true){
+					$.ajax({
+						  url: '${root}/manager/bookDelete.do',
+						  method: 'get',
+						  data: {book_num : book_num},
+						  success: function(check){
+							  if(check == '1'){
+								  alert("삭제성공");
+								  location.reload();
+							  }else{
+								  alertify.error("삭제실패");
+							  }
+						  },
+						  dataType: "text"
+					});
+				}else{
+					alertify.log("취소");
+				}
 			});
 		});
 	</script>

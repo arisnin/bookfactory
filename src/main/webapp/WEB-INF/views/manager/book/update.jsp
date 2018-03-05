@@ -17,7 +17,7 @@
 	<div id="b_in_wrapper">
 		<form id="bookInsertForm" action="${root}/manager/bookUpdateOk.do" method="post" onsubmit="return bookUpdateOk()">
 			<section class="b_in_main">
-				<div class="b_in_header"><h2>도서 등록</h2></div>
+				<div class="b_in_header"><h2>도서 수정</h2></div>
 				<div class="b_in_content">
 					<div>
 						<label>도서 제목</label>

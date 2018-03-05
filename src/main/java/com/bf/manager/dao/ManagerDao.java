@@ -187,4 +187,8 @@ public interface ManagerDao {
 
 	public void deleteBookCategory(int book_num);
 
+	public int deleteBook(int book_num);
+
+	public void rejectAuthorEdit(int num);
+
 }

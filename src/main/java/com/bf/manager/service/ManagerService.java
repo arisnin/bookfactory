@@ -97,5 +97,9 @@ public interface ManagerService {
 
 	public void statTotal(ModelAndView mav);
 
+	public void bookDelete(ModelAndView mav);
+
+	public void authorEditReject(ModelAndView mav);
+
 	
 }

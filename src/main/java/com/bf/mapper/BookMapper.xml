@@ -243,5 +243,9 @@
 		delete from book_category where book_num = #{book_num}
 	</delete>
 	
+	<delete id="deleteBook" parameterType="int">
+		delete from bookm where book_num = #{book_num}
+	</delete>
+	
 </mapper>
 

@@ -22,4 +22,15 @@ function removeBrAndSetting(content){
 	}
 }
 
+$("#reject_btn").click(function(){
+	$.ajax({
+		  url: '/bookFactory/manager/authorEditReject.do',
+		  method: 'get',
+		  data: {editNum : $("input[name=editNum]").val()},
+		  success: function(){
+			  location.href='/bookFactory/manager/authorUpdateBoard.do';
+		  },
+		  dataType: "text"
+	});
+});
 

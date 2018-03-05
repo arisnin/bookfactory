@@ -133,6 +133,15 @@ public class ManagerController {
 		return null;
 	}
 	
+	@RequestMapping(value = "/authorEditReject.do", method = RequestMethod.GET)
+	public ModelAndView authorEditReject(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.authorEditReject(mav);
+		return null;
+	}
+	
 	@RequestMapping(value="/bookInsert.do",method=RequestMethod.GET)
 	public ModelAndView bookInsert(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("book/insert.mg");
@@ -228,6 +237,15 @@ public class ManagerController {
 		mav.addObject("bookDto", bookDto);
 		managerService.bookUpdateOk(mav);
 		return mav;
+	}
+	
+	@RequestMapping(value = "/bookDelete.do", method = RequestMethod.GET)
+	public ModelAndView bookDelete(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		mav.addObject("response", response);
+		managerService.bookDelete(mav);
+		return null;
 	}
 	
 	@RequestMapping(value = "/publisherSearch.do", method = RequestMethod.GET)

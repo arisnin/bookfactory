@@ -331,6 +331,13 @@ public class ManagerServiceImp implements ManagerService {
 	}
 	
 	@Override
+	public void authorEditReject(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		int num = Integer.parseInt(request.getParameter("editNum"));
+		managerDao.rejectAuthorEdit(num);
+	}
+	
+	@Override
 	public void bookInsert(ModelAndView mav) {
 		List<BookFirstCateDto> firstCateList = managerDao.getFirstCate();
 		mav.addObject("firstCateList", firstCateList);
@@ -467,6 +474,22 @@ public class ManagerServiceImp implements ManagerService {
 		}
 		mav.addObject("check", check);
 		mav.addObject("num", bookDto.getBook_num());
+	}
+	
+	@Override
+	public void bookDelete(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
+		
+		int book_num = Integer.parseInt(request.getParameter("book_num"));
+		int check = managerDao.deleteBook(book_num);
+		
+		try {
+			response.setContentType("application/text;charset=utf-8");
+			response.getWriter().print(check);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
