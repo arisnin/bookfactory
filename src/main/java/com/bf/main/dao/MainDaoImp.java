@@ -170,7 +170,7 @@ public class MainDaoImp implements MainDao {
 	}
 
 	@Override
-	public List<NoticeDto> noticeMini() {
+	public List<Map<String, Object>> noticeMini() {
 		return sqlSession.selectList(namespace + "noticeMini");
 	}
 	

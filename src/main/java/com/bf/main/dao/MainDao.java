@@ -62,6 +62,6 @@ public interface MainDao {
 
 	public int getRandomBookNum(int f_num);
 
-	public List<NoticeDto> noticeMini();
+	public List<Map<String, Object>> noticeMini();
 
 }

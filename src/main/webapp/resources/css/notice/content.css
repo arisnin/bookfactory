@@ -3,7 +3,12 @@
 #notice_content {
 	font-size: 1rem;
 	width: 56.25rem;
-			
+	margin : 0px auto;
+}
+
+#team2_index_body > div:nth-child(2){
+	margin : 0px auto;
+	margin-top : 2rem;
 }
 
 .list {

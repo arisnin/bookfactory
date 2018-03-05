@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tools.ant.filters.FixCrLfFilter.AddAsisRemove;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import com.bf.main.dto.SearchAuthorDto;
 import com.bf.main.dto.SearchBookCountDto;
 import com.bf.member.model.MemberDto;
 import com.bf.member.model.User;
+import com.sun.jmx.remote.security.NotificationAccessController;
 
 /**
  * @Date 2018. 2. 4.
@@ -415,7 +417,7 @@ public class MainServiceImp implements MainService {
 		mav.addObject("boardSize", boardSize);
 		mav.addObject("currentPage", currentPage);
 		
-		mav.setViewName("notice/main.solo");
+		mav.setViewName("notice/main.main");
 		
 		
 	}
@@ -434,10 +436,10 @@ public class MainServiceImp implements MainService {
 		NoticeDto noticeDto = mainDao.noticeRead(num);
 		LogAspect.info("NoticeDto 확인 : " + noticeDto.toString());
 		
-		mav.addObject("noticeDto", noticeDto);
+				mav.addObject("noticeDto", noticeDto);
 		mav.addObject("pageNumber", pageNumber);
 		
-		mav.setViewName("notice/content.solo");		
+		mav.setViewName("notice/content.main");
 	}
 
 	@Override
@@ -505,20 +507,30 @@ public class MainServiceImp implements MainService {
 
 	/**
 	 * @author : 김동환
+	 * @throws IOException 
 	 * @date : 2018. 3. 5.
 	 * comment : 공지사항 리스트 바뀌는것
 	 */
 	
 	@Override
-	public void noticeList(ModelAndView mav) {
+	public void noticeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		List<Map<String,Object>> noticeMini = mainDao.noticeMini();
 		
+		JSONArray json = new JSONArray();
+
+		for (Map e : noticeMini) {
+			json.add(e);
+		}
 		
-		List<NoticeDto> noticeMini = mainDao.noticeMini();
+		LogAspect.info(json);
+		 
 		
-		mav.addObject("noticeMini", noticeMini);
-		
-		mav.setViewName("footer/footer.solo");	
-		
+		response.setContentType("application/x-json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(json.toJSONString());
+		out.flush();
+		out.close();
+
 	}
 
 
