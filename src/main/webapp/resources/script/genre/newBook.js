@@ -38,8 +38,16 @@ $(function(){
 	
 	$(".category-filter-list input").click(function(){
 		var sendData="firstCateNum="+$("input[name=firstCateNum]").val();
-		sendData+="&bookType="+$("input[name=bookType]").val();
-		sendData+="&seconCate="+$("input[name=seconCate]").val();
+		
+		if($("input[name=bookType]").val()!=""){
+			sendData+="&bookType="+$("input[name=bookType]").val();
+		}
+		
+		if($("input[name=seconCate]").val()!=""){
+			sendData+="&seconCate="+$("input[name=seconCate]").val();
+		}
+		
+//		alert(sendData);
 		
 		if(this.checked==true){
 //			alert("true");

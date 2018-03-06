@@ -24,6 +24,13 @@
 					<ul class="category-filter-list">
 						<li>
 							<label class="bf-custom-checkbox">
+								<input type="checkbox" value="all">
+								<span class="all-mark"></span>
+								<span class="checkbox-label">전체</span>
+							</label>
+						</li>
+						<li>
+							<label class="bf-custom-checkbox">
 								<input type="checkbox" value="no">
 								<span class="all-mark"></span>
 								<span class="checkbox-label">미확인</span>
@@ -60,7 +67,7 @@
 							<li>
 								<span>${authorEdit.num }</span>
 								<span>${authorEdit.name }</span>
-								<span>${fn:substring(authorEdit.content,0,15)}<c:if test="${fn:length(authorEdit.content)>15}">..</c:if></span>
+								<span>${fn:substring(fn:replace(authorEdit.content,'<br>',''),0,15)}<c:if test="${fn:length(fn:replace(authorEdit.content,'<br>',''))>15}">..</c:if></span>
 								<span><c:if test="${authorEdit.condition == 'no'}">미확인</c:if><c:if test="${authorEdit.condition == 'yes'}">반영</c:if> 
 									<c:if test="${authorEdit.condition == 'reject'}">거절</c:if>
 								</span>
@@ -108,25 +115,9 @@
 		</section>
 	</div>
 
-	
-	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
-	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
-	<script type="text/javascript">
-		$("input[type=checkbox]").click(function(){
-			location.href="${root}/manager/authorUpdateBoard.do?condition="+$(this).val();
-		});
-		
-		$("input[type=checkbox]").each(function(){
-			if($(this).val() == "${condition}"){
-				$(this).prop("checked",true);
-			}
-		});
-		
-		$(".bf-animated-btn").find("li").each(function(){
-			if($(this).text()=='${pageNumber}'){
-				$(this).find("a").addClass("active");
-			}
-		});
-	</script>
+	<input type="hidden" name="pageNumber" value="${pageNumber}">
+	<script src="${root}/script/basic/jquery.js"></script>
+	<script src="${root}/script/basic/commons.js"></script>
+	<script src="${root}/script/manager/author/updateBoard.js"></script>
 </body>
 </html>

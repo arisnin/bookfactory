@@ -135,5 +135,15 @@ public class OrderDaoImp implements OrderDao {
 		map.put("bookList", bookList);
 		return sqlSession.selectList(namespace + "select-order-list", map);
 	}
+	
+	@Override
+	public int getPoint(String username) {
+		return sqlSession.selectOne("com.bf.mapper.OrderMapper.getPoint",username);
+	}
+
+	@Override
+	public int getCash(String id) {
+		return sqlSession.selectOne("com.bf.mapper.MyPageMapper.cash-select-available",id);
+	}
 
 }

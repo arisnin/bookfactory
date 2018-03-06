@@ -17,6 +17,7 @@
 <script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
+	<c:set var="totalPrice" value="${param.totalPrice}"/>
 	<c:set var="orderListSize" value="${orderList == null ? 0 : orderList.size()}" />
 	<div id="order_header">
 		<div class="bf-title-row title-type1 order_header_child">
@@ -68,6 +69,9 @@
 									<i class="material-icons">access_alarm</i>대여기간<strong>${orderItem.rental_period}</strong>
 								</span>
 							</c:if>
+							<c:if test="${totalPrice == null}">
+								<c:set var="totalPrice" value="${price}" />
+							</c:if>
 						</div>
 					</div>
 				</c:forEach>
@@ -76,7 +80,7 @@
 
 			<div class="order_right_menu">
 				<div class="order_right_menu_list">
-					<span>총 주문금액</span> <span class="right-item total">${param.totalPrice}</span>
+					<span>총 주문금액</span> <span class="right-item total">${totalPrice}</span>
 				</div>
 				<div class="order_right_menu_list">
 					<span style="padding-top: 0.1rem">할인 쿠폰</span> <span
@@ -93,17 +97,16 @@
 
 				<div class="order_right_menu_list">
 					<span>리디포인트(${point})</span>
-					<span class="right-item"><input type="text" value="0" placeholder="0" name="point_use">원</span>
+					<span class="right-item"><input oninput="pointCheck()" type="text" value="0" placeholder="0" name="point_use">원</span>
 				</div>
 
 				<div class="order_right_menu_list">
-					<span>리디캐시</span>
-					<button class="bf-button bf-white-btn">?</button>
-					<span class="right-item"><input type="text" value="0" name="cash_use" placeholder="0">원</span>
+					<span>리디캐시(${cash})</span>
+					<span class="right-item"><input oninput="cashCheck()" type="text" value="0" name="cash_use" placeholder="0">원</span>
 				</div>
 				<div class="order_right_menu_count">
-					<span>총 결재 금액<strong>${param.totalPrice}</strong>원</span>
-					<span>적립 리디포인트 :<strong><fmt:formatNumber pattern="#원" value="${param.totalPrice*0.01 }" /></strong>(1%)</span>
+					<span>총 결재 금액<strong>${totalPrice}</strong>원</span>
+					<span>적립 리디포인트 :<strong><fmt:formatNumber pattern="#원" value="${totalPrice*0.01 }" /></strong>(1%)</span>
 				</div>
 
 				<div class="order_right_menu_list">
@@ -276,15 +279,44 @@
 			<c:forEach var="item" items="${bookList}">
 				<input type="hidden" name="bookList" value="${item}"/>
 			</c:forEach>
-			<input type="hidden" name="totalPrice" value="${param.totalPrice}"/>
+			<input type="hidden" name="totalPrice" value="${totalPrice}"/>
 		</form>
 	</div>
+	<input type="hidden" name="point" value="${point}">
+	<input type="hidden" name="cash" value="${cash}">
 	<script type="text/javascript">
-		function cashPointCheck(root) {
-			$.post(root + "/order/check.do", data, function(data, textStatus, req) {
-				// 캐시, 포인트 유효성 검사용 Ajax
-			});
+		function pointCheck() {
+			//포인트체크
+			var maxPoint = parseInt($("input[name=point]").val());
+			var totalPrice = parseInt($("input[name=totalPrice]").val());
+			var usePoint = parseInt($("input[name=point_use]").val());
+			var cashPoint = parseInt($("input[name=cash_use]").val());
+			totalPrice = totalPrice - cashPoint;
+			if(maxPoint > totalPrice){
+				maxPoint = totalPrice;
+			}
+			
+			if(usePoint > maxPoint){
+				$("input[name=point_use]").val(maxPoint);
+			}
+		}
+		
+		function cashCheck(){
+			var maxCash = parseInt($("input[name=cash]").val());
+			var totalPrice = parseInt($("input[name=totalPrice]").val());
+			var usePoint = parseInt($("input[name=point_use]").val());
+			var cashPoint = parseInt($("input[name=cash_use]").val());
+			totalPrice = totalPrice - usePoint;
+			
+			if(maxCash > totalPrice){
+				maxCash = totalPrice;
+			}
+			
+			if(cashPoint > maxCash){
+				$("input[name=cash_use]").val(maxCash);
+			}
 		}
 	</script>
 </body>
 </html>
+

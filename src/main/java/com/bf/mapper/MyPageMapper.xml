@@ -50,7 +50,7 @@
 	</select>
 	
 	<select id="cash-select-available" parameterType="String" resultType="Integer">
-		SELECT nvl(cc."cash_use" - pm."cash_use", 0) FROM (
+		SELECT nvl(cc."cash_use",0) - nvl(pm."cash_use", 0) FROM (
 			SELECT sum(charge_cash) "cash_use" FROM cash_charge
 			WHERE ID = #{id}
 		) cc, (

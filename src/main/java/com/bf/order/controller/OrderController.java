@@ -60,7 +60,7 @@ public class OrderController {
 	/**
 	 * 헤더 > 카트 > 구매
 	 */
-	@RequestMapping(value = "/order.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/order.do")
 	public ModelAndView order(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("order()");
 		ModelAndView mav = new ModelAndView("order/order.main");
