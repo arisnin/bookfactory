@@ -11,6 +11,8 @@
 	rel="stylesheet" />
 <link href="${root}/css/serviceCenter/main.css" type="text/css"
 	rel="stylesheet">
+<link href="${root}/css/serviceCenter/manyque.css" type="text/css"
+	rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>	
