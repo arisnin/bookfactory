@@ -257,7 +257,7 @@
 										onclick="javascript:location.href='${root}/present.do?book_num=${detailDto.book_num}'"></span>
 								</button></li>
 								
-							<li><button type="button" onclick="javascript:location.href='${root}/order.do?book_num=${detailDto.book_num}'">구매하기</button></li>
+							<li><button type="button" onclick="javascript:location.href='${root}/order.do?bookList=${detailDto.book_num}'">구매하기</button></li>
 						</ol>
 					</div>
 				</div>
