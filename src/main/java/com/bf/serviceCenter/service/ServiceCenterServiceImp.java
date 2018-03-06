@@ -240,11 +240,7 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		Map<String, Object> map = mav.getModel();
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		
-		int count = serviceCenterDao.inquriyCount();
-		
-		LogAspect.info("1:1문의내역 갯수확인 : " + count);
-		
+	
 		List<BoardContactDto> inquriyList = null;
 		
 		User user = (User)request.getSession().getAttribute("userInfo");
@@ -256,9 +252,11 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 			mav.setViewName(referer);
 			return;
 		}
-		String id = user.getUsername();
-		
+		String id = user.getUsername();		
 		LogAspect.info("유저 확인 : " + id);
+		
+		int count = serviceCenterDao.inquriyCount(id);		
+		LogAspect.info("1:1문의내역 갯수확인 : " + count);
 				
 		if(count > 0) {
 			inquriyList = serviceCenterDao.inquriylistlist(id);
@@ -364,12 +362,10 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		if(user!=null) {
 			id = user.getUsername();
-		}
-		
+		}		
 		LogAspect.info("유저 확인 : " + id);
-		
-		mav.addObject("id", id);
-		
+				
+		mav.addObject("id", id);		
 		mav.addObject("mainNotice", mainNotice);
 		mav.addObject("mainMany", mainMany);
 		

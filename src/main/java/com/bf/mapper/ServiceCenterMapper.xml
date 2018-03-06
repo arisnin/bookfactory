@@ -58,7 +58,7 @@
 	</insert>
 	
 	<select id="inquriyCount" resultType="int">
-		select count(*) from board_contact
+		select count(*) from board_contact where id=#{id}
 	</select>
 	
 	<select id="inquriylistlist" parameterType="String" resultType="com.bf.manager.dto.BoardContactDto">

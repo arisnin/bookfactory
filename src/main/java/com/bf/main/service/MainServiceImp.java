@@ -531,9 +531,7 @@ public class MainServiceImp implements MainService {
 		for (Map e : noticeMini) {
 			json.add(e);
 		}
-		
-		LogAspect.info(json);
-		 
+						 
 		
 		response.setContentType("application/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
