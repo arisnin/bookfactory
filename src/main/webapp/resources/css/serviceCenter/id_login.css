@@ -21,8 +21,7 @@
 .service_information_list > div{
 	height: 4rem;
 	line-height:4rem;
-	border-bottom: 1px solid #E1DFFA;
-	
+	border-bottom: 1px solid #E1DFFA;	
 }
 
 .service_information > .service_FAQ_home_header{
@@ -56,6 +55,11 @@
  	font-weight: bold;
  	margin-top: 0.2rem;
  	line-height: 2.7rem;
+}
+
+.service_information_content{
+	display: inline-block;
+	width: 100%
 }
 
 
