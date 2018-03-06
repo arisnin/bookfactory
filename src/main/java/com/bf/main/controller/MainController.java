@@ -35,6 +35,12 @@ import com.bf.member.model.User;
 public class MainController {
 	@Autowired
 	private MainService mainService;
+	
+	@RequestMapping(value = "/error.do")
+	public ModelAndView error(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("error():" + request.getHeader("referer"));
+		return new ModelAndView("main/error.solo").addObject("returnURL", request.getHeader("referer"));
+	}
 
 	/**
 	 * 메인 > 전체분야 > 카테고리 페이지
