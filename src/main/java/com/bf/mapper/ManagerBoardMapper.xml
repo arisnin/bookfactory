@@ -100,6 +100,6 @@ where rnum >=#{startRow} and rnum <=#{endRow}
    <delete id="boardDelete" parameterType="Integer">
       delete from BOARD_FREQUENCY where num =#{num}
    </delete>
-   
+
 </mapper>
 
