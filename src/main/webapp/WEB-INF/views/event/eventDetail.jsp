@@ -10,6 +10,9 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/basic/commons.css" />
 <link rel="stylesheet" type="text/css" href="${root}/css/event/event.css">
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+<script type="text/javascript">
+	$(".hw_sub_cate").hide();
+</script>
 </head>
 <body>
 	<input name="firstCate" value="${dto.f_num}" type="hidden"/>
