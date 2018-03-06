@@ -151,7 +151,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 			int index = boardFreqDto.getFile_name().indexOf("_") + 1;
 			boardFreqDto.setFile_name(boardFreqDto.getFile_name().substring(index));
 		}
-
+		boardFreqDto.setContent(boardFreqDto.getContent().replace("<br/>","\r\n"));
 		LogAspect.info("과연?" + boardFreqDto);
 
 		LogAspect.info(num + pageNumber);
@@ -297,6 +297,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		LogAspect.logger.info(LogAspect.logMsg + id + boardContactDto);
 		LogAspect.logger.info(LogAspect.logMsg + pageNumber);
 
+		boardContactDto.setReply_content(boardContactDto.getReply_content().replace("<br/>", "\r\n"));
 		mav.addObject("id", id);
 		mav.addObject("boardContactDto", boardContactDto);
 		mav.addObject("pageNumber", pageNumber);
@@ -376,7 +377,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		}
 		noticeDto.setWrite_date(write_date);
 		noticeDto.setId(id);
-		noticeDto.setContent(content.replace("\r\n", "<br/>"));
+		noticeDto.setContent(content.replace("\r\n","<br/>"));
 		noticeDto.setNum(num);
 		noticeDto.setTitle(title);
 
