@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bf.aop.LogAspect;
 import com.bf.book.dto.HomeDto;
 import com.bf.main.dto.CategoryPageDto;
+import com.bf.manager.dao.ManagerDao;
 import com.bf.member.model.User;
 import com.bf.order.dao.OrderDao;
 import com.bf.order.dto.OrderDto;
@@ -207,12 +208,18 @@ public class OrderServiceImp implements OrderService {
 	public void getBookSelect(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 
+		//id정보
+		User user = (User) request.getSession().getAttribute("userInfo");
+		
+		int point = orderDao.getPoint(user.getUsername());
+		
 		String bookList[] = request.getParameterValues("bookList");
 		List<String> arrBookList = Arrays.asList(bookList);
 		
 		List<CategoryPageDto> orderList = orderDao.getOrderList(arrBookList);		
 		LogAspect.info(orderList.size());
 		
+		mav.addObject("point", point);
 		mav.addObject("orderList", orderList);
 		mav.addObject("bookList", arrBookList);
 	}

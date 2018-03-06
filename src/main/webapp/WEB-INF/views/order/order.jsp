@@ -93,7 +93,7 @@
 
 				<div class="order_right_menu_list">
 					<span>리디포인트(${point})</span>
-					<span class="right-item"><input type="text" value="0" placeholder="0" name="point_use">원</span>
+					<span class="right-item"><input oninput="pointCheck('${root}')" type="text" value="0" placeholder="0" name="point_use">원</span>
 				</div>
 
 				<div class="order_right_menu_list">
@@ -278,12 +278,27 @@
 			<input type="hidden" name="totalPrice" value="${param.totalPrice}"/>
 		</form>
 	</div>
+	<input type="hidden" name="point" value="${point}">
 	<script type="text/javascript">
-		function cashPointCheck(root) {
-			$.post(root + "/order/check.do", data, function(data, textStatus, req) {
-				// 캐시, 포인트 유효성 검사용 Ajax
-			});
+		function pointCheck(root) {
+			//포인트체크
+			var maxPoint = parseInt($("input[name=point]").val());
+			var totalPrice = parseInt($("input[name=totalPrice]").val());
+			var usePoint = parseInt($("input[name=point_use]").val());
+			
+			if(maxPoint > totalPrice){
+				maxPoint = totalPrice;
+			}
+			
+			if(usePoint > maxPoint){
+				$("input[name=point_use]").val(maxPoint);
+			}
+		}
+		
+		function orderCheck(){
+			
 		}
 	</script>
 </body>
 </html>
+
