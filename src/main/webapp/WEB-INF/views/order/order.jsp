@@ -17,6 +17,7 @@
 <script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
+	<c:set var="totalPrice" value="${param.totalPrice}"/>
 	<c:set var="orderListSize" value="${orderList == null ? 0 : orderList.size()}" />
 	<div id="order_header">
 		<div class="bf-title-row title-type1 order_header_child">
@@ -68,6 +69,9 @@
 									<i class="material-icons">access_alarm</i>대여기간<strong>${orderItem.rental_period}</strong>
 								</span>
 							</c:if>
+							<c:if test="${totalPrice == null}">
+								<c:set var="totalPrice" value="${price}" />
+							</c:if>
 						</div>
 					</div>
 				</c:forEach>
@@ -76,7 +80,7 @@
 
 			<div class="order_right_menu">
 				<div class="order_right_menu_list">
-					<span>총 주문금액</span> <span class="right-item total">${param.totalPrice}</span>
+					<span>총 주문금액</span> <span class="right-item total">${totalPrice}</span>
 				</div>
 				<div class="order_right_menu_list">
 					<span style="padding-top: 0.1rem">할인 쿠폰</span> <span
@@ -101,8 +105,8 @@
 					<span class="right-item"><input type="text" value="0" name="cash_use" placeholder="0">원</span>
 				</div>
 				<div class="order_right_menu_count">
-					<span>총 결재 금액<strong>${param.totalPrice}</strong>원</span>
-					<span>적립 리디포인트 :<strong><fmt:formatNumber pattern="#원" value="${param.totalPrice*0.01 }" /></strong>(1%)</span>
+					<span>총 결재 금액<strong>${totalPrice}</strong>원</span>
+					<span>적립 리디포인트 :<strong><fmt:formatNumber pattern="#원" value="${totalPrice*0.01 }" /></strong>(1%)</span>
 				</div>
 
 				<div class="order_right_menu_list">
@@ -275,7 +279,7 @@
 			<c:forEach var="item" items="${bookList}">
 				<input type="hidden" name="bookList" value="${item}"/>
 			</c:forEach>
-			<input type="hidden" name="totalPrice" value="${param.totalPrice}"/>
+			<input type="hidden" name="totalPrice" value="${totalPrice}"/>
 		</form>
 	</div>
 	<script type="text/javascript">
