@@ -545,5 +545,16 @@ public class ManagerDaoImp implements ManagerDao {
 	public void rejectAuthorEdit(int num) {
 		sqlSession.update("com.bf.mapper.AuthorMapper.rejectAuthorEdit", num);
 	}
+
+	@Override
+	public int getBoardCount() {
+		return sqlSession.selectOne("com.bf.manager.ManagerboardMapper.getBoardCount");
+	}
+	
+	@Override
+	public int getReviewCount() {
+		// 최근 1주일간 리뷰개수
+		return sqlSession.selectOne("com.bf.manager.ManagerReviewMapper.getReviewCount");
+	}
 	
 }

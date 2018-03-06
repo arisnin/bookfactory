@@ -93,12 +93,12 @@
 
 				<div class="order_right_menu_list">
 					<span>리디포인트(${point})</span>
-					<span class="right-item"><input oninput="pointCheck('${root}')" type="text" value="0" placeholder="0" name="point_use">원</span>
+					<span class="right-item"><input oninput="pointCheck()" type="text" value="0" placeholder="0" name="point_use">원</span>
 				</div>
 
 				<div class="order_right_menu_list">
-					<span>리디캐시</span>
-					<span class="right-item"><input type="text" value="0" name="cash_use" placeholder="0">원</span>
+					<span>리디캐시(${cash})</span>
+					<span class="right-item"><input oninput="cashCheck()" type="text" value="0" name="cash_use" placeholder="0">원</span>
 				</div>
 				<div class="order_right_menu_count">
 					<span>총 결재 금액<strong>${param.totalPrice}</strong>원</span>
@@ -279,13 +279,15 @@
 		</form>
 	</div>
 	<input type="hidden" name="point" value="${point}">
+	<input type="hidden" name="cash" value="${cash}">
 	<script type="text/javascript">
-		function pointCheck(root) {
+		function pointCheck() {
 			//포인트체크
 			var maxPoint = parseInt($("input[name=point]").val());
 			var totalPrice = parseInt($("input[name=totalPrice]").val());
 			var usePoint = parseInt($("input[name=point_use]").val());
-			
+			var cashPoint = parseInt($("input[name=cash_use]").val());
+			totalPrice = totalPrice - cashPoint;
 			if(maxPoint > totalPrice){
 				maxPoint = totalPrice;
 			}
@@ -295,8 +297,20 @@
 			}
 		}
 		
-		function orderCheck(){
+		function cashCheck(){
+			var maxCash = parseInt($("input[name=cash]").val());
+			var totalPrice = parseInt($("input[name=totalPrice]").val());
+			var usePoint = parseInt($("input[name=point_use]").val());
+			var cashPoint = parseInt($("input[name=cash_use]").val());
+			totalPrice = totalPrice - usePoint;
 			
+			if(maxCash > totalPrice){
+				maxCash = totalPrice;
+			}
+			
+			if(cashPoint > maxCash){
+				$("input[name=cash_use]").val(maxCash);
+			}
 		}
 	</script>
 </body>

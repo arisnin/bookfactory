@@ -191,4 +191,8 @@ public interface ManagerDao {
 
 	public void rejectAuthorEdit(int num);
 
+	public int getBoardCount();
+
+	public int getReviewCount();
+
 }
