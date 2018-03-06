@@ -50,19 +50,20 @@
 					<li><fmt:formatDate value="${memberDto.register_date}" pattern="yyyy년 MM월 dd일"/></li>
 					<li><font>최근방문일</font></li>
 					<li><fmt:formatDate value="${memberDto.last_join}" pattern="yyyy년 MM월 dd일"/></li>
-					<li><font>댓글 :  </font></li>
-					<li><font>방문수 :</font> 5번</li>
+					<li><font>댓글 : </font>1</li>
+					<li><font>방문수 :</font>15</li>
 					<li><font>등급 : </font>
 						<c:if test="${memberDto.role=='role_admin'}">
 							<span>관리자</span>
 						</c:if>
-						<c:if test="${memberDto.role==' role_user'}">
+						<c:if test="${memberDto.role=='role_user'}">
 							<span>유저</span>
 						</c:if>
 						<select id="select-sh" style="padding: 0.2rem" name ="role">
 							<option>role_admin</option>
 							<option>role_user</option>
 						</select>
+
 					</li>
 				</ul>
 				
@@ -102,10 +103,15 @@
 			 });
 
 
-				$("#select-sh").change(function() {
-					var value = $(this).val();
-				 	/* alert(value); */
-					$(".sh_register_2 li:last").find("span").text(value); 
+			$("#select-sh").change(function() {
+				var value = $(this).val();
+			 	/* alert(value); */
+			 	if(value=='role_admin'){
+			 		$(".sh_register_2 li:last").find("span").text("관리자"); 
+			 	}else{
+			 		$(".sh_register_2 li:last").find("span").text("유저"); 
+			 	}
+				
 			});
 		});
 	</script>

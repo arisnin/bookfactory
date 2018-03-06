@@ -28,7 +28,7 @@
 
 							<ul>
 								<li><span>제목</span></li>
-								<li><input type="text" placeholder=" 제목입력" name="title"></li>
+								<li><input type="text" placeholder=" 제목입력" name="title" size="90px"></li>
 								<li><span>문의유형</span></li>
 								<li><select id="sh_board_insert_change" name="catecory_1">
 										<option>대분류</option>

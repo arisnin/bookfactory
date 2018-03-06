@@ -57,13 +57,7 @@
 					</div>
 				</div>
 
-				<div class="sh_board_contact_select">
-					<select>
-						<option>최신글 순</option>
-						<option>오래된 순</option>
-					</select>
-				</div>
-
+				
 			</div>
 			<div class="sh_board_contact_content">
 				<div class="sh_board_contact_title">
@@ -91,7 +85,7 @@
 							<li><c:out value="${fn:substring(contactDto.content,0,10)}"/>...</li>
 							<li>${contactDto.q1_name}</li>
 							<li>${contactDto.mem_phone}</li>
-							<li><fmt:formatDate value="${contactDto.write_date}" pattern="yyyy-MM-dd"></fmt:formatDate></li>
+							<li><fmt:formatDate value="${contactDto.write_date}" pattern="yy/MM/dd"></fmt:formatDate></li>
 							<li><a href="${root}/manager/memberRegister.do?id=${contactDto.id}">${contactDto.id}</a></li>
 							<li><a href="#" class="bf-button bf-animated-btn" onclick="$(this).parent().parent().parent().submit()">상세보기</a></li>
 							<li>${contactDto.reply_check}</li>

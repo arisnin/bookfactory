@@ -101,14 +101,14 @@
 				 $(".sh_reply").text("\r\n"+$("#reply_content").val());
 				
 			}else if("${boardContactDto.reply_check =='ok'}"=="false"){
-				alert(text);
+				
 				 $(".sh_reply").text(text+"\n"+"-----Original Message-----"+"\n"+
 						"From: ${boardContactDto.id}"+"\r\n"+
 						"To: ${id}"+"\r\n"+
 						"Day:"+now+"\r\n"+
 						"Subject:"+"\r\n");
 			}
-		}
+		});
 	});
 	</script>
 </body>

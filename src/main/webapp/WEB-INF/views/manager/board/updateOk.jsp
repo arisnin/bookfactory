@@ -8,17 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+<c:set var="root" value="${pageContext.request.contextPath}" />
 	 <c:if test="${check > 0}">
       <script type="text/javascript">
        alert("글쓰기 작성완료");
-         $(location).attr("href", "${root}/manager/boardUpdate.do?pageNumber=${pageNumber}");
+         $(location).attr("href","${root}/manager/boardUpdate.do?num=${boardFrequencyDto.num}&pageNumber=${pageNumber}");
       </script>
    </c:if>
    
    <c:if test="${check == 0}">
       <script type="text/javascript">
       	alert("글쓰기 실패");
-         $(location).attr("href", "${root}/manager/boardUpdate.do?pageNumber=${pageNumber}");
+         $(location).attr("href", "${root}/manager/boardUpdate.do?num=${boardFrequencyDto.num}&pageNumber=${pageNumber}");
       </script>
    </c:if>
 </body>

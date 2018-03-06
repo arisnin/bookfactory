@@ -204,6 +204,7 @@ public class OrderServiceImp implements OrderService {
 		mav.addObject("orderList", orderList);
 	}
 
+	/*염현우*/
 	@Override
 	public void getBookSelect(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
@@ -212,13 +213,15 @@ public class OrderServiceImp implements OrderService {
 		User user = (User) request.getSession().getAttribute("userInfo");
 		
 		int point = orderDao.getPoint(user.getUsername());
+		int cash = orderDao.getCash(user.getUsername());
 		
 		String bookList[] = request.getParameterValues("bookList");
 		List<String> arrBookList = Arrays.asList(bookList);
 		
-		List<CategoryPageDto> orderList = orderDao.getOrderList(arrBookList);		
+		List<CategoryPageDto> orderList = orderDao.getOrderList(arrBookList);
 		LogAspect.info(orderList.size());
 		
+		mav.addObject("cash", cash);
 		mav.addObject("point", point);
 		mav.addObject("orderList", orderList);
 		mav.addObject("bookList", arrBookList);
