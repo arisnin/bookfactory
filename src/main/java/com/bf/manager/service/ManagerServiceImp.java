@@ -65,11 +65,11 @@ public class ManagerServiceImp implements ManagerService {
 		int authorEditCount = managerDao.getAuthorEditCount();
 		int cateCount = managerDao.getCateThreeCount();
 		int saleCount = managerDao.getSaleCount();
-		int boardCount = managerDao.getBoardCount();
+		/*int boardCount = managerDao.getBoardCount();*/
 		int reviewCount = managerDao.getReviewCount();
 		
 		mav.addObject("reviewCount", reviewCount);
-		mav.addObject("boardCount", boardCount);
+		/*mav.addObject("boardCount", boardCount);*/
 		mav.addObject("saleCount", saleCount);
 		mav.addObject("cateCount", cateCount);
 		mav.addObject("authorEditCount", authorEditCount);

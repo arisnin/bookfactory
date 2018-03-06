@@ -87,7 +87,7 @@
 						<textarea rows="" cols="" name="describe"></textarea>
 					</div>
 					<div align="right">
-						<button id="a_form_btn" type="button" class="bf-button">등록</button>
+						<button id="a_form_btn" type="submit" class="bf-button">등록</button>
 						<button type="button" class="bf-button">취소</button>
 					</div>
 				</div>

@@ -9,7 +9,7 @@ $("input[type=checkbox]").click(function(){
 
 var check = 0;
 $("input[type=checkbox]").each(function(){
-	if($(this).val() == "${condition}"){
+	if($(this).val() == $("input[name=condition]").val()){
 		$(this).prop("checked",true);
 		check = 1;
 	}
