@@ -98,7 +98,6 @@
 
 				<div class="order_right_menu_list">
 					<span>리디캐시</span>
-					<button class="bf-button bf-white-btn">?</button>
 					<span class="right-item"><input type="text" value="0" name="cash_use" placeholder="0">원</span>
 				</div>
 				<div class="order_right_menu_count">

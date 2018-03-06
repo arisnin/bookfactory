@@ -60,9 +60,8 @@ public class ServiceCenterDaoImp implements ServiceCenterDao {
 	}
 
 	@Override
-	public int inquriyCount() {
-		
-		return sqlSession.selectOne(namespace + "inquriyCount");
+	public int inquriyCount(String id) {		
+		return sqlSession.selectOne(namespace + "inquriyCount", id);
 	}
 
 	@Override

@@ -52,7 +52,7 @@
 				<div>등록일</div>
 				<div>상태</div>
 			</div>
-			
+						
 			<c:if test="${count==0 }">
 				<div>
 					<div>검색된 요청이 없습니다.</div>
@@ -73,14 +73,13 @@
 						
 					</div>
 				</c:forEach>
-			</c:if>
+			</c:if>			
 			
-			<c:if test="answer_view==complete_view">
-			zz
-			</c:if>
 		</div>
 
 	</div>
+	
+	<jsp:include page="./footer.jsp" />
 
 </body>
 </html>

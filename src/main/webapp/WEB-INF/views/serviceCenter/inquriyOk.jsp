@@ -12,14 +12,14 @@
 <body>
 	<c:if test="${check > 0}">
       <script type="text/javascript">
-       alert("글쓰기 작성완료");
+       alert("글 작성을 완료하였습니다.");
        location.href="${root}/serviceCenter/inquriy_list2.do"
       </script>
    </c:if>
     
    <c:if test="${check == 0}">
       <script type="text/javascript">
-      	alert("글쓰기 실패");
+      	alert("글 작성을 실패하였습니다.");
       	location.href="${root}/serviceCenter/FAQ.do"
       </script>
    </c:if>

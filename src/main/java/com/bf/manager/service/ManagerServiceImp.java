@@ -1526,7 +1526,7 @@ public class ManagerServiceImp implements ManagerService {
 		
 		List<AuthorEditDto> authorEditList = null;
 		int count = 0;
-		if(condition == null) {
+		if(condition == null || condition.equals("all")) {
 			authorEditList = managerDao.getAuthorEditList(startRow,endRow);
 			count = managerDao.getAuthorEditCount();
 		}else {

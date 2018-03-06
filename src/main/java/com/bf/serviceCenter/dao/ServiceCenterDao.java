@@ -26,7 +26,7 @@ public interface ServiceCenterDao {
 
 	int inquriyWrite(BoardContactDto boardContactDto);
 
-	int inquriyCount();
+	int inquriyCount(String id);
 
 	List<BoardContactDto> inquriylistlist(String id);
 

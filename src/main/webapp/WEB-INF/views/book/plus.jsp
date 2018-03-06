@@ -112,7 +112,7 @@
 					<ul class="book-info">
 						<li><span>도서정보</span>
 							<ul>
-								<li><p onclick="location.href='${root}/main/search.do?${detailDto.pub_num}'">${detailDto.pub_name}</p></li>
+								<li><p onclick="location.href='${root}/main/search.do?${detailDto.pub_num}'">도서출판 ${detailDto.pub_name}</p></li>
 							</ul>
 						</li>
 	
@@ -144,7 +144,7 @@
 									<div>
 										<span>${detailDto.rental_period}</span> 
 										<c:if test="${detailDto.rental_price!=0}">
-											<span class="paper">${detailDto.rental_price}</span>
+											<span class="paper"><fmt:formatNumber value="${detailDto.rental_price}" pattern="#,###" />원</span>
 										</c:if>
 										<c:if test="${detailDto.rental_price==0}">
 											<span class="paper">무료</span>
@@ -159,19 +159,21 @@
 								<c:choose>
 									<c:when test="${detailDto.book_price!=0}">
 										<div>
-											<span>종이책정가</span> <span class="paper">${detailDto.book_price}원</span>
+											<span>종이책정가</span> 
+											<span class="paper"><fmt:formatNumber value="${detailDto.book_price}" pattern="#,###" />원</span>
 										</div>
 										<fmt:parseNumber var="sail" value="${detailDto.book_price*(1-(detailDto.discount*0.01))}" integerOnly="true"/>
 										<fmt:parseNumber var="discount" value="${detailDto.discount}" integerOnly="true"/>
 										<c:if test="${detailDto.discount!=0}">
 											<div>
-												<span>전자책정가</span> <span class="ebook">${sail}원
+												<span>전자책정가</span> <span class="ebook"><fmt:formatNumber value="${sail}" pattern="#,###" />원
 												<span class="sail">${discount}</span></span>
 											</div>
 										</c:if>
 										<c:if test="${detailDto.discount==0}">
 											<div>
-												<span>전자책정가</span> <span class="ebook">${detailDto.book_price}원</span>
+												<span>전자책정가</span> 
+												<span class="ebook"><fmt:formatNumber value="${detailDto.book_price}" pattern="#,###" />원</span>
 											</div>
 										</c:if>
 										
@@ -181,7 +183,7 @@
 												<fmt:parseNumber var="sail2" value="${sail*(1-(detailDto.discount2*0.01))}" integerOnly="true"/>
 												<fmt:parseNumber var="discount2" value="${detailDto.discount2}" integerOnly="true"/>
 											
-												<span>판매가</span> <span class="sell">${sail2}원
+												<span>판매가</span> <span class="sell"><fmt:formatNumber value="${sail2}" pattern="#,###" />원
 												<span class="sail">${discount2}</span></span>
 											</div>
 										</c:if>
@@ -189,14 +191,14 @@
 										<!-- 할인 1은 존재 2는 미존재 -->
 										<c:if test="${detailDto.discount2==0 && detailDto.discount!=0}">
 											<div>
-												<span>판매가</span> <span class="sell">${sail}원</span>
+												<span>판매가</span> <span class="sell"><fmt:formatNumber value="${sail}" pattern="#,###" />원</span>
 											</div>
 										</c:if>
 										
 										<!-- 할인없을때 -->
 										<c:if test="${detailDto.discount2==0 && detailDto.discount==0}">
 											<div>
-												<span>판매가</span> <span class="sell">${detailDto.book_price}원</span>
+												<span>판매가</span> <span class="sell"><fmt:formatNumber value="${detailDto.book_price}" pattern="#,###" />원</span>
 											</div>
 										</c:if>
 									</c:when>
@@ -257,7 +259,7 @@
 										onclick="javascript:location.href='${root}/present.do?book_num=${detailDto.book_num}'"></span>
 								</button></li>
 								
-							<li><button type="button" onclick="javascript:location.href='${root}/order.do?book_num=${detailDto.book_num}'">구매하기</button></li>
+							<li><button type="button" onclick="javascript:location.href='${root}/order.do?bookList=${detailDto.book_num}'">구매하기</button></li>
 						</ol>
 					</div>
 				</div>
