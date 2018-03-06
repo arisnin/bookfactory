@@ -33,7 +33,7 @@
       resultType="com.bf.manager.dto.BoardFrequencyDto">
       <![CDATA[
       select * from (select rownum rnum, a.* from(
-         select * from BOARD_FREQUENCY order by write_date desc) a)
+         select * from BOARD_FREQUENCY ORDER BY BOARD_FREQUENCY.NUM DESC) a)
          where rnum >=#{startRow} and rnum <=#{endRow}
    ]]>
    </select>
@@ -48,7 +48,7 @@
 FROM BOARD_CONTACT bc, QNA_CATE1 q1 ,MEMBER mem ,QNA_CATE2 q2 
 WHERE bc.CATEGORY =q2.NUM 
 AND bc.ID = mem.ID
-AND q1.NUM = q2.CATE1_NUM) A
+AND q1.NUM = q2.CATE1_NUM ORDER BY bc.NUM DESC) A
 where rnum >=#{startRow} and rnum <=#{endRow}
 
    ]]>

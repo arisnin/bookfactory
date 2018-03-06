@@ -27,12 +27,6 @@
 				
 				
 						<div class="sh_board_list_search">
-						<form method="get">
-						<ul>
-							<li><span class="material-icons">search</span></li>
-							<li><input class="search-word" type="text" name="searchWord" placeholder="책 제목 또는 저자명" value="${searchWord}"/></li>
-						</ul>
-						</form>
 						</div>
 				
 					<form action="${root }/manager/boardList.do">
@@ -47,13 +41,6 @@
 						</ul>
 					</div>
 					</form>
-				</div>
-
-				<div class="sh_board_list_select">
-					<select>
-						<option>등록일 순</option>
-						<option>오래된 순</option>
-					</select>
 				</div>
 
 			</div>

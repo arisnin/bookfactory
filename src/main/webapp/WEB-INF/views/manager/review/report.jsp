@@ -26,7 +26,7 @@
 							<li><span>해당리뷰 번호 :${accuseDto.review_num}</span></li>
 						</c:forEach>
 						<li><span>총 신고수 : </span>${count }</li>
-						<li><a href="javascript:history.back()">리뷰로 돌아가기</a></li>
+						<li><a href="javascript:history.back()" class="bf-button">리뷰로 돌아가기</a></li>
 					</ul>
 
 				</div>
