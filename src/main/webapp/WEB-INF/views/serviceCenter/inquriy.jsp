@@ -28,7 +28,7 @@
 	<div class="service_FAQ_home_header">
 		<div class="service_FAQ_home_header_left">
 			<span>
-				<a href="${root }/serviceCenter/main.do">리디북스 고객센터</a>
+				<a href="${root }/serviceCenter/main.do">북팩토리 고객센터</a>
 			</span>
 			<span>></span><span>문의등록</span>
 		</div>
@@ -85,6 +85,7 @@
 			</div>
 		</div>
 		
+		<!-- 
 		<div class="serviceCenter_inquriy_call">
 			<div>연락 수단<span class="star"></span></div>
 			<div class="serviceCenter_inquriy_call_list">
@@ -102,7 +103,8 @@
 					<a class="bf-button bf-transparent-btn bf-animated-btn" href="#">변경하기</a>
 				</div>
 			</div>
-		</div>
+		</div>		
+		 -->
 
 		<div class="serviceCenter_inquriy_file">
 			<div>첨부 파일</div>

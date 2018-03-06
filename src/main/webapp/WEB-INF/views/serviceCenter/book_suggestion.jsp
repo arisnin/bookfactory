@@ -19,7 +19,7 @@
 <script type="text/javascript" src="${root }/script/basic/jquery.js"></script>	
 <script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
 
-<title>Insert title here</title>
+<title>도서제안</title>
 </head>
 <body>
 	
@@ -28,7 +28,7 @@
 	<div class="service_FAQ_home_header">
 		<div class="service_FAQ_home_header_left">
 			<span>
-				<a href="${root }/serviceCenter/main.do">리디북스 고객센터</a>
+				<a href="${root }/serviceCenter/main.do">북팩토리 고객센터</a>
 			</span>
 			<span>></span><span>문의등록</span>
 		</div>
@@ -43,8 +43,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	
+	</div>	
 
 	<div class="serviceCenter_book_suggestion">
 		<form action = "${root }/serviceCenter/book_suggestionOk.do" method="post"
@@ -68,7 +67,7 @@
 			</div>
 		</div>
 		
-		<div class="serviceCenter_book_suggestion_bookname">
+		<div class="serviceCenter_book_suggestion_bookname"> 
 			<div>도서명<span class="star">*</span></div>
 			<div>
 				<input type="text"  name="book_name"/>
@@ -106,7 +105,7 @@
 					<span class="all-mark"></span>
 				</label>
 				<div class="serviceCenter_book_suggestion_ex_check_text">
-					<div>도서 제안 시 제안 내용에 대해 별도로 답변 드리지 않습니다. 답변이 필요한 경우   리디북스 문의를 이용해 주세요.</div>
+					<div>도서 제안 시 제안 내용에 대해 별도로 답변 드리지 않습니다. 답변이 필요한 경우   북팩토리 문의를 이용해 주세요.</div>
 				</div>
 			</div>
 		</div>
@@ -127,9 +126,9 @@
 			<div class="serviceCenter_book_suggestion_sub">
 				<input type="submit" class="bf-button" value="제출하기"/>				
 			</div>
-			</form>
-		
-		<jsp:include page="./footer.jsp" />
+			</form>		
 	</div>
+	
+	<jsp:include page="./footer.jsp" />
 </body>
 </html>

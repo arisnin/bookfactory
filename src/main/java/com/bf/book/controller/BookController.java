@@ -171,7 +171,7 @@ public class BookController {
 	@RequestMapping(value = "/review/write.do", method = RequestMethod.POST)
 	public ModelAndView reviewWrite(HttpServletRequest request, HttpServletResponse response, ReviewDto reviewDto) {
 		LogAspect.info("reviewWrite():" + request.getHeader("referer"));
-		return bookService.reviewWrite(new ModelAndView("book/review.solo").addObject("request", request).addObject("reviewDto", reviewDto));
+		return bookService.reviewWrite(new ModelAndView("redirect:"+request.getHeader("referer")).addObject("request", request).addObject("reviewDto", reviewDto));
 	}
 	
 	/**

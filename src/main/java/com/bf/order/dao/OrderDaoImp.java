@@ -141,4 +141,9 @@ public class OrderDaoImp implements OrderDao {
 		return sqlSession.selectOne("com.bf.mapper.OrderMapper.getPoint",username);
 	}
 
+	@Override
+	public int getCash(String id) {
+		return sqlSession.selectOne("com.bf.mapper.MyPageMapper.cash-select-available",id);
+	}
+
 }

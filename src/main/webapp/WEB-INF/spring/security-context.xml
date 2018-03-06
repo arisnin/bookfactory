@@ -21,6 +21,10 @@
 		<intercept-url pattern="/serviceCenter/FAQ.do" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
 		<intercept-url pattern="/serviceCenter/inquriy**.do" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
 		<intercept-url pattern="/serviceCenter/book_suggestion.do" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<intercept-url pattern="/cart**.do" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<intercept-url pattern="/wish**.do" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<intercept-url pattern="/order**.do" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+		<intercept-url pattern="/present**.do" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
 		<intercept-url pattern="/**" access="permitAll" />
 		<access-denied-handler error-page="/error.do"/>
 		<form-login

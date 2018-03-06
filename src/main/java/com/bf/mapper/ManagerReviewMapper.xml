@@ -78,4 +78,9 @@ AND A.REVIEW_NUM = #{num}) WHERE RNUM BETWEEN #{startRow} and #{endRow}
     ]]>
 </select>
  -->
+ 
+ <select id="getReviewCount" resultType="int">
+ 	select count(*) from REVIEW where WRITE_DATE BETWEEN sysdate-7 and sysdate
+ </select>
+ 
 </mapper>

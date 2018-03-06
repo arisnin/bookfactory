@@ -53,15 +53,15 @@
          </a>
           <a href="${root}/manager/reviewReview.do">
              <img src="${root}/img/manager/review.png"/>
-             <span>리뷰신고:<strong>3</strong></span>
+             <span>최근 일주일 리뷰개수:<strong>${reviewCount }건</strong></span>
              <span>리뷰</span>
          </a>
         </div>
         <div>
           <a href="${root}/manager/boardContact.do">
              <img src="${root}/img/manager/board.png"/>
-             <span>최근 공지일:<strong>3</strong><br/>Q&amp;A:<strong>3</strong></span>
-              <span>게시판</span>
+             <span>1대1 문의내역 수:<strong>${boardCount}건</strong><br/>Q&amp;A:<strong>3</strong></span>
+             <span>게시판</span>
          </a>
           <a href="${root}/manager/statPreference.do">
              <img src="${root}/img/manager/statistics.png"/>

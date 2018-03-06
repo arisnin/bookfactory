@@ -18,19 +18,19 @@
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
 
-<title>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</title>
+<title>오류/활용 도움말</title>
 </head>
 <body>
 
 
 	<jsp:include page="./main_header.jsp" />
 
-	<div class="service_information">
+	<div class="service_information"> 
 
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
 				<span> <a
-					href="${root }/serviceCenter/main.do">리디북스 고객센터</a></span>
+					href="${root }/serviceCenter/main.do">북팩토리 고객센터</a></span>
 					<span>></span>
 					오류 / 활용 도움말
 			</div>

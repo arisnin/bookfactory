@@ -36,6 +36,8 @@ public interface OrderDao {
 	public List<CategoryPageDto> getOrderList(List<String> bookList);
 
 	public int getPoint(String username);
+
+	public int getCash(String id);
 	
 	
 }

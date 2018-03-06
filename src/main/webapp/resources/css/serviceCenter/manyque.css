@@ -52,3 +52,9 @@
  	margin-top: 0.2rem;
  	line-height: 2.7rem;
 }
+
+
+.serviceCenter_manyque > .serviceCenter_manyque_content{
+	display: inline-block;
+	width: 100%
+}
