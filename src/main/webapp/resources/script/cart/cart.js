@@ -9,17 +9,17 @@ $(function() {
 //	});
 
 	// 삭제클릭
-	$(".cart_content_book_content button:last-child").click(function() {
-		var book_num = $(this).parent().find("span:first-child").attr("id");
-		// alert(book_num);
+	$(".cart_content_book_content button.delete-btn").click(function(event) {
+		let target = $(this).parent().find("span.book-num");
+		var book_num = target.attr("data-book-num");
+		
 		var a = confirm("정말로 삭제하시겠습니까?");
 		if (a == true) {
 			$.get("cart/cartDelete.do", {
 				bookNum : book_num
 			}, function() {
-				$("#" + book_num).parent().parent().remove();
+				target.parent().parent().remove();
 			});
-
 		}
 	});
 
@@ -35,22 +35,20 @@ $(function() {
 	// });
 
 	// 선택삭제
-	$(".cart_content_select button:last-child").click(
+	$(".cart_content_select > .cart_content_sel_button > button:last-child").click(
 			function() {
 				var bookNum = "";
-				var book_num = $(".cart_content_book_content").find(
-						"span:first-child").attr("id");
-				$(".book-thumbnail input[type='checkbox']").each(function() {
-					if ($(this).prop("checked") == true) {
-						bookNum += book_num + "_";
-						// alert(bookNum);
+				$(".cart_content_book > .book-thumbnail input[type=checkbox]").each(function(i,e) {
+					alert(e.checked + " : " + $(e).attr("disabled"));
+					if (e.checked && !$(e).attr("disabled")) {
+						bookNum += e.value + "_";
 					}
 				});
 
 				$.get("cart/cartDelete.do", {
 					bookNum : bookNum
 				}, function() {
-					alert("삭제");
+					location.reload();
 				});
 			});
 
@@ -177,5 +175,5 @@ function updateTotalMenu() {
 	target[1].innerHTML = (book - total) + '원';
 	target[2].innerHTML = total + '원';
 	document.querySelector("#cart-total-menu .total-menu-title > strong").innerHTML = count + '권';
-	
+	document.querySelector("input[name=totalPrice]").value = total;
 }

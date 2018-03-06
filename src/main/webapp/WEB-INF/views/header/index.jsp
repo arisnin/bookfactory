@@ -182,9 +182,9 @@
 						<li class="hw_mid_item list_comic" onclick="location.href='${root}/comic.do?firstCateNum=4'">
 							<img class="hw_mid_icon" src="${root}/img/index/manhwa.png"> <span class="hw_mid_font">만화</span>
 						</li>
-<%-- 						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do?firstCateNum=5'"> --%>
-<%-- 							<img class="hw_mid_icon" src="${root}/img/index/bl.png"> <span class="hw_mid_font">BL</span> --%>
-<!-- 						</li> -->
+						<li class="hw_mid_item list_bl" onclick="location.href='${root}/bl.do?firstCateNum=5'">
+							<img class="hw_mid_icon" src="${root}/img/index/bl.png"> <span class="hw_mid_font">BL</span>
+						</li>
 					</ul>
 				</nav>
 				<ul class="hw_middle_right">
@@ -226,7 +226,7 @@
 						</c:otherwise>
 					</c:choose>
 		<div class="hw_sub_wrap">
-			<c:if test="${firstCate!=1 && firstCate!=4}">
+			<c:if test="${firstCate!=1 && firstCate!=4 && firstCate!=5}">
 				<div class="hw_sub_cate">
 					<span>단행본</span>
 					<ul>
@@ -247,7 +247,7 @@
 <!-- 					</ul> -->
 				</div>
 			</c:if>
-			<c:if test="${firstCate==1 || firstCate==4}">
+			<c:if test="${firstCate==1 || firstCate==4 || firstCate==5}">
 				<div class="hw_sub_cate">
 					<ul>
 						<li class="sub_cate_element" onclick="location.href='${root}/${home}.do?firstCateNum=${firstCate}'">홈 <span class="activeBar"></span></li>

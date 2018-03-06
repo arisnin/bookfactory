@@ -44,8 +44,8 @@ public interface BookDao {
 	int getSecondCateNum(long book_num);
 	String getSecondCateName(long book_num);
 	String getPubName(long book_num);
-	int getTagListCount(ArrayList<String> list);
-	List<HomeDto> getTagBookList(HashMap<String, ArrayList<String>> listMap);
+	int getTagListCount(HashMap<String, Object> list);
+	List<HomeDto> getTagBookList(HashMap<String, Object> listMap);
 	List<ReplyDto> selectReplyList(int num);
 	int insertReply(ReplyDto replyDto);
 	int deleteReview(String id, int num);

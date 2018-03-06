@@ -2,6 +2,7 @@ package com.bf.myPage.dao;
 
 import java.util.List;
 
+import com.bf.member.model.MemberDto;
 import com.bf.myPage.dto.MyPageCashChargeDto;
 import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
@@ -47,6 +48,12 @@ public interface MyPageDao {
 	int selectCashAvailable(String id);
 
 	int selectPurchasedCount(String id);
+
+	String InfoOk(String id, String password);
+
+	MemberDto selectInfo(String id);
+
+	int infoUpdate(MemberDto memberDto);
 
 
 }

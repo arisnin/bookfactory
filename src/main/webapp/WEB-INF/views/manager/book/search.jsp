@@ -14,6 +14,8 @@
   	<link rel="stylesheet" href="${root}/css/basic/commons.css">
   	<link rel="stylesheet" href="${root}/css/manager/book.css">
   	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  	<link rel="stylesheet" href="${root }/alert/alertify_core.css" />
+	<link rel="stylesheet" href="${root }/alert/alertify_default.css" id="toggleCSS" />
 </head>
 <body>
 	<div id="b_se_wrapper">
@@ -48,7 +50,7 @@
 								<span><a href="${root}/manager/publisherSearch.do?searchWord=${bookDto.pub_name}">${bookDto.pub_name}</a></span>
 								<span class="b_se_btn">
 									<button id="${bookDto.book_num}" type="button" class="bf-button">수정</button>
-									<button type="button" class="bf-button">삭제</button>
+									<button id="${bookDto.book_num}" type="button" class="bf-button">삭제</button>
 								</span>
 							</li>
 						</c:forEach>
@@ -98,6 +100,7 @@
 
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
+	<script src="${root }/alert/alertifymin.js"></script>
 	<script type="text/javascript">
 		$(".bf-animated-btn").find("li").each(function(){
 			if($(this).text()=='${pageNumber}'){
@@ -109,6 +112,29 @@
 		$(".b_se_btn").each(function(i,e) {
 			$(e).find("button").eq(0).click(function() {
 				location.href="${root}/manager/bookUpdate.do?book_num="+$(this).attr("id");
+			});
+			
+			$(e).find("button").eq(1).click(function() {
+				var book_num = $(this).attr("id");
+				var check = confirm('정말로 삭제하시겠습니까?');
+				if(check == true){
+					$.ajax({
+						  url: '${root}/manager/bookDelete.do',
+						  method: 'get',
+						  data: {book_num : book_num},
+						  success: function(check){
+							  if(check == '1'){
+								  alert("삭제성공");
+								  location.reload();
+							  }else{
+								  alertify.error("삭제실패");
+							  }
+						  },
+						  dataType: "text"
+					});
+				}else{
+					alertify.log("취소");
+				}
 			});
 		});
 	</script>

@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
@@ -276,41 +275,55 @@ public class MyPageController {
 	 * 마이페이지 > 정보변경 비밀번호 확인
 	 */
 	@RequestMapping(value="/personal/myInfoCheck.do")
-	public String myInfoCheck(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
+	public ModelAndView myInfoCheck(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("myInfoCheck()");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("request", request);
-		mav.addObject("memberDto", memberDto);
 		
 		mypageService.myInfoCheck(mav);
 		
-		return "myPage/personal/myInfoCheck.my";
+		return mav;
+	}
+	
+	/**
+	 * 마이페이지 > 정보변경 비밀번호 확인
+	 */
+	@RequestMapping(value="/personal/myInfoOk.do")
+	public ModelAndView myInfoOk(HttpServletRequest request, HttpServletResponse response) {
+		LogAspect.info("myInfoOk()");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.myInfoOk(mav);
+		
+		return mav;
 	}
 	
 	/**
 	 * 마이페이지 > 정보변경
 	 */
-	@RequestMapping(value="/personal/myInfo.do", method=RequestMethod.POST)
-	public String myInfo(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/personal/myInfo.do")
+	public ModelAndView myInfo(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("myInfo()");
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
 		
-		return "myPage/personal/myInfo.my";
+		mypageService.myInfo(mav);
+		
+		return mav;
 	}
 	
-	
 	/**
-	 * @author : 김동환
-	 * @date : 2018. 2. 19.
-	 * comment : 회원정보 변경 
+	 * 마이페이지 > 정보변경 > 변경완료
 	 */
-	@RequestMapping(value="/member/update.do", method=RequestMethod.GET)
+	@RequestMapping(value="/personal/myInfoUpdate.do")
 	public ModelAndView myInfoUpdate(HttpServletRequest request, HttpServletResponse response, MemberDto memberDto) {
-		
-		LogAspect.info("마이리디 정보변경");
-		
+		LogAspect.info("myInfoUpdate()");
+
 		ModelAndView mav = new ModelAndView();
-				
 		mav.addObject("request", request);
 		mav.addObject("memberDto", memberDto);
 		
@@ -318,5 +331,4 @@ public class MyPageController {
 		
 		return mav;
 	}
-	
 }

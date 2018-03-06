@@ -15,40 +15,19 @@
 	
 	<select id="get-cart2" parameterType="String" resultType="com.bf.main.dto.CategoryPageDto">
 		SELECT	bm.book_num, bm.img_path, bm.NAME "book_name",
-				rs."star_point", rs."star_count",
 				au.num "author_num", au.NAME "author_name",
-				il.num "illur_num", il.NAME "illur_name",
-				tr.num "trans_num", tr.name "trans_name",
-				pub.pub_num, pub.NAME "pub_name",
-				tc.num "third_cate_num", tc.NAME "third_cate_name",
 				bm.intro, bm.discount, bm.discount2, bm.rental_period, bm.rental_price, bm.price, bm.type
 		FROM bookm bm, (
-			SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
-			FROM (
-				SELECT rw.* FROM review rw, (
-					SELECT DISTINCT ID, book_num
-					FROM payment
-				) pm
-				WHERE rw.book_num = pm.book_num
-				AND rw.ID = pm.ID
-			)
-			GROUP BY book_num
-		) rs, (
-			SELECT book_num, min(cate3_num) "cate3_num"
-    				FROM book_category
-    				GROUP BY book_num
+			SELECT book_num
+ 			FROM book_category
+ 			GROUP BY book_num
 		) bc, (
-          SELECT book_num FROM cart_wish
-          WHERE ID = #{id}
-          AND cart_wish = 'cart'
-        ) ct, author au, author il, author tr, publisher pub, third_cate tc
-				WHERE bm.book_num = rs.book_num(+)
-				AND bm.book_num = bc.book_num
-				AND bm.author_num = au.num
-				AND bm.illustrator_num = il.num
-				AND bm.translator_num = tr.num
-				AND bm.pub_num = pub.pub_num
-				AND bc."cate3_num" = tc.num
+			SELECT book_num FROM cart_wish
+			WHERE ID = #{id}
+			AND cart_wish = 'cart'
+        ) ct, author au
+		WHERE bm.book_num = bc.book_num
+		AND bm.author_num = au.num
         AND bm.book_num = ct.book_num
 		<if test="type == 0">
 			AND bm.rental_period = 'no'
@@ -56,7 +35,6 @@
 		<if test="type == 1">
 			<![CDATA[AND bm.rental_period <> 'no']]>
 		</if>
-        
 	</select>
 
 	<select id="getCart" parameterType="String" resultType="com.bf.book.dto.HomeDto">
@@ -97,11 +75,14 @@
 		values(cart_num_seq.nextval, #{id}, #{bookNum},'wish')
 	</insert>
 	<insert id="paymentInsert" parameterType="com.bf.order.dto.OrderDto">
-		insert into payment
-		values(payment_num_seq.nextval, #{order_num}, #{book_num}, #{price},
+	insert into payment(NUM, ORDER_NUM, BOOK_NUM, PRICE, PAYMENT_DATE, PRESENT_CHECK, CANCEL_CHECK, FREE_PASS, 
+						ID, PAY_TYPE, POINT_USE, CASH_USE, RENTAL_DATE, RENTAL_STATE, STATE)
+	values(payment_num_seq.nextval, #{order_num}, #{book_num}, (
+			SELECT round(price * (100 - discount) * (100 - discount2) / 10000, -2) FROM bookm WHERE book_num = #{book_num}
+		),
 		sysdate,
-		#{present_check},#{cancel_check},#{free_pass},#{id},#{pay_type},#{point_use},#{cash_use},sysdate+3,#{rental_state})
-	</insert>
+		#{present_check},#{cancel_check},#{free_pass},#{id},#{pay_type},#{point_use},#{cash_use},sysdate+3,#{rental_state},#{state})
+</insert>
 	<update id="updatePoint" parameterType="java.util.HashMap">
 		UPDATE point SET
 		remain=(remain-(#{remain})) WHERE num = (
@@ -128,5 +109,22 @@
 		select bookM.*, bookm.name "bookName", AUTHOR.name "authorName" 
 		from bookM, AUTHOR where bookM.AUTHOR_NUM =
 		AUTHOR.NUM and book_num=#{book_num}
+	</select>
+	
+	<select id="select-order-list" parameterType="java.util.Map" resultType="com.bf.main.dto.CategoryPageDto">
+		SELECT	bm.book_num, bm.img_path, bm.NAME "book_name",
+				au.num "author_num", au.NAME "author_name",
+				bm.intro, bm.discount, bm.discount2, bm.rental_period, bm.rental_price, bm.price, bm.type
+		FROM bookm bm, (
+			SELECT book_num
+ 			FROM book_category
+ 			GROUP BY book_num
+		) bc, author au
+		WHERE bm.book_num = bc.book_num
+		AND bm.author_num = au.num
+    	AND bm.book_num in
+		<foreach item="item" index="index" collection="bookList" open="(" separator="," close=")">
+			#{item}
+		</foreach>
 	</select>
 </mapper>

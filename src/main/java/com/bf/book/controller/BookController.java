@@ -43,7 +43,7 @@ public class BookController {
 	/**
 	 * 메인 > 일반, 만화 > 홈
 	 */
-	@RequestMapping(value = {"/","/normal.do", "/comic.do"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/","/normal.do", "/comic.do","/bl.do"}, method = RequestMethod.GET)
 	public ModelAndView normalHome(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);
@@ -56,7 +56,7 @@ public class BookController {
 	/**
 	 * 메인 > 로맨스, 판타지, bl > 홈
 	 */
-	@RequestMapping(value = {"/romance.do","/fantasy.do","/bl.do"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/romance.do","/fantasy.do"}, method = RequestMethod.GET)
 	public ModelAndView homeRomance(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("request", request);

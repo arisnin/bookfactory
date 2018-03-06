@@ -99,7 +99,9 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		long fileSize = freFile.getSize();
 		LogAspect.logger.info(LogAspect.logMsg + fileName + fileSize);
 		int check = 0;
-		if (fileSize != 0) {
+		if (fileSize == 0) {
+			check = managerDao.BoardInsertOk(boardFreDto);
+		}else {
 			File path = new File("C:\\sangheon\\");
 			path.mkdirs();
 			if (path.exists() && path.isDirectory()) {
@@ -117,10 +119,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 				check = managerDao.BoardfileInsertOk(boardFreDto);
 
 			}
-		} else {
-			check = managerDao.BoardInsertOk(boardFreDto);
 		}
-
 		LogAspect.logger.info(LogAspect.logMsg + check);
 		mav.addObject("check", check);
 		mav.setViewName("board/insertOk.mg");
@@ -184,7 +183,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 		if (pageNumber == null)
 			pageNumber = "1";
-		int boardSize = 5;
+		int boardSize = 10;
 
 		int currentPage = Integer.parseInt(pageNumber);
 
@@ -243,7 +242,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 		if (pageNumber == null)
 			pageNumber = "1";
-		int boardSize = 5;
+		int boardSize = 10;
 
 		int currentPage = Integer.parseInt(pageNumber);
 
@@ -560,7 +559,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 		if (pageNumber == null)
 			pageNumber = "1";
-		int boardSize = 5;
+		int boardSize = 10;
 
 		int currentPage = Integer.parseInt(pageNumber);
 
@@ -671,37 +670,15 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 		String pageNumber = request.getParameter("pageNumber");
 		String searchWord = request.getParameter("searchWord");
-		String sDate = request.getParameter("startDate");
-		String eDate = request.getParameter("endDate");
-		Date startDate = new Date();
-		Date endDate = null;
-		Calendar cal = new GregorianCalendar();
-
-		LogAspect.info(sDate + "----" + eDate);
-		try {
-			if (sDate == null && eDate == null) {
-				endDate = new Date();
-				cal.setTime(new Date());
-				cal.add(Calendar.YEAR, -50);
-				long calLong = cal.getTimeInMillis();
-				startDate.setTime(calLong);
-				LogAspect.info(startDate);
-			} else {
-				startDate = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
-				endDate = new SimpleDateFormat("yyyy-MM-dd").parse(eDate);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 		if (pageNumber == null)
 			pageNumber = "1";
-		int boardSize = 5;
+		int boardSize = 10;
 
 		int currentPage = Integer.parseInt(pageNumber);
 
 		int startRow = (currentPage - 1) * boardSize + 1;
-		int endRow = currentPage * boardSize + 1;
+		int endRow = currentPage * boardSize;
 
 		int count = 0;
 		LogAspect.info(searchWord);
@@ -710,11 +687,11 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		
 		if (searchWord == null) {
 			cashDtoList = managerDao.memberCashList(startRow, endRow);
-			count = managerDao.reviewCount();
-		}/* else {
-			cashDtoList = managerDao.memberCashSearchList(searchWord, startRow, endRow, startDate, endDate);
-			count = managerDao.reviewCount1(searchWord, startDate, endDate);
-		}*/
+			count = managerDao.memberCashCount();
+		} else {
+			cashDtoList = managerDao.memberCashSearchList(searchWord,startRow,endRow);
+			count = managerDao.memberCashCount1(searchWord);
+		}
 
 		mav.addObject("count", count);
 		mav.addObject("searchWord", searchWord);
@@ -735,27 +712,33 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 		if (pageNumber == null)
 			pageNumber = "1";
-		int boardSize = 5;
+		int boardSize = 100000;
 
 		int currentPage = Integer.parseInt(pageNumber);
 
 		int startRow = (currentPage - 1) * boardSize + 1;
-		int endRow = currentPage * boardSize + 1;
+		int endRow = currentPage * boardSize;
 
 		List<ManagerPayDto> managerPayDtoList = null;
 		List<ManagerChargeDto> managerChargeDtoList = null;
 		List<ManagerPointDto> managerPointDtoList = null;
-
+		int count = 0;
+		
 		managerPayDtoList = managerDao.payDetail(startRow, endRow, id);
 		managerChargeDtoList = managerDao.chargeDetail(startRow, endRow, id);
 		managerPointDtoList = managerDao.pointDetail(startRow, endRow, id);
 		ManagerCashDto managerCashDto = managerDao.selectPay(id);
-
+		
+		count= managerDao.payCount(id);
+		count= managerDao.chargeCount(id);
+		count= managerDao.pointCount(id);
+		
 		LogAspect.info(managerPayDtoList);
 		LogAspect.info(managerChargeDtoList);
 		LogAspect.info(managerPointDtoList);
 		LogAspect.info(managerCashDto);
-
+		
+		mav.addObject("count", count);
 		mav.addObject("managerCashDto", managerCashDto);
 		mav.addObject("managerPayDtoList", managerPayDtoList);
 		mav.addObject("managerChargeDtoList", managerChargeDtoList);
@@ -809,7 +792,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 		if (pageNumber == null)
 			pageNumber = "1";
-		int boardSize = 5;
+		int boardSize = 10;
 
 		int currentPage = Integer.parseInt(pageNumber);
 
@@ -822,6 +805,12 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		List<ReviewManagerDto> reviewDtoList = null;
 
 		if (count > 0) {
+			reviewDtoList = managerDao.reviewList(startRow, endRow);
+			LogAspect.info("너니" + reviewDtoList);
+			
+			
+			
+			/*
 			if (report.equals("all") && point.equals("all")) {
 				if (startDate != null && endDate != null) {
 					reviewDtoList = managerDao.reviewSearchDate(startRow, endRow, startDate, endDate);
@@ -829,21 +818,9 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 				} else {
 					reviewDtoList = managerDao.reviewList(startRow, endRow);
 					LogAspect.info("너니" + reviewDtoList);
-				}
+				}*/
 			}
-			} /*
-				 * else if(point.equals("begin")) { if (startDate != null && endDate != null) {
-				 * reviewDtoList = managerDao.reviewListBeginDate(startRow, endRow, startDate,
-				 * endDate); LogAspect.logger.info(LogAspect.logMsg + reviewDtoList + startDate
-				 * + endDate); } else{ reviewDtoList = managerDao.reviewListBegin(startRow,
-				 * endRow); } }else if(point.equals("end")) { if (startDate != null && endDate
-				 * != null) { reviewDtoList = managerDao.reviewListEndDate(startRow, endRow,
-				 * startDate, endDate); LogAspect.logger.info(LogAspect.logMsg + reviewDtoList +
-				 * startDate + endDate); } else{ reviewDtoList =
-				 * managerDao.reviewListEnd(startRow, endRow); }
-				 * 
-				 * }
-				 */
+			
 
 		mav.addObject("reviewDtoList", reviewDtoList);
 		mav.addObject("pageNumber", currentPage);
@@ -868,7 +845,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		List<AccuseDto> accuseDtoList = null;
 		if (pageNumber == null)
 			pageNumber = "1";
-		int boardSize = 5;
+		int boardSize = 10;
 
 		int currentPage = Integer.parseInt(pageNumber);
 

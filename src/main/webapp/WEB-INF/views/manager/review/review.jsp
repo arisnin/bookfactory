@@ -55,14 +55,6 @@
 					</div>
 				</div>
 				</form>
-				<div class="sh_review_select">
-					<select>
-						<option>최신글 순</option>
-						<option>오래된 순</option>
-						<option>신고 수</option>
-						<option>별점 순</option>
-					</select>
-				</div>
 			</div>
 			<div class="sh_review_content">
 				<div class="sh_review_title">

@@ -31,8 +31,10 @@ public interface MyPageService {
 
 	void home(ModelAndView mav);
 
+	void myInfoOk(ModelAndView mav);
+
 	void myInfoCheck(ModelAndView mav);
 
-	
+	void myInfo(ModelAndView mav);	
 
 }

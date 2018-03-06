@@ -520,5 +520,30 @@ public class ManagerDaoImp implements ManagerDao {
 	public int getStatTotalCount(int i) {
 		return sqlSession.selectOne("com.bf.mapper.StatMapper.getStatTotalCount",i);
 	}
+
+	@Override
+	public void insertBookCategoryOne(int book_num, int cate1_num, int cate2_num, int cate3_num) {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("cate1_num", cate1_num);
+		map.put("cate2_num", cate2_num);
+		map.put("cate3_num", cate3_num);
+		map.put("book_num", book_num);
+		sqlSession.insert("com.bf.mapper.BookMapper.insertBookCategoryOne",map);
+	}
+	
+	@Override
+	public void deleteBookCategory(int book_num) {
+		sqlSession.delete("com.bf.mapper.BookMapper.deleteBookCategory", book_num);
+	}
+
+	@Override
+	public int deleteBook(int book_num) {
+		return sqlSession.delete("com.bf.mapper.BookMapper.deleteBook", book_num);
+	}
+
+	@Override
+	public void rejectAuthorEdit(int num) {
+		sqlSession.update("com.bf.mapper.AuthorMapper.rejectAuthorEdit", num);
+	}
 	
 }

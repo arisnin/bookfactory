@@ -2,6 +2,7 @@ package com.bf.order.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,14 +101,19 @@ public class OrderDaoImp implements OrderDao {
 			map.put("rnum", rnum);
 			pointDto = sqlSession.selectOne("com.bf.mapper.OrderMapper.pointSelect", map);
 			System.out.println(pointDto.toString());
+			
 			map.put("remain", Math.abs(remain));
 			System.out.println(map.get("remain"));
+			
 			int check = sqlSession.update("com.bf.mapper.OrderMapper.updatePoint", map);
 			System.out.println(check);
+			
 			pointDto = sqlSession.selectOne("com.bf.mapper.OrderMapper.pointSelect", map);
 			System.out.println(pointDto.toString());
+			
 			remain = pointDto.getRemain();
 			System.out.println(remain);
+			
 			if (remain > 0)
 				break;
 			else
@@ -121,6 +127,13 @@ public class OrderDaoImp implements OrderDao {
 	@Override
 	public HomeDto getBookSelect(int book_num) {
 		return sqlSession.selectOne("com.bf.mapper.OrderMapper.getBookSelect",book_num);
+	}
+
+	@Override
+	public List<CategoryPageDto> getOrderList(List<String> bookList) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bookList", bookList);
+		return sqlSession.selectList(namespace + "select-order-list", map);
 	}
 
 }

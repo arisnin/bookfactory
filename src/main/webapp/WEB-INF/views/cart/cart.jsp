@@ -34,30 +34,31 @@
 					</label>
 				</div>
 				<div class="cart_content_sel_button">
-					<button class="bf-button bf-white-btn">선택 위시리스트로 이동</button>
-					<button class="bf-button bf-white-btn">선택 삭제</button>
+					<button type="button" class="bf-button bf-white-btn">선택 위시리스트로 이동</button>
+					<button type="button" class="bf-button bf-white-btn">선택 삭제</button>
 				</div>
 			</div>
 			<!-- -------------------------------------- -->
-			<form id="cart-submit-form" action="#" method="get">
+			<form id="cart-submit-form" action="${root}/order.do" method="post">
 			<c:if test="${purchaseListSize != 0 }">			
 				<!-- 구매 목록 -->
 				<div id="purchase-list-box">
 				<c:forEach items="${purchaseList}" var="cartList" varStatus="status">				
 					<div class="cart_content_book">
 						<div class="book-thumbnail">
-							<label class="bf-custom-checkbox cart_content_book_span"> <input name="bookList" type="checkbox" checked="checked" value="${cartList.book_num}" onchange="updateTotalMenu()" /> <span class="all-mark"></span>
-							</label> <img class="cart_content_book_img" src="${cartList.img_path}">
+							<label class="bf-custom-checkbox cart_content_book_span">
+								<input name="bookList" type="checkbox" checked="checked" value="${cartList.book_num}" onchange="updateTotalMenu()" /> <span class="all-mark"></span>
+							</label>
+							<img class="cart_content_book_img" src="${cartList.img_path}">
 						</div>
 						<div class="cart_content_book_content">
-							<span id="${cartList.book_num}">${cartList.book_name}</span>
+							<span class="book-num" data-book-num="${cartList.book_num}">${cartList.book_name}</span>
 							<br>
 							<div class="book-info">
 								<span class="font_13">${cartList.author_name}</span>
 							</div>
 							<div class="float_right">
 								<!-- 구매 도서 장바구니 출력 수정(2018-03-05 박성호) -->
-								<!-- 확인용 히든 -->
 								<fmt:formatNumber var="discount" value="${cartList.discount}" pattern="###" />
 								<fmt:formatNumber var="discount2" value="${cartList.discount2}" pattern="###" />
 								<!-- 전자책 정가 = price * discount -->
@@ -79,8 +80,8 @@
 								</div>
 							</div>
 							<br>
-							<button class="bf-button bf-white-btn">위시리스트로 이동</button>
-							<button class="bf-button bf-white-btn">삭제</button>
+							<button type="button" class="bf-button bf-white-btn">위시리스트로 이동</button>
+							<button type="button" class="bf-button bf-white-btn delete-btn">삭제</button>
 						</div>
 					</div>
 				</c:forEach>
@@ -94,7 +95,7 @@
 							</label> <img class="cart_content_book_img" src="${cartList.img_path}">
 						</div>
 						<div class="cart_content_book_content">
-							<span id="${cartList.book_num}">${cartList.book_name}</span>
+							<span class="book-num" data-book-num="${cartList.book_num}">${cartList.book_name}</span>
 							<br>
 							<div class="book-info">
 								<span class="font_13">${cartList.author_name}</span>
@@ -123,14 +124,15 @@
 								</div>
 							</div>
 							<br>
-							<button class="bf-button bf-white-btn">위시리스트로 이동</button>
-							<button class="bf-button bf-white-btn">삭제</button>
+							<button type="button" class="bf-button bf-white-btn">위시리스트로 이동</button>
+							<button type="button" class="bf-button bf-white-btn delete-btn">삭제</button>
 						</div>
 					</div>
 				</c:forEach>
 				</div>
 			</c:if>
-			</form>
+			<input type="hidden" name="totalPrice" value="0"/>
+ 			</form>
 			<!-- -------------------------------------- -->
 			<c:if test="${purchaseListSize == 0}">
 				<div class="cart_content_book cart_content_book_no">대여 할수 있는 책이 없습니다.</div>
@@ -144,8 +146,8 @@
 					</div>
 				</div>
 				<div class="cart_content_sel_button">
-					<button class="bf-button bf-white-btn">선택위시리스트로 이동</button>
-					<button class="bf-button bf-white-btn cart_contet_sel_margin">선택 삭제</button>
+					<button type="button" class="bf-button bf-white-btn">선택위시리스트로 이동</button>
+					<button type="button" class="bf-button bf-white-btn cart_contet_sel_margin">선택 삭제</button>
 				</div>
 			</div>
 		</div>
@@ -171,7 +173,7 @@
 			</div>
 
 			<div class="cart_button_div">
-				<button type="submit" class="order_right_menu_paybutton bf-button bf-animated-btn" onclick="CartList('${root}')">선택대여하기</button>
+				<button type="submit" form="cart-submit-form" class="order_right_menu_paybutton bf-button bf-animated-btn">선택대여하기</button>
 			</div>
 		</div>
 	</div>
@@ -222,7 +224,7 @@
 			
 			var menu = document.querySelectorAll(".cart-content-menu li");
 			menu[0].classList.toggle("active");
-			menu[1].classList.toggle("active");c
+			menu[1].classList.toggle("active");
 			
 			updateTotalMenu();
 		}

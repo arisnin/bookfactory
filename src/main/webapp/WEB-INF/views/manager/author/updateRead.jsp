@@ -101,7 +101,8 @@
 					</div>
 					<div align="right">
 						<button id="a_form_btn" type="submit" class="bf-button">수정</button>
-						<button type="button" class="bf-button">취소</button>
+						<button id="reject_btn" type="button" class="bf-button">거절</button>
+						<button type="button" class="bf-button" onclick="history.back()">뒤로가기</button>
 					</div>
 				</div>
 			</section>

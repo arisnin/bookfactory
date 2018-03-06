@@ -331,6 +331,13 @@ public class ManagerServiceImp implements ManagerService {
 	}
 	
 	@Override
+	public void authorEditReject(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		int num = Integer.parseInt(request.getParameter("editNum"));
+		managerDao.rejectAuthorEdit(num);
+	}
+	
+	@Override
 	public void bookInsert(ModelAndView mav) {
 		List<BookFirstCateDto> firstCateList = managerDao.getFirstCate();
 		mav.addObject("firstCateList", firstCateList);
@@ -341,13 +348,18 @@ public class ManagerServiceImp implements ManagerService {
 		BookDto bookDto = (BookDto) mav.getModelMap().get("bookDto");
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 
+		//책카테고리삽입
+		int cate1_num = Integer.parseInt(request.getParameter("cate1_num"));
+		int cate2_num = Integer.parseInt(request.getParameter("cate2_num"));
+		int cate3_num = Integer.parseInt(request.getParameter("cate3_num"));
+		managerDao.insertBookCategoryOne(bookDto.getBook_num(),cate1_num,cate2_num,cate3_num);
+		
 		int check = managerDao.insertBook(bookDto);
 		
 		int currentNum = managerDao.getMaxBookNum();
 		String keyword_list = request.getParameter("keyword");
 		if(keyword_list != null) {
 			String[] keyword = keyword_list.split(",");
-			LogAspect.info(LogAspect.logMsg +keyword);
 			for(String key : keyword) {
 				int checkKey = managerDao.keyNameCheck(key);
 				
@@ -432,7 +444,15 @@ public class ManagerServiceImp implements ManagerService {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		
 		LogAspect.info(LogAspect.logMsg+ bookDto);
-		
+		if(request.getParameter("cate1_num") != null) {
+			managerDao.deleteBookCategory(bookDto.getBook_num());
+			int cate1_num = Integer.parseInt(request.getParameter("cate1_num"));
+			int cate2_num = Integer.parseInt(request.getParameter("cate2_num"));
+			int cate3_num = Integer.parseInt(request.getParameter("cate3_num"));
+			
+			managerDao.insertBookCategoryOne(bookDto.getBook_num(),cate1_num,cate2_num,cate3_num);
+			
+		}
 		int check = managerDao.updateBook(bookDto);
 		
 		String keyword_list = request.getParameter("keyword");
@@ -454,6 +474,22 @@ public class ManagerServiceImp implements ManagerService {
 		}
 		mav.addObject("check", check);
 		mav.addObject("num", bookDto.getBook_num());
+	}
+	
+	@Override
+	public void bookDelete(ModelAndView mav) {
+		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
+		HttpServletResponse response = (HttpServletResponse) mav.getModelMap().get("response");
+		
+		int book_num = Integer.parseInt(request.getParameter("book_num"));
+		int check = managerDao.deleteBook(book_num);
+		
+		try {
+			response.setContentType("application/text;charset=utf-8");
+			response.getWriter().print(check);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -64,10 +64,11 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		map.put("endRow", endRow);
 		return sqlSession.selectList("com.bf.manager.ManagerboardMapper.list", map);
 	}
+
 	@Override
 	public BoardFrequencyDto selectBoard(int num) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("com.bf.manager.ManagerboardMapper.selectBoard",num);
+		return sqlSession.selectOne("com.bf.manager.ManagerboardMapper.selectBoard", num);
 	}
 
 	@Override
@@ -100,59 +101,76 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.manager.ManagerboardMapper.contactCount");
 	}
+
 	@Override
 	public List<BoardContactDto> boardContact(int startRow, int endRow) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 
-		return sqlSession.selectList("com.bf.manager.ManagerboardMapper.boardContact",map);
+		return sqlSession.selectList("com.bf.manager.ManagerboardMapper.boardContact", map);
 	}
+
 	@Override
 	public int boardReplyOk(BoardContactDto boardContactDto) {
-		
-		
-	return sqlSession.update("com.bf.manager.ManagerboardMapper.boardReplyUpdate",boardContactDto);
+
+		return sqlSession.update("com.bf.manager.ManagerboardMapper.boardReplyUpdate", boardContactDto);
 	}
-	
+
 	@Override
-	public BoardFrequencyDto catelist(int num,int cateNum) {
+	public BoardFrequencyDto catelist(int num, int cateNum) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("num", num);
 		map.put("cateNum", cateNum);
-		
-		return sqlSession.selectOne("com.bf.manager.ManagerboardMapper.catelist",map);
+
+		return sqlSession.selectOne("com.bf.manager.ManagerboardMapper.catelist", map);
 	}
 	
+
 	@Override
 	public int fileboardUpdateOk(BoardFrequencyDto boardFrequencyDto) {
 		// TODO Auto-generated method stub
-		return sqlSession.update("com.bf.manager.ManagerboardMapper.fileBoardUpdate",boardFrequencyDto);
+		return sqlSession.update("com.bf.manager.ManagerboardMapper.fileBoardUpdate", boardFrequencyDto);
 	}
+
 	@Override
 	public int boardUpdateOk(BoardFrequencyDto boardFrequencyDto) {
 		// TODO Auto-generated method stub
-		return sqlSession.update("com.bf.manager.ManagerboardMapper.boardUpdate",boardFrequencyDto);
+		return sqlSession.update("com.bf.manager.ManagerboardMapper.boardUpdate", boardFrequencyDto);
 	}
+
 	@Override
 	public int listDelete(int num) {
 		// TODO Auto-generated method stub
-		return sqlSession.delete("com.bf.manager.ManagerboardMapper.boardDelete",num);
+		return sqlSession.delete("com.bf.manager.ManagerboardMapper.boardDelete", num);
 	}
-	
+
 	// ------------member------------------
 	@Override
-	public int memberCount(String searchWord, Date startDate,Date endDate ) {
+	public int memberCount(String searchWord, Date startDate, Date endDate) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("searchWord", searchWord);
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
-		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.count",map);
+		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.count", map);
 	}
+
 	@Override
 	public int memberCount1() {
 
 		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.count1");
+	}
+
+	@Override
+	public int memberCashCount() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.memberCashCount");
+	}
+
+	@Override
+	public int memberCashCount1(String searchWord) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.memberCashCount1",searchWord);
 	}
 
 	@Override
@@ -162,8 +180,9 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		map.put("endRow", endRow);
 		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.list", map);
 	}
+
 	@Override
-	public List<MemberDto> memberSearchList(String searchWord, int starRow, int endRow,Date startDate,Date endDate) {
+	public List<MemberDto> memberSearchList(String searchWord, int starRow, int endRow, Date startDate, Date endDate) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", starRow);
 		map.put("endRow", endRow);
@@ -172,7 +191,6 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		map.put("endDate", endDate);
 		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.searchList", map);
 	}
-	
 
 	@Override
 	public MemberDto register(String id) {
@@ -191,61 +209,75 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 
 		return sqlSession.delete("com.bf.manager.ManagerMemberMapper.delete", id);
 	}
-	
+
 	@Override
 	public List<ManagerCashDto> memberCashList(int startRow, int endRow) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
-		
-		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.cashList", map);
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.cashList",map);
 	}
+
 	@Override
-	public List<ManagerCashDto> memberCashSearchList(String searchWord, int startRow, int endRow, Date startDate,
-			Date endDate) {
+	public List<ManagerCashDto> memberCashSearchList(String searchWord, int startRow, int endRow) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		map.put("searchWord", searchWord);
-		map.put("startDate", startDate);
-		map.put("endDate", endDate);
 		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.cashsearchList", map);
 	}
-	
-	
+
 	@Override
-	public List<ManagerPayDto> payDetail(int startRow,int endRow,String id) {
-		Map<String,Object> map = new HashMap<String, Object>();
+	public List<ManagerPayDto> payDetail(int startRow, int endRow, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
-		map.put("id",id);
-		
-		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.payDetail",map);
+		map.put("id", id);
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.payDetail", map);
 	}
+
 	@Override
 	public ManagerCashDto selectPay(String id) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.selectPay",id);
+		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.selectPay", id);
 	}
-	
+
 	@Override
 	public List<ManagerChargeDto> chargeDetail(int startRow, int endRow, String id) {
-		Map<String,Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
-		map.put("id",id);
-		
-		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.chargeDetail",map);
+		map.put("id", id);
+
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.chargeDetail", map);
 	}
+
 	@Override
 	public List<ManagerPointDto> pointDetail(int startRow, int endRow, String id) {
-		Map<String,Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
-		map.put("id",id);
-		
-		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.pointDetail",map);
+		map.put("id", id);
+
+		return sqlSession.selectList("com.bf.manager.ManagerMemberMapper.pointDetail", map);
 	}
+	@Override
+	public int payCount(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.payCount", id);
+	}
+	@Override
+	public int chargeCount(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.chargeCount", id);
+	}
+
+	@Override
+	public int pointCount(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.pointCount", id);
+	}
+	
 	
 	
 	// -----------------리뷰---------------------------
@@ -271,15 +303,17 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 		map.put("num", num);
 		return sqlSession.selectList("com.bf.manager.ManagerReviewMapper.accuseList", map);
 	}
+
 	@Override
-	public int pointInsert(int point,String pointType,String id) {
+	public int pointInsert(int point, String pointType, String id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("point", point);
 		map.put("pointType", pointType);
 		map.put("id", id);
-		return sqlSession.insert("com.bf.manager.ManagerReviewMapper.pointInsert",map);
-		
+		return sqlSession.insert("com.bf.manager.ManagerReviewMapper.pointInsert", map);
+
 	}
+
 	@Override
 	public List<ReviewManagerDto> reviewSearchDate(int startRow, int endRow, Date startDate, Date endDate) {
 		Map<String, Object> map = new HashMap<String, Object>();
