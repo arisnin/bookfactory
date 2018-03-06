@@ -15,7 +15,7 @@
 <link href="${root}/css/basic/commons.css" type="text/css"
 	rel="stylesheet" />
 	
-<title>Insert title here</title>
+<title>북팩토리</title>
 
 </head>
 <body>

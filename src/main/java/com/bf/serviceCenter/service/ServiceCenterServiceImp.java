@@ -66,6 +66,15 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 			LogAspect.info("투스트링" + infoList.toString());
 		}
 		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
+		
 		mav.addObject("count", count);
 		mav.addObject("infoList", infoList);		
 		
@@ -95,10 +104,14 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		List<NoticeDto> infoSide = serviceCenterDao.infoSide();
 		
-//		if(noticeDto.getFile_name() !=null) {
-//			int index = noticeDto.getFile_name().indexOf("_") + 1;
-//			noticeDto.setFile_name(noticeDto.getFile_name().substring(index));
-//		}
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
 		
 				
 		mav.addObject("noticeDto", noticeDto);
@@ -171,7 +184,16 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		Map<String, Object> map = mav.getModel();
 		
-		HttpServletRequest request = (HttpServletRequest) map.get("request");		
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
 		
 		mav.setViewName("serviceCenter/inquriy.solo");
 		
@@ -285,6 +307,15 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		BoardContactDto boardContactDto = serviceCenterDao.inquriyAnswer(num);
 		LogAspect.info("1:1 Dto 확인하깅 : " + boardContactDto.toString());
 		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
+		
 		mav.addObject("boardContactDto", boardContactDto);
 		
 		mav.setViewName("serviceCenter/inquriy_answer.solo");		
@@ -307,6 +338,15 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 			LogAspect.info("자주묻는 질문 사이증 : " + questionList.size());
 			LogAspect.info("투스트링" + questionList.toString());
 		}
+		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
 		
 		mav.addObject("count", count);
 		mav.addObject("questionList", questionList);		
@@ -385,6 +425,15 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		List<BoardFrequencyDto> idLoginList = serviceCenterDao.idLoginMain(category);
 		LogAspect.info("메인 화면 아래 아이디/로그인 : " + idLoginList.toString());
 		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
+		
 		mav.addObject("idLoginList", idLoginList);		
 		
 		mav.setViewName("serviceCenter/id_login.solo");
@@ -408,6 +457,15 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		BoardFrequencyDto idLoginRead = serviceCenterDao.questionRead(num);
 		List<BoardFrequencyDto> idLoginSide = serviceCenterDao.idLoginSide(category);
+		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
 		
 		
 		mav.addObject("idLoginRead", idLoginRead);
@@ -451,6 +509,14 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		BoardFrequencyDto payRefundRead = serviceCenterDao.questionRead(num);
 		List<BoardFrequencyDto> idLoginSide = serviceCenterDao.idLoginSide(category);
 		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
 		
 		mav.addObject("payRefundRead", payRefundRead);
 		mav.addObject("payRefundSide", idLoginSide);
@@ -471,6 +537,15 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		List<BoardFrequencyDto> idLoginList = serviceCenterDao.idLoginMain(category);
 		
 		LogAspect.info("이용문의 : " + idLoginList.toString());
+		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
 		
 		mav.addObject("howUseList", idLoginList);		
 		
@@ -495,6 +570,15 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		int count = serviceCenterDao.categoryCount(category);
 		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
+		
 		mav.addObject("howUseRead", howUseRead);
 		mav.addObject("howUseSide", idLoginSide);
 		mav.addObject("count", count);
@@ -509,11 +593,20 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		Map<String, Object> map = mav.getModelMap();
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		int category = 4;
+		int category = 3;
 		
 		List<BoardFrequencyDto> idLoginList = serviceCenterDao.idLoginMain(category);
 		
 		LogAspect.info("오류 활용 : " + idLoginList.toString());
+		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
 		
 		mav.addObject("errorUseList", idLoginList);		
 		
@@ -528,7 +621,7 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
-		int category = 4;
+		int category = 3;
 		int num = Integer.parseInt(request.getParameter("num"));		
 		LogAspect.info("오류활용 넘버 확인 : " + num);
 		
@@ -536,6 +629,15 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		List<BoardFrequencyDto> idLoginSide = serviceCenterDao.idLoginSide(category);
 		
 		int count = serviceCenterDao.categoryCount(category);
+		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
 		
 		mav.addObject("errorUseRead", errorUseRead);
 		mav.addObject("errorUseSide", idLoginSide);
@@ -557,6 +659,14 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		List<BoardFrequencyDto> idLoginList = serviceCenterDao.idLoginMain(category);
 		LogAspect.info("시스템 업데이트  : " + idLoginList.toString());
 		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
 		mav.addObject("systemUpdateList", idLoginList);		
 		
 		mav.setViewName("serviceCenter/system_update.solo");
@@ -580,6 +690,15 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		
 		int count = serviceCenterDao.categoryCount(category);
 		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
+		
 		mav.addObject("systemUpdateRead", systemUpdateRead);
 		mav.addObject("systemUpdateSide", idLoginSide);
 		mav.addObject("count", count);
@@ -594,6 +713,15 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		Map<String, Object> map = mav.getModel();
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");		
+		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		String id = null;
+		
+		if(user!=null) {
+			id = user.getUsername();
+		}
+
+		mav.addObject("id", id);
 		
 		mav.setViewName("serviceCenter/book_suggestion.solo");
 		
@@ -616,7 +744,7 @@ public class ServiceCenterServiceImp implements ServiceCenterService {
 		LogAspect.info("디티오 확인 : " + bookContactDto.toString() );
 		
 		int check = serviceCenterDao.bookSuggestionWrite(bookContactDto);
-		LogAspect.info("write값 확인 : " + check);
+		LogAspect.info("write값 확인 : " + check);		
 		
 		mav.addObject("check", check);
 		mav.setViewName("serviceCenter/inquriyOk.solo");

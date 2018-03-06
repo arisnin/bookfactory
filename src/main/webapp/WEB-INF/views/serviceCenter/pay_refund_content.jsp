@@ -30,7 +30,7 @@
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
 				<span>
-				<a href="${root }/serviceCenter/main.do">리디북스 고객센터</a></span>
+				<a href="${root }/serviceCenter/main.do">북팩토리 고객센터</a></span>
 					<span>></span>
 					<a href="${root }/serviceCenter/pay_refund.do">결제 / 환불</a>				
 			</div>

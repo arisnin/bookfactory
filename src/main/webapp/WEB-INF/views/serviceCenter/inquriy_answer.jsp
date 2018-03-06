@@ -29,7 +29,7 @@
 
 	<div class="service_FAQ_home_header">
 		<div class="service_FAQ_home_header_left">
-			<span> <a href="${root }/serviceCenter/main.do">리디북스
+			<span> <a href="${root }/serviceCenter/main.do">
 					고객센터</a>
 			</span> <span>></span><span>내 활동</span>
 		</div>
