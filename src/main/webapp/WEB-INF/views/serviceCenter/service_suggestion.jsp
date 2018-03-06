@@ -28,7 +28,7 @@
 	<div class="service_FAQ_home_header">
 		<div class="service_FAQ_home_header_left">
 			<span>
-				<a href="${root }/serviceCenter/main.do">리디북스 고객센터</a>
+				<a href="${root }/serviceCenter/main.do">북팩토리 고객센터</a>
 			</span>
 			<span>></span><span>문의등록</span>
 		</div>
@@ -80,7 +80,7 @@
 					</label>
 				
 				<div class="serviceCenter_service_suggestion_ex_check_text">
-					<div>서비스 제안 시 제안 내용에 대해 별도로 답변 드리지 않습니다. <br/>답변이 필요한 경우   리디북스 문의를 이용해 주세요.</div>
+					<div>서비스 제안 시 제안 내용에 대해 별도로 답변 드리지 않습니다. <br/>답변이 필요한 경우   북팩토리 문의를 이용해 주세요.</div>
 				</div>
 			</div>
 		</div>

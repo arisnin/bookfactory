@@ -6,16 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:set var="root" value="${pageContext.request.contextPath}" />
-<link href="${root}/css/basic/reset.css" type="text/css"
-	rel="stylesheet">
-<link href="${root}/css/basic/commons.css" type="text/css"
-	rel="stylesheet" />
-<link href="${root}/css/serviceCenter/how_use.css"
-	type="text/css" rel="stylesheet">
-<link href="${root}/css/serviceCenter/FAQ.css"
-	type="text/css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link href="${root}/css/basic/reset.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/basic/commons.css" type="text/css" rel="stylesheet" />
+<link href="${root}/css/serviceCenter/pay_refund.css" type="text/css" rel="stylesheet">
+<link href="${root}/css/serviceCenter/FAQ.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <script type="text/javascript" src="${root }/script/serviceCenter/serviceCenter.js"></script>
 
 <title>[고객센터 운영 시간] 평일 10:00~19:00(점심시간 12:50~14:00)</title>
@@ -26,11 +21,10 @@
 	<jsp:include page="./main_header.jsp" />
 
 	<div class="service_information">
-
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
 				<span> <a
-					href="${root }/serviceCenter/main.do">리디북스 고객센터</a></span>
+					href="${root }/serviceCenter/main.do">북팩토리 고객센터</a></span>
 					<span>></span>
 									
 					결제 / 환불
@@ -62,10 +56,7 @@
 					</c:forEach>					
 				</div>
 			</div>
-
 		</div>
-
-
 	</div>
 	
 	<jsp:include page="./footer.jsp" />

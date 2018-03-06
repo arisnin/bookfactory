@@ -100,11 +100,6 @@ where rnum >=#{startRow} and rnum <=#{endRow}
    <delete id="boardDelete" parameterType="Integer">
       delete from BOARD_FREQUENCY where num =#{num}
    </delete>
-   
-   <!-- 메인페이지 -->
-   <select id="getBoardCount" resultType="int">
-   	  select count(*) from BOARD_CONTACT
-   </select>
-   
+
 </mapper>
 

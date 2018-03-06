@@ -12,6 +12,9 @@
 <script type="text/javascript" src="${root }/script/notice/notice.js"></script>
 <%-- <script type="text/javascript" src="${root}/script/basic/jquery.js"></script> --%>
 <title>Footer section</title>
+<script type="text/javascript">
+	$(".hw_sub_wrap").hide();
+</script>
 </head>
 <body>
 	<div class="footer_background">
@@ -45,7 +48,7 @@
 					</ul>
 				</div>
 				<div class="row">
-					<span>© RIDI Corp.</span>
+					<span>© BookFactory Corp.</span>
 				</div>
 			</div>
 			<div class="right">
@@ -59,7 +62,7 @@
 				<div class="row">
 					<ul class="service">
 						<li><strong>서비스 이용</strong></li>
-						<li><a>리디캐시 충전</a></li>
+						<li><a>북팩캐시 충전</a></li>
 						<li><a>공지사항</a></li>
 						<li><a>고객센터</a></li>
 					</ul>

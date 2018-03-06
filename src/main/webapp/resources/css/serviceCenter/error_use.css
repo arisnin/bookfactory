@@ -58,4 +58,8 @@
  	line-height: 2.7rem;
 }
 
+.service_information > .service_information_content{
+	display: inline-block;
+	width: 100%
+}
 
