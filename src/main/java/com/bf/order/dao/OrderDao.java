@@ -34,6 +34,8 @@ public interface OrderDao {
 	public List<CategoryPageDto> getCartPurchase(String id, int type);
 
 	public List<CategoryPageDto> getOrderList(List<String> bookList);
+
+	public int getPoint(String username);
 	
 	
 }
