@@ -4,7 +4,7 @@
 
 //체크박스
 $("input[type=checkbox]").click(function(){
-	location.href="${root}/manager/authorUpdateBoard.do?condition="+$(this).val();
+	location.href="/bookFactory/manager/authorUpdateBoard.do?condition="+$(this).val();
 });
 
 var check = 0;
