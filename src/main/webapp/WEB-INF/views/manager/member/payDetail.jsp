@@ -134,46 +134,6 @@
 						
 					</div>
 				</div>
-			
-			<input type="hidden" name="href">
-			
-			<div class="a_se_foot">
-				<nav class="bf-pagination">
-					<ul class="bf-animated-btn">
-						<c:if test="${searchWord==null}">
-							<c:set var="href" value="${root}/manager/memberPayDetail.do?id=${managerCashDto.id }&pageNumber="/>
-						</c:if>
-						<c:if test="${searchWord!=null}">
-							<c:set var="href" value="${root}/manager/memberPayDetail.do?searchWord=${searchWord}&pageNumber="/>
-						</c:if>
-						
-						<li class="first"><a href="${href}1"><span></span></a></li>
-						<c:if test="${count > 0}">
-							<fmt:parseNumber var ="pageCount" value="${count/boardSize + (count % boardSize == 0?0:1)}" integerOnly="true"/>
-							<c:set var ="pageBlock" value="${5}"/>
-							<fmt:parseNumber var="rs" value="${(pageNumber-1)/pageBlock}" integerOnly="true"/>
-							
-							<c:set var="startPage" value="${rs*pageBlock + 1}"/>
-							<c:set var="endPage" value="${startPage + pageBlock - 1}"/>
-							
-							<c:if test="${endPage > pageCount}">
-							<c:set var="endPage" value="${pageCount}"/>
-						</c:if>
-						</c:if>
-						
-						<c:if test="${startPage > pageBlock}">
-							<li class="prev"><a href="${href}${startPage-1}"><span></span></a></li>
-						</c:if>
-						<c:forEach var="i" begin="${startPage}" end="${endPage}">
-							<li><a href="${href}${i}">${i}</a></li>
-						</c:forEach>
-						<c:if test="${endPage < pageCount}">
-							<li class="next"><a href="${href}${endPage+1}"><span></span></a></li>
-						</c:if>
-						<li class="last"><a href="${href}${pageCount}"><span></span></a></li>
-					</ul>
-				</nav>
-				</div>
 			</div>
 		</div>
 </div>

@@ -120,6 +120,9 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 			}
 		}
+		boardFreDto.setContent(boardFreDto.getContent().replace("<br/>","\r\n"));
+	
+		
 		LogAspect.logger.info(LogAspect.logMsg + check);
 		mav.addObject("check", check);
 		mav.setViewName("board/insertOk.mg");
@@ -257,7 +260,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		if (count > 0) {
 			contactDtoList = managerDao.boardContact(startRow, endRow);
 			for (BoardContactDto e : contactDtoList) {
-				e.setContent(e.getContent().replace("<br/>", "\r\n"));
+				e.setContent(e.getContent().replace("<br/>","\r\n"));
 				LogAspect.logger.info(LogAspect.logMsg + e);
 			}
 		}
@@ -409,11 +412,11 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		long fileSize = upFile.getSize();
 
 		int check = 0;
-
+		File path=null;
 		if (fileSize == 0) {
 			check = managerDao.boardUpdateOk(boardFrequencyDto);
 		} else {
-			File path = new File("C:\\sanghun\\");
+			 path = new File("C:\\sanghun\\");
 			path.mkdirs();
 
 			if (path.exists() && path.isDirectory()) {
@@ -434,18 +437,19 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 				LogAspect.logger.info(LogAspect.logMsg + check);
 
 			}
-			if (check > 0) {
-				if (path != null) {
-					File originalFile = new File(filePath);
-					if (originalFile.exists() && originalFile.isFile()) {
-						originalFile.delete();
-					}
+	
+		}if (check > 0) {
+			if (path != null) {
+				File originalFile = new File(filePath);
+				if (originalFile.exists() && originalFile.isFile()) {
+					originalFile.delete();
 				}
-				LogAspect.logger.info(LogAspect.logMsg + check);
-				mav.addObject("pageNumber", pageNumber);
-				mav.addObject("check", check);
-				mav.setViewName("board/updateOk.mg");
 			}
+			LogAspect.logger.info(LogAspect.logMsg + check);
+			mav.addObject("boardFrequencyDto", boardFrequencyDto);
+			mav.addObject("pageNumber", pageNumber);
+			mav.addObject("check", check);
+			mav.setViewName("board/updateOk.mg");
 		}
 	}
 
@@ -613,7 +617,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		} else if (memberDto.getGender().equals("female")) {
 			img = "/img/manager/woman.jpg";
 		}
-
+		memberDto.setRole(memberDto.getRole().toLowerCase());
 		mav.addObject("memberDto", memberDto);
 		mav.addObject("pageNumber", pageNumber);
 		mav.addObject("img", img);

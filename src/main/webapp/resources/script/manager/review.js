@@ -50,6 +50,7 @@
 					if (target.is("button")) {
 						target.fadeOut(1000, function() {
 							target.next().fadeIn(1000);
+						
 						});
 					}
 				},

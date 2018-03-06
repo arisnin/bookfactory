@@ -94,7 +94,7 @@
 					
 							<li><a href="#" onclick="reviewPolice('${root}',this)">${reviewDto.count}</a></li>
 
-							<li><button type="button" type="button" class="bf-button bf-white-btn sh_review_secret">비공개</button>
+							<li><button type="button" type="button" class="bf-button bf-white-btn sh_review_secret" >비공개</button>
 								<button type="button" type="button" class="bf-button bf-white-btn sh_review_open" style="display: none">공개</button>
 								<button type="button" type="button" class="bf-button bf-white-btn sh_review_delete">삭제</button></li>
 						</ul>
