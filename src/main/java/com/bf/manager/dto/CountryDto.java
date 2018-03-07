@@ -1,5 +1,10 @@
 package com.bf.manager.dto;
 
+/**
+ * @이름: 염현우
+ * @날짜: 2018. 3. 7.
+ * @설명: 나라 관련 데이터 
+ */
 public class CountryDto {
 	private String country_num;
 	private String country_name;

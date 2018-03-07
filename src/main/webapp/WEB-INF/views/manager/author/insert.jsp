@@ -71,7 +71,7 @@
 					<div>
 						<label>수상</label>
 						<input type="text" placeholder="수상"/>
-						<button id="awards_btn" type="submit" class="bf-button search">추가</button>
+						<button id="awards_btn" type="button" class="bf-button search">추가</button>
 						<input type="hidden" name="awards">
 					</div>
 					<div class="a_in_list">
@@ -87,7 +87,7 @@
 						<textarea rows="" cols="" name="describe"></textarea>
 					</div>
 					<div align="right">
-						<button id="a_form_btn" type="button" class="bf-button">등록</button>
+						<button id="a_form_btn" type="submit" class="bf-button">등록</button>
 						<button type="button" class="bf-button">취소</button>
 					</div>
 				</div>

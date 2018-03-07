@@ -309,7 +309,7 @@
 			data.forEach(function(e,i) {
 				var li = document.createElement("li");
 				
-				let innerHTML = '<button type="button" class="bf-button bf-transparent-btn" onclick="alert(\''+ e.author_num +'\')"><span class="material-icons">person</span>';
+				let innerHTML = '<button type="button" class="bf-button bf-transparent-btn" onclick="authorDetailHref(\'${root}\','+ e.author_num +')"><span class="material-icons">person</span>';
 				innerHTML += '<span class="author">' + e.author_name + '</span>';
 				if (e.count > 0) {
 					innerHTML += '<span class="book">&nbsp;' + e.book_name + '</span>';

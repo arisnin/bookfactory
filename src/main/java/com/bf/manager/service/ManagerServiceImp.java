@@ -46,9 +46,9 @@ import com.bf.manager.dto.StatPreferenceDto;
 
 
 /**
- * @이름: 염현우 X 전상헌
+ * @이름: 염현우
  * @날짜: 2018. 2. 12.
- * @설명: 관리자 페이지 서비스 메뉴 [도서, 출판사, 작가, 통계]
+ * @설명: 관리자 페이지 첫번째 서비스 메뉴 [도서, 출판사, 작가, 통계, 자동등록]
  */
 @Component
 public class ManagerServiceImp implements ManagerService {
@@ -65,11 +65,11 @@ public class ManagerServiceImp implements ManagerService {
 		int authorEditCount = managerDao.getAuthorEditCount();
 		int cateCount = managerDao.getCateThreeCount();
 		int saleCount = managerDao.getSaleCount();
-		int boardCount = managerDao.getBoardCount();
+		/*int boardCount = managerDao.getBoardCount();*/
 		int reviewCount = managerDao.getReviewCount();
 		
 		mav.addObject("reviewCount", reviewCount);
-		mav.addObject("boardCount", boardCount);
+		/*mav.addObject("boardCount", boardCount);*/
 		mav.addObject("saleCount", saleCount);
 		mav.addObject("cateCount", cateCount);
 		mav.addObject("authorEditCount", authorEditCount);

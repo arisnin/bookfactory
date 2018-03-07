@@ -184,7 +184,7 @@ public class ManagerSecondController {
 		managerService.memberRegisterOk(mav);
 		return mav;
 	}
-	@RequestMapping(value = "/memberDelete.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/memberDelete.do", method = RequestMethod.GET)
 	public ModelAndView memberDelete(HttpServletRequest request, HttpServletResponse response,
 			MemberDto memberDto) {
 		ModelAndView mav = new ModelAndView("member/delete.mg");
