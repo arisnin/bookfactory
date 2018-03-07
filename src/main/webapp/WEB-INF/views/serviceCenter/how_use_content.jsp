@@ -10,7 +10,7 @@
 	rel="stylesheet">
 <link href="${root}/css/basic/commons.css" type="text/css"
 	rel="stylesheet" />
-<link href="${root}/css/serviceCenter/pay_refund_content.css"
+<link href="${root}/css/serviceCenter/how_use_content.css"
 	type="text/css" rel="stylesheet">
 <link href="${root}/css/serviceCenter/FAQ.css"
 	type="text/css" rel="stylesheet">

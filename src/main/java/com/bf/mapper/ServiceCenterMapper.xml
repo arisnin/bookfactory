@@ -99,20 +99,29 @@
 		SELECT * FROM BOARD_FREQUENCY br, QNA_CATE1 q1, QNA_CATE2 q2
       	WHERE q1.NUM =q2.CATE1_NUM
       	AND br.CATEGORY =q2.NUM
-      	and q1.num = #{category}
+      	and q1.num = #{category} order by br.num desc
 	</select>
 	
 	<select id="idLoginSide" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
 		<![CDATA[
-			select * from(
-				select rownum rnum, a.* from(
-					select * from board_frequency where category=#{category} order by num desc) a)
-			where rnum >=1 and rnum <=10
+			SELECT * FROM (
+                SELECT ROWNUM rnum, A.* FROM(
+                                              SELECT br.*, q1.NUM "qna1_num", q2.num "qna2_num", q1.NAME "qna1_name", q2.name "qna2_name" FROM BOARD_FREQUENCY br, QNA_CATE1 q1, QNA_CATE2 q2
+                                              WHERE q1.num = q2.cate1_num
+                                              AND br.CATEGORY = q2.num
+                                              AND q1.num = #{category}
+                                              ORDER BY br.num DESC
+                                              ) a)
+			where rnum>=1 and rnum<=10
 		]]>	
 	</select>
 		
 	<select id="categoryCount" resultType="int">
-		select count(*) from board_frequency where category=#{category}
+		SELECT count(*) FROM BOARD_FREQUENCY br, QNA_CATE1 q1, QNA_CATE2 q2
+      	WHERE q1.NUM =q2.CATE1_NUM
+      	AND br.CATEGORY =q2.NUM
+      	AND q1.num = #{category}
+        order by br.num desc
 	</select>
 	
 	<insert id="bookContactInsert" parameterType="com.bf.serviceCenter.dto.BookContactDto">
