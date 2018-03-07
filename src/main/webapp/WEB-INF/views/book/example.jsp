@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/book/example.css">
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/basic/commons.js"></script>
-<script type="text/javascript" src="${root}/script/book/example3.js"></script>
+<script type="text/javascript" src="${root}/script/book/example.js"></script>
 <script type="text/javascript" src="${root}/script/book/thinScrollbar_1.0.js"></script>
 </head>
 <body class="example_body">
@@ -39,6 +39,7 @@
 							<div class="textView">
 								<!-- 내용 디비에서 가져와서 뿌림 -->
 								${ex.intro}
+								<p style="font-weight: bold;">저작권 문제로 앞부분만 인터넷에서 긁어와서 보여드립니다. 자세한 내용이 궁금하시다면 구입해서 읽는것을 추천드립니다.</p>
 							 </div>
 						</div>
 						<button>&rsaquo;</button>

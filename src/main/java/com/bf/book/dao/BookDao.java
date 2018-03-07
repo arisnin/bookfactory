@@ -57,12 +57,9 @@ public interface BookDao {
 	List<HomeDto> getPopularList(int firstCate);
 	String getThirdNameOverlap(long book_num);
 	List<HomeDto> getBestSellerWeek(HashMap<String, Object> pMap);
-	List<HomeDto> getBestSellerMonth(HashMap<String, Object> pMap);
 	List<HomeDto> getBestSellerSteady(HashMap<String, Object> pMap);
 	int getBestSellerWeekCount(HashMap<String, Object> pMap);
-	int getBestSellerMonthCount(HashMap<String, Object> pMap);
 	int getBestSellerSteadyCount(HashMap<String, Object> pMap);
-	List<HomeDto> getBestSellerWeekPaper(HashMap<String, Object> pMap);
 	int getFirstCateUseBookNum(String book_num);
 	ExampleDto getExample(int first);
 	List<CategoryPageDto> getAuthorBookList(int authorNum, int orderTypeNum, int startRow, int endRow);
