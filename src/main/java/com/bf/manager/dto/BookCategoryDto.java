@@ -1,5 +1,10 @@
 package com.bf.manager.dto;
 
+/**
+ * @이름: 염현우
+ * @날짜: 2018. 3. 7.
+ * @설명: 책 카테고리
+ */
 public class BookCategoryDto {
 
 	private int num;

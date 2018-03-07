@@ -5,7 +5,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * @이름: 염현우
  * @날짜: 2018. 2. 12.
- * @설명: 관리자서비스 인터페이스 
+ * @설명: 관리자 첫번째 서비스 인터페이스 
  */
 public interface ManagerService {
 

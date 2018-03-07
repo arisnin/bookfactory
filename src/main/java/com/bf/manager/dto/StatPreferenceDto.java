@@ -1,5 +1,10 @@
 package com.bf.manager.dto;
 
+/**
+ * @이름: 염현우
+ * @날짜: 2018. 3. 7.
+ * @설명: 통계 - 선호도 DTO 
+ */
 public class StatPreferenceDto {
 
 	private int rnum;

@@ -16,12 +16,13 @@ import com.bf.manager.dto.PublisherDto;
 import com.bf.manager.service.ManagerService;
 
 /**
- * @author YEOM HYUN WOO X JUN SANG HUN
+ * @author 염현우
  * @date 2018-02-07
- * @description start-url = /bookFactory/manager/index.do 요청맵핑은(RequestMapping의
- *              value를 뜻함) .do로 걸어준다 layout 설정법 (ModelAndView의 페이지셋팅값을 뜻함) -
- *              content만 나오는 뷰는 .mge - header, menu, content, footer 다 나오는 뷰는
- *              .mg로 맞춰준다
+ * @description start-url = /bookFactory/manager/index.do 
+ * 요청맵핑은(RequestMapping의value를 뜻함) 
+ * .do로 걸어준다 layout 설정법 (ModelAndView의 페이지셋팅값을 뜻함) 
+ * - content만 나오는 뷰는 .mge 
+ * - header, menu, content, footer 다 나오는 뷰는 .mg로 맞춰준다
  */
 @Controller
 @RequestMapping(value = "/manager")
