@@ -57,4 +57,6 @@ public interface MyPageDao {
 
 	List<OrderDto> orderHistoryList(String id);
 
+	List<MemberDto> HomeMemberList(String id);
+
 }

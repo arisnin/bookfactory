@@ -145,4 +145,10 @@ public class MyPageDaoImp implements MyPageDao {
 		return sqlSession.selectList(nameSpace + "order_history_list", id);
 	}
 
+	@Override
+	public List<MemberDto> HomeMemberList(String id) {
+		return sqlSession.selectList(nameSpace + "select_member", id);
+	}
+
+	
 }

@@ -325,10 +325,12 @@ public class MyPageServiceImp implements MyPageService {
 		int extinction = myPageDao.myPointExtinctionSelect(id);
 		int total3 = myPageDao.selectPurchasedCount(id);
 
+		List<MemberDto> myPageHomeMemberDtoList = myPageDao.HomeMemberList(id);
 		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoFiveList = myPageDao.PurchasedPageFiveList(id);		
 		List<MyPageRecentPageDto> myPageRecentPageDtoFiveList = myPageDao.MyRecentPageFiveList(id);
-		LogAspect.info(myPageRecentPageDtoFiveList.toString());
+		LogAspect.info(myPageHomeMemberDtoList.toString());
 		
+		mav.addObject("myPageHomeMemberDtoList", myPageHomeMemberDtoList);
 		mav.addObject("myPageRecentPageDtoFiveList", myPageRecentPageDtoFiveList);
 		mav.addObject("myPagePurchasedPageDtoFiveList", myPagePurchasedPageDtoFiveList);
 		mav.addObject("total1", total1);

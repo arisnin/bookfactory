@@ -39,6 +39,22 @@
 		<result property="cash_type" column="cash_type"/>
 		<result property="state" column="state"/>
 	</resultMap>
+	
+	<resultMap type="com.bf.member.model.MemberDto" id="memberDto">
+		<result property="num" column="num"/>
+		<result property="id" column="id"/>
+		<result property="password" column="password"/>
+		<result property="email" column="email"/>
+		<result property="gender" column="gender"/>
+		<result property="register_date" column="register_date"/>
+		<result property="birthday" column="birthday"/>
+		<result property="marketing_check" column="marketing_check"/>
+		<result property="ip" column="ip"/>
+		<result property="last_join" column="last_join"/>
+		<result property="phone" column="phone"/>
+		<result property="role" column="role"/>
+		<result property="name" column="name"/>
+	</resultMap>
 
 	<insert id="point_insert" parameterType="com.bf.myPage.dto.MyPagePointDto">
 		insert into point(num, id, point, point_type, state, remain)
@@ -196,5 +212,9 @@
 		and cct.NUM = py.PAY_TYPE
 		and py.id=cc.ID
 		and py.id=p.ID
+	</select>
+	
+	<select id="select_member" parameterType="String" resultType="com.bf.member.model.MemberDto">
+		select * from member where id = #{id}
 	</select>
 </mapper>
