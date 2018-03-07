@@ -119,10 +119,15 @@ public class MainController {
 	}
 	
 	/**
+	 * 메인 > 헤더 > 마이페이지 버튼 마우스오버
+	 * 로그인한 사용자가 마이페이지(마이팩토리) 버튼에 마우스오버시에 팝업되는 팝업 메뉴에 대한 요청
 	 * 
 	 * @param request
 	 * @param response
 	 * @throws IOException
+	 * 
+	 * @author 박성호
+	 * @date 2018. 3. 4.
 	 */
 	@RequestMapping(value = "/member/myMenu.do", method = RequestMethod.POST)
 	public void updateMymenu(HttpServletRequest request, HttpServletResponse response) throws IOException {
