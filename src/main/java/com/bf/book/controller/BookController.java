@@ -26,6 +26,12 @@ import com.bf.manager.service.ManagerService;
  * @date 2018. 2. 14.
  * @description 대분류별 보기 / 책 상세보기 관련 컨트롤러
  */
+
+/**
+ * @author 최정은
+ * @date 2018. 2. 14.
+ * @description 각각 서비스클래스와의 연결
+ */
 @Controller
 public class BookController {
 	@Autowired
@@ -41,7 +47,7 @@ public class BookController {
 	}
 
 	/**
-	 * 메인 > 일반, 만화 > 홈
+	 * 메인 > 일반, 만화 > 홈 - 최정은
 	 */
 	@RequestMapping(value = {"/","/normal.do", "/comic.do","/bl.do"}, method = RequestMethod.GET)
 	public ModelAndView normalHome(HttpServletRequest request, HttpServletResponse response) {
@@ -54,7 +60,7 @@ public class BookController {
 	}
 
 	/**
-	 * 메인 > 로맨스, 판타지, bl > 홈
+	 * 메인 > 로맨스, 판타지, bl > 홈 - 최정은
 	 */
 	@RequestMapping(value = {"/romance.do","/fantasy.do"}, method = RequestMethod.GET)
 	public ModelAndView homeRomance(HttpServletRequest request, HttpServletResponse response) {
@@ -67,7 +73,7 @@ public class BookController {
 	}
 	
 	/**
-	 * 메인 > 카테고리들 > 신간
+	 * 메인 > 카테고리들 > 신간 - 최정은
 	 */
 	@RequestMapping(value = "/new-book.do", method = RequestMethod.GET)
 	public ModelAndView homeNewbook(HttpServletRequest request, HttpServletResponse response) {
@@ -80,7 +86,7 @@ public class BookController {
 	}
 
 	/**
-	 * 메인 > 카테고리들 > 주간베스트셀러
+	 * 메인 > 카테고리들 > 베스트셀러 - 최정은
 	 */
 	@RequestMapping(value = "/best-sell.do", method = RequestMethod.GET)
 	public ModelAndView homeBestSeller(HttpServletRequest request, HttpServletResponse response) {
@@ -93,7 +99,7 @@ public class BookController {
 	}
 
 	/**
-	 * 책(일반, 만화, 단행본) > 책 상세보기
+	 * 책(일반, 만화, 단행본) > 책 상세보기 - 최정은
 	 */
 	@RequestMapping(value = "/detail.do", method = RequestMethod.GET)
 	public ModelAndView bookDetail(HttpServletRequest request, HttpServletResponse response) {
@@ -106,7 +112,7 @@ public class BookController {
 	}
 		
 	/**
-	 * 책(일반, 만화, 단행본) > 책 상세보기 > 작가수정요청 버튼
+	 * 책(일반, 만화, 단행본) > 책 상세보기 > 작가수정요청 버튼  - 최정은,염현우
 	 */
 	@RequestMapping(value = "/authorProfilUpdate.do", method = RequestMethod.GET)
 	public ModelAndView authorProfilUpdate(HttpServletRequest request, HttpServletResponse response) {
@@ -117,7 +123,7 @@ public class BookController {
 	}
 
 	/**
-	 * 연재 > 책 상세보기 //임시로 로맨스화면의 베스트셀러들에게 걸음
+	 * 연재 > 책 상세보기  - 최정은 // 데이터없음
 	 */
 	@RequestMapping(value = "/book/plusSerial.do", method = RequestMethod.GET)
 	public String bookSerial(HttpServletRequest request, HttpServletResponse response) {
@@ -126,7 +132,7 @@ public class BookController {
 	}
 
 	/**
-	 * 책상세보기 > 미리보기버튼
+	 * 책상세보기 > 미리보기버튼 - 최정은
 	 */
 	@RequestMapping(value = "/book/example.do", method = RequestMethod.GET)
 	public ModelAndView bookExample(HttpServletRequest request, HttpServletResponse response) {
@@ -139,7 +145,7 @@ public class BookController {
 	}
 
 	/**
-	 * 일반 제외 홈화면들 > 키워드검색
+	 * 일반 제외 홈화면들 > 키워드검색 - 최정은
 	 */
 	@RequestMapping(value = "/keyword.do", method = RequestMethod.GET)
 	public ModelAndView keyword(HttpServletRequest request, HttpServletResponse response) {
@@ -152,7 +158,7 @@ public class BookController {
 	}
 	
 	/**
-	 * 일반 제외 홈화면들 > 키워드 검색 ajax
+	 * 일반 제외 홈화면들 > 키워드 검색 ajax - 최정은
 	 */
 	@RequestMapping(value = "/keywordSearch.do", method = RequestMethod.POST)
 	public ModelAndView keywordSearch(HttpServletRequest request, HttpServletResponse response) {
@@ -171,7 +177,7 @@ public class BookController {
 	@RequestMapping(value = "/review/write.do", method = RequestMethod.POST)
 	public ModelAndView reviewWrite(HttpServletRequest request, HttpServletResponse response, ReviewDto reviewDto) {
 		LogAspect.info("reviewWrite():" + request.getHeader("referer"));
-		return bookService.reviewWrite(new ModelAndView("book/review.solo").addObject("request", request).addObject("reviewDto", reviewDto));
+		return bookService.reviewWrite(new ModelAndView("redirect:"+request.getHeader("referer")).addObject("request", request).addObject("reviewDto", reviewDto));
 	}
 	
 	/**

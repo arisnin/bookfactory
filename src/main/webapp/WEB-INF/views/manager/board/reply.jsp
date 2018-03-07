@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,14 +102,14 @@
 				 $(".sh_reply").text("\r\n"+$("#reply_content").val());
 				
 			}else if("${boardContactDto.reply_check =='ok'}"=="false"){
-				alert(text);
+				
 				 $(".sh_reply").text(text+"\n"+"-----Original Message-----"+"\n"+
 						"From: ${boardContactDto.id}"+"\r\n"+
 						"To: ${id}"+"\r\n"+
 						"Day:"+now+"\r\n"+
 						"Subject:"+"\r\n");
 			}
-		}
+		});
 	});
 	</script>
 </body>

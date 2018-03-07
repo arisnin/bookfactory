@@ -72,7 +72,7 @@
 						<li>${memberDto.phone }</li>
 						<li><fmt:formatDate value="${memberDto.register_date}" pattern="yyyy/MM/dd"/>
 						<li><fmt:formatDate value="${memberDto.last_join }" pattern="yyyy/MM/dd"/>
-						<li>5</li>
+						<li>3</li>
 						<!-- 게시글 목록 넘어가기 -->
 						<li><a href="${root}/manager/memberRegister.do?pageNumber=${pageNumber}&id=${memberDto.id}" class="bf-button">상세보기</a></li>
 						</ul>
@@ -80,7 +80,7 @@
 					</c:forEach>
 				</div>
 				</form>
-			</div>
+			</div> 
 
 			
 			<input type="hidden" name="href">

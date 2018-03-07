@@ -1,6 +1,5 @@
 package com.bf.manager.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.bf.manager.dto.AuthorDto;
@@ -20,7 +19,7 @@ import com.bf.manager.dto.StatPreferenceDto;
 /**
  * @이름: 염현우
  * @날짜: 2018. 2. 12.
- * @설명: 
+ * @설명: 매니저 첫번째 컨트롤러 DAO 인터페이스
  */
 public interface ManagerDao {
 
@@ -190,5 +189,9 @@ public interface ManagerDao {
 	public int deleteBook(int book_num);
 
 	public void rejectAuthorEdit(int num);
+
+	public int getBoardCount();
+
+	public int getReviewCount();
 
 }

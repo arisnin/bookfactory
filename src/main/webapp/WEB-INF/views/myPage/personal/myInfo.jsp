@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@	taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -83,14 +83,19 @@
 			<div class="left">마케팅 정보 수신 관리</div>
 			<div class="right">
 				<label class="bf-custom-checkbox">
-					<input type="checkbox" name="marketing_check" />
-					<input name="marketing_check" type="hidden" value="${memberDto.marketing_check}">
+					<input id='email-chk-id' type="checkbox" onchange="marketingCheck()" />
 					<span class="all-mark"></span>
 					<span class="checkbox-label">이메일 구독</span>
 				</label>
+				<input id="marketing_check" type="hidden" value="${memberDto.marketing_check}" name="marketing_check" />
+				<script type="text/javascript">
+					if ('${memberDto.marketing_check}' == 'yes') {
+						document.getElementById("email-chk-id").checked = true;
+					}
+				</script>
 				<div class="fifth_text">
-					<input name="email" type="text" placeholder="${memberDto.email}" />
-					<!-- <input name="emailCheck" type="hidden"/> -->	
+					<input type="text" placeholder="${memberDto.email}" />
+					<!-- <input name="emailCheck" type="hidden"/> -->
 				</div>
 
 				<div>(동의일 : <fmt:formatDate value="${memberDto.register_date}" pattern="yyyy-MM-dd"/>)</div>
@@ -107,10 +112,17 @@
 	
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 	<script type="text/javascript">		
-		$("input[name='marketing_check']").is(function(){
-			// $(this).val() = on
+		/* $("input[name='marketing_check']").attr("value", value) */
+		function marketingCheck() {
+			//alert(event.target);
+			if (event.target.checked) {
+				document.getElementById("marketing_check").value = 'yes';
+			} else {
+				document.getElementById("marketing_check").value = 'no';
+			}
+				
 			
-		});
+		}
 	</script>
 </body>
 </html>

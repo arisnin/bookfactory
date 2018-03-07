@@ -51,7 +51,8 @@
 		<button class="accordion">리뷰 관리<span class="i-i-plus"></span></button>
 		<div class="panel">
 		  <ul>
-		  	<li><a href="#"><span class="i-i-angle-right"></span>리뷰 통계</a></li>
+		  	<li><a href="javascript:alert('구현중!ㅠㅠ')"><span class="i-i-angle-right"></span>리뷰 통계</a></li>
+		  	
 		  	<li><a href="/manager/review/review.jsp"><span class="i-i-angle-right"></span>리뷰 관리</a></li>
 		  </ul>
 		</div>
@@ -61,7 +62,7 @@
 		  <ul>
 		  	<li><a href="#"><span class="i-i-angle-right"></span>1:1 문의내역</a></li>
 		  	<li><a href="#"><span class="i-i-angle-right"></span>자주하는 질문 등록</a></li>
-		  	<li><a href="#"><span class="i-i-angle-right"></span>게시판 관리</a></li>
+		  	<li><a href="#"><span class="i-i-angle-right"></span>자주하는 게시판 관리</a></li>
 		  	<li><a href="#"><span class="i-i-angle-right"></span>공지사항 등록</a></li>
 		  </ul>
 		</div>

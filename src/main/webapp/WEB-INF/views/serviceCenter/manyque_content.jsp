@@ -30,10 +30,10 @@
 		<div class="service_FAQ_home_header">
 			<div class="service_FAQ_home_header_left">
 				<span><a
-					href="${root }/serviceCenter/main.do">리디북스 고객센터</a>
+					href="${root }/serviceCenter/main.do">북팩토리 고객센터</a>
 				</span>
 				<span>></span>
-				<a href="${root }/serviceCenter/manyque.do">리디북스 자주 묻는 질문</a>
+				<a href="${root }/serviceCenter/manyque.do">북팩토리 자주 묻는 질문</a>
 			</div>
 
 

@@ -57,7 +57,7 @@
 				<div class="row">
 					<ul class="service">
 						<li><strong>서비스 이용</strong></li>
-						<li><a>리디캐시 충전</a></li>
+						<li><a>북팩캐시 충전</a></li>
 						<li><a>공지사항</a></li>
 						<li><a>고객센터</a></li>
 					</ul>

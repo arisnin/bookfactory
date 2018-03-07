@@ -88,7 +88,7 @@
 						</div>
 					</div>
 					<!-- 리뷰 내용 작성 -->
-					<div class="review-write-form" onclick="asyncLoginCheck(this)">
+					<div class="review-write-form " onclick="asyncLoginCheck(this)">
 						<c:if test="${reviewSelf != null}">
 							<div>
 								<p class="review-content ">
@@ -109,7 +109,7 @@
 							</div>
 						</c:if>
 						<c:if test="${reviewSelf == null}">
-							<textarea class="review-content " id="review-textarea" name="content" placeholder="리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다."></textarea>
+							<textarea class="review-content " id="review-textarea" name="content" placeholder="${userInfo == null ? '리뷰 작성은 로그인 시에만 가능합니다.' : '리뷰 작성 시 광고 및 욕설, 비속어나 타인을 비방하는 문구를 사용하시면 비공개 될 수 있습니다.'}" ${userInfo == null ? 'disabled' : ''}></textarea>
 						</c:if>
 					</div>
 					<!-- 리뷰 확인 버튼 -->
@@ -183,7 +183,7 @@
 						</div>
 						<div class="review-info-row">
 							<span class="reviewer-id">${reviewDto.id}</span>
-							<span class="badge-icon">구매자</span>
+							<span class="badge-icon ${reviewDto.buyer == 'on' ? '' : 'hidden-block'}">구매자</span>
 						</div>
 						<div class="review-info-row">
 							<span class="review-date" data-review-date="<fmt:formatDate value="${reviewDto.write_date}" pattern="yyMMdd"/>"><fmt:formatDate value="${reviewDto.write_date}" pattern="yy-MM-dd"/></span>
@@ -330,8 +330,7 @@
 		
 		function asyncLoginCheck(obj) {
 			var str = event.target + '\n' + obj.nodeName;
-			if (event.currentTarget == obj) alert('true\n' + str);
-			else alert('false\n' + str);
+			//if (event.currentTarget == obj) alert('true\n' + str); else alert('false\n' + str);
 		}
 	</script>
 </body>

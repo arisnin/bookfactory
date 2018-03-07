@@ -23,7 +23,7 @@
 	<div class="service_FAQ_home_header">
 		<div class="service_FAQ_home_header_left">
 			<span>
-				<a href="${root }/serviceCenter/main.jsp">리디북스 고객센터</a>
+				<a href="${root }/serviceCenter/main.jsp">북팩토리 고객센터</a>
 			</span>
 			<span>
 				 > 문의등록
