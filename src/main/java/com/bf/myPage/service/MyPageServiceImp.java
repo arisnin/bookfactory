@@ -325,10 +325,12 @@ public class MyPageServiceImp implements MyPageService {
 		int extinction = myPageDao.myPointExtinctionSelect(id);
 		int total3 = myPageDao.selectPurchasedCount(id);
 
+		List<MemberDto> myPageHomeMemberDtoList = myPageDao.HomeMemberList(id);
 		List<MyPagePurchasedPageDto> myPagePurchasedPageDtoFiveList = myPageDao.PurchasedPageFiveList(id);		
 		List<MyPageRecentPageDto> myPageRecentPageDtoFiveList = myPageDao.MyRecentPageFiveList(id);
-		LogAspect.info(myPageRecentPageDtoFiveList.toString());
+		LogAspect.info(myPageHomeMemberDtoList.toString());
 		
+		mav.addObject("myPageHomeMemberDtoList", myPageHomeMemberDtoList);
 		mav.addObject("myPageRecentPageDtoFiveList", myPageRecentPageDtoFiveList);
 		mav.addObject("myPagePurchasedPageDtoFiveList", myPagePurchasedPageDtoFiveList);
 		mav.addObject("total1", total1);
@@ -385,5 +387,38 @@ public class MyPageServiceImp implements MyPageService {
 		mav.setViewName("myPage/personal/myInfo.my");
 	}
 
+	@Override
+	public void orderHistory(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		
+		List<OrderDto> myPageOrderHistoryList = myPageDao.orderHistoryList(id);
+		LogAspect.info(myPageOrderHistoryList.size());
+		
+		mav.addObject("myPageOrderHistoryList", myPageOrderHistoryList);
+		mav.setViewName("myPage/payment/orderhistory.my");
+	}
 
+	/*@Override
+	public void orderHistoryClick(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		
+		long order_num = Long.parseLong(request.getParameter("order_num"));
+		LogAspect.info(id + "," + order_num);
+		
+		OrderDto orderDto = myPageDao.orderHistoryClick(id, order_num);
+		LogAspect.info(orderDto.toString());
+		
+		mav.addObject("orderDto", orderDto);
+		mav.setViewName("myPage/payment/orderhistoryClick.my");
+	}
+
+*/
 }

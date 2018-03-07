@@ -19,6 +19,42 @@
 		<result property="book_name" column="book_name"/>
 		<result property="author_name" column="author_name"/>
 	</resultMap>
+	
+	<resultMap type="com.bf.order.dto.OrderDto" id="orderDto">
+		<result property="num" column="num"/>
+		<result property="order_num" column="order_num"/>
+		<result property="book_num" column="book_num"/>
+		<result property="price" column="price"/>
+		<result property="payment_date" column="payment_date"/>
+		<result property="present_check" column="present_check"/>
+		<result property="cancel_check" column="cancel_check"/>
+		<result property="free_pass" column="free_pass"/>
+		<result property="id" column="id"/>
+		<result property="pay_type" column="pay_type"/>
+		<result property="point_use" column="point_use"/>
+		<result property="cash_use" column="cash_use"/>
+		<result property="rental_date" column="rental_date"/>
+		<result property="rental_state" column="rental_state"/>
+		<result property="point" column="point"/>
+		<result property="cash_type" column="cash_type"/>
+		<result property="state" column="state"/>
+	</resultMap>
+	
+	<resultMap type="com.bf.member.model.MemberDto" id="memberDto">
+		<result property="num" column="num"/>
+		<result property="id" column="id"/>
+		<result property="password" column="password"/>
+		<result property="email" column="email"/>
+		<result property="gender" column="gender"/>
+		<result property="register_date" column="register_date"/>
+		<result property="birthday" column="birthday"/>
+		<result property="marketing_check" column="marketing_check"/>
+		<result property="ip" column="ip"/>
+		<result property="last_join" column="last_join"/>
+		<result property="phone" column="phone"/>
+		<result property="role" column="role"/>
+		<result property="name" column="name"/>
+	</resultMap>
 
 	<insert id="point_insert" parameterType="com.bf.myPage.dto.MyPagePointDto">
 		insert into point(num, id, point, point_type, state, remain)
@@ -152,4 +188,33 @@
 	<update id="update_info" parameterType="com.bf.member.model.MemberDto">
 		update member set password = #{password}, marketing_check = #{marketing_check} where id = #{id}
 	</update>
+	
+	<select id="order_history_list" parameterType="String" resultType="com.bf.order.dto.OrderDto">
+		SELECT distinct py.num "num", py.id "id", py.price "price", cct.CHARGE_TYPE "pay_type", py.PAYMENT_DATE "payment_date", py.order_num "order_num"
+		FROM payment py, CASH_CHARGE_TYPE cct, CASH_CHARGE cc
+		WHERE py.id = #{id}
+		and cct.num = py.PAY_TYPE
+		ORDER BY py.PAYMENT_DATE DESC
+	</select>
+	
+	<!-- <select id="order_history_click_select" parameterType="java.util.Map" resultType="com.bf.order.dto.OrderDto">
+		select cc.order_num, cc.cash_type, cc.CHARGE_CASH "PRICE", 0 "cash_use", 0 "point_use", cct.CHARGE_TYPE "pay_type", p.POINT "point"
+		from cash_charge cc, CASH_CHARGE_TYPE cct, point p
+		where cc.id = #{id} and cc.ORDER_NUM= #{order_num} and cc.POINT_NUM = p.NUM and cct.NUM = cc.CHARGE_TYPE_NUM
+	</select> -->
+	
+	<select id="order_history_click_select" parameterType="java.util.Map" resultType="com.bf.order.dto.OrderDto">
+		select py.order_num "order_num", cc.cash_type "cash_type", py.price "PRICE", 0 "cash_use", 0 "point_use", cct.CHARGE_TYPE "pay_type", p.POINT "point"
+		from cash_charge cc, CASH_CHARGE_TYPE cct, point p, payment py
+		where py.id = #{id}
+		and py.ORDER_NUM=#{order_num}
+		and cc.POINT_NUM = p.NUM
+		and cct.NUM = py.PAY_TYPE
+		and py.id=cc.ID
+		and py.id=p.ID
+	</select>
+	
+	<select id="select_member" parameterType="String" resultType="com.bf.member.model.MemberDto">
+		select * from member where id = #{id}
+	</select>
 </mapper>

@@ -35,6 +35,9 @@ public interface MyPageService {
 
 	void myInfoCheck(ModelAndView mav);
 
-	void myInfo(ModelAndView mav);	
+	void myInfo(ModelAndView mav);
+
+	void orderHistory(ModelAndView mav);
+
 
 }

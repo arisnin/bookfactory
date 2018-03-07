@@ -432,6 +432,12 @@ public class MainServiceImp implements MainService {
 		
 	}
 	
+	/**
+	 * @author : 김동환
+	 * @date : 2018. 2. 20.
+	 * comment : 공지사항
+	 */
+	
 	@Override
 	public void noticeRead(ModelAndView mav) {
 		Map<String, Object> map = mav.getModelMap();
@@ -452,6 +458,7 @@ public class MainServiceImp implements MainService {
 		mav.setViewName("notice/content.main");
 	}
 
+	// 이벤트 - 최정은
 	@Override
 	public void event(ModelAndView mav) {
 		// TODO Auto-generated method stub
@@ -500,7 +507,9 @@ public class MainServiceImp implements MainService {
 		mav.addObject("boardSize", boardSize);
 		
 	}
-
+	
+	
+	// 이벤트 상세보기  - 최정은
 	@Override
 	public void eventDetail(ModelAndView mav) {
 		// TODO Auto-generated method stub
@@ -530,15 +539,13 @@ public class MainServiceImp implements MainService {
 
 		for (Map e : noticeMini) {
 			json.add(e);
-		}
-						 
+		}						 
 		
 		response.setContentType("application/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.print(json.toJSONString());
 		out.flush();
 		out.close();
-
 	}
 
 

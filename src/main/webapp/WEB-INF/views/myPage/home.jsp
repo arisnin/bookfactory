@@ -22,13 +22,15 @@
 		<!-- 기본정보(계정, 보유캐시/포인트/쿠폰) -->
 		<article class="mf-home-article mf-home-header">
 			<!-- 계정 정보 -->
+			<c:forEach var="myHomeMemberDto" items="${myPageHomeMemberDtoList}">
 			<div class="home-account-info-box">
 				<div class="account-info">
-					<h3 class="account-info-id">eclipse</h3>
-					<p class="account-info-email">eclipse@naver.com</p>
+					<h3 class="account-info-id">${myHomeMemberDto.id}</h3>
+					<p class="account-info-email">${myHomeMemberDto.email}</p>
 				</div>
 				<a class="account-logout-btn" href="${root}/member/logout.do">로그아웃</a>
 			</div>
+			</c:forEach>
 			<!-- 보유 자산 정보 -->
 			<div class="home-asset-info-box">
 				<ul class="asset-info-list">

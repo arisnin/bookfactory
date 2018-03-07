@@ -131,9 +131,15 @@ public class MyPageController {
 	 * 마이페이지 > 결제내역
 	 */
 	@RequestMapping(value="/payment/orderhistory.do")
-	public String orderhistory(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView orderhistory(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("orderhistory()");
-		return "myPage/payment/orderhistory.my";
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.orderHistory(mav);
+		
+		return mav;
 	}
 	
 	/**
@@ -142,6 +148,13 @@ public class MyPageController {
 	@RequestMapping(value="/payment/orderhistoryClick.do")
 	public String orderhistoryClick(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("orderhistory()");
+		/*request.getSession().setAttribute("userInfoId", "user");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("request", request);
+		
+		mypageService.orderHistoryClick(mav);*/
+		
 		return "myPage/payment/orderhistoryClick.my";
 	}
 	
