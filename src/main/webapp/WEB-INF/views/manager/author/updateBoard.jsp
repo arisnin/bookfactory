@@ -114,7 +114,7 @@
 			</div>
 		</section>
 	</div>
-
+	<input type="hidden" name="condition" value="${condition}">
 	<input type="hidden" name="pageNumber" value="${pageNumber}">
 	<script src="${root}/script/basic/jquery.js"></script>
 	<script src="${root}/script/basic/commons.js"></script>

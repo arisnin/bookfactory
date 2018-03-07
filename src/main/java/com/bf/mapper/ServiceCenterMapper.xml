@@ -96,7 +96,10 @@
 	
 	
 	<select id="idLoginMain" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">
-		select * from board_frequency where category=#{category} order by num desc
+		SELECT * FROM BOARD_FREQUENCY br, QNA_CATE1 q1, QNA_CATE2 q2
+      	WHERE q1.NUM =q2.CATE1_NUM
+      	AND br.CATEGORY =q2.NUM
+      	and q1.num = #{category}
 	</select>
 	
 	<select id="idLoginSide" parameterType="int" resultType="com.bf.manager.dto.BoardFrequencyDto">

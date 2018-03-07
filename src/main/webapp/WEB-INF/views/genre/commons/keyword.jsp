@@ -12,7 +12,6 @@
 <link rel="stylesheet" type="text/css" href="${root}/css/genre/keyword.css" />
 <script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
 <script type="text/javascript" src="${root}/script/basic/commons.js"></script>
-<%-- <script type="text/javascript" src="${root}/script/genre/keyword_check.js"></script> --%>
 <script type="text/javascript" src="${root}/script/genre/keywordA.js"></script>
 </head>
 <body>

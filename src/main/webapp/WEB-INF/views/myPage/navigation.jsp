@@ -55,7 +55,7 @@
 					<span class="menu-title-text">개인</span>
 				</h4>
 				<ul class="myridi-menu-list">
-					<li class="menu-list-item"><a class="item-link" href="javascript:alert('1:1문의 준비중')">1:1 문의</a></li>
+					<li class="menu-list-item"><a class="item-link" href="${root}/serviceCenter/inquriy.do">1:1 문의</a></li>
 					<li class="menu-list-item"><a class="item-link" href="javascript:alert('내 기기 관리 준비중')">내 기기 관리</a></li>
 					<li class="menu-list-item"><a class="item-link" href="${root}/personal/myReview.do">내 리뷰 관리</a></li>
 					<li class="menu-list-item"><a class="item-link" href="${root}/personal/myInfoCheck.do">정보변경</a></li>

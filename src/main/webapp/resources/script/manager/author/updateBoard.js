@@ -4,12 +4,12 @@
 
 //체크박스
 $("input[type=checkbox]").click(function(){
-	location.href="${root}/manager/authorUpdateBoard.do?condition="+$(this).val();
+	location.href="/bookFactory/manager/authorUpdateBoard.do?condition="+$(this).val();
 });
 
 var check = 0;
 $("input[type=checkbox]").each(function(){
-	if($(this).val() == "${condition}"){
+	if($(this).val() == $("input[name=condition]").val()){
 		$(this).prop("checked",true);
 		check = 1;
 	}

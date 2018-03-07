@@ -2,6 +2,11 @@ package com.bf.manager.dto;
 
 import java.util.Date;
 
+/**
+ * @이름: 염현우
+ * @날짜: 2018. 3. 7.
+ * @설명: 출판사 검색 
+ */
 public class PublisherSearchDto {
 	private int pub_num;
 	private String name;

@@ -60,32 +60,32 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.insert( namespace + "insert-review", reviewDto);
 	}
 
-	@Override	//일반, 만화에서 사용하는 홈화면 책정보가져오기 나중에 수정해야함 - 
+	@Override	//일반, 만화에서 사용하는 홈화면 책정보가져오기 -최정은
 	public List<HomeDto> getHomeBookInfoList(int firstCate) {
 		// TODO Auto-generated method stub
 		
 		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getHomeBookInfoList", firstCate);
 	}
 
-	@Override	//첫번째 카테고리 번호 얻기
+	@Override	//첫번째 카테고리 번호 얻기 - 최정은
 	public int getFirstCate(String firstCateName) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getFirstCate", firstCateName);
 	}
 
-	@Override	//첫번째 카테고리 이름 얻기
+	@Override	//첫번째 카테고리 이름 얻기 - 최정은
 	public String getFirstCateName(String firstCate) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getFirstCateName", firstCate);
 	}
 
-	@Override	//일반, 만화의 신간 책 들고오기
+	@Override	//일반, 만화의 신간 책 들고오기 - 최정은
 	public List<NewBookDto> getNewBookList(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getNewBookList",map);
 	}
 	
-	@Override	//일반, 만화의 신간 책 권 수
+	@Override	//일반, 만화의 신간 책 권 수 - 최정은
 	public int getNewBookCount(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getNewBookCount", map);
@@ -127,102 +127,102 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.delete(namespace + "delete-review", map);
 	}
 	
-	@Override	//추천도서 가져오기
+	@Override	//추천도서 가져오기 - 최정은
 	public HomeDto getRecomList(int randomBookNum) {
 		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getRecomList", randomBookNum);
 	}
 
-	@Override	//오늘의 추천에서 랜덤값 가져오는 아이 - 일반, 만화 해당
+	@Override	//오늘의 추천에서 랜덤값 가져오는 아이 - 일반, 만화 해당 - 최정은
 	public List<Integer> getRandomBookNum(int firstCate) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("com.bf.mapper.BookPlusMapper.getRandomBookNum", firstCate);
 	}
 
-	@Override	//일반,만화 제외 홈 화면에서 연재인지 단행본인지 구별하는 아이
+	@Override	//일반,만화 제외 홈 화면에서 연재인지 단행본인지 구별하는 아이 - 최정은
 	public int getBookSecondCate(int firstCate) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getBookSecondCate", firstCate);
 	}
 
-	@Override	//오늘의 추천에서 랜덤값 가져오는 아이 - 로맨스, 판타지, 비엘 단행본 해당
+	@Override	//오늘의 추천에서 랜덤값 가져오는 아이 - 로맨스, 판타지, 비엘 단행본 해당 -최정은
 	public List<Integer> getPaperRandomBookNum(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getPaperRandomBookNum", map);
 	}
 
-	@Override	//일반, 만화 제외 홈 화면 리스트 뿌리기
+	@Override	//일반, 만화 제외 홈 화면 리스트 뿌리기 - 최정은
 	public List<HomeDto> getPaperHomeBookInfoList(HashMap<String, Integer> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getPaperHomeBookInfoList", map);
 	}
 
-	@Override	//일반, 만화 제외 신간 권 수 가져오기
+	@Override	//일반, 만화 제외 신간 권 수 가져오기 - 최정은
 	public int getPaperNewBookCount(HashMap<String, String> cateMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getPaperNewBookCount", cateMap);
 	}
 
-	@Override	//단행본인 아이들 신권 리스트 가져오기
+	@Override	//단행본인 아이들 신권 리스트 가져오기 - 최정은
 	public List<NewBookDto> getPaperNewBookList(HashMap<String, String> cateMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getPaperNewBookList", cateMap);
 	}
 
-	@Override	//책 상세보기 정보 가져오기
+	@Override	//책 상세보기 정보 가져오기 - 최정은
 	public DetailDto getBookAllInfo(long book_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getBookAllInfo", book_num);
 	}
 
-	@Override	//두번째 카테고리 번호가져오기
+	@Override	//두번째 카테고리 번호가져오기 - 최정은
 	public int getSecondCateNum(long book_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getSecondCateNum", book_num);
 	}
 
-	@Override	//두번째 카테고리 이름 가져오기
+	@Override	//두번째 카테고리 이름 가져오기 - 최정은
 	public String getSecondCateName(long book_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getSecondCateName", book_num);
 	}
 
-	@Override	//출판사 이름 가져오기
+	@Override	//출판사 이름 가져오기 - 최정은
 	public String getPubName(long book_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getPubName", book_num);
 	}
 
-	@Override	//태그선택시 카운트수 가져오기
+	@Override	//태그선택시 카운트수 가져오기 - 최정은
 	public int getTagListCount(HashMap<String, Object> list) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getTagListCount", list);
 	}
 
-	@Override	//태그선택시 해당값에 맞는 책정보들고오기
+	@Override	//태그선택시 해당값에 맞는 책정보들고오기 - 최정은
 	public List<HomeDto> getTagBookList(HashMap<String, Object> listMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getTagBookList", listMap);
 	}
 
-	@Override	//작가 정보가져오기
+	@Override	//작가 정보가져오기 - 최정은
 	public AuthorDto getAuthorInfo(long author_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getAuthorInfo", author_num);
 	}
 
-	@Override	//작가 대표저서 가져오기
+	@Override	//작가 대표저서 가져오기 - 최정은
 	public List<HomeDto> getAuthorBook(long author_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getAuthorBook", author_num);
 	}
 
-	@Override	//상세보기에서의 카테고리들
+	@Override	//상세보기에서의 카테고리들 - 최정은
 	public List<DetailCateDto> getDetailCate(long book_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getDetailCate",book_num);
 	}
 
-	@Override	//키워드에서 가지고 있는 키워드들 받아옴
+	@Override	//키워드에서 가지고 있는 키워드들 받아옴 - 최정은
 	public List<String> getKeyword(long book_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getKeyword", book_num);
@@ -235,73 +235,55 @@ public class BookDaoImp implements BookDao {
 		return sqlSession.insert(namespace + "recent_look_book_insert", myPageRecentLookBookDto);
 	}
 
-	@Override	//최근많이읽는책
+	@Override	//최근많이읽는책 - 최정은
 	public List<HomeDto> getPopularList(int firstCate) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getPopularList", firstCate);
 	}
 
-	@Override	//두번째 카테고리이름 가져오되 중복되어있을경우 위에 하나만 가져오는것
+	@Override	//두번째 카테고리이름 가져오되 중복되어있을경우 위에 하나만 가져오는것 - 최정은
 	public String getThirdNameOverlap(long book_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getThirdNameOverlap", book_num);
 	}
 
-	@Override
+	@Override	//주간베스트셀러 가져오기 - 최정은
 	public List<HomeDto> getBestSellerWeek(HashMap<String, Object> pMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getBestSellerWeek", pMap);
 	}
 
-	@Override
-	public List<HomeDto> getBestSellerMonth(HashMap<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("getBestSellerMonth", pMap);
-	}
-
-	@Override
+	@Override	//스테디셀러 - 최정은
 	public List<HomeDto> getBestSellerSteady(HashMap<String, Object> pMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getBestSellerSteady", pMap);
 	}
 
-	@Override
+	@Override	//베스트셀러 카운트수  - 최정은
 	public int getBestSellerWeekCount(HashMap<String, Object> pMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getBestSellerWeekCount", pMap);
 	}
 
-	@Override
-	public int getBestSellerMonthCount(HashMap<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("getBestSellerMonthCount", pMap);
-	}
-
-	@Override
+	@Override	//스테디셀러 카운트  - 최정은
 	public int getBestSellerSteadyCount(HashMap<String, Object> pMap) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getBestSellerSteadyCount", pMap);
 	}
 
-	@Override
-	public List<HomeDto> getBestSellerWeekPaper(HashMap<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("getBestSellerWeekPaper",pMap);
-	}
-
-	@Override
+	@Override	//book_num을 이용해 첫번째 카테고리 번호 가져오기  - 최정은
 	public int getFirstCateUseBookNum(String book_num) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getFirstCateUseBookNum",book_num);
 	}
 
-	@Override
+	@Override	//미리보기  - 최정은
 	public ExampleDto getExample(int first) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getExample", first);
 	}
 
-	@Override
+	@Override	//단행본 최근가장많이 읽는책
 	public List<HomeDto> getPopularListPaper(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getPopularListPaper",map);

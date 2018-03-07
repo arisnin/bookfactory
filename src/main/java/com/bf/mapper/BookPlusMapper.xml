@@ -162,42 +162,6 @@
 		where p.rp BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
- 	<select id="getBestSellerWeekPaper" parameterType="java.util.HashMap" resultMap="HomeDto">
-		SELECT *
-		from (SELECT prn.book_num, b.img_path, b.NAME "bookName", b.author_num, au.NAME "authorName", b.intro, b.price, b.rental_period, b.rental_price, p.pub_num "pub_num", p.NAME "pub_name", nvl(rs."star_point",0) "star_point", nvl(rs."star_count",0) "star_count", rownum rp
-		FROM (SELECT DISTINCT a.book_num, ROWNUM r
-		      FROM (SELECT p.book_num, count(p.book_num)
-		            FROM payment p, book_category c, first_cate f,second_cate sc
-		            WHERE p.book_num=c.book_num
-		            AND c.cate1_num=f.num
-		            and c.cate2_num=sc.num
-		            AND f.num=#{firstCate}
-		            and sc.num=#{seconCate}
-		            and payment_date > trunc(SYSDATE-#{day})
-		            GROUP BY p.book_num
-		            ORDER BY 2 DESC)A
-		      )prn, bookm b, author au, publisher p,(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
-		                                              FROM (
-		                                                SELECT rw.* FROM review rw, (
-		                                                  SELECT DISTINCT ID, book_num
-		                                                  FROM payment
-		                                                ) pm
-		                                                WHERE rw.book_num = pm.book_num
-		                                                AND rw.ID = pm.ID
-		                                              )
-		                                              GROUP BY book_num
-		                                            ) rs
-		      WHERE prn.book_num=b.book_num
-		      and prn.book_num= rs.book_num(+)
-		      and b.pub_num=p.pub_num
-			  <if test="rental=='yes'">
-			  	  <![CDATA[and b.rental_period!='no']]>
-			  </if>
-		      AND b.author_num=au.num
-		      ORDER BY prn.r ASC) p
-		where p.rp BETWEEN #{startRow} AND #{endRow}
-	</select>
-	
 	<select id="getBestSellerWeekCount" parameterType="java.util.HashMap" resultType="int">
 		SELECT nvl(count(*),0)
 		FROM (SELECT DISTINCT a.book_num, ROWNUM r
@@ -303,10 +267,12 @@
 	</select>
 	
 	<select id="getFirstCateUseBookNum" parameterType="String" resultType="int">
-		SELECT f.num
-		FROM first_cate f, book_category c
-		WHERE f.num=c.cate1_num
-		and c.book_num=#{book_num}
+		select ff."num"
+		from (SELECT f.num "num", rownum r
+			FROM first_cate f, book_category c
+			WHERE f.num=c.cate1_num
+			and c.book_num=#{book_num}) ff
+		where ff.r=1
 	</select>
 	
 	<select id="getNewBookList" parameterType="java.util.HashMap" resultType="com.bf.book.dto.NewBookDto">

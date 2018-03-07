@@ -1,6 +1,5 @@
 package com.bf.manager.dao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,7 +25,7 @@ import com.bf.manager.dto.StatPreferenceDto;
 /**
  * @이름: 염현우
  * @날짜: 2018. 2. 12.
- * @설명:
+ * @설명: 매니저 컨트롤러 첫번째 DAO
  */
 @Component
 public class ManagerDaoImp implements ManagerDao {
