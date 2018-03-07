@@ -284,7 +284,7 @@ public class BookServiceImp implements BookService {
 		out.close();
 	}
 	
-	//여기서부터 홈입니다.
+	//여기서부터 홈입니다. - 최정은
 	@Override
 	public void normalHome(ModelAndView mav) {
 		// TODO Auto-generated method stub
@@ -502,7 +502,7 @@ public class BookServiceImp implements BookService {
 		pMap.put("endRow", 11);
 		pMap.put("day", 7);
 		pMap.put("rental", "no");
-		List<HomeDto> bestDto=bookDao.getBestSellerWeekPaper(pMap);
+		List<HomeDto> bestDto=bookDao.getBestSellerWeek(pMap);
 		
 //		List<HomeDto> homeList=bookDao.getPaperHomeBookInfoList(map);
 //		LogAspect.info(LogAspect.logMsg + pop.toString());
@@ -600,8 +600,6 @@ public class BookServiceImp implements BookService {
 			if(transBook.size()==0)	transBook=null;
 		}
 		
-		//이벤트기간뽑기 - ?
-		
 		mav.addObject("detailDto", dto);
 		mav.addObject("event", event);
 		mav.addObject("auDto", auDto);
@@ -629,7 +627,7 @@ public class BookServiceImp implements BookService {
 		}		
 	}
 
-	@Override	//키워드검색
+	@Override	//키워드검색 - 데이터가 판타지에만 들어가있음
 	public void keyword(ModelAndView mav) {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
@@ -638,7 +636,7 @@ public class BookServiceImp implements BookService {
 		mav.addObject("firstCate", firstCate);
 	}
 
-	@Override
+	@Override	//키워드 ajax - 데이터가 판타지 상위카테고리에만 들어가있음
 	public void keywordSearch(ModelAndView mav) {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
@@ -753,7 +751,7 @@ public class BookServiceImp implements BookService {
 		}
 	}
 
-	@Override
+	@Override	//베스트셀러
 	public void homeBestSeller(ModelAndView mav) {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
@@ -842,7 +840,7 @@ public class BookServiceImp implements BookService {
 		mav.addObject("bestDtoCount", bestDtoCount);
 	}
 
-	@Override
+	@Override	//미리보기
 	public void bookExample(ModelAndView mav) {
 		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
