@@ -13,7 +13,6 @@
 <body>
 	<c:if test="${check2 > 0}">
 		<script type="text/javascript">
-			alert('결제 실패따윈 없다.');
 			$(location).attr("href", "${root}/payment/myCash.do");
 		</script>
 	</c:if>

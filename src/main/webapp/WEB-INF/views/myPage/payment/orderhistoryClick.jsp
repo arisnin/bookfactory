@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -29,16 +30,15 @@
 				<li>적립 리디포인트</li>
 			</ul>
 			<ul class="orderhistory_rightside">
-				<li>2018011539796034</li>
-				<li><a class="title" href="#">소설로 읽는 내 인생의 영화</a></li>
+				<li>${orderDto.order_num}</li>
+				<li><a class="title" href="#">${orderDto.cash_type}</a></li>
+				<li><strong>${orderDto.price}원</strong></li>
 				<li><strong>0원</strong></li>
 				<li><strong>0원</strong></li>
-				<li><strong>0원</strong></li>
-				<li><strong>0원</strong></li>
-				<li><strong>0원</strong></li>
-				<li><strong>0원</strong></li>
-				<li>리디캐시</li>
-				<li>0원</li>
+				<li><strong>${orderDto.cash_use}원</strong></li>
+				<li><strong>${orderDto.point_use}원</strong></li>
+				<li>${orderDto.paytype}</li>
+				<li>${orderDto.point}원</li>
 			</ul>
 		</div>
 		<div class="notice">

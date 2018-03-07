@@ -6,12 +6,14 @@
 
 package com.bf.order.dto;
 
+import java.util.Date;
+
 public class OrderDto {
 	private int num;
 	private long order_num;
 	private int book_num;
 	private int price;
-	private java.util.Date payment_date;
+	private Date payment_date;
 	private String present_check;
 	private String cancel_check;
 	private String free_pass;
@@ -49,11 +51,11 @@ public class OrderDto {
 		this.cash_use = cash_use;
 	}
 
-	public java.util.Date getRental_date() {
+	public Date getRental_date() {
 		return rental_date;
 	}
 
-	public void setRental_date(java.util.Date rental_date) {
+	public void setRental_date(Date rental_date) {
 		this.rental_date = rental_date;
 	}
 
@@ -97,11 +99,11 @@ public class OrderDto {
 		this.price = price;
 	}
 
-	public java.util.Date getPayment_date() {
+	public Date getPayment_date() {
 		return payment_date;
 	}
 
-	public void setPayment_date(java.util.Date payment_date) {
+	public void setPayment_date(Date payment_date) {
 		this.payment_date = payment_date;
 	}
 

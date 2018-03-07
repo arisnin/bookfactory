@@ -55,5 +55,6 @@ public interface MyPageDao {
 
 	int infoUpdate(MemberDto memberDto);
 
+	List<OrderDto> orderHistoryList(String id);
 
 }

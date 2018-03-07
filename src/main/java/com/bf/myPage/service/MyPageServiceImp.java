@@ -385,5 +385,38 @@ public class MyPageServiceImp implements MyPageService {
 		mav.setViewName("myPage/personal/myInfo.my");
 	}
 
+	@Override
+	public void orderHistory(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		
+		List<OrderDto> myPageOrderHistoryList = myPageDao.orderHistoryList(id);
+		LogAspect.info(myPageOrderHistoryList.size());
+		
+		mav.addObject("myPageOrderHistoryList", myPageOrderHistoryList);
+		mav.setViewName("myPage/payment/orderhistory.my");
+	}
 
+	/*@Override
+	public void orderHistoryClick(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		String id = user.getUsername();
+		
+		long order_num = Long.parseLong(request.getParameter("order_num"));
+		LogAspect.info(id + "," + order_num);
+		
+		OrderDto orderDto = myPageDao.orderHistoryClick(id, order_num);
+		LogAspect.info(orderDto.toString());
+		
+		mav.addObject("orderDto", orderDto);
+		mav.setViewName("myPage/payment/orderhistoryClick.my");
+	}
+
+*/
 }

@@ -135,6 +135,7 @@ public class MainController {
 	}
 
 	/**
+	 * 최정은
 	 * footer > 회사소개
 	 */
 	@RequestMapping(value = "/contact.do", method = RequestMethod.GET)
@@ -144,6 +145,7 @@ public class MainController {
 	}
 
 	/**
+	 * 최정은
 	 * event > event
 	 * 이벤트 페이지 추가(02-12, 김도현)
 	 */
@@ -210,6 +212,11 @@ public class MainController {
 		return mav;
 	}
 	
+	/**
+	 * @author : 김동환
+	 * @date : 2018. 2. 20.
+	 * comment : 공지사항
+	 */	
 	@RequestMapping(value = "/notice/content.do" , method = RequestMethod.GET)
 	public ModelAndView noticeContent(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("공지사항_내용부르기");
@@ -224,6 +231,11 @@ public class MainController {
 		return mav;
 	}
 	
+	/**
+	 * @author : 김동환
+	 * @date : 2018. 2. 20.
+	 * comment : 공지사항
+	 */	
 	@RequestMapping(value = "/notice/list.do" , method = RequestMethod.POST)
 	public void noticeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		LogAspect.info("공지사항_리스트 바뀌는 작업");		

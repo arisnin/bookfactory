@@ -38,7 +38,6 @@ public class ServiceCenterController {
 		LogAspect.info(user);
 		return "present/present.main";
 	}
-	
 		
 	
 	/**
