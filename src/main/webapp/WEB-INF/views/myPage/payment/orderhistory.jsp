@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -24,28 +25,26 @@
 					<li class="method">결재수단</li>
 				</ul>
 			</div>
-			<c:forEach begin="1" end="4">
-				<div class="orderhistorysub2" onclick="javascript:location.href='${root}/payment/orderhistoryClick.do'">
+			<c:forEach var="myPageOrderHistoryDto" items="${myPageOrderHistoryList}">
+				<div class="orderhistorysub2" onclick="orderHistoryClick(this)">
 					<ul>
-						<li>2017.12.25.14:14</li>
+						<li class="hidden-block"><input type="hidden" name= "order_num" value="${myPageOrderHistoryDto.order_num}"/></li>
+						<li><fmt:formatDate value="${myPageOrderHistoryDto.payment_date}" pattern="yyyy-MM-dd hh:mm:dd"/></li>
 						<li class="title">블록체인 혁명(대여)</li>
-						<li class="price content">0원</li>
-						<li class="method">리디캐시</li>
+						<li class="price content">${myPageOrderHistoryDto.price}원</li>
+						<li class="method">${myPageOrderHistoryDto.pay_type}</li>
 						<li class="icon-angle-right" style="width: 3rem"></li>
 					</ul>
 				</div>
 			</c:forEach>
-			<div class="orderhistorysub2 cancel" onclick="javascript:location.href='${root}/payment/orderhistoryCancel.do'">
-				<ul>
-					<li>2017.12.25.14:14</li>
-					<li class="title">블록체인 혁명(대여)</li>
-					<li class="price">0원</li>
-					<li class="method">리디캐시(취소됨)</li>
-					<li class="icon-angle-right" style="width: 3rem"></li>
-				</ul>
-			</div>
 		</div>
 	</div>
 
+	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+	<script type="text/javascript">
+		function orderHistoryClick(obj){
+			$(location).attr("href", "${root}/payment/orderhistoryClick.do?order_num="+$(obj).find("input[name=order_num]").val());
+		}
+	</script>
 </body>
 </html>
