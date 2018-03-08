@@ -34,7 +34,7 @@
 			<!-- -------------------------------------- -->
 			<!-- 인기 신간 -->
 			<div class="bf-title-row title-type3 sub">
-				<h3>소설 인기 신간</h3>
+				<h3><span>소설</span>&nbsp;인기 신간</h3>
 				<div class="more-button-box">
 					<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='?snum=101&cnum=${param.cnum}';">전체보기</button>
 				</div>
@@ -109,7 +109,7 @@
 			<!-- -------------------------------------- -->
 			<!-- 베스트셀러 -->
 			<div class="bf-title-row title-type3 sub">
-				<h3>소설 베스트셀러</h3>
+				<h3><span>소설</span>&nbsp;베스트셀러</h3>
 				<div class="more-button-box">
 					<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='?snum=102&cnum=${param.cnum}';">전체보기</button>
 				</div>
@@ -184,7 +184,7 @@
 			<!-- -------------------------------------- -->
 			<!-- 무료책 -->
 			<div class="bf-title-row title-type3 sub">
-				<h3>소설 인기 무료책</h3>
+				<h3><span>소설</span>&nbsp;인기 무료책</h3>
 				<div class="more-button-box">
 					<button type="button" class="bf-button bf-black-btn bf-animated-btn" onclick="location.href='?snum=103&cnum=${param.cnum}';">전체보기</button>
 				</div>

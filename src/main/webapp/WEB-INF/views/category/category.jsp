@@ -38,7 +38,10 @@
 			if (cnum === "") {
 				cnum = 100;
 			}
+			
 			//console.log(root + "," + cnum + "," + snum);
+			
+			// cnum로부터 메인(중분류) 번호와 서브(소분류) 번호를 추출하고, 해당 메뉴를 활성화 상태로 전환(CSS 강조 효과)
 			var mainNumber = Math.round((cnum / 100)) * 100;
 			var main = document.querySelector("a[data-second-cate='" + mainNumber + "']");
 			main.classList.add("active");
@@ -46,7 +49,7 @@
 			var sub = document.querySelector("a[data-third-cate='" + cnum + "']");
 			sub.classList.add("active");
 	
-			// 타이틀 설정
+			// 타이틀 설정(메인 타이틀 + 서브 타이틀)
 			var title = document.getElementById("category-main-title");
 			title.innerHTML = main.innerHTML;
 			if (cnum != mainNumber) {
@@ -62,6 +65,18 @@
 				}
 				document.querySelectorAll(".ca-category-box > .bf-service-type-menu a")[snum - 100].classList.add("active");
 			}
+			
+			// 홈 메뉴 화면에서 인기, 신간, 베스트셀러 항목의 서브 타이틀 설정
+			var subTitleList = document.querySelectorAll(".title-type3.sub > h3 > span");
+			Array.prototype.forEach.call(subTitleList, function(e,i) {
+				if (cnum != mainNumber) {
+					// 홈 이외의 메뉴
+					e.innerHTML = sub.innerHTML;
+				} else {
+					// 홈 메뉴
+					e.innerHTML = main.innerHTML;
+				}
+			});
 		}
 		
 	</script>
