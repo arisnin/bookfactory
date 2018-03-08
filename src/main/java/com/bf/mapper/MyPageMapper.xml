@@ -217,4 +217,10 @@
 	<select id="select_member" parameterType="String" resultType="com.bf.member.model.MemberDto">
 		select * from member where id = #{id}
 	</select>
+	
+	<select id="select-review-list" parameterType="String" resultType="com.bf.myPage.dto.MyReviewDto">
+		SELECT review.*, bookm.name "book_name" FROM review, bookm
+		WHERE ID = #{id}
+		AND review.book_num = bookm.book_num
+	</select>
 </mapper>

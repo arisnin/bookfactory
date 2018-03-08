@@ -39,7 +39,7 @@ import com.bf.myPage.dto.MyPageRecentLookBookDto;
 /**
  * @author 박성호
  * @date 2018. 2. 14.
- * @description 대분류별 보기 / 책 상세보기 관련 서비스 구현 클래스
+ * @description 리뷰작성, 수정, 삭제, 리스트 출력, 작가상세정보 페이지 담당(author(ModelAndView))
  *
  * @author choi jung eun
  * @date 2018. 2. 20.
@@ -272,7 +272,7 @@ public class BookServiceImp implements BookService {
 			json.put("error", "로그인이 필요한 서비스입니다.");
 		} else {
 			json.put("type", "system");
-			json.put("error", "시스템 에러로 댓글 달기에 실패했습니다.");
+			json.put("error", "시스템 에러로 댓글 삭제에 실패했습니다.");
 		}
 		
 		LogAspect.info(json);

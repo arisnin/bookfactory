@@ -13,16 +13,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tools.ant.filters.FixCrLfFilter.AddAsisRemove;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
-import com.bf.book.dto.DetailDto;
 import com.bf.main.dao.MainDao;
 import com.bf.main.dto.CategoryPageDto;
 import com.bf.main.dto.EventDto;
@@ -31,7 +28,6 @@ import com.bf.main.dto.SearchAuthorDto;
 import com.bf.main.dto.SearchBookCountDto;
 import com.bf.member.model.MemberDto;
 import com.bf.member.model.User;
-import com.sun.jmx.remote.security.NotificationAccessController;
 
 /**
  * @Date 2018. 2. 4.
@@ -254,7 +250,7 @@ public class MainServiceImp implements MainService {
 			
 		} catch (ParseException e) {
 			LogAspect.severe(e.getMessage());
-			e.printStackTrace();			
+			//e.printStackTrace();
 			check = -1;
 		}
 		

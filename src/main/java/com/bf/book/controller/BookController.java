@@ -209,7 +209,7 @@ public class BookController {
 	}
 	
 	/**
-	 * 책 상세 페이지 > 리뷰 리스트
+	 * 책 상세 페이지 > 리뷰 삭제
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/review/delete.do", method = RequestMethod.GET)
