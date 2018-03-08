@@ -30,9 +30,7 @@
 			<div class="bf-service-type-menu">
 				<ul class="service-type-list">
 					<li><a href="${root}/payment/myCash.do">마이캐시 충전</a></li>
-					<li><a href="javascript:alert('자동충전 미구현')">자동충전</a></li>
 					<li><a class="active" href="${root}/payment/myCashHistoryCash.do">충전 내역</a></li>
-					<li><a href="javascript:alert('입금 대기 미구현')">입금 대기</a></li>
 				</ul>
 			</div>
 			<div class="mypoint_amount">
