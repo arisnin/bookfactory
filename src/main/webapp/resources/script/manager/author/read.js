@@ -16,3 +16,10 @@ if("${param.searchWord}" != ""){
 if("${param.pageNumber}" != ""){
 	$("input[name=href]").val($("input[name=href]").val()+"&pageNumber=${param.pageNumber}");
 }
+
+var before = location.href;
+if(before.indexOf('?') == -1){
+	$("input[name=href]").val("&pageNumber=1");
+}else{
+	$("input[name=href]").val("&"+ before.substring(before.indexOf('?')+1));
+}
