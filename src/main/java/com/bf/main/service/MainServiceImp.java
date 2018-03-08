@@ -389,11 +389,29 @@ public class MainServiceImp implements MainService {
 	}
 
 	/**
+	 * @author 박성호
+	 * @date 2018. 3. 5.
+	 */
+	@Override
+	public void memberDelete(HttpServletRequest request, HttpServletResponse response) {
+		String id = request.getParameter("id");
+		int check = -1;
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		if (user == null) {
+			check = -1;
+		} else if (!user.getUsername().equals(id)) {
+			check = -2;
+		} else {
+			check = mainDao.memberDelete(id);
+		}
+	}
+
+	/**
 	 * @author : 김동환
 	 * @date : 2018. 2. 20.
 	 * comment : 공지사항
-	 */
-	
+	 */	
 	@Override
 	public void noticeMain(ModelAndView mav) {		
 		Map<String, Object> map = mav.getModelMap();
@@ -543,9 +561,5 @@ public class MainServiceImp implements MainService {
 		out.flush();
 		out.close();
 	}
-
-
-
-
 	
 }

@@ -194,6 +194,17 @@ public class MainController {
 	}
 	
 	/**
+	 * 회원탈퇴 요청
+	 * 
+	 * @author 박성호
+	 * @date 2018. 3. 5.
+	 */
+	@RequestMapping(value = "/member/delete.do", method = RequestMethod.POST)
+	public void memberDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		mainService.memberDelete(request, response);
+	}
+	
+	/**
 	 * @author : 김동환
 	 * @date : 2018. 2. 20.
 	 * comment : 공지사항

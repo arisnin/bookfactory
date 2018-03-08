@@ -318,4 +318,7 @@
 		]]>	
 	</select>
 	
+	<delete id="delete-member" parameterType="String">
+		DELETE FROM MEMBER WHERE ID = #{id}
+	</delete>
 </mapper>

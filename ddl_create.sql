@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  파일이 생성됨 - 금요일-2월-23-2018   
+--  파일이 생성됨 - 목요일-3월-08-2018   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table ACCUSE
@@ -47,23 +47,15 @@ CREATE TABLE "BF"."AUTHOR" (
 --------------------------------------------------------
 --  DDL for Table AUTHOREDIT
 --------------------------------------------------------
-CREATE TABLE "BF"."AUTHOREDIT" 
-   (	"NUM" NUMBER(8,0), 
-	"AUTHOR_NUM" NUMBER(8,0), 
-	"CONTENT" VARCHAR2(4000 BYTE), 
-	"CONDITION" VARCHAR2(100 BYTE), 
-	"WRITE_DATE" DATE, 
-	 PRIMARY KEY ("NUM")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)
-  TABLESPACE "USERS"  ENABLE, 
-	 CONSTRAINT "AUTHOREDIT_AUTHOR_NUM_FK" FOREIGN KEY ("AUTHOR_NUM")
-	  REFERENCES "BF"."AUTHOR" ("NUM") ON DELETE CASCADE ENABLE
-   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)
-  TABLESPACE "USERS" ;
+CREATE TABLE "BF"."AUTHOREDIT" (
+  "NUM" NUMBER(8, 0), 
+  "AUTHOR_NUM" NUMBER(8, 0), 
+  "CONTENT" VARCHAR2(4000 BYTE), 
+  "CONDITION" VARCHAR2(100 BYTE), 
+  "WRITE_DATE" DATE
+) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING STORAGE(
+  INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
+) TABLESPACE "USERS";
 --------------------------------------------------------
 --  DDL for Table BOARD_CONTACT
 --------------------------------------------------------
@@ -107,6 +99,20 @@ CREATE TABLE "BF"."BOOK_CATEGORY" (
   "CATE1_NUM" NUMBER(4, 0), 
   "CATE2_NUM" NUMBER(4, 0), 
   "CATE3_NUM" NUMBER(4, 0)
+) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING STORAGE(
+  INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
+) TABLESPACE "USERS";
+--------------------------------------------------------
+--  DDL for Table BOOK_CONTACT
+--------------------------------------------------------
+CREATE TABLE "BF"."BOOK_CONTACT" (
+  "NUM" NUMBER(8, 0), 
+  "CATEGORY" NUMBER(8, 0), 
+  "BOOK_NAME" VARCHAR2(200 BYTE), 
+  "BOOK_WRITER" VARCHAR2(50 BYTE), 
+  "PUBLISHER" VARCHAR2(50 BYTE), 
+  "WRITE_DATE" DATE, 
+  "ID" VARCHAR2(40 CHAR)
 ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING STORAGE(
   INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
 ) TABLESPACE "USERS";
@@ -181,8 +187,7 @@ CREATE TABLE "BF"."CASH_CHARGE" (
   "CHARGE_TYPE_NUM" NUMBER(8, 0), 
   "CHARGE_DATE" DATE DEFAULT SYSDATE, 
   "CASH_TYPE" VARCHAR2(50 BYTE), 
-  "ORDER_NUM" NUMBER(16, 0), 
-  "TOTAL" NUMBER
+  "ORDER_NUM" NUMBER(16, 0)
 ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING STORAGE(
   INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
 ) TABLESPACE "USERS";
@@ -216,6 +221,45 @@ CREATE TABLE "BF"."COUNTRY" (
 ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING STORAGE(
   INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
 ) TABLESPACE "USERS";
+--------------------------------------------------------
+--  DDL for Table EVENT
+--------------------------------------------------------
+CREATE TABLE "BF"."EVENT" (
+  "NUM" NUMBER(4, 0), 
+  "F_NUM" NUMBER(4, 0), 
+  "TYPE" VARCHAR2(100 BYTE), 
+  "SHORT_IMG" VARCHAR2(3000 BYTE), 
+  "TITLE" VARCHAR2(200 BYTE), 
+  "TIME" VARCHAR2(200 BYTE), 
+  "CONTENT" VARCHAR2(500 BYTE), 
+  "DETAIL" CLOB
+) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING STORAGE(
+  INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
+) TABLESPACE "USERS" LOB ("DETAIL") STORE AS (
+  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 PCTVERSION 10 NOCACHE LOGGING STORAGE(
+    INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
+  )
+);
+--------------------------------------------------------
+--  DDL for Table EXAMPLE
+--------------------------------------------------------
+CREATE TABLE "BF"."EXAMPLE" (
+  "NUM" NUMBER(4, 0), 
+  "F_NUM" NUMBER(4, 0), 
+  "IMG" VARCHAR2(3000 BYTE), 
+  "INTRO" CLOB, 
+  "LIST" CLOB
+) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING STORAGE(
+  INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
+) TABLESPACE "USERS" LOB ("INTRO") STORE AS (
+  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 PCTVERSION 10 NOCACHE LOGGING STORAGE(
+    INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
+  )
+) LOB ("LIST") STORE AS (
+  TABLESPACE "USERS" ENABLE STORAGE IN ROW CHUNK 8192 PCTVERSION 10 NOCACHE LOGGING STORAGE(
+    INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
+  )
+);
 --------------------------------------------------------
 --  DDL for Table FIRST_CATE
 --------------------------------------------------------
@@ -298,7 +342,8 @@ CREATE TABLE "BF"."PAYMENT" (
   "CASH_USE" NUMBER(8, 0) DEFAULT 0, 
   "RENTAL_DATE" DATE DEFAULT SYSDATE + 5, 
   "RENTAL_STATE" VARCHAR2(20 BYTE), 
-  "STATE" VARCHAR2(20 BYTE) DEFAULT 'yes'
+  "STATE" VARCHAR2(20 BYTE) DEFAULT 'yes', 
+  "REVIEW_POINT" NUMBER(8, 0) DEFAULT 0
 ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING STORAGE(
   INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
 ) TABLESPACE "USERS";
@@ -361,25 +406,15 @@ CREATE TABLE "BF"."QNA_CATE2" (
 --------------------------------------------------------
 --  DDL for Table RECENT_LOOKBOOK
 --------------------------------------------------------
-  CREATE TABLE "BF"."RECENT_LOOKBOOK" 
-   (	"NUM" NUMBER(8,0), 
-	"ID" VARCHAR2(40 CHAR), 
-	"BOOK_NUM" NUMBER(8,0), 
-	"LOOK_DATE" DATE DEFAULT SYSDATE, 
-	"DESTROY_DATE" DATE DEFAULT SYSDATE+14, 
-	 PRIMARY KEY ("NUM")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)
-  TABLESPACE "USERS"  ENABLE, 
-	 CONSTRAINT "RECENT_LOOKBOOK_ID_FK" FOREIGN KEY ("ID")
-	  REFERENCES "BF"."MEMBER" ("ID") ENABLE, 
-	 CONSTRAINT "RECENT_LOOKBOOK_BOOK_NUM_FK" FOREIGN KEY ("BOOK_NUM")
-	  REFERENCES "BF"."BOOKM" ("BOOK_NUM") ON DELETE CASCADE ENABLE
-   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)
-  TABLESPACE "USERS" ;
+CREATE TABLE "BF"."RECENT_LOOKBOOK" (
+  "NUM" NUMBER(8, 0), 
+  "ID" VARCHAR2(40 CHAR), 
+  "BOOK_NUM" NUMBER(8, 0), 
+  "LOOK_DATE" DATE DEFAULT SYSDATE, 
+  "DESTROY_DATE" DATE DEFAULT SYSDATE + 14
+) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING STORAGE(
+  INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
+) TABLESPACE "USERS";
 --------------------------------------------------------
 --  DDL for Table REVIEW
 --------------------------------------------------------
@@ -437,24 +472,6 @@ CREATE TABLE "BF"."THIRD_CATE" (
 ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING STORAGE(
   INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
 ) TABLESPACE "USERS";
---------------------------------------------------------
---  DDL for Table BOOK_CONTACT
---------------------------------------------------------
-CREATE TABLE "BF"."BOOK_CONTACT" 
-(	"NUM" NUMBER(8,0), 
-"CATEGORY" NUMBER(8,0), 
-"BOOK_NAME" VARCHAR2(200 BYTE), 
-"BOOK_WRITER" VARCHAR2(50 BYTE), 
-"PUBLISHER" VARCHAR2(50 BYTE), 
-"WRITE_DATE" DATE, 
-"ID" VARCHAR2(40 CHAR), 
-CONSTRAINT "BOOK_CONTACT_FK1" FOREIGN KEY ("ID")
-REFERENCES "BF"."MEMBER" ("ID") ON DELETE CASCADE ENABLE
-   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)
-  TABLESPACE "USERS" ;
-
 --------------------------------------------------------
 --  DDL for Index SYS_C004374
 --------------------------------------------------------
@@ -549,6 +566,18 @@ CREATE UNIQUE INDEX "BF"."SYS_C004315" ON "BF"."CASH_CHARGE_TYPE" ("NUM") PCTFRE
 --  DDL for Index SYS_C004339
 --------------------------------------------------------
 CREATE UNIQUE INDEX "BF"."SYS_C004339" ON "BF"."COUNTRY" ("COUNTRY_NUM") PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS STORAGE(
+  INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
+) TABLESPACE "USERS";
+--------------------------------------------------------
+--  DDL for Index SYS_C004607
+--------------------------------------------------------
+CREATE UNIQUE INDEX "BF"."SYS_C004607" ON "BF"."EVENT" ("NUM") PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS STORAGE(
+  INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
+) TABLESPACE "USERS";
+--------------------------------------------------------
+--  DDL for Index SYS_C004605
+--------------------------------------------------------
+CREATE UNIQUE INDEX "BF"."SYS_C004605" ON "BF"."EXAMPLE" ("NUM") PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS STORAGE(
   INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
 ) TABLESPACE "USERS";
 --------------------------------------------------------
@@ -840,6 +869,24 @@ ADD
     INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
   ) TABLESPACE "USERS" ENABLE;
 --------------------------------------------------------
+--  Constraints for Table EVENT
+--------------------------------------------------------
+ALTER TABLE 
+  "BF"."EVENT" 
+ADD 
+  PRIMARY KEY ("NUM") USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS STORAGE(
+    INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
+  ) TABLESPACE "USERS" ENABLE;
+--------------------------------------------------------
+--  Constraints for Table EXAMPLE
+--------------------------------------------------------
+ALTER TABLE 
+  "BF"."EXAMPLE" 
+ADD 
+  PRIMARY KEY ("NUM") USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS STORAGE(
+    INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT
+  ) TABLESPACE "USERS" ENABLE;
+--------------------------------------------------------
 --  Constraints for Table FIRST_CATE
 --------------------------------------------------------
 ALTER TABLE 
@@ -1080,7 +1127,7 @@ ADD
 ALTER TABLE 
   "BF"."AUTHOREDIT" 
 ADD 
-  CONSTRAINT "AUTHOREDIT_AUTHOR_NUM_FK" FOREIGN KEY ("AUTHOR_NUM") REFERENCES "BF"."AUTHOR" ("NUM") ENABLE;
+  CONSTRAINT "AUTHOREDIT_AUTHOR_NUM_FK" FOREIGN KEY ("AUTHOR_NUM") REFERENCES "BF"."AUTHOR" ("NUM") ON DELETE CASCADE ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table BOARD_CONTACT
 --------------------------------------------------------
@@ -1118,6 +1165,13 @@ ALTER TABLE
   "BF"."BOOK_CATEGORY" 
 ADD 
   CONSTRAINT "BOOK_CATEGORY_CATE3_NUM_FK" FOREIGN KEY ("CATE3_NUM") REFERENCES "BF"."THIRD_CATE" ("NUM") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table BOOK_CONTACT
+--------------------------------------------------------
+ALTER TABLE 
+  "BF"."BOOK_CONTACT" 
+ADD 
+  CONSTRAINT "BOOK_CONTACT_FK1" FOREIGN KEY ("ID") REFERENCES "BF"."MEMBER" ("ID") ON DELETE CASCADE ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table BOOK_LIST
 --------------------------------------------------------
@@ -1178,6 +1232,20 @@ ALTER TABLE
   "BF"."CASH_CHARGE" 
 ADD 
   CONSTRAINT "CASH_CHARGE_POINT_NUM_FK" FOREIGN KEY ("POINT_NUM") REFERENCES "BF"."POINT" ("NUM") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table EVENT
+--------------------------------------------------------
+ALTER TABLE 
+  "BF"."EVENT" 
+ADD 
+  FOREIGN KEY ("F_NUM") REFERENCES "BF"."FIRST_CATE" ("NUM") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table EXAMPLE
+--------------------------------------------------------
+ALTER TABLE 
+  "BF"."EXAMPLE" 
+ADD 
+  FOREIGN KEY ("F_NUM") REFERENCES "BF"."FIRST_CATE" ("NUM") ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table KEYWORD_LIST
 --------------------------------------------------------
@@ -1242,7 +1310,7 @@ ADD
 ALTER TABLE 
   "BF"."RECENT_LOOKBOOK" 
 ADD 
-  CONSTRAINT "RECENT_LOOKBOOK_BOOK_NUM_FK" FOREIGN KEY ("BOOK_NUM") REFERENCES "BF"."BOOKM" ("BOOK_NUM") ENABLE;
+  CONSTRAINT "RECENT_LOOKBOOK_BOOK_NUM_FK" FOREIGN KEY ("BOOK_NUM") REFERENCES "BF"."BOOKM" ("BOOK_NUM") ON DELETE CASCADE ENABLE;
 ALTER TABLE 
   "BF"."RECENT_LOOKBOOK" 
 ADD 
@@ -1284,24 +1352,132 @@ ALTER TABLE
 ADD 
   CONSTRAINT "THIRD_CATE_SECOND_CATE_FK" FOREIGN KEY ("SECOND_CATE") REFERENCES "BF"."SECOND_CATE" ("NUM") ENABLE;
 
+--	Sequence
+--------------------------------------------------------
+--  파일이 생성됨 - 목요일-3월-08-2018   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Sequence AUTHOR_NUM_SEQ
+--------------------------------------------------------
 
--- ----------------------------------------------------------------------------------------
--- Sequence
-CREATE SEQUENCE  "BF"."AUTHOR_NUM_SEQ";
-CREATE SEQUENCE  "BF"."BOOKM_NUM_SEQ";
-CREATE SEQUENCE  "BF"."CASH_CHARGE_TYPE_NUM_SEQ";
-CREATE SEQUENCE  "BF"."FIRST_CATE_SEQ";
-CREATE SEQUENCE  "BF"."FREQUENCY_NUM_SEQ";
-CREATE SEQUENCE  "BF"."MEMBER_NUM_SEQ";
-CREATE SEQUENCE  "BF"."PUBLISHER_NUM_SEQ";
-CREATE SEQUENCE  "BF"."REVIEW_NUM_SEQ";
-CREATE SEQUENCE  "BF"."SECOND_CATE_SEQ";
-CREATE SEQUENCE  "BF"."SERIES_NUM_SEQ";
-CREATE SEQUENCE  "BF"."THIRD_CATE_SEQ";
-CREATE SEQUENCE  "BF"."POINT_NUM_SEQ";
-CREATE SEQUENCE  "BF"."RECENT_LOOKBOOK_NUM_SEQ";
-CREATE SEQUENCE  "BF"."REVIEW_REPLY_NUM_SEQ";
-CREATE SEQUENCE  "BF"."KEYWORD_NUM_SEQ";
-CREATE SEQUENCE  "BF"."KEYWORD_LIST_NUM_SEQ";
-CREATE SEQUENCE  "BF"."AUTHOREDIT_NUM_SEQ"  MINVALUE 1 MAXVALUE 999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 2 NOORDER  NOCYCLE ;
- 
+   CREATE SEQUENCE  "BF"."AUTHOR_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence AUTHOREDIT_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."AUTHOREDIT_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence BOARD_CONTACT_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."BOARD_CONTACT_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence BOARD_FREQUENCY_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."BOARD_FREQUENCY_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence BOOK_CONTACT_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."BOOK_CONTACT_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence BOOKM_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."BOOKM_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence CART_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."CART_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence CASH_CHARGE_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."CASH_CHARGE_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence CASH_CHARGE_TYPE_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."CASH_CHARGE_TYPE_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence EVENT_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."EVENT_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence EXAMPLE_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."EXAMPLE_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence FIRST_CATE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."FIRST_CATE_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence FREQUENCY_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."FREQUENCY_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence KEYWORD_LIST_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."KEYWORD_LIST_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence KEYWORD_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."KEYWORD_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence MEMBER_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."MEMBER_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence NOTICE_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."NOTICE_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence PAYMENT_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."PAYMENT_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence POINT_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."POINT_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence PUBLISHER_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."PUBLISHER_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence RECENT_LOOKBOOK_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."RECENT_LOOKBOOK_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence REVIEW_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."REVIEW_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence SECOND_CATE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."SECOND_CATE_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence SERIES_NUM_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."SERIES_NUM_SEQ";
+--------------------------------------------------------
+--  DDL for Sequence THIRD_CATE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "BF"."THIRD_CATE_SEQ";

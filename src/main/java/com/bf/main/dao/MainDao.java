@@ -64,4 +64,6 @@ public interface MainDao {
 
 	public List<Map<String, Object>> noticeMini();
 
+	public int memberDelete(String id);
+
 }

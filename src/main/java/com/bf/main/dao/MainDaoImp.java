@@ -101,6 +101,11 @@ public class MainDaoImp implements MainDao {
 	}
 
 	@Override
+	public int memberDelete(String id) {
+		return sqlSession.delete(namespace + "delete-member", id);
+	}
+
+	@Override
 	public int selectCashAvailable(String id) {
 		return sqlSession.selectOne("com.bf.mapper.MyPageMapper." + "cash-select-available", id);		
 	}
@@ -141,31 +146,26 @@ public class MainDaoImp implements MainDao {
 
 	@Override
 	public String getFirstCateName(String firstCate) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.mapper.BookPlusMapper.getFirstCateName", firstCate);
 	}
 
 	@Override
 	public int getEventCount(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getEventCount", map);
 	}
 
 	@Override
 	public List<EventDto> getEventList(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectList("getEventList", map);
 	}
 
 	@Override
 	public EventDto getEventInfo(String num) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getEventInfo", num);
 	}
 
 	@Override
 	public int getRandomBookNum(int f_num) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.mapper.MainMapper.getRandomBookNum", f_num);
 	}
 

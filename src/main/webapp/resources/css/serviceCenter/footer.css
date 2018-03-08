@@ -145,6 +145,12 @@
 	cursor: pointer;
 }
 
+.footer-content a:link,
+.footer-content a:visited,
+.footer-content a:active {
+	color: #666;
+}
+
 .footer-content strong {
 	font-weight: bold;
 	color: #333;

@@ -130,7 +130,7 @@
 			</c:if>
 			<!-- -------------------------------------- -->
 			<c:if test="${listSize==0 }">
-				<div class="cart_content_book cart_content_book_no">대여 할수 있는 책이 없습니다.</div>
+				<div class="cart_content_book cart_content_book_no">등록된 책이 없습니다.</div>
 			</c:if>
 
 			<div class="cart_content_select">
@@ -174,50 +174,6 @@
 					<span>아르테미스</span>
 					<br>
 					<span class="font_13">앤디 위어</span>
-				</div>
-			</div>
-			<!-- -------------------------------------- -->
-			<div class="cart_content_book wishlist_middle">
-				<div class="book-thumbnail">
-					<img class="cart_content_book_img" src="https://misc.ridibooks.com/cover/593000369/xxlarge">
-				</div>
-				<div class="cart_content_book_content wishlist_content">
-					<span>매스커레이드</span>
-					<br>
-					<span class="font_13">히가시노 게이고</span>
-				</div>
-			</div>
-			<!-- -------------------------------------- -->
-			<div class="cart_content_book wishlist_middle">
-				<div class="book-thumbnail">
-					<img class="cart_content_book_img" src="https://misc.ridibooks.com/cover/2189000079/xxlarge">
-				</div>
-				<div class="cart_content_book_content wishlist_content">
-					<span>죽여 마땅한 사람들</span>
-					<br>
-					<span class="font_13">피터 스완슨</span>
-				</div>
-			</div>
-			<!-- -------------------------------------- -->
-			<div class="cart_content_book wishlist_middle">
-				<div class="book-thumbnail">
-					<img class="cart_content_book_img" src="https://misc.ridibooks.com/cover/593000426/xxlarge">
-				</div>
-				<div class="cart_content_book_content wishlist_content">
-					<span>나미야 잡화점의 기적</span>
-					<br>
-					<span class="font_13">히가시노 게이고</span>
-				</div>
-			</div>
-			<!-- -------------------------------------- -->
-			<div class="cart_content_book wishlist_middle">
-				<div class="book-thumbnail">
-					<img class="cart_content_book_img" src="https://misc.ridibooks.com/cover/606001670/xxlarge">
-				</div>
-				<div class="cart_content_book_content wishlist_content">
-					<span>신경 끄기의 기술</span>
-					<br>
-					<span class="font_13">마크 맨슨, 두진욱</span>
 				</div>
 			</div>
 		</div>

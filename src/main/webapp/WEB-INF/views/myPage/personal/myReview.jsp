@@ -11,13 +11,14 @@
 <script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
+	<c:set var="reviewListSize" value="${reviewList == null ? 0 : reviewList.size()}"/>
 	<div class="myReview">
 		<div class="bf-title-row title-type4">
 			<h3>내 리뷰 관리</h3>
 		</div>
 		<div class="myReview_main">
 			<div class="overflow_hidden">
-				<span class="myReview_intro">총<span class="myReview_count">4</span> 개의 리뷰를 등록하셨습니다.</span>
+				<span class="myReview_intro">총<span class="myReview_count">${reviewListSize}</span> 개의 리뷰를 등록하셨습니다.</span>
 			</div>
 		</div>
 		<c:forEach var="myReviewDto" items="${reviewList}">

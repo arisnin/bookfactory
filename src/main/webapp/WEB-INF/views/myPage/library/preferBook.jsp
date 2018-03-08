@@ -19,7 +19,7 @@
 </script>
 </head>
 <body>
-
+	<script type="text/javascript">alert('준비중입니다.');</script>
 	<div class="preferBook-container" style="width: 45rem;">
 		<div>
 			<div class="bf-title-row title-type4">
