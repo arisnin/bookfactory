@@ -12,7 +12,6 @@
 <link href="${root}/css/myPage/myRidi.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/purchasedAll.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/myPage/library/recentLookBook.css" type="text/css" rel="stylesheet">
-<script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
 	<div class="myridi-contents-page myridi-nearbyRead-box">
@@ -44,8 +43,11 @@
 							<p class="book-metadata-publisher">
 								<a class="book-metadata-publisher-link" href="javascript:alert('출판사페이지')">문학사상</a>
 							</p>
+							<!-- 별점아이콘 생성을 위한 트리거 블록 -->
+							<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${myRecentPageDto.star_point})"></span>
 							<div class="content-star-rate">
-								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span> <span class="count-field">${myRecentPageDto.star_count}</span>
+								<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
+								<span class="count-field">&nbsp;${myRecentPageDto.star_count}명</span>
 							</div>
 						</div>
 					</li>
@@ -54,11 +56,11 @@
 			</form>
 		</div>
 	</div>
-	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 	<script type="text/javascript" src="${root}/script/basic/jquery.js"></script>
+	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 	<script type="text/javascript">
-		document.querySelectorAll(".content-star-rate").forEach(function(item, index) {
-			createStarIcon(item, 3.7);
+		Array.prototype.forEach.call(document.querySelectorAll(".trigger-block"), function(e,i) {
+			e.click();
 		});
 		
 		function allDelete(){

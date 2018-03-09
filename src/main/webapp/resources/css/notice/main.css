@@ -26,6 +26,7 @@
 #notice > .notice_list li{
 	float:left;
 	border-bottom: 1px solid #E1DFFA;
+	cursor: pointer;
 }
 
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -54,14 +54,8 @@
 					<div class="service_information_cn_cn_left_title">이 섹션의 문서</div>
 					
 					<c:forEach var="payRefundDto" items="${payRefundSide}" >
-						<ul>
-							<c:if test="${payRefundDto.num == payRefundRead.num}">
-								<li class=active>
-							</c:if>
-							<c:if test="${payRefundDto.num != payRefundRead.num}">
-								<li>
-							</c:if>												
-							<a href="javascript:payRefundRead('${root}','${payRefundDto.num}')">${payRefundDto.title}</a></li>						
+						<ul>											
+							<li class="${payRefundDto.num == payRefundRead.num ? 'active' : ''}"><a href="javascript:payRefundRead('${root}','${payRefundDto.num}')">${payRefundDto.title}</a></li>						
 						</ul>
 					</c:forEach>
 					

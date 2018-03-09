@@ -9,17 +9,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.AccuseDto;
-import com.bf.manager.dto.BoardCate2Dto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
-import com.bf.manager.dto.BookDto;
+import com.bf.manager.dto.ManagerCashDto;
+import com.bf.manager.dto.ManagerChargeDto;
 import com.bf.manager.dto.ManagerNoticeDto;
 import com.bf.manager.dto.ManagerPayDto;
 import com.bf.manager.dto.ManagerPointDto;
-import com.bf.manager.dto.ManagerCashDto;
-import com.bf.manager.dto.ManagerChargeDto;
 import com.bf.manager.dto.MemberDto;
 import com.bf.manager.dto.ReviewManagerDto;
 
@@ -35,7 +32,6 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 	}
 	@Override
 	public int BoardfileInsertOk(BoardFrequencyDto boardFreDto) {
-		// TODO Auto-generated method stub
 		return sqlSession.insert("com.bf.manager.ManagerboardMapper.fileInsertOk", boardFreDto);
 	}
 
@@ -67,7 +63,6 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 
 	@Override
 	public BoardFrequencyDto selectBoard(int num) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.manager.ManagerboardMapper.selectBoard", num);
 	}
 
@@ -98,7 +93,6 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 
 	@Override
 	public int BoardContactcount() {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.manager.ManagerboardMapper.contactCount");
 	}
 
@@ -129,19 +123,16 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 
 	@Override
 	public int fileboardUpdateOk(BoardFrequencyDto boardFrequencyDto) {
-		// TODO Auto-generated method stub
 		return sqlSession.update("com.bf.manager.ManagerboardMapper.fileBoardUpdate", boardFrequencyDto);
 	}
 
 	@Override
 	public int boardUpdateOk(BoardFrequencyDto boardFrequencyDto) {
-		// TODO Auto-generated method stub
 		return sqlSession.update("com.bf.manager.ManagerboardMapper.boardUpdate", boardFrequencyDto);
 	}
 
 	@Override
 	public int listDelete(int num) {
-		// TODO Auto-generated method stub
 		return sqlSession.delete("com.bf.manager.ManagerboardMapper.boardDelete", num);
 	}
 
@@ -163,13 +154,11 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 
 	@Override
 	public int memberCashCount() {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.memberCashCount");
 	}
 
 	@Override
 	public int memberCashCount1(String searchWord) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.memberCashCount1",searchWord);
 	}
 
@@ -194,13 +183,11 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 
 	@Override
 	public MemberDto register(String id) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.register", id);
 	}
 
 	@Override
 	public int registerOk(MemberDto memberDto) {
-		// TODO Auto-generated method stub
 		return sqlSession.update("com.bf.manager.ManagerMemberMapper.registerOk", memberDto);
 	}
 
@@ -238,7 +225,6 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 
 	@Override
 	public ManagerCashDto selectPay(String id) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.selectPay", id);
 	}
 
@@ -263,18 +249,15 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 	}
 	@Override
 	public int payCount(String id) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.payCount", id);
 	}
 	@Override
 	public int chargeCount(String id) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.chargeCount", id);
 	}
 
 	@Override
 	public int pointCount(String id) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.manager.ManagerMemberMapper.pointCount", id);
 	}
 	
@@ -283,7 +266,6 @@ public class ManagerDaoTwoImp implements ManagerDaoTwo {
 	// -----------------리뷰---------------------------
 	@Override
 	public int reviewCount() {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("com.bf.manager.ManagerReviewMapper.reviewCount");
 	}
 

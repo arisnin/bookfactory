@@ -13,12 +13,7 @@
 </head>
 <body>
 <!-- 헤더에서 로그인 눌렀을시 나오는 화면 - 염현우 -->
-	<c:if test="${login == 'true'}">
-		<div id="hw_login" class="hw_login_modal" style="display:block;">
-	</c:if>
-	<c:if test="${login == null}">
-		<div id="hw_login" class="hw_login_modal" onclick="loginClose()">
-	</c:if>	
+	<div id="hw_login" class="hw_login_modal " ${login == 'true' ? 'style="display:block;"' : 'onclick="loginClose()"'}>	
 		<div class="hw_login_wrap hw_animate">
 			<form class="hw_login_modal-content" name="loginForm" action="${root}/member/loginOk.do" method="post" onsubmit="">
 				<div class="hw_login_container">

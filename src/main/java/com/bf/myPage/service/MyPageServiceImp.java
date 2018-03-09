@@ -426,6 +426,7 @@ public class MyPageServiceImp implements MyPageService {
 		return mav.addObject("reviewList", reviewList);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void reviewDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String review_num = request.getParameter("review_num");

@@ -1,14 +1,10 @@
 package com.bf.book.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +15,6 @@ import com.bf.aop.LogAspect;
 import com.bf.book.dto.ReplyDto;
 import com.bf.book.dto.ReviewDto;
 import com.bf.book.service.BookService;
-import com.bf.manager.service.ManagerService;
 
 /**
  * @author 박성호

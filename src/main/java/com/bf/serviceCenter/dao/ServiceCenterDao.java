@@ -5,9 +5,7 @@ import java.util.List;
 import com.bf.main.dto.NoticeDto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
-import com.bf.member.model.User;
 import com.bf.serviceCenter.dto.BookContactDto;
-import com.bf.serviceCenter.dto.ServiceCenterDtoFre;
 
 /**
  * @author 박성호

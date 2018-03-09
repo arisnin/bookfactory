@@ -219,7 +219,6 @@ public class MainController {
 		
 		mainService.noticeMain(mav);
 		
-		//return "notice/main.solo";		
 		return mav;
 	}
 	
@@ -238,7 +237,6 @@ public class MainController {
 		
 		mainService.noticeRead(mav);
 		
-		//return "notice/cotent.solo";
 		return mav;
 	}
 	
@@ -249,7 +247,6 @@ public class MainController {
 	 */	
 	@RequestMapping(value = "/notice/list.do" , method = RequestMethod.POST)
 	public void noticeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		LogAspect.info("공지사항_리스트 바뀌는 작업");		
 		mainService.noticeList(request, response);
 	}
 	

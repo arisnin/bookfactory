@@ -121,7 +121,7 @@ public class MainDaoImp implements MainDao {
 	}
 
 	@Override
-	public List<Map<String, Integer>> selectCartWishCount(String id) {
+	public List<Map<String, Object>> selectCartWishCount(String id) {
 		return sqlSession.selectList(namespace + "select-cart-wish-count", id);
 	}
 
