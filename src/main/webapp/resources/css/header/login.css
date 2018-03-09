@@ -164,8 +164,13 @@
 }
 .hw_sign_div{
 	border-top: 1px solid #d6deeb;
-	cursor: pointer;
 }
+
+.hw_sign_div > .hw_go_signin > button,
+.hw_sign_div > .hw_go_signin > a {
+	color:#776BCE;
+}
+
 .login-message {
 	border: 1px solid #d6deeb;
 	width: 100%;

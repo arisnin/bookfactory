@@ -41,7 +41,11 @@
 				</div>
 	
 				<div class="hw_login_container hw_sign_div" align="center">
-					<span class="hw_go_signin">아직 북팩토리 회원이 아니세요?&nbsp;<button type="button" class="bf-button bf-transparent-btn" style="color:#776BCE;" onclick="loginToRegister(this)">회원가입</button></span>
+					<span class="hw_go_signin">
+						아직 북팩토리 회원이 아니세요?&nbsp;
+						<button type="button" class="bf-button bf-transparent-btn" onclick="loginToRegister(this)">회원가입</button>
+						<a class="bf-button bf-transparent-btn" style="padding-left:0;" href="${root}/">메인으로</a>
+					</span>
 				</div>
 				<input type="hidden" name="requestURL" value="${requestURL}"/>
 				<input type="hidden" name="returnURL" value="${returnURL}" />
