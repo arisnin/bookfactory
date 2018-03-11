@@ -416,6 +416,9 @@ public class ManagerServiceImp implements ManagerService {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		int book_num = Integer.parseInt(request.getParameter("book_num"));
 		BookDto bookDto = managerDao.getBook(book_num);
+		bookDto.setIntro(bookDto.getIntro().replace("<br>", "\r\n"));
+		bookDto.setPub_intro(bookDto.getPub_intro().replace("<br>", "\r\n"));
+		
 		
 		AuthorDto author = managerDao.getAuthor(bookDto.getAuthor_num());
 		AuthorDto illustrator = managerDao.getAuthor(bookDto.getIllustrator_num());
@@ -445,6 +448,9 @@ public class ManagerServiceImp implements ManagerService {
 	@Override
 	public void bookUpdateOk(ModelAndView mav) {
 		BookDto bookDto = (BookDto) mav.getModelMap().get("bookDto");
+		bookDto.setIntro(bookDto.getIntro().replace("\r\n", "<br>"));
+		bookDto.setPub_intro(bookDto.getPub_intro().replace("\r\n", "<br>"));
+		
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
 		
 		LogAspect.info(LogAspect.logMsg+ bookDto);

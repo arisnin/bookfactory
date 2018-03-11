@@ -79,5 +79,7 @@
 		</section>
 	</div>
 	<input type="hidden" name="href">
+	
+	<script type="text/javascript" src="${root}/script/manager/author/read.js"></script>
 </body>
 </html>

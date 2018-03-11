@@ -25,7 +25,7 @@
 			<div class="order_header_content2">결제 목록</div>
 		</div>
 
-		<form method="get" action="${root}/orderOk.do">
+		<form method="post" action="${root}/orderOk.do" onsubmit="return orderValidation(this)">
 			<div class="order_content">
 				<c:forEach items="${orderList}" var="orderItem">
 					<div class="order_content_book_check cart_content_book">
@@ -169,10 +169,14 @@
 									</span>
 								</label>
 							</li>
-							<li class="payment_list"><label> <input type="radio" class="radio_input" name="pay_type" value="7"> <span class="radio_mark"></span> <span class="payment_label">
+							<li class="payment_list">
+								<label>
+									<input type="radio" class="radio_input" name="pay_type" value="7">
+									<span class="radio_mark"></span>
+									<span class="payment_label">
 										<span>휴대폰</span>
 									</span>
-							</label></li>
+								</label></li>
 							<li class="payment_list">
 								<label>
 									<input type="radio" class="radio_input" name="pay_type" value="8">
@@ -242,7 +246,7 @@
 					</div>
 					<div style="padding-bottom: 1rem">
 						<label class="bf-custom-checkbox agree">
-							<input type="checkbox" title="">
+							<input type="checkbox" title="동의">
 							<span class="all-mark"></span>
 							<span class="checkbox-label order_right_menu_lift"> <strong>상품, 가격, 할인정보, 유의사항 등을 확인 하였으며 구매에 동의합니다.</strong>
 						</span>
@@ -285,6 +289,7 @@
 	<input type="hidden" name="point" value="${point}">
 	<input type="hidden" name="cash" value="${cash}">
 	<script type="text/javascript">
+		// 염현우(2018-03-06)
 		function pointCheck() {
 			//포인트체크
 			var maxPoint = parseInt($("input[name=point]").val());
@@ -301,6 +306,7 @@
 			}
 		}
 		
+		// 염현우(2018-03-06)
 		function cashCheck(){
 			var maxCash = parseInt($("input[name=cash]").val());
 			var totalPrice = parseInt($("input[name=totalPrice]").val());
@@ -315,6 +321,31 @@
 			if(cashPoint > maxCash){
 				$("input[name=cash_use]").val(maxCash);
 			}
+		}
+		
+		// 박성호(2018-03-06)
+		function orderValidation(event)	 {
+			var validationFlag = false;
+			var payTypeList = document.querySelectorAll("input[name=pay_type]");
+			Array.prototype.forEach.call(payTypeList, function(e,i) {
+				if (e.checked) validationFlag = true;
+			});
+			
+			if (!validationFlag) {
+				alert('결제 타입을 선택해주세요.');
+				return false;
+			} 
+			
+			var agreeCheckBox = document.querySelector(".bf-custom-checkbox.agree > input[type=checkbox]");
+
+			if (!agreeCheckBox.checked) {
+				alert('구매 동의에 체크하셔야 구매가 가능합니다.');
+				return false;
+			} else {
+				validationFlag = true;
+			}
+			
+			return validationFlag;
 		}
 	</script>
 </body>

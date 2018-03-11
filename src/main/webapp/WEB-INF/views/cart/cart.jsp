@@ -39,8 +39,8 @@
 				</div>
 			</div>
 			<!-- -------------------------------------- -->
-			<form id="cart-submit-form" action="${root}/order.do" method="post">
-			<c:if test="${purchaseListSize != 0 }">			
+			<form id="cart-submit-form" action="${root}/order.do" method="post" onsubmit="return cartValidation(this)">
+			<%-- <c:if test="${purchaseListSize != 0 }"> --%>			
 				<!-- 구매 목록 -->
 				<div id="purchase-list-box">
 				<c:forEach items="${purchaseList}" var="cartList" varStatus="status">				
@@ -130,12 +130,12 @@
 					</div>
 				</c:forEach>
 				</div>
-			</c:if>
+			<%-- </c:if> --%>
 			<input type="hidden" name="totalPrice" value="0"/>
  			</form>
 			<!-- -------------------------------------- -->
 			<c:if test="${purchaseListSize == 0}">
-				<div class="cart_content_book cart_content_book_no">대여 할수 있는 책이 없습니다.</div>
+				<div class="cart_content_book cart_content_book_no">등록된 책이 없습니다.</div>
 			</c:if>
 
 			<div class="cart_content_select">
@@ -155,7 +155,7 @@
 		<div class="cart_right_menu" id="cart-total-menu">
 			<div class="cart_right_menu_content">
 				<span class="icon-ok-circled"></span>
-				<label class="total-menu-title">총 <strong>${purchaseListSize}권</strong>을 선택하셨습니다.
+				<label class="total-menu-title">총 <strong>${purchaseListSize}</strong>권을 선택하셨습니다.
 				</label>
 			</div>
 			<div class="cart_right_menu_content">
@@ -173,7 +173,7 @@
 			</div>
 
 			<div class="cart_button_div">
-				<button type="submit" form="cart-submit-form" class="order_right_menu_paybutton bf-button bf-animated-btn">선택대여하기</button>
+				<button type="submit" form="cart-submit-form" class="order_right_menu_paybutton bf-button bf-animated-btn">선택구매하기</button>
 			</div>
 		</div>
 	</div>

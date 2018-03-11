@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -58,13 +58,7 @@
 					
 					<c:forEach var="systemUpdateDto" items="${systemUpdateSide}" >
 						<ul>
-							<c:if test="${systemUpdateDto.num == systemUpdateRead.num}">
-								<li class=active>
-							</c:if>
-							<c:if test="${systemUpdateDto.num != systemUpdateRead.num}">
-								<li>
-							</c:if>												
-							<a href="javascript:systemUpdateRead('${root}','${systemUpdateDto.num}')">${systemUpdateDto.title}</a></li>						
+							<li class="${systemUpdateDto.num == systemUpdateRead.num ? 'active' : ''}"><a href="javascript:systemUpdateRead('${root}','${systemUpdateDto.num}')">${systemUpdateDto.title}</a></li>						
 						</ul>
 					</c:forEach>
 					

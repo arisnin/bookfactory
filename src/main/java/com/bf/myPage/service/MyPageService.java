@@ -1,5 +1,10 @@
 package com.bf.myPage.service;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -38,6 +43,12 @@ public interface MyPageService {
 	void myInfo(ModelAndView mav);
 
 	void orderHistory(ModelAndView mav);
+
+	ModelAndView myReview(ModelAndView mav);
+
+	void reviewDelete(HttpServletRequest request, HttpServletResponse response) throws IOException;
+
+	ModelAndView reviewUpdate(ModelAndView mav);
 
 
 }

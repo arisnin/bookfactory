@@ -26,7 +26,7 @@
 			<div class="right">
 				<div class="right_first user-name">${memberDto.name}</div>
 				<div class="right_second">
-					<a class="bf-button" href="#">회원탈퇴</a>
+					<a class="bf-button" href="javascript:memberDelete('${root}','${memberDto.id}')">회원탈퇴</a>
 				</div>
 			</div>
 		</div>
@@ -45,7 +45,7 @@
 				<input class="right_right_first user-email" type="hidden" >
 				<div class="right_right_second"><span class="email_authentication">인증된 이메일 주소입니다.</span></div>
 				<div class="right_right_third">
-					<a class="bf-button" href="javascript:alert('메일전송인증 기능 미구현')">이메일변경</a>
+					<a class="bf-button" href="javascript:alert('준비중입니다.')">이메일변경</a>
 					
 					
 				</div>
@@ -120,8 +120,14 @@
 			} else {
 				document.getElementById("marketing_check").value = 'no';
 			}
-				
-			
+		}
+		
+		function memberDelete(root, id) {
+			if (confirm("정말로 탈퇴하시겠습니까?")) {
+				$.post(root + "/member/delete.do", {id : id}, function(data, status) {
+					
+				});
+			}
 		}
 	</script>
 </body>

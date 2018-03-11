@@ -288,9 +288,6 @@
 	<script type="text/javascript" src="${root}/script/basic/commons.js"></script>
 	<script type="text/javascript" src="${root}/script/book/review.js"></script>
 	<script type="text/javascript">
-		setScoreGraph(${scoreGraph[1]},${scoreGraph[2]},${scoreGraph[3]},${scoreGraph[4]},${scoreGraph[5]});
-		initReviewPage(${reviewListSize}, ${reviewSelf == null ? -1 : (reviewSelf.star_point - 1)});
-
 		function writeReply(event, url) {
 			var parameter = {
 					content : event.content.value,
@@ -332,6 +329,9 @@
 			var str = event.target + '\n' + obj.nodeName;
 			//if (event.currentTarget == obj) alert('true\n' + str); else alert('false\n' + str);
 		}
+
+		setScoreGraph(${scoreGraph[1]},${scoreGraph[2]},${scoreGraph[3]},${scoreGraph[4]},${scoreGraph[5]});
+		initReviewPage(${reviewListSize}, ${reviewSelf == null ? -1 : (reviewSelf.star_point - 1)});
 	</script>
 </body>
 </html>

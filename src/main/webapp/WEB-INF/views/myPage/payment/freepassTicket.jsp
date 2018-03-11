@@ -14,6 +14,7 @@
 </style>
 </head>
 <body>
+	<script type="text/javascript">alert('준비중입니다.');</script>
 	<div class="wrap-container">
 		<section class="wrap-container mf-freepass-ticket-box">
 			<!-- mf-notice-center-box -->

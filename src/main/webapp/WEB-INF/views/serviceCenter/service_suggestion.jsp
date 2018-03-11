@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -90,8 +90,8 @@
 		<div class="serviceCenter_service_suggestion_file">
 			<div class="">첨부 파일</div>
 				<div class="serviceCenter_service_suggestion_file_add">
-					<label class="bf-custom-checkbox"> <input type="file"
-						multiple="true" /> <span class="checkbox-label">파일 추가</span>
+					<label class="bf-custom-checkbox">
+						<input type="file" multiple="multiple" /> <span class="checkbox-label">파일 추가</span>
 					</label>
 				</div>
 				<div>최대 20MB 크기의 파일을 첨부할 수 있습니다.</div>

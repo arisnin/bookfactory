@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ import com.bf.myPage.dto.MyPageRecentLookBookDto;
 /**
  * @author 박성호
  * @date 2018. 2. 14.
- * @description 대분류별 보기 / 책 상세보기 관련 서비스 구현 클래스
+ * @description 리뷰작성, 수정, 삭제, 리스트 출력, 작가상세정보 페이지 담당(author(ModelAndView))
  *
  * @author choi jung eun
  * @date 2018. 2. 20.
@@ -200,6 +199,7 @@ public class BookServiceImp implements BookService {
 		return mav.addObject("checkReview", checkReview).addObject("book_num",reviewDto.getBook_num());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void reviewReply(HttpServletRequest request, HttpServletResponse response, ReplyDto replyDto) throws IOException {
 		int check = -1;
@@ -242,6 +242,7 @@ public class BookServiceImp implements BookService {
 		out.close();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void reviewDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String review_num = request.getParameter("review_num");
@@ -272,7 +273,7 @@ public class BookServiceImp implements BookService {
 			json.put("error", "로그인이 필요한 서비스입니다.");
 		} else {
 			json.put("type", "system");
-			json.put("error", "시스템 에러로 댓글 달기에 실패했습니다.");
+			json.put("error", "시스템 에러로 댓글 삭제에 실패했습니다.");
 		}
 		
 		LogAspect.info(json);
@@ -287,7 +288,6 @@ public class BookServiceImp implements BookService {
 	//여기서부터 홈입니다. - 최정은
 	@Override
 	public void normalHome(ModelAndView mav) {
-		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
 		String firstCateNum=request.getParameter("firstCateNum");
 		
@@ -349,7 +349,6 @@ public class BookServiceImp implements BookService {
 	
 	@Override
 	public void homeNewbook(ModelAndView mav) {
-		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest)mav.getModel().get("request");
 		String firstCate=request.getParameter("firstCateNum");
 		String bookType=request.getParameter("bookType");
@@ -524,7 +523,6 @@ public class BookServiceImp implements BookService {
 
 	@Override	//책 상세보기
 	public void bookDetail(ModelAndView mav) {
-		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
 		long book_num=Long.parseLong(request.getParameter("book_num"));
 		String event=request.getParameter("event");
@@ -629,7 +627,6 @@ public class BookServiceImp implements BookService {
 
 	@Override	//키워드검색 - 데이터가 판타지에만 들어가있음
 	public void keyword(ModelAndView mav) {
-		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
 		int firstCate=Integer.parseInt(request.getParameter("firstCate"));
 		
@@ -638,7 +635,6 @@ public class BookServiceImp implements BookService {
 
 	@Override	//키워드 ajax - 데이터가 판타지 상위카테고리에만 들어가있음
 	public void keywordSearch(ModelAndView mav) {
-		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
 		HttpServletResponse response=(HttpServletResponse) mav.getModel().get("response");
 		String firstCateNum=request.getParameter("firstCate");
@@ -692,9 +688,7 @@ public class BookServiceImp implements BookService {
 			HashMap<String, Object> json=new HashMap<String, Object>();
 			json.put("tagListCount", tagListCount);
 			
-			HashMap<String, Object> jsMap=new HashMap<String,Object>();
 			ArrayList<Object> jsArr=new ArrayList<Object>();
-			JSONArray abc=new JSONArray();
 			
 			if(tagList!=null) {
 				for(int i=0;i<tagList.size();i++) {
@@ -753,7 +747,6 @@ public class BookServiceImp implements BookService {
 
 	@Override	//베스트셀러
 	public void homeBestSeller(ModelAndView mav) {
-		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
 		int firstCate=Integer.parseInt(request.getParameter("firstCateNum"));
 		String firstCateName=bookDao.getFirstCateName(String.valueOf(firstCate));
@@ -842,7 +835,6 @@ public class BookServiceImp implements BookService {
 
 	@Override	//미리보기
 	public void bookExample(ModelAndView mav) {
-		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
 		String book_num=request.getParameter("book_num");
 		

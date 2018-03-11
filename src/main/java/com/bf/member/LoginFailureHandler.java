@@ -24,6 +24,7 @@ import com.bf.aop.LogAspect;
  */
 public class LoginFailureHandler implements AuthenticationFailureHandler {
 
+	@SuppressWarnings("unused")
 	private RequestCache requestCache = new HttpSessionRequestCache();
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	

@@ -30,7 +30,7 @@
   </class>  
   <interface id="4" language="java" name="com.bf.myPage.dao.MyPageDao" project="proAlpa" 
     file="/proAlpa/src/main/java/com/bf/myPage/dao/MyPageDao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="423" width="348" x="215" y="590"/>    
+    <position height="441" width="348" x="215" y="590"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </interface>  
   <class id="5" language="java" name="com.bf.myPage.dao.MyPageDaoImp" project="proAlpa" 
     file="/proAlpa/src/main/java/com/bf/myPage/dao/MyPageDaoImp.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="477" width="348" x="45" y="37"/>    
+    <position height="495" width="348" x="45" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="com.bf.myPage.dto.MyPageCashPageDto" project="proAlpa" 
     file="/proAlpa/src/main/java/com/bf/myPage/dto/MyPageCashPageDto.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="119" y="1125"/>    
+    <position height="-1" width="-1" x="131" y="1155"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,7 +57,7 @@
   </class>  
   <class id="7" language="java" name="com.bf.myPage.dto.MyPageCashChargeMenuDto" project="proAlpa" 
     file="/proAlpa/src/main/java/com/bf/myPage/dto/MyPageCashChargeMenuDto.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="320" y="1107"/>    
+    <position height="-1" width="-1" x="335" y="1137"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -66,7 +66,7 @@
   </class>  
   <class id="8" language="java" name="com.bf.myPage.dto.MyPageCashChargeDto" project="proAlpa" 
     file="/proAlpa/src/main/java/com/bf/myPage/dto/MyPageCashChargeDto.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="744" y="1143"/>    
+    <position height="-1" width="-1" x="546" y="1173"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -75,7 +75,7 @@
   </class>  
   <class id="9" language="java" name="com.bf.myPage.dto.MyPageCashChargeTypeDto" project="proAlpa" 
     file="/proAlpa/src/main/java/com/bf/myPage/dto/MyPageCashChargeTypeDto.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="537" y="1089"/>    
+    <position height="-1" width="-1" x="750" y="1120"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -84,7 +84,7 @@
   </class>  
   <class id="10" language="java" name="com.bf.myPage.dto.MyPagePurchasedPageDto" project="proAlpa" 
     file="/proAlpa/src/main/java/com/bf/myPage/dto/MyPagePurchasedPageDto.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="694" y="1358"/>    
+    <position height="-1" width="-1" x="152" y="1384"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -93,7 +93,7 @@
   </class>  
   <class id="11" language="java" name="com.bf.myPage.dto.MyPageRecentPageDto" project="proAlpa" 
     file="/proAlpa/src/main/java/com/bf/myPage/dto/MyPageRecentPageDto.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="122" y="1378"/>    
+    <position height="-1" width="-1" x="358" y="1402"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -102,7 +102,7 @@
   </class>  
   <class id="12" language="java" name="com.bf.myPage.dto.MyPagePointDto" project="proAlpa" 
     file="/proAlpa/src/main/java/com/bf/myPage/dto/MyPagePointDto.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="507" y="1385"/>    
+    <position height="-1" width="-1" x="534" y="1411"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -111,7 +111,7 @@
   </class>  
   <class id="13" language="java" name="com.bf.myPage.dto.MyPageRecentLookBookDto" project="proAlpa" 
     file="/proAlpa/src/main/java/com/bf/myPage/dto/MyPageRecentLookBookDto.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="323" y="1359"/>    
+    <position height="-1" width="-1" x="721" y="1386"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -124,8 +124,12 @@
   </realization>  
   <association id="15">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="16" name="mypageService"/>      
-      <multiplicity id="17" minimum="0" maximum="1"/>    
+      <attribute id="16" name="mypageService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="17" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  

@@ -1,5 +1,6 @@
 package com.bf.order.dao;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,9 +44,9 @@ public class OrderDaoImp implements OrderDao {
 	}
 
 	@Override
-	public int cartDelete(int bookNum, String id) {
+	public int cartDelete(String[] bookList, String id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("bookNum", bookNum);
+		map.put("bookList", Arrays.asList(bookList));
 		map.put("id", id);
 		return sqlSession.delete("com.bf.mapper.OrderMapper.delete_cartWishtList", map);
 	}
@@ -96,30 +97,32 @@ public class OrderDaoImp implements OrderDao {
 		PointDto pointDto = null;
 		int rnum = 1;
 		int remain = orderDto.getPoint_use();
-		do {
-			map.put("id", orderDto.getId());
-			map.put("rnum", rnum);
-			pointDto = sqlSession.selectOne("com.bf.mapper.OrderMapper.pointSelect", map);
-			System.out.println(pointDto.toString());
-			
-			map.put("remain", Math.abs(remain));
-			System.out.println(map.get("remain"));
-			
-			int check = sqlSession.update("com.bf.mapper.OrderMapper.updatePoint", map);
-			System.out.println(check);
-			
-			pointDto = sqlSession.selectOne("com.bf.mapper.OrderMapper.pointSelect", map);
-			System.out.println(pointDto.toString());
-			
-			remain = pointDto.getRemain();
-			System.out.println(remain);
-			
-			if (remain > 0)
-				break;
-			else
-				sqlSession.update("com.bf.mapper.OrderMapper.updateZero", pointDto.getNum());
-			rnum++;
-		} while (remain < 0);
+		if (remain > 0) {
+			do {
+				map.put("id", orderDto.getId());
+				map.put("rnum", rnum);
+				pointDto = sqlSession.selectOne("com.bf.mapper.OrderMapper.pointSelect", map);
+				System.out.println(pointDto.toString());
+				
+				map.put("remain", Math.abs(remain));
+				System.out.println(map.get("remain"));
+				
+				int check = sqlSession.update("com.bf.mapper.OrderMapper.updatePoint", map);
+				System.out.println(check);
+				
+				pointDto = sqlSession.selectOne("com.bf.mapper.OrderMapper.pointSelect", map);
+				System.out.println(pointDto.toString());
+				
+				remain = pointDto.getRemain();
+				System.out.println(remain);
+				
+				if (remain > 0)
+					break;
+				else
+					sqlSession.update("com.bf.mapper.OrderMapper.updateZero", pointDto.getNum());
+				rnum++;
+			} while (remain < 0);
+		}
 		return sqlSession.insert("com.bf.mapper.OrderMapper.paymentInsert", orderDto);
 
 	}

@@ -16,14 +16,11 @@
 }
 
 /* star icon */
-.content-star-rate .non-star-icon-field{
-	color: #FFFFFF;
-}
-
-.content-star-rate{
+.ridi-book-list .content-star-rate{
 	text-align: left;
 	position: relative;
 	left: -0.3rem;
+	line-height: 0.9rem;
 }
 
 /* 완결 책 표시 */

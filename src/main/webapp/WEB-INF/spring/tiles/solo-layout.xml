@@ -10,6 +10,10 @@
 	</definition>
 
 	<!-- 확장 설정 -->
+	<definition name="*/*/*.solo" extends="templateSolo">
+		<put-attribute name="openNewWindow" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+	</definition>
+	
 	<definition name="*/*.solo" extends="templateSolo">
 		<put-attribute name="openNewWindow" value="/WEB-INF/views/{1}/{2}.jsp" />
 	</definition>

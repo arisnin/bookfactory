@@ -72,20 +72,20 @@
 				</div>
 			</c:forEach>
 			<c:set var="count" value="${1}"/>
-			<c:forEach var="homeDto" begin="1" end="10" items="${bestDto}" >
+			<c:forEach var="other" begin="1" end="10" items="${bestDto}" >
 				<div class="list0_midDiv">
 					<div class="list_number">${count=count+1}</div>
 					<div class="list0_img">
-						<img src="${bestDto.img_path}" onclick="location.href='${root}/detail.do?book_num=${bestDto.book_num}'">
+						<img src="${other.img_path}" onclick="location.href='${root}/detail.do?book_num=${other.book_num}'">
 					</div>
-					<div class="list0_book" onclick="location.href='${root}/detail.do?book_num=${bestDto.book_num}'">${bestDto.bookName}</div>
-					<div class="list0_author" onclick="location.href='${root}/author.do?author_num=${bestDto.author_num}'">${bestDto.authorName}</div>
-					<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${best.star_point})"></span>
+					<div class="list0_book" onclick="location.href='${root}/detail.do?book_num=${other.book_num}'">${other.bookName}</div>
+					<div class="list0_author" onclick="location.href='${root}/author.do?author_num=${other.author_num}'">${other.authorName}</div>
+					<span class="trigger-block hidden-block" onclick="createStarIcon(this.nextElementSibling,${other.star_point})"></span>
 					<div class="content-star-rate">
 						<!-- 별이 들어가는 처음 두개의 span 사이에는 공백이 들어가면 안됨-->
 						<span class="star-icon-field material-icons"></span><span class="non-star-icon-field material-icons"></span>
 						<!-- 카운팅 숫자 표시는 필요없으면 빼도 됨 -->
-						<span class="count-field"> ${best.star_count}명</span>
+						<span class="count-field"> ${other.star_count}명</span>
 					</div>
 				</div>
 			</c:forEach>

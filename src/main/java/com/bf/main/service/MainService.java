@@ -36,6 +36,8 @@ public interface MainService {
 
 	public void noticeList(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
+	public void memberDelete(HttpServletRequest request, HttpServletResponse response) throws IOException;
+
 
 
 

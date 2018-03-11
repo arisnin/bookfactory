@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -51,32 +51,22 @@
 		</div>
 
 		<div class="serviceCenter_manyque_cn_cn">
-		
-			<div class="serviceCenter_manyque_cn_cn_left">
+			<div class="serviceCenter_manyque_cn_cn_left">				
+				<div class="serviceCenter_manyque_cn_cn_left_title">이 섹션의 문서</div>
 				
-					<div class="serviceCenter_manyque_cn_cn_left_title">이 섹션의 문서</div>
-					
-					<c:forEach var="questionDto" items="${questionSide}" >
-						<ul>
-							<c:if test="${questionDto.num == boardFrequencyDto.num}">
-								<li class=active>
-							</c:if>
-							<c:if test="${questionDto.num != boardFrequencyDto.num}">
-								<li>
-							</c:if>												
-							<a href="javascript:questionRead('${root}','${questionDto.num}')">${questionDto.title}</a></li>						
-						</ul>
-					</c:forEach>
-					
-					<c:if test="${count>10 }">
-						<div class="service_information_cn_cn_left_more">
-							<a href="${root }/serviceCenter/manyque.do">더보기</a>
-						</div>
-					</c:if>
+				<c:forEach var="questionDto" items="${questionSide}" >
+					<ul>
+						<li class="${questionDto.num == boardFrequencyDto.num ? 'active' : ''}"><a href="javascript:questionRead('${root}','${questionDto.num}')">${questionDto.title}</a></li>						
+					</ul>
+				</c:forEach>
 				
-			</div>  
+				<c:if test="${count>10 }">
+					<div class="service_information_cn_cn_left_more">
+						<a href="${root }/serviceCenter/manyque.do">더보기</a>
+					</div>
+				</c:if>				
+			</div>
 			
-						
 			<div class="serviceCenter_manyque_cn_cn_right">
 				<div class="serviceCenter_manyque_cn_title">
 					<h2>${boardFrequencyDto.title }</h2>
@@ -84,14 +74,8 @@
 						
 				<div>${boardFrequencyDto.content }</div>
 			</div>
-			
-			
-
 		</div>
-
 	</div>
-	
 	<jsp:include page="./footer.jsp" />
-
 </body>
 </html>

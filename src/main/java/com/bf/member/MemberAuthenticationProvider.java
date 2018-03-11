@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import com.bf.aop.LogAspect;
 import com.bf.member.model.User;
-import com.bf.member.service.UserDetailServiceImp;
 
 /**
  * @Date 2018. 2. 16.
@@ -67,7 +66,6 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 
 	@Override
 	public boolean supports(Class<?> arg0) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

@@ -13,16 +13,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tools.ant.filters.FixCrLfFilter.AddAsisRemove;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
-import com.bf.book.dto.DetailDto;
 import com.bf.main.dao.MainDao;
 import com.bf.main.dto.CategoryPageDto;
 import com.bf.main.dto.EventDto;
@@ -31,7 +28,6 @@ import com.bf.main.dto.SearchAuthorDto;
 import com.bf.main.dto.SearchBookCountDto;
 import com.bf.member.model.MemberDto;
 import com.bf.member.model.User;
-import com.sun.jmx.remote.security.NotificationAccessController;
 
 /**
  * @Date 2018. 2. 4.
@@ -123,10 +119,10 @@ public class MainServiceImp implements MainService {
 	 * @date 2018. 3. 1.
 	 * @see com.bf.main.service.MainService#suggestKeyword(org.springframework.web.servlet.ModelAndView)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void suggestKeyword(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String keyword = request.getParameter("keyword");
-		String type = null;
 		
 		if (keyword == null) return;
 		if (keyword.length() == 0) return;
@@ -144,11 +140,10 @@ public class MainServiceImp implements MainService {
 		json.put("author", suggestAuthorList);
 		json.put("book", suggestBookList);
 		
-		System.out.println(json.toJSONString());
+		//System.out.println(json.toJSONString());
 		
 		response.setContentType("application/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		//out.print(JSONValue.toJSONString(suggestAuthorList));
 		out.print(json.toJSONString());
 		out.flush();
 		out.close();
@@ -238,6 +233,7 @@ public class MainServiceImp implements MainService {
 				.addObject("categoryPageFreeList", categoryPageFreeList);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ModelAndView register(ModelAndView mav) throws IOException {
 		Map<String,Object> map = mav.getModelMap();
@@ -254,7 +250,7 @@ public class MainServiceImp implements MainService {
 			
 		} catch (ParseException e) {
 			LogAspect.severe(e.getMessage());
-			e.printStackTrace();			
+			//e.printStackTrace();
 			check = -1;
 		}
 		
@@ -304,6 +300,7 @@ public class MainServiceImp implements MainService {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void registerValidation(HttpServletRequest request, HttpServletResponse response) throws IOException {		
 		String type = request.getParameter("type");
@@ -346,6 +343,7 @@ public class MainServiceImp implements MainService {
 	 * @date 2018. 3. 4.
 	 * @see com.bf.main.service.MainService#updateMymenu(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void updateMymenu(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		User user = (User) request.getSession().getAttribute("userInfo");
@@ -368,9 +366,9 @@ public class MainServiceImp implements MainService {
 			// 구매목록
 			purchasedTotal = mainDao.selectPurchasedCount(id);
 			
-			// TODO: 카트, 위시리스트 - [{count=1, type=wish}, {count=2, type=cart}]
-			List<Map<String,Integer>> cartWishCount = mainDao.selectCartWishCount(id);
-			for (Map e : cartWishCount) {
+			// 카트, 위시리스트 - [{count=1, type=wish}, {count=2, type=cart}]
+			List<Map<String,Object>> cartWishCount = mainDao.selectCartWishCount(id);
+			for (Map<String,Object> e : cartWishCount) {
 				if ("cart".equals(e.get("type"))) {
 					json.put("cartTotal", e.get("count"));
 				} else if ("wish".equals(e.get("type"))) {
@@ -393,11 +391,49 @@ public class MainServiceImp implements MainService {
 	}
 
 	/**
+	 * @author 박성호
+	 * @throws IOException 
+	 * @date 2018. 3. 5.
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void memberDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String id = request.getParameter("id");
+		int check = -1;
+		
+		JSONObject json = new JSONObject();
+		
+		User user = (User) request.getSession().getAttribute("userInfo");
+		if (user == null) {
+			check = -1;
+			json.put("type", "error");
+			json.put("error", "로그인이 필요한 서비스입니다.");
+		} else if (!user.getUsername().equals(id)) {
+			check = -2;
+			json.put("type", "error");
+			json.put("error", "유효하지 않은 사용자입니다.");
+		} else {
+			check = mainDao.memberDelete(id);
+			if (check == 0) {
+				json.put("type", "error");
+				json.put("error", "시스템 에러로 탈퇴에 실패하였습니다.");
+			} else if (check > 0){
+				json.put("type", "ok");
+			}
+		}
+		
+		response.setContentType("application/x-json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(json.toJSONString());
+		out.flush();
+		out.close();
+	}
+
+	/**
 	 * @author : 김동환
 	 * @date : 2018. 2. 20.
 	 * comment : 공지사항
-	 */
-	
+	 */	
 	@Override
 	public void noticeMain(ModelAndView mav) {		
 		Map<String, Object> map = mav.getModelMap();
@@ -461,7 +497,6 @@ public class MainServiceImp implements MainService {
 	// 이벤트 - 최정은
 	@Override
 	public void event(ModelAndView mav) {
-		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
 		String firstCate=request.getParameter("firstCateNum");
 		String firstCateName=mainDao.getFirstCateName(firstCate);
@@ -512,7 +547,6 @@ public class MainServiceImp implements MainService {
 	// 이벤트 상세보기  - 최정은
 	@Override
 	public void eventDetail(ModelAndView mav) {
-		// TODO Auto-generated method stub
 		HttpServletRequest request=(HttpServletRequest) mav.getModel().get("request");
 		String num=request.getParameter("num");
 		
@@ -529,15 +563,14 @@ public class MainServiceImp implements MainService {
 	 * @throws IOException 
 	 * @date : 2018. 3. 5.
 	 * comment : 공지사항 리스트 바뀌는것
-	 */
-	
+	 */	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void noticeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		List<Map<String,Object>> noticeMini = mainDao.noticeMini();
 		
 		JSONArray json = new JSONArray();
-
-		for (Map e : noticeMini) {
+		for (Map<String,Object> e : noticeMini) {
 			json.add(e);
 		}						 
 		
@@ -547,9 +580,5 @@ public class MainServiceImp implements MainService {
 		out.flush();
 		out.close();
 	}
-
-
-
-
 	
 }

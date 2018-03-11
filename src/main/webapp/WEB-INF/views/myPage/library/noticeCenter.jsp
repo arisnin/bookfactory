@@ -12,6 +12,7 @@
 <script type="text/javascript" src="${root }/script/basic/commons.js"></script>
 </head>
 <body>
+	<script type="text/javascript">alert('준비중입니다.');</script>
 	<div class="wrap-container">
 		<section class="wrap-container mf-notice-center-box">
 			<!-- 타이틀 -->

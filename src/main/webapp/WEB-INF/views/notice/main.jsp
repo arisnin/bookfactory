@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -37,12 +37,8 @@
 			<c:if test="${count>0 }">
 				<c:forEach var="noticeDto" items="${noticeList }"	>
 					<ul class="notice_list_list">
-						
-						<a href = "javascript:readFun('${root}','${noticeDto.num}','${currentPage}')">
-						<li><fmt:formatDate value="${noticeDto.write_date}" pattern="yyyy-MM-dd" /></li>
-						<li>${noticeDto.title }</li>
-						</a>
-												
+						<li onclick="readFun('${root}','${noticeDto.num}','${currentPage}')"><fmt:formatDate value="${noticeDto.write_date}" pattern="yyyy-MM-dd" /></li>
+						<li onclick="readFun('${root}','${noticeDto.num}','${currentPage}')">${noticeDto.title }</li>
 					</ul>
 				</c:forEach>				
 			</c:if>
