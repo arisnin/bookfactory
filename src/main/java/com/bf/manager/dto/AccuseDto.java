@@ -2,6 +2,11 @@ package com.bf.manager.dto;
 
 import java.util.Date;
 
+/**
+ * @ 작성자 : 전상헌
+ * @ 작성일  : 2018. 3. 1.
+ * @ 주제 및 설명 : 상헌 review -> 신고 Dto
+ */
 public class AccuseDto {
 	private int rnum;
 	private int review_num;

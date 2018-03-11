@@ -1,5 +1,10 @@
 package com.bf.manager.dto;
 
+/**
+ * @ 작성자 : 전상헌
+ * @ 작성일  : 2018. 3. 2.
+ * @ 주제 및 설명 : 게시판 대분류 중분류 나뉘었을때 대분류 DTO
+ */
 public class BoardCate1Dto {
 	private int num;
 	private String name;
