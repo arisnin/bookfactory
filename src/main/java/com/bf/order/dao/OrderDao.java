@@ -15,7 +15,7 @@ public interface OrderDao {
 
 	public int cartWishList(int num, String id);
 
-	public int cartDelete(int num, String id);
+	public int cartDelete(String[] arrBookList, String id);
 
 	public List<HomeDto> getCart(String id);
 	

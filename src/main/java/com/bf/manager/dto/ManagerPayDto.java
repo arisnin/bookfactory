@@ -2,6 +2,11 @@ package com.bf.manager.dto;
 
 import java.util.Date;
 
+/**
+ * @ 작성자 : 전상헌
+ * @ 작성일  : 2018. 2 . 15 .
+ * @ 주제 및 설명 : 
+ */
 public class ManagerPayDto {
 	private int num;
 	private String id;

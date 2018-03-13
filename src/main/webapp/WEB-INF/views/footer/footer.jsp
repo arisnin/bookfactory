@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -10,7 +10,6 @@
 <link href="${root}/css/footer/footer.css" type="text/css" rel="stylesheet">
 <link href="${root}/css/order/order.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="${root }/script/notice/notice.js"></script>
-<%-- <script type="text/javascript" src="${root}/script/basic/jquery.js"></script> --%>
 <title>Footer section</title>
 <script type="text/javascript">
 	$(".hw_sub_wrap").hide();
@@ -41,10 +40,10 @@
 				</div>
 				<div class="row">
 					<ul class="copyright">
-						<li><a>이용약관</a></li>
-						<li><a href="${root}/member/logout.do"><strong>개인정보처리방침</strong></a></li>
-						<li><a>청소년보호정책</a></li>
-						<li><a>사업자 정보 확인</a></li>
+						<li><a href="javascript:alert('준비중입니다.')">이용약관</a></li>
+						<li><a href="javascript:alert('준비중입니다.')"><strong>개인정보처리방침</strong></a></li>
+						<li><a href="javascript:alert('준비중입니다.')">청소년보호정책</a></li>
+						<li><a href="javascript:alert('준비중입니다.')">사업자 정보 확인</a></li>
 					</ul>
 				</div>
 				<div class="row">
@@ -56,15 +55,15 @@
 					<ul class="about">
 						<li><strong>About</strong></li>
 						<li><a onclick="javascript:location.href='${root}/contact.do'">회사소개</a></li>
-						<li><a onclick="javascript:location.href='${root}/present.do'">인재채용</a></li>
+						<li><a href="javascript:alert('준비중입니다.')">인재채용</a></li>
 					</ul>
 				</div>
 				<div class="row">
 					<ul class="service">
 						<li><strong>서비스 이용</strong></li>
-						<li><a>북팩캐시 충전</a></li>
-						<li><a>공지사항</a></li>
-						<li><a>고객센터</a></li>
+						<li><a href="${root }/payment/myCash.do">캐시 충전</a></li>
+						<li><a href="${root }/notice/main.do">공지사항</a></li>
+						<li><a href="${root }/serviceCenter/main.do">고객센터</a></li>
 					</ul>
 				</div>
 				<div class="row">
@@ -90,82 +89,7 @@
 					</ul>
 				</div>
 			</div>
-			
-			<!-- <div class="footer_conter_float">
-				<div class="footer_left_content">
-					<span class="contact-number">1644-03331</span>
-					<ul class="order-type-list content-padding1">
-						<li><a href="#">고객센터</a></li>
-						<li><a href="#">자주 묻는 질문</a></li>
-						<li><a href="#">1:1 문의하기</a></li>
-					</ul>
-				</div>
-				<div class="padding2">
-					<pre>3조 (주) / 팀장 박성호 / 서울특별시 강남구 테헤란로 132(역삼동) 한독약품빌딩 8층 쌍용교육센터<br>사업자등록번호 214-85-29296 <br>개인정보보호책임자 : 김도현</pre>
-					<ul class="footer_left_content_copyright">
-						<li>이용약관</li>
-						<li>개인정보처리방침</li>
-						<li>청소년보호정책</li>
-						<li>사업자 정보 확인</li>
-					</ul>
-					<span>© RIDI Corp.</span>
-				</div>
-			</div> -->
-
-			<%-- <div class="footer_right_content">
-				<ul>
-					<li><a>About</a></li>
-					<li><a onclick="javascript:location.href='${root}/present.do'">회사소개</a></li>
-					<li><a>인재 채용</a></li>
-				</ul>
-				<ul>
-					<li><a>서비스 이용</a></li>
-					<li><a>리디캐시 충전</a></li>
-					<li><a>공지사항</a></li>
-					<li><a>고객센터</a></li>
-				</ul>
-<!-- 				<ul> -->
-<!-- 					<li><a>파트너십</a></li> -->
-<!-- 					<li><a>콘텐츠 제공 문의</a></li> -->
-<!-- 					<li><a>CP사이트</a></li> -->
-<!-- 					<li><a>사업 제휴 문의</a></li> -->
-<!-- 				</ul> -->
-<!-- 				<ul> -->
-<!-- 					<li><a>리디북스 소식</a></li> -->
-<!-- 					<li><a>뉴스레터</a></li> -->
-<!-- 					<li><a>페이스북</a></li> -->
-<!-- 					<li><a>트위터</a></li> -->
-<!-- 					<li><a>블로그</a></li> -->
-<!-- 					<li><a>인스타그램</a></li> -->
-<!-- 				</ul> -->
-				<ul>
-					<li class="footer_margin_right"><img></li>
-					<li><div class="footer_end_content_text">
-							<span>퍼스트브랜드 대상</span><br> <span>전자책 부분 3년연속</span>
-						</div></li>
-				</ul>
-				<ul>
-					<li class="footer_margin_right"><img></li>
-					<li><div class="footer_end_content_text">
-							<span>CLEAN SITE</span><br> <span>출판/만화 분야</span>
-						</div></li>
-				</ul>
-			</div> --%>
 		</div>
-		<!-- 		<div class="footer_end_content"> -->
-		<!-- 			<div> -->
-		<!-- 				<img /> -->
-		<!-- 				<div class="footer_end_content_text"> -->
-		<!-- 					<span>퍼스트브랜드 대상</span><br><span>전자책 부분 3년연속</span> -->
-		<!-- 				</div> -->
-		<!-- 			</div> -->
-		<!-- 			<div> -->
-		<!-- 				<img /> -->
-		<!-- 				<div class="footer_end_content_text"> -->
-		<!-- 					<span>CLEAN SITE</span><br><span>출판/만화 분야</span> -->
-		<!-- 				</div> -->
-		<!-- 			</div> -->
-		<!-- 		</div> -->
 	</div>
 	<script type="text/javascript">
 		function noticeList(){

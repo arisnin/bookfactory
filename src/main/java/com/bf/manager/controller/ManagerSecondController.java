@@ -12,11 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
-import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
-import com.bf.manager.dto.ManagerNoticeDto;
-import com.bf.manager.dto.ManagerCashDto;
 import com.bf.manager.dto.MemberDto;
 import com.bf.manager.dto.ReviewManagerDto;
 import com.bf.manager.service.ManagerServiceTwo;

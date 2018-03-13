@@ -50,7 +50,7 @@ public interface MainDao {
 
 	public int selectPurchasedCount(String id);
 
-	public List<Map<String, Integer>> selectCartWishCount(String id);
+	public List<Map<String, Object>> selectCartWishCount(String id);
 
 	public String getFirstCateName(String firstCate);
 
@@ -63,5 +63,7 @@ public interface MainDao {
 	public int getRandomBookNum(int f_num);
 
 	public List<Map<String, Object>> noticeMini();
+
+	public int memberDelete(String id);
 
 }

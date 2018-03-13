@@ -1,7 +1,6 @@
 package com.bf.order.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bf.aop.LogAspect;
 import com.bf.book.dto.HomeDto;
 import com.bf.main.dto.CategoryPageDto;
-import com.bf.manager.dao.ManagerDao;
 import com.bf.member.model.User;
 import com.bf.order.dao.OrderDao;
 import com.bf.order.dto.OrderDto;
@@ -31,7 +29,7 @@ public class OrderServiceImp implements OrderService {
 	private OrderDao orderDao;
 	
 	/*
-	 * 카트 구매 도서 목록(대여는 제외) - 수정버전(박성호)
+	 * 카트 구매 도서 목록 - 수정버전(박성호)
 	 * @see com.bf.order.service.OrderService#getCart2(org.springframework.web.servlet.ModelAndView)
 	 */
 	@Override
@@ -80,16 +78,35 @@ public class OrderServiceImp implements OrderService {
 		mav.setViewName("/cart.main");
 	}
 
+	/*
+	 * 2018-03-05 박성호 수정
+	 * 삭제 요청이 책 한권 뿐만 아니라 여러권일 때도 처리할 수 있도록, arrBookList 배열을 이용해서 처리하도록 로직을 수정
+	 * DAO에서는 동적 SQL를 사용하여, 다수의 책을 한 번에 삭제할 수 있도록 구현함
+	 *  
+	 * @see com.bf.order.service.OrderService#cartDelete(org.springframework.web.servlet.ModelAndView)
+	 */
 	@Override
 	public void cartDelete(ModelAndView mav) {
 		HttpServletRequest request = (HttpServletRequest) mav.getModelMap().get("request");
-		LogAspect.info("cartDelete()");
-		// TODO: 선택삭제 기능시에 NumberFormatException 발생
-		int book_num = Integer.parseInt(request.getParameter("bookNum"));
-		User user = (User) request.getSession().getAttribute("userInfo");
-		String id = user.getUsername();
-		int check = orderDao.cartDelete(book_num, id);
-
+		int check = 0;
+		
+		String bookList = request.getParameter("bookList");
+		
+		if (bookList != null) { 
+			String arrBookList[] = bookList.split(",");
+			
+			for (String s : arrBookList) {
+				System.out.println(s);
+			}
+			
+			User user = (User) request.getSession().getAttribute("userInfo");
+			
+			if (user != null) {
+				String id = user.getUsername();
+				check = orderDao.cartDelete(arrBookList, id);
+			}
+		}
+		
 		mav.addObject("check", check);
 	}
 
@@ -202,6 +219,11 @@ public class OrderServiceImp implements OrderService {
 		
 		mav.addObject("check", check).addObject("updateCount", check);
 		mav.addObject("orderList", orderList);
+		
+		// 구매성공 시 카트에 있는 책 삭제하기(카트를 경유해서 구입한 책이 아니더라도 같은 책이 카트에 존재할 경우 삭제한다)
+		if (bookList != null && check > 0) {
+			orderDao.cartDelete(bookList, id);
+		}
 	}
 
 	/*염현우*/

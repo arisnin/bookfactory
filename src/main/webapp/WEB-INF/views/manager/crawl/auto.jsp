@@ -23,8 +23,7 @@
 					<label>리디북스 책넣는방법</label><br><br>
 					<label>1.카테고리 등록버튼 클릭</label><br><br>
 					<label>2.넣고싶은 책분류 클릭</label><br><br>
-					<label>3.에러가 날수도 있다 당황하지 말고 현우한테 말하자</label><br><br>
-					<label>4.에러가 나도 이미 몇백권의 책은 들어갓으니 각자 테스트 하자</label><br><br>
+					<label>3.실행도중 확인되지 않은 에러가 나타날 수 있습니다. 개발자에게 문의하세요</label><br><br>
 					<div align="right">
 						<button id="crawl" type="button" class="bf-button">카테고리 및 초기 키워드 등록</button>
 						<button id="b_ilban" type="button" class="bf-button">일반</button>

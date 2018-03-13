@@ -88,7 +88,7 @@
 					</div>
 					<div align="right">
 						<button id="a_form_btn" type="submit" class="bf-button">수정하기</button>
-						<button class="bf-button" onclick="history.back()">뒤로가기</button>
+						<button class="bf-button" type="button" onclick="history.back()">뒤로가기</button>
 					</div>
 				</div>
 			</section>

@@ -72,7 +72,7 @@ public class OrderController {
 	/**
 	 * 헤더 > 카트 > 구매 완료, 구매목록 추가
 	 */
-	@RequestMapping(value = "/orderOk.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/orderOk.do", method = RequestMethod.POST)
 	public ModelAndView payment(HttpServletRequest request, HttpServletResponse response, OrderDto orderDto) {
 		LogAspect.info("payment()");
 		

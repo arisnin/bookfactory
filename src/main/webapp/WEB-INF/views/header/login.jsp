@@ -13,12 +13,7 @@
 </head>
 <body>
 <!-- 헤더에서 로그인 눌렀을시 나오는 화면 - 염현우 -->
-	<c:if test="${login == 'true'}">
-		<div id="hw_login" class="hw_login_modal" style="display:block;">
-	</c:if>
-	<c:if test="${login == null}">
-		<div id="hw_login" class="hw_login_modal" onclick="loginClose()">
-	</c:if>	
+	<div id="hw_login" class="hw_login_modal " ${login == 'true' ? 'style="display:block;"' : 'onclick="loginClose()"'}>	
 		<div class="hw_login_wrap hw_animate">
 			<form class="hw_login_modal-content" name="loginForm" action="${root}/member/loginOk.do" method="post" onsubmit="">
 				<div class="hw_login_container">
@@ -46,7 +41,11 @@
 				</div>
 	
 				<div class="hw_login_container hw_sign_div" align="center">
-					<span class="hw_go_signin">아직 북팩토리 회원이 아니세요?&nbsp;<button type="button" class="bf-button bf-transparent-btn" style="color:#776BCE;" onclick="loginToRegister(this)">회원가입</button></span>
+					<span class="hw_go_signin">
+						아직 북팩토리 회원이 아니세요?&nbsp;
+						<button type="button" class="bf-button bf-transparent-btn" onclick="loginToRegister(this)">회원가입</button>
+						<a class="bf-button bf-transparent-btn" style="padding-left:0;" href="${root}/">메인으로</a>
+					</span>
 				</div>
 				<input type="hidden" name="requestURL" value="${requestURL}"/>
 				<input type="hidden" name="returnURL" value="${returnURL}" />

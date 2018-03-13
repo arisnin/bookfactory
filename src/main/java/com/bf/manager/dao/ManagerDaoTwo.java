@@ -2,18 +2,15 @@ package com.bf.manager.dao;
 
 import java.util.Date;
 import java.util.List;
-import org.apache.ibatis.executor.statement.CallableStatementHandler;
 
 import com.bf.manager.dto.AccuseDto;
-import com.bf.manager.dto.BoardCate2Dto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
-
+import com.bf.manager.dto.ManagerCashDto;
+import com.bf.manager.dto.ManagerChargeDto;
 import com.bf.manager.dto.ManagerNoticeDto;
 import com.bf.manager.dto.ManagerPayDto;
 import com.bf.manager.dto.ManagerPointDto;
-import com.bf.manager.dto.ManagerCashDto;
-import com.bf.manager.dto.ManagerChargeDto;
 import com.bf.manager.dto.MemberDto;
 import com.bf.manager.dto.ReviewManagerDto;
 

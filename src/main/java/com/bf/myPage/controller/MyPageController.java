@@ -1,14 +1,18 @@
 package com.bf.myPage.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.book.dto.ReviewDto;
 import com.bf.member.model.MemberDto;
 import com.bf.myPage.dto.MyPagePointDto;
 import com.bf.myPage.service.MyPageService;
@@ -279,9 +283,28 @@ public class MyPageController {
 	 * 마이페이지 > 내리뷰관리
 	 */
 	@RequestMapping(value="/personal/myReview.do")
-	public String myReview(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView myReview(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("myReview()");
-		return "myPage/personal/myReview.my";
+		return mypageService.myReview(new ModelAndView("myPage/personal/myReview.my").addObject("request", request));
+	}
+	
+	/**
+	 * 마이페이지 > 내리뷰관리
+	 */
+	@RequestMapping(value="/personal/myReview/update.do", method = RequestMethod.POST)
+	public ModelAndView reviewUpdate(HttpServletRequest request, HttpServletResponse response, ReviewDto reviewDto) {
+		LogAspect.info("reviewUpdate()");
+		return mypageService.reviewUpdate(new ModelAndView("myPage/personal/myReviewOk.solo").addObject("request", request).addObject("reviewDto", reviewDto));
+	}
+	
+	/**
+	 * 마이페이지 > 내리뷰관리 > 리뷰 삭제
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/personal/myReview/delete.do", method = RequestMethod.POST)
+	public void reviewDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		LogAspect.info("reviewDelete():" + request.getHeader("referer"));
+		mypageService.reviewDelete(request, response);
 	}
 	
 	/**

@@ -8,11 +8,11 @@ DROP TABLE NOTICE;
 DROP TABLE preference;
 DROP TABLE recent_lookbook;
 DROP TABLE book_list;
-DROP TABLE cart;
-DROP TABLE wishlist;
 DROP TABLE cart_wish;
 
 DROP TABLE book_category;
+DROP TABLE event;
+DROP TABLE example;
 DROP TABLE third_cate;
 DROP TABLE second_cate;
 DROP TABLE first_cate;
@@ -32,6 +32,7 @@ DROP TABLE country;
 DROP TABLE series;
 -- SERIES DROP
 
+DROP TABLE BOOK_CONTACT;
 DROP TABLE board_contact;
 DROP TABLE BOARD_FREQUENCY;
 DROP TABLE qna_cate2;
@@ -58,7 +59,18 @@ DROP SEQUENCE  "BF"."SERIES_NUM_SEQ";
 DROP SEQUENCE  "BF"."THIRD_CATE_SEQ";
 DROP SEQUENCE  "BF"."POINT_NUM_SEQ";
 DROP SEQUENCE  "BF"."RECENT_LOOKBOOK_NUM_SEQ";
-DROP SEQUENCE  "BF"."REVIEW_REPLY_NUM_SEQ"
+DROP SEQUENCE  "BF"."REVIEW_REPLY_NUM_SEQ";
 DROP SEQUENCE  "BF"."KEYWORD_NUM_SEQ";
 DROP SEQUENCE  "BF"."KEYWORD_LIST_NUM_SEQ";
+drop sequence "BF"."BOARD_CONTACT_NUM_SEQ";
+drop sequence "BF"."BOARD_FREQUENCY_NUM_SEQ";
+drop sequence "BF"."BOOK_CONTACT_NUM_SEQ";
+drop sequence "BF"."CART_NUM_SEQ";
+drop sequence "BF"."CASH_CHARGE_NUM_SEQ";
+drop sequence "BF"."EVENT_NUM_SEQ";
+drop sequence "BF"."EXAMPLE_NUM_SEQ";
+drop sequence "BF"."NOTICE_NUM_SEQ";
+drop sequence "BF"."PAYMENT_NUM_SEQ";
+drop sequence "BF"."AUTHOREDIT_NUM_SEQ";
+
 -- SEQUENCE

@@ -169,10 +169,12 @@ function updateReview() {
 }
 
 function deleteReview(event, url, review_num) {
+	if (!confirm("리뷰글을 삭제하시겠습니까?")) return;
+	
 	$.get(url + "/review/delete.do", {review_num : review_num}, function(data,status) {
 		if (data.type == 'ok') {
-			// 댓글 달기 성공
-			insertReplyNode(event.parentElement.firstElementChild.firstElementChild ,data);					
+			// 댓글 삭제 성공
+			location.reload();
 		} else {
 			alert("에러(" + data.type + ") : " + data.error);
 		}

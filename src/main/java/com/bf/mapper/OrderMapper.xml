@@ -8,9 +8,12 @@
 	<!-- <result column="bookName" property="bookName"/> -->
 	<!-- </resultMap> -->
 	<delete id="delete_cartWishtList" parameterType="java.util.HashMap">
-		delete from
-		cart_wish
-		where BOOK_NUM = #{bookNum} and id=#{id}
+		delete from cart_wish
+		where id = #{id}
+		AND BOOK_NUM in
+		<foreach item="item" index="index" collection="bookList" open="(" separator="," close=")">
+		        #{item}
+		</foreach>
 	</delete>
 	
 	<select id="get-cart2" parameterType="String" resultType="com.bf.main.dto.CategoryPageDto">

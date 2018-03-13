@@ -18,7 +18,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,13 +26,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
-
 import com.bf.manager.dao.ManagerDaoTwo;
 import com.bf.manager.dto.AccuseDto;
-
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.manager.dto.BoardFrequencyDto;
-
 import com.bf.manager.dto.ManagerCashDto;
 import com.bf.manager.dto.ManagerChargeDto;
 import com.bf.manager.dto.ManagerNoticeDto;
@@ -85,7 +81,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 		MultipartHttpServletRequest request = (MultipartHttpServletRequest) map.get("request");
 		BoardFrequencyDto boardFreDto = (BoardFrequencyDto) map.get("boardFreDto");
-		int num = Integer.parseInt(request.getParameter("num"));
+		//int num = Integer.parseInt(request.getParameter("num"));
 
 		String catecory_1 = request.getParameter("catecory_1");
 		String catecory_2 = request.getParameter("catecory_2");
@@ -766,9 +762,10 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		String eDate = request.getParameter("endDate");
 		String report = request.getParameter("report");
 		String point = request.getParameter("point");
-		String searchWord = request.getParameter("searchWord");
+		//String searchWord = request.getParameter("searchWord");
 		
 		Date startDate = new Date();
+		@SuppressWarnings("unused")
 		Date endDate = null;
 		Calendar cal = new GregorianCalendar();
 
@@ -870,6 +867,7 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void memberPointInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
@@ -878,11 +876,11 @@ public class ManagerServiceTwoImp implements ManagerServiceTwo {
 		String pointType = "관리자권한 적립금부여";
 		LogAspect.info(point + "zzzz" + id);
 
-		// TODO: DAO 적립 구현
+		// DAO 적립 구현
 		int check = managerDao.pointInsert(point, pointType, id);
 		LogAspect.info(check);
 
-		// TODO: 결과 리턴
+		// 결과 리턴
 		response.setContentType("application/x-json;charset=utf-8");
 		PrintWriter out = response.getWriter();
 

@@ -8,12 +8,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.bf.book.dto.ReviewDto;
 import com.bf.member.model.MemberDto;
 import com.bf.myPage.dto.MyPageCashChargeDto;
 import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 import com.bf.myPage.dto.MyPagePurchasedPageDto;
 import com.bf.myPage.dto.MyPageRecentPageDto;
+import com.bf.myPage.dto.MyReviewDto;
 import com.bf.order.dto.OrderDto;
 
 /**
@@ -148,6 +150,24 @@ public class MyPageDaoImp implements MyPageDao {
 	@Override
 	public List<MemberDto> HomeMemberList(String id) {
 		return sqlSession.selectList(nameSpace + "select_member", id);
+	}
+
+	@Override
+	public List<MyReviewDto> selectReviewList(String id) {
+		return sqlSession.selectList(nameSpace + "select-review-list", id);
+	}
+
+	@Override
+	public int deleteReview(String id, int num) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("id", id);
+		map.put("num", num);
+		return sqlSession.delete("com.bf.mapper.BookPlusMapper." + "delete-review", map);
+	}
+
+	@Override
+	public int updateReview(ReviewDto reviewDto) {
+		return sqlSession.update("com.bf.mapper.BookPlusMapper." + "update-review", reviewDto);
 	}
 
 	

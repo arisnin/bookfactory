@@ -67,7 +67,7 @@
 								</label>
 							</div>
 							<div class="mf-book-thumbnail">
-								<div class="mf-book-thumbnail-image" onclick ="javascript:bookDetailLink('${root}', '${myPurchasedPageDto.book_num}')">
+								<div class="mf-book-thumbnail-image" onclick ="location.href='${root}/book/example.do?book_num=${myPurchasedPageDto.book_num}'">
 									<img class="" src="${myPurchasedPageDto.img_path}"/>
 								</div>
 							</div>

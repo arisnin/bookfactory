@@ -2,12 +2,14 @@ package com.bf.myPage.dao;
 
 import java.util.List;
 
+import com.bf.book.dto.ReviewDto;
 import com.bf.member.model.MemberDto;
 import com.bf.myPage.dto.MyPageCashChargeDto;
 import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 import com.bf.myPage.dto.MyPagePurchasedPageDto;
 import com.bf.myPage.dto.MyPageRecentPageDto;
+import com.bf.myPage.dto.MyReviewDto;
 import com.bf.order.dto.OrderDto;
 
 /**
@@ -58,5 +60,11 @@ public interface MyPageDao {
 	List<OrderDto> orderHistoryList(String id);
 
 	List<MemberDto> HomeMemberList(String id);
+
+	List<MyReviewDto> selectReviewList(String id);
+
+	int deleteReview(String id, int num);
+
+	int updateReview(ReviewDto reviewDto);
 
 }

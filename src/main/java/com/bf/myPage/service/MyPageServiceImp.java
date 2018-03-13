@@ -1,16 +1,21 @@
 package com.bf.myPage.service;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
+import com.bf.book.dto.ReviewDto;
 import com.bf.member.model.MemberDto;
 import com.bf.member.model.User;
 import com.bf.myPage.dao.MyPageDao;
@@ -19,6 +24,7 @@ import com.bf.myPage.dto.MyPageCashPageDto;
 import com.bf.myPage.dto.MyPagePointDto;
 import com.bf.myPage.dto.MyPagePurchasedPageDto;
 import com.bf.myPage.dto.MyPageRecentPageDto;
+import com.bf.myPage.dto.MyReviewDto;
 import com.bf.order.dto.OrderDto;
 
 /**
@@ -400,6 +406,87 @@ public class MyPageServiceImp implements MyPageService {
 		
 		mav.addObject("myPageOrderHistoryList", myPageOrderHistoryList);
 		mav.setViewName("myPage/payment/orderhistory.my");
+	}
+
+	@Override
+	public ModelAndView myReview(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		User user = (User) request.getSession().getAttribute("userInfo");		
+		if (user == null) {
+			return mav;
+		}
+		
+		String id = user.getUsername();
+		
+		List<MyReviewDto> reviewList = myPageDao.selectReviewList(id);
+		LogAspect.info("reviewList:" + reviewList.size());
+		
+		return mav.addObject("reviewList", reviewList);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void reviewDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String review_num = request.getParameter("review_num");
+		String id = "";
+		int check = -2;
+		
+		if (review_num != null) {
+			int num = Integer.parseInt(review_num);
+			
+			// Get user info.
+			User user = (User)request.getSession().getAttribute("userInfo");
+			if (user == null) {
+				check = -1;
+			} else {
+				id = user.getUsername();
+				check = myPageDao.deleteReview(id, num);
+			}
+		}
+		
+		LogAspect.info("reviewDelete():" + id + "/" + review_num);
+		
+		JSONObject json = new JSONObject();
+		
+		if (check > 0) {
+			json.put("type", "ok");
+		} else if (check == -1) {
+			json.put("type", "login");
+			json.put("error", "로그인이 필요한 서비스입니다.");
+		} else {
+			json.put("type", "system");
+			json.put("error", "시스템 에러로 댓글 삭제에 실패했습니다.");
+		}
+		
+		LogAspect.info(json);
+		
+		response.setContentType("application/x-json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(json.toJSONString());
+		out.flush();
+		out.close();
+	}
+
+	@Override
+	public ModelAndView reviewUpdate(ModelAndView mav) {
+		Map<String, Object> map = mav.getModelMap();
+		ReviewDto reviewDto = (ReviewDto) map.get("reviewDto");
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		int check = -1;
+		
+		User user = (User)request.getSession().getAttribute("userInfo");
+		if (user != null) {
+			reviewDto.setId(user.getUsername());
+			LogAspect.info(reviewDto);
+			
+			reviewDto.setContent(reviewDto.getContent().replace("\r\n", "<br />"));
+			check = myPageDao.updateReview(reviewDto);
+		}
+		
+		return mav.addObject("check", check);
 	}
 
 	/*@Override

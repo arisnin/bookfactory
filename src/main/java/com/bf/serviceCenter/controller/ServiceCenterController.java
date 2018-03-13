@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bf.aop.LogAspect;
-import com.bf.book.dto.ReviewDto;
 import com.bf.manager.dto.BoardContactDto;
 import com.bf.member.model.User;
 import com.bf.serviceCenter.dto.BookContactDto;
