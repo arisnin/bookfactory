@@ -122,7 +122,7 @@
 	</select>
 	
 	<select id="all_purchased_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPagePurchasedPageDto">
-		SELECT bm.book_num, bm.img_path, bm.NAME, au.NAME "author_name", pm."payment_date", au.num "author_num"  FROM bookm bm, (
+		SELECT bm.book_num, bm.img_path, bm.NAME "book_name", au.NAME "author_name", pm."payment_date", au.num "author_num"  FROM bookm bm, (
 			SELECT book_num, min(payment_date) "payment_date" FROM payment
 			WHERE ID = #{id}
 			AND state = 'yes'
