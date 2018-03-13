@@ -26,7 +26,7 @@
 
 							<ul>
 								<li><span>제목</span></li>
-								<li><input type="text" name="title" value="${boardFreqDto.title}"></li>
+								<li><input type="text" name="title" value="${boardFreqDto.title}" size="90"></li>
 								<li><span>문의유형</span></li>
 								<li><select id="sh_board_update_change" name="catecory_1">
 										<option>대분류</option>

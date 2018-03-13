@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * @ 작성자 : 전상헌
  * @ 작성일  : 2018. 2. 12.
- * @ 주제 및 설명 : 1:1문의 내역 리스트
+ * @ 주제 및 설명 : 1:1문의 내역 리스트Dto
  */
 public class BoardContactDto {
 	private int num;

@@ -2,6 +2,11 @@ package com.bf.manager.dto;
 
 import java.util.Date;
 
+/**
+ * @ 작성자 : 전상헌
+ * @ 작성일  : 2018. 3. 7.
+ * @ 주제 및 설명 : 리뷰 DTO
+ */
 public class ReviewManagerDto {
 	private int r_num;
 	private String r_content;
