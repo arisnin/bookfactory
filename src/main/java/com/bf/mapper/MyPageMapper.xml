@@ -170,10 +170,25 @@
 	
 	<select id="five_recent_page_select_list" parameterType="String" resultType="com.bf.myPage.dto.MyPageRecentPageDto">
 		<![CDATA[
-			SELECT bm.book_num "book_num", bm.img_path "img_path", bm.NAME "book_name", A.NAME "author_name", rs."star_point", rs."star_count", rb.LOOK_DATE, a.num "author_num"
-			FROM (select * from recent_lookbook where id = #{id} ORDER BY LOOK_DATE) rb, bookm bm, author A, 
-			(SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num FROM review GROUP BY book_num) rs
-			WHERE bm.book_num = rb.book_num AND rb.book_num = rs.book_num(+) AND bm.author_num = A.num and rb.ID = #{id} and ROWNUM <= 5
+			SELECT rb."num", bm.book_num "book_num", bm.img_path "img_path", bm.NAME "book_name", A.NAME "author_name", rs."star_point", rs."star_count", a.num "author_num"
+			FROM (
+				SELECT * FROM (
+					SELECT max(num) "num", book_num FROM recent_lookbook
+					WHERE ID = #{id}
+					GROUP BY book_num
+					ORDER BY "num" DESC
+				)
+				where rownum <= 5
+			) rb, bookm bm, author A, (
+				SELECT round(sum(star_point) / count(star_point), 1) "star_point", count(star_point) "star_count", book_num
+				FROM review
+				GROUP BY book_num
+			) rs
+			WHERE bm.book_num = rb.book_num
+			AND rb.book_num = rs.book_num(+)
+			AND bm.author_num = A.num
+			AND ROWNUM <= 5
+			ORDER BY rb."num" DESC
 		]]>
 	</select>
 	
@@ -190,10 +205,11 @@
 	</update>
 	
 	<select id="order_history_list" parameterType="String" resultType="com.bf.order.dto.OrderDto">
-		SELECT distinct py.num "num", py.id "id", py.price "price", cct.CHARGE_TYPE "pay_type", py.PAYMENT_DATE "payment_date", py.order_num "order_num"
-		FROM payment py, CASH_CHARGE_TYPE cct, CASH_CHARGE cc
+		SELECT py.num "num", py.ID "id", py.price "price", bm.name "book_name", cct.CHARGE_TYPE "pay_type", py.PAYMENT_DATE "payment_date", py.order_num "order_num"
+		FROM payment py, CASH_CHARGE_TYPE cct, bookm bm
 		WHERE py.id = #{id}
-		and cct.num = py.PAY_TYPE
+		AND cct.num = py.PAY_TYPE
+		AND py.book_num = bm.book_num
 		ORDER BY py.PAYMENT_DATE DESC
 	</select>
 	
@@ -203,15 +219,13 @@
 		where cc.id = #{id} and cc.ORDER_NUM= #{order_num} and cc.POINT_NUM = p.NUM and cct.NUM = cc.CHARGE_TYPE_NUM
 	</select> -->
 	
-	<select id="order_history_click_select" parameterType="java.util.Map" resultType="com.bf.order.dto.OrderDto">
-		select py.order_num "order_num", cc.cash_type "cash_type", py.price "PRICE", 0 "cash_use", 0 "point_use", cct.CHARGE_TYPE "pay_type", p.POINT "point"
-		from cash_charge cc, CASH_CHARGE_TYPE cct, point p, payment py
-		where py.id = #{id}
-		and py.ORDER_NUM=#{order_num}
-		and cc.POINT_NUM = p.NUM
-		and cct.NUM = py.PAY_TYPE
-		and py.id=cc.ID
-		and py.id=p.ID
+	<select id="select-order-history-one" parameterType="java.util.Map" resultType="com.bf.order.dto.OrderDto">
+		SELECT py.order_num "order_num", bm.name "book_name", py.price "PRICE", py.cash_use "cash_use", py.point_use "point_use", cct.charge_type "pay_type", py.present_check
+		FROM cash_charge_type cct, payment py, bookm bm
+		WHERE py.ID = #{id}
+		AND py.order_num= #{order_num}
+		AND cct.num = py.pay_type
+		AND py.book_num = bm.book_num
 	</select>
 	
 	<select id="select_member" parameterType="String" resultType="com.bf.member.model.MemberDto">
@@ -223,4 +237,5 @@
 		WHERE ID = #{id}
 		AND review.book_num = bookm.book_num
 	</select>
+	
 </mapper>

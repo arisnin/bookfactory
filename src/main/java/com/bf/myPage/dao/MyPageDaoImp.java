@@ -170,5 +170,13 @@ public class MyPageDaoImp implements MyPageDao {
 		return sqlSession.update("com.bf.mapper.BookPlusMapper." + "update-review", reviewDto);
 	}
 
+	@Override
+	public OrderDto orderHistoryClick(String id, long order_num) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("id", id);
+		map.put("order_num", order_num);
+		return sqlSession.selectOne(nameSpace + "select-order-history-one", map);
+	}
+
 	
 }

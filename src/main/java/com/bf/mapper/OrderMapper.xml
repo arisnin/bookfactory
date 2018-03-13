@@ -80,7 +80,8 @@
 	<insert id="paymentInsert" parameterType="com.bf.order.dto.OrderDto">
 	insert into payment(NUM, ORDER_NUM, BOOK_NUM, PRICE, PAYMENT_DATE, PRESENT_CHECK, CANCEL_CHECK, FREE_PASS, 
 						ID, PAY_TYPE, POINT_USE, CASH_USE, RENTAL_DATE, RENTAL_STATE, STATE)
-	values(payment_num_seq.nextval, #{order_num}, #{book_num}, (
+	values(payment_num_seq.nextval, (SELECT #{order_num} || lpad(num, 3, '0') || lpad(#{count}, 2, '0') FROM MEMBER WHERE ID = #{id}),
+		#{book_num}, (
 			SELECT round(price * (100 - discount) * (100 - discount2) / 10000, -2) FROM bookm WHERE book_num = #{book_num}
 		),
 		sysdate,

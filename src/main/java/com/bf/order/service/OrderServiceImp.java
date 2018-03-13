@@ -206,9 +206,12 @@ public class OrderServiceImp implements OrderService {
 		
 		// 결재 업데이트
 		if (bookList != null) {
+			int count = 0;
 			for (String s : bookList) {
 				orderDto.setBook_num(Integer.parseInt(s));
+				orderDto.setCount(count++);
 				LogAspect.info(orderDto);
+				
 				check += orderDao.paymentInsert(orderDto);
 			}
 		}

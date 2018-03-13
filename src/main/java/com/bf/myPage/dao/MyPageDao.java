@@ -67,4 +67,6 @@ public interface MyPageDao {
 
 	int updateReview(ReviewDto reviewDto);
 
+	OrderDto orderHistoryClick(String id, long order_num);
+
 }

@@ -28,8 +28,8 @@
 				<li>결제수단</li>
 			</ul>
 			<ul class="orderhistory_rightside">
-				<li>2018011539796034<span class="notice-highliht">취소됨</span></li>
-				<li><a class="title" href="#">앨리스 죽이기</a></li>
+				<li><span class="notice-highliht">취소됨</span></li>
+				<li><a class="title" href="#"></a></li>
 				<li><span>2018.01.18 13:34</span></li>
 				<li><strong>0원</strong></li>
 				<li><strong>0원</strong></li>
@@ -37,7 +37,7 @@
 				<li><strong>0원</strong></li>
 				<li><strong>0원</strong></li>
 				<li><strong>0원</strong></li>
-				<li>리디캐시</li>
+				<li></li>
 			</ul>
 		</div>
 		<div class="notice">

@@ -30,7 +30,7 @@
 					<ul>
 						<li class="hidden-block"><input type="hidden" name= "order_num" value="${myPageOrderHistoryDto.order_num}"/></li>
 						<li><fmt:formatDate value="${myPageOrderHistoryDto.payment_date}" pattern="yyyy-MM-dd hh:mm:dd"/></li>
-						<li class="title">블록체인 혁명(대여)</li>
+						<li class="title">${myPageOrderHistoryDto.book_name}</li>
 						<li class="price content">${myPageOrderHistoryDto.price}원</li>
 						<li class="method">${myPageOrderHistoryDto.pay_type}</li>
 						<li class="icon-angle-right" style="width: 3rem"></li>

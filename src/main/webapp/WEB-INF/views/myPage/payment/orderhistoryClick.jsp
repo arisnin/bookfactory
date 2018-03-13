@@ -22,23 +22,24 @@
 				<li>구분</li>
 				<li>주문금액</li>
 				<li>쿠폰 할인</li>
-				<li>포인트 상품권</li>
 				<li>리디캐시 사용액</li>
 				<li>리디포인트 사용액</li>
 				<li>PG결제금액</li>
 				<li>결제수단</li>
 				<li>적립 리디포인트</li>
 			</ul>
+			<c:set var="pg_price" value="${orderDto.price - orderDto.cash_use - orderDto.point_use}"/>
+			<fmt:formatNumber var="point" value="${(pg_price + (100 - (pg_price % 100)) % 100) * 0.01}" pattern="#,###" />
 			<ul class="orderhistory_rightside">
-				<li>${orderDto.order_num}</li>
-				<li><a class="title" href="#">${orderDto.cash_type}</a></li>
+				<li><a class="title" href="#">${orderDto.order_num}</a></li>
+				<li>${orderDto.book_name}</li>
 				<li><strong>${orderDto.price}원</strong></li>
-				<li><strong>0원</strong></li>
 				<li><strong>0원</strong></li>
 				<li><strong>${orderDto.cash_use}원</strong></li>
 				<li><strong>${orderDto.point_use}원</strong></li>
-				<li>${orderDto.paytype}</li>
-				<li>${orderDto.point}원</li>
+				<li>${pg_price}원</li>
+				<li>${orderDto.pay_type == null ? '-' : orderDto.pay_type}</li>
+				<li>${point}원</li>
 			</ul>
 		</div>
 		<div class="notice">
@@ -49,27 +50,28 @@
 			</ul>
 			<button class="bf-button bf-white-btn" onclick="javascript:alert('미구현')">결제 취소</button>
 		</div>
-
-		<div class="orderhistory_top">
-			<div class="orderhitory_gift">선물 정보</div>
-			<div style="overflow: hidden;">
-				<ul class="orderhistory_leftside">
-					<li>선물 받는 아이디</li>
-					<li>선물 메세지</li>
-				</ul>
-				<ul class="orderhistory_rightside">
-					<li>김동수</li>
-					<li>나의 책을 받아라!</li>
-				</ul>
+		<c:if test="${orderDto.present_check != 'no'}">
+			<div class="orderhistory_top">
+				<div class="orderhitory_gift">선물 정보</div>
+				<div style="overflow: hidden;">
+					<ul class="orderhistory_leftside">
+						<li>선물 받는 아이디</li>
+						<li>선물 메세지</li>
+					</ul>
+					<ul class="orderhistory_rightside">
+						<li>김동수</li>
+						<li>나의 책을 받아라!</li>
+					</ul>
+				</div>
+				<div class="orderhistory_resubmit">
+					<!-- <label>재전송은 최대 3번만 가능합니다.</label> -->
+					<ul class="notice-tip">
+						<li>재전송은 최대 3번만 가능합니다.</li>
+					</ul>
+					<button class="bf-button" onclick="javascript:alert('미구현')">재전송</button>
+				</div>
 			</div>
-			<div class="orderhistory_resubmit">
-				<!-- <label>재전송은 최대 3번만 가능합니다.</label> -->
-				<ul class="notice-tip">
-					<li>재전송은 최대 3번만 가능합니다.</li>
-				</ul>
-				<button class="bf-button" onclick="javascript:alert('미구현')">재전송</button>
-			</div>
-		</div>
+		</c:if>
 	</div>
 </body>
 </html>

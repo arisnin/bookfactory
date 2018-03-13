@@ -15,7 +15,7 @@
 		</script>
 	</c:if>
 	<script type="text/javascript">
-		location.href = "${root}/review/list.do?book_num=${book_num}";
+		location.href = "${root}/detail.do?book_num=${book_num}";
 	</script>
 </body>
 </html>

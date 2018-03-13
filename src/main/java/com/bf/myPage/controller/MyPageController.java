@@ -147,19 +147,13 @@ public class MyPageController {
 	}
 	
 	/**
-	 * 마이페이지 > 결제내역 상세 정보
+	 * 마이페이지 > 결제내역 상세 정보 (박성호 1차수정)
 	 */
 	@RequestMapping(value="/payment/orderhistoryClick.do")
-	public String orderhistoryClick(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView orderhistoryClick(HttpServletRequest request, HttpServletResponse response) {
 		LogAspect.info("orderhistory()");
-		/*request.getSession().setAttribute("userInfoId", "user");
 		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("request", request);
-		
-		mypageService.orderHistoryClick(mav);*/
-		
-		return "myPage/payment/orderhistoryClick.my";
+		return mypageService.orderHistoryClick(new ModelAndView("myPage/payment/orderhistoryClick.my").addObject("request", request));
 	}
 	
 	/**

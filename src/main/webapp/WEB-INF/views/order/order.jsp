@@ -87,21 +87,19 @@
 						class="right-item">0원</span>
 				</div>
 
-				<div class="order_right_menu_list">
+				<!-- <div class="order_right_menu_list">
 					<span>포인트 상품권</span> <span class="right-item">0원</span> <br>
 					<div class="order_right_menu_list_point">
-						<!-- <span class="order_right_menu_pointintro">신규가입축하|1000원|3일</span> -->
-						<!-- <span class="right-item"><button class="bf-button">변경</button></span> -->
 					</div>
-				</div>
+				</div> -->
 
 				<div class="order_right_menu_list">
-					<span>리디포인트(${point})</span>
+					<span>포인트사용(${point})</span>
 					<span class="right-item"><input oninput="pointCheck()" type="text" value="0" placeholder="0" name="point_use">원</span>
 				</div>
 
 				<div class="order_right_menu_list">
-					<span>리디캐시(${cash})</span>
+					<span>캐시사용(${cash})</span>
 					<span class="right-item"><input oninput="cashCheck()" type="text" value="0" name="cash_use" placeholder="0">원</span>
 				</div>
 				<div class="order_right_menu_count">

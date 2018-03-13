@@ -50,5 +50,7 @@ public interface MyPageService {
 
 	ModelAndView reviewUpdate(ModelAndView mav);
 
+	ModelAndView orderHistoryClick(ModelAndView addObject);
+
 
 }

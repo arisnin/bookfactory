@@ -93,7 +93,7 @@ public class OrderDaoImp implements OrderDao {
 
 	@Override
 	public int paymentInsert(OrderDto orderDto) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> map = new HashMap<String, Object>();		
 		PointDto pointDto = null;
 		int rnum = 1;
 		int remain = orderDto.getPoint_use();

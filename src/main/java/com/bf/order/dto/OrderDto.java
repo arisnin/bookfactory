@@ -12,6 +12,7 @@ public class OrderDto {
 	private int num;
 	private long order_num;
 	private int book_num;
+	private String book_name;
 	private int price;
 	private Date payment_date;
 	private String present_check;
@@ -26,6 +27,15 @@ public class OrderDto {
 	private int point;
 	private String cash_type;
 	private String state;
+	private int count;
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
 
 	public String getState() {
 		return state;
@@ -163,16 +173,16 @@ public class OrderDto {
 		this.cash_type = cash_type;
 	}
 
+	public String getBook_name() {
+		return book_name;
+	}
+
+	public void setBook_name(String book_name) {
+		this.book_name = book_name;
+	}
+
 	@Override
 	public String toString() {
-		return "OrderDto [num=" + num + ", order_num=" + order_num
-				+ ", book_num=" + book_num + ", price=" + price
-				+ ", payment_date=" + payment_date + ", present_check="
-				+ present_check + ", cancel_check=" + cancel_check
-				+ ", free_pass=" + free_pass + ", id=" + id + ", pay_type="
-				+ pay_type + ", point_use=" + point_use + ", cash_use="
-				+ cash_use + ", rental_date=" + rental_date + ", rental_state="
-				+ rental_state + ", point=" + point + ", cash_type="
-				+ cash_type + "]";
+		return "OrderDto [num=" + num + ", order_num=" + order_num + ", book_num=" + book_num + ", book_name=" + book_name + ", price=" + price + ", payment_date=" + payment_date + ", present_check=" + present_check + ", cancel_check=" + cancel_check + ", free_pass=" + free_pass + ", id=" + id + ", pay_type=" + pay_type + ", point_use=" + point_use + ", cash_use=" + cash_use + ", rental_date=" + rental_date + ", rental_state=" + rental_state + ", point=" + point + ", cash_type=" + cash_type + ", state=" + state + "]";
 	}
 }
